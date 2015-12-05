@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ThinkTrees>
+
+  <ThinkTreeDef>
+    <defName>DomesticCat</defName>
+    <thinkRoot Class="ThinkNode_Priority">
+      <subNodes>
+        <li Class="ThinkNode_Subtree">
+          <treeDef>Downed</treeDef>
+        </li>
+        <li Class="ThinkNode_Subtree">
+          <treeDef>BurningResponse</treeDef>
+        </li>
+        <li Class="ThinkNode_Subtree">
+          <treeDef>BrokenCritical</treeDef>
+        </li>
+        <li Class="ThinkNode_Subtree">
+          <treeDef>SelfDefense</treeDef>
+        </li>
+
+        <!-- Leave if timed out -->
+        <li Class="ThinkNode_ConditionalExitTimedOut">
+          <subNodes>
+            <li Class="JobGiver_ExitMapWalkRandom" />
+          </subNodes>
+        </li>
+        
+        <!-- Move to position -->
+        <li Class="ThinkNode_ConditionalForcedGoto">
+          <subNodes>
+            <li Class="JobGiver_ForcedGoto" />
+          </subNodes>
+        </li>
+
+        <!-- Manhunter -->
+        <li Class="ThinkNode_Subtree">
+          <treeDef>Manhunter</treeDef>
+        </li>
+        
+        <!-- Insertion hook for modders -->
+        <li Class="ThinkNode_SubtreesByTag">
+          <insertTag>Animal_PreMain</insertTag>
+        </li>
+
+        <!-- Wild animals leave map in some conditions -->
+        <li Class="ThinkNode_ConditionalHasFaction">
+          <invert>true</invert>
+          <subNodes>
+            <li Class="ThinkNode_Subtree">
+              <treeDef>LeaveIfWrongSeason</treeDef>
+            </li>
+            <li Class="ThinkNode_Subtree">
+              <treeDef>LeaveIfStarving</treeDef>
+            </li>
+          </subNodes>
+        </li>
+
+        <!-- Lay eggs you need to -->
+        <li Class="JobGiver_LayEgg" />
+
+        <!-- Tame animal -->
+        <li Class="ThinkNode_ConditionalHasFaction">
+          <subNodes>
+            <!-- Trained behavior: obedience: Follow and defend master -->
+            <li Class="ThinkNode_ConditionalTrainableCompleted">
+              <trainable>Obedience</trainable>
+              <subNodes>
+                <li Class="ThinkNode_ConditionalMasterDrafted" >
+                  <subNodes>
+                    <li Class="JobGiver_AIFollowMaster"/>
+                    <li Class="JobGiver_AIDefendMaster" />
+                    <li Class="JobGiver_WanderNearMaster" />
+                  </subNodes>
+                </li>
+              </subNodes>
+            </li>
+
+            <!-- Trained behavior: Rescue-->
+            <li Class="ThinkNode_ConditionalTrainableCompleted">
+              <trainable>Rescue</trainable>
+              <subNodes>
+                <li Class="JobGiver_RescueNearby">
+                  <radius>30</radius>
+                </li>
+              </subNodes>
+            </li>
+
+            <!-- Take care of critical needs (below rescue - so heroic!)-->
+            <li Class="JobGiver_PatientGoToBed" />
+            <li Class="JobGiver_SeekAllowedArea" />
+            <li Class="JobGiver_SeekSafeTemperature" />
+            
+          </subNodes>
+        </li>
+        
+        <li Class="ThinkNode_PrioritySorter">
+          <subNodes>
+            <li Class="JobGiver_GetFood"/>
+            <li Class="Fluffy.JobGiver_GetRestPawnBedOK"/>
+          </subNodes>
+        </li>
+
+        <!-- Tame animal: do useful things for the colony-->
+        <li Class="ThinkNode_ConditionalHasFaction">
+          <subNodes>
+            
+            <!-- Try to mate -->
+            <li Class="ThinkNode_ChancePerHour_Mate">
+              <subNodes>
+                <li Class="JobGiver_Mate" />
+              </subNodes>
+            </li>
+
+            <!-- Nuzzle randoms -->
+            <li Class="ThinkNode_ChancePerHour_Nuzzle">
+              <subNodes>
+                <li Class="JobGiver_Nuzzle" />
+              </subNodes>
+            </li>
+
+            <!-- Trained behavior: Haul-->
+            <li Class="ThinkNode_ChancePerHour_Constant">
+              <chancePerHour>0.50</chancePerHour>
+              <subNodes>
+                <li Class="ThinkNode_ConditionalTrainableCompleted">
+                  <trainable>Haul</trainable>
+                  <subNodes>
+                    <li Class="JobGiver_Haul" />
+                  </subNodes>
+                </li>
+              </subNodes>
+            </li>
+
+            <!-- Scratch that itch -->
+            <li Class="ThinkNode_ChancePerHour_Constant">
+              <chancePerHour>.1</chancePerHour>
+              <subNodes>
+                <li Class="Fluffy.JobGiver_Scratch" />
+              </subNodes>
+            </li>
+
+            <!-- Crazy time! -->
+            <li Class="ThinkNode_ChancePerHour_Constant">
+              <chancePerHour>.1</chancePerHour>
+              <subNodes>
+                <li Class="Fluffy.JobGiver_CrazyTime" />
+              </subNodes>
+            </li>
+
+          </subNodes>
+        </li>
+
+        <!-- Insertion hook for modders -->
+        <li Class="ThinkNode_SubtreesByTag">
+          <insertTag>Animal_PreWander</insertTag>
+        </li>
+
+        <!-- Tame animal: wander colony -->
+        <li Class="ThinkNode_ConditionalHasFaction">
+          <subNodes>
+            <li Class="JobGiver_WanderColony">
+              <maxDanger>None</maxDanger>
+            </li>
+          </subNodes>
+        </li>
+        
+        <li Class="ThinkNode_ConditionalHerdAnimal">
+          <subNodes>
+            <li Class="JobGiver_WanderHerd">
+              <maxDanger>Deadly</maxDanger>
+            </li>
+          </subNodes>
+        </li>
+        
+        <li Class="JobGiver_WanderAnywhere">
+          <maxDanger>Deadly</maxDanger>
+        </li>
+
+        <li Class="JobGiver_IdleError"/>
+      </subNodes>
+    </thinkRoot>
+  </ThinkTreeDef>
+
+
+</ThinkTrees>

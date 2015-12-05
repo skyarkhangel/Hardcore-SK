@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <MapGeneratorDef>
+    <defName>Miscellaneous_MapGenerator_BlueprintVillage</defName>
+    <genSteps>
+
+      <!-- Generate abstract grids-->
+      <li Class="Genstep_ElevationFertility" />
+      
+      <!-- Generate basic rocks and terrain from grid-->
+      <li Class="Genstep_RocksFromGrid" />
+      <li Class="Genstep_Terrain" />
+      <li Class="Genstep_RockChunks" />
+
+      <!-- Empty ruins village -->
+      <li Class="MapGenerator.Genstep_CreateBlueprintVillage">
+        <countPer10kCellsRange><min>0.15</min><max>0.35</max></countPer10kCellsRange>
+		<ruinCountRange><min>3</min><max>6</max></ruinCountRange>
+		<ruinDistanceRange><min>2</min><max>6</max></ruinDistanceRange>
+		<ruinOffsetHorizontalRange><min>4</min><max>15</max></ruinOffsetHorizontalRange>
+		<ruinOffsetVerticalRange><min>4</min><max>15</max></ruinOffsetVerticalRange>
+      </li>
+
+      <!-- Ancient casket shrines -->
+      <li Class="Genstep_ScatterShrines">
+        <countPer10kCellsRange><min>0.12</min><max>0.25</max></countPer10kCellsRange>
+      </li>
+
+      <!-- Steam geysers -->
+      <li Class="Genstep_ScatterThings">
+        <thingDefs>
+          <li>SteamGeyser</li>
+        </thingDefs>
+        <minSpacing>25</minSpacing>
+        <extraNoBuildEdgeDist>4</extraNoBuildEdgeDist>
+        <countPer10kCellsRange>
+          <min>0.7</min>
+          <max>1</max>
+        </countPer10kCellsRange>
+        <clearSpaceSize>30</clearSpaceSize>
+        <neededSurfaceType>Heavy</neededSurfaceType>
+        <validators>
+          <li Class="ScattererValidator_Buildable">
+            <radius>4</radius>
+            <affordance>Heavy</affordance>
+          </li>
+          <li Class="ScattererValidator_NoNonNaturalEdifices">
+            <radius>4</radius>
+          </li>
+        </validators>
+      </li>
+      
+      <!-- Some essentials -->
+      <li Class="Genstep_Plants" />
+      <li Class="Genstep_Snow" />
+
+      <!-- Necessary for the below steps to work properly -->
+      <li Class="Genstep_FindPlayerStartSpot" />
+      
+      <!-- Scatter some resources across the map -->
+      <li Class="Genstep_ScatterThingGroups">
+        <thingDefs>
+          <li>Steel</li>
+        </thingDefs>
+        <minSpacing>15</minSpacing>
+        <countPer10kCellsRange><min>1.0</min><max>1.0</max></countPer10kCellsRange>
+        <spotMustBeStandable>true</spotMustBeStandable>
+        <groupSizeRange><min>3</min><max>6</max></groupSizeRange>
+        <stackCountRange><min>30</min><max>50</max></stackCountRange>
+      </li>
+
+      <!-- Scatter some meals across the map -->
+      <li Class="Genstep_ScatterThingGroups">
+        <thingDefs>
+          <li>MealSurvivalPack</li>
+        </thingDefs>
+        <minSpacing>20</minSpacing>
+        <countPer10kCellsRange><min>0.3</min><max>0.5</max></countPer10kCellsRange>
+        <spotMustBeStandable>true</spotMustBeStandable>
+        <groupSizeRange><min>3</min><max>6</max></groupSizeRange>
+        <stackCountRange><min>1</min><max>1</max></stackCountRange>
+      </li>    
+ 
+      <!-- Place starting resources near players' start location -->
+      <li Class="Genstep_ScatterThingGroups">
+        <thingDefs>
+          <li>Steel</li>
+        </thingDefs>
+        <spotMustBeStandable>true</spotMustBeStandable>
+        <groupSizeRange><min>6</min><max>6</max></groupSizeRange>
+        <stackCountRange><min>75</min><max>75</max></stackCountRange>
+        <countAtPlayerStart>1</countAtPlayerStart>
+      </li>
+      <li Class="Genstep_ScatterThingGroups">
+        <thingDefs>
+          <li>WoodLog</li>
+        </thingDefs>
+        <spotMustBeStandable>true</spotMustBeStandable>
+        <groupSizeRange><min>6</min><max>6</max></groupSizeRange>
+        <stackCountRange><min>40</min><max>60</max></stackCountRange>
+        <countAtPlayerStart>1</countAtPlayerStart>
+      </li>
+      <li Class="Genstep_ScatterThingGroups">
+        <thingDefs>
+          <li>Silver</li>
+        </thingDefs>
+        <spotMustBeStandable>true</spotMustBeStandable>
+        <groupSizeRange><min>5</min><max>5</max></groupSizeRange>
+        <stackCountRange><min>40</min><max>60</max></stackCountRange>
+        <countAtPlayerStart>2</countAtPlayerStart>
+      </li>
+      <li Class="Genstep_ScatterThingGroups">
+        <thingDefs>
+          <li>Silver</li>
+        </thingDefs>
+        <spotMustBeStandable>true</spotMustBeStandable>
+        <groupSizeRange><min>3</min><max>3</max></groupSizeRange>
+        <stackCountRange><min>40</min><max>60</max></stackCountRange>
+        <countAtPlayerStart>2</countAtPlayerStart>
+      </li>
+
+      <!-- Some final essentials -->
+      <li Class="Genstep_Colonists" />
+      <li Class="Genstep_Animals" />
+      
+    </genSteps>
+  </MapGeneratorDef>
+  
+</Defs>

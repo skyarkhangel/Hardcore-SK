@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <ThingDef Name="BuildingBase" Abstract="True">
+        <category>Building</category>
+        <soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+        <selectable>true</selectable>
+        <drawerType>MapMeshAndRealTime</drawerType>
+        <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+        <repairEffect>Repair</repairEffect>
+        <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+        <filthLeaving>BuildingRubble</filthLeaving>
+    </ThingDef>
+
+    <ThingDef ParentName="BuildingBase">
+        <defName>GeothermalGenerator</defName>
+        <label>geothermal generator</label>
+        <thingClass>Building_PowerPlantSteam</thingClass>
+        <graphicData>
+            <texPath>Things/Building/Power/GeothermalPlant</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+            <drawSize>(6,6)</drawSize>
+        </graphicData>
+        <altitudeLayer>BuildingTall</altitudeLayer>
+        <passability>Impassable</passability>
+        <castEdgeShadows>true</castEdgeShadows>
+        <fillPercent>1</fillPercent>
+        <blockLight>true</blockLight>
+        <statBases>
+            <MaxHitPoints>500</MaxHitPoints>
+            <WorkToMake>6000</WorkToMake>
+            <Flammability>1.0</Flammability>
+            <Beauty>-40</Beauty>
+        </statBases>
+        <tickerType>Normal</tickerType>
+        <description>Produces electricity from geothermal steam geysers. Must be placed on a geyser.</description>
+        <size>(6,6)</size>
+        <costList>
+            <Steel>400</Steel>
+        </costList>
+        <comps>
+            <li>
+                <compClass>CompPowerTrader</compClass>
+                <basePowerConsumption>-3600</basePowerConsumption>
+                <transmitsPower>true</transmitsPower>
+                <powerToggleable>false</powerToggleable>
+            </li>
+            <li Class="CommunityCoreLibrary.RestrictedPlacement_Properties">
+                <compClass>CommunityCoreLibrary.RestrictedPlacement_Comp</compClass>
+                <RestrictedThing>
+                    <li>SteamGeyser</li>
+                </RestrictedThing>
+            </li>
+        </comps>
+        <rotatable>false</rotatable>
+        <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+        <designationCategory>Power</designationCategory>
+        <staticSunShadowHeight>1.0</staticSunShadowHeight>
+        <placeWorkers>
+            <li>CommunityCoreLibrary.PlaceWorker_OnlyOnThing</li>
+        </placeWorkers>
+        <building>
+            <soundAmbient>GeothermalPlant_Ambience</soundAmbient>
+            <ignoreNeedsPower>true</ignoreNeedsPower>
+        </building>
+        <constructEffect>ConstructMetal</constructEffect>
+        <designationHotkey>G</designationHotkey>
+        <researchPrerequisite>GeothermalPower</researchPrerequisite>
+    </ThingDef>
+
+</Defs>

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Buildings>
+
+
+  <ThingDef Name="BuildingBase" Abstract="True">
+    <category>Building</category>
+    <thingClass>Building</thingClass>
+    <soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+    <selectable>true</selectable>
+    <drawerType>MapMeshAndRealTime</drawerType>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+    <repairEffect>Repair</repairEffect>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <filthLeaving>BuildingRubble</filthLeaving>
+    <damageMultipliers>
+      <li>
+        <damageDef>Bomb</damageDef>
+        <multiplier>3.0</multiplier>
+      </li>
+      <li>
+        <damageDef>Bullet</damageDef>
+        <multiplier>0.3</multiplier>
+      </li>
+      <li>
+        <damageDef>Fragment</damageDef>
+        <multiplier>0.2</multiplier>
+      </li>
+      <li>
+        <damageDef>ArmorPiercing</damageDef>
+        <multiplier>2.5</multiplier>
+      </li>
+      <li>
+        <damageDef>LaserBurn</damageDef>
+        <multiplier>2.0</multiplier>
+      </li>
+      <li>
+        <damageDef>AntiMateriel</damageDef>
+        <multiplier>2.0</multiplier>
+      </li>
+      <li>
+        <damageDef>Optic</damageDef>
+        <multiplier>1.5</multiplier>
+      </li>
+      <li>
+        <damageDef>Plasma</damageDef>
+        <multiplier>2.0</multiplier>
+      </li>
+      <li>
+        <damageDef>Microwave</damageDef>
+        <multiplier>1.5</multiplier>
+      </li>
+    </damageMultipliers>
+  </ThingDef>
+
+
+<!--========================= Stuff =============================-->	
+
+<ThingDef ParentName="BuildingBase">
+		<defName>CommUnitBase</defName>
+		<label>Communication Relay</label>
+		<thingClass>Clutter.RadarUnit</thingClass>
+		<category>Building</category>
+		<graphicData>
+		<shaderType>Transparent</shaderType>
+		 <texPath>Clutter/Structure/ComUnitBase</texPath>
+		<graphicClass>Graphic_Single</graphicClass>
+		 <drawSize>(2,2)</drawSize>
+		</graphicData>
+		<uiIconPath>Clutter/Structure/ComUnit</uiIconPath>
+		<AltitudeLayer>BuildingTall</AltitudeLayer>
+		<PathCost>60</PathCost>
+		<Passability>Impassable</Passability>
+		<castEdgeShadows>false</castEdgeShadows>
+		<Description>(Draws a lot of power when active, can't be placed under a roof)		
+Used to call traders with long range singals, if you're lucky.
+If you're not so lucky then, well...
+</Description>
+		<Size>2,2</Size>
+		<statBases>
+			<MaxHitPoints>200</MaxHitPoints>
+			<WorkToMake>200</WorkToMake>
+			<Flammability>1.0</Flammability>
+			<Beauty>20</Beauty>
+		</statBases>
+		<comps>
+			<li>
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>200</basePowerConsumption>
+			</li>
+			<li>
+				<compClass>CompGlower</compClass>
+				<glowRadius>3</glowRadius>
+				<glowColor>(217,217,217,0)</glowColor>
+			</li>
+		</comps>
+		<fillPercent>1</fillPercent>
+		<costList>
+			<Parts_Steel>24</Parts_Steel>
+			<SyntheticMaterials>8</SyntheticMaterials>
+			<Glass>8</Glass>
+			<Spare_Parts>5</Spare_Parts>
+			<Microchips>2</Microchips>
+		</costList>
+		<rotatable>false</rotatable>
+		<selectable>true</selectable>
+		<tickerType>Normal</tickerType>
+		<holdsRoof>false</holdsRoof>
+		<placeWorkers>
+      <li>PlaceWorker_NotUnderRoof</li>
+    </placeWorkers>
+		<neverMultiSelect>true</neverMultiSelect>
+		<DesignationCategory>Misc</DesignationCategory>
+		<researchPrerequisite>BaseUtilities</researchPrerequisite>
+	</ThingDef>
+
+
+  <ThingDef Class="Clutter.ClutterThingDefs" ParentName="BuildingBase">
+    <defName>ClutterUtilityWall</defName>
+    <label>Utility Wall</label>
+    <thingClass>Clutter.Wall_Multi</thingClass>
+    <category>Building</category>
+   <Description>Upgraded version of basic wall with ability for easy rebuilding and attaching things, like centuries old dust!</Description>
+   <graphicData>
+     <texPath>Clutter/Structure/UWall</texPath>
+	<graphicClass>Graphic_Single</graphicClass>
+	 <linkType>CornerFiller</linkType>
+    <linkFlags>
+      <li>Wall</li>
+    </linkFlags>
+	</graphicData>
+		<blueprintGraphicData>
+      <texPath>Things/Building/Linked/Wall_Blueprint_Atlas</texPath>
+    </blueprintGraphicData>
+    <uiIconPath>Clutter/Structure/UWallIco</uiIconPath>
+	 		<statBases>
+			<MaxHitPoints>250</MaxHitPoints>
+			<WorkToMake>200</WorkToMake>
+			<Flammability>0.5</Flammability>
+	  		<Beauty>3</Beauty>
+    			</statBases>
+    <costList>
+		<SteelBar>6</SteelBar>
+		<WoodPlank>3</WoodPlank>
+	</costList>
+    <AltitudeLayer>BuildingTall</AltitudeLayer>
+    <Passability>Impassable</Passability>
+    <castEdgeShadows>true</castEdgeShadows>
+    <fillPercent>1</fillPercent>
+    <coversFloor>true</coversFloor>
+    <placingDraggableDimensions>1</placingDraggableDimensions>
+    <tickerType>Never</tickerType>
+    <rotatable>false</rotatable>
+    <selectable>true</selectable>
+    <neverMultiSelect>true</neverMultiSelect>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+    <holdsRoof>true</holdsRoof>
+    <DesignationCategory>Structure</DesignationCategory>
+    <staticSunShadowHeight>1.0</staticSunShadowHeight>
+    <blockLight>true</blockLight>
+    <building>
+      <ignoreNeedsPower>true</ignoreNeedsPower>
+    </building>
+	<researchPrerequisite>UtilityStructures</researchPrerequisite>
+	<Comps>
+      <li>
+        <compClass>CompPowerTransmitter</compClass>
+        <transmitsPower>true</transmitsPower>
+      </li>
+    </Comps>
+	<SecondaryMaterialPath>Clutter/Structure/UWallA</SecondaryMaterialPath>
+		<ThirdMaterialPath>Clutter/Structure/UWallB</ThirdMaterialPath>
+  </ThingDef>
+
+
+
+  <ThingDef Class="Clutter.ClutterThingDefs" ParentName="BuildingBase">
+    <defName>ClutterUWallLight</defName>
+    <label>Utility Wall With Lights</label>
+    <thingClass>Clutter.Wall_Light</thingClass>
+    <category>Building</category>
+   <Description>Upgraded version of metal wall with ability for easy rebuilding and attaching things, like centuries old dust!
+This version comes with lights to show off your beautiful dust collection.</Description>
+	<graphicData>
+     <texPath>Clutter/Structure/UWallYellow</texPath>
+	<graphicClass>Graphic_Single</graphicClass>
+	<linkType>CornerFiller</linkType>
+    <linkFlags>
+      <li>Wall</li>
+    </linkFlags>
+	</graphicData>
+		<blueprintGraphicData>
+      <texPath>Things/Building/Linked/Wall_Blueprint_Atlas</texPath>
+    </blueprintGraphicData>
+    <uiIconPath>Clutter/Structure/UWallIco</uiIconPath>
+    <statBases>
+      <MaxHitPoints>250</MaxHitPoints>
+      <WorkToMake>400</WorkToMake>
+      <Flammability>0.5</Flammability>
+	  <Beauty>6</Beauty>
+    </statBases>
+    <costList>
+			<SteelBar>6</SteelBar>
+			<Glass>2</Glass>
+			<ElectronicComponents>1</ElectronicComponents>
+	</costList>
+    <AltitudeLayer>BuildingTall</AltitudeLayer>
+    <Passability>Impassable</Passability>
+    <castEdgeShadows>true</castEdgeShadows>
+    <fillPercent>1</fillPercent>
+    <coversFloor>true</coversFloor>
+    <rotatable>false</rotatable>
+    <selectable>true</selectable>
+    <placingDraggableDimensions>1</placingDraggableDimensions>
+    <neverMultiSelect>true</neverMultiSelect>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+    <holdsRoof>true</holdsRoof>
+    <staticSunShadowHeight>1.0</staticSunShadowHeight>
+    <blockLight>true</blockLight>
+    <building>
+      <ignoreNeedsPower>false</ignoreNeedsPower>
+    </building>
+	<tickerType>Normal</tickerType>
+		<comps>
+		<li>
+				<compClass>CompGlower</compClass>
+				<glowRadius>5</glowRadius>
+				<glowColor>(217,217,217,0)</glowColor>
+		</li>
+		<li>
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>25</basePowerConsumption>
+				<transmitsPower>true</transmitsPower>
+		</li>
+			<li Class="CommunityCoreLibrary.CompProperties_LowIdleDraw">
+				<compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
+				<idlePowerFactor>0.1</idlePowerFactor>
+				<operationalMode>WhenNear</operationalMode>
+			</li>
+	</comps>
+    	<DesignationCategory>Structure</DesignationCategory>
+		<researchPrerequisite>LightedWalls</researchPrerequisite>
+	<PowerOffMaterialPath>Clutter/Structure/UWallYellowOff</PowerOffMaterialPath>
+  </ThingDef>
+
+
+</Buildings>

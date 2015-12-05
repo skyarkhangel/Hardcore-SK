@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ThingDefs>
+
+  <ThingDef Name="BuildingBase" Abstract="True">
+    <category>Building</category>
+    <soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+    <selectable>true</selectable>
+    <drawerType>MapMeshAndRealTime</drawerType>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+    <repairEffect>Repair</repairEffect>
+    <tickerType>Normal</tickerType>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <filthLeaving>BuildingRubble</filthLeaving>
+    <damageMultipliers>
+      <li>
+        <damageDef>Bomb</damageDef>
+        <multiplier>3.0</multiplier>
+      </li>
+      <li>
+        <damageDef>Bullet</damageDef>
+        <multiplier>0.3</multiplier>
+      </li>
+      <li>
+        <damageDef>Fragment</damageDef>
+        <multiplier>0.2</multiplier>
+      </li>
+      <li>
+        <damageDef>ArmorPiercing</damageDef>
+        <multiplier>2.5</multiplier>
+      </li>
+      <li>
+        <damageDef>LaserBurn</damageDef>
+        <multiplier>2.0</multiplier>
+      </li>
+      <li>
+        <damageDef>AntiMateriel</damageDef>
+        <multiplier>2.0</multiplier>
+      </li>
+      <li>
+        <damageDef>Optic</damageDef>
+        <multiplier>1.5</multiplier>
+      </li>
+      <li>
+        <damageDef>Plasma</damageDef>
+        <multiplier>2.0</multiplier>
+      </li>
+      <li>
+        <damageDef>Microwave</damageDef>
+        <multiplier>1.5</multiplier>
+      </li>
+    </damageMultipliers>
+  </ThingDef>
+  
+  <ThingDef Name="BenchBase" ParentName="BuildingBase" Abstract="True">
+    <castEdgeShadows>true</castEdgeShadows>
+    <staticSunShadowHeight>0.20</staticSunShadowHeight>
+  </ThingDef>
+  
+  <ThingDef ParentName="BenchBase">
+    <DefName>VancidiumRefinery</DefName>
+    <label>vancidium refinery</label>
+    <ThingClass>Building_WorkTable_HeatPush</ThingClass>
+    <Description>Combines several high quality materials to produce Vancidium. Consumes a lot of power.</Description>
+    <graphicData>
+      <texPath>Things/Building/Production/TableVancidiumRefinery</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(3,1)</drawSize>
+    </graphicData>
+	<constructEffect>ConstructMetal</constructEffect>
+	<!-- <stuffCategories>
+		<li>MetallicParts</li>
+	</stuffCategories>
+	<costStuffCount>25</costStuffCount> -->
+    <CostList>
+			<Parts_Steel>16</Parts_Steel>
+			<Parts_Plasteel>14</Parts_Plasteel>
+			<SyntheticMaterials>10</SyntheticMaterials>
+			<Electronics>5</Electronics>
+			<Spare_Parts>4</Spare_Parts>
+			<Mechanism>3</Mechanism>
+			<Microchips>2</Microchips>
+    </CostList>
+    <AltitudeLayer>Waist</AltitudeLayer>
+	<fillPercent>0.5</fillPercent>
+    <statBases>
+      <WorkToMake>3500</WorkToMake>
+      <MaxHitPoints>180</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+    </statBases>
+    <Size>(3,1)</Size>
+    <DesignationCategory>Hitech</DesignationCategory>
+    <Passability>PassThroughOnly</Passability>
+    <pathCost>70</pathCost>
+    <hasInteractionCell>True</hasInteractionCell>
+    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
+    <surfaceType>Item</surfaceType>
+    <recipes>
+      <li>CreateVancidium</li>
+    </recipes>
+    <inspectorTabs>
+      <li>ITab_Bills</li>
+    </inspectorTabs>
+    <comps>
+      <li>
+        <compClass>CompPowerTrader</compClass>
+        <startElectricalFires>true</startElectricalFires>
+        <basePowerConsumption>700</basePowerConsumption>
+<!--        <soundPowerOn>PowerOnSmall</soundPowerOn>
+        <soundPowerOff>PowerOffSmall</soundPowerOff> -->
+      </li>
+	  <li>
+	    <compClass>CompGlower</compClass>
+	    <glowRadius>6</glowRadius>
+	  <glowColor>(217,112,33,0)</glowColor>
+	  </li>
+		<li>
+			<compClass>CommunityCoreLibrary.CompHeatPusherPowered</compClass>
+			<heatPerSecond>13</heatPerSecond>
+			<heatPushMaxTemperature>45</heatPushMaxTemperature>
+		</li>
+	  <li Class="CommunityCoreLibrary.CompProperties_LowIdleDraw">
+		<compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
+		<idlePowerFactor>0.1</idlePowerFactor>
+	  </li>
+    </comps>
+    <building>
+      <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+      <heatPerTickWhileWorking>0.5</heatPerTickWhileWorking>
+    </building>
+    <researchPrerequisite>VancidiumRefineryTech</researchPrerequisite>
+  </ThingDef>
+  
+</ThingDefs>
