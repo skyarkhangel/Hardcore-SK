@@ -113,8 +113,63 @@
     <designationHotKey>U</designationHotKey>
 		<researchPrerequisite>PowerI</researchPrerequisite>
   </ThingDef>
-
-
+  
+  
+ 	<ThingDef ParentName="BuildingBase">
+		<defName>HeavyPowerConduit</defName>
+		<label>heavy power conduit</label>
+		<thingClass>Building</thingClass>
+		<category>Building</category>
+		<graphicData>
+			<texPath>Things/Building/Linked/PowerConduit_Atlas</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<linkType>Transmitter</linkType>
+			<linkFlags>
+				<li>PowerConduit</li>
+			</linkFlags>
+		</graphicData>
+		<blueprintGraphicData>
+			<texPath>Things/Building/Linked/PowerConduit_Blueprint_Atlas</texPath>
+		</blueprintGraphicData>
+		<uiIconPath>Things/Building/Linked/PowerConduit_MenuIcon</uiIconPath>
+		<building>
+			<isInert>true</isInert>
+			<ignoreNeedsPower>true</ignoreNeedsPower>
+			<isEdifice>false</isEdifice>
+		</building>
+		<altitudeLayer>FloorEmplacement</altitudeLayer>
+		<passability>Standable</passability>
+		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+		<statBases>
+			<MaxHitPoints>350</MaxHitPoints>
+			<WorkToMake>135</WorkToMake>
+			<Flammability>0</Flammability>
+			<Beauty>-4</Beauty>
+		</statBases>
+		<description>A set of heavy electrical cables, very strong and non-flammable</description>
+		<placingDraggableDimensions>1</placingDraggableDimensions>
+		<costList>
+			<Wire>1</Wire>
+			<MagneticMaterial>1</MagneticMaterial>
+		</costList>
+		<comps>
+			<li>
+				<compClass>CompPowerTransmitter</compClass>
+				<transmitsPower>true</transmitsPower>
+			</li>
+		</comps>
+		<placeWorkers>
+			<li>PlaceWorker_Conduit</li>
+		</placeWorkers>
+		<rotatable>false</rotatable>
+		<selectable>true</selectable>
+		<neverMultiSelect>true</neverMultiSelect>
+		<soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<designationCategory>Power</designationCategory>
+		<constructEffect>ConstructMetal</constructEffect>
+		<researchPrerequisite>MatterManipulation</researchPrerequisite>
+	</ThingDef>
 
 
   <ThingDef ParentName="BuildingBase">
@@ -144,7 +199,7 @@
     </statBases>
     <placingDraggableDimensions>0</placingDraggableDimensions>
 		<costList>
-			<Parts_Steel>2</Parts_Steel>
+			<SteelBar>10</SteelBar>
 			<Spare_Parts>1</Spare_Parts>
 			<ElectronicComponents>1</ElectronicComponents>
 		</costList>
@@ -167,7 +222,7 @@
 
   <ThingDef ParentName="BuildingBase">
     <defName>Battery</defName>
-    <label>battery</label>
+    <label>Battery</label>
     <thingClass>Building_Battery</thingClass>
     <graphicData>
       <texPath>Things/Building/Power/Battery</texPath>
@@ -192,8 +247,11 @@
     <building>
       <ignoreNeedsPower>true</ignoreNeedsPower>
     </building>
+		<stuffCategories>
+		<li>Metallic</li>
+		</stuffCategories>
+    	<costStuffCount>25</costStuffCount>
 		<costList>
-			<Parts_Steel>5</Parts_Steel>
 			<Spare_Parts>3</Spare_Parts>
 			<ElectronicComponents>2</ElectronicComponents>
 		</costList>
@@ -209,11 +267,63 @@
     <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
     <designationCategory>Power</designationCategory>
     <staticSunShadowHeight>0.5</staticSunShadowHeight>
-    <constructEffect>ConstructMetal</constructEffect>
     <designationHotkey>B</designationHotkey>
 		<researchPrerequisite>PowerI</researchPrerequisite>
   </ThingDef>
-   
+  
+  
+	<ThingDef ParentName="BuildingBase">
+		<defName>FissionBattery</defName>
+		<label>Fission battery</label>
+		<thingClass>Building_Battery</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Power/FissionBattery</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(2,2)</drawSize>
+		</graphicData>
+		<altitudeLayer>BuildingTall</altitudeLayer>
+		<passability>Impassable</passability>
+		<minifiedDef>MinifiedFurniture</minifiedDef>
+		<castEdgeShadows>true</castEdgeShadows>
+		<fillPercent>1</fillPercent>
+		<tickerType>Normal</tickerType>
+		<statBases>
+			<MaxHitPoints>100</MaxHitPoints>
+			<WorkToMake>9500</WorkToMake>
+			<Flammability>2.0</Flammability>
+			<Beauty>-6</Beauty>
+		</statBases>
+		<description>Stores electricity and recycles charge using fission processes. Slightly more efficient and stores four times as much. Warning - charged batteries tend to explode when heated or wet.</description>
+		<size>(2,2)</size>
+		<building>
+			<ignoreNeedsPower>true</ignoreNeedsPower>
+		</building>
+		<costList>
+			<BiosyntheticMaterial>6</BiosyntheticMaterial>
+			<Spare_Parts>6</Spare_Parts>
+			<MagneticMaterial>3</MagneticMaterial>
+			<Microchips>1</Microchips>
+		</costList>
+		<comps>
+			<li>
+				<compClass>CompPowerBattery</compClass>
+				<storedEnergyMax>4000</storedEnergyMax>
+				<efficiency>0.7</efficiency>
+				<startElectricalFires>true</startElectricalFires>
+				<transmitsPower>true</transmitsPower>
+			</li>
+			<li>
+				<compClass>CompGlower</compClass>
+				<glowRadius>4</glowRadius>
+				<glowColor>(0,162,255,0)</glowColor>
+			</li>
+		</comps>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<designationCategory>Power</designationCategory>
+		<staticSunShadowHeight>0.5</staticSunShadowHeight>
+		<constructEffect>ConstructMetal</constructEffect>
+		<researchPrerequisite>DynElect</researchPrerequisite>
+	</ThingDef>   
   
 
   <ThingDef ParentName="BuildingBase">
@@ -241,10 +351,13 @@
     <building>
       <ignoreNeedsPower>true</ignoreNeedsPower>
     </building>
+		<stuffCategories>
+		<li>Metallic</li>
+		</stuffCategories>
+    	<costStuffCount>60</costStuffCount>
 		<costList>
 			<Glass>60</Glass>
-      		<ReinforcedConcrete>10</ReinforcedConcrete>
-			<Parts_Steel>10</Parts_Steel>
+      		<ReinforcedConcrete>8</ReinforcedConcrete>
 			<Spare_Parts>4</Spare_Parts>
 			<Electronics>3</Electronics>
 		</costList>
@@ -260,8 +373,7 @@
     <designationCategory>Power</designationCategory>
     <staticSunShadowHeight>0.20</staticSunShadowHeight>
     <designationHotkey>L</designationHotkey>
-    <constructEffect>ConstructMetal</constructEffect>
-		<researchPrerequisite>PowerII</researchPrerequisite>
+	<researchPrerequisite>PowerII</researchPrerequisite>
   </ThingDef>
 
 
@@ -298,12 +410,12 @@
 			<ignoreNeedsPower>true</ignoreNeedsPower>
 		</building>
 		<stuffCategories>
-		<li>MetallicParts</li>
+		<li>Metallic</li>
 		</stuffCategories>
-    	<costStuffCount>12</costStuffCount>
+    	<costStuffCount>60</costStuffCount>
 		<costList>
       		<ReinforcedConcrete>6</ReinforcedConcrete>
-			<Parts_Steel>6</Parts_Steel>
+			<SteelBar>30</SteelBar>
 			<ElectronicComponents>2</ElectronicComponents>
 			<Mechanism>1</Mechanism>
 		</costList>
@@ -320,8 +432,6 @@
 		</comps>
 		<researchPrerequisite>PowerI</researchPrerequisite>
 	</ThingDef>
-
-
 
 
 	<ThingDef ParentName="BenchBase">
@@ -351,13 +461,12 @@ Energy Output:  750W</description>
 			<ignoreNeedsPower>true</ignoreNeedsPower>
 			<wantsHopperAdjacent>true</wantsHopperAdjacent>
 		</building>
-	<stuffCategories>
-	<li>MetallicParts</li>
-	</stuffCategories>
-	<costStuffCount>20</costStuffCount>
-
+		<stuffCategories>
+		<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>100</costStuffCount>
 		<costList>
-			<Parts_Steel>5</Parts_Steel>
+			<SteelBar>25</SteelBar>
 			<Spare_Parts>5</Spare_Parts>
 			<Mechanism>5</Mechanism>
 		</costList>
@@ -423,8 +532,12 @@ Energy Output:  750W</description>
 			<Flammability>1.0</Flammability>
 		</statBases>
 		<description>Holds resources for the Steam Generator.</description>
+		<stuffCategories>
+		<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>20</costStuffCount>
 		<costList>
-			<Parts_Steel>4</Parts_Steel>
+			<SteelBar>20</SteelBar>
 			<Spare_Parts>2</Spare_Parts>
 		</costList>
 		<tickerType>Never</tickerType>
@@ -436,7 +549,6 @@ Energy Output:  750W</description>
 		<placeWorkers>
 			<li>PlaceWorker_NextToHopperAccepter</li>
 		</placeWorkers>
-		<constructEffect>ConstructMetal</constructEffect>
 		<researchPrerequisite>PowerI</researchPrerequisite>
 	</ThingDef>
 
@@ -470,12 +582,11 @@ Energy Output:  950W</description>
 			<wantsHopperAdjacent>true</wantsHopperAdjacent>
 		</building>
 	<stuffCategories>
-	<li>MetallicParts</li>
+	<li>Metallic</li>
 	</stuffCategories>
-	<costStuffCount>20</costStuffCount>
-
+	<costStuffCount>100</costStuffCount>
 		<costList>
-      			<ReinforcedConcrete>15</ReinforcedConcrete>
+      		<ReinforcedConcrete>15</ReinforcedConcrete>
 			<Spare_Parts>8</Spare_Parts>
 			<Mechanism>8</Mechanism>
 		</costList>
@@ -544,8 +655,11 @@ Energy Output:  950W</description>
 			<Flammability>1.0</Flammability>
 		</statBases>
 		<description>Holds resources for the steam generator.</description>
+		<stuffCategories>
+		<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>20</costStuffCount>
 		<costList>
-			<Parts_Steel>4</Parts_Steel>
 			<Spare_Parts>2</Spare_Parts>
 		</costList>
 		<tickerType>Never</tickerType>
@@ -557,7 +671,6 @@ Energy Output:  950W</description>
 		<placeWorkers>
 			<li>PlaceWorker_NextToHopperAccepter</li>
 		</placeWorkers>
-		<constructEffect>ConstructMetal</constructEffect>
 		<researchPrerequisite>Bioenergy</researchPrerequisite>
 		</ThingDef>
   
@@ -572,11 +685,13 @@ Energy Output:  950W</description>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>(2,2)</drawSize>
     </graphicData>
-	<constructEffect>ConstructMetal</constructEffect>
+		<stuffCategories>
+		<li>Metallic</li>
+		</stuffCategories>
+    	<costStuffCount>65</costStuffCount>
 		<costList>
-			<Glass>18</Glass>
-			<Parts_Steel>12</Parts_Steel>
-			<SyntheticMaterials>8</SyntheticMaterials>
+			<Glass>25</Glass>
+			<Rubber>40</Rubber>
 			<Spare_Parts>6</Spare_Parts>
 			<Mechanism>3</Mechanism>
 		</costList>
@@ -599,8 +714,6 @@ Energy Output:  950W</description>
 	<recipes>
 	 <li>MakeBioDiesel</li>
     </recipes>
-
-
 	<inspectorTabs>
 		<li>ITab_Bills</li>
 	</inspectorTabs>
@@ -652,11 +765,11 @@ Energy Output:  950W</description>
 			<wantsHopperAdjacent>true</wantsHopperAdjacent>
 		</building>
 		<stuffCategories>
-		<li>MetallicParts</li>
+		<li>Metallic</li>
 		</stuffCategories>
-    	<costStuffCount>50</costStuffCount>
+    	<costStuffCount>200</costStuffCount>
     <costList>
-	<ReinforcedConcrete>15</ReinforcedConcrete>
+	<ReinforcedConcrete>25</ReinforcedConcrete>
 	<Spare_Parts>10</Spare_Parts>
 	<Mechanism>8</Mechanism>
     </costList>
@@ -723,9 +836,12 @@ Energy Output:  950W</description>
 			<Flammability>1.0</Flammability>
 		</statBases>
 		<description>Produces electricity from burning coal. Coal and peat is fed into it via a fuel feeder placed on the side.</description>
+		<stuffCategories>
+		<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>20</costStuffCount>
     		<costList>
-			<Parts_Steel>9</Parts_Steel>
-			<Spare_Parts>3</Spare_Parts>
+			<Spare_Parts>4</Spare_Parts>
     		</costList>
 		<tickerType>Never</tickerType>
 		<rotatable>true</rotatable>
@@ -736,7 +852,6 @@ Energy Output:  950W</description>
 		<placeWorkers>
 			<li>PlaceWorker_NextToHopperAccepter</li>
 		</placeWorkers>
-		<constructEffect>ConstructMetal</constructEffect>
 		<researchPrerequisite>PowerII</researchPrerequisite>
 	</ThingDef>
 
@@ -770,10 +885,11 @@ Energy Output:  950W</description>
 			<wantsHopperAdjacent>true</wantsHopperAdjacent>
 		</building>
 		<stuffCategories>
-		<li>MetallicParts</li>
+		<li>Metallic</li>
 		</stuffCategories>
-    	<costStuffCount>80</costStuffCount>
+    	<costStuffCount>310</costStuffCount>
     <costList>
+	<Rubber>90</Rubber>
 	<ReinforcedConcrete>30</ReinforcedConcrete>
 	<Spare_Parts>10</Spare_Parts>
 	<Mechanism>10</Mechanism>
@@ -838,9 +954,12 @@ Energy Output:  950W</description>
 			<Flammability>1.0</Flammability>
 		</statBases>
 		<description>Produces electricity from burning fuel. Fuel is fed into it via a fuel feeder placed on the side.</description>
+		<stuffCategories>
+		<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>20</costStuffCount>
     		<costList>
-			<Parts_Steel>9</Parts_Steel>
-			<Spare_Parts>3</Spare_Parts>
+			<Spare_Parts>4</Spare_Parts>
     		</costList>
 		<tickerType>Never</tickerType>
 		<rotatable>true</rotatable>
@@ -851,7 +970,6 @@ Energy Output:  950W</description>
 		<placeWorkers>
 			<li>PlaceWorker_NextToHopperAccepter</li>
 		</placeWorkers>
-		<constructEffect>ConstructMetal</constructEffect>
 		<researchPrerequisite>CoalPowerPlant</researchPrerequisite>
 	</ThingDef>
 
@@ -879,12 +997,12 @@ Energy Output:  950W</description>
     <description>Produces electricity from geothermal steam geysers. Must be placed on a geyser.</description>
     <size>(6,6)</size>
 		<stuffCategories>
-		<li>MetallicParts</li>
+		<li>Metallic</li>
 		</stuffCategories>
-    	<costStuffCount>65</costStuffCount>
+    	<costStuffCount>350</costStuffCount>
 		<costList>
-      			<ReinforcedConcrete>35</ReinforcedConcrete>
-			<SyntheticMaterials>20</SyntheticMaterials>
+      		<ReinforcedConcrete>50</ReinforcedConcrete>
+			<Rubber>100</Rubber>
 			<Mechanism>4</Mechanism>
 			<Microchips>3</Microchips>
 		</costList>
@@ -919,7 +1037,601 @@ Energy Output:  950W</description>
   </ThingDef>
 
 
+<ThingDef Class="SK_NPP.ThingDef_NPP">
+		<category>Building</category>
+		<soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+		<selectable>true</selectable>
+		<drawerType>MapMeshAndRealTime</drawerType>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<constructEffect>ConstructMetal</constructEffect>
+		<repairEffect>Repair</repairEffect>
+        <filthLeaving>BuildingRubble</filthLeaving>
+    <defName>NPP</defName>
+    <label>Nuclear power plant</label>
+    <thingClass>SK_NPP.Building_NPP</thingClass>
+	<graphicData>
+		<texPath>NPP</texPath>
+		<graphicClass>Graphic_Single</graphicClass>
+	<drawSize>(7,7)</drawSize>
+		  <shadowData>
+			<volume>(3.5, 2, 3.5)</volume>
+			<offset>(0,0,-0.1)</offset>
+		  </shadowData>
+	</graphicData>
+    <altitudeLayer>BuildingTall</altitudeLayer>
+    <passability>Impassable</passability>
+    <fillPercent>1</fillPercent>
+    <castEdgeShadows>false</castEdgeShadows>
+    <rotatable>false</rotatable>
+    <statBases>
+      <MaxHitPoints>2400</MaxHitPoints>
+      <WorkToMake>30000</WorkToMake>
+      <Flammability>0</Flammability>
+      <Beauty>-180</Beauty>
+    </statBases>
+    <tickerType>Normal</tickerType>
+    <description>A small nuclear power plant, 18kW power output. WARNING: In case of a nuclear meltdown, build walls around the debris to contain the radiation.</description>
+    <size>(7,7)</size>
+    <building>
+      <soundAmbient>MatterFab</soundAmbient>
+      <ignoreNeedsPower>true</ignoreNeedsPower>
+	<wantsHopperAdjacent>true</wantsHopperAdjacent>
+    </building>
+    <costList>
+	<SteelBar>800</SteelBar>
+	<ReinforcedConcrete>350</ReinforcedConcrete>
+	<Rubber>150</Rubber>
+	<Spare_Parts>50</Spare_Parts>
+	<Microchips>8</Microchips>
+    </costList>
+    <comps>
+			<li>
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>-1</basePowerConsumption>
+				<transmitsPower>true</transmitsPower>
+				<powerToggleable>false</powerToggleable>
+			</li>
+			<li>
+				<compClass>CompGlower</compClass>
+				<glowRadius>6</glowRadius>
+				<glowColor>(217,112,33,0)</glowColor>
+			</li>
+			<li>
+				<compClass>CompExplosiveNPP</compClass>
+				<explosiveRadius>1</explosiveRadius>
+				<explosiveDamageType>Bomb</explosiveDamageType>
+			</li>
+			<li>
+				<compClass>CompExplosive</compClass>
+				<explosiveRadius>12.9</explosiveRadius>
+				<explosiveDamageType>Bomb</explosiveDamageType>
+			</li>
+    </comps>
+    <placeWorkers>
+      <li>PlaceWorker_NotUnderRoof</li>
+    </placeWorkers>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <designationCategory>Power</designationCategory>
+    <constructEffect>ConstructMetal</constructEffect>
+    <researchPrerequisite>PowerIV</researchPrerequisite>
+    <combatTargetBuilding>true</combatTargetBuilding>
 
+		<!-- Damage to self -->
+                                <OverheatThreshold>1600</OverheatThreshold>
+		<DamageAppliedSelfMin>40</DamageAppliedSelfMin>
+		<DamageAppliedSelfMax>80</DamageAppliedSelfMax>
+		<DamageApplySelfCounter>300</DamageApplySelfCounter>
+
+    <damageMultipliers>
+      <li>
+        <damageDef>Bomb</damageDef>
+        <multiplier>3.0</multiplier>
+      </li>
+      <li>
+        <damageDef>Bullet</damageDef>
+        <multiplier>0.3</multiplier>
+      </li>
+      <li>
+        <damageDef>Fragment</damageDef>
+        <multiplier>0.2</multiplier>
+      </li>
+      <li>
+        <damageDef>ArmorPiercing</damageDef>
+        <multiplier>2.5</multiplier>
+      </li>
+      <li>
+        <damageDef>LaserBurn</damageDef>
+        <multiplier>2.0</multiplier>
+      </li>
+      <li>
+        <damageDef>AntiMateriel</damageDef>
+        <multiplier>2.0</multiplier>
+      </li>
+      <li>
+        <damageDef>Optic</damageDef>
+        <multiplier>1.5</multiplier>
+      </li>
+      <li>
+        <damageDef>Plasma</damageDef>
+        <multiplier>2.0</multiplier>
+      </li>
+      <li>
+        <damageDef>Microwave</damageDef>
+        <multiplier>1.5</multiplier>
+      </li>
+    </damageMultipliers>
+  </ThingDef>
+
+<ThingDef Class="SK_NPP.ThingDef_NPPD">
+		<category>Building</category>
+		<soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+		<selectable>true</selectable>
+		<drawerType>MapMeshAndRealTime</drawerType>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<constructEffect>ConstructMetal</constructEffect>
+		<repairEffect>Repair</repairEffect>
+        <filthLeaving>BuildingRubble</filthLeaving>
+    <defName>NPPD</defName>
+    <label>nuclear power plant debris</label>
+    <thingClass>SK_NPP.Building_NPPD</thingClass>
+	<graphicData>
+		<texPath>NPPD</texPath>
+		<graphicClass>Graphic_Single</graphicClass>
+	<drawSize>(7,7)</drawSize>
+		  <shadowData>
+			<volume>(3.5, 2, 3.5)</volume>
+			<offset>(0,0,-0.1)</offset>
+		  </shadowData>
+	</graphicData>
+    <altitudeLayer>BuildingTall</altitudeLayer>
+    <passability>Impassable</passability>
+    <fillPercent>1</fillPercent>
+    <castEdgeShadows>false</castEdgeShadows>
+    <useHitPoints>false</useHitPoints>
+
+    <destroyable>false</destroyable>
+    <statBases>
+      <Flammability>0</Flammability>
+      <Beauty>-720</Beauty>
+    </statBases>	
+    <tickerType>Normal</tickerType>
+    <description>Radioactive debris of nuclear power plant. build walls around to contain the radiation.</description>
+    <size>(7,7)</size>
+    <specialDisplayRadius>40</specialDisplayRadius>
+    <comps>
+      <li>
+		<compClass>CompGlowerNPPD</compClass>		
+		<glowRadius>40</glowRadius>			
+		<glowColor>(0,100,0,0)</glowColor>
+      </li>
+    </comps>
+		<!-- Damage to living things (Note: 60ticks = 1s) -->
+		<DamageAppliedMin>1</DamageAppliedMin>
+		<DamageAppliedMax>3</DamageAppliedMax>
+		<DamageApplyCounter>250</DamageApplyCounter>
+		<!-- Damage to self -->
+		<DamageAppliedSelfMin>0</DamageAppliedSelfMin>
+		<DamageAppliedSelfMax>0</DamageAppliedSelfMax>
+		<DamageApplySelfCounter>300</DamageApplySelfCounter>
+		<DamageDefName>Radiation</DamageDefName>
+  </ThingDef>
+
+
+
+
+<ThingDef Class="SK_MNP.ThingDef_MNP">
+		<category>Building</category>
+		<soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+		<selectable>true</selectable>
+		<drawerType>MapMeshAndRealTime</drawerType>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<constructEffect>ConstructMetal</constructEffect>
+		<repairEffect>Repair</repairEffect>
+        <filthLeaving>BuildingRubble</filthLeaving>
+    <defName>MNP</defName>
+    <label>Military nuclear plant</label>
+    <thingClass>SK_MNP.Building_MNP</thingClass>
+	<graphicData>
+		<texPath>MNP</texPath>
+		<graphicClass>Graphic_Single</graphicClass>
+	<drawSize>(5,5)</drawSize>
+		  <shadowData>
+			<volume>(3.5, 2, 3.5)</volume>
+			<offset>(0,0,-0.1)</offset>
+		  </shadowData>
+	</graphicData>
+    <altitudeLayer>BuildingTall</altitudeLayer>
+    <passability>Impassable</passability>
+    <fillPercent>1</fillPercent>
+    <rotatable>false</rotatable>
+    <statBases>
+      <MaxHitPoints>2400</MaxHitPoints>
+      <WorkToMake>35000</WorkToMake>
+      <Flammability>0</Flammability>
+      <Beauty>-180</Beauty>
+    </statBases>
+    <castEdgeShadows>false</castEdgeShadows>
+    <tickerType>Normal</tickerType>
+    <description>A small nuclear power plant, 18kW power output. WARNING: In case of a nuclear meltdown, build walls around the debris to contain the radiation.</description>
+    <size>(5,5)</size>
+    <hasInteractionCell>True</hasInteractionCell>
+    <interactionCellOffset>(0,0,-3)</interactionCellOffset>
+    <surfaceType>Item</surfaceType>
+    <recipes>
+      <li>MakeNuclearWarhead</li>
+    </recipes>
+    <inspectorTabs>
+      <li>ITab_Bills</li>
+    </inspectorTabs>
+    <building>
+      <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+      <soundAmbient>MatterFab</soundAmbient>
+      <ignoreNeedsPower>true</ignoreNeedsPower>
+	<wantsHopperAdjacent>true</wantsHopperAdjacent>
+    </building>
+    <costList>
+	<ReinforcedConcrete>260</ReinforcedConcrete>
+	<SteelBar>750</SteelBar>
+	<Rubber>100</Rubber>
+	<Spare_Parts>35</Spare_Parts>
+	<Microchips>7</Microchips>
+    </costList>
+    <comps>
+			<li>
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>-1</basePowerConsumption>
+				<transmitsPower>true</transmitsPower>
+				<powerToggleable>false</powerToggleable>
+			</li>
+			<li>
+				<compClass>CompGlower</compClass>
+				<glowRadius>6</glowRadius>
+				<glowColor>(217,112,33,0)</glowColor>
+			</li>
+			<li>
+				<compClass>SK_MNP.CompExplosiveMNP</compClass>
+				<explosiveRadius>1</explosiveRadius>
+				<explosiveDamageType>Bomb</explosiveDamageType>
+			</li>
+			<li>
+				<compClass>CompExplosive</compClass>
+				<explosiveRadius>14.9</explosiveRadius>
+				<explosiveDamageType>Bomb</explosiveDamageType>
+			</li>
+    </comps>
+    <placeWorkers>
+      <li>PlaceWorker_NotUnderRoof</li>
+    </placeWorkers>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <designationCategory>Power</designationCategory>
+    <constructEffect>ConstructMetal</constructEffect>
+    <researchPrerequisite>ResMNP</researchPrerequisite>
+    <combatTargetBuilding>true</combatTargetBuilding>
+		<!-- Damage to self -->
+        <OverheatThreshold>1600</OverheatThreshold>
+		<DamageAppliedSelfMin>40</DamageAppliedSelfMin>
+		<DamageAppliedSelfMax>80</DamageAppliedSelfMax>
+		<DamageApplySelfCounter>300</DamageApplySelfCounter>
+    <damageMultipliers>
+      <li>
+        <damageDef>Bomb</damageDef>
+        <multiplier>3.0</multiplier>
+      </li>
+      <li>
+        <damageDef>Bullet</damageDef>
+        <multiplier>0.3</multiplier>
+      </li>
+      <li>
+        <damageDef>Fragment</damageDef>
+        <multiplier>0.2</multiplier>
+      </li>
+      <li>
+        <damageDef>ArmorPiercing</damageDef>
+        <multiplier>2.5</multiplier>
+      </li>
+      <li>
+        <damageDef>LaserBurn</damageDef>
+        <multiplier>2.0</multiplier>
+      </li>
+      <li>
+        <damageDef>AntiMateriel</damageDef>
+        <multiplier>2.0</multiplier>
+      </li>
+      <li>
+        <damageDef>Optic</damageDef>
+        <multiplier>1.5</multiplier>
+      </li>
+      <li>
+        <damageDef>Plasma</damageDef>
+        <multiplier>2.0</multiplier>
+      </li>
+      <li>
+        <damageDef>Microwave</damageDef>
+        <multiplier>1.5</multiplier>
+      </li>
+    </damageMultipliers>
+  </ThingDef>
+
+<ThingDef Class="SK_MNP.ThingDef_MNPD">
+		<category>Building</category>
+		<soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+		<selectable>true</selectable>
+		<drawerType>MapMeshAndRealTime</drawerType>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<constructEffect>ConstructMetal</constructEffect>
+		<repairEffect>Repair</repairEffect>
+        <filthLeaving>BuildingRubble</filthLeaving>
+    <defName>MNPD</defName>
+    <label>Military nuclear plant debris</label>
+    <thingClass>SK_MNP.Building_MNPD</thingClass>
+	<graphicData>
+		<texPath>MNPD</texPath>
+		<graphicClass>Graphic_Single</graphicClass>
+	<drawSize>(5,5)</drawSize>
+		  <shadowData>
+			<volume>(3.5, 2, 3.5)</volume>
+			<offset>(0,0,-0.1)</offset>
+		  </shadowData>
+	</graphicData>
+    <altitudeLayer>BuildingTall</altitudeLayer>
+    <passability>Impassable</passability>
+    <fillPercent>0.8</fillPercent>
+    <castEdgeShadows>false</castEdgeShadows>
+    <useHitPoints>false</useHitPoints>
+    <destroyable>false</destroyable>
+    <statBases>
+      <Flammability>0</Flammability>
+      <Beauty>-600</Beauty>
+    </statBases>	
+    <tickerType>Normal</tickerType>
+    <description>Radioactive debris of nuclear power plant. build walls around to contain the radiation.</description>
+    <size>(5,5)</size>
+    <specialDisplayRadius>40</specialDisplayRadius>
+    <comps>
+		  <li>
+	<compClass>CompGlowerNPPD</compClass>		
+	<glowRadius>40</glowRadius>			
+	<glowColor>(0,100,0,0)</glowColor>
+		  </li>
+    </comps>
+		<!-- Damage to living things (Note: 60ticks = 1s) -->
+		<DamageAppliedMin>1</DamageAppliedMin>
+		<DamageAppliedMax>3</DamageAppliedMax>
+		<DamageApplyCounter>150</DamageApplyCounter>
+		<!-- Damage to self -->
+		<DamageAppliedSelfMin>0</DamageAppliedSelfMin>
+		<DamageAppliedSelfMax>0</DamageAppliedSelfMax>
+		<DamageApplySelfCounter>300</DamageApplySelfCounter>
+		<DamageDefName>Radiation</DamageDefName>
+  </ThingDef>
+
+
+
+	<ThingDef ParentName="BuildingBase">
+		<defName>NuclearFeeder</defName>
+		<label>Nuclear feeder</label>
+		<thingClass>Building_Storage</thingClass>
+		<graphicData>
+      <texPath>Things/Building/Production/Hopper</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+		<altitudeLayer>Waist</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<fillPercent>0.5</fillPercent>
+		<pathCost>70</pathCost>
+		<building>
+      <fixedStorageSettings>
+        <priority>Important</priority>
+	<filter>
+          <thingDefs>
+            <li>HEU</li>
+          </thingDefs>
+        </filter>
+      </fixedStorageSettings>
+  <defaultStorageSettings>
+        <priority>Important</priority>
+	<filter>
+          <thingDefs>
+            <li>HEU</li>
+          </thingDefs>
+        </filter>
+      </defaultStorageSettings>
+    </building>
+		<inspectorTabs>
+			<li>ITab_Storage</li>
+		</inspectorTabs>
+		<castEdgeShadows>true</castEdgeShadows>
+		<statBases>
+			<WorkToMake>450</WorkToMake>
+			<MaxHitPoints>100</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+		</statBases>
+		<description>Holds resources for the Nuclear reactor. Uses highly enriched uranium.</description>
+		<stuffCategories>
+		<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>20</costStuffCount>
+		<costList>
+			<Spare_Parts>4</Spare_Parts>
+		</costList>
+		<tickerType>Never</tickerType>
+		<rotatable>true</rotatable>
+		<neverMultiSelect>true</neverMultiSelect>
+		<designationCategory>Power</designationCategory>
+		<staticSunShadowHeight>0.3</staticSunShadowHeight>
+		<surfaceType>Item</surfaceType>
+		<placeWorkers>
+			<li>PlaceWorker_NextToHopperAccepter</li>
+		</placeWorkers>
+    	<researchPrerequisite>PowerIV</researchPrerequisite>
+</ThingDef>
+
+
+  <ThingDef ParentName="BuildingBase">
+    <defName>CapsuleReactor</defName>
+    <label>capsule reactor</label>
+    <thingClass>Building_PowerPlant</thingClass>
+    <graphicData>
+    <texPath>Things/Building/Power/Capsule</texPath>
+    <graphicClass>Graphic_Single</graphicClass>
+      <shadowData>
+        <volume>(0.7, 0.7, 0.7)</volume>
+      </shadowData>
+	</graphicData>
+    <altitudeLayer>Waist</altitudeLayer>
+    <rotatable>false</rotatable>
+    <minifiedDef>MinifiedFurniture</minifiedDef>
+    <passability>PassThroughOnly</passability>
+    <pathCost>70</pathCost>
+    <fillPercent>0.5</fillPercent>
+    <castEdgeShadows>false</castEdgeShadows>
+    <statBases>
+      <MaxHitPoints>200</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <MarketValue>3500</MarketValue>
+      <Beauty>-25</Beauty>
+      <SellPriceFactor>0.1</SellPriceFactor>
+    </statBases>
+    <tickerType>Normal</tickerType>
+    <description>A high-tech portable fusion reactor. Provides a constant power supply regardless of environmental factors.</description>
+    <building>
+      <ignoreNeedsPower>true</ignoreNeedsPower>
+    </building>
+    <comps>
+      <li>
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>-800</basePowerConsumption>
+        <transmitsPower>true</transmitsPower>
+        <powerToggleable>false</powerToggleable>
+      </li>
+      <li>
+        <compClass>CompLifespan</compClass>
+        <lifespanTicks>3000000</lifespanTicks>
+      </li>
+    </comps>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+    <constructEffect>ConstructMetal</constructEffect>
+  </ThingDef>
+  
+  
+	<ThingDef ParentName="BuildingBase">
+		<defName>GauseWindTurbine</defName>
+    <thingClass>SK_GWT.GauseWindTurbine</thingClass>
+		<label>Gause Wind Turbine</label>
+		<description>A wind-powered gause electrical generator, No aroun area ;). </description>
+    <graphicData>
+      <texPath>Things/Building/GauseWindTurbineFrames/GauseWindTurbineOFF</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(5,5)</drawSize>
+      <shadowData>
+        <volume>(0.2, 1.0, 0.8)</volume>
+      </shadowData>
+    </graphicData>
+    <altitudeLayer>BuildingTall</altitudeLayer>
+		<passability>Impassable</passability>
+		<fillPercent>0.5</fillPercent>
+		<statBases>
+			<MaxHitPoints>180</MaxHitPoints>
+			<WorkToMake>3300</WorkToMake>
+			<Flammability>0.4</Flammability>
+			<Beauty>-12</Beauty>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<size>(5,5)</size>
+		<selectable>true</selectable>
+    
+		<rotatable>false</rotatable>
+		<designationCategory>Power</designationCategory>
+		<building>
+			<ignoreNeedsPower>true</ignoreNeedsPower>
+		</building>
+		<stuffCategories>
+		<li>Metallic</li>
+		</stuffCategories>
+    	<costStuffCount>400</costStuffCount>
+		<costList>
+			<Plastic>170</Plastic>
+      		<ReinforcedConcrete>80</ReinforcedConcrete>
+			<Mechanism>10</Mechanism>
+			<Microchips>2</Microchips>
+		</costList>
+    <placeWorkers>
+      <li>PlaceWorker_NotUnderRoof</li>
+    </placeWorkers>
+   		<comps>
+			<li>
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>-1500</basePowerConsumption>
+				<transmitsPower>true</transmitsPower>
+        <powerToggleable>false</powerToggleable>
+      </li>
+		</comps>
+ <researchPrerequisite>PowerV</researchPrerequisite>
+</ThingDef>
+
+
+  <ThingDef ParentName="BenchBase">
+    <defName>TeslaLigthningPower</defName>
+    <label>Tesla Ligthning Power</label>
+    <thingClass>SK_TLP.TeslaLigthningPower</thingClass>
+	<graphicData>
+	<shaderType>Transparent</shaderType>
+     <texPath>Things/Building/TeslaLigthningPowerFrames/TeslaPowerOFF</texPath>
+    <graphicClass>Graphic_Single</graphicClass>
+	<drawSize>(8,8)</drawSize>
+	</graphicData>
+    <AltitudeLayer>BuildingTall</AltitudeLayer>
+    <Passability>Impassable</Passability>
+     <fillPercent>0.5</fillPercent>
+    <statBases>
+      <MaxHitPoints>200</MaxHitPoints>
+      <WorkToMake>6000</WorkToMake>
+      <Flammability>1.0</Flammability>
+      <Beauty>-10</Beauty>
+    </statBases>
+    <tickerType>Normal</tickerType>
+    <Description>Be carefull  awesome power of lightning, need some cooling after time </Description>
+    <Size>(8,8)</Size>
+    <stuffCategories>
+	<li>Metallic</li>
+		</stuffCategories>
+    <costStuffCount>750</costStuffCount>
+		<costList>
+			<Glass>200</Glass>
+			<SyntheticFibers>200</SyntheticFibers>
+			<ReinforcedConcrete>100</ReinforcedConcrete>
+			<Microchips>6</Microchips>
+		</costList>
+	<comps>
+      <li>
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>1</basePowerConsumption>
+	<transmitsPower>true</transmitsPower>	
+        <powerToggleable>false</powerToggleable>
+      </li>
+	  <li>
+		<compClass>CompGlower</compClass>
+				<glowRadius>10</glowRadius>
+				<glowColor>(0,0,220,1)</glowColor>
+			</li>
+			 <li>
+        <compClass>CompExplosive</compClass>
+        <explosiveRadius>5</explosiveRadius>
+        <explosiveDamageType>Flame</explosiveDamageType>
+      </li>
+    </comps>
+    <rotatable>false</rotatable>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+    <DesignationCategory>Power</DesignationCategory>
+     <building>
+      <soundAmbient>XITurbine</soundAmbient>
+      <ignoreNeedsPower>false</ignoreNeedsPower>
+    </building>
+    <researchPrerequisite>PowerV</researchPrerequisite>
+  </ThingDef>
+
+  
   <ThingDef ParentName="BenchBase">
     <defName>PlasmaGeothermalPlant</defName>
     <label>Plasma reactor</label>
@@ -934,7 +1646,7 @@ Energy Output:  950W</description>
     <Passability>Impassable</Passability>
      <fillPercent>1</fillPercent>
     <statBases>
-      <MaxHitPoints>100</MaxHitPoints>
+      <MaxHitPoints>250</MaxHitPoints>
       <WorkToMake>16000</WorkToMake>
       <Flammability>1.0</Flammability>
       <Beauty>-10</Beauty>
@@ -943,13 +1655,13 @@ Energy Output:  950W</description>
     <Description>Produces tax free electricity from steam geyser - plasma powered</Description>
     <Size>(4,4)</Size>
 		<stuffCategories>
-		<li>MetallicParts</li>
+		<li>Metallic</li>
 		</stuffCategories>
-    	<costStuffCount>100</costStuffCount>
+    	<costStuffCount>500</costStuffCount>
 		<costList>
-			<Glass>100</Glass>
-      			<ReinforcedConcrete>60</ReinforcedConcrete>
-			<SyntheticMaterials>50</SyntheticMaterials>
+			<Glass>180</Glass>
+			<SyntheticFibers>150</SyntheticFibers>
+      		<ReinforcedConcrete>100</ReinforcedConcrete>
 			<Microchips>5</Microchips>
 		</costList>
 	<comps>
@@ -1032,9 +1744,12 @@ Energy Output:  950W</description>
 			<Flammability>1.0</Flammability>
 		</statBases>
 		<description>Holds resources for the Steam Generator.</description>
+		<stuffCategories>
+		<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>20</costStuffCount>
 		<costList>
-			<Parts_Steel>4</Parts_Steel>
-			<Spare_Parts>2</Spare_Parts>
+			<Spare_Parts>4</Spare_Parts>
 		</costList>
 		<tickerType>Never</tickerType>
 		<rotatable>true</rotatable>
@@ -1045,10 +1760,8 @@ Energy Output:  950W</description>
 		<placeWorkers>
 			<li>PlaceWorker_NextToHopperAccepter</li>
 		</placeWorkers>
-		<constructEffect>ConstructMetal</constructEffect>
 		<researchPrerequisite>PowerVI</researchPrerequisite>
 	</ThingDef>
-
 
 
  <ThingDef ParentName="BenchBase">
@@ -1074,13 +1787,13 @@ Energy Output:  950W</description>
     <Description>Produces tax free electricity from plasma discharges, needs to be fully charged first</Description>
     <Size>(2,2)</Size>
 		<stuffCategories>
-	<li>MetallicParts</li>
+		<li>Metallic</li>
 		</stuffCategories>
-    <costStuffCount>45</costStuffCount>
+    <costStuffCount>240</costStuffCount>
 		<costList>
-			<Glass>30</Glass>
-			<SyntheticMaterials>20</SyntheticMaterials>
-			<ReinforcedConcrete>15</ReinforcedConcrete>
+			<SyntheticFibers>100</SyntheticFibers>
+			<Glass>50</Glass>
+			<ReinforcedConcrete>25</ReinforcedConcrete>
 			<Microchips>2</Microchips>
 		</costList>
 	<comps>
@@ -1113,493 +1826,149 @@ Energy Output:  950W</description>
     </placeWorkers>
 		<researchPrerequisite>PowerVI</researchPrerequisite>
   </ThingDef>
-
-
-
-
-
-
-
-
-  <ThingDef ParentName="BenchBase">
-    <defName>TeslaLigthningPower</defName>
-    <label>Tesla Ligthning Power</label>
-    <thingClass>SK_TLP.TeslaLigthningPower</thingClass>
-	<graphicData>
-	<shaderType>Transparent</shaderType>
-     <texPath>Things/Building/TeslaLigthningPowerFrames/TeslaPowerOFF</texPath>
-    <graphicClass>Graphic_Single</graphicClass>
-	<drawSize>(8,8)</drawSize>
-	</graphicData>
-    <AltitudeLayer>BuildingTall</AltitudeLayer>
-    <Passability>Impassable</Passability>
-     <fillPercent>0.5</fillPercent>
-    <statBases>
-      <MaxHitPoints>100</MaxHitPoints>
-      <WorkToMake>6000</WorkToMake>
-      <Flammability>1.0</Flammability>
-      <Beauty>-10</Beauty>
-    </statBases>
-    <tickerType>Normal</tickerType>
-    <Description>Be carefull  awesome power of lightning, need some cooling after time </Description>
-    <Size>(8,8)</Size>
-    <stuffCategories>
-	<li>MetallicParts</li>
+  
+  
+	<ThingDef ParentName="BuildingBase">
+		<defName>XenonIonTurbine</defName>
+		<label>Xenon-Ion Turbine</label>
+		<thingClass>SK_XIT.XenonIonTurbine</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Power/XenonIonTurbine</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(4,4)</drawSize>
+		</graphicData>
+		<altitudeLayer>BuildingTall</altitudeLayer>
+		<passability>Impassable</passability>
+		<castEdgeShadows>true</castEdgeShadows>
+		<fillPercent>1</fillPercent>
+		<statBases>
+			<MaxHitPoints>200</MaxHitPoints>
+			<WorkToMake>19600</WorkToMake>
+			<Flammability>1.0</Flammability>
+			<Beauty>-20</Beauty>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<description>Produces electricity by collecting trace Xenon from water and Ionizing it into plasma. Must be placed on a geyser.</description>
+		<size>(4,4)</size>
+		<stuffCategories>
+		<li>Metallic</li>
 		</stuffCategories>
-    <costStuffCount>190</costStuffCount>
+		<costStuffCount>800</costStuffCount>
 		<costList>
-			<Glass>120</Glass>
-			<SyntheticMaterials>70</SyntheticMaterials>
+			<Glass>150</Glass>
 			<ReinforcedConcrete>60</ReinforcedConcrete>
-			<Microchips>6</Microchips>
+			<BiosyntheticMaterial>60</BiosyntheticMaterial>
+			<Microchips>5</Microchips>
 		</costList>
-	<comps>
+		<comps>
       <li>
         <compClass>CompPowerTrader</compClass>
         <basePowerConsumption>1</basePowerConsumption>
 	<transmitsPower>true</transmitsPower>	
         <powerToggleable>false</powerToggleable>
       </li>
-	  <li>
-		<compClass>CompGlower</compClass>
-				<glowRadius>10</glowRadius>
-				<glowColor>(0,0,220,1)</glowColor>
+			<li>
+				<compClass>CompGlower</compClass>
+				<glowRadius>8</glowRadius>
+				<glowColor>(0,162,255,0)</glowColor>
 			</li>
 			 <li>
         <compClass>CompExplosive</compClass>
         <explosiveRadius>5</explosiveRadius>
         <explosiveDamageType>Flame</explosiveDamageType>
       </li>
-    </comps>
-    <rotatable>false</rotatable>
-    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
-    <DesignationCategory>Power</DesignationCategory>
-     <building>
-      <soundAmbient>XITurbine</soundAmbient>
-      <ignoreNeedsPower>false</ignoreNeedsPower>
-    </building>
-    <researchPrerequisite>PowerV</researchPrerequisite>
-  </ThingDef>
-
-
-	<ThingDef ParentName="BuildingBase">
-		<defName>GauseWindTurbine</defName>
-    <thingClass>SK_GWT.GauseWindTurbine</thingClass>
-		<label>Gause Wind Turbine</label>
-		<description>A wind-powered gause electrical generator, No aroun area ;). </description>
-    <graphicData>
-      <texPath>Things/Building/GauseWindTurbineFrames/GauseWindTurbineOFF</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <drawSize>(5,5)</drawSize>
-      <shadowData>
-        <volume>(0.2, 1.0, 0.8)</volume>
-      </shadowData>
-    </graphicData>
-    <altitudeLayer>BuildingTall</altitudeLayer>
-		<passability>Impassable</passability>
-		<fillPercent>0.5</fillPercent>
-		<statBases>
-			<MaxHitPoints>180</MaxHitPoints>
-			<WorkToMake>3300</WorkToMake>
-			<Flammability>0.4</Flammability>
-			<Beauty>-12</Beauty>
-		</statBases>
-		<tickerType>Normal</tickerType>
-		<size>(5,5)</size>
-		<selectable>true</selectable>
-    
+	<li Class="CommunityCoreLibrary.RestrictedPlacement_Properties">
+			<compClass>CommunityCoreLibrary.RestrictedPlacement_Comp</compClass>
+			<RestrictedThing>
+				<li>SteamGeyser</li>
+			</RestrictedThing>
+	</li>
+		</comps>
+	<placeWorkers>
+		<li>CommunityCoreLibrary.PlaceWorker_OnlyOnThing</li>
+	</placeWorkers>
 		<rotatable>false</rotatable>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
 		<designationCategory>Power</designationCategory>
+		<staticSunShadowHeight>1.0</staticSunShadowHeight>
 		<building>
+			<soundAmbient>XITurbine</soundAmbient>
 			<ignoreNeedsPower>true</ignoreNeedsPower>
 		</building>
+		<researchPrerequisite>DynElect</researchPrerequisite>
+	</ThingDef>
+	
+	
+	<ThingDef ParentName="BuildingBase">
+		<defName>AntimatterReactor</defName>
+		<label>Antimatter Reactor</label>
+		<thingClass>SK_AMR.Building_AntimatterReactor</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Power/PlasmaBigGen</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(8,8)</drawSize>
+		</graphicData>
+		<altitudeLayer>BuildingTall</altitudeLayer>
+		<passability>Impassable</passability>
+		<castEdgeShadows>true</castEdgeShadows>
+		<fillPercent>1</fillPercent>
+		<statBases>
+			<MaxHitPoints>1000</MaxHitPoints>
+			<WorkToMake>35000</WorkToMake>
+			<Flammability>1.0</Flammability>
+			<Beauty>-120</Beauty>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<description>The antimatter contained separate from the normal matter by magnetic fields so that no unintended reactions take place. The energy would then be extracted in much the same way that nuclear reactors capture the expended heat and light energy from fission reactions.</description>
+		<size>(8,8)</size>
 		<stuffCategories>
-		<li>MetallicParts</li>
+		<li>Metallic</li>
 		</stuffCategories>
-    	<costStuffCount>80</costStuffCount>
+    	<costStuffCount>900</costStuffCount>
 		<costList>
-      			<ReinforcedConcrete>70</ReinforcedConcrete>
-			<SyntheticMaterials>30</SyntheticMaterials>
-			<Mechanism>10</Mechanism>
-			<Microchips>2</Microchips>
+			<Glass>200</Glass>
+      		<ReinforcedConcrete>200</ReinforcedConcrete>
+			<MagneticMaterial>65</MagneticMaterial>
+			<Microchips>5</Microchips>
 		</costList>
-    <placeWorkers>
-      <li>PlaceWorker_NotUnderRoof</li>
-    </placeWorkers>
-   		<comps>
+		<comps>
 			<li>
 				<compClass>CompPowerTrader</compClass>
-				<basePowerConsumption>-1500</basePowerConsumption>
+				<basePowerConsumption>-1</basePowerConsumption>
 				<transmitsPower>true</transmitsPower>
-        <powerToggleable>false</powerToggleable>
+				<powerToggleable>false</powerToggleable>
+			</li>
+			<li>
+				<compClass>CompGlower</compClass>
+				<glowRadius>8</glowRadius>
+				<glowColor>(255,255,0,0)</glowColor>
+			</li>
+			 <li>
+        <compClass>CompExplosive</compClass>
+        <explosiveRadius>11</explosiveRadius>
+        <explosiveDamageType>Flame</explosiveDamageType>
       </li>
 		</comps>
- <researchPrerequisite>PowerV</researchPrerequisite>
-</ThingDef>
-
-
-
-<ThingDef Class="SK_NPP.ThingDef_NPP">
-		<category>Building</category>
-		<soundImpactDefault>BulletImpactMetal</soundImpactDefault>
-		<selectable>true</selectable>
-		<drawerType>MapMeshAndRealTime</drawerType>
+		<rotatable>false</rotatable>
 		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
-		<constructEffect>ConstructMetal</constructEffect>
-		<repairEffect>Repair</repairEffect>
-                               <filthLeaving>BuildingRubble</filthLeaving>
-    <defName>NPP</defName>
-    <label>Nuclear power plant</label>
-    <thingClass>SK_NPP.Building_NPP</thingClass>
-<graphicData>
-    <texPath>NPP</texPath>
-    <graphicClass>Graphic_Single</graphicClass>
-<drawSize>(7,7)</drawSize>
-      <shadowData>
-        <volume>(3.5, 2, 3.5)</volume>
-        <offset>(0,0,-0.1)</offset>
-      </shadowData>
-</graphicData>
-    <altitudeLayer>BuildingTall</altitudeLayer>
-    <passability>Impassable</passability>
-    <fillPercent>1</fillPercent>
-    <castEdgeShadows>false</castEdgeShadows>
-    <rotatable>false</rotatable>
-    <statBases>
-      <MaxHitPoints>2400</MaxHitPoints>
-      <WorkToMake>30000</WorkToMake>
-      <Flammability>0</Flammability>
-      <Beauty>-180</Beauty>
-    </statBases>
-    <tickerType>Normal</tickerType>
-    <description>A small nuclear power plant, 18kW power output. WARNING: In case of a nuclear meltdown, build walls around the debris to contain the radiation.</description>
-    <size>(7,7)</size>
-    <building>
-      <soundAmbient>MatterFab</soundAmbient>
-      <ignoreNeedsPower>true</ignoreNeedsPower>
-	<wantsHopperAdjacent>true</wantsHopperAdjacent>
-    </building>
-    <costList>
-	<ReinforcedConcrete>250</ReinforcedConcrete>
-	<Parts_Steel>150</Parts_Steel>
-	<Spare_Parts>50</Spare_Parts>
-	<SyntheticMaterials>50</SyntheticMaterials>
-	<Microchips>8</Microchips>
-    </costList>
-    <comps>
-			<li>
-				<compClass>CompPowerTrader</compClass>
-				<basePowerConsumption>-1</basePowerConsumption>
-				<transmitsPower>true</transmitsPower>
-				<powerToggleable>false</powerToggleable>
-			</li>
-			<li>
-				<compClass>CompGlower</compClass>
-				<glowRadius>6</glowRadius>
-				<glowColor>(217,112,33,0)</glowColor>
-			</li>
-			<li>
-				<compClass>CompExplosiveNPP</compClass>
-				<explosiveRadius>1</explosiveRadius>
-				<explosiveDamageType>Bomb</explosiveDamageType>
-			</li>
-			<li>
-				<compClass>CompExplosive</compClass>
-				<explosiveRadius>12.9</explosiveRadius>
-				<explosiveDamageType>Bomb</explosiveDamageType>
-			</li>
-    </comps>
-    <placeWorkers>
-      <li>PlaceWorker_NotUnderRoof</li>
-    </placeWorkers>
-    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
-    <designationCategory>Power</designationCategory>
-    <constructEffect>ConstructMetal</constructEffect>
-    <researchPrerequisite>PowerIV</researchPrerequisite>
-    <combatTargetBuilding>true</combatTargetBuilding>
-
-		<!-- Damage to self -->
-                                <OverheatThreshold>1600</OverheatThreshold>
-		<DamageAppliedSelfMin>40</DamageAppliedSelfMin>
-		<DamageAppliedSelfMax>80</DamageAppliedSelfMax>
-		<DamageApplySelfCounter>300</DamageApplySelfCounter>
-
-    <damageMultipliers>
-      <li>
-        <damageDef>Bomb</damageDef>
-        <multiplier>2.5</multiplier>
-      </li>
-      <li>
-        <damageDef>Bullet</damageDef>
-        <multiplier>0.3</multiplier>
-      </li>
-      <li>
-        <damageDef>Fragment</damageDef>
-        <multiplier>0.5</multiplier>
-      </li>
-      <li>
-        <damageDef>ArmorPiercing</damageDef>
-        <multiplier>1.5</multiplier>
-      </li>
-      <li>
-        <damageDef>LaserBurn</damageDef>
-        <multiplier>1.5</multiplier>
-      </li>
-    </damageMultipliers>
-  </ThingDef>
-
-<ThingDef Class="SK_NPP.ThingDef_NPPD">
-		<category>Building</category>
-		<soundImpactDefault>BulletImpactMetal</soundImpactDefault>
-		<selectable>true</selectable>
-		<drawerType>MapMeshAndRealTime</drawerType>
-		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
-		<constructEffect>ConstructMetal</constructEffect>
-		<repairEffect>Repair</repairEffect>
-                               <filthLeaving>BuildingRubble</filthLeaving>
-    <defName>NPPD</defName>
-    <label>nuclear power plant debris</label>
-    <thingClass>SK_NPP.Building_NPPD</thingClass>
-<graphicData>
-    <texPath>NPPD</texPath>
-    <graphicClass>Graphic_Single</graphicClass>
-<drawSize>(7,7)</drawSize>
-      <shadowData>
-        <volume>(3.5, 2, 3.5)</volume>
-        <offset>(0,0,-0.1)</offset>
-      </shadowData>
-</graphicData>
-    <altitudeLayer>BuildingTall</altitudeLayer>
-    <passability>Impassable</passability>
-    <fillPercent>1</fillPercent>
-    <castEdgeShadows>false</castEdgeShadows>
-    <useHitPoints>false</useHitPoints>
-
-    <destroyable>false</destroyable>
-    <statBases>
-      <Flammability>0</Flammability>
-      <Beauty>-720</Beauty>
-    </statBases>	
-    <tickerType>Normal</tickerType>
-    <description>Radioactive debris of nuclear power plant. build walls around to contain the radiation.</description>
-    <size>(7,7)</size>
-    <specialDisplayRadius>40</specialDisplayRadius>
-    <comps>
-      <li>
-<compClass>CompGlowerNPPD</compClass>		
-<glowRadius>40</glowRadius>			
-<glowColor>(0,100,0,0)</glowColor>
-			
-      </li>
-    </comps>
-
-		<!-- Damage to living things (Note: 60ticks = 1s) -->
-		<DamageAppliedMin>1</DamageAppliedMin>
-		<DamageAppliedMax>3</DamageAppliedMax>
-		<DamageApplyCounter>250</DamageApplyCounter>
-		
-		<!-- Damage to self -->
-		<DamageAppliedSelfMin>0</DamageAppliedSelfMin>
-		<DamageAppliedSelfMax>0</DamageAppliedSelfMax>
-		<DamageApplySelfCounter>300</DamageApplySelfCounter>
-		
-		<DamageDefName>Radiation</DamageDefName>
-
-  </ThingDef>
-
-
-
-
-<ThingDef Class="SK_MNP.ThingDef_MNP">
-		<category>Building</category>
-		<soundImpactDefault>BulletImpactMetal</soundImpactDefault>
-		<selectable>true</selectable>
-		<drawerType>MapMeshAndRealTime</drawerType>
-		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
-		<constructEffect>ConstructMetal</constructEffect>
-		<repairEffect>Repair</repairEffect>
-                               <filthLeaving>BuildingRubble</filthLeaving>
-    <defName>MNP</defName>
-    <label>Military nuclear plant</label>
-    <thingClass>SK_MNP.Building_MNP</thingClass>
-<graphicData>
-    <texPath>MNP</texPath>
-    <graphicClass>Graphic_Single</graphicClass>
-<drawSize>(5,5)</drawSize>
-      <shadowData>
-        <volume>(3.5, 2, 3.5)</volume>
-        <offset>(0,0,-0.1)</offset>
-      </shadowData>
-</graphicData>
-    <altitudeLayer>BuildingTall</altitudeLayer>
-    <passability>Impassable</passability>
-    <fillPercent>1</fillPercent>
-    <rotatable>false</rotatable>
-    <statBases>
-      <MaxHitPoints>2400</MaxHitPoints>
-      <WorkToMake>35000</WorkToMake>
-      <Flammability>0</Flammability>
-      <Beauty>-180</Beauty>
-    </statBases>
-    <castEdgeShadows>false</castEdgeShadows>
-    <tickerType>Normal</tickerType>
-    <description>A small nuclear power plant, 18kW power output. WARNING: In case of a nuclear meltdown, build walls around the debris to contain the radiation.</description>
-    <size>(5,5)</size>
-    <hasInteractionCell>True</hasInteractionCell>
-    <interactionCellOffset>(0,0,-3)</interactionCellOffset>
-    <surfaceType>Item</surfaceType>
-    <recipes>
-      <li>MakeNuclearWarhead</li>
-    </recipes>
-    <inspectorTabs>
-      <li>ITab_Bills</li>
-    </inspectorTabs>
-    <building>
-      <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
-      <soundAmbient>MatterFab</soundAmbient>
-      <ignoreNeedsPower>true</ignoreNeedsPower>
-	<wantsHopperAdjacent>true</wantsHopperAdjacent>
-    </building>
-    <costList>
-	<ReinforcedConcrete>240</ReinforcedConcrete>
-	<Parts_Steel>130</Parts_Steel>
-	<Spare_Parts>35</Spare_Parts>
-	<SyntheticMaterials>30</SyntheticMaterials>
-	<Microchips>7</Microchips>
-    </costList>
-    <comps>
-			<li>
-				<compClass>CompPowerTrader</compClass>
-				<basePowerConsumption>-1</basePowerConsumption>
-				<transmitsPower>true</transmitsPower>
-				<powerToggleable>false</powerToggleable>
-			</li>
-			<li>
-				<compClass>CompGlower</compClass>
-				<glowRadius>6</glowRadius>
-				<glowColor>(217,112,33,0)</glowColor>
-			</li>
-			<li>
-				<compClass>SK_MNP.CompExplosiveMNP</compClass>
-				<explosiveRadius>1</explosiveRadius>
-				<explosiveDamageType>Bomb</explosiveDamageType>
-			</li>
-			<li>
-				<compClass>CompExplosive</compClass>
-				<explosiveRadius>14.9</explosiveRadius>
-				<explosiveDamageType>Bomb</explosiveDamageType>
-			</li>
-    </comps>
-    <placeWorkers>
-      <li>PlaceWorker_NotUnderRoof</li>
-    </placeWorkers>
-    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
-    <designationCategory>Power</designationCategory>
-    <constructEffect>ConstructMetal</constructEffect>
-    <researchPrerequisite>ResMNP</researchPrerequisite>
-    <combatTargetBuilding>true</combatTargetBuilding>
-
-		<!-- Damage to self -->
-                                <OverheatThreshold>1600</OverheatThreshold>
-		<DamageAppliedSelfMin>40</DamageAppliedSelfMin>
-		<DamageAppliedSelfMax>80</DamageAppliedSelfMax>
-		<DamageApplySelfCounter>300</DamageApplySelfCounter>
-
-    <damageMultipliers>
-      <li>
-        <damageDef>Bomb</damageDef>
-        <multiplier>2.5</multiplier>
-      </li>
-      <li>
-        <damageDef>Bullet</damageDef>
-        <multiplier>0.3</multiplier>
-      </li>
-      <li>
-        <damageDef>Fragment</damageDef>
-        <multiplier>0.5</multiplier>
-      </li>
-      <li>
-        <damageDef>ArmorPiercing</damageDef>
-        <multiplier>1.5</multiplier>
-      </li>
-      <li>
-        <damageDef>LaserBurn</damageDef>
-        <multiplier>1.5</multiplier>
-      </li>
-    </damageMultipliers>
-  </ThingDef>
-
-<ThingDef Class="SK_MNP.ThingDef_MNPD">
-		<category>Building</category>
-		<soundImpactDefault>BulletImpactMetal</soundImpactDefault>
-		<selectable>true</selectable>
-		<drawerType>MapMeshAndRealTime</drawerType>
-		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
-		<constructEffect>ConstructMetal</constructEffect>
-		<repairEffect>Repair</repairEffect>
-                               <filthLeaving>BuildingRubble</filthLeaving>
-    <defName>MNPD</defName>
-    <label>Military nuclear plant debris</label>
-    <thingClass>SK_MNP.Building_MNPD</thingClass>
-<graphicData>
-    <texPath>MNPD</texPath>
-    <graphicClass>Graphic_Single</graphicClass>
-<drawSize>(5,5)</drawSize>
-      <shadowData>
-        <volume>(3.5, 2, 3.5)</volume>
-        <offset>(0,0,-0.1)</offset>
-      </shadowData>
-</graphicData>
-    <altitudeLayer>BuildingTall</altitudeLayer>
-    <passability>Impassable</passability>
-    <fillPercent>0.8</fillPercent>
-    <castEdgeShadows>false</castEdgeShadows>
-    <useHitPoints>false</useHitPoints>
-
-    <destroyable>false</destroyable>
-    <statBases>
-      <Flammability>0</Flammability>
-      <Beauty>-600</Beauty>
-    </statBases>	
-    <tickerType>Normal</tickerType>
-    <description>Radioactive debris of nuclear power plant. build walls around to contain the radiation.</description>
-    <size>(5,5)</size>
-    <specialDisplayRadius>40</specialDisplayRadius>
-    <comps>
-      <li>
-<compClass>CompGlowerNPPD</compClass>		
-<glowRadius>40</glowRadius>			
-<glowColor>(0,100,0,0)</glowColor>
-			
-      </li>
-    </comps>
-
-		<!-- Damage to living things (Note: 60ticks = 1s) -->
-		<DamageAppliedMin>1</DamageAppliedMin>
-		<DamageAppliedMax>3</DamageAppliedMax>
-		<DamageApplyCounter>150</DamageApplyCounter>
-		
-		<!-- Damage to self -->
-		<DamageAppliedSelfMin>0</DamageAppliedSelfMin>
-		<DamageAppliedSelfMax>0</DamageAppliedSelfMax>
-		<DamageApplySelfCounter>300</DamageApplySelfCounter>
-		
-		<DamageDefName>Radiation</DamageDefName>
-
-  </ThingDef>
-
-
-
+		<designationCategory>Power</designationCategory>
+		<staticSunShadowHeight>2.0</staticSunShadowHeight>
+		<building>
+			<soundAmbient>PlasmaTurbine</soundAmbient>
+			<wantsHopperAdjacent>true</wantsHopperAdjacent>
+			<ignoreNeedsPower>false</ignoreNeedsPower>
+		</building>
+		<researchPrerequisite>AntimatterReaction</researchPrerequisite>
+	</ThingDef>
+	
 	<ThingDef ParentName="BuildingBase">
-		<defName>NuclearFeeder</defName>
-		<label>Nuclear feeder</label>
+		<defName>AntimatterReactorFeeder</defName>
+		<label>Antimatter reactor feeder</label>
 		<thingClass>Building_Storage</thingClass>
 		<graphicData>
-      <texPath>Things/Building/Production/Hopper</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <drawSize>(1,1)</drawSize>
-    </graphicData>
-
+		<texPath>Things/Building/GenHopper</texPath>
+		<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
 		<altitudeLayer>Waist</altitudeLayer>
 		<passability>PassThroughOnly</passability>
 		<fillPercent>0.5</fillPercent>
@@ -1607,22 +1976,21 @@ Energy Output:  950W</description>
 		<building>
       <fixedStorageSettings>
         <priority>Important</priority>
-	<filter>
+        <filter>
           <thingDefs>
-            <li>HEU</li>
+            <li>Matter</li>
           </thingDefs>
         </filter>
       </fixedStorageSettings>
-  <defaultStorageSettings>
+      <defaultStorageSettings>
         <priority>Important</priority>
-	<filter>
+        <filter>
           <thingDefs>
-            <li>HEU</li>
+            <li>Matter</li>
           </thingDefs>
         </filter>
       </defaultStorageSettings>
-    </building>
-
+		</building>
 		<inspectorTabs>
 			<li>ITab_Storage</li>
 		</inspectorTabs>
@@ -1632,10 +2000,14 @@ Energy Output:  950W</description>
 			<MaxHitPoints>100</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 		</statBases>
-		<description>Holds resources for the Nuclear reactor. Uses highly enriched uranium.</description>
+		<description>Holds resources of matter for the Antimatter reactor.</description>
+		<stuffCategories>
+		<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>20</costStuffCount>
 		<costList>
-			<Parts_Steel>4</Parts_Steel>
-			<Spare_Parts>2</Spare_Parts>
+			<SteelBar>20</SteelBar>
+			<Spare_Parts>4</Spare_Parts>
 		</costList>
 		<tickerType>Never</tickerType>
 		<rotatable>true</rotatable>
@@ -1646,55 +2018,7 @@ Energy Output:  950W</description>
 		<placeWorkers>
 			<li>PlaceWorker_NextToHopperAccepter</li>
 		</placeWorkers>
-		<constructEffect>ConstructMetal</constructEffect>
-    		<researchPrerequisite>PowerIV</researchPrerequisite>
-</ThingDef>
-
-
-  <ThingDef ParentName="BuildingBase">
-    <defName>CapsuleReactor</defName>
-    <label>capsule reactor</label>
-    <thingClass>Building_PowerPlant</thingClass>
-    <graphicData>
-    <texPath>Things/Building/Power/Capsule</texPath>
-    <graphicClass>Graphic_Single</graphicClass>
-      <shadowData>
-        <volume>(0.7, 0.7, 0.7)</volume>
-      </shadowData>
-</graphicData>
-    <altitudeLayer>Waist</altitudeLayer>
-    <rotatable>false</rotatable>
-    <minifiedDef>MinifiedFurniture</minifiedDef>
-    <passability>PassThroughOnly</passability>
-    <pathCost>70</pathCost>
-    <fillPercent>0.5</fillPercent>
-    <castEdgeShadows>false</castEdgeShadows>
-    <statBases>
-      <MaxHitPoints>200</MaxHitPoints>
-      <Flammability>1.0</Flammability>
-      <MarketValue>3500</MarketValue>
-      <Beauty>-15</Beauty>
-      <SellPriceFactor>0.1</SellPriceFactor>
-    </statBases>
-    <tickerType>Normal</tickerType>
-    <description>A high-tech portable fusion reactor. Provides a constant power supply regardless of environmental factors.</description>
-    <building>
-      <ignoreNeedsPower>true</ignoreNeedsPower>
-    </building>
-    <comps>
-      <li>
-        <compClass>CompPowerTrader</compClass>
-        <basePowerConsumption>-800</basePowerConsumption>
-        <transmitsPower>true</transmitsPower>
-        <powerToggleable>false</powerToggleable>
-      </li>
-      <li>
-        <compClass>CompLifespan</compClass>
-        <lifespanTicks>3000000</lifespanTicks>
-      </li>
-    </comps>
-    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
-    <constructEffect>ConstructMetal</constructEffect>
-  </ThingDef>
-  
+		<researchPrerequisite>AntimatterReaction</researchPrerequisite>
+	</ThingDef>
+      
 </Buildings>

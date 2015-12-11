@@ -37,13 +37,13 @@ namespace Core_SK
     }
     class Genstep_PartsSteel : Genstep
     {
-        private const int m_iNumPartsSteelToDrop = 60;
+        private const int m_iNumPartsSteelToDrop = 150;
 
         public override void Generate()
         {
             List<Thing> listOfThingsToDrop = new List<Thing>();
 
-            ThingDef PartsSteelDef = DefDatabase<ThingDef>.GetNamed("Parts_Steel");
+            ThingDef PartsSteelDef = DefDatabase<ThingDef>.GetNamed("SteelBar");
 
             if (PartsSteelDef != null)
             {

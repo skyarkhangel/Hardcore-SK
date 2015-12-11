@@ -37,7 +37,7 @@ namespace SK_FuelPowerplant
         public Alert_FuelPowerplantNeedsHopper()
 		{
             this.baseLabel = Translator.Translate("NeedFuelFeeder");
-            this.baseExplanation = Translator.Translate("NeedFuelFeeder");
+            this.baseExplanation = Translator.Translate("NeedFuelFeederDesc");
 		}
 	}
 }

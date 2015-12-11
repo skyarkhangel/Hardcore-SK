@@ -37,7 +37,7 @@ namespace SK_CoalPowerplant
         public Alert_CoalPowerplantNeedsHopper()
 		{
             this.baseLabel = Translator.Translate("NeedCoalFeeder");
-            this.baseExplanation = Translator.Translate("NeedCoalFeeder");
+            this.baseExplanation = Translator.Translate("NeedCoalFeederDesc");
 		}
 	}
 }

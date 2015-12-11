@@ -159,7 +159,7 @@ namespace SK_TLP
         {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.AppendLine();
-            stringBuilder.Append("Power output: " + powerComp.PowerOutput + " W");
+            stringBuilder.Append("Power output: " + powerComp.PowerOutput + " W Status: ");
             if (Stage == 0)
             {
                 stringBuilder.Append("Working");

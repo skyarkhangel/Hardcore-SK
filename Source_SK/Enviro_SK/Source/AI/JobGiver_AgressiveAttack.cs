@@ -7,7 +7,7 @@ using Verse;
 using Verse.AI;
 using RimWorld;
 
-namespace SK_Enviro
+namespace SK_Enviro.AI
 {
     class JobGiver_AgressiveAttack : ThinkNode_JobGiver
     {

@@ -37,7 +37,7 @@ namespace SK_Plasmareactor
         public Alert_PlasmareactorNeedsHopper()
 		{
             this.baseLabel = Translator.Translate("NeedPlasmaGenFeeder");
-            this.baseExplanation = Translator.Translate("NeedPlasmaGenFeeder");
+            this.baseExplanation = Translator.Translate("NeedPlasmaGenFeederDesc");
 		}
 	}
 }

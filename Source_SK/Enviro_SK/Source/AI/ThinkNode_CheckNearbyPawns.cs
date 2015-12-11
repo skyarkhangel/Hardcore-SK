@@ -7,7 +7,7 @@ using Verse;
 using Verse.AI;
 using RimWorld;
 
-namespace SK_Enviro
+namespace SK_Enviro.AI
 {
     public class ThinkNode_CheckNearbyPawns : ThinkNode_Priority
     {
@@ -68,6 +68,10 @@ namespace SK_Enviro
 
                 // Not same type of animals
                 if (pawn1.def == pawn.def)
+                    return false;
+
+                // From own faction
+                if (pawn1.Faction == pawn.Faction)
                     return false;
 
                 if (!GenSight.LineOfSight(pawn.Position, t.Position, false))
