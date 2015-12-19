@@ -298,7 +298,7 @@
 			<Spare_Parts>12</Spare_Parts>
 			<Rubber>30</Rubber>
 			<Electronics>5</Electronics>
-			<Mechanism>3</Mechanism>
+			<AdvMechanism>3</AdvMechanism>
 	</CostList>
     <AltitudeLayer>Waist</AltitudeLayer>
     <fillPercent>0.5</fillPercent>
@@ -626,7 +626,7 @@
 
   <ThingDef ParentName="BuildingBase">
     <defName>Hopper</defName>
-    <label>dispenser hopper</label>
+    <label>Dispenser hopper</label>
     <thingClass>Building_Storage</thingClass>
     <graphicData>
       <texPath>Things/Building/Production/Hopper</texPath>
@@ -845,7 +845,7 @@
 
   <ThingDef ParentName="BenchBase">
     <DefName>Brewery</DefName>
-    <label>brewery</label>
+    <label>Brewery</label>
     <ThingClass>Building_WorkTable</ThingClass>
     <Description>A work station with all the equipment needed to brew beer.</Description>
     <graphicData>
@@ -1249,8 +1249,8 @@
 	</stuffCategories>
 	<costStuffCount>95</costStuffCount>
 		<CostList>
-			<Electronics>6</Electronics>
-			<Spare_Parts>5</Spare_Parts>
+			<Spare_Parts>8</Spare_Parts>
+			<ElectronicComponents>5</ElectronicComponents>
 			<Mechanism>5</Mechanism>
 		</CostList>
     <AltitudeLayer>Waist</AltitudeLayer>
@@ -1278,8 +1278,10 @@
 			<li>MakeSilverBars_Electric</li>
 			<li>MakeCopperBars_Electric</li>
 			<li>MakeAluminiumBars_Electric</li>
+			<li>MakeCastIron_Electric</li>		
 			<li>MakeSteelBars_Electric</li>
-			<li>MakeCarbonAlloy</li>
+			<li>MakeFerrosiliconAlloy</li>
+			<li>MakeFerromanganeseAlloy</li>
 			<li>ExtractMetalFromSlag</li>
 		</recipes>
     <inspectorTabs>
@@ -1323,7 +1325,7 @@
 
   <ThingDef ParentName="BenchBase">
     <DefName>TableMachining</DefName>
-    <label>machining table</label>
+    <label>Machining table</label>
     <ThingClass>Building_WorkTable</ThingClass>
     <Description>A table and tools for assembling and disassembling machine components like mechanoids bodies and ammunition.</Description>
     <graphicData>
@@ -1411,7 +1413,7 @@
 
 	<ThingDef ParentName="BenchBase">
 		<defName>GlassworkTable</defName>
-		<Label>glassworks table</Label>
+		<Label>Glassworks table</Label>
 		<ThingClass>Building_WorkTable</ThingClass>
 		<Description>A table with all the tools you need to make glass.</Description>
 		<graphicData>
@@ -1563,7 +1565,7 @@
 
   <ThingDef ParentName="BenchBase">
     <DefName>TableTailor</DefName>
-    <label>tailor's workbench</label>
+    <label>Tailor's workbench</label>
     <ThingClass>Building_WorkTable</ThingClass>
     <Description>A workbench equipped for cloth refinement and clothing production.</Description>
     <graphicData>
@@ -1632,7 +1634,7 @@
 
 	<ThingDef ParentName="BenchBase">
 		<DefName>TableLoom</DefName>
-		<label>tailor's loom</label>
+		<label>Tailor's loom</label>
 		<ThingClass>Building_WorkTable</ThingClass>
 		<Description>A tailor's table used to spin raw materials into usable cloth.</Description>
     <graphicData>
@@ -1785,7 +1787,7 @@
 
   <ThingDef ParentName="BenchBase">
     <DefName>TableMender</DefName>
-    <label>mending workbench</label>
+    <label>Mending workbench</label>
     <ThingClass>Building_WorkTable</ThingClass>
     <Description>A workbench equipped with all the tools required to mend and repair damaged items.</Description>
     <graphicData>
@@ -1870,7 +1872,7 @@
 			<SteelBar>250</SteelBar>
 			<SyntheticFibers>50</SyntheticFibers>
 			<Spare_Parts>10</Spare_Parts>
-			<Mechanism>6</Mechanism>
+			<AdvMechanism>6</AdvMechanism>
 			<Microchips>4</Microchips>
 		</CostList>
     <statBases>
@@ -2036,6 +2038,7 @@
 		<li>MakeSpareParts_Electric</li>
 		<li>MakeWires_Electric</li>
 		<li>MakeSimpleMechanism_Electric</li>
+		<li>MakeAdvMechanism_Electric</li>
 		<li>MakeHandaxe</li>
 		<li>MakePickaxe</li>
 		<li>MakeHammer</li>
@@ -2194,11 +2197,10 @@
       <li>ProcessForChromium</li>
       <li>ProcessTungsten</li>
       <li>MakeCupronickelAlloy</li>
-      <li>MakeFerrosiliconAlloy</li>
       <li>MakeFerronickelAlloy</li>
       <li>MakePermalloy</li>
-      <li>MakeFerromanganeseAlloy</li>
       <li>MakeStelliteAlloy</li>
+      <li>MakeCobaltIronAlloy</li>
       <li>MakeNichromeAlloy</li>
       <li>MakeAlnicoAlloy</li>
 	  <li>MakeFerrotitaniumAlloy</li>
@@ -2535,10 +2537,6 @@
         <compClass>CompPowerTrader</compClass>
         <basePowerConsumption>2500</basePowerConsumption>
       </li>
-      <li>
-        <compClass>CommunityCoreLibrary.CompLifespanPowered</compClass>
-        <lifespanTicks>4500000</lifespanTicks>
-      </li>
     </comps>
     <size>(3,3)</size>
 	<stuffCategories>
@@ -2669,12 +2667,19 @@
         <compClass>CompPowerTrader</compClass>
         <basePowerConsumption>1500</basePowerConsumption>
       </li>
+            <li Class="CommunityCoreLibrary.RestrictedPlacement_Properties">
+                <compClass>CommunityCoreLibrary.RestrictedPlacement_Comp</compClass>
+                <RestrictedThing>
+                    <li>MineralDeposits</li>
+                </RestrictedThing>
+            </li>
     </comps>
     <killedLeavings>
       <ChunkSlagSteel>3</ChunkSlagSteel>
     </killedLeavings>
     <placeWorkers>
       <li>SK_FG.PlaceWorker_NoNearFissureGenerator</li>
+      <li>CommunityCoreLibrary.PlaceWorker_OnlyOnThing</li>
     </placeWorkers>
     <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
     <designationCategory>Hitech</designationCategory>
@@ -3090,7 +3095,7 @@
 
   <ThingDef ParentName="BenchBase">
     <DefName>Crematorium</DefName>
-    <label>crematorium</label>
+    <label>Crematorium</label>
     <ThingClass>Building_WorkTable_HeatPush</ThingClass>
     <Description>Cremates corpses.</Description>
     <graphicData>
@@ -3164,7 +3169,7 @@
 
   <ThingDef ParentName="BenchBase">
     <defName>ResearchBench</defName>
-    <label>research bench</label>
+    <label>Research bench</label>
     <thingClass>Building_ResearchBench</thingClass>
     <graphicData>
       <texPath>Things/Building/Misc/ResearchBench3x1</texPath>
@@ -3329,6 +3334,7 @@
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
     		<surfaceType>Item</surfaceType>
 		<recipes>
+			<li>MakeCarbonAlloy</li>
 			<li>makemedicine</li>
 			<li>MakeArtificialBone</li>
             <li>CreateGTStomach</li>
@@ -3457,7 +3463,7 @@
 	
 	<ThingDef ParentName="BenchBase">
 		<DefName>TableComposter</DefName>
-		<label>composter</label>
+		<label>Composter</label>
 		<ThingClass>Building_WorkTable</ThingClass>
 		<Description>A composter used to turn wood logs into mulch.</Description>
     <graphicData>
@@ -3683,7 +3689,7 @@
 		<CostList>
 			<MagneticMaterial>20</MagneticMaterial>
 			<Spare_Parts>10</Spare_Parts>
-			<Mechanism>5</Mechanism>
+			<AdvMechanism>5</AdvMechanism>
 			<BioMicrochips>2</BioMicrochips>
 		</CostList>
 		<AltitudeLayer>Waist</AltitudeLayer>
@@ -3914,7 +3920,7 @@
 	
   <ThingDef ParentName="BenchBase">
     <DefName>TableSurrogates</DefName>
-    <label>surrogate organ workbench</label>
+    <label>Surrogate organ workbench</label>
     <ThingClass>Building_WorkTable</ThingClass>
     <Description>A simple workstation, equipped to craft simple surrogate organs.</Description>
     <graphicData>
@@ -3991,7 +3997,7 @@
 	
   <ThingDef ParentName="BuildingBase">
     <DefName>TableSynthetics</DefName>
-    <label>synthetic organ assembler</label>
+    <label>Synthetic organ assembler</label>
     <ThingClass>Building_WorkTable</ThingClass>
     <Description>A workstation fully equipped with an extremely powerful nano-printer.</Description>
     <graphicData>
@@ -4067,7 +4073,7 @@
 	
   <ThingDef ParentName="BenchBase">
     <DefName>TableBionics</DefName>
-    <label>bionics workbench</label>
+    <label>Bionics workbench</label>
     <ThingClass>Building_WorkTable</ThingClass>
     <Description>A workbench equipped for production of high tech bionics.</Description>
     <graphicData>
@@ -4162,7 +4168,7 @@
 			<SyntheticFibers>25</SyntheticFibers>
 			<Electronics>10</Electronics>
 			<Spare_Parts>10</Spare_Parts>
-			<Mechanism>8</Mechanism>
+			<AdvMechanism>8</AdvMechanism>
     </CostList>
     <AltitudeLayer>Waist</AltitudeLayer>
     <statBases>
@@ -4243,7 +4249,7 @@
 		<CostList>
 			<SyntheticFibers>45</SyntheticFibers>
 			<Spare_Parts>15</Spare_Parts>
-			<Mechanism>10</Mechanism>
+			<AdvMechanism>10</AdvMechanism>
 			<Microchips>5</Microchips>
 		</CostList>
 		<AltitudeLayer>Waist</AltitudeLayer>
@@ -4296,7 +4302,7 @@
 	<!-- ========================= Matter fabricator ==========================-->
 	<ThingDef ParentName="BuildingBase">
 		<DefName>Matterfab</DefName>
-		<label>Matter fabricator</label>
+		<label>Quantum fabricator</label>
 		<ThingClass>Building_WorkTable</ThingClass>
 		<Description>The forefront of quantum thermodynamics and plasma spectrometry, this machine disassembles elements into base subatomic particles and re-assembles them into powerful artificial elements.</Description>
 		<graphicData>
@@ -4311,7 +4317,7 @@
 		<CostList>
 			<MagneticMaterial>25</MagneticMaterial>
 			<Spare_Parts>15</Spare_Parts>
-			<Mechanism>5</Mechanism>
+			<AdvMechanism>10</AdvMechanism>
 			<Microchips>2</Microchips>
 		</CostList>
 		<AltitudeLayer>Waist</AltitudeLayer>
@@ -4373,7 +4379,7 @@
       		<ReinforcedConcrete>150</ReinforcedConcrete>
 			<MagneticMaterial>20</MagneticMaterial>
 			<BiosyntheticMaterial>15</BiosyntheticMaterial>
-			<Mechanism>10</Mechanism>
+			<AdvMechanism>12</AdvMechanism>
 			<Microchips>3</Microchips>
 		</CostList>
 		<AltitudeLayer>Waist</AltitudeLayer>
@@ -4482,7 +4488,7 @@
 
   <ThingDef ParentName="BuildingBase">
     <defName>HydroponicsBasin</defName>
-    <label>hydroponics basin</label>
+    <label>Hydroponics basin</label>
     <thingClass>HydroponicRoom.Building_PlantGrowerLinked</thingClass>
     <graphicData>
       <texPath>Things/Building/Production/HydroponicsBasin</texPath>
