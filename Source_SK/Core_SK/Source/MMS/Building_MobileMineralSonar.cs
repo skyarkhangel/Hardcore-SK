@@ -100,6 +100,8 @@ namespace MobileMineralSonar
             detectedDefList.Add(ThingDef.Named("MineablePlasteel"));
             detectedDefList.Add(ThingDef.Named("MineableCopper"));
             detectedDefList.Add(ThingDef.Named("MineableAluminium"));
+            detectedDefList.Add(ThingDef.Named("MineableManganese"));
+            detectedDefList.Add(ThingDef.Named("MineableTungsten"));
             detectedDefList.Add(ThingDef.Named("MineableTitanium"));
             detectedDefList.Add(ThingDef.Named("MineableNitre"));
             detectedDefList.Add(ThingDef.Named("MineableCoal"));

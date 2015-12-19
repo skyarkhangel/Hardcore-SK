@@ -33,14 +33,17 @@ namespace Core_SK
         public static void PowerII()
         {
             DefDatabase<ThingDef>.GetNamed("Battery").comps.First<CompProperties>().efficiency = .65f;
+            DefDatabase<ThingDef>.GetNamed("FissionBattery").comps.First<CompProperties>().efficiency = .65f;
         }
         public static void PowerIII()
         {
             DefDatabase<ThingDef>.GetNamed("Battery").comps.First<CompProperties>().efficiency = .80f;
+            DefDatabase<ThingDef>.GetNamed("FissionBattery").comps.First<CompProperties>().efficiency = .80f;
         }
         public static void PowerIV()
         {
             DefDatabase<ThingDef>.GetNamed("Battery").comps.First<CompProperties>().efficiency = .95f;
+            DefDatabase<ThingDef>.GetNamed("FissionBattery").comps.First<CompProperties>().efficiency = .95f;
         }
         public static void NutrientResynthesisII()
         {
