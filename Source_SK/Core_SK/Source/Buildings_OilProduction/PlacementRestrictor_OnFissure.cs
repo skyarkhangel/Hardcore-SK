@@ -5,7 +5,7 @@ using System.Text;
 using Verse;
 using RimWorld;
 
-namespace SK_Industry
+namespace SK_Oilfield
 {
     public class PlacementRestrictor_OnFissure : PlaceWorker
     {

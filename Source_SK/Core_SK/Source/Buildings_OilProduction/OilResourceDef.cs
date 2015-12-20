@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using Verse;
 
-namespace SK_Industry
+namespace SK_Oilfield
 {
-    public class MinerResourceDef : Def
+    public class OilResourceDef : Def
     {
         public int spawnRangeMin;
         public int spawnRangeMax;
         public int ticksToProduce;
         public ThingDef resourceDefName;
+        public FissureSize fissureSizeRequired;
     }
 }

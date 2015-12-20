@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SK_Industry
+namespace SK_Oilfield
 {
     public enum FissureSize
     {
         None,
-        SteamGeyser,
-        Small,
-        Medium,
-        Large
+        Small
     }
 }
