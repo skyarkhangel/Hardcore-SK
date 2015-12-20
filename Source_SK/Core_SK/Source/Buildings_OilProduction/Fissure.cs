@@ -6,7 +6,7 @@ using Verse;
 using RimWorld;
 using UnityEngine;
 
-namespace SK_Industry
+namespace SK_Oilfield
 {
     public class Fissure : ThingWithComps
     {
@@ -19,15 +19,6 @@ namespace SK_Industry
             switch (num)
             {
                 case 1:
-                    this.size = FissureSize.Small;
-                    break;
-                case 2:
-                    this.size = FissureSize.Medium;
-                    break;
-                case 3:
-                    this.size = FissureSize.Large;
-                    break;
-                default:
                     this.size = FissureSize.Small;
                     break;
             }
@@ -46,7 +37,6 @@ namespace SK_Industry
         {
             var str = new StringBuilder();
             str.Append(base.GetInspectString() + Environment.NewLine);
-            str.Append("Fissure size: " + this.size.ToString());
             return str.ToString();
         }
 
@@ -80,7 +70,7 @@ namespace SK_Industry
         {
             get
             {
-                Building b = Find.ThingGrid.ThingAt<Building_Extractor>(this.Position);
+                Building b = Find.ThingGrid.ThingAt<Building_OilExtractor>(this.Position);
                 return b != null;
             }
         }

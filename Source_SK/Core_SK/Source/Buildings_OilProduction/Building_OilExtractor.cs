@@ -6,13 +6,13 @@ using RimWorld;
 using UnityEngine;
 using Verse;
 
-namespace SK_Industry
+namespace SK_Oilfield
 {
-    public class Building_Extractor : Building
+    public class Building_OilExtractor : Building
     {
         private static readonly Texture2D chooseIcon = ContentFinder<Texture2D>.Get("UI/Commands/ChooseResourceUI");
         public CompPowerTrader power;
-        private List<MinerResourceDef> availableList;
+        private List<OilResourceDef> availableList;
         private int resourceIndex = 0;
         private int tickCount;
 
@@ -20,12 +20,25 @@ namespace SK_Industry
         {
             base.SpawnSetup();
             this.power = base.GetComp<CompPowerTrader>();
-            FirstSetup();
+            if (HasFissure)
+            {
+                FirstSetup();
+            }
         }
 
         private void FirstSetup()
         {
-            availableList = this.ResourceList().ToList();
+            switch (CurFissureSize)
+            {
+                case FissureSize.Small:
+                    {
+                        availableList = (
+                            from t in this.ResourceList()
+                            where t.fissureSizeRequired == FissureSize.Small
+                            select t).ToList();
+                        break;
+                    }
+            }
             tickCount = availableList[0].ticksToProduce;
         }
 
@@ -38,7 +51,7 @@ namespace SK_Industry
         public override void Tick()
         {
             base.Tick();
-            if (!this.HasPower)
+            if (!this.HasPower || !this.HasFissure)
             {
                 return;
             }
@@ -57,45 +70,9 @@ namespace SK_Industry
             }
         }
 
-        public override IEnumerable<Gizmo> GetGizmos()
-        {
-            if (base.GetGizmos() != null)
-            {
-                foreach (var c in base.GetGizmos())
-                {
-                    yield return c;
-                }
-            }
-            Command_Action com = new Command_Action()
-{
-    action = () =>
-        {
-            CycleThroughAvailbleResources();
-        },
-    activateSound = SoundDefOf.Click,
-    defaultDesc = "ChangeResourceDesc".Translate(),
-    defaultLabel = "ChangeResourceLabel".Translate(),
-    icon = chooseIcon,
-    groupKey = 313740004
-};
-            yield return com;
-        }
-
         private void CycleThroughAvailbleResources()
         {
-            if (availableList.Count == 1)
-            {
-                return;
-            }
-            else
-            {
-                resourceIndex++;
-                if (resourceIndex >= availableList.Count)
-                {
-                    resourceIndex = 0;
-                }
                 tickCount = availableList[resourceIndex].ticksToProduce;
-            }
         }
 
         public override string GetInspectString()
@@ -103,13 +80,12 @@ namespace SK_Industry
 
             StringBuilder str = new StringBuilder();
             str.AppendLine(base.GetInspectString());
-            str.AppendLine(String.Format("SelectedResourceLabel".Translate(), availableList[resourceIndex].label));
             return str.ToString();
         }
 
         public void Dig()
         {
-            if (HasPower)
+            if (HasPower && HasFissure)
             {
                 //Get the number to spawn
                 int num = (int)(Rand.Range(availableList[resourceIndex].spawnRangeMin, availableList[resourceIndex].spawnRangeMax) * SizeMultiplier);
@@ -155,21 +131,45 @@ namespace SK_Industry
         {
             get
             {
+                switch (CurFissureSize)
+                {
+                    case FissureSize.Small:
                         return 1f;
+                    default:
+                        return 1f;
+                }
             }
         }
 
-        public IEnumerable<MinerResourceDef> ResourceList()
+        public IEnumerable<OilResourceDef> ResourceList()
         {
-            return DefDatabase<MinerResourceDef>.AllDefs;
+            return DefDatabase<OilResourceDef>.AllDefs;
         }
-
 
         public bool HasPower
         {
             get
             {
                 return this.power != null && power.PowerOn;
+            }
+        }
+        public FissureSize CurFissureSize
+        {
+            get
+            {
+                Fissure thing = (Fissure)Find.ThingGrid.ThingAt(this.Position, ThingDef.Named("Fissure"));
+                if (thing != null)
+                    return thing.size;
+                else
+                    return FissureSize.None;
+            }
+        }
+
+        public bool HasFissure
+        {
+            get
+            {
+                return this.CurFissureSize != FissureSize.None;
             }
         }
     }

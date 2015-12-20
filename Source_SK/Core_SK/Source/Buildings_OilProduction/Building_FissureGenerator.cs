@@ -7,7 +7,7 @@ using Verse.Sound;
 using RimWorld;
 using UnityEngine;
 
-namespace SK_Industry
+namespace SK_Oilfield
 {
     public class Building_FissureGenerator : Building
     {
@@ -135,17 +135,6 @@ namespace SK_Industry
             command.disabled = false;
             command.groupKey = 313740003;
             yield return command;
-            //Cycle through the fissure sizes to generate
-            command = new Command_Action
-            {
-                icon = Building_FissureGenerator.cycleButton,
-                defaultLabel = "Choose Fissure",
-                defaultDesc = "Choose Fissure",
-                activateSound = SoundDef.Named("Click"),
-                action = new Action(CycleThroughFissuresToGenerate),
-                disabled = false,
-                groupKey = 313740004
-            };
             if (!this.started)
             {
                 yield return command;
@@ -163,14 +152,6 @@ namespace SK_Industry
         {
             var str = new StringBuilder();
             str.AppendLine(base.GetInspectString());
-            if (this.fissureSize == FissureSize.SteamGeyser)
-            {
-                str.AppendLine("Selected size: Steam Geyser");
-            }
-            else
-            {
-                str.AppendLine("Selected size: " + this.fissureSize.ToString());
-            }
             if (!this.started)
             {
                 str.AppendLine("Operation has not begun");
@@ -195,28 +176,11 @@ namespace SK_Industry
             {
                 return (int)Rand.Range(35000, 45000);
             }
-            if (size == FissureSize.Medium)
-            {
-                return (int)Rand.Range(45000, 55000);
-            }
-            if (size == FissureSize.Large)
-            {
-                return (int)Rand.Range(60000, 75000);
-            }
-            if (size == FissureSize.SteamGeyser)
-            {
-                return (int)Rand.Range(60000, 90000);
-            }
             return (int)Rand.Range(25000, 55000);
         }
         //Method to spawn fissure
         public void MakeAndSpawnFissure(FissureSize size, IntVec3 loc)
         {
-            if (size == FissureSize.SteamGeyser)
-            {
-                GenSpawn.Spawn(ThingDef.Named("SteamGeyser"), loc);
-            }
-            else
             {
                 Fissure fis = (Fissure)ThingMaker.MakeThing(ThingDef.Named("Fissure"));
                 fis.size = size;
@@ -238,43 +202,12 @@ namespace SK_Industry
             this.running = !this.running;
         }
 
-        private void CycleThroughFissuresToGenerate()
-        {
-            count++;
-            if (this.count > 3)
-            {
-                this.count = 0;
-            }
-            if (this.count == 0)
-            {
-                this.fissureSize = FissureSize.Small;
-            }
-            if (this.count == 1)
-            {
-                this.fissureSize = FissureSize.Medium;
-            }
-            if (this.count == 2)
-            {
-                this.fissureSize = FissureSize.Large;
-            }
-            if (this.count == 3)
-            {
-                this.fissureSize = FissureSize.SteamGeyser;
-            }
-        }
-
         private float PowerUsageFor(FissureSize size)
         {
             switch (size)
             {
-                case FissureSize.SteamGeyser:
-                    return -1200f;
-                case FissureSize.Large:
-                    return -1000f;
-                case FissureSize.Medium:
-                    return -750f;
                 case FissureSize.Small:
-                    return -550f;
+                    return -1500f;
                 default:
                     return -this.powerTrader.props.basePowerConsumption;
             }
