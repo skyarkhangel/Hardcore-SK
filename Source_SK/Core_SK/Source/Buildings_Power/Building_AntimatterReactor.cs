@@ -73,7 +73,7 @@ namespace SK_AMR
         {
             get
             {
-                ThingDef thingdef = ThingDef.Named("Matter");
+                ThingDef thingdef = ThingDef.Named("Antimatter");
                 ThingDef thingdef2 = ThingDef.Named("AntimatterReactorFeeder");
                 foreach (IntVec3 current in GenAdj.CellsAdjacentCardinal(this))
                 {
