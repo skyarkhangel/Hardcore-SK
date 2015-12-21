@@ -141,4 +141,32 @@ namespace Core_SK
             }
         }
     }
+    class Genstep_Lifesupport : Genstep
+    {
+        private const int m_iNumLifesupportToDrop = 3;
+
+        public override void Generate()
+        {
+            // unfortunately I can't just combine this with the initial colonist drop, so I need to do it with a separate drop pod if I don't want it
+            // to just appear on the ground before the colonists even arrive
+
+            List<Thing> listOfThingsToDrop = new List<Thing>();
+
+            ThingDef LifesupportDef = DefDatabase<ThingDef>.GetNamed("lifesupport");
+
+            if (LifesupportDef != null)
+            {
+                Thing Lifesupport = ThingMaker.MakeThing(LifesupportDef, GenStuff.DefaultStuffFor(LifesupportDef));
+
+                Lifesupport.stackCount = m_iNumLifesupportToDrop;
+
+                listOfThingsToDrop.Add(Lifesupport);
+            }
+
+            if (listOfThingsToDrop.Count > 0)
+            {
+                DropPodUtility.DropThingsNear(MapGenerator.PlayerStartSpot, listOfThingsToDrop, 110, MapInitData.StartedDirectInEditor, true);
+            }
+        }
+    }
 }

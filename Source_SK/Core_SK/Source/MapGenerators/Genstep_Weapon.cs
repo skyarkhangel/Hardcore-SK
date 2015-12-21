@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using RimWorld;
 using Verse;
 
@@ -14,11 +13,11 @@ namespace Core_SK
         {
             List<Thing> listOfThingsToDrop = new List<Thing>();
 
-            ThingDef MGTurretDef = DefDatabase<ThingDef>.GetNamed("Gun_PumpShotgun");
+            ThingDef PumpShotgunDef = DefDatabase<ThingDef>.GetNamed("Gun_PumpShotgun");
 
-            Thing MGTurret = ThingMaker.MakeThing(MGTurretDef, GenStuff.DefaultStuffFor(MGTurretDef));
+            Thing PumpShotgun = ThingMaker.MakeThing(PumpShotgunDef, GenStuff.DefaultStuffFor(PumpShotgunDef));
 
-            listOfThingsToDrop.Add(MGTurret);
+            listOfThingsToDrop.Add(PumpShotgun);
 
 
             DropPodUtility.DropThingsNear(MapGenerator.PlayerStartSpot, listOfThingsToDrop, 110, MapInitData.StartedDirectInEditor, true);
