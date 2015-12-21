@@ -105,6 +105,9 @@ namespace MobileMineralSonar
             detectedDefList.Add(ThingDef.Named("MineableTitanium"));
             detectedDefList.Add(ThingDef.Named("MineableNitre"));
             detectedDefList.Add(ThingDef.Named("MineableCoal"));
+            detectedDefList.Add(ThingDef.Named("MineralDeposits"));
+            detectedDefList.Add(ThingDef.Named("RareMineralDeposits"));
+            detectedDefList.Add(ThingDef.Named("Oilfield"));
         
             detectedDefList.Add(ThingDefOf.AncientCryptosleepCasket);
 

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using Verse;
 
-namespace SK_Miner
+namespace SK_RareMiner
 {
-    public class MinerResourceDef : Def
+    public class RareMinerResourceDef : Def
     {
         public int spawnRangeMin;
         public int spawnRangeMax;

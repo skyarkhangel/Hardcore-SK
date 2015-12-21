@@ -6,13 +6,13 @@ using RimWorld;
 using UnityEngine;
 using Verse;
 
-namespace SK_Miner
+namespace SK_RareMiner
 {
-    public class Building_Extractor : Building
+    public class Building_RareExtractor : Building
     {
         private static readonly Texture2D chooseIcon = ContentFinder<Texture2D>.Get("UI/Commands/ChooseResourceUI");
         public CompPowerTrader power;
-        private List<MinerResourceDef> availableList;
+        private List<RareMinerResourceDef> availableList;
         private int resourceIndex = 0;
         private int tickCount;
 
@@ -159,9 +159,9 @@ namespace SK_Miner
             }
         }
 
-        public IEnumerable<MinerResourceDef> ResourceList()
+        public IEnumerable<RareMinerResourceDef> ResourceList()
         {
-            return DefDatabase<MinerResourceDef>.AllDefs;
+            return DefDatabase<RareMinerResourceDef>.AllDefs;
         }
 
 

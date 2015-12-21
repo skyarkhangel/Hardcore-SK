@@ -3,10 +3,10 @@ using System.Collections;
 ﻿using RimWorld;
 using Verse;
 
-namespace SK_Miner
+namespace SK_RareMiner
 {
 
-    public class CompLifespanDebris: ThingComp
+    public class CompLifespanDebrisRare: ThingComp
     {
         public int remainingTicks = -1;
 
@@ -60,7 +60,7 @@ namespace SK_Miner
             }
 
             parent.Destroy();
-            GenSpawn.Spawn(ThingDef.Named("ExtractorDebris"), this.parent.Position);
+            GenSpawn.Spawn(ThingDef.Named("ExtractorDebrisRare"), this.parent.Position);
             Find.LetterStack.ReceiveLetter("LetterLabelExhaustedMine".Translate(), "ExhaustedMine".Translate(), LetterType.BadNonUrgent, this.parent.Position, null);
         }
 
