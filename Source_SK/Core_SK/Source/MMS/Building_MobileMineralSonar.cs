@@ -25,7 +25,7 @@ namespace MobileMineralSonar
         public static int maxScanRange = baseMaxScanRange;
 
         public const float baseDetectionChance = 0.3f;
-        public const float enhancedDetectionChance = 0.6f;
+        public const float enhancedDetectionChance = 0.5f;
         public static float detectionChance = baseDetectionChance;
 
         public const int powerConsumption = 1000;
@@ -113,7 +113,7 @@ namespace MobileMineralSonar
 
             // Components initialization.
             powerComp = base.GetComp<CompPowerTrader>();
-            powerComp.powerOutputInt = 0;
+            powerComp.powerOutputInt = 1000;
 
             // Textures initialization.
             scanRange10 = MaterialPool.MatFrom("Effects/ScanRange10");
@@ -206,12 +206,9 @@ namespace MobileMineralSonar
             }
             else
             {
-                satelliteDishRotation = (satelliteDishRotation + 0.5f) % 360f;
-            }
-
-            if (scanRange == maxScanRange)
-            {
-                powerComp.powerOutputInt = 0;
+                this.satelliteDishRotation = 0;
+                this.scanRange = 0;
+                this.scanProgress = 0; 
                 return;
             }
 
@@ -221,11 +218,13 @@ namespace MobileMineralSonar
                 powerComp.powerOutputInt = -powerConsumption;
                 if (powerComp.PowerOn)
                 {
-                    scanProgress += 2 * updatePeriodInTicks;
+                    scanProgress += 1 * updatePeriodInTicks;
                 }
                 else
                 {
-                    scanProgress += updatePeriodInTicks;
+                    this.scanRange = 0;
+                    this.scanProgress = 0;
+                    return;
                 }
                 if (scanProgress >= scanProgressThreshold)
                 {
@@ -382,8 +381,7 @@ namespace MobileMineralSonar
                 powerProduction = powerComp.PowerNet.CurrentEnergyGainRate() / CompPower.WattsToWattDaysPerTick;
                 powerStored = powerComp.PowerNet.CurrentStoredEnergy();
             }
-            stringBuilder.AppendLine("Optional power needed/generated/stored:\n"
-                + "(" + powerNeeded.ToString() + ")/" + powerProduction.ToString("F0") + "/" + powerStored.ToString("F0"));
+            stringBuilder.AppendLine("Power needed:" + powerNeeded.ToString() + "W");
 
             scanProgressInPercent = ((float)scanProgress / (float)scanProgressThreshold) * 100;
             stringBuilder.AppendLine("Scan progress: " + ((int)scanProgressInPercent).ToString() + "%");

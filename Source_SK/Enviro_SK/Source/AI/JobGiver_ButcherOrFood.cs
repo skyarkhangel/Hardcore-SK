@@ -44,7 +44,7 @@ namespace SK_Enviro.AI
             {
 
             pawn.mindState.lastEngageTargetTick = Find.TickManager.TicksGame;
-            CheckForHunger = Rand.RangeInclusive(180, 600);
+            CheckForHunger = Rand.RangeInclusive(120, 240);
 
             if ((pawn.jobs.curJob == null) || ((pawn.jobs.curJob.def != meatJobDef) && pawn.jobs.curJob.checkOverrideOnExpire))
             {

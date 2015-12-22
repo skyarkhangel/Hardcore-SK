@@ -11,7 +11,7 @@ namespace SK_Enviro.AI
 {
     public class JobGiver_HuntWithAnimal : ThinkNode_JobGiver
     {
-        public const int HUNT_DISTANCE = 40 * 40;
+        public const int HUNT_DISTANCE = 55 * 55;
         protected override Job TryGiveTerminalJob(Pawn pawn)
         {
             JobDef huntJobDef = Animals_AI.GetHuntForAnimalsJobDef();
