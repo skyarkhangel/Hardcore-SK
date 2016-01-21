@@ -2,7 +2,7 @@
 <ThinkTrees>
 
 	<ThinkTreeDef>
-		<defName>Insectoid</defName>
+		<defName>CarnivoreAggressiveBountyHunter</defName>
 		<thinkRoot Class="ThinkNode_Priority">
       <subNodes>
         <li Class="ThinkNode_Subtree">
@@ -19,9 +19,7 @@
 
         </li>
 
-        <li Class="ThinkNode_Subtree">
-          <treeDef>SquadBrainDuty</treeDef>
-        </li>
+		<li Class="SK.Events.JobGiver_Kill"/>
 
         <li Class="ThinkNode_ConditionalExitTimedOut">
           <subNodes>
@@ -34,12 +32,38 @@
             <li Class="JobGiver_ForcedGoto" />
           </subNodes>
         </li>
+		
+        <!-- Wild animals leave map in some conditions -->
+        <li Class="ThinkNode_ConditionalHasFaction">
+          <invert>true</invert>
+          <subNodes>
+            <li Class="ThinkNode_Subtree">
+              <treeDef>LeaveIfWrongSeason</treeDef>
+            </li>
+            <li Class="ThinkNode_Subtree">
+              <treeDef>LeaveIfStarving</treeDef>
+            </li>
+          </subNodes>
+        </li>		
 
         <li Class="JobGiver_LayEgg" />
+		
+		<li Class="SK_Enviro.AI.ThinkNode_Conditions">
+          <invertResult>true</invertResult>
+          <subNodes>
+            <li Class="SK_Enviro.AI.JobGiver_DefendAnimal"/>
+          </subNodes>
+        </li>
+		
+		<li Class="SK_Enviro.AI.ThinkNode_Conditions">
+          <subNodes>
+            <li Class="SK_Enviro.AI.JobGiver_DefendPack"/>
+          </subNodes>
+        </li>
         
         <li Class="ThinkNode_PrioritySorter">
           <subNodes>
-            <li Class="JobGiver_GetFood"/>
+            <li Class="SK_Enviro.AI.JobGiver_ButcherOrFood"/>
             <li Class="JobGiver_GetRest"/>
           </subNodes>
         </li>
@@ -52,6 +76,16 @@
             </li>
           </subNodes>
         </li>
+		
+		<li Class="SK_Enviro.AI.ThinkNode_Conditions">
+          <invertResult>true</invertResult>
+          <subNodes>
+            <li Class="SK_Enviro.AI.JobGiver_HuntWithAnimal"/>
+            <li Class="JobGiver_WanderHerd">
+              <maxDanger>Deadly</maxDanger>
+            </li>
+          </subNodes>
+        </li>		
         
         <li Class="JobGiver_WanderAnywhere">
           <maxDanger>Deadly</maxDanger>
