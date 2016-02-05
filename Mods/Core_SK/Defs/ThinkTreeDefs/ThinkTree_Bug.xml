@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ThinkTrees>
+
+	<ThinkTreeDef>
+		<defName>BugAI</defName>
+		<thinkRoot Class="ThinkNode_Priority">
+      <subNodes>
+        <li Class="ThinkNode_Subtree">
+          <treeDef>Downed</treeDef>
+        </li>
+        <li Class="ThinkNode_Subtree">
+          <treeDef>BrokenCritical</treeDef>
+        </li>
+        <li Class="ThinkNode_Subtree">
+          <treeDef>SelfDefense</treeDef>
+        </li>
+
+        <!-- Leave if timed out -->
+        <li Class="ThinkNode_ConditionalExitTimedOut">
+          <subNodes>
+            <li Class="JobGiver_ExitMapWalkRandom" />
+          </subNodes>
+        </li>
+        
+        <!-- Move to position -->
+        <li Class="ThinkNode_ConditionalForcedGoto">
+          <subNodes>
+            <li Class="JobGiver_ForcedGoto" />
+          </subNodes>
+        </li>
+
+        <!-- Manhunter -->
+        <li Class="ThinkNode_Subtree">
+          <treeDef>Manhunter</treeDef>
+        </li>
+        
+        <!-- Insertion hook for modders -->
+        <li Class="ThinkNode_SubtreesByTag">
+          <insertTag>Animal_PreMain</insertTag>
+        </li>
+
+        <!-- Wild animals leave map in some conditions -->
+        <li Class="ThinkNode_ConditionalHasFaction">
+          <invert>true</invert>
+          <subNodes>
+            <li Class="ThinkNode_Subtree">
+              <treeDef>LeaveIfStarving</treeDef>
+            </li>
+          </subNodes>
+        </li>
+
+        <!-- Lay eggs you need to -->
+        <li Class="JobGiver_LayEgg" />
+
+        <!-- Tame animal -->
+        <li Class="ThinkNode_ConditionalHasFaction">
+          <subNodes>
+            <!-- Trained behavior: obedience: Follow and defend master -->
+            <li Class="ThinkNode_ConditionalTrainableCompleted">
+              <trainable>Obedience</trainable>
+              <subNodes>
+                <li Class="ThinkNode_ConditionalMasterDrafted" >
+                  <subNodes>
+                    <li Class="JobGiver_AIFollowMaster"/>
+                    <li Class="JobGiver_AIDefendMaster" />
+                    <li Class="JobGiver_WanderNearMaster" />
+                  </subNodes>
+                </li>
+              </subNodes>
+            </li>
+
+            <!-- Take care of critical needs (below rescue - so heroic!)-->
+            <li Class="JobGiver_PatientGoToBed" />
+            <li Class="JobGiver_SeekAllowedArea" />
+            
+          </subNodes>
+        </li>
+        
+        <li Class="ThinkNode_PrioritySorter">
+          <subNodes>
+            <li Class="SK.Events.JobGiver_AbsorbsApparel"/>
+            <li Class="JobGiver_GetRest"/>
+          </subNodes>
+        </li>
+
+        <!-- Insertion hook for modders -->
+        <li Class="ThinkNode_SubtreesByTag">
+          <insertTag>Animal_PreWander</insertTag>
+        </li>
+
+        <!-- Tame animal: wander colony -->
+        <li Class="ThinkNode_ConditionalHasFaction">
+          <subNodes>
+            <li Class="JobGiver_WanderColony">
+              <maxDanger>None</maxDanger>
+            </li>
+          </subNodes>
+        </li>
+        
+        <li Class="ThinkNode_ConditionalHerdAnimal">
+          <subNodes>
+            <li Class="JobGiver_WanderHerd">
+              <maxDanger>Deadly</maxDanger>
+            </li>
+          </subNodes>
+        </li>
+        
+        <li Class="JobGiver_WanderAnywhere">
+          <maxDanger>Deadly</maxDanger>
+        </li>
+
+        <li Class="JobGiver_IdleError"/>
+      </subNodes>
+		</thinkRoot>
+	</ThinkTreeDef>
+
+
+</ThinkTrees>
