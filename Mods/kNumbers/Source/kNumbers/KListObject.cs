@@ -133,6 +133,9 @@ namespace kNumbers
 
         private void DrawSkill(Rect rect, Pawn ownerPawn)
         {
+            if (ownerPawn.RaceProps.mechanoid) return;
+            if (ownerPawn.RaceProps.Animal) return;
+
             SkillRecord skill = ownerPawn.skills.GetSkill((SkillDef)displayObject);
             GUI.BeginGroup(rect);
             Rect position = new Rect(3f, 3f, 24f, 24f);
@@ -169,8 +172,11 @@ namespace kNumbers
 
         private void DrawNeed(Rect rect, Pawn ownerPawn)
         {
+            if (ownerPawn.RaceProps.mechanoid) return;
+            if (ownerPawn.needs == null) return;
             //TODO: rebuild using code in DrawOnGUI
             Need need = ownerPawn.needs.TryGetNeed((NeedDef)displayObject);
+            if (need == null) return;
 
             if (Mouse.IsOver(rect))
             {
@@ -206,27 +212,29 @@ namespace kNumbers
             Text.Font = GameFont.Small;
         }
 
-        private void DrawGear(Rect rect, Pawn ownerPawn)
+        private void DrawGear(Rect rect, ThingWithComps ownerPawn)
         {
             GUI.BeginGroup(rect);
             float x = 0;
             float gWidth = 28f;
             float gHeight = 28f;
-            if(ownerPawn.equipment != null)
-            foreach(ThingWithComps thing in ownerPawn.equipment.AllEquipment)
+            Pawn p1 = (ownerPawn is Pawn) ? (ownerPawn as Pawn) : (ownerPawn as Corpse).innerPawn;
+            if (p1.RaceProps.Animal) return;
+            if (p1.equipment != null)
+            foreach(ThingWithComps thing in p1.equipment.AllEquipment)
                 {
                     Rect rect2 = new Rect(x, 0, gWidth, gHeight);
-                    DrawThing(rect2, thing, ownerPawn);
+                    DrawThing(rect2, thing, p1);
                     x += gWidth;
                 }
 
-            if (ownerPawn.apparel != null)
-            foreach (Apparel thing in from ap in ownerPawn.apparel.WornApparel
+            if (p1.apparel != null)
+            foreach (Apparel thing in from ap in p1.apparel.WornApparel
                                             orderby ap.def.apparel.bodyPartGroups[0].listOrder descending
                                             select ap)
                 {
                     Rect rect2 = new Rect(x, 0, gWidth, gHeight);
-                    DrawThing(rect2, thing, ownerPawn);
+                    DrawThing(rect2, thing, p1);
                     x += gWidth;
                 }
             GUI.EndGroup();
@@ -347,7 +355,7 @@ namespace kNumbers
             }
         }
 
-        public void Draw(Rect rect, Pawn ownerPawn)
+        public void Draw(Rect rect, ThingWithComps ownerPawn)
         {
             switch (oType)
             {
@@ -369,11 +377,11 @@ namespace kNumbers
                     break;    
 
                 case objectType.Skill:
-                    DrawSkill(rect, ownerPawn);
+                    if ((ownerPawn is Pawn) && (ownerPawn as Pawn).RaceProps.Humanlike) DrawSkill(rect, ownerPawn as Pawn);
                     break;
 
                 case objectType.Need:
-                    DrawNeed(rect, ownerPawn);
+                    if (ownerPawn is Pawn) DrawNeed(rect, ownerPawn as Pawn);
                     break;
 
                 case objectType.Gear:
@@ -381,51 +389,56 @@ namespace kNumbers
                     break;
 
                 case objectType.ControlPrisonerGetsFood:
-                    if (Mouse.IsOver(rect))
+                    if (ownerPawn is Pawn)
                     {
-                        GUI.DrawTexture(rect, TexUI.HighlightTex);
+                        if (Mouse.IsOver(rect))
+                        {
+                            GUI.DrawTexture(rect, TexUI.HighlightTex);
+                        }
+                        bool getsFood = (ownerPawn as Pawn).guest.GetsFood;
+                        Widgets.LabelCheckbox(new Rect(rect.x + 8f, rect.y + 3f, 27f, 27f), "", ref getsFood, false);
+                        (ownerPawn as Pawn).guest.GetsFood = getsFood;
                     }
-                    bool getsFood = ownerPawn.guest.GetsFood;
-                    Widgets.LabelCheckbox(new Rect(rect.x + 8f, rect.y + 3f, 27f, 27f), "", ref getsFood, false);
-                    ownerPawn.guest.GetsFood = getsFood;
                     break;
 
                 case objectType.ControlPrisonerInteraction:
-                    if (Mouse.IsOver(rect))
+                    if (ownerPawn is Pawn)
                     {
-                        GUI.DrawTexture(rect, TexUI.HighlightTex);
-                    }
-                    float x = 8f;
+                        if (Mouse.IsOver(rect))
+                        {
+                            GUI.DrawTexture(rect, TexUI.HighlightTex);
+                        }
+                        float x = 8f;
 
-                    GUI.BeginGroup(rect);
-                    IEnumerator enumerator = Enum.GetValues(typeof(PrisonerInteractionMode)).GetEnumerator();
-                    try
-                    {
-                        while (enumerator.MoveNext())
+                        GUI.BeginGroup(rect);
+                        IEnumerator enumerator = Enum.GetValues(typeof(PrisonerInteractionMode)).GetEnumerator();
+                        try
                         {
-                            PrisonerInteractionMode prisonerInteractionMode = (PrisonerInteractionMode)((byte)enumerator.Current);
-                            if (Widgets.RadioButton(new Vector2(x, 3f), ownerPawn.guest.interactionMode == prisonerInteractionMode))
+                            while (enumerator.MoveNext())
                             {
-                                ownerPawn.guest.interactionMode = prisonerInteractionMode;
+                                PrisonerInteractionMode prisonerInteractionMode = (PrisonerInteractionMode)((byte)enumerator.Current);
+                                if (Widgets.RadioButton(new Vector2(x, 3f), (ownerPawn as Pawn).guest.interactionMode == prisonerInteractionMode))
+                                {
+                                    (ownerPawn as Pawn).guest.interactionMode = prisonerInteractionMode;
+                                }
+                                TooltipHandler.TipRegion(new Rect(x, 0f, 30f, 30f), new TipSignal(prisonerInteractionMode.GetLabel()));
+                                x += 30f;
                             }
-                            TooltipHandler.TipRegion(new Rect(x,0f,30f,30f), new TipSignal(prisonerInteractionMode.GetLabel()));
-                            x += 30f;
                         }
-                    }
-                    finally
-                    {
-                        IDisposable disposable = enumerator as IDisposable;
-                        if (disposable != null)
+                        finally
                         {
-                            disposable.Dispose();
+                            IDisposable disposable = enumerator as IDisposable;
+                            if (disposable != null)
+                            {
+                                disposable.Dispose();
+                            }
                         }
+                        GUI.EndGroup();
                     }
-                    GUI.EndGroup();
-                    
                     break;
 
                 case objectType.ControlMedicalCare:
-                    MedicalCareSetter(rect, ref ownerPawn.playerSettings.medCare);
+                    if (ownerPawn is Pawn) MedicalCareSetter(rect, ref (ownerPawn as Pawn).playerSettings.medCare);
                     break;
             }
 
