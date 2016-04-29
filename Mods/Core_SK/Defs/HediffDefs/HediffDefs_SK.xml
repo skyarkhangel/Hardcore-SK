@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-  <HediffDef Name="InjuryBase" Abstract="True">
+  <HediffDef Name="InjuryBaseSK" Abstract="True">
     <hediffClass>Hediff_Injury</hediffClass>
     <displayWound>false</displayWound>
   </HediffDef>
@@ -10,11 +10,10 @@
   <!-- Radiation -->
   
   
-	<HediffDef ParentName="InjuryBase">
+	<HediffDef ParentName="InjuryBaseSK">
     <defName>Radiation</defName>
     <label>Radiation</label>
     <naturallyHealed>false</naturallyHealed>
-    <painPerSeverity>0.01</painPerSeverity>
     <comps>
       <li>
         <compClass>HediffComp_Tendable</compClass>
@@ -31,8 +30,9 @@
       </li>
     </comps>
 		<injuryProps>
+		    <painPerSeverity>0.01</painPerSeverity>
 			<bleeding>0</bleeding>
-      <canMerge>true</canMerge>
+			<canMerge>true</canMerge>
 			<destroyedLabel>Molten</destroyedLabel>
 			<destroyedOutLabel>Molten</destroyedOutLabel>
 		</injuryProps>
@@ -138,8 +138,13 @@
     <label>Space Spice (High)</label>
     <naturallyHealed>false</naturallyHealed>
     <defaultLabelColor>(2,0,2)</defaultLabelColor>
-      <initialSeverity>0.15</initialSeverity>
-      <severityPerDay>-0.3</severityPerDay>
+    <initialSeverity>0.15</initialSeverity>
+    <comps>
+      <li>
+        <compClass>HediffComp_Immunizable</compClass>
+        <severityPerDayImmune>-0.3</severityPerDayImmune>
+      </li>
+    </comps>
     <stages>
         <li>
           <label>Buzzed (Hidden)</label>
@@ -149,6 +154,7 @@
           <minSeverity>0.1</minSeverity>
           <label>Buzz</label>
           <painFactor>0.9</painFactor>
+		  <socialFightChanceFactor>1.0</socialFightChanceFactor>
             <capMods>
               <li>
                 <capacity>Manipulation</capacity>
@@ -160,6 +166,7 @@
           <minSeverity>0.25</minSeverity>
           <label>High</label>
           <painFactor>0.2</painFactor>
+          <socialFightChanceFactor>1.5</socialFightChanceFactor>
             <capMods>
               <li>
                 <capacity>Consciousness</capacity>
@@ -176,6 +183,7 @@
           <label>Spiral</label>
           <painFactor>0.25</painFactor>
           <vomitMtbDays>0.05</vomitMtbDays>
+          <socialFightChanceFactor>2.0</socialFightChanceFactor>
           <tale>Weed</tale>
             <capMods>
               <li>
@@ -189,6 +197,7 @@
           <label>Off The High</label>
           <painFactor>0.5</painFactor>
           <vomitMtbDays>0.4</vomitMtbDays>
+          <socialFightChanceFactor>2.5</socialFightChanceFactor>
             <painOffset>0.05</painOffset>
             <capMods>
               <li>
@@ -201,6 +210,7 @@
           <minSeverity>0.9</minSeverity>
           <label>Blackout</label>
           <painFactor>0.4</painFactor>
+          <socialFightChanceFactor>4.5</socialFightChanceFactor>
             <capMods>
               <li>
                 <capacity>Consciousness</capacity>
@@ -218,8 +228,13 @@
     <label>Space Spice (Surge)</label>
     <naturallyHealed>false</naturallyHealed>
     <defaultLabelColor>(2,0,2)</defaultLabelColor>
-      <initialSeverity>0.90</initialSeverity>
-      <severityPerDay>-0.3</severityPerDay>
+    <initialSeverity>0.90</initialSeverity>
+    <comps>
+      <li>
+        <compClass>HediffComp_Immunizable</compClass>
+        <severityPerDayImmune>-0.3</severityPerDayImmune>
+      </li>
+    </comps>
     <stages>
         <li>
           <label>Buzzed (Hidden)</label>
@@ -229,6 +244,7 @@
           <minSeverity>0.1</minSeverity>
           <label>Fall</label>
           <painFactor>0.1</painFactor>
+          <socialFightChanceFactor>1.0</socialFightChanceFactor>
             <capMods>
               <li>
                 <capacity>Consciousness</capacity>
@@ -240,6 +256,7 @@
           <minSeverity>0.25</minSeverity>
           <label>Crash</label>
           <painFactor>0.2</painFactor>
+          <socialFightChanceFactor>1.5</socialFightChanceFactor>
             <capMods>
               <li>
 			  <capacity>Moving</capacity>
@@ -255,6 +272,7 @@
           <minSeverity>0.4</minSeverity>
           <label>Stable</label>
           <painFactor>0.25</painFactor>
+          <socialFightChanceFactor>2.5</socialFightChanceFactor>
           <vomitMtbDays>0.1</vomitMtbDays>
             <capMods>
               <li>
@@ -271,6 +289,7 @@
           <minSeverity>0.7</minSeverity>
           <label>Flux</label>
           <painFactor>0.5</painFactor>
+          <socialFightChanceFactor>2.5</socialFightChanceFactor>
           <vomitMtbDays>0.4</vomitMtbDays>
             <painOffset>0.4</painOffset>
             <capMods>
@@ -288,6 +307,7 @@
           <minSeverity>0.9</minSeverity>
           <label>Surge</label>
           <painFactor>0.4</painFactor>
+          <socialFightChanceFactor>3.5</socialFightChanceFactor>
             <capMods>
               <li>
 			  <capacity>Moving</capacity>
@@ -310,12 +330,18 @@
     <naturallyHealed>false</naturallyHealed>
     <defaultLabelColor>(2,0,2)</defaultLabelColor>
       <initialSeverity>0.1</initialSeverity>
-      <immunityPerDay>-0.2</immunityPerDay>
+    <comps>
+      <li>
+        <compClass>HediffComp_Immunizable</compClass>
+      <immunityPerDayNotSick>-0.2</immunityPerDayNotSick>
       <immunityPerDaySick>0.31</immunityPerDaySick>
-      <severityPerDay>0.13</severityPerDay>
-      <severityPerDayImmune>-0.1</severityPerDayImmune>
-      <severityPerDayTreatedOffset>-0.08</severityPerDayTreatedOffset>
-    <stages>
+        <severityPerDayNotImmune>0.13</severityPerDayNotImmune>
+		<severityPerDayImmune>-0.1</severityPerDayImmune>
+		<severityPerDayTendedOffset>-0.08</severityPerDayTendedOffset>
+		
+      </li>
+    </comps>
+	  <stages>
         <li>
           <label>Buzzed (Hidden)</label>
           <everVisible>false</everVisible>
@@ -324,6 +350,7 @@
           <minSeverity>0.1</minSeverity>
           <label>Wobbly</label>
           <painFactor>0.1</painFactor>
+          <socialFightChanceFactor>1.0</socialFightChanceFactor>
             <capMods>
               <li>
 			  <capacity>Moving</capacity>
@@ -339,6 +366,7 @@
           <minSeverity>0.25</minSeverity>
           <label>Unstable</label>
           <painFactor>0.2</painFactor>
+          <socialFightChanceFactor>1.5</socialFightChanceFactor>
             <capMods>
               <li>
 			  <capacity>Moving</capacity>
@@ -354,6 +382,7 @@
           <minSeverity>0.4</minSeverity>
           <label>Pain</label>
           <painFactor>0.4</painFactor>
+          <socialFightChanceFactor>2.0</socialFightChanceFactor>
           <vomitMtbDays>0.8</vomitMtbDays>
             <capMods>
               <li>
@@ -370,6 +399,7 @@
           <minSeverity>0.7</minSeverity>
           <label>Brain Hemorrhage</label>
           <painFactor>0.8</painFactor>
+          <socialFightChanceFactor>2.5</socialFightChanceFactor>
           <vomitMtbDays>0.99</vomitMtbDays>
             <capMods>
               <li>
@@ -399,12 +429,17 @@
   
   <HediffDef>
     <defName>SpaceSpiceD</defName>
-    <hediffClass>Hediff_Staged</hediffClass>
+    <hediffClass>HediffWithComps</hediffClass>
     <label>Space Spice (Doom)</label>
     <naturallyHealed>false</naturallyHealed>
     <defaultLabelColor>(0,20,0)</defaultLabelColor>
-      <initialSeverity>0.1</initialSeverity>
-      <severityPerDay>0.8</severityPerDay>
+    <initialSeverity>0.1</initialSeverity>
+    <comps>
+      <li>
+        <compClass>HediffComp_Immunizable</compClass>
+        <severityPerDayNotImmune>0.8</severityPerDayNotImmune>
+      </li>
+    </comps>
     <stages>
         <li>
           <label>Buzzed (Hidden)</label>
@@ -414,6 +449,7 @@
           <minSeverity>0.1</minSeverity>
           <label>Pain</label>
           <painFactor>-0.2</painFactor>
+          <socialFightChanceFactor>1.0</socialFightChanceFactor>
             <capMods>
               <li>
                 <capacity>Manipulation</capacity>
@@ -425,6 +461,7 @@
           <minSeverity>0.25</minSeverity>
           <label>Extreme Pain</label>
           <painFactor>-0.7</painFactor>
+          <socialFightChanceFactor>1.5</socialFightChanceFactor>
             <capMods>
               <li>
                 <capacity>Consciousness</capacity>
@@ -436,6 +473,7 @@
           <minSeverity>0.4</minSeverity>
           <label>Internal Liquification</label>
           <painFactor>-0.9</painFactor>
+          <socialFightChanceFactor>2.0</socialFightChanceFactor>
           <vomitMtbDays>0.9</vomitMtbDays>
             <capMods>
               <li>
@@ -448,6 +486,7 @@
           <minSeverity>0.7</minSeverity>
           <label>Death</label>
           <painFactor>0.5</painFactor>
+          <socialFightChanceFactor>2.5</socialFightChanceFactor>
           <vomitMtbDays>0.4</vomitMtbDays>
             <painOffset>0.05</painOffset>
             <capMods>
@@ -467,8 +506,13 @@
 	<label>Weed (High)</label>
 	<naturallyHealed>false</naturallyHealed>
 	<initialSeverity>0.15</initialSeverity>
-	<severityPerDay>-0.3</severityPerDay>
 	<defaultLabelColor>(2,0,2)</defaultLabelColor>
+    <comps>
+      <li>
+        <compClass>HediffComp_Immunizable</compClass>
+        <severityPerDayNotImmune>-0.3</severityPerDayNotImmune>
+      </li>
+    </comps>
     <stages>
         <li>
           <label>Buzzed (Hidden)</label>
@@ -478,6 +522,7 @@
           <minSeverity>0.1</minSeverity>
           <label>Hot</label>
           <painFactor>0.9</painFactor>
+          <socialFightChanceFactor>1.0</socialFightChanceFactor>
             <capMods>
               <li>
                 <capacity>Manipulation</capacity>
@@ -489,6 +534,7 @@
           <minSeverity>0.25</minSeverity>
           <label>Tripping</label>
           <painFactor>0.2</painFactor>
+          <socialFightChanceFactor>1.5</socialFightChanceFactor>
             <capMods>
               <li>
                 <capacity>Consciousness</capacity>
@@ -501,6 +547,7 @@
           <label>Spiral</label>
           <painFactor>0.25</painFactor>
           <vomitMtbDays>0.05</vomitMtbDays>
+          <socialFightChanceFactor>2.0</socialFightChanceFactor>
           <tale>Weed</tale>
             <capMods>
               <li>
@@ -514,7 +561,8 @@
           <label>Off The High</label>
           <painFactor>0.5</painFactor>
           <vomitMtbDays>0.4</vomitMtbDays>
-            <painOffset>0.05</painOffset>
+          <painOffset>0.05</painOffset>
+          <socialFightChanceFactor>2.5</socialFightChanceFactor>
             <capMods>
               <li>
                 <capacity>Consciousness</capacity>
@@ -542,9 +590,14 @@
     <hediffClass>Hediff_Alcohol</hediffClass>
     <label>OneKick (Surge)</label>
     <naturallyHealed>false</naturallyHealed>
-      <initialSeverity>0.90</initialSeverity>
-      <severityPerDay>-0.3</severityPerDay>
+    <initialSeverity>0.90</initialSeverity>
     <defaultLabelColor>(2,0,2)</defaultLabelColor>
+    <comps>
+      <li>
+        <compClass>HediffComp_Immunizable</compClass>
+        <severityPerDayNotImmune>0.3</severityPerDayNotImmune>
+      </li>
+    </comps>
     <stages>
         <li>
           <label>Buzzed (Hidden)</label>
@@ -554,6 +607,7 @@
           <minSeverity>0.1</minSeverity>
           <label>Calm</label>
           <painFactor>0.1</painFactor>
+          <socialFightChanceFactor>1.0</socialFightChanceFactor>
             <capMods>
               <li>
 			  <capacity>Moving</capacity>
@@ -569,6 +623,7 @@
           <minSeverity>0.25</minSeverity>
           <label>Dull</label>
           <painFactor>0.2</painFactor>
+          <socialFightChanceFactor>1.5</socialFightChanceFactor>
             <capMods>
               <li>
 			  <capacity>Moving</capacity>
@@ -584,6 +639,7 @@
           <minSeverity>0.4</minSeverity>
           <label>Stable</label>
           <painFactor>0.25</painFactor>
+          <socialFightChanceFactor>2.0</socialFightChanceFactor>
           <vomitMtbDays>0.1</vomitMtbDays>
             <capMods>
               <li>
@@ -600,6 +656,7 @@
           <minSeverity>0.7</minSeverity>
           <label>Flux</label>
           <painFactor>0.5</painFactor>
+          <socialFightChanceFactor>2.5</socialFightChanceFactor>
           <vomitMtbDays>0.4</vomitMtbDays>
             <painOffset>0.4</painOffset>
             <capMods>
@@ -617,6 +674,7 @@
           <minSeverity>0.9</minSeverity>
           <label>Surge</label>
           <painFactor>0.4</painFactor>
+          <socialFightChanceFactor>2.5</socialFightChanceFactor>
             <capMods>
               <li>
 			  <capacity>Moving</capacity>
@@ -638,8 +696,13 @@
     <label>One Kick (Bad Trip)</label>
     <naturallyHealed>false</naturallyHealed>
     <defaultLabelColor>(2,0,2)</defaultLabelColor>
-      <initialSeverity>0.1</initialSeverity>
-      <severityPerDay>0.3</severityPerDay>
+    <initialSeverity>0.1</initialSeverity>
+    <comps>
+      <li>
+        <compClass>HediffComp_Immunizable</compClass>
+        <severityPerDayNotImmune>0.3</severityPerDayNotImmune>
+      </li>
+    </comps>
     <stages>
         <li>
           <label>Buzzed (Hidden)</label>
@@ -649,6 +712,7 @@
           <minSeverity>0.1</minSeverity>
           <label>Wobbly</label>
           <painFactor>0.1</painFactor>
+          <socialFightChanceFactor>1.0</socialFightChanceFactor>
             <capMods>
               <li>
 			  <capacity>Moving</capacity>
@@ -664,6 +728,7 @@
           <minSeverity>0.25</minSeverity>
           <label>Unstable</label>
           <painFactor>0.2</painFactor>
+          <socialFightChanceFactor>1.5</socialFightChanceFactor>
             <capMods>
               <li>
 			  <capacity>Moving</capacity>
@@ -679,6 +744,7 @@
           <minSeverity>0.4</minSeverity>
           <label>Pain</label>
           <painFactor>0.4</painFactor>
+          <socialFightChanceFactor>2.0</socialFightChanceFactor>
           <vomitMtbDays>0.8</vomitMtbDays>
             <capMods>
               <li>
@@ -695,6 +761,7 @@
           <minSeverity>0.7</minSeverity>
           <label>Brain Hemorrhage</label>
           <painFactor>0.8</painFactor>
+          <socialFightChanceFactor>2.5</socialFightChanceFactor>
           <vomitMtbDays>0.99</vomitMtbDays>
             <capMods>
               <li>
@@ -724,12 +791,17 @@
   
   <HediffDef>
     <defName>Brownies</defName>
-    <hediffClass>Hediff_Staged</hediffClass>
+    <hediffClass>HediffWithComps</hediffClass>
     <label>Brownie</label>
     <naturallyHealed>false</naturallyHealed>
     <defaultLabelColor>(0,20,0)</defaultLabelColor>
-      <initialSeverity>0.15</initialSeverity>
-      <severityPerDay>-0.5</severityPerDay>
+    <initialSeverity>0.15</initialSeverity>
+    <comps>
+      <li>
+        <compClass>HediffComp_Immunizable</compClass>
+        <severityPerDayNotImmune>-0.5</severityPerDayNotImmune>
+      </li>
+    </comps>
     <stages>
         <li>
           <label>Buzzed (Hidden)</label>
@@ -739,6 +811,7 @@
           <minSeverity>0.1</minSeverity>
           <label>Buzz</label>
           <painFactor>0.2</painFactor>
+          <socialFightChanceFactor>1.5</socialFightChanceFactor>
             <capMods>
               <li>
                 <capacity>Manipulation</capacity>
@@ -750,6 +823,7 @@
           <minSeverity>0.25</minSeverity>
           <label>Tripping</label>
           <painFactor>0.2</painFactor>
+          <socialFightChanceFactor>2.5</socialFightChanceFactor>
             <capMods>
               <li>
                 <capacity>Consciousness</capacity>
@@ -761,6 +835,7 @@
           <minSeverity>0.4</minSeverity>
           <label>Spiral</label>
           <painFactor>0.25</painFactor>
+          <socialFightChanceFactor>3.5</socialFightChanceFactor>
           <vomitMtbDays>0.2</vomitMtbDays>
           <tale>Weed</tale>
             <capMods>
@@ -774,6 +849,7 @@
           <minSeverity>0.7</minSeverity>
           <label>Off The High</label>
           <painFactor>0.5</painFactor>
+          <socialFightChanceFactor>4.5</socialFightChanceFactor>
           <vomitMtbDays>0.4</vomitMtbDays>
             <painOffset>0.05</painOffset>
             <capMods>
@@ -785,6 +861,7 @@
         </li>
         <li>
           <minSeverity>0.9</minSeverity>
+          <socialFightChanceFactor>4.5</socialFightChanceFactor>
           <label>Blackout</label>
           <painFactor>0.4</painFactor>
             <capMods>
@@ -800,11 +877,16 @@
   
   <HediffDef>
     <defName>Tobacco</defName>
-    <hediffClass>Hediff_Staged</hediffClass>
+    <hediffClass>HediffWithComps</hediffClass>
     <label>Tobacco</label>
     <naturallyHealed>false</naturallyHealed>
     <initialSeverity>.49</initialSeverity>
-    <severityPerDay>-0.25</severityPerDay>   
+    <comps>
+      <li>
+        <compClass>HediffComp_Immunizable</compClass>
+        <severityPerDayNotImmune>-0.25</severityPerDayNotImmune>
+      </li>
+    </comps>
     <stages>
         <li>
           <minSeverity>0</minSeverity>
@@ -825,6 +907,7 @@
           <minSeverity>0.5</minSeverity>
           <label>Comfortably Buzzed</label>
           <painFactor>0.8</painFactor>
+          <socialFightChanceFactor>1.0</socialFightChanceFactor>
             <capMods>
               <li>
                 <capacity>Manipulation</capacity>
@@ -842,11 +925,16 @@
   
 <HediffDef>
     <defName>StrongTobacco</defName>
-    <hediffClass>Hediff_Staged</hediffClass>
+    <hediffClass>HediffWithComps</hediffClass>
     <label>Tobacco</label>
     <naturallyHealed>false</naturallyHealed>
     <initialSeverity>1</initialSeverity>
-    <severityPerDay>-0.25</severityPerDay>
+    <comps>
+      <li>
+        <compClass>HediffComp_Immunizable</compClass>
+        <severityPerDayNotImmune>-0.25</severityPerDayNotImmune>
+      </li>
+    </comps>
     <stages>
         <li>
           <minSeverity>0</minSeverity>
@@ -867,6 +955,7 @@
           <minSeverity>0.5</minSeverity>
           <label>Comfortably Buzzed</label>
           <painFactor>0.8</painFactor>
+          <socialFightChanceFactor>1.5</socialFightChanceFactor>
             <capMods>
               <li>
                 <capacity>Manipulation</capacity>
@@ -888,7 +977,6 @@
 		<label>Spectago Tea</label>
 		<defaultLabelColor>(0,0.5,0.3)</defaultLabelColor>
 		<initialSeverity>0.15</initialSeverity>
-		<severityPerDay>-0.5</severityPerDay>
 		<comps>
 			<li>
 				<compClass>HediffComp_Effecter</compClass>
@@ -898,6 +986,10 @@
 					<max>5</max>
 				</severityIndices>
 			</li>
+			  <li>
+				<compClass>HediffComp_Immunizable</compClass>
+				<severityPerDayNotImmune>-0.5</severityPerDayNotImmune>
+			  </li>
 		</comps>		
 		<stages>
 			<li>
@@ -939,10 +1031,15 @@
   
   <HediffDef>
     <defName>Caffeine</defName>
-    <hediffClass>Hediff_Staged</hediffClass>
+    <hediffClass>HediffWithComps</hediffClass>
     <label>Caffeine</label>
-        <initialSeverity>.49</initialSeverity>
-    <severityPerDay>-0.5</severityPerDay>
+    <initialSeverity>.49</initialSeverity>
+    <comps>
+      <li>
+        <compClass>HediffComp_Immunizable</compClass>
+        <severityPerDayNotImmune>-0.5</severityPerDayNotImmune>
+      </li>
+    </comps>
     <stages>
         <li>
           <minSeverity>0</minSeverity>
@@ -980,11 +1077,16 @@
   
   <HediffDef>
     <defName>Coffee</defName>
-    <hediffClass>Hediff_Staged</hediffClass>
+    <hediffClass>HediffWithComps</hediffClass>
     <label>Caffeine</label>
     <naturallyHealed>false</naturallyHealed>
     <initialSeverity>.49</initialSeverity>
-    <severityPerDay>-0.5</severityPerDay>
+    <comps>
+      <li>
+        <compClass>HediffComp_Immunizable</compClass>
+        <severityPerDayNotImmune>-0.5</severityPerDayNotImmune>
+      </li>
+    </comps>
     <stages>
         <li>
           <minSeverity>0</minSeverity>
@@ -1022,11 +1124,16 @@
   
 <HediffDef>
     <defName>StrongCoffee</defName>
-    <hediffClass>Hediff_Staged</hediffClass>
+    <hediffClass>HediffWithComps</hediffClass>
     <label>Caffeine</label>
     <naturallyHealed>false</naturallyHealed>
     <initialSeverity>1</initialSeverity>
-    <severityPerDay>-0.5</severityPerDay>
+    <comps>
+      <li>
+        <compClass>HediffComp_Immunizable</compClass>
+        <severityPerDayNotImmune>-0.5</severityPerDayNotImmune>
+      </li>
+    </comps>
     <stages>
         <li>
           <minSeverity>0</minSeverity>
@@ -1067,8 +1174,7 @@
     <hediffClass>Hediff_Alcohol</hediffClass>
     <label>Alcohol</label>
     <defaultLabelColor>(1,0,0.5)</defaultLabelColor>
-    <initialSeverity>0.05</initialSeverity>
-    <severityPerDay>-0.5</severityPerDay>
+    <initialSeverity>0.15</initialSeverity>
     <comps>
       <li>
         <compClass>HediffComp_Effecter</compClass>
@@ -1078,16 +1184,21 @@
           <max>5</max>
         </severityIndices>
       </li>
+      <li>
+        <compClass>HediffComp_Immunizable</compClass>
+        <severityPerDayNotImmune>-1</severityPerDayNotImmune>
+      </li>
     </comps>
       <stages>
         <li>
-          <label>Buzzed (Hidden)</label>
+          <label>Buzzed-hidden</label>
           <everVisible>false</everVisible>
         </li>
         <li>
           <minSeverity>0.1</minSeverity>
           <label>Warm</label>
           <painFactor>0.9</painFactor>
+          <socialFightChanceFactor>1.5</socialFightChanceFactor>
             <capMods>
               <li>
                 <capacity>Manipulation</capacity>
@@ -1099,6 +1210,7 @@
           <minSeverity>0.25</minSeverity>
           <label>Tipsy</label>
           <painFactor>0.8</painFactor>
+          <socialFightChanceFactor>2.5</socialFightChanceFactor>
             <capMods>
               <li>
                 <capacity>Consciousness</capacity>
@@ -1110,7 +1222,8 @@
           <minSeverity>0.4</minSeverity>
           <label>Drunk</label>
           <painFactor>0.5</painFactor>
-          <vomitMtbDays>1.5</vomitMtbDays>
+          <socialFightChanceFactor>4.0</socialFightChanceFactor>
+          <vomitMtbDays>0.75</vomitMtbDays>
           <tale>Drunk</tale>
             <capMods>
               <li>
@@ -1123,7 +1236,8 @@
           <minSeverity>0.7</minSeverity>
           <label>Hammered</label>
           <painFactor>0.3</painFactor>
-          <vomitMtbDays>0.4</vomitMtbDays>
+          <socialFightChanceFactor>5.0</socialFightChanceFactor>
+          <vomitMtbDays>0.2</vomitMtbDays>
           <painOffset>0.05</painOffset>
             <capMods>
               <li>
@@ -1151,8 +1265,7 @@
     <defName>MidAlcohol</defName>
     <hediffClass>Hediff_Alcohol</hediffClass>
     <label>Alcohol</label>
-    <initialSeverity>0.1</initialSeverity>
-    <severityPerDay>-0.5</severityPerDay>
+    <initialSeverity>0.2</initialSeverity>
     <defaultLabelColor>(1,0,0.5)</defaultLabelColor>
     <comps>
       <li>
@@ -1163,16 +1276,21 @@
           <max>5</max>
         </severityIndices>
       </li>
+      <li>
+        <compClass>HediffComp_Immunizable</compClass>
+        <severityPerDayNotImmune>-1.2</severityPerDayNotImmune>
+      </li>
     </comps>
       <stages>
         <li>
-          <label>Buzzed (Hidden)</label>
+          <label>Buzzed-hidden</label>
           <everVisible>false</everVisible>
         </li>
         <li>
           <minSeverity>0.1</minSeverity>
-          <label>Warm</label>
+          <label>Qarm</label>
           <painFactor>0.9</painFactor>
+          <socialFightChanceFactor>2.3</socialFightChanceFactor>
             <capMods>
               <li>
                 <capacity>Manipulation</capacity>
@@ -1182,8 +1300,9 @@
         </li>
         <li>
           <minSeverity>0.25</minSeverity>
-          <label>Tipsy</label>
+          <label>Yipsy</label>
           <painFactor>0.8</painFactor>
+          <socialFightChanceFactor>3.0</socialFightChanceFactor>
             <capMods>
               <li>
                 <capacity>Consciousness</capacity>
@@ -1195,7 +1314,8 @@
           <minSeverity>0.4</minSeverity>
           <label>Drunk</label>
           <painFactor>0.5</painFactor>
-          <vomitMtbDays>0.035</vomitMtbDays>
+          <socialFightChanceFactor>4.5</socialFightChanceFactor>
+          <vomitMtbDays>0.75</vomitMtbDays>
           <tale>Drunk</tale>
             <capMods>
               <li>
@@ -1208,7 +1328,8 @@
           <minSeverity>0.7</minSeverity>
           <label>Hammered</label>
           <painFactor>0.3</painFactor>
-          <vomitMtbDays>0.1</vomitMtbDays>
+          <socialFightChanceFactor>6.0</socialFightChanceFactor>
+          <vomitMtbDays>0.2</vomitMtbDays>
           <painOffset>0.05</painOffset>
             <capMods>
               <li>
@@ -1237,8 +1358,21 @@
     <hediffClass>Hediff_Alcohol</hediffClass>
     <label>Alcohol</label>
     <initialSeverity>0.15</initialSeverity>
-    <severityPerDay>-0.5</severityPerDay>
     <defaultLabelColor>(1,0,0.5)</defaultLabelColor>
+    <comps>
+      <li>
+        <compClass>HediffComp_Effecter</compClass>
+        <stateEffecter>Drunk</stateEffecter>
+        <severityIndices>
+          <min>3</min>
+          <max>5</max>
+        </severityIndices>
+      </li>
+      <li>
+        <compClass>HediffComp_Immunizable</compClass>
+        <severityPerDayNotImmune>-1.5</severityPerDayNotImmune>
+      </li>
+    </comps>
     <stages>
         <li>
           <label>Buzzed (Hidden)</label>
@@ -1248,6 +1382,7 @@
           <minSeverity>0.1</minSeverity>
           <label>Warm</label>
           <painFactor>0.9</painFactor>
+          <socialFightChanceFactor>1.5</socialFightChanceFactor>
             <capMods>
               <li>
                 <capacity>Manipulation</capacity>
@@ -1259,6 +1394,7 @@
           <minSeverity>0.25</minSeverity>
           <label>Tipsy</label>
           <painFactor>0.8</painFactor>
+          <socialFightChanceFactor>3.5</socialFightChanceFactor>
             <capMods>
               <li>
                 <capacity>Consciousness</capacity>
@@ -1270,6 +1406,7 @@
           <minSeverity>0.4</minSeverity>
           <label>Drunk</label>
           <painFactor>0.5</painFactor>
+          <socialFightChanceFactor>5.0</socialFightChanceFactor>
           <vomitMtbDays>0.035</vomitMtbDays>
           <tale>Drunk</tale>
             <capMods>
@@ -1283,7 +1420,8 @@
           <minSeverity>0.7</minSeverity>
           <label>Hammered</label>
           <painFactor>0.3</painFactor>
-          <vomitMtbDays>0.1</vomitMtbDays>
+          <socialFightChanceFactor>7.0</socialFightChanceFactor>
+          <vomitMtbDays>0.2</vomitMtbDays>
             <painOffset>0.05</painOffset>
             <capMods>
               <li>
@@ -1313,7 +1451,12 @@
     <label>Antibiotics</label>  
     <defaultLabelColor>(255,102,102)</defaultLabelColor>
 	<initialSeverity>0.15</initialSeverity>
-    <severityPerDay>-0.25</severityPerDay>
+    <comps>
+      <li>
+        <compClass>HediffComp_Immunizable</compClass>
+        <severityPerDayNotImmune>-1</severityPerDayNotImmune>
+      </li>
+    </comps>
     <stages>
         <li>
           <label>Buzzed (Hidden)</label>

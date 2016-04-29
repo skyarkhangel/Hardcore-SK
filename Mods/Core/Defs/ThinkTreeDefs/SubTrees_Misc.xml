@@ -29,12 +29,12 @@
 		</thinkRoot>
 	</ThinkTreeDef>
 
-  <!--============= Broken ============-->
+  <!--============= Mental state ============-->
   <ThinkTreeDef>
-		<defName>BrokenCritical</defName>
+		<defName>MentalStateCritical</defName>
     <thinkRoot Class="ThinkNode_Priority">
       <subNodes>
-		    <li Class="ThinkNode_ConditionalBrokenState">
+		    <li Class="ThinkNode_ConditionalMentalState">
 			    <state>Berserk</state>
 			    <subNodes>
 				    <li Class="ThinkNode_Priority">
@@ -51,65 +51,121 @@
     </thinkRoot>
 	</ThinkTreeDef>
 
-
   <ThinkTreeDef>
-    <defName>Manhunter</defName>
+    <defName>MentalStateNonCritical</defName>
     <thinkRoot Class="ThinkNode_Priority">
       <subNodes>
-      <li Class="ThinkNode_ConditionalBrokenState">
-        <state>Manhunter</state>
-        <subNodes>
-          <li Class="ThinkNode_Priority">
-            <subNodes>
-              <li Class="JobGiver_Manhunter" />
-              <li Class="JobGiver_WanderAnywhere">
-                <maxDanger>Deadly</maxDanger>
-              </li>
-            </subNodes>
-          </li>
-        </subNodes>
-      </li>
-      <!-- Hack: these have to be identical -->
-      <li Class="ThinkNode_ConditionalBrokenState">
-        <state>ManhunterPermanent</state>
-        <subNodes>
-          <li Class="ThinkNode_Priority">
-            <subNodes>
-              <li Class="JobGiver_Manhunter" />
-              <li Class="JobGiver_WanderAnywhere">
-                <maxDanger>Deadly</maxDanger>
-              </li>
-            </subNodes>
-          </li>
-        </subNodes>
-      </li>
+        <!-- Give up and leave -->
+        <li Class="ThinkNode_ConditionalMentalState">
+          <state>GiveUpExit</state>
+          <subNodes>
+            <li Class="JobGiver_ExitMapRandom">
+              <locomotion>Walk</locomotion>
+            </li>
+            <li Class="JobGiver_WanderAnywhere">
+              <maxDanger>Deadly</maxDanger>
+            </li>
+          </subNodes>
+        </li>
+        <!-- Panic flee -->
+        <li Class="ThinkNode_ConditionalMentalState">
+          <state>PanicFlee</state>
+          <subNodes>
+            <li Class="JobGiver_PanicFlee" />
+            <li Class="JobGiver_WanderAnywhere">
+              <!-- Can happen if there is no way to exit the map -->
+              <maxDanger>Some</maxDanger>
+              <locomotionUrgency>Jog</locomotionUrgency>
+            </li>
+          </subNodes>
+        </li>
+        <!-- Wander -->
+        <li Class="ThinkNode_ConditionalMentalState">
+          <state>DazedWander</state>
+          <subNodes>
+            <li Class="JobGiver_WanderAnywhere">
+              <maxDanger>Deadly</maxDanger>
+            </li>
+          </subNodes>
+        </li>
+        <li Class="ThinkNode_ConditionalMentalState">
+          <state>ConfusedWander</state>
+          <subNodes>
+            <li Class="JobGiver_WanderAnywhere">
+              <maxDanger>Deadly</maxDanger>
+            </li>
+          </subNodes>
+        </li>
+        <!-- Binging -->
+        <li Class="ThinkNode_ConditionalMentalState">
+          <state>BingingAlcohol</state>
+          <subNodes>
+            <li Class="ThinkNode_PrioritySorter">
+              <minPriority>0.5</minPriority>
+              <subNodes>
+                <li Class="JobGiver_GetFood"/>
+                <li Class="JobGiver_GetRest"/>
+                <li Class="JobGiver_GetJoy"/>
+              </subNodes>
+            </li>
+            <li Class="JobGiver_Binge"/>
+            <li Class="JobGiver_WanderColony" />
+          </subNodes>
+        </li>
+
+        <!-- Manhunter -->
+        <!-- Hack: these have to be identical -->
+        <li Class="ThinkNode_ConditionalMentalState">
+          <state>Manhunter</state>
+          <subNodes>
+            <li Class="ThinkNode_Priority">
+              <subNodes>
+                <li Class="JobGiver_Manhunter" />
+                <li Class="JobGiver_WanderAnywhere">
+                  <maxDanger>Deadly</maxDanger>
+                </li>
+              </subNodes>
+            </li>
+          </subNodes>
+        </li>
+        <li Class="ThinkNode_ConditionalMentalState">
+          <state>ManhunterPermanent</state>
+          <subNodes>
+            <li Class="ThinkNode_Priority">
+              <subNodes>
+                <li Class="JobGiver_Manhunter" />
+                <li Class="JobGiver_WanderAnywhere">
+                  <maxDanger>Deadly</maxDanger>
+                </li>
+              </subNodes>
+            </li>
+          </subNodes>
+        </li>
+        
       </subNodes>
     </thinkRoot>
   </ThinkTreeDef>
-
-
-  <!--============= Self-defense ============-->
-  <ThinkTreeDef>
-		<defName>SelfDefense</defName>
-		<thinkRoot Class="JobGiver_SelfDefenseMelee" />
-	</ThinkTreeDef>
-
+ 
   
   <!--============= Animal leave map if out of season ============-->
   <ThinkTreeDef>
     <defName>LeaveIfWrongSeason</defName>
 		<thinkRoot Class="ThinkNode_Priority">
 			<subNodes>
-				<li Class="ThinkNode_ConditionalAnimalWrongSeason">
-					<subNodes>
-						<li Class="JobGiver_ExitMapWalkRandom" />
+        <li Class="ThinkNode_ConditionalAnimalWrongSeason">
+          <subNodes>
+            <li Class="JobGiver_ExitMapRandom">
+            <locomotion>Walk</locomotion>
+            </li>
 					</subNodes>
 				</li>
 				<li Class="ThinkNode_ConditionalDangerousTemperature">
 					<subNodes>
 						<li Class="ThinkNode_ConditionalOutdoorTemperature">
 							<subNodes>
-								<li Class="JobGiver_ExitMapWalkRandom" />
+								<li Class="JobGiver_ExitMapRandom">
+                  <locomotion>Jog</locomotion>
+                </li>
 							</subNodes>
 						</li>
 					</subNodes>
@@ -125,12 +181,12 @@
     <thinkRoot Class="ThinkNode_ConditionalStarving">
       <subNodes>
         <li Class="JobGiver_GetFood" /> <!-- One last chance to find some food -->
-        <li Class="JobGiver_ExitMapWalkRandom" />
+        <li Class="JobGiver_ExitMapRandom">
+          <locomotion>Walk</locomotion>
+        </li>
       </subNodes>
     </thinkRoot>
   </ThinkTreeDef> 
-  
-  
 
   <!--============= Test of insertion hooks ============-->
   <!-- If you remove the comments around this, it will inject
@@ -144,7 +200,7 @@
   <!--
   <ThinkTreeDef>
     <defName>InsertHookTest</defName>
-    <insertTag>Humanlike_PostBroken</insertTag>
+    <insertTag>Humanlike_PostMentalState</insertTag>
     <insertPriority>100</insertPriority>
     <thinkRoot Class="JobGiver_Berserk" />
   </ThinkTreeDef>

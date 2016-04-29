@@ -1,10 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ThinkTrees>
 
-  <ThinkTreeDef>
+	<ThinkTreeDef>
     <defName>DomesticCat</defName>
-    <thinkRoot Class="ThinkNode_Priority">
+		<thinkRoot Class="ThinkNode_Priority">
       <subNodes>
+        <!-- Keep lying down if we have to -->
+				<li Class="ThinkNode_ConditionalMustKeepLyingDown">
+					<subNodes>
+            <li Class="JobGiver_KeepLyingDown" />
+          </subNodes>
+        </li>
+        
         <li Class="ThinkNode_Subtree">
           <treeDef>Downed</treeDef>
         </li>
@@ -12,29 +19,54 @@
           <treeDef>BurningResponse</treeDef>
         </li>
         <li Class="ThinkNode_Subtree">
-          <treeDef>BrokenCritical</treeDef>
+          <treeDef>MentalStateCritical</treeDef>
         </li>
-        <li Class="ThinkNode_Subtree">
-          <treeDef>SelfDefense</treeDef>
-        </li>
+        
+        <!-- React to close melee threat -->
+				<li Class="JobGiver_ReactToCloseMeleeThreat" />
 
         <!-- Leave if timed out -->
         <li Class="ThinkNode_ConditionalExitTimedOut">
           <subNodes>
-            <li Class="JobGiver_ExitMapWalkRandom" />
+            <li Class="JobGiver_ExitMapRandom">
+              <locomotion>Walk</locomotion>
+            </li>
+          </subNodes>
+        </li>
+
+        <!-- Defend and expand your hive -->
+        <li Class="ThinkNode_ConditionalHasHive">
+          <subNodes>
+            <li Class="JobGiver_HiveDefense" />
+            <li Class="ThinkNode_ConditionalBodySize">
+              <min>0.7</min>
+              <subNodes>
+                <li Class="ThinkNode_ChancePerHour_Constant">
+                  <chancePerHour>0.06</chancePerHour>
+                  <subNodes>
+                    <li Class="JobGiver_MineRandom" />
+                  </subNodes>
+                </li>
+              </subNodes>
+            </li>
           </subNodes>
         </li>
         
-        <!-- Move to position -->
+        <!-- Mental state non critical -->
+        <li Class="ThinkNode_Subtree">
+          <treeDef>MentalStateNonCritical</treeDef>
+        </li>
+
+        <!-- Forced goto -->
         <li Class="ThinkNode_ConditionalForcedGoto">
           <subNodes>
             <li Class="JobGiver_ForcedGoto" />
           </subNodes>
         </li>
-
-        <!-- Manhunter -->
+        
+				<!-- Lord directives -->
         <li Class="ThinkNode_Subtree">
-          <treeDef>Manhunter</treeDef>
+          <treeDef>LordDuty</treeDef>
         </li>
         
         <!-- Insertion hook for modders -->
@@ -59,13 +91,13 @@
         <li Class="JobGiver_LayEgg" />
 
         <!-- Tame animal -->
-        <li Class="ThinkNode_ConditionalHasFaction">
+        <li Class="ThinkNode_ConditionalColonyFaction">
           <subNodes>
             <!-- Trained behavior: obedience: Follow and defend master -->
             <li Class="ThinkNode_ConditionalTrainableCompleted">
               <trainable>Obedience</trainable>
               <subNodes>
-                <li Class="ThinkNode_ConditionalMasterDrafted" >
+                <li Class="ThinkNode_ConditionalShouldFollowMaster" >
                   <subNodes>
                     <li Class="JobGiver_AIFollowMaster"/>
                     <li Class="JobGiver_AIDefendMaster" />
@@ -120,7 +152,7 @@
 
             <!-- Trained behavior: Haul-->
             <li Class="ThinkNode_ChancePerHour_Constant">
-              <chancePerHour>0.50</chancePerHour>
+              <chancePerHour>0.5</chancePerHour>
               <subNodes>
                 <li Class="ThinkNode_ConditionalTrainableCompleted">
                   <trainable>Haul</trainable>
@@ -130,7 +162,7 @@
                 </li>
               </subNodes>
             </li>
-
+			
             <!-- Scratch that itch -->
             <li Class="ThinkNode_ChancePerHour_Constant">
               <chancePerHour>.1</chancePerHour>
@@ -154,12 +186,31 @@
         <li Class="ThinkNode_SubtreesByTag">
           <insertTag>Animal_PreWander</insertTag>
         </li>
-
+        
+        <!-- Has hive: wander near the hive -->
+        <li Class="ThinkNode_ConditionalHasHive">
+          <subNodes>
+            <li Class="JobGiver_WanderHive">
+              <maxDanger>Deadly</maxDanger>
+            </li>
+          </subNodes>
+        </li>
+        
         <!-- Tame animal: wander colony -->
-        <li Class="ThinkNode_ConditionalHasFaction">
+        <li Class="ThinkNode_ConditionalColonyFaction">
           <subNodes>
             <li Class="JobGiver_WanderColony">
               <maxDanger>None</maxDanger>
+            </li>
+          </subNodes>
+        </li>
+        
+        <!-- Of neutral faction: rest and then exit the map -->
+        <li Class="ThinkNode_ConditionalNeutralFaction">
+          <subNodes>
+            <li Class="JobGiver_PatientGoToBed" />
+            <li Class="JobGiver_ExitMapNearest">
+              <locomotion>Walk</locomotion>
             </li>
           </subNodes>
         </li>
@@ -178,8 +229,7 @@
 
         <li Class="JobGiver_IdleError"/>
       </subNodes>
-    </thinkRoot>
-  </ThinkTreeDef>
-
+		</thinkRoot>
+	</ThinkTreeDef>
 
 </ThinkTrees>

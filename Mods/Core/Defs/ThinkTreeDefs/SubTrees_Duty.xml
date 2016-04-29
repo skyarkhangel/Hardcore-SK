@@ -4,30 +4,48 @@
 
   <!--============= AI Duty ============-->
   <ThinkTreeDef>
-    <defName>SquadBrainDuty</defName>
+    <defName>LordDuty</defName>
     <thinkRoot Class="ThinkNode_Priority">
       <subNodes>
-        <li Class="ThinkNode_ConditionalHasSquadBrain">
+        <li Class="ThinkNode_ConditionalHasLord">
           <subNodes>
-            
             <li Class="ThinkNode_Duty"/>
 
-            <!-- If no duty issued a job -->
-            <!-- Wander at fallback -->
-            <li Class="ThinkNode_ConditionalHasFallbackLocation" >
+            <!-- If doesn't have voluntarily joinable lord -->
+            <!-- (otherwise we let pawns do something else if they get no job from the voluntarily joinable lord) -->
+            <li Class="ThinkNode_ConditionalHasVoluntarilyJoinableLord">
+              <invert>true</invert>
               <subNodes>
-                <li Class="JobGiver_WanderNearFallbackLocation" />
+                <!-- If no duty issued a job -->
+                <!-- Wander at fallback -->
+                <li Class="ThinkNode_ConditionalHasFallbackLocation" >
+                  <subNodes>
+                    <li Class="JobGiver_WanderNearFallbackLocation" />
+                  </subNodes>
+                </li>
+
+                <li Class="JobGiver_WanderAnywhere" />
+                <li Class="JobGiver_IdleError" />
               </subNodes>
             </li>
-
-            <li Class="JobGiver_WanderAnywhere" />
-            <li Class="JobGiver_IdleError" />
           </subNodes>
         </li>
       </subNodes>
     </thinkRoot>
   </ThinkTreeDef>
 
+  <ThinkTreeDef>
+    <defName>LordDutyConstant</defName>
+    <thinkRoot Class="ThinkNode_Priority">
+      <subNodes>
+        <li Class="ThinkNode_ConditionalHasLord">
+          <subNodes>
+            <li Class="ThinkNode_DutyConstant" />
+          </subNodes>
+        </li>
+      </subNodes>
+    </thinkRoot>
+  </ThinkTreeDef>
 
 
 

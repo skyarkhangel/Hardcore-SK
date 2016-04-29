@@ -1,0 +1,282 @@
+	<?xml version="1.0" encoding="UTF-8"?>
+<ThingDefs>
+
+
+  <ThingDef Name="BaseWeaponNeolithic" Abstract="True">
+    <category>Item</category>
+    <thingClass>ThingWithComps</thingClass>
+    <equipmentType>Primary</equipmentType>
+    <pathCost>10</pathCost>
+    <useHitPoints>True</useHitPoints>
+    <selectable>True</selectable>
+    <graphicData>
+      <onGroundRandomRotateAngle>35</onGroundRandomRotateAngle>
+    </graphicData>
+    <drawGUIOverlay>true</drawGUIOverlay>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <DeteriorationRate>2</DeteriorationRate>
+      <SellPriceFactor>0.5</SellPriceFactor>
+    </statBases>
+    <altitudeLayer>Item</altitudeLayer>
+    <alwaysHaulable>True</alwaysHaulable>
+    <tickerType>Never</tickerType>
+    <techLevel>Neolithic</techLevel>
+    <weaponTags>
+      <li>Neolithic</li>
+    </weaponTags>
+    <thingCategories>
+      <li>WeaponsRanged</li>
+    </thingCategories>
+    <comps>
+      <li Class="CompProperties_Forbiddable" />
+      <li>
+        <compClass>CompEquippable</compClass>
+      </li>
+    </comps>
+    <recipeMaker>
+      <workSpeedStat>SmithingSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <recipeUsers>
+        <li>ElectricSmithy</li>
+        <li>FueledSmithy</li>
+      </recipeUsers>
+      <effectWorking>Smelt</effectWorking>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef Name="BaseWeaponBow" ParentName="BaseWeaponNeolithic" Abstract="True">
+    <comps>
+      <li>
+        <compClass>CompQuality</compClass>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef Name="BaseProjectileNeolithic" Abstract="True">
+    <category>Projectile</category>
+    <tickerType>Normal</tickerType>
+    <altitudeLayer>Projectile</altitudeLayer>
+    <thingClass>Combat_Realism.BulletCR</thingClass>
+    <label>arrow</label>
+    <useHitPoints>False</useHitPoints>
+    <neverMultiSelect>True</neverMultiSelect>
+    <graphicData>
+      <shaderType>Transparent</shaderType>
+    </graphicData>
+    <projectile Class="Combat_Realism.ProjectilePropertiesCR" />
+  </ThingDef>
+
+
+  <!-- ========================== SPECIFICS ============================== -->
+
+
+
+  <ThingDef ParentName="BaseProjectileNeolithic">
+    <defName>Arrow_Short</defName>
+    <label>shortbow arrow</label>
+    <graphicData>
+      <texPath>Things/Projectile/Arrow_Small</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <projectile>
+      <flyOverhead>false</flyOverhead>
+      <damageDef>Arrow</damageDef>
+      <DamageAmountBase>10</DamageAmountBase>
+      <Speed>44</Speed>
+	  <armorPenetration>0.15</armorPenetration>
+    </projectile>
+  </ThingDef>
+  
+  <ThingDef ParentName="BaseWeaponBow">
+    <defName>Bow_Short</defName>
+    <label>short bow</label>
+    <description>A simple short bow, made with skill, but using only the most primitive technologies.</description>
+    <graphicData>
+      <texPath>Things/Item/Equipment/WeaponRanged/BowShort</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>BowSmall</soundInteract>
+    <costList>
+      <WoodLog>40</WoodLog>
+    </costList>
+    <statBases>
+      <WorkToMake>1200</WorkToMake>
+      <MarketValue>60</MarketValue>
+      <AimEfficiency>0.35</AimEfficiency>
+      <ShotSpread>2</ShotSpread>
+      <SwayFactor>1</SwayFactor>
+      <Bulk>3.00</Bulk>
+      <Weight>2.00</Weight>
+      <RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
+    </statBases>
+    <weaponTags>
+      <li>NeolithicRanged</li>
+      <li>CR_Bow</li>
+    </weaponTags>
+    <recipeMaker>
+      <recipeUsers>
+        <li>ElectricSmithy</li>
+        <li>FueledSmithy</li>
+        <li>CraftingSpot</li>
+      </recipeUsers>
+    </recipeMaker>
+    <verbs>
+      <li Class="Combat_Realism.VerbPropertiesCR">
+        <verbClass>Combat_Realism.Verb_ShootCR</verbClass>
+        <hasStandardCommand>true</hasStandardCommand>
+        <projectileDef>Projectile_Arrow</projectileDef>
+        <warmupTicks>60</warmupTicks>
+        <range>27</range>
+        <soundCast>BowSmall</soundCast>
+      </li>
+    </verbs>
+	<comps>
+	  <li Class="Combat_Realism.CompProperties_AmmoUser">
+	    <magazineSize>1</magazineSize>
+		<reloadTicks>30</reloadTicks>
+		<ammoSet>AmmoSet_Arrow</ammoSet>
+		<throwMote>false</throwMote>
+	  </li>
+	  <li Class="Combat_Realism.CompProperties_FireModes">
+		<aiUseBurstMode>false</aiUseBurstMode>
+		<aiUseAimMode>false</aiUseAimMode>
+	  </li>
+	</comps>
+  </ThingDef>
+
+
+  <ThingDef ParentName="BaseProjectileNeolithic">
+    <defName>Pilum_Thrown</defName>
+    <label>pilum (thrown)</label>
+    <graphicData>
+      <texPath>Things/Projectile/Pilum</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <projectile>
+      <flyOverhead>false</flyOverhead>
+      <damageDef>Stab</damageDef>
+      <DamageAmountBase>16</DamageAmountBase>
+      <Speed>26</Speed>
+	  <armorPenetration>0.25</armorPenetration>
+    </projectile>
+  </ThingDef>
+  
+  
+  <ThingDef ParentName="BaseWeaponNeolithic">
+    <defName>Pila</defName>
+    <label>pilum</label>
+    <description>A non-reusable throwing spear.</description>
+    <graphicData>
+      <texPath>Things/Ammo/Neolithic/Pilum</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+      <onGroundRandomRotateAngle>0</onGroundRandomRotateAngle>
+    </graphicData>
+    <soundInteract>Interact_BeatFire</soundInteract>
+    <costList>
+      <WoodLog>1</WoodLog>
+      <Steel>1</Steel>
+    </costList>
+    <statBases>
+      <WorkToMake>1400</WorkToMake>
+      <MarketValue>90</MarketValue>
+      <AimEfficiency>0.25</AimEfficiency>
+      <ShotSpread>2.5</ShotSpread>
+      <SwayFactor>2</SwayFactor>
+      <Bulk>4.00</Bulk>
+      <Weight>3.00</Weight>
+      <RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
+    </statBases>
+    <equippedAngleOffset>30</equippedAngleOffset>
+    <stackLimit>75</stackLimit>
+    <weaponTags>
+      <li>NeolithicRanged</li>
+	  <li>CR_Pila</li>
+    </weaponTags>
+    <verbs>
+      <li Class="Combat_Realism.VerbPropertiesCR">
+        <verbClass>Combat_Realism.Verb_ShootCROneUse</verbClass>
+        <hasStandardCommand>true</hasStandardCommand>
+        <projectileDef>Pilum_Thrown</projectileDef>
+        <warmupTicks>90</warmupTicks>
+        <range>6</range>
+        <!--<soundCast>Interact_BeatFire</soundCast>-->
+      </li>
+    </verbs>
+	<comps>
+	  <li Class="Combat_Realism.CompProperties_FireModes">
+		<aiUseBurstMode>false</aiUseBurstMode>
+		<aiUseAimMode>false</aiUseAimMode>
+	  </li>
+	</comps>
+  </ThingDef>
+
+
+
+  <ThingDef ParentName="BaseProjectileNeolithic">
+    <defName>Arrow_Great</defName>
+    <label>greatbow arrow</label>
+    <graphicData>
+      <texPath>Things/Projectile/Arrow_Small</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <projectile>
+      <flyOverhead>false</flyOverhead>
+      <damageDef>Arrow</damageDef>
+      <DamageAmountBase>13</DamageAmountBase>
+      <Speed>49</Speed>
+	  <armorPenetration>0.2</armorPenetration>
+    </projectile>
+  </ThingDef>
+  <ThingDef ParentName="BaseWeaponBow">
+    <defName>Bow_Great</defName>
+    <label>great bow</label>
+    <description>A powerful greatbow. Fires a heavy arrow long distances.</description>
+    <graphicData>
+      <texPath>Things/Item/Equipment/WeaponRanged/BowGreat</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>BowLarge</soundInteract>
+    <costList>
+      <WoodLog>180</WoodLog>
+    </costList>
+    <statBases>
+      <WorkToMake>1700</WorkToMake>
+      <MarketValue>110</MarketValue>
+      <AimEfficiency>0.35</AimEfficiency>
+      <ShotSpread>2</ShotSpread>
+      <SwayFactor>1</SwayFactor>
+      <Bulk>5.00</Bulk>
+      <Weight>2.00</Weight>
+      <RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
+    </statBases>
+    <weaponTags>
+      <li>NeolithicRanged</li>
+      <li>CR_Bow</li>
+    </weaponTags>
+    <verbs>
+      <li Class="Combat_Realism.VerbPropertiesCR">
+        <verbClass>Combat_Realism.Verb_ShootCR</verbClass>
+        <hasStandardCommand>true</hasStandardCommand>
+        <projectileDef>Projectile_GreatArrow</projectileDef>
+        <warmupTicks>80</warmupTicks>
+        <range>27</range>
+        <soundCast>BowGreat</soundCast>
+      </li>
+    </verbs>
+	<comps>
+	  <li Class="Combat_Realism.CompProperties_AmmoUser">
+	    <magazineSize>1</magazineSize>
+		<reloadTicks>30</reloadTicks>
+		<ammoSet>AmmoSet_GreatArrow</ammoSet>
+		<throwMote>false</throwMote>
+	  </li>
+	  <li Class="Combat_Realism.CompProperties_FireModes">
+		<aiUseBurstMode>false</aiUseBurstMode>
+		<aiUseAimMode>false</aiUseAimMode>
+	  </li>
+	</comps>
+  </ThingDef>
+
+</ThingDefs>
