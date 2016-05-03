@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Buildings>
+
+    <ThingDef Abstract="True" Name="VentBase">
+        <statBases>
+            <MaxHitPoints>30</MaxHitPoints>
+            <Flammability>1.0</Flammability>
+        </statBases>
+        <comps>
+            <li Class="CommunityCoreLibrary.CompProperties_RestrictedPlacement">
+                <compClass>CommunityCoreLibrary.CompRestrictedPlacement</compClass>
+                <thingDefs>
+                    <li>Wall</li>
+                </thingDefs>
+            </li>
+        </comps>
+        <placeWorkers>
+            <li>CommunityCoreLibrary.PlaceWorker_OnlyOnThing</li>
+            <li>RedistHeat.PlaceWorker_WallChecker</li>
+        </placeWorkers>
+        <altitudeLayer>PawnUnused</altitudeLayer>
+        <category>Building</category>
+        <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+        <drawerType>MapMeshAndRealTime</drawerType>
+        <selectable>true</selectable>
+        <repairEffect>Repair</repairEffect>
+        <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+        <size>(1,1)</size>
+        <soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+        <tickerType>Normal</tickerType>
+        <designationCategory>Temperature</designationCategory>
+    </ThingDef>
+
+    <ThingDef ParentName="VentBase">
+        <defName>Vent</defName>
+        <thingClass>RedistHeat.Building_Vent</thingClass>
+        <label>vent</label>
+        <description>A simple vent for equalizing the temperature between two rooms without allowing people to walk between them.</description>
+        <graphicData>
+            <texPath>Things/Building/Vent</texPath>
+            <graphicClass>Graphic_Multi</graphicClass>
+        </graphicData>
+        <building>
+            <isEdifice>false</isEdifice>
+        </building>
+        <costList>
+            <Steel>40</Steel>
+        </costList>
+        <statBases>
+            <WorkToMake>200</WorkToMake>
+        </statBases>
+        <placeWorkers>
+            <li>PlaceWorker_Vent</li>
+        </placeWorkers>
+    </ThingDef>
+
+    <ThingDef ParentName="VentBase">
+        <defName>RedistHeat_ActiveVent</defName>
+        <label>active vent</label>
+        <description>A simple vent for equalizing the temperature between two rooms without allowing people to walk between them. Orange colored side must be facing towards a room that that you want to control.</description>
+        <thingClass>RedistHeat.Building_ActiveVent</thingClass>
+        <graphicData>
+            <texPath>Things/Building/ActiveVent</texPath>
+            <graphicClass>Graphic_Multi</graphicClass>
+        </graphicData>
+        <building>
+            <isEdifice>false</isEdifice>
+        </building>
+        <costList>
+            <Steel>50</Steel>
+        </costList>
+        <statBases>
+            <WorkToMake>400</WorkToMake>
+        </statBases>
+        <comps>
+            <li Class="CompProperties_Power">
+                <compClass>CompPowerTrader</compClass>
+                <basePowerConsumption>5</basePowerConsumption>
+                <shortCircuitInRain>false</shortCircuitInRain>
+                <soundPowerOn>PowerOnSmall</soundPowerOn>
+                <soundPowerOff>PowerOffSmall</soundPowerOff>
+            </li>
+            <li Class="CompProperties_TempControl">
+                <compClass>CompTempControl</compClass>
+            </li>
+			<li Class="CompProperties_Breakdownable"/>
+        </comps>
+        <placeWorkers>
+            <li>RedistHeat.PlaceWorker_ActiveVent</li>
+        </placeWorkers>
+    </ThingDef>
+
+</Buildings>

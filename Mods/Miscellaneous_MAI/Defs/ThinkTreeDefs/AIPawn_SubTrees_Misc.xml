@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ThinkTrees>
+
+  <!--============= Burning ============-->
+  <ThinkTreeDef>
+		<defName>AIPawn_BurningResponse</defName>
+		<thinkRoot Class="ThinkNode_ConditionalBurning">
+			<subNodes>
+				<li Class="ThinkNode_Priority">
+					<subNodes>
+						<li Class="JobGiver_ExtinguishSelf" />
+						<!-- <li Class="JobGiver_RunRandom">
+							<maxDanger>Deadly</maxDanger>
+						</li> -->
+					</subNodes>
+				</li>
+			</subNodes>
+		</thinkRoot>
+	</ThinkTreeDef>
+
+
+  <!--============= Mental state ============-->
+  <ThinkTreeDef>
+		<defName>AIPawn_MentalStateCritical</defName>
+    <thinkRoot Class="ThinkNode_Priority">
+      <subNodes>
+		    <li Class="ThinkNode_ConditionalMentalState">
+			    <state>Berserk</state>
+			    <subNodes>
+				    <li Class="ThinkNode_Priority">
+					    <subNodes>
+						    <li Class="JobGiver_Berserk" />
+                <li Class="JobGiver_WanderAnywhere">
+                  <maxDanger>Deadly</maxDanger>
+                </li>
+                </subNodes>
+				    </li>
+			    </subNodes>
+		    </li>
+      </subNodes>
+    </thinkRoot>
+	</ThinkTreeDef>
+	
+  <ThinkTreeDef>
+    <defName>AIPawn_MentalStateNonCritical</defName>
+    <thinkRoot Class="ThinkNode_Priority">
+      <subNodes>
+        <!-- Give up and leave -->
+        <li Class="ThinkNode_ConditionalMentalState">
+          <state>GiveUpExit</state>
+          <subNodes>
+            <li Class="JobGiver_ExitMapRandom">
+              <locomotion>Walk</locomotion>
+            </li>
+            <li Class="JobGiver_WanderAnywhere">
+              <maxDanger>Deadly</maxDanger>
+            </li>
+          </subNodes>
+        </li>
+        <!-- Panic flee -->
+        <li Class="ThinkNode_ConditionalMentalState">
+          <state>PanicFlee</state>
+          <subNodes>
+            <li Class="JobGiver_PanicFlee" />
+            <li Class="JobGiver_WanderAnywhere">
+              <!-- Can happen if there is no way to exit the map -->
+              <maxDanger>Some</maxDanger>
+              <locomotionUrgency>Jog</locomotionUrgency>
+            </li>
+          </subNodes>
+        </li>
+        <!-- Wander -->
+        <li Class="ThinkNode_ConditionalMentalState">
+          <state>DazedWander</state>
+          <subNodes>
+            <li Class="JobGiver_WanderAnywhere">
+              <maxDanger>Deadly</maxDanger>
+            </li>
+          </subNodes>
+        </li>
+        <li Class="ThinkNode_ConditionalMentalState">
+          <state>ConfusedWander</state>
+          <subNodes>
+            <li Class="JobGiver_WanderAnywhere">
+              <maxDanger>Deadly</maxDanger>
+            </li>
+          </subNodes>
+        </li>
+        <!-- Binging -->
+        <li Class="ThinkNode_ConditionalMentalState">
+          <state>BingingAlcohol</state>
+          <subNodes>
+            <li Class="ThinkNode_PrioritySorter">
+              <minPriority>0.5</minPriority>
+              <subNodes>
+                <li Class="JobGiver_GetFood"/>
+                <li Class="AIPawn.JobGiver_RechargeEnergy"/>
+                <li Class="JobGiver_GetJoy"/>
+              </subNodes>
+            </li>
+            <!-- <li Class="JobGiver_Binge"/> -->
+            <li Class="JobGiver_WanderColony" />
+          </subNodes>
+        </li>
+
+        <!-- Manhunter -->
+        <!-- Hack: these have to be identical -->
+        <li Class="ThinkNode_ConditionalMentalState">
+          <state>Manhunter</state>
+          <subNodes>
+            <li Class="ThinkNode_Priority">
+              <subNodes>
+                <li Class="JobGiver_Manhunter" />
+                <li Class="JobGiver_WanderAnywhere">
+                  <maxDanger>Deadly</maxDanger>
+                </li>
+              </subNodes>
+            </li>
+          </subNodes>
+        </li>
+        <li Class="ThinkNode_ConditionalMentalState">
+          <state>ManhunterPermanent</state>
+          <subNodes>
+            <li Class="ThinkNode_Priority">
+              <subNodes>
+                <li Class="JobGiver_Manhunter" />
+                <li Class="JobGiver_WanderAnywhere">
+                  <maxDanger>Deadly</maxDanger>
+                </li>
+              </subNodes>
+            </li>
+          </subNodes>
+        </li>
+        
+      </subNodes>
+    </thinkRoot>
+  </ThinkTreeDef>
+
+
+</ThinkTrees>
