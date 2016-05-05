@@ -7,7 +7,7 @@
 	<ThingDef ParentName="BenchBase">
 		<DefName>TableGrill</DefName>
 		<label>Simple Grill</label>
-		<ThingClass>Building_WorkTable</ThingClass>
+		<ThingClass>Building_WorkTable_HeatPush</ThingClass>
 		<Description>A small grill used to cook meat into simple jerky or roasts.</Description>
 		<graphicData>
 			<texPath>Things/Building/Production/TableGrill1x1</texPath>
@@ -48,7 +48,21 @@
 		<inspectorTabs>
 			<li>ITab_Bills</li>
 		</inspectorTabs>
+		<comps>
+		  <li Class="CompProperties_Refuelable">
+			<fuelConsumptionRate>80.0</fuelConsumptionRate>
+			<fuelCapacity>50.0</fuelCapacity>
+			<fuelFilter>
+			  <thingDefs>
+				<li>Kindling</li>
+			  </thingDefs>
+			</fuelFilter>
+			<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+		  </li>
+		  <li Class="CompProperties_Breakdownable"/>
+		</comps>
 		<building>
+			<isMealSource>true</isMealSource>
 			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
             <heatPerTickWhileWorking>1</heatPerTickWhileWorking>
 		</building>
@@ -98,13 +112,11 @@
     <surfaceType>Item</surfaceType>
 		<recipes>
 			<li>ButcherCorpseFlesh</li>
-    <!-- 
             <li>ShellMashgon</li>
             <li>PrepareSduiggles</li>
             <li>PrepareSeasnake</li>
             <li>PrepareBlueblade</li>
             <li>ButcherTailteeth</li>
-	-->		
             <li>MakeTofu</li>
             <li>Makesoymilk</li>
             <li>MakeSugar</li>
@@ -122,10 +134,10 @@
     <comps>
       <li Class="CompProperties_AffectedByFacilities">
         <linkableFacilities>
-          <li>Cook_Shelf</li>
+          <li>CookingTools</li>
         </linkableFacilities>
       </li>
-	   <li Class="CompProperties_Flickable"/>
+	  <li Class="CompProperties_Flickable"/>
       <li Class="CompProperties_Breakdownable"/>
     </comps>
     <designationHotKey>B</designationHotKey>
@@ -137,7 +149,7 @@
 
   <ThingDef ParentName="BenchBase">
     <defName>ElectricStove</defName>
-    <label>Cook Stove</label>
+    <label>Electric Stove</label>
     <ThingClass>Building_WorkTable_HeatPush</ThingClass>
     <Description>A simple stove and attached countertop for preparing meals. Requires power.</Description>
     <graphicData>
@@ -201,7 +213,7 @@
 			</li>
 			<li Class="CompProperties_AffectedByFacilities">
 				<linkableFacilities>
-				<li>Cook_Shelf</li>
+				<li>CookingTools</li>
 				</linkableFacilities>
 			</li>
 			  <li Class="CompProperties_Flickable"/>
@@ -217,7 +229,7 @@
 
 <ThingDef ParentName="BenchBase">
     <defName>FueledStove</defName>
-    <label>fueled stove</label>
+    <label>Fueled Stove</label>
     <ThingClass>Building_WorkTable_HeatPush</ThingClass>
     <Description>A simple wood-fueled stove with an attached countertop for preparing meals.</Description>
     <graphicData>
@@ -231,14 +243,13 @@
         <cornerBR>Damage/Corner</cornerBR>
       </damageData>
     </graphicData>
-    <constructEffect>ConstructMetal</constructEffect>
 	<stuffCategories>
 		<li>Metallic</li>
 	</stuffCategories>
-	<costStuffCount>60</costStuffCount>
+	<costStuffCount>50</costStuffCount>
 		<CostList>
-			<Components>6</Components>
-			<Mechanism>4</Mechanism>
+			<Components>5</Components>
+			<Mechanism>2</Mechanism>
 		</CostList>
     <AltitudeLayer>Waist</AltitudeLayer>
     <fillPercent>0.5</fillPercent>
@@ -256,7 +267,6 @@
     <interactionCellOffset>(0,0,-1)</interactionCellOffset>
     <surfaceType>Item</surfaceType>
     <recipes>
-		<recipes>
 			<li>CookMealSalad</li>
 			<li>CookMealSimple</li>
 			<li>CookMealFine</li>
@@ -267,7 +277,6 @@
             <li>MakeRoastwMushrooms</li>  
             <li>MakeChocoMilk</li>         
             <li>MakeFruitYogurt</li>
-		</recipes>
     </recipes>
     <inspectorTabs>
       <li>ITab_Bills</li>
@@ -278,10 +287,9 @@
         <fuelCapacity>50.0</fuelCapacity>
         <fuelFilter>
           <thingDefs>
-            <li>WoodLog</li>
+            <li>Kindling</li>
 			<li>Coal</li>
             <li>Charcoal</li>
-            <li>Peat</li>
           </thingDefs>
         </fuelFilter>
         <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
@@ -350,13 +358,14 @@
 			</li>
       <li Class="CompProperties_AffectedByFacilities">
         <linkableFacilities>
-          <li>Cook_Shelf</li>
+          <li>CookingTools</li>
         </linkableFacilities>
       </li>
 		<li Class="CompProperties_Flickable"/>
 		<li Class="CompProperties_Breakdownable"/>
     </comps>
     <building>
+	  <isMealSource>true</isMealSource>
       <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
       <heatPerTickWhileWorking>0.75</heatPerTickWhileWorking>
     </building>
@@ -369,21 +378,26 @@
   
 	<ThingDef ParentName="BenchBase">
 		<defName>TableOven</defName>
-		<label>Electric Oven</label>
-		<thingClass>Building_WorkTable_HeatPush</thingClass>
-		<Description>An electric oven for baking candies and tasty treats. Requires power.</Description>
+		<label>Oven</label>
+		<ThingClass>Building_WorkTable_HeatPush</ThingClass>
+		<Description>An electric oven for baking candies and tasty treats. Requires kindking, coal or charcoal.</Description>
 		<graphicData>
-			<texPath>Things/Building/Production/TableOven</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
-			<drawSize>(2,1)</drawSize>
+		  <texPath>Things/Building/Production/Tableoven</texPath>
+		  <graphicClass>Graphic_Multi</graphicClass>
+		  <drawSize>(3.33,1.5)</drawSize>
+		  <damageData>
+			<cornerTL>Damage/Corner</cornerTL>
+			<cornerTR>Damage/Corner</cornerTR>
+			<cornerBL>Damage/Corner</cornerBL>
+			<cornerBR>Damage/Corner</cornerBR>
+		  </damageData>
 		</graphicData>
-	<stuffCategories>
-		<li>Metallic</li>
-	</stuffCategories>
+		<stuffCategories>
+			<li>Metallic</li>
+		</stuffCategories>
     	<costStuffCount>85</costStuffCount>
-	  <CostList>
+		<CostList>
 			<Components>6</Components>
-			<ElectronicComponents>3</ElectronicComponents>
         </CostList>
 		<AltitudeLayer>Waist</AltitudeLayer>
 		<fillPercent>0.5</fillPercent>
@@ -416,35 +430,30 @@
 		</inspectorTabs>
 		<tickerType>Normal</tickerType>
 		<comps>
-			<li Class="CompProperties_Power">
-				<compClass>CompPowerTrader</compClass>
-				<startElectricalFires>true</startElectricalFires>
-				<basePowerConsumption>500</basePowerConsumption>
-				<soundPowerOn>PowerOnSmall</soundPowerOn>
-				<soundPowerOff>PowerOffSmall</soundPowerOff>
-			</li>
-			<li Class="CommunityCoreLibrary.CompProperties_LowIdleDraw">
-				<compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
-				<idlePowerFactor>0.1</idlePowerFactor>
-				<operationalMode>InUse</operationalMode>
-			</li>
-			<li Class="CompProperties_HeatPusher">
-				<compClass>CompHeatPusherPowered</compClass>
-				<heatPerSecond>35</heatPerSecond>
-				<heatPushMaxTemperature>75</heatPushMaxTemperature>
-			</li>
 		  <li Class="CompProperties_AffectedByFacilities">
-				<linkableFacilities>
-				  <li>Cook_Shelf</li>
-				</linkableFacilities>
+			<linkableFacilities>
+				<li>CookingTools</li>
+			</linkableFacilities>
 		  </li>
-			<li Class="CompProperties_Flickable"/>
-			<li Class="CompProperties_Breakdownable"/>
+		  <li Class="CompProperties_Breakdownable"/>
+		  <li Class="CompProperties_Refuelable">
+			<fuelConsumptionRate>100.0</fuelConsumptionRate>
+			<fuelCapacity>50.0</fuelCapacity>
+			<fuelFilter>
+			  <thingDefs>
+				<li>Kindling</li>
+				<li>Coal</li>
+				<li>Charcoal</li>
+			  </thingDefs>
+			</fuelFilter>
+			<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+		  </li>
 		</comps>
 		<placeWorkers>
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
 		</placeWorkers>
 		<building>
+			<isMealSource>true</isMealSource>
 			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
 			<heatPerTickWhileWorking>1.5</heatPerTickWhileWorking>
 		</building>
@@ -454,14 +463,20 @@
 
 <ThingDef ParentName="BenchBase">
 	<DefName>Canningstove</DefName>
-	<label>Canning Stove</label>
+	<label>Electric Pressure Cooker</label>
 	<ThingClass>Building_WorkTable_HeatPush</ThingClass>
 	<Description>A stove for canning foods. Requires power.</Description>
 	<graphicData>
-      <texPath>Things/Building/Canningstove</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <drawSize>(2,1)</drawSize>
-    	</graphicData>
+      <texPath>Things/Building/Production/Canningstove</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(2.33,1.5)</drawSize>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+       </damageData>
+    </graphicData>
 		<stuffCategories>
 			<li>Metallic</li>
 		</stuffCategories>
@@ -496,11 +511,6 @@
 	<inspectorTabs>
 		<li>ITab_Bills</li>
 	</inspectorTabs>
-	<building>
-	  <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
-	<heatPerTickWhileWorking>0.5</heatPerTickWhileWorking>
-	</building>
-	<researchPrerequisites><li>CraftingI</li></researchPrerequisites>
 		<comps>
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerTrader</compClass>
@@ -522,13 +532,19 @@
 			<li Class="CompProperties_Breakdownable"/>
 			<li Class="CompProperties_AffectedByFacilities">
 				<linkableFacilities>
-				  <li>Cook_Shelf</li>
+				  <li>CookingTools</li>
 				</linkableFacilities>
 			</li>
 		</comps>
 		<placeWorkers>
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
 		</placeWorkers>
+	<building>
+	    <isMealSource>true</isMealSource>
+	    <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+		<heatPerTickWhileWorking>0.5</heatPerTickWhileWorking>
+	</building>
+	<researchPrerequisites><li>CraftingI</li></researchPrerequisites>
   </ThingDef>
 
   
@@ -538,9 +554,15 @@
     <ThingClass>Building_WorkTable</ThingClass>
     <Description>The candy table is used to make chocolate, caramel and taffy. Requires power.</Description>
     <graphicData>
-      <texPath>Things/Building/Candytable</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <drawSize>(2,1)</drawSize>
+      <texPath>Things/Building/Production/Candytable</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(2.33,1.5)</drawSize>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
     </graphicData>
 	<stuffCategories>
 		<li>Metallic</li>
@@ -586,7 +608,7 @@
 			</li>			
 	    <li Class="CompProperties_AffectedByFacilities">
         <linkableFacilities>
-          <li>Cook_Shelf</li>
+          <li>CookingTools</li>
         </linkableFacilities>
       </li>
 			  <li Class="CompProperties_Flickable"/>
@@ -950,7 +972,7 @@
             </li>
 			<li Class="CompProperties_AffectedByFacilities">
 				<linkableFacilities>
-				<li>Cook_Shelf</li>
+				<li>CookingTools</li>
 				</linkableFacilities>
 			</li>
 			  <li Class="CompProperties_Flickable"/>
@@ -1626,75 +1648,8 @@
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
 		</placeWorkers>
 	</ThingDef>
-	
-	  <ThingDef ParentName="BenchBase">
-    <DefName>ElectricTailoringBench</DefName>
-    <label>electric tailoring bench</label>
-    <ThingClass>Building_WorkTable</ThingClass>
-    <Description>A workbench with a sewing machine for rapid tailoring of clothes. Can work without electricity at 40% of normal speed.</Description>
-    <graphicData>
-      <texPath>Things/Building/Production/TableTailor</texPath>
-      <graphicClass>Graphic_Multi</graphicClass>
-      <drawSize>(3.5,1.5)</drawSize>
-      <damageData>
-        <cornerTL>Damage/Corner</cornerTL>
-        <cornerTR>Damage/Corner</cornerTR>
-        <cornerBL>Damage/Corner</cornerBL>
-        <cornerBR>Damage/Corner</cornerBR>
-      </damageData>
-    </graphicData>
-	<stuffCategories>
-	<li>Metallic</li>
-	</stuffCategories>
-	<costStuffCount>110</costStuffCount>
-		<CostList>
-			<Components>5</Components>
-			<ElectronicComponents>4</ElectronicComponents>
-			<Mechanism>7</Mechanism>
-		</CostList>
-    <AltitudeLayer>Waist</AltitudeLayer>
-    <fillPercent>0.5</fillPercent>
-    <useHitPoints>True</useHitPoints>
-    <statBases>
-      <WorkToMake>2500</WorkToMake>
-      <MaxHitPoints>180</MaxHitPoints>
-      <Flammability>1.0</Flammability>
-    </statBases>
-    <Size>(3,1)</Size>
-    <DesignationCategory>Production</DesignationCategory>
-    <Passability>PassThroughOnly</Passability>
-    <pathCost>70</pathCost>
-    <hasInteractionCell>True</hasInteractionCell>
-    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
-    <surfaceType>Item</surfaceType>
-    <inspectorTabs>
-      <li>ITab_Bills</li>
-    </inspectorTabs>
-    <building>
-      <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
-      <unpoweredWorkTableWorkSpeedFactor>0.5</unpoweredWorkTableWorkSpeedFactor>
-    </building>
-    <comps>
-      <li Class="CompProperties_Power">
-        <compClass>CompPowerTrader</compClass>
-        <startElectricalFires>true</startElectricalFires>
-        <basePowerConsumption>120</basePowerConsumption>
-      </li>
-      <li Class="CompProperties_Flickable"/>
-      <li Class="CompProperties_AffectedByFacilities">
-        <linkableFacilities>
-          <li>ToolCabinet</li>
-        </linkableFacilities>
-      </li>
-      <li Class="CompProperties_Breakdownable"/>
-    </comps>
-    <designationHotKey>P</designationHotKey>
-		<placeWorkers>
-			<li>PlaceWorker_ShowFacilitiesConnections</li>
-		</placeWorkers>
-		<researchPrerequisites><li>CraftingI</li></researchPrerequisites>
-  </ThingDef>
 
+	
   <ThingDef ParentName="BenchBase">
     <DefName>HandTailoringBench</DefName>
     <label>Tailor's Loom</label>
@@ -1735,7 +1690,6 @@
     </inspectorTabs>
     <building>
       <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
-	  <WorkTableWorkSpeedFactor>0.5</WorkTableWorkSpeedFactor>
     </building>
 		<researchPrerequisites><li>CraftingI</li></researchPrerequisites>
 		<placeWorkers>
@@ -1744,15 +1698,22 @@
   </ThingDef>
   
   
-  <ThingDef ParentName="BenchBase">
-    <DefName>ModernLoom</DefName>
-    <label>Modern Loom</label>
+	
+	  <ThingDef ParentName="BenchBase">
+    <DefName>ElectricTailoringBench</DefName>
+    <label>Electric Tailoring Bench</label>
     <ThingClass>Building_WorkTable</ThingClass>
-    <Description>An advanced workbench equipped for tailoring and smithing military clothing, body armor, power gloves and reinforced helmets. Requires power.</Description>
+    <Description>A workbench with a sewing machine for rapid tailoring of clothes. Can work without electricity at 40% of normal speed.</Description>
     <graphicData>
-      <texPath>Things/Building/Production/ModernLoom</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <drawSize>(2,1)</drawSize>
+      <texPath>Things/Building/Production/TableTailor</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(3.5,1.5)</drawSize>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
     </graphicData>
 	<stuffCategories>
 	<li>Metallic</li>
@@ -1772,7 +1733,7 @@
 			<Flammability>1.0</Flammability>
       		<Cleanliness>-3</Cleanliness>
     </statBases>
-    <Size>(2,1)</Size>
+    <Size>(3,1)</Size>
     <DesignationCategory>Production</DesignationCategory>
     <Passability>PassThroughOnly</Passability>
     <pathCost>70</pathCost>
@@ -1784,6 +1745,7 @@
     </inspectorTabs>
     <building>
       <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+      <unpoweredWorkTableWorkSpeedFactor>0.25</unpoweredWorkTableWorkSpeedFactor>
     </building>
     <comps>
       <li Class="CompProperties_Power">
@@ -1797,7 +1759,6 @@
         <linkableFacilities>
           <li>Small_ToolCabinet</li>
           <li>PodChair</li>
-
         </linkableFacilities>
       </li>
             <li Class="CommunityCoreLibrary.CompProperties_LowIdleDraw">
@@ -1807,23 +1768,30 @@
 			  <li Class="CompProperties_Flickable"/>
 			  <li Class="CompProperties_Breakdownable"/>	
     </comps>
-		<researchPrerequisites><li>Machining</li></researchPrerequisites>
+    <designationHotKey>P</designationHotKey>
 		<placeWorkers>
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
 		</placeWorkers>
+		<researchPrerequisites><li>Machining</li></researchPrerequisites>
   </ThingDef>
-
+  
   
   <ThingDef ParentName="BenchBase">
-    <DefName>HyperLoom</DefName>
-    <label>Hyper Loom</label>
+    <DefName>HyperTailoringBench</DefName>
+    <label>Hyper Tailoring Bench</label>
     <ThingClass>Building_WorkTable</ThingClass>
     <Description>A sophisticated workbench equipped for tailoring and smithing advanced combat clothing, power armor, enhanced gloves and battle helmets. Requires power.</Description>
     <graphicData>
-      <texPath>Things/Building/Production/HyperLoom</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <drawSize>(2,1)</drawSize>
-    </graphicData>
+      <texPath>Things/Building/Production/HyperTailoringBench</texPath>
+		<graphicClass>Graphic_Single</graphicClass>
+		<drawSize>(3,1)</drawSize>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+	</graphicData>
 	<stuffCategories>
 	<li>Metallic</li>
 	</stuffCategories>
@@ -1855,12 +1823,13 @@
     </inspectorTabs>
     <building>
       <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+      <unpoweredWorkTableWorkSpeedFactor>0.1</unpoweredWorkTableWorkSpeedFactor>
     </building>
     <comps>
       <li Class="CompProperties_Power">
         <compClass>CompPowerTrader</compClass>
         <startElectricalFires>true</startElectricalFires>
-        <basePowerConsumption>1200</basePowerConsumption>
+        <basePowerConsumption>1500</basePowerConsumption>
         <soundPowerOn>PowerOnSmall</soundPowerOn>
         <soundPowerOff>PowerOffSmall</soundPowerOff>
       </li>
@@ -2225,7 +2194,7 @@
     <interactionCellOffset>(0,0,-1)</interactionCellOffset>
     <surfaceType>Item</surfaceType>
     <recipes>
-		<li>MakeSpareParts_Hand</li>
+		<li>MakeComponents_Hand</li>
 		<li>MakeWires_Hand</li>
 		<li>MakeSimpleMechanism_Hand</li>
 		<li>MakeAdvMechanism_Hand</li>
@@ -2286,7 +2255,7 @@
     <interactionCellOffset>(0,0,-1)</interactionCellOffset>
     <surfaceType>Item</surfaceType>
     <recipes>
-		<li>MakeSpareParts_Electric</li>
+		<li>MakeComponents_Electric</li>
 		<li>MakeWires_Electric</li>
 		<li>MakeSimpleMechanism_Electric</li>
 		<li>MakeAdvMechanism_Electric</li>
@@ -2299,21 +2268,21 @@
 				<soundPowerOn>PowerOnSmall</soundPowerOn>
 				<soundPowerOff>PowerOffSmall</soundPowerOff>
 			</li>
-      <li Class="CompProperties_AffectedByFacilities">
-        <linkableFacilities>
-			
-          <li>Small_ToolCabinet</li>
-          <li>PodChair</li>
-        </linkableFacilities>
-      </li>
+		  <li Class="CompProperties_AffectedByFacilities">
+			<linkableFacilities>
+				
+			  <li>Small_ToolCabinet</li>
+			  <li>PodChair</li>
+			</linkableFacilities>
+		  </li>
             <li Class="CommunityCoreLibrary.CompProperties_LowIdleDraw">
                 <compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
                 <idlePowerFactor>0.1</idlePowerFactor>
             </li>
-      <li Class="CompProperties_Glower">
-        <glowRadius>5</glowRadius>
-        <glowColor>(73,123,138,0)</glowColor>
-      </li>
+			  <li Class="CompProperties_Glower">
+				<glowRadius>5</glowRadius>
+				<glowColor>(73,123,138,0)</glowColor>
+			  </li>
 			  <li Class="CompProperties_Flickable"/>
 			  <li Class="CompProperties_Breakdownable"/>
 		</comps>
@@ -2431,7 +2400,6 @@
 			<Components>6</Components>
 			<Mechanism>6</Mechanism>
 		</CostList>
-    <constructEffect>ConstructWood</constructEffect>
     <AltitudeLayer>Waist</AltitudeLayer>
     <fillPercent>0.5</fillPercent>
     <useHitPoints>True</useHitPoints>
@@ -2637,7 +2605,6 @@
           <li>PodChair</li>
         </linkableFacilities>
       </li>
-			  <li Class="CompProperties_Breakdownable"/>
     </comps>
     <designationHotKey>U</designationHotKey>
 		<placeWorkers>
@@ -3652,6 +3619,118 @@
 	</ThingDef>
 
 
+	<ThingDef ParentName="BuildingBase">
+    <DefName>ManualCrematorium</DefName>
+    <label>Fueled crematorium</label>
+    <ThingClass>Building_WorkTable</ThingClass>
+    <Description>Cremates corpses using fuel.</Description>
+    <graphicData>
+      <texPath>Things/Building/Production/Crematorium</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(2,1)</drawSize>
+    </graphicData>
+    <stuffCategories>
+      <li>Stony</li>
+    </stuffCategories>
+    <costStuffCount>100</costStuffCount>
+    <AltitudeLayer>Waist</AltitudeLayer>
+    <useHitPoints>True</useHitPoints>
+    <statBases>
+      <WorkToMake>3500</WorkToMake>
+      <MaxHitPoints>250</MaxHitPoints>
+      <Flammability>0</Flammability>
+      <Cleanliness>-20</Cleanliness>
+    </statBases>
+    <Size>(2,1)</Size>
+    <DesignationCategory>Production</DesignationCategory>
+    <fillPercent>1</fillPercent>
+    <Passability>Impassable</Passability>
+    <hasInteractionCell>True</hasInteractionCell>
+    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
+    <surfaceType>Item</surfaceType>
+    <recipes>
+      <li>CremateCorpse</li>
+      <li>BurnApparel</li>
+      <li>BurnThings</li>
+    </recipes>
+    <inspectorTabs>
+      <li>ITab_Bills</li>
+    </inspectorTabs>
+	 <comps>
+		<li Class="CompProperties_Refuelable">
+				<fuelConsumptionRate>160.0</fuelConsumptionRate>
+				<fuelCapacity>30.0</fuelCapacity>
+				<fuelFilter>
+				  <thingDefs>
+					<li>Kindling</li>
+					<li>Coal</li>
+					<li>Charcoal</li>
+				  </thingDefs>
+				</fuelFilter>
+				<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+			</li> 
+	 </comps>
+    <building>
+      <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+      <heatPerTickWhileWorking>0.6</heatPerTickWhileWorking>
+    </building>
+  </ThingDef>
+  
+  <ThingDef ParentName="BuildingBase">
+		<DefName>CharcoalPit</DefName>
+		<label>Charcoal Pit</label>
+		<ThingClass>Building_WorkTable</ThingClass>
+		<Description>A pit for charring a large amount of charcoal.</Description>
+		<graphicData>
+			<texPath>Things/Building/CharcoalPit_Empty/CharcoalPit_Empty</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(3,3)</drawSize>
+		</graphicData>
+		<constructEffect>ConstructDirt</constructEffect>
+		<altitudeLayer>FloorEmplacement</altitudeLayer>
+		<useHitPoints>false</useHitPoints>
+		<fillPercent>0</fillPercent>
+		<statBases>
+			<WorkToMake>500</WorkToMake>
+			<Flammability>0.1</Flammability>
+		</statBases>
+		<Size>(1,1)</Size>
+		<DesignationCategory>Production</DesignationCategory>
+		<Passability>PassThroughOnly</Passability>
+		<pathCost>60</pathCost>
+		<hasInteractionCell>True</hasInteractionCell>
+		<interactionCellOffset>(0,0,1)</interactionCellOffset>
+		<surfaceType>Item</surfaceType>
+		<recipes>
+			<li>MakeCharcoal_Hand</li>
+		</recipes>
+		<inspectorTabs>
+			<li>ITab_Bills</li>
+		</inspectorTabs>
+	 <comps>
+		<li Class="CompProperties_Refuelable">
+				<fuelConsumptionRate>5.0</fuelConsumptionRate>
+				<fuelCapacity>30.0</fuelCapacity>
+				<fuelFilter>
+					<thingDefs>
+						<li>Coal</li>
+					</thingDefs>
+				</fuelFilter>
+				<consumeFuelOnlyWhenUsed>false</consumeFuelOnlyWhenUsed>
+			</li> 
+	 </comps>
+		<building>
+			<isInert>true</isInert>
+         <heatPerTickWhileWorking>0.1</heatPerTickWhileWorking>
+			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+		</building>
+		<terrainAffordanceNeeded>Diggable</terrainAffordanceNeeded>
+		<placeWorkers>
+			<li>PlaceWorker_NotUnderRoof</li>
+		 </placeWorkers>
+	</ThingDef>
+	
   <ThingDef ParentName="BenchBase">
     <DefName>ElectricCrematorium</DefName>
     <label>Crematorium</label>
@@ -3697,7 +3776,7 @@
     <comps>
      <li Class="CompProperties_Power">
         <compClass>CompPowerTrader</compClass>
-        <basePowerConsumption>550</basePowerConsumption>
+        <basePowerConsumption>650</basePowerConsumption>
         <startElectricalFires>true</startElectricalFires>
         <soundPowerOn>PowerOnSmall</soundPowerOn>
         <soundPowerOff>PowerOffSmall</soundPowerOff>
@@ -3844,19 +3923,19 @@
 	
 	<ThingDef ParentName="BenchBase">
     <defName>HiTechResearchBench</defName>
-    <label>hi-tech research bench</label>
+    <label>Hi-Tech Research Bench</label>
     <description>A high-tech bench with computers and electronic measurement equipment. Research is sped up by the high-tech tools. Requires power.</description>
     <thingClass>Building_ResearchBench</thingClass>
     <size>(5,2)</size>
     <stuffCategories>
       <li>Metallic</li>
-      <li>Woody</li>
-      <li>Stony</li>
     </stuffCategories>
-    <costStuffCount>150</costStuffCount>
+    <costStuffCount>120</costStuffCount>
     <costList>
-      <Steel>100</Steel>
-      <Components>10</Components>
+	  <Plastic>45</Plastic>
+	  <Components>12</Components>
+	  <Electronics>5</Electronics>
+	  <AdvMechanism>3</AdvMechanism>
     </costList>
     <graphicData>
       <texPath>Things/Building/Production/ResearchBenchHiTech</texPath>
