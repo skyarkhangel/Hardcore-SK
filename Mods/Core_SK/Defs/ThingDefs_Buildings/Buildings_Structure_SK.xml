@@ -852,11 +852,21 @@
 
 	<!--========================= Glass walls =============================-->
 	
+	<ThingDef Name="WindowBase" Abstract="True">
+    <category>Building</category>
+    <thingClass>Building</thingClass>
+    <soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+    <selectable>true</selectable>
+    <drawerType>MapMeshAndRealTime</drawerType>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+    <repairEffect>Repair</repairEffect>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <filthLeaving>BuildingRubble</filthLeaving>
+  </ThingDef>
 	
-	
-	<ThingDef ParentName="BuildingBase">
+	<ThingDef ParentName="WindowBase">
 		<DefName>Window</DefName>
-		<label>Window</label>
+		<label>Window frame</label>
 		<Description>A simple window for allowing natural light into a room. Can be built into a wall.</Description>
 		<graphicData>
 			<texPath>Things/Building/Window/Window</texPath>
@@ -873,28 +883,29 @@
 		<building>
 			<isEdifice>false</isEdifice>
 		</building>
+		<filthLeaving>BrokenGlass</filthLeaving>
 	</ThingDef>
 	
   
-	<ThingDef ParentName="BuildingBase">
+	<ThingDef ParentName="WindowBase">
 		<DefName>WindowSpawner</DefName>
 		<label>Window</label>
 		<Description>A simple window for allowing natural light into a room. Can be built into a wall.</Description>
-		<thingClass>Powerless.Building_Window</thingClass>
+		<thingClass>SK.Building_Window</thingClass>
 		<graphicData>
 			<texPath>Things/Building/Window/Window</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
 		</graphicData>
 		<stuffCategories>
-		  <li>Glass</li>
+			<li>Glass</li>
 		</stuffCategories>
-		<costStuffCount>1</costStuffCount>
+		<costStuffCount>2</costStuffCount>
 		<costList>
 				<Components>2</Components>
 		</costList>
 		<AltitudeLayer>Pawn</AltitudeLayer>
 		<statBases>
-			<WorkToMake>200</WorkToMake>
+			<WorkToMake>800</WorkToMake>
 		</statBases>
 		<Size>(1,1)</Size>
 		<DesignationCategory>Structure</DesignationCategory>
@@ -903,16 +914,17 @@
 			<isEdifice>false</isEdifice>
 		</building>
 		<placeWorkers>
-			<li>Powerless.PlaceWorker_Window</li>
+			<li>SK.PlaceWorker_Window</li>
 		</placeWorkers>
+		<filthLeaving>BrokenGlass</filthLeaving>
 		<researchPrerequisites><li>ObtainingGlass</li></researchPrerequisites>
 	</ThingDef>
 	
 	
-	<ThingDef ParentName="BuildingBase">
+	<ThingDef ParentName="WindowBase">
 		<defName>WindowGlower</defName>
 		<label>sunlight</label>
-		<thingClass>Powerless.Building_WindowGlower</thingClass>
+		<thingClass>SK.Building_WindowGlower</thingClass>
 		<graphicData>
 			<graphicClass>Graphic_Single</graphicClass>
 			<texPath>Things/Null</texPath>
@@ -934,7 +946,7 @@
 		</building>
 		<comps>
 			<li>
-				<compClass>CorePanda.CompSunlight</compClass>
+				<compClass>SK.CompSunlight</compClass>
 			</li>
 			<li Class="CompProperties_Glower">
 				<glowRadius>8</glowRadius>
@@ -942,65 +954,5 @@
 			</li>
 		</comps>
 	</ThingDef>
-
-	
-	<ThingDef ParentName="BuildingBase" Name="Windows">
-    <defName>Windows</defName>
-    <label>Window</label>
-    <thingClass>Building</thingClass>
-    <category>Building</category>
-    <description>A window is like a wall but it lets light through.</description>
-    <graphicData>
-      <texPath>Things/Building/WallGlass_Atlas</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <linkType>CornerFiller</linkType>
-      <linkFlags>
-        <li>Wall</li>
-        <li>Rock</li>
-      </linkFlags>
-    </graphicData>
-    <blueprintGraphicData>
-      <texPath>Things/Building/Linked/Wall_Blueprint_Atlas</texPath>
-    </blueprintGraphicData>
-    <uiIconPath>Things/Building/Window</uiIconPath>
-    <statBases>
-      <MaxHitPoints>350</MaxHitPoints>
-	  <MarketValue>10</MarketValue>
-      <WorkToMake>150</WorkToMake>
-      <Flammability>1.0</Flammability>
-	  <Beauty>8</Beauty>
-    </statBases>
-    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
-    <altitudeLayer>BuildingTall</altitudeLayer>
-    <passability>Impassable</passability>
-    <castEdgeShadows>true</castEdgeShadows>
-    <fillPercent>1</fillPercent>
-    <coversFloor>true</coversFloor>
-    <placingDraggableDimensions>1</placingDraggableDimensions>
-    <tickerType>Never</tickerType>
-    <rotatable>false</rotatable>
-    <selectable>true</selectable>
-    <neverMultiSelect>true</neverMultiSelect>
-    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
-    <holdsRoof>false</holdsRoof>
-    <designationCategory>Structure</designationCategory>
-    <staticSunShadowHeight>1.0</staticSunShadowHeight>
-    <blockLight>false</blockLight>
-    <stuffCategories>
-      <li>Glass</li>
-    </stuffCategories>
-    <costStuffCount>1</costStuffCount>
-	<costList>
-			<Components>2</Components>
-	</costList>
-    <building>
-      <isInert>true</isInert>
-      <ignoreNeedsPower>true</ignoreNeedsPower>
-	  <canPlaceOverWall>true</canPlaceOverWall>
-    </building>
-    <filthLeaving>BrokenGlass</filthLeaving>
-	<researchPrerequisites><li>ObtainingGlass</li></researchPrerequisites>
-  </ThingDef>
-	
 
 </Buildings>
