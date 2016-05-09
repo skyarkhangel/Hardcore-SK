@@ -6,7 +6,7 @@
 
   
   <ThingDef ParentName="BuildingBase" Name="DoorBase" Abstract="True">
-    <thingClass>Building_Door</thingClass>
+    <thingClass>SK.Building_FixedDoor</thingClass>
     <blueprintClass>Blueprint_Door</blueprintClass>
     <category>Building</category>
     <blueprintGraphicData>
@@ -36,7 +36,6 @@
       <soundDoorCloseManual>DoorCloseManual</soundDoorCloseManual>
       <ignoreNeedsPower>true</ignoreNeedsPower>
       <canPlaceOverWall>true</canPlaceOverWall>
-      <ai_combatDangerous>false</ai_combatDangerous>
     </building>
     <comps>
         <li Class="CompProperties_Forbiddable"/>
@@ -45,7 +44,7 @@
 
   
   <ThingDef ParentName="BuildingBase" Name="DoorBased" Abstract="True">
-    <thingClass>Building_Door</thingClass>
+    <thingClass>SK.Building_FixedDoor</thingClass>
     <blueprintClass>Blueprint_Door</blueprintClass>
     <category>Building</category>
     <blueprintGraphicData>
@@ -75,7 +74,6 @@
       <soundDoorCloseManual>DoorCloseManual</soundDoorCloseManual>
       <ignoreNeedsPower>true</ignoreNeedsPower>
       <canPlaceOverWall>true</canPlaceOverWall>
-      <ai_combatDangerous>false</ai_combatDangerous>
     </building>
     <comps>
         <li Class="CompProperties_Forbiddable"/>
@@ -85,17 +83,20 @@
 
   <ThingDef ParentName="DoorBase">
     <defName>Door</defName>
-    <label>Door</label>
-    <description>A door divides rooms with a closable opening. It must be manually opened and closed, which slows people down.</description>
+    <label>door</label>
+    <description>Divides rooms. Must be manually opened and closed, which slows people down.</description>
     <statBases>
-	<MaxHitPoints>200</MaxHitPoints>
+	  <MaxHitPoints>200</MaxHitPoints>
       <WorkToMake>850</WorkToMake>
     </statBases>
     <graphicData>
-      <texPath>Things/Building/Doors/DoorSimple_Mover</texPath>
+      <texPath>Things/Building/Door/DoorSimple_Mover</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <damageData>
+        <rect>(0,0.1,1,0.8)</rect>
+      </damageData>
     </graphicData>
-    <uiIconPath>Things/Building/Doors/DoorSimple_MenuIcon</uiIconPath>
+    <uiIconPath>Things/Building/Door/DoorSimple_MenuIcon</uiIconPath>
 		<stuffCategories>
 			<li>Metallic</li>
 			<li>Woody</li>
@@ -106,7 +107,7 @@
 	</costList>
     <designationHotKey>P</designationHotKey>
   </ThingDef>
-
+  
 
   <ThingDef ParentName="DoorBased">
     <defName>Autodoor</defName>
@@ -117,8 +118,11 @@
       <WorkToMake>1100</WorkToMake>
     </statBases>
     <graphicData>
-      <texPath>Things/Building/Doors/Autodoor_Mover</texPath>
+      <texPath>Things/Building/Door/Autodoor_Mover</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <damageData>
+        <rect>(0,0.1,1,0.8)</rect>
+      </damageData>
     </graphicData>
     <uiIconPath>Things/Building/Doors/Autodoor_MenuIcon</uiIconPath>
 		<stuffCategories>
@@ -131,16 +135,17 @@
 			<ElectronicComponents>1</ElectronicComponents>
 		</costList>
     <comps>
-      <li Class="CompProperties_Power">
-        <compClass>CompPowerTrader</compClass>
-        <basePowerConsumption>100</basePowerConsumption>
-      </li>
+		    <li Class="CompProperties_Power">
+			<compClass>CompPowerTrader</compClass>
+			<basePowerConsumption>100</basePowerConsumption>
+		    </li>
+		    <li Class="CompProperties_Breakdownable"/>
 			<li Class="CommunityCoreLibrary.CompProperties_LowIdleDraw">
 				<compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
 				<idlePowerFactor>0.1</idlePowerFactor>
 				<operationalMode>WhenNear</operationalMode>
 			</li>
-		<li Class="CompProperties_Breakdownable"/>
+		    <li Class="CompProperties_Breakdownable"/>
     </comps>
     <designationHotKey>O</designationHotKey>
 		<researchPrerequisites><li>ConstructionII</li></researchPrerequisites>
@@ -366,7 +371,7 @@
 
   <ThingDef ParentName="BuildingBase" Name="Wall">
     <defName>Wall</defName>
-    <label>Wall</label>
+    <label>wall</label>
     <thingClass>Building</thingClass>
     <category>Building</category>
     <description>An impassable wall. It is capable of holding up a roof.</description>
@@ -378,6 +383,16 @@
         <li>Wall</li>
         <li>Rock</li>
       </linkFlags>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+        <edgeTop>Damage/Edge</edgeTop>
+        <edgeBot>Damage/Edge</edgeBot>
+        <edgeLeft>Damage/Edge</edgeLeft>
+        <edgeRight>Damage/Edge</edgeRight>
+      </damageData>
     </graphicData>
     <blueprintGraphicData>
       <texPath>Things/Building/Linked/Wall_Blueprint_Atlas</texPath>
@@ -497,6 +512,16 @@
         <li>Wall</li>
         <li>Rock</li>
       </linkFlags>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+        <edgeTop>Damage/Edge</edgeTop>
+        <edgeBot>Damage/Edge</edgeBot>
+        <edgeLeft>Damage/Edge</edgeLeft>
+        <edgeRight>Damage/Edge</edgeRight>
+      </damageData>
     </graphicData>
     <blueprintGraphicData>
       <texPath>Things/Building/Linked/Wall_Blueprint_Atlas</texPath>
@@ -548,6 +573,16 @@
         <li>Wall</li>
         <li>Rock</li>
       </linkFlags>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+        <edgeTop>Damage/Edge</edgeTop>
+        <edgeBot>Damage/Edge</edgeBot>
+        <edgeLeft>Damage/Edge</edgeLeft>
+        <edgeRight>Damage/Edge</edgeRight>
+      </damageData>
     </graphicData>
     <blueprintGraphicData>
       <texPath>Things/Building/Linked/Wall_Blueprint_Atlas</texPath>
@@ -605,6 +640,16 @@
 			<li>Wall</li>
 			<li>Rock</li>
 		</linkFlags>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+        <edgeTop>Damage/Edge</edgeTop>
+        <edgeBot>Damage/Edge</edgeBot>
+        <edgeLeft>Damage/Edge</edgeLeft>
+        <edgeRight>Damage/Edge</edgeRight>
+      </damageData>
     </graphicData>
 		<uiIconPath>Things/Building/Walls/WallLights_MenuIcon</uiIconPath>
     <blueprintGraphicData>
@@ -682,6 +727,16 @@
 		<linkFlags>
 			<li>Custom4</li>
 		</linkFlags>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+        <edgeTop>Damage/Edge</edgeTop>
+        <edgeBot>Damage/Edge</edgeBot>
+        <edgeLeft>Damage/Edge</edgeLeft>
+        <edgeRight>Damage/Edge</edgeRight>
+      </damageData>
     </graphicData>
 		<uiIconPath>Things/Building/Walls/Fence_MenuIcon</uiIconPath>
     <blueprintGraphicData>
@@ -702,7 +757,8 @@
 		</costList>
 		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
 		<altitudeLayer>Waist</altitudeLayer>
-		<passability>Impassable</passability>
+		<pathCost>98</pathCost>
+		<passability>PassThroughOnly</passability>
 		<castEdgeShadows>true</castEdgeShadows>
 		<fillPercent>0.2</fillPercent>
 		<coversFloor>false</coversFloor>

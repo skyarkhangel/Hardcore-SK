@@ -1,11 +1,34 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ThingDefs>
 
+
+  <ThingDef Name="BaseTurretGun" ParentName="BaseGun" Abstract="True">
+    <soundInteract>InteractRifle</soundInteract>
+    <weaponTags>
+		<li>TurretGun</li>
+    </weaponTags>
+    <tradeability>Never</tradeability>
+    <destroyOnDrop>True</destroyOnDrop>
+    <menuHidden>True</menuHidden>
+    <canBeSpawningInventory>false</canBeSpawningInventory>
+  </ThingDef>
+
+  <ThingDef Name="BaseAutoTurretGun" ParentName="BaseTurretGun" Abstract="True">
+		<comps>
+			<li Class="Combat_Realism.CompProperties_FireModes">
+				<aiUseBurstMode>FALSE</aiUseBurstMode>
+				<aiUseAimMode>TRUE</aiUseAimMode>
+				<noSnapshot>true</noSnapshot>
+				<noSingleShot>true</noSingleShot>
+			</li>
+		</comps>
+  </ThingDef>
+
   <!-- ================ Improvised turret gun ============== -->
  
-	<ThingDef ParentName="BaseHumanGun">
+  <ThingDef ParentName="BaseAutoTurretGun">
 		<defName>Gun_TurretImprovised</defName>
-		<label>Turret Gun</label>
+		<label>Sentry light gun</label>
     <graphicData>
 		<texPath>Things/Item/Equipment/WeaponRanged/ChargeRifle</texPath>
 		<graphicClass>Graphic_Single</graphicClass>
@@ -16,52 +39,350 @@
 		<canBeSpawningInventory>false</canBeSpawningInventory>
 		<tradeability>Never</tradeability>
 		<statBases>
-			<AccuracyTouch>0.85</AccuracyTouch>
-			<AccuracyShort>0.75</AccuracyShort>
-			<AccuracyMedium>0.55</AccuracyMedium>
-			<AccuracyLong>0.35</AccuracyLong>
-			<RangedWeapon_Cooldown>1.7</RangedWeapon_Cooldown>
+			<AimEfficiency>1.25</AimEfficiency>
+			<ShotSpread>0.08</ShotSpread>
+			<SwayFactor>1.80</SwayFactor>
+			<RangedWeapon_Cooldown>1.5</RangedWeapon_Cooldown>
 		</statBases>
-		<weaponTags>
-			<li>TurretGun</li>
-		</weaponTags>
 		<verbs>
-			<li>
-				<verbClass>Verb_Shoot</verbClass>
+			<li Class="Combat_Realism.VerbPropertiesCR">
+				<recoilPattern>Mounted</recoilPattern>
+				<recoilAmount>0.41</recoilAmount>
+				<verbClass>Combat_Realism.Verb_ShootCR</verbClass>
 				<hasStandardCommand>true</hasStandardCommand>
-				<projectileDef>Bullet_TurretImprovised</projectileDef>
-				<forcedMissRadius>1</forcedMissRadius>
-				<range>32</range>
-				<ticksBetweenBurstShots>8</ticksBetweenBurstShots>
-				<burstShotCount>3</burstShotCount>
+				<projectileDef>Bullet_32ACP_FMJ</projectileDef>
+				<warmupTicks>90</warmupTicks>
+				<range>35</range>
+				<ticksBetweenBurstShots>4</ticksBetweenBurstShots>
+				<burstShotCount>10</burstShotCount>
 				<soundCast>GunShotA</soundCast>
 				<soundCastTail>GunTail_Light</soundCastTail>
 				<muzzleFlashScale>9</muzzleFlashScale>
 			</li>
 		</verbs>
+		<comps>
+			<li Class="Combat_Realism.CompProperties_AmmoUser">
+				<magazineSize>200</magazineSize>
+				<reloadTicks>600</reloadTicks>
+				<spawnUnloaded>true</spawnUnloaded>
+				<ammoSet>AmmoSet_32ACP</ammoSet>
+			</li>
+			<li Class="Combat_Realism.CompProperties_FireModes">
+				<aimedBurstShotCount>5</aimedBurstShotCount>
+				<aiUseBurstMode>TRUE</aiUseBurstMode>
+				<aiUseAimMode>TRUE</aiUseAimMode>
+				<noSnapshot>true</noSnapshot>
+				<noSingleShot>true</noSingleShot>
+			</li>
+		</comps>
 	</ThingDef>
 	
-<!-- ================ MG 14.5mm round ============== -->
-
-    <ThingDef ParentName="BaseBullet">
-		<defName>Bullet_M2Browning</defName>
-		<label>14.5mm MG Bullet</label>
-		<thingClass>Combat_Realism.BulletCR</thingClass>
+	
+	<!-- ================== Blaster Turret ================== -->
+  
+  <ThingDef ParentName="BaseAutoTurretGun">
+    <defName>Gun_BlasterTurret</defName>
+    <label>Sentry blaster gun</label>
     <graphicData>
-		<texPath>Things/Projectile/Bullet_Big</texPath>
+      <texPath>Things/Item/Equipment/WeaponRanged/ChargeRifle</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <description>Charge blaster attached to a turret mount.</description>
+    <soundInteract>InteractChargeRifle</soundInteract>
+    <statBases>
+      <MarketValue>2000</MarketValue>
+		<AimEfficiency>1.25</AimEfficiency>
+		<ShotSpread>0.08</ShotSpread>
+		<SwayFactor>1.80</SwayFactor>
+		<RangedWeapon_Cooldown>1.5</RangedWeapon_Cooldown>
+    </statBases>
+    <verbs>
+      <li Class="Combat_Realism.VerbPropertiesCR">
+        <recoilPattern>Mounted</recoilPattern>
+        <recoilAmount>0.41</recoilAmount>
+        <verbClass>Combat_Realism.Verb_ShootCR</verbClass>
+        <hasStandardCommand>true</hasStandardCommand>
+        <projectileDef>Bullet_6x24mmCharged</projectileDef>
+        <warmupTicks>120</warmupTicks>
+        <range>40</range>
+		<ticksBetweenBurstShots>5</ticksBetweenBurstShots>
+		<burstShotCount>10</burstShotCount>
+        <soundCast>ShotChargeBlaster</soundCast>
+        <soundCastTail>GunTail_Heavy</soundCastTail>
+        <muzzleFlashScale>9</muzzleFlashScale>
+      </li>
+    </verbs>
+		<comps>
+			<li Class="Combat_Realism.CompProperties_AmmoUser">
+				<magazineSize>300</magazineSize>
+				<reloadTicks>600</reloadTicks>
+				<spawnUnloaded>true</spawnUnloaded>
+				<ammoSet>AmmoSet_6x24mmCharged</ammoSet>
+			</li>
+			<li Class="Combat_Realism.CompProperties_FireModes">
+				<aimedBurstShotCount>3</aimedBurstShotCount>
+				<aiUseBurstMode>TRUE</aiUseBurstMode>
+				<aiUseAimMode>TRUE</aiUseAimMode>
+				<noSnapshot>true</noSnapshot>
+				<noSingleShot>true</noSingleShot>
+			</li>
+		</comps>
+  </ThingDef>
+	
+	
+<!-- ================ turret laser gun ============== -->
+
+  <ThingDef ParentName="BaseAutoTurretGun">
+    <defName>Gun_Laserbeamturret</defName>
+    <label>Laser Turret Gun</label>
+    <graphicData>
+      <texPath>Things/Building/Security/PrecisionShell</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>InteractChargeRifle</soundInteract>
+    <statBases>
+		<MarketValue>4400</MarketValue>
+		<AimEfficiency>1.25</AimEfficiency>
+		<ShotSpread>0.05</ShotSpread>
+		<SwayFactor>1.30</SwayFactor>
+		<RangedWeapon_Cooldown>1.2</RangedWeapon_Cooldown>
+    </statBases>
+		<verbs>
+		  <li Class="Combat_Realism.VerbPropertiesCR">
+			<recoilPattern>Mounted</recoilPattern>
+			<recoilAmount>0.45</recoilAmount>
+			<verbClass>Combat_Realism.Verb_ShootCR</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<projectileDef>Bullet_Laserbeam</projectileDef>
+			<burstShotCount>3</burstShotCount>
+			<ticksBetweenBurstShots>6</ticksBetweenBurstShots>
+			<warmupTicks>160</warmupTicks>
+			<minRange>6</minRange>
+			<range>55</range>
+			<soundCast>LaserBeam</soundCast>
+			<soundCastTail>GunTail_Medium</soundCastTail>
+			<muzzleFlashScale>12</muzzleFlashScale>
+		  </li>
+		</verbs>
+		<comps>
+			<li Class="Combat_Realism.CompProperties_AmmoUser">
+				<magazineSize>60</magazineSize>
+				<reloadTicks>400</reloadTicks>
+				<spawnUnloaded>true</spawnUnloaded>
+				<ammoSet>AmmoSet_ChargedLaser</ammoSet>
+			</li>
+			<li Class="Combat_Realism.CompProperties_FireModes">
+				<aiUseAimMode>TRUE</aiUseAimMode>
+				<noSnapshot>true</noSnapshot>
+				<noSingleShot>true</noSingleShot>
+			</li>
+		</comps>
+  </ThingDef>
+  
+	
+	<!-- ================== Heavy Turret ================== -->
+
+	<ThingDef ParentName="BaseAutoTurretGun">
+    <defName>Gun_HeavyTurret</defName>
+    <label>Sentry heavy gun</label>
+    <graphicData>
+      <texPath>Things/Item/Equipment/WeaponRanged/ChargeRifle</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <description>Large caliber gun on a turret mount.</description>
+    <statBases>
+		<MarketValue>2000</MarketValue>
+		<AimEfficiency>1.15</AimEfficiency>
+		<ShotSpread>0.08</ShotSpread>
+		<SwayFactor>2.35</SwayFactor>
+		<RangedWeapon_Cooldown>1.5</RangedWeapon_Cooldown>
+    </statBases>
+    <verbs>
+      <li Class="Combat_Realism.VerbPropertiesCR">
+        <recoilPattern>Mounted</recoilPattern>
+        <recoilAmount>0.78</recoilAmount>
+        <verbClass>Combat_Realism.Verb_ShootCR</verbClass>
+        <hasStandardCommand>true</hasStandardCommand>
+        <projectileDef>Bullet_145x114mm_FMJ</projectileDef>
+        <warmupTicks>180</warmupTicks>
+        <range>60</range>
+		<ticksBetweenBurstShots>6</ticksBetweenBurstShots>
+		<burstShotCount>5</burstShotCount>
+        <soundCast>HeavyMG</soundCast>
+        <soundCastTail>GunTail_Heavy</soundCastTail>
+        <muzzleFlashScale>16</muzzleFlashScale>
+      </li>
+    </verbs>
+		<comps>
+			<li Class="Combat_Realism.CompProperties_AmmoUser">
+				<magazineSize>100</magazineSize>
+				<reloadTicks>600</reloadTicks>
+				<spawnUnloaded>true</spawnUnloaded>
+				<ammoSet>AmmoSet_145x114mm</ammoSet>
+			</li>
+			<li Class="Combat_Realism.CompProperties_FireModes">
+				<aimedBurstShotCount>3</aimedBurstShotCount>
+				<aiUseBurstMode>TRUE</aiUseBurstMode>
+				<aiUseAimMode>TRUE</aiUseAimMode>
+				<noSnapshot>true</noSnapshot>
+				<noSingleShot>true</noSingleShot>
+			</li>
+		</comps>
+  </ThingDef>
+	
+<!-- ================ Automated security gun ============== -->
+
+	<ThingDef ParentName="BaseAutoTurretGun">
+		<defName>Gun_NavalGun</defName>
+		<label>Sentry naval cannon</label>
+	 <graphicData>
+		<texPath>Things/Building/Security/NavalGunTurretGun_Top</texPath>
+		<graphicClass>Graphic_Single</graphicClass>
+	 </graphicData>
+    <statBases>
+		<MarketValue>6000</MarketValue>
+		<AimEfficiency>0.5</AimEfficiency>
+		<ShotSpread>0.13</ShotSpread>
+		<SwayFactor>2.45</SwayFactor>
+		<RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
+    </statBases>
+		<verbs>
+			  <li Class="Combat_Realism.VerbPropertiesCR">
+				<recoilPattern>Mounted</recoilPattern>
+				<recoilAmount>0.91</recoilAmount>
+				<verbClass>Combat_Realism.Verb_ShootCR</verbClass>
+				<hasStandardCommand>true</hasStandardCommand>
+				<projectileDef>Bullet_30x173mm</projectileDef>
+				<range>75</range>
+                <minRange>8</minRange>
+				<warmupTicks>220</warmupTicks>
+                <ticksBetweenBurstShots>17</ticksBetweenBurstShots>
+                <burstShotCount>3</burstShotCount>
+				<soundCast>Bullet_57mm</soundCast>
+				<soundCastTail>GunTail_Heavy</soundCastTail>
+                <muzzleFlashScale>11</muzzleFlashScale>
+			</li>
+		</verbs>
+		<comps>
+			<li Class="Combat_Realism.CompProperties_AmmoUser">
+				<magazineSize>60</magazineSize>
+				<reloadTicks>800</reloadTicks>
+				<spawnUnloaded>true</spawnUnloaded>
+				<ammoSet>AmmoSet_30x173mm</ammoSet>
+			</li>
+			<li Class="Combat_Realism.CompProperties_FireModes">
+				<aiUseAimMode>TRUE</aiUseAimMode>
+				<noSnapshot>true</noSnapshot>
+				<noSingleShot>true</noSingleShot>
+			</li>
+		</comps>
+	</ThingDef>
+	
+	
+<!-- ================ Sentry rocket launcher ============== -->
+
+	<ThingDef ParentName="BaseAutoTurretGun">
+		<defName>Gun_SentryRocketLauncher</defName>
+		<label>Sentry rocket launcher</label>
+    <graphicData>
+		<texPath>Things/Building/Security/EMPTurretGun_Top</texPath>
 		<graphicClass>Graphic_Single</graphicClass>
     </graphicData>
-		<projectile>
-			<flyOverhead>false</flyOverhead>
-			<damageDef>Bullet</damageDef>
-			<damageAmountBase>30</damageAmountBase>
-			<speed>175</speed>
-		</projectile>
+    <statBases>
+		<MarketValue>2800</MarketValue>
+		<AimEfficiency>0.2</AimEfficiency>
+		<ShotSpread>0.13</ShotSpread>
+		<SwayFactor>2.45</SwayFactor>
+		<RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
+    </statBases>
+      <weaponTags>
+      <li>Artillery</li>
+    </weaponTags>
+		<verbs>
+		  <li Class="Combat_Realism.VerbPropertiesCR">
+			<recoilPattern>Mounted</recoilPattern>
+			<recoilAmount>0.41</recoilAmount>
+			<verbClass>Combat_Realism.Verb_ShootCR</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<projectileDef>Bullet_130mmRocketMissile</projectileDef>
+            <forcedMissRadius>6</forcedMissRadius>
+            <minRange>30</minRange>
+			<range>120</range>
+			<warmupTicks>260</warmupTicks>
+            <ticksBetweenBurstShots>12</ticksBetweenBurstShots>
+            <burstShotCount>1</burstShotCount>
+			<soundCast>130mmRocket</soundCast>
+            <muzzleFlashScale>16</muzzleFlashScale>
+		   </li>
+		</verbs>
+		<comps>
+			<li Class="Combat_Realism.CompProperties_AmmoUser">
+				<magazineSize>60</magazineSize>
+				<reloadTicks>600</reloadTicks>
+				<spawnUnloaded>true</spawnUnloaded>
+				<ammoSet>AmmoSet_130mmRocketMissile</ammoSet>
+			</li>
+			<li Class="Combat_Realism.CompProperties_FireModes">
+				<aiUseAimMode>TRUE</aiUseAimMode>
+				<noSnapshot>true</noSnapshot>
+				<noSingleShot>true</noSingleShot>
+			</li>
+		</comps>
 	</ThingDef>
 	
-	<ThingDef ParentName="BaseGun">
+	
+	<!-- ================== M240B ================== -->
+	
+  <ThingDef ParentName="BaseTurretGun">
+    <defName>Gun_M240B</defName>
+    <label>M240B machine gun</label>
+    <graphicData>
+      <texPath>Things/Item/Equipment/WeaponRanged/ChargeRifle</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <description>M240B machine gun mounted on a tripod.</description>
+    <statBases>
+      <MarketValue>200</MarketValue>
+		<AimEfficiency>0.5</AimEfficiency>
+		<ShotSpread>0.08</ShotSpread>
+		<SwayFactor>0.43</SwayFactor>
+		<RangedWeapon_Cooldown>1.3</RangedWeapon_Cooldown>
+    </statBases>
+    <verbs>
+      <li Class="Combat_Realism.VerbPropertiesCR">
+        <recoilPattern>Mounted</recoilPattern>
+        <recoilAmount>0.43</recoilAmount>
+        <verbClass>Combat_Realism.Verb_ShootCR</verbClass>
+        <hasStandardCommand>true</hasStandardCommand>
+        <projectileDef>Bullet_762x51mmNATO_FMJ</projectileDef>
+        <warmupTicks>90</warmupTicks>
+        <range>55</range>
+		<ticksBetweenBurstShots>5</ticksBetweenBurstShots>
+		<burstShotCount>25</burstShotCount>
+        <soundCast>MediumMG</soundCast>
+        <soundCastTail>GunTail_Medium</soundCastTail>
+        <muzzleFlashScale>10</muzzleFlashScale>
+      </li>
+    </verbs>
+		<comps>
+			<li Class="Combat_Realism.CompProperties_AmmoUser">
+				<magazineSize>200</magazineSize>
+				<reloadTicks>550</reloadTicks>
+				<spawnUnloaded>true</spawnUnloaded>
+				<ammoSet>AmmoSet_762x51mmNATO</ammoSet>
+			</li>
+			<li Class="Combat_Realism.CompProperties_FireModes">
+				<aimedBurstShotCount>5</aimedBurstShotCount>
+			</li>
+		</comps>
+  </ThingDef>
+	
+	
+<!-- ================ MG M2Browning .50cal round ============== -->
+
+  <ThingDef ParentName="BaseTurretGun">
 		<defName>Gun_M2Browning</defName>
-		<label>M2 Browning Machine Gun</label>
+		<label>50BMG M2 Browning MG</label>
 		<menuHidden>True</menuHidden>
 		<canBeSpawningInventory>false</canBeSpawningInventory>
 		<tradeability>Never</tradeability>
@@ -71,605 +392,480 @@
     </graphicData>
 		<statBases>
 			<MarketValue>2500</MarketValue>
-			<AimEfficiency>0.3</AimEfficiency>
-			<RangedWeapon_Cooldown>1.0</RangedWeapon_Cooldown>
+			<AimEfficiency>0.45</AimEfficiency>
+			<ShotSpread>0.13</ShotSpread>
+			<SwayFactor>0.8</SwayFactor>
+			<RangedWeapon_Cooldown>1.6</RangedWeapon_Cooldown>
 		</statBases>
-		<weaponTags>
-			<li>TurretGun</li>
-		</weaponTags>
 		<verbs>
 		  <li Class="Combat_Realism.VerbPropertiesCR">
+			<recoilPattern>Mounted</recoilPattern>
+			<recoilAmount>0.59</recoilAmount>
 			<verbClass>Combat_Realism.Verb_ShootCR</verbClass>
 			<hasStandardCommand>true</hasStandardCommand>
-			<projectileDef>Bullet_M2Browning</projectileDef>
-			<warmupTicks>180</warmupTicks>
-			<range>70</range>
-			<minRange>6</minRange>
-			<targetParams>
-				<canTargetLocations>true</canTargetLocations>
-			</targetParams>
-			<ticksBetweenBurstShots>8</ticksBetweenBurstShots>
-			<burstShotCount>30</burstShotCount>
+			<projectileDef>Bullet_50BMG_FMJ</projectileDef>
+			<warmupTicks>120</warmupTicks>
+			<range>60</range>
+			<minRange>3</minRange>
+			<ticksBetweenBurstShots>6</ticksBetweenBurstShots>
+			<burstShotCount>15</burstShotCount>
 			<forcedMissRadius>1.9</forcedMissRadius>
-			<soundCast>50Cal_Browning</soundCast>
+			<soundCast>HeavyMG</soundCast>
 			<muzzleFlashScale>9</muzzleFlashScale>
-		  </li>
+		   </li>
 		</verbs>
-	</ThingDef>
-	
-
-<!-- ================ Chain gun 35mm round ============== -->
-
-	<ThingDef ParentName="BaseBullet">
-		<defName>Bullet_35mm</defName>
-		<label>35mm API Bullet</label>
-    <graphicData>
-		<texPath>Things/Projectile/50CalRound</texPath>
-		<graphicClass>Graphic_Single</graphicClass>
-		<shaderType>TransparentPostLight</shaderType>
-    </graphicData>
-		<thingClass>Combat_Realism.ProjectileCR_Explosive</thingClass>
-		<projectile>
-            <flyOverhead>false</flyOverhead>
-			<damageDef>ArmorPiercing</damageDef>
-			<damageAmountBase>33</damageAmountBase>
-            <explosionRadius>0.9</explosionRadius>
-			<speed>180</speed>
-            <soundExplode>35mmExplosion</soundExplode>
-      		<soundImpactAnticipate>FlyingShell</soundImpactAnticipate>
-		</projectile>
 		<comps>
-		  <li Class="Combat_Realism.CompProperties_ExplosiveCR">
-			<explosionDamage>30</explosionDamage>
-			<explosionDamageDef>Bomb</explosionDamageDef>
-			<explosionRadius>1.5</explosionRadius>
-			<soundExplode>MortarBomb_Explode</soundExplode>
-			<fragments>
-			  <Fragment_GrenadeFragSmall>90</Fragment_GrenadeFragSmall>
-			  <Fragment_GrenadeFragMedium>55</Fragment_GrenadeFragMedium>
-			  <Fragment_GrenadeFragLarge>20</Fragment_GrenadeFragLarge>
-			</fragments>
-			<fragRange>2.5</fragRange>
-		  </li>
+			<li Class="Combat_Realism.CompProperties_AmmoUser">
+				<magazineSize>150</magazineSize>
+				<reloadTicks>550</reloadTicks>
+				<spawnUnloaded>true</spawnUnloaded>
+				<ammoSet>AmmoSet_50BMG</ammoSet>
+			</li>
+			<li Class="Combat_Realism.CompProperties_FireModes">
+				<aimedBurstShotCount>5</aimedBurstShotCount>
+			</li>
 		</comps>
 	</ThingDef>
+	
+	
+	<!-- ================== M134 Minigun ================== -->
+	
+  <ThingDef ParentName="BaseTurretGun">
+    <defName>Gun_TurretMinigun</defName>
+    <label>M134 Minigun</label>
+    <graphicData>
+      <texPath>Things/Building/Security/TurretGun_M2Browning</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <description></description>
+    <statBases>
+			<MarketValue>2500</MarketValue>
+			<AimEfficiency>0.35</AimEfficiency>
+			<ShotSpread>0.16</ShotSpread>
+			<SwayFactor>1.2</SwayFactor>
+			<RangedWeapon_Cooldown>1.8</RangedWeapon_Cooldown>
+    </statBases>
+    <verbs>
+      <li Class="Combat_Realism.VerbPropertiesCR">
+        <recoilPattern>Mounted</recoilPattern>
+        <recoilAmount>0.83</recoilAmount>
+        <verbClass>Combat_Realism.Verb_ShootCR</verbClass>
+        <hasStandardCommand>true</hasStandardCommand>
+        <projectileDef>Bullet_762x51mmNATO_FMJ</projectileDef>
+        <warmupTicks>140</warmupTicks>
+        <range>55</range>
+		<ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+		<burstShotCount>100</burstShotCount>
+        <soundCast>MediumMG</soundCast>
+        <soundCastTail>GunTail_Medium</soundCastTail>
+        <muzzleFlashScale>10</muzzleFlashScale>
+      </li>
+    </verbs>
+		<comps>
+			<li Class="Combat_Realism.CompProperties_AmmoUser">
+				<magazineSize>500</magazineSize>
+				<reloadTicks>670</reloadTicks>
+				<spawnUnloaded>true</spawnUnloaded>
+				<ammoSet>AmmoSet_762x51mmNATO</ammoSet>
+			</li>
+			<li Class="Combat_Realism.CompProperties_FireModes">
+			</li>
+		</comps>
+  </ThingDef>
+  
+	
+	<!-- ================== KPV 14.5mm heavy machine gun ================== -->
+	
+  <ThingDef ParentName="BaseTurretGun">
+    <defName>Gun_KPV</defName>
+    <label>14.5mm KPV MG</label>
+    <graphicData>
+      <texPath>Things/Item/Equipment/WeaponRanged/ChargeRifle</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <description>Heavy machine gun for use against light vehicles.</description>
+    <statBases>
+		<MarketValue>2000</MarketValue>
+		<AimEfficiency>0.45</AimEfficiency>
+		<ShotSpread>0.16</ShotSpread>
+		<SwayFactor>1.1</SwayFactor>
+		<RangedWeapon_Cooldown>1.8</RangedWeapon_Cooldown>
+    </statBases>
+    <verbs>
+      <li Class="Combat_Realism.VerbPropertiesCR">
+        <recoilPattern>Mounted</recoilPattern>
+        <recoilAmount>0.69</recoilAmount>
+        <verbClass>Combat_Realism.Verb_ShootCR</verbClass>
+        <hasStandardCommand>true</hasStandardCommand>
+        <projectileDef>Bullet_145x114mm_FMJ</projectileDef>
+        <warmupTicks>150</warmupTicks>
+        <range>65</range>
+		<minRange>3</minRange>
+		<ticksBetweenBurstShots>6</ticksBetweenBurstShots>
+		<burstShotCount>12</burstShotCount>
+		<soundCast>50Cal_Browning</soundCast>
+        <soundCastTail>GunTail_Heavy</soundCastTail>
+        <muzzleFlashScale>16</muzzleFlashScale>
+      </li>
+    </verbs>
+		<comps>
+			<li Class="Combat_Realism.CompProperties_AmmoUser">
+				<magazineSize>120</magazineSize>
+				<reloadTicks>600</reloadTicks>
+				<spawnUnloaded>true</spawnUnloaded>
+				<ammoSet>AmmoSet_145x114mm</ammoSet>
+			</li>
+			<li Class="Combat_Realism.CompProperties_FireModes">
+				<aimedBurstShotCount>5</aimedBurstShotCount>
+			</li>
+		</comps>
+  </ThingDef>
+	
 
-	<ThingDef ParentName="BaseGun">
+<!-- ================ Chain gun 30mm round ============== -->
+
+  <ThingDef ParentName="BaseTurretGun">
 		<defName>Gun_ChainGun</defName>
-		<label>35mm Autocannon Shell</label>
-		<menuHidden>True</menuHidden>
-		<canBeSpawningInventory>false</canBeSpawningInventory>
-		<tradeability>Never</tradeability>
+		<label>30mm chain cannon</label>
 	<graphicData>
 		<texPath>Things/Building/Security/ChainGunTurretGun_Top</texPath>
-	<graphicClass>Graphic_Single</graphicClass>
+		<graphicClass>Graphic_Single</graphicClass>
 	</graphicData>
     <statBases>
 		<MarketValue>2500</MarketValue>
-		<AimEfficiency>0.30</AimEfficiency>
-		<RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
+		<AimEfficiency>0.40</AimEfficiency>
+		<ShotSpread>0.11</ShotSpread>
+		<SwayFactor>1.90</SwayFactor>
+		<RangedWeapon_Cooldown>2</RangedWeapon_Cooldown>
     </statBases>
-      <weaponTags>
-      <li>TurretGun</li>
-    </weaponTags>
-		<verbs>
-			  <li Class="Combat_Realism.VerbPropertiesCR">
-				<verbClass>Combat_Realism.Verb_ShootMortarCR</verbClass>
-				<forceNormalTimeSpeed>false</forceNormalTimeSpeed>
-        		<hasStandardCommand>true</hasStandardCommand>
-				<projectileDef>Bullet_35mm</projectileDef>
-				<range>95</range>
-                <minRange>8</minRange>
-				<warmupTicks>220</warmupTicks>
-                <forcedMissRadius>1.5</forcedMissRadius>
-                <ticksBetweenBurstShots>17</ticksBetweenBurstShots>
-                <burstShotCount>3</burstShotCount>
-				<soundCast>35mm_shot</soundCast>
-                <muzzleFlashScale>9</muzzleFlashScale>
-		   </li>
-		</verbs>
-	</ThingDef>
-
-
-<!-- ================ Avenger 30mm fire cannon ============== -->
-	
-	<ThingDef ParentName="BaseBullet">
-		<defName>Bullet_Avenger</defName>
-		<label>30mm Avenger Shell</label>
-    <graphicData>
-		<texPath>Things/Projectile/50CalRound</texPath>
-		<graphicClass>Graphic_Single</graphicClass>
-		<shaderType>TransparentPostLight</shaderType>
-    </graphicData>
-		<thingClass>Combat_Realism.ProjectileCR_Explosive</thingClass>
-		<projectile>
-            <flyOverhead>false</flyOverhead>
-			<damageDef>ArmorPiercing</damageDef>
-			<damageAmountBase>30</damageAmountBase>
-            <explosionRadius>0.7</explosionRadius>
-			<speed>180</speed>
-            <soundExplode>35mmExplosion</soundExplode>
-      		<soundImpactAnticipate>FlyingShell</soundImpactAnticipate>
-		</projectile>
+	<verbs>
+		<li Class="Combat_Realism.VerbPropertiesCR">
+			<recoilPattern>Mounted</recoilPattern>
+			<recoilAmount>0.87</recoilAmount>
+			<verbClass>Combat_Realism.Verb_ShootCR</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<projectileDef>Bullet_30x173mm</projectileDef>
+			<range>85</range>
+            <minRange>8</minRange>
+			<warmupTicks>180</warmupTicks>
+            <forcedMissRadius>1.5</forcedMissRadius>
+            <ticksBetweenBurstShots>16</ticksBetweenBurstShots>
+            <burstShotCount>15</burstShotCount>
+			<soundCast>35mm_shot</soundCast>
+            <muzzleFlashScale>9</muzzleFlashScale>
+		</li>
+	</verbs>
 		<comps>
-		  <li Class="Combat_Realism.CompProperties_ExplosiveCR">
-			<explosionDamage>22</explosionDamage>
-			<explosionDamageDef>Bomb</explosionDamageDef>
-			<explosionRadius>1.3</explosionRadius>
-			<soundExplode>MortarBomb_Explode</soundExplode>
-			<fragments>
-			  <Fragment_GrenadeFragSmall>70</Fragment_GrenadeFragSmall>
-			  <Fragment_GrenadeFragMedium>40</Fragment_GrenadeFragMedium>
-			  <Fragment_GrenadeFragLarge>15</Fragment_GrenadeFragLarge>
-			</fragments>
-			<fragRange>2.0</fragRange>
-		  </li>
+			<li Class="Combat_Realism.CompProperties_AmmoUser">
+				<magazineSize>90</magazineSize>
+				<reloadTicks>600</reloadTicks>
+				<spawnUnloaded>true</spawnUnloaded>
+				<ammoSet>AmmoSet_30x173mm</ammoSet>
+			</li>
+			<li Class="Combat_Realism.CompProperties_FireModes">
+				<aimedBurstShotCount>5</aimedBurstShotCount>
+			</li>
 		</comps>
 	</ThingDef>
 
-	<ThingDef ParentName="BaseGun">
+
+<!-- ================ Avenger 35mm fire cannon ============== -->
+	
+
+  <ThingDef ParentName="BaseTurretGun">
 		<defName>Gun_Avenger</defName>
-		<label>30mm Avenger Fire Cannon</label>
-		<menuHidden>True</menuHidden>
-		<canBeSpawningInventory>false</canBeSpawningInventory>
-		<tradeability>Never</tradeability>
+		<label>35mm Avenger Fire Cannon</label>
 		<graphicData>
 			<texPath>Things/Building/Security/AvengerTurretGun_Top</texPath>
-		<graphicClass>Graphic_Single</graphicClass>
+			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<statBases>
 			<MarketValue>4000</MarketValue>
-			<AimEfficiency>0.15</AimEfficiency>
-			<RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
+			<AimEfficiency>0.4</AimEfficiency>
+			<ShotSpread>0.14</ShotSpread>
+			<SwayFactor>2.10</SwayFactor>
+			<RangedWeapon_Cooldown>2</RangedWeapon_Cooldown>
 		</statBases>
-      <weaponTags>
-      <li>TurretGun</li>
-    </weaponTags>
 		<verbs>
-		  <li Class="Combat_Realism.VerbPropertiesCR">
-			<verbClass>Combat_Realism.Verb_ShootMortarCR</verbClass>
-			<forceNormalTimeSpeed>false</forceNormalTimeSpeed>
-        	<hasStandardCommand>true</hasStandardCommand>
-			<projectileDef>Bullet_Avenger</projectileDef>
+		<li Class="Combat_Realism.VerbPropertiesCR">
+			<recoilPattern>Mounted</recoilPattern>
+			<recoilAmount>0.82</recoilAmount>
+			<verbClass>Combat_Realism.Verb_ShootCR</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<projectileDef>Bullet_35x228mm</projectileDef>
 			<range>85</range>
             <minRange>8</minRange>
-			<warmupTicks>220</warmupTicks>
+			<warmupTicks>180</warmupTicks>
             <forcedMissRadius>5.5</forcedMissRadius>
-            <ticksBetweenBurstShots>4</ticksBetweenBurstShots>
+            <ticksBetweenBurstShots>5</ticksBetweenBurstShots>
 			<soundCast>35mm_shot</soundCast>
-            <burstShotCount>9</burstShotCount>
+            <burstShotCount>8</burstShotCount>
 		  </li>
 		</verbs>
+		<comps>
+			<li Class="Combat_Realism.CompProperties_AmmoUser">
+				<magazineSize>56</magazineSize>
+				<reloadTicks>600</reloadTicks>
+				<spawnUnloaded>true</spawnUnloaded>
+				<ammoSet>AmmoSet_35x228mm</ammoSet>
+			</li>
+			<li Class="Combat_Realism.CompProperties_FireModes">
+			</li>
+		</comps>
 	</ThingDef>
 
 
+<!-- ================ 20mm Oerlikon autocannon ============== -->
+
+  <ThingDef ParentName="BaseTurretGun">
+		<defName>Gun_Oerlikonautocannon</defName>
+		<label>20mm Oerlikon autocannon</label>
+    <graphicData>
+		<texPath>Things/Building/Security/AMTurretGun_Top</texPath>
+		<graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>InteractRifle</soundInteract>
+    <statBases>
+		<MarketValue>4500</MarketValue>
+		<AimEfficiency>0.45</AimEfficiency>
+		<ShotSpread>0.12</ShotSpread>
+		<SwayFactor>1.40</SwayFactor>
+		<RangedWeapon_Cooldown>1.8</RangedWeapon_Cooldown>
+    </statBases>
+		<verbs>
+		<li Class="Combat_Realism.VerbPropertiesCR">
+			<recoilPattern>Mounted</recoilPattern>
+			<recoilAmount>0.4</recoilAmount>
+			<verbClass>Combat_Realism.Verb_ShootCR</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<projectileDef>Bullet_20x102mm</projectileDef>
+			<warmupTicks>180</warmupTicks>
+			<range>75</range>
+			<minRange>7</minRange>
+			<ticksBetweenBurstShots>8</ticksBetweenBurstShots>
+			<forcedMissRadius>2.5</forcedMissRadius>
+			<burstShotCount>20</burstShotCount>
+			<soundCast>50Cal</soundCast>
+			<soundCastTail>GunTail_Heavy</soundCastTail>
+			<muzzleFlashScale>9</muzzleFlashScale>
+		  </li>
+		</verbs>
+		<comps>
+			<li Class="Combat_Realism.CompProperties_AmmoUser">
+				<magazineSize>120</magazineSize>
+				<reloadTicks>600</reloadTicks>
+				<spawnUnloaded>true</spawnUnloaded>
+				<ammoSet>AmmoSet_20x102mm</ammoSet>
+			</li>
+			<li Class="Combat_Realism.CompProperties_FireModes">
+				<aimedBurstShotCount>10</aimedBurstShotCount>
+			</li>
+		</comps>
+	</ThingDef>
+
+	
+
 <!-- ================ vulcan cannon gun ============== -->
 
-    <ThingDef ParentName="BaseBullet">
-    <defName>Bullet_VulcanCannon</defName>
-    <label>20mm Vulcan Cannon Bullet</label>
-    <graphicData>
-      <texPath>Things/Projectile/50CalRound</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-    </graphicData>
-	<thingClass>Combat_Realism.BulletCR</thingClass>
-    <projectile>
-      <damageDef>Bullet</damageDef>
-      <flyOverhead>false</flyOverhead>
-      <damageAmountBase>33</damageAmountBase>
-      <speed>180</speed>
-      <soundExplode>SmallExplosion</soundExplode>
-      <explosionRadius>0.9</explosionRadius>
-    </projectile>
-  </ThingDef>
-  
-  <ThingDef ParentName="BaseGun">
+  <ThingDef ParentName="BaseTurretGun">
     <defName>Gun_VulcanCannon</defName>
-    <label>Vulcan Cannon</label>
+    <label>20mm Vulcan Cannon</label>
     <graphicData>
       <texPath>Things/Item/Equipment/WeaponRanged/Minigun</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
-    <menuHidden>true</menuHidden>
     <description>Carefully crafted gun attached to a turret.</description>
     <soundInteract>InteractRifle</soundInteract>
-    <canBeSpawningInventory>false</canBeSpawningInventory>
-    <tradeability>Never</tradeability>
     <statBases>
-      <MarketValue>3300</MarketValue>
-	  <AimEfficiency>0.15</AimEfficiency>
-      <RangedWeapon_Cooldown>2</RangedWeapon_Cooldown>
+		<MarketValue>3300</MarketValue>
+		<AimEfficiency>0.4</AimEfficiency>
+		<ShotSpread>0.14</ShotSpread>
+		<SwayFactor>1.90</SwayFactor>
+		<RangedWeapon_Cooldown>2</RangedWeapon_Cooldown>
     </statBases>
-    <weaponTags>
-      <li>TurretGun</li>
-    </weaponTags>
 		<verbs>
-		  <li Class="Combat_Realism.VerbPropertiesCR">
+		<li Class="Combat_Realism.VerbPropertiesCR">
+			<recoilPattern>Mounted</recoilPattern>
+			<recoilAmount>0.92</recoilAmount>
 			<verbClass>Combat_Realism.Verb_ShootCR</verbClass>
-			<forceNormalTimeSpeed>true</forceNormalTimeSpeed>
 			<hasStandardCommand>true</hasStandardCommand>
-			<projectileDef>Bullet_VulcanCannon</projectileDef>
-			<warmupTicks>220</warmupTicks>
+			<projectileDef>Bullet_20x102mm</projectileDef>
+			<warmupTicks>180</warmupTicks>
 			<range>70.0</range>
 			<minRange>5</minRange>
-			<targetParams>
-				<canTargetLocations>true</canTargetLocations>
-			</targetParams>
 			<ticksBetweenBurstShots>3</ticksBetweenBurstShots>
 			<forcedMissRadius>2.4</forcedMissRadius>
 			<burstShotCount>40</burstShotCount>
 			<soundCast>50Cal</soundCast>
 			<soundCastTail>GunTail_Heavy</soundCastTail>
 			<muzzleFlashScale>9</muzzleFlashScale>
-			<indirectFirePenalty>0.1</indirectFirePenalty>
 		  </li>
 		</verbs>
-  </ThingDef>
-
-
-
-<!-- ================ Anti-materiel turret gun ============== -->
-
-
-    <ThingDef ParentName="BaseBullet">
-    <defName>Bullet_AMTurret</defName>
-    <label>.50cal Anti-Materiel Turret Round</label>
-	<thingClass>AntiMateriel.Projectile_AM</thingClass>
-    <graphicData>
-	<texPath>Things/Projectile/50CalRound</texPath>
-	<graphicClass>Graphic_Single</graphicClass>
-    </graphicData>
-		<projectile>
-			<damageDef>AntiMateriel</damageDef>
-			<damageAmountBase>30</damageAmountBase>
-			<speed>180</speed>
-			<flyOverhead>false</flyOverhead>
-			<explosionRadius>1.8</explosionRadius>
-		</projectile>
 		<comps>
-			<li Class="AntiMateriel.CompAntiMateriel_Properties">
-				<antiBuildingDamage>70</antiBuildingDamage>
+			<li Class="Combat_Realism.CompProperties_AmmoUser">
+				<magazineSize>240</magazineSize>
+				<reloadTicks>800</reloadTicks>
+				<spawnUnloaded>true</spawnUnloaded>
+				<ammoSet>AmmoSet_20x102mm</ammoSet>
+			</li>
+			<li Class="Combat_Realism.CompProperties_FireModes">
 			</li>
 		</comps>
   </ThingDef>
 
-	<ThingDef ParentName="BaseGun">
-		<defName>Gun_AMTurret</defName>
-		<label>.50cal Anti-Materiel Turret Gun</label>
+  
+	<!-- ================== AGS-17 ================== -->
+  
+  <ThingDef ParentName="BaseTurretGun">
+    <defName>Gun_AGSThirty</defName>
+    <label>AGS-17 grenade launcher</label>
     <graphicData>
-		<texPath>Things/Building/Security/AMTurretGun_Top</texPath>
-		<graphicClass>Graphic_Single</graphicClass>
-    </graphicData>
-    <menuHidden>True</menuHidden>
-	<canBeSpawningInventory>false</canBeSpawningInventory>
-	<tradeability>Never</tradeability>
-    <statBases>
-			<MarketValue>4500</MarketValue>
-			<AimEfficiency>0.4</AimEfficiency>
-			<RangedWeapon_Cooldown>1.8</RangedWeapon_Cooldown>
-    </statBases>
-      <weaponTags>
-      <li>TurretGun</li>
-    </weaponTags>
-		<verbs>
-		  <li Class="Combat_Realism.VerbPropertiesCR">
-			<verbClass>Combat_Realism.Verb_ShootCR</verbClass>
-			<forceNormalTimeSpeed>true</forceNormalTimeSpeed>
-			<hasStandardCommand>true</hasStandardCommand>
-			<projectileDef>Bullet_AMTurret</projectileDef>
-			<warmupTicks>220</warmupTicks>
-			<range>75</range>
-			<minRange>7</minRange>
-			<ticksBetweenBurstShots>14</ticksBetweenBurstShots>
-			<burstShotCount>8</burstShotCount>
-			<forcedMissRadius>2.5</forcedMissRadius>
-			<soundCast>RF_ShotHecateII</soundCast>
-			<muzzleFlashScale>9</muzzleFlashScale>
-			<targetParams>
-				<canTargetLocations>true</canTargetLocations>
-			</targetParams>
-		  </li>
-		</verbs>
-	</ThingDef>
-
-
-<!-- ================ turret laser gun ============== -->
-
-  <ThingDef Class="SK.ThingDef_LaserProjectileCR" ParentName="BaseBullet">
-	<defName>Bullet_LaserTurret</defName>
-	<label>Laser Turret Beam</label>
-    <thingClass>SK.Projectile_LaserCR</thingClass>
-    <graphicData>
-      <texPath>Things/Projectile/LaserRay</texPath>
+      <texPath>Things/Item/Equipment/WeaponRanged/ChargeRifle</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
-    <projectile>
-      <damageDef>LaserBurn</damageDef>
-      <damageAmountBase>16</damageAmountBase>
-      <speed>190</speed>
-    </projectile>
-    <preFiringInitialIntensity>1</preFiringInitialIntensity>
-    <preFiringFinalIntensity>1</preFiringFinalIntensity>
-    <postFiringInitialIntensity>0</postFiringInitialIntensity>
-    <postFiringFinalIntensity>0</postFiringFinalIntensity>
-    <preFiringDuration>15</preFiringDuration>
-    <postFiringDuration>0</postFiringDuration>
-  </ThingDef>
-
-
-  <ThingDef ParentName="BaseGun">
-    <defName>Gun_LaserTurret</defName>
-    <label>Laser Turret Gun</label>
-    <graphicData>
-    <texPath>Things/Building/Security/LaserTurretGun_Top</texPath>
-<graphicClass>Graphic_Single</graphicClass>
-    </graphicData>
-    <menuHidden>True</menuHidden>
-<canBeSpawningInventory>false</canBeSpawningInventory>
-    <tradeability>Never</tradeability>
+    <description>AGS-17 attached to a tripod.</description>
     <statBases>
-		<MarketValue>4500</MarketValue>
-		<AimEfficiency>0.5</AimEfficiency>
-		<RangedWeapon_Cooldown>1.8</RangedWeapon_Cooldown>
+		<MarketValue>2500</MarketValue>
+		<AimEfficiency>1.25</AimEfficiency>
+		<ShotSpread>0.08</ShotSpread>
+		<SwayFactor>0.25</SwayFactor>
+		<RangedWeapon_Cooldown>1.33</RangedWeapon_Cooldown>
     </statBases>
-    <weaponTags>
-      <li>TurretGun</li>
-    </weaponTags>
-		<verbs>
-		  <li Class="Combat_Realism.VerbPropertiesCR">
-			<verbClass>Combat_Realism.Verb_ShootCR</verbClass>
-			<forceNormalTimeSpeed>true</forceNormalTimeSpeed>
-			<hasStandardCommand>true</hasStandardCommand>
-			<projectileDef>Bullet_LaserTurret</projectileDef>
-			<burstShotCount>3</burstShotCount>
-			<ticksBetweenBurstShots>6</ticksBetweenBurstShots>
-			<warmupTicks>160</warmupTicks>
-			<minRange>2</minRange>
-			<range>50</range>
-			<soundCast>LaserBeam</soundCast>
-			<soundCastTail>GunTail_Medium</soundCastTail>
-			<muzzleFlashScale>12</muzzleFlashScale>
-		  </li>
-		</verbs>
+    <verbs>
+      <li Class="Combat_Realism.VerbPropertiesCR">
+        <recoilPattern>Mounted</recoilPattern>
+        <recoilAmount>0.8</recoilAmount>
+        <verbClass>Combat_Realism.Verb_ShootCR</verbClass>
+        <hasStandardCommand>true</hasStandardCommand>
+        <projectileDef>Bullet_30x29mmGrenade_HE</projectileDef>
+        <ai_IsIncendiary>true</ai_IsIncendiary>
+        <warmupTicks>140</warmupTicks>
+		<minRange>8</minRange>
+        <range>95</range>
+		<ticksBetweenBurstShots>9</ticksBetweenBurstShots>
+		<burstShotCount>3</burstShotCount>
+		<soundCast>AGS</soundCast>
+        <soundCastTail>GunTail_Heavy</soundCastTail>
+        <muzzleFlashScale>14</muzzleFlashScale>
+      </li>
+    </verbs>
+		<comps>
+			<li Class="Combat_Realism.CompProperties_AmmoUser">
+				<magazineSize>15</magazineSize>
+				<reloadTicks>320</reloadTicks>
+				<spawnUnloaded>true</spawnUnloaded>
+				<ammoSet>AmmoSet_30x29mmGrenade</ammoSet>
+			</li>
+		</comps>
   </ThingDef>
-
-
-<!-- ================ precision turret gun ============== -->
-
-  <ThingDef ParentName="BaseGun">
-    <defName>Gun_TurretPrecision</defName>
-    <label>Precision Laser Turret Gun</label>
-    <graphicData>
-      <texPath>Things/Building/Security/PrecisionShell</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-    </graphicData>
-    <menuHidden>true</menuHidden>
-    <description>A mounted precision gun on a turret.</description>
-    <soundInteract>InteractRifle</soundInteract>
-    <canBeSpawningInventory>false</canBeSpawningInventory>
-    <tradeability>Never</tradeability>
-    <statBases>
-		<MarketValue>4400</MarketValue>
-		<AimEfficiency>1.15</AimEfficiency>
-		<RangedWeapon_Cooldown>1.5</RangedWeapon_Cooldown>
-    </statBases>
-    <weaponTags>
-      <li>TurretGun</li>
-    </weaponTags>
-		<verbs>
-		  <li Class="Combat_Realism.VerbPropertiesCR">
-			<verbClass>Combat_Realism.Verb_ShootCR</verbClass>
-			<forceNormalTimeSpeed>true</forceNormalTimeSpeed>
-			<hasStandardCommand>true</hasStandardCommand>
-			<projectileDef>Bullet_LaserTurret</projectileDef>
-			<burstShotCount>1</burstShotCount>
-			<ticksBetweenBurstShots>6</ticksBetweenBurstShots>
-			<warmupTicks>160</warmupTicks>
-			<minRange>3</minRange>
-			<range>65</range>
-			<soundCast>LaserBeam</soundCast>
-			<soundCastTail>GunTail_Medium</soundCastTail>
-			<muzzleFlashScale>12</muzzleFlashScale>
-		  </li>
-		</verbs>
-  </ThingDef>
-
+  
 
   <!-- ================ AGS-30 grenade launcher ============== -->
-
-	<ThingDef ParentName="BaseBullet">
-		<defName>Projectile_30x29mmGrenade</defName>
-		<label>30mmx6 Grenade</label>
-		<thingClass>Combat_Realism.ProjectileCR_Explosive</thingClass>
-    <graphicData>
-		<texPath>Things/Projectile/Bullet_Big</texPath>
-		<graphicClass>Graphic_Single</graphicClass>
-		<ShaderType>TransparentPostLight</ShaderType>
-    </graphicData>
-		<projectile>
-			<speed>70</speed>
-			<flyOverhead>false</flyOverhead>
-			<damageDef>Bomb</damageDef>
-			<damageAmountBase>20</damageAmountBase>
-			<explosionRadius>1</explosionRadius>
-      		<soundImpactAnticipate>FlyingShell</soundImpactAnticipate>
-		</projectile>
-		<comps>
-		  <li Class="Combat_Realism.CompProperties_ExplosiveCR">
-			<explosionDamage>30</explosionDamage>
-			<explosionDamageDef>Bomb</explosionDamageDef>
-			<explosionRadius>2.9</explosionRadius>
-			<soundExplode>MortarBomb_Explode</soundExplode>
-			<fragments>
-			  <Fragment_GrenadeFragSmall>110</Fragment_GrenadeFragSmall>
-			  <Fragment_GrenadeFragMedium>75</Fragment_GrenadeFragMedium>
-			  <Fragment_GrenadeFragLarge>30</Fragment_GrenadeFragLarge>
-			</fragments>
-			<fragRange>5</fragRange>
-		  </li>
-		</comps>
-	</ThingDef>
 	
-	<ThingDef ParentName="BaseGun">
-		<defName>Gun_AGS30GrenadeLauncher</defName>
-		<label>30mm Grenade Launcher</label>
+  <ThingDef ParentName="BaseTurretGun">
+	<defName>Gun_AGS30GrenadeLauncher</defName>
+	<label>30mm Grenade Launcher</label>
     <graphicData>
 		<texPath>Things/Building/Security/TurretGun_AGS30</texPath>
 		<graphicClass>Graphic_Single</graphicClass>
     </graphicData>
-		<destroyOnDrop>True</destroyOnDrop>
-		<menuHidden>True</menuHidden>
-		<canBeSpawningInventory>false</canBeSpawningInventory>
-		<tradeability>Never</tradeability>
-		<statBases>
-			<MarketValue>2500</MarketValue>
-			<AimEfficiency>0.3</AimEfficiency>
-			<RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
-		</statBases>
-		<weaponTags>
-			<li>TurretGun</li>
-		</weaponTags>
-		<verbs>
-			<li Class="Combat_Realism.VerbPropertiesCR">
-				<verbClass>Combat_Realism.Verb_ShootMortarCR</verbClass>
-				<forceNormalTimeSpeed>false</forceNormalTimeSpeed>
-        		<hasStandardCommand>true</hasStandardCommand>
-				<projectileDef>Projectile_30x29mmGrenade</projectileDef>
-				<warmupTicks>260</warmupTicks>
-				<minRange>15</minRange>
-				<range>90</range>
-				<ticksBetweenBurstShots>9</ticksBetweenBurstShots>
-				<burstShotCount>6</burstShotCount>
-				<forcedMissRadius>6.9</forcedMissRadius>
-				<soundCast>50Cal_Browning</soundCast>
-				<muzzleFlashScale>14</muzzleFlashScale>
+	<statBases>
+		<MarketValue>2500</MarketValue>
+		<AimEfficiency>0.6</AimEfficiency>
+		<ShotSpread>0.13</ShotSpread>
+		<SwayFactor>0.55</SwayFactor>
+		<RangedWeapon_Cooldown>1.5</RangedWeapon_Cooldown>
+	</statBases>
+	<verbs>
+      <li Class="Combat_Realism.VerbPropertiesCR">
+        <recoilPattern>Mounted</recoilPattern>
+        <recoilAmount>0.8</recoilAmount>
+        <verbClass>Combat_Realism.Verb_ShootCR</verbClass>
+        <hasStandardCommand>true</hasStandardCommand>
+		<projectileDef>Bullet_30x29mmGrenade_HE</projectileDef>
+		<warmupTicks>260</warmupTicks>
+		<minRange>15</minRange>
+		<range>90</range>
+		<ticksBetweenBurstShots>9</ticksBetweenBurstShots>
+		<burstShotCount>6</burstShotCount>
+		<forcedMissRadius>6.9</forcedMissRadius>
+		<soundCast>50Cal_Browning</soundCast>
+		<muzzleFlashScale>14</muzzleFlashScale>
+	   </li>
+	</verbs>
+		<comps>
+			<li Class="Combat_Realism.CompProperties_AmmoUser">
+				<magazineSize>60</magazineSize>
+				<reloadTicks>650</reloadTicks>
+				<spawnUnloaded>true</spawnUnloaded>
+				<ammoSet>AmmoSet_30x29mmGrenade</ammoSet>
 			</li>
-		</verbs>
+		</comps>
 	</ThingDef>
 
-
-
-
-<!-- ================ EMP launcher ============== -->
-
-  <ThingDef ParentName="BaseBullet">
-    <defName>Bullet_EMPTurret</defName>
-    <label>EMP Turret Grenade</label>
+	
+	<!-- ================== Flak cannon ================== -->
+	
+  <ThingDef ParentName="BaseTurretGun">
+    <defName>Gun_FlakTurret</defName>
+    <label>90mm Flak gun</label>
     <graphicData>
-    <texPath>Things/Projectile/EMPShell</texPath>
-	<graphicClass>Graphic_Single</graphicClass>
+      <texPath>Things/Item/Equipment/WeaponRanged/ChargeRifle</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
-    <thingClass>Projectile_Explosive</thingClass>
-	<projectile>
-        <damageDef>EMP</damageDef>
-		<damageAmountBase>110</damageAmountBase>
-        <explosionDelay>100</explosionDelay>
-		<explosionRadius>4.4</explosionRadius>
-		<speed>70</speed>
-		<flyOverhead>true</flyOverhead>
-        <soundExplode>MortarEMP_Explode</soundExplode>
-      	<soundImpactAnticipate>FlyingShell</soundImpactAnticipate>
-	</projectile>
-	<comps>
-	  <li Class="Combat_Realism.CompProperties_ExplosiveCR">
-	    <explosionDamage>20</explosionDamage>
-	    <explosionDamageDef>Electrical</explosionDamageDef>
-	    <explosionRadius>8.5</explosionRadius>
-	    <soundExplode>MortarEMP_Explode</soundExplode>
-	  </li>
-	</comps>
-  </ThingDef>
-
-
-	<ThingDef ParentName="BaseGun">
-		<defName>Artillery_MortarEMP</defName>
-		<label>EMP Grenade Launcher</label>
-    <menuHidden>True</menuHidden>
-	<canBeSpawningInventory>false</canBeSpawningInventory>
-	<tradeability>Never</tradeability>
-    <graphicData>
-		<texPath>Things/Building/Security/EMPTurretGun_Top</texPath>
-		<graphicClass>Graphic_Single</graphicClass>
-    </graphicData>
+    <description>90mm Flak cannon on a stationary emplacement.</description>
+    <soundInteract>ArtilleryShellLoaded</soundInteract>
     <statBases>
-      <MarketValue>2800</MarketValue>
-	  <AimEfficiency>0.2</AimEfficiency>
-      <RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
+		<MarketValue>2000</MarketValue>
+		<AimEfficiency>1.25</AimEfficiency>
+		<ShotSpread>0.1</ShotSpread>
+		<SwayFactor>3.2</SwayFactor>
+		<RangedWeapon_Cooldown>2</RangedWeapon_Cooldown>
     </statBases>
-      <weaponTags>
-      <li>Artillery</li>
-    </weaponTags>
-		<verbs>
-		  <li Class="Combat_Realism.VerbPropertiesCR">
-			<verbClass>Combat_Realism.Verb_ShootMortarCR</verbClass>
-			<forceNormalTimeSpeed>false</forceNormalTimeSpeed>
-        	<hasStandardCommand>true</hasStandardCommand>
-			<projectileDef>Bullet_EMPTurret</projectileDef>
-            <forcedMissRadius>6</forcedMissRadius>
-            <minRange>14</minRange>
-			<range>120</range>
-			<warmupTicks>260</warmupTicks>
-            <ticksBetweenBurstShots>12</ticksBetweenBurstShots>
-            <burstShotCount>3</burstShotCount>
-            <soundCast>Mortar_LaunchA</soundCast>
-            <muzzleFlashScale>16</muzzleFlashScale>
-		   </li>
-		</verbs>
-	</ThingDef>
-
+    <verbs>
+      <li Class="Combat_Realism.VerbPropertiesCR">
+        <verbClass>Combat_Realism.Verb_ShootCR</verbClass>
+        <hasStandardCommand>true</hasStandardCommand>
+        <projectileDef>Bullet_90mmCannonShell_HEAT</projectileDef>
+        <ai_IsIncendiary>true</ai_IsIncendiary>
+        <warmupTicks>180</warmupTicks>
+		<minRange>16</minRange>
+        <range>125</range>
+        <burstShotCount>1</burstShotCount>
+		<soundCast>120mm</soundCast>
+        <soundCastTail>GunTail_Heavy</soundCastTail>
+        <muzzleFlashScale>20</muzzleFlashScale>
+		<indirectFirePenalty>0.2</indirectFirePenalty>
+      </li>
+    </verbs>
+		<comps>
+			<li Class="Combat_Realism.CompProperties_AmmoUser">
+				<magazineSize>1</magazineSize>
+				<reloadTicks>700</reloadTicks>
+				<spawnUnloaded>true</spawnUnloaded>
+				<ammoSet>AmmoSet_90mmCannonShell</ammoSet>
+			</li>
+			<li Class="Combat_Realism.CompProperties_FireModes" />
+		</comps>
+  </ThingDef>
 
 
 <!-- ================ 120mm tank gun ============== -->
 
-	<ThingDef ParentName="BaseBullet">
-		<defName>Bullet_CannonTurret</defName>
-		<label>120mm HEAT Shell</label>
-		<graphicData>
-			<texPath>Things/Projectile/120mmShell</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
-			<shaderType>TransparentPostLight</shaderType>
-		</graphicData>
-		<thingClass>Combat_Realism.ProjectileCR_Explosive</thingClass>
-		<projectile>
-			<damageDef>Bomb</damageDef>
-			<damageAmountBase>60</damageAmountBase>
-			<explosionRadius>2.6</explosionRadius>
-			<flyOverhead>true</flyOverhead>
-			<speed>75</speed>
-			<soundHitThickRoof>ArtilleryHitThickRoof</soundHitThickRoof>
-			<soundExplode>CannonTurret/Explosion</soundExplode>
-      		<soundImpactAnticipate>FlyingShell</soundImpactAnticipate>
-		</projectile>
-		<comps>
-		  <li Class="Combat_Realism.CompProperties_ExplosiveCR">
-			<explosionDamage>100</explosionDamage>
-			<explosionDamageDef>Bomb</explosionDamageDef>
-			<explosionRadius>2.7</explosionRadius>
-			<soundExplode>MortarBomb_Explode</soundExplode>
-			<fragments>
-			  <Fragment_MortarSmall>140</Fragment_MortarSmall>
-			  <Fragment_MortarMedium>110</Fragment_MortarMedium>
-			  <Fragment_MortarLarge>40</Fragment_MortarLarge>
-			</fragments>
-			<fragRange>6</fragRange>
-		  </li>
-		</comps>
-	</ThingDef>
-
-	<ThingDef ParentName="BaseGun">
+  <ThingDef ParentName="BaseTurretGun">
 		<defName>Gun_CannonTurret</defName>
 		<label>120mm Tank Cannon</label>
-		<menuHidden>True</menuHidden>
-		<canBeSpawningInventory>false</canBeSpawningInventory>
-		<tradeability>Never</tradeability>
     <graphicData>
 		<texPath>Things/Building/Security/CannonTurretGun_Top</texPath>
 		<graphicClass>Graphic_Single</graphicClass>
     </graphicData>
+		<soundInteract>ArtilleryShellLoaded</soundInteract>
 		<statBases>
 			<MarketValue>4000</MarketValue>
-			<AimEfficiency>0.3</AimEfficiency>
-			<RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
+			<AimEfficiency>1.2</AimEfficiency>
+			<ShotSpread>0.13</ShotSpread>
+			<SwayFactor>4.2</SwayFactor>
+			<RangedWeapon_Cooldown>2.5</RangedWeapon_Cooldown>
 		</statBases>
 		<weaponTags>
 			<li>TurretGun</li>
@@ -677,74 +873,47 @@
 		</weaponTags>
 		<verbs>
 			  <li Class="Combat_Realism.VerbPropertiesCR">
-				<verbClass>Combat_Realism.Verb_ShootMortarCR</verbClass>
-				<forceNormalTimeSpeed>false</forceNormalTimeSpeed>
+				<verbClass>Combat_Realism.Verb_ShootCR</verbClass>
 				<hasStandardCommand>true</hasStandardCommand>
-				<projectileDef>Bullet_CannonTurret</projectileDef>
-				<forcedMissRadius>3</forcedMissRadius>
-				<warmupTicks>220</warmupTicks>
+				<projectileDef>Bullet_120mmCannonShell_HEAT</projectileDef>
+				<ai_IsIncendiary>true</ai_IsIncendiary>
+				<warmupTicks>200</warmupTicks>
 				<minRange>16</minRange>
 				<range>140</range>
 				<soundCast>120mm</soundCast>
-				<muzzleFlashScale>13</muzzleFlashScale>
+				<soundCastTail>GunTail_Heavy</soundCastTail>
+				<muzzleFlashScale>20</muzzleFlashScale>
 				<indirectFirePenalty>0.2</indirectFirePenalty>
 			</li>
 		</verbs>
+		<comps>
+			<li Class="Combat_Realism.CompProperties_AmmoUser">
+				<magazineSize>1</magazineSize>
+				<reloadTicks>850</reloadTicks>
+				<spawnUnloaded>true</spawnUnloaded>
+				<ammoSet>AmmoSet_120mmCannonShell</ammoSet>
+			</li>
+			<li Class="Combat_Realism.CompProperties_FireModes" />
+		</comps>
 	</ThingDef>
 
 	
 <!-- ================ 155mm howitzer ============== -->
 
-  <ThingDef ParentName="BaseBullet">
-    <defName>Howizer_Cannon</defName>
-    <label>155mm Howitzer Shell</label>
-    <graphicData>
-    <texPath>Things/Projectile/155mmShell</texPath>
-    <graphicClass>Graphic_Single</graphicClass>
-    <shaderType>TransparentPostLight</shaderType>
-    </graphicData>
-    <thingClass>Combat_Realism.ProjectileCR_Explosive</thingClass>
-    <projectile>
-      <damageDef>Bomb</damageDef>
-      <damageAmountBase>70</damageAmountBase>
-      <speed>50</speed>
-      <explosionRadius>4.0</explosionRadius>
-      <flyOverhead>true</flyOverhead>
-      <soundHitThickRoof>ArtilleryHitThickRoof</soundHitThickRoof>
-      <soundExplode>MortarBomb_Explode</soundExplode>
-      <soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
-    </projectile>
-	<comps>
-	  <li Class="Combat_Realism.CompProperties_ExplosiveCR">
-	    <explosionDamage>70</explosionDamage>
-	    <explosionDamageDef>Bomb</explosionDamageDef>
-	    <explosionRadius>4</explosionRadius>
-	    <soundExplode>MortarBomb_Explode</soundExplode>
-	    <fragments>
-		  <Fragment_MortarSmall>420</Fragment_MortarSmall>
-		  <Fragment_MortarMedium>250</Fragment_MortarMedium>
-		  <Fragment_MortarLarge>80</Fragment_MortarLarge>
-		</fragments>
-	    <fragRange>9</fragRange>
-	  </li>
-	</comps>
-  </ThingDef>
-
-  <ThingDef ParentName="BaseGun">
+  <ThingDef ParentName="BaseTurretGun">
 	<defName>Gun_HowitzerTurret</defName>
 	<label>155mm Howitzer Cannon</label>
-    <menuHidden>True</menuHidden>
-	<canBeSpawningInventory>false</canBeSpawningInventory>
-	<tradeability>Never</tradeability>
-    <destroyOnDrop>True</destroyOnDrop>
     <graphicData>
-    <texPath>Things/Building/Security/HowitzerTurretGun_Top</texPath>
-	<graphicClass>Graphic_Single</graphicClass>
+		<texPath>Things/Building/Security/HowitzerTurretGun_Top</texPath>
+		<graphicClass>Graphic_Single</graphicClass>
     </graphicData>
+    <soundInteract>ArtilleryShellLoaded</soundInteract>
     <statBases>
-      <MarketValue>3800</MarketValue>
-	  <AimEfficiency>0.3</AimEfficiency>
-      <RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
+		<MarketValue>3800</MarketValue>
+		<AimEfficiency>1.1</AimEfficiency>
+		<ShotSpread>0.2</ShotSpread>
+		<SwayFactor>6</SwayFactor>
+		<RangedWeapon_Cooldown>3.5</RangedWeapon_Cooldown>
     </statBases>
       <weaponTags>
       <li>Artillery</li>
@@ -753,150 +922,47 @@
 	<verbs>
       <li Class="Combat_Realism.VerbPropertiesCR">
         <verbClass>Combat_Realism.Verb_ShootMortarCR</verbClass>
-        <forceNormalTimeSpeed>false</forceNormalTimeSpeed>
        	<hasStandardCommand>true</hasStandardCommand>
         <ai_IsIncendiary>true</ai_IsIncendiary>
-		<projectileDef>Howizer_Cannon</projectileDef>
-		<forcedMissRadius>15</forcedMissRadius>
+		<projectileDef>Bullet_155mmHowitzerShell_HE</projectileDef>
 		<minRange>38</minRange>
 		<range>280</range>
 		<warmupTicks>240</warmupTicks>
 		<soundCast>155mm</soundCast>
-        <muzzleFlashScale>12</muzzleFlashScale>
+        <soundCastTail>GunTail_Heavy</soundCastTail>
+        <muzzleFlashScale>21</muzzleFlashScale>
         <indirectFirePenalty>0.2</indirectFirePenalty>
 	  </li>
 	</verbs>
+		<comps>
+			<li Class="Combat_Realism.CompProperties_AmmoUser">
+				<magazineSize>1</magazineSize>
+				<reloadTicks>1100</reloadTicks>
+				<spawnUnloaded>true</spawnUnloaded>
+				<ammoSet>AmmoSet_155mmHowitzerShell</ammoSet>
+			</li>
+			<li Class="Combat_Realism.CompProperties_FireModes" />
+		</comps>
 	</ThingDef>
 
-
-<!-- ================= Devastator mortar ================= -->
-
-	<ThingDef ParentName="BaseBullet">
-    <defName>Bullet_DevastatorBomb</defName>
-    <label>Devastator Magnetic Shell</label>
-    <graphicData>
-      <texPath>Things/Building/Security/DevastatorShell</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>TransparentPostLight</shaderType>
-    </graphicData>
-    <thingClass>Projectile_Explosive</thingClass>
-    <projectile>
-      <damageDef>LaserBurn</damageDef>
-      <damageAmountBase>25</damageAmountBase>
-      <speed>60</speed>
-      <explosionRadius>8.9</explosionRadius>
-      <flyOverhead>true</flyOverhead>
-      <soundHitThickRoof>ArtilleryHitThickRoof</soundHitThickRoof>
-      <soundExplode>MortarBomb_Explode</soundExplode>
-      <soundImpactAnticipate>FlyingShell</soundImpactAnticipate>
-      <soundAmbient>MortarRound_Ambient</soundAmbient>
-    </projectile>
-	<comps>
-	  <li Class="Combat_Realism.CompProperties_ExplosiveCR">
-	    <explosionDamage>20</explosionDamage>
-	    <explosionDamageDef>Electrical</explosionDamageDef>
-	    <explosionRadius>8.5</explosionRadius>
-	    <soundExplode>MortarEMP_Explode</soundExplode>
-	  </li>
-	</comps>
-  </ThingDef>
-
-  <ThingDef ParentName="BaseGun">
-    <defName>Artillery_DevastatorBomb</defName>
-    <label>Devastator Magnetic Catapult</label>
-    <graphicData>
-      <texPath>Things/Building/Security/DevastatorGun</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-    </graphicData>
-    <description>Devastator launcher. Lobs bombs over walls. Semi inaccurate but long-ranged and fires high velocity projectiles.</description>
-    <techLevel>Spacer</techLevel>
-    <destroyOnDrop>True</destroyOnDrop>
-    <menuHidden>True</menuHidden>
-    <canBeSpawningInventory>false</canBeSpawningInventory>
-    <tradeability>Never</tradeability>
-    <statBases>
-      <MarketValue>5000</MarketValue>
-	  <AimEfficiency>0.5</AimEfficiency>
-      <RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
-    </statBases>
-    <weaponTags>
-      <li>Artillery</li>
-    </weaponTags>
-    <verbs>
-      <li Class="Combat_Realism.VerbPropertiesCR">
-        <verbClass>Combat_Realism.Verb_ShootMortarCR</verbClass>
-        <forceNormalTimeSpeed>false</forceNormalTimeSpeed>
-        <hasStandardCommand>true</hasStandardCommand>
-        <projectileDef>Bullet_DevastatorBomb</projectileDef>
-        <forcedMissRadius>12</forcedMissRadius>
-        <ai_IsIncendiary>true</ai_IsIncendiary>
-        <warmupTicks>260</warmupTicks>
-        <minRange>25</minRange>
-        <range>500</range>
-        <ticksBetweenBurstShots>6</ticksBetweenBurstShots>
-        <burstShotCount>1</burstShotCount>
-        <soundCast>ChargeLance_Fire</soundCast>
-        <soundCastTail>GunTail_Heavy</soundCastTail>
-        <muzzleFlashScale>11</muzzleFlashScale>
-      </li>
-    </verbs>
-  </ThingDef>
-
-
-<!-- ================ Rocket launch ============== -->
-
-  <ThingDef ParentName="BaseBullet">
-    <defName>RocketLaunch</defName>
-    <label>Rocket missile 130mm</label>
-    <graphicData>
-    <texPath>Things/Projectile/130mmRocket</texPath>
-    <graphicClass>Graphic_Single</graphicClass>
-    </graphicData>
-    <thingClass>Combat_Realism.ProjectileCR_Explosive</thingClass>
-    <projectile>
-      <damageDef>Bomb</damageDef>
-      <damageAmountBase>60</damageAmountBase>
-      <speed>63</speed>
-      <explosionRadius>3.0</explosionRadius>
-      <flyOverhead>true</flyOverhead>
-      <soundHitThickRoof>ArtilleryHitThickRoof</soundHitThickRoof>
-      <soundExplode>CannonTurret/Explosion</soundExplode>
-      <soundImpactAnticipate>RocketLauncher/RL_PreImpact</soundImpactAnticipate>
-    </projectile>
-	<comps>
-	  <li Class="Combat_Realism.CompProperties_ExplosiveCR">
-	    <explosionDamage>40</explosionDamage>
-	    <explosionDamageDef>Bomb</explosionDamageDef>
-	    <explosionRadius>2</explosionRadius>
-	    <soundExplode>MortarBomb_Explode</soundExplode>
-	    <fragments>
-		  <Fragment_MortarSmall>270</Fragment_MortarSmall>
-		  <Fragment_MortarMedium>150</Fragment_MortarMedium>
-		  <Fragment_MortarLarge>70</Fragment_MortarLarge>
-		</fragments>
-	    <fragRange>10</fragRange>
-	  </li>
-	</comps>
-  </ThingDef>
-
   
-<!-- ================ Light missile system ============== -->
-  <ThingDef ParentName="BaseGun">
-    <defName>Gun_RocketComplex</defName>
-    <label>Light Missile System</label>
+	<!-- =================== FGM-148 Javelin ================== -->	
+	
+  <ThingDef ParentName="BaseTurretGun">
+    <defName>Gun_ATML</defName>
+    <label>MS FGM-148 Javelin</label>
     <graphicData>
       <texPath>Things/Building/Security/RocketComplexGun</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
-    <menuHidden>true</menuHidden>
-    <description>A mounted light missile system on a slab. Uses one rocket.</description>
-    <soundInteract>InteractRifle</soundInteract>
-    <canBeSpawningInventory>false</canBeSpawningInventory>
-    <tradeability>Never</tradeability>
+    <description>A mounted light missile system MS FGM-148 Javelin on a slab. Uses one rocket.</description>
+	<soundInteract>InteractPTUR</soundInteract>
     <statBases>
-      <MarketValue>2900</MarketValue>
-	  <AimEfficiency>0.5</AimEfficiency>
-      <RangedWeapon_Cooldown>12</RangedWeapon_Cooldown>
+		<MarketValue>2900</MarketValue>
+		<AimEfficiency>1.2</AimEfficiency>
+		<ShotSpread>0.11</ShotSpread>
+		<SwayFactor>3</SwayFactor>
+		<RangedWeapon_Cooldown>3</RangedWeapon_Cooldown>
     </statBases>
     <weaponTags>
       <li>Artillery</li>
@@ -905,42 +971,90 @@
 	<verbs>
       <li Class="Combat_Realism.VerbPropertiesCR">
         <verbClass>Combat_Realism.Verb_ShootMortarCR</verbClass>
-        <forceNormalTimeSpeed>false</forceNormalTimeSpeed>
         <hasStandardCommand>true</hasStandardCommand>
-		<projectileDef>RocketLaunch</projectileDef>
+		<projectileDef>Bullet_FGMJGrenade_HEAT</projectileDef>
         <ai_IsIncendiary>true</ai_IsIncendiary>
-        <forcedMissRadius>6</forcedMissRadius>
-        <minRange>50</minRange>
-		<range>500</range>
-		<warmupTicks>260</warmupTicks>
+        <forcedMissRadius>5</forcedMissRadius>
+        <minRange>30</minRange>
+		<range>150</range>
+		<warmupTicks>120</warmupTicks>
         <burstShotCount>1</burstShotCount>
-        <soundCast>130mmRocket</soundCast>
-        <muzzleFlashScale>16</muzzleFlashScale>
+        <soundCast>LAW</soundCast>
+        <muzzleFlashScale>12</muzzleFlashScale>
         <indirectFirePenalty>0.2</indirectFirePenalty>
 	   </li>
 	</verbs>
+		<comps>
+			<li Class="Combat_Realism.CompProperties_AmmoUser">
+				<magazineSize>1</magazineSize>
+				<reloadTicks>750</reloadTicks>
+				<spawnUnloaded>true</spawnUnloaded>
+				<ammoSet>AmmoSet_FGMJ</ammoSet>
+			</li>
+			<li Class="Combat_Realism.CompProperties_FireModes" />
+		</comps>
   </ThingDef>
 
+  
+  
+  <ThingDef ParentName="BaseTurretGun">
+    <defName>Artillery_TOWMissile</defName>
+    <label>BGM-71 TOW Missile</label>
+	<graphicData>
+	<texPath>Things/Building/Security/TOWLauncher_TopEdited</texPath>
+	<graphicClass>Graphic_Single</graphicClass>
+	</graphicData>
+    <description>TOW Missile Launcher. Launches high speed missiles. Medium accuracy with medium range.</description>
+	<soundInteract>InteractPTUR</soundInteract>
+	<statBases>
+		<MarketValue>2000</MarketValue>
+		<AimEfficiency>1.2</AimEfficiency>
+		<RangedWeapon_Cooldown>3</RangedWeapon_Cooldown>
+    </statBases>
+    <verbs>
+      <li Class="Combat_Realism.VerbPropertiesCR">
+        <verbClass>Combat_Realism.Verb_ShootMortarCR</verbClass>
+        <hasStandardCommand>true</hasStandardCommand>
+		<projectileDef>Bullet_FGMJGrenade_HEAT</projectileDef>
+        <forcedMissRadius>5</forcedMissRadius>
+        <ai_IsIncendiary>true</ai_IsIncendiary>
+        <warmupTicks>110</warmupTicks>
+        <minRange>20</minRange>
+        <range>130</range>
+        <burstShotCount>1</burstShotCount>
+        <soundCast>MissileLaunch</soundCast>
+		<muzzleFlashScale>16</muzzleFlashScale>
+        <indirectFirePenalty>0.2</indirectFirePenalty>
+      </li>
+    </verbs>
+		<comps>
+			<li Class="Combat_Realism.CompProperties_AmmoUser">
+				<magazineSize>1</magazineSize>
+				<reloadTicks>750</reloadTicks>
+				<spawnUnloaded>true</spawnUnloaded>
+				<ammoSet>AmmoSet_FGMJ</ammoSet>
+			</li>
+			<li Class="Combat_Realism.CompProperties_FireModes" />
+		</comps>
+  </ThingDef>
+  
 
 <!-- ================ Medium missile system ============== -->
 
 
-  <ThingDef ParentName="BaseHumanGun">
+  <ThingDef ParentName="BaseTurretGun">
     <defName>Gun_MissileSystem</defName>
     <label>Medium Missile System</label>
     <graphicData>
       <texPath>Things/Building/Security/ShredderTurretGun</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
-    <menuHidden>true</menuHidden>
     <description>A mounted medium missile system on a turret. Uses three rockets.</description>
-    <soundInteract>InteractRifle</soundInteract>
-    <canBeSpawningInventory>false</canBeSpawningInventory>
-    <tradeability>Never</tradeability>
+	<soundInteract>InteractPTUR</soundInteract>
     <statBases>
-      <MarketValue>3300</MarketValue>
-	  <AimEfficiency>0.25</AimEfficiency>
-      <RangedWeapon_Cooldown>40</RangedWeapon_Cooldown>
+		<MarketValue>3300</MarketValue>
+		<AimEfficiency>0.5</AimEfficiency>
+		<RangedWeapon_Cooldown>2</RangedWeapon_Cooldown>
     </statBases>
     <weaponTags>
       <li>Artillery</li>
@@ -951,7 +1065,7 @@
         <verbClass>Combat_Realism.Verb_ShootMortarCR</verbClass>
         <forceNormalTimeSpeed>false</forceNormalTimeSpeed>
         <hasStandardCommand>true</hasStandardCommand>
-		<projectileDef>RocketLaunch</projectileDef>
+		<projectileDef>Bullet_130mmRocketMissile</projectileDef>
         <ai_IsIncendiary>true</ai_IsIncendiary>
         <forcedMissRadius>13</forcedMissRadius>
         <minRange>50</minRange>
@@ -964,37 +1078,44 @@
         <indirectFirePenalty>0.2</indirectFirePenalty>
 	   </li>
 	</verbs>
+		<comps>
+			<li Class="Combat_Realism.CompProperties_AmmoUser">
+				<magazineSize>3</magazineSize>
+				<reloadTicks>1200</reloadTicks>
+				<spawnUnloaded>true</spawnUnloaded>
+				<ammoSet>AmmoSet_130mmRocketMissile</ammoSet>
+			</li>
+		</comps>
   </ThingDef>
 
 
 <!-- ================ Heavy missile system ============== -->
 
-	<ThingDef ParentName="BaseGun">
+  <ThingDef ParentName="BaseTurretGun">
 		<defName>Gun_RL</defName>
 		<label>Heavy Missile System</label>
     <description>A mounted heavy missile system on a turret. Uses six rockets.</description>
-    <menuHidden>True</menuHidden>
-    <tradeability>Never</tradeability>
     <graphicData>
 	<texPath>Things/Building/Security/RLGun_Top</texPath>
 	<graphicClass>Graphic_Single</graphicClass>
     </graphicData>
+	<soundInteract>InteractPTUR</soundInteract>
     <statBases>
       <MarketValue>4200</MarketValue>
-	  <AimEfficiency>0.1</AimEfficiency>
-      <RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
+		<AimEfficiency>0.5</AimEfficiency>
+		<RangedWeapon_Cooldown>3</RangedWeapon_Cooldown>
     </statBases>
     <weaponTags>
       <li>Artillery</li>
       <li>Artillery_BaseDestroyer</li>
     </weaponTags>
-		<verbs>
+	<verbs>
 		<li Class="Combat_Realism.VerbPropertiesCR">
 			<verbClass>Combat_Realism.Verb_ShootMortarCR</verbClass>
         	<hasStandardCommand>true</hasStandardCommand>
-			<projectileDef>RocketLaunch</projectileDef>
+			<projectileDef>Bullet_130mmRocketMissile</projectileDef>
         	<ai_IsIncendiary>true</ai_IsIncendiary>
-            <forcedMissRadius>22</forcedMissRadius>
+            <forcedMissRadius>19</forcedMissRadius>
             <minRange>50</minRange>
 			<range>500</range>
 			<warmupTicks>440</warmupTicks>
@@ -1004,104 +1125,16 @@
             <muzzleFlashScale>16</muzzleFlashScale>
 			<indirectFirePenalty>0.2</indirectFirePenalty>
 		   </li>
-		</verbs>
-	</ThingDef>
-
-	
-<!-- ================ Plasma turret gun ============== -->
-
-  <ThingDef ParentName="BaseBullet">
-    <defName>Bullet_PlasmaTurret</defName>
-    <thingClass>SK.Projectile_PlasmaCR</thingClass>
-    <label>Plasma Bolt</label>
-    <graphicData>
-      <texPath>Things/Projectile/Pulse2</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-    </graphicData>
-    <projectile>
-      <damageDef>Plasma</damageDef>
-      <damageAmountBase>16</damageAmountBase>
-      <speed>150</speed>
-    </projectile>
-  </ThingDef>
-
-  <ThingDef ParentName="BaseGun">
-    <defName>Gun_PlasmaTurret</defName>
-    <label>Plasma Turret Gun</label>
-    <graphicData>
-      <texPath>Things/Building/PlasmaTurretGun</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-    </graphicData>
-    <menuHidden>true</menuHidden>
-    <description>A plasma gun attached to a turret.</description>
-    <soundInteract>InteractRifle</soundInteract>
-    <canBeSpawningInventory>false</canBeSpawningInventory>
-    <tradeability>Never</tradeability>
-    <statBases>
-		<MarketValue>4000</MarketValue>
-		<AimEfficiency>0.2</AimEfficiency>
-		<RangedWeapon_Cooldown>2.6</RangedWeapon_Cooldown>
-    </statBases>
-    <weaponTags>
-      <li>TurretGun</li>
-    </weaponTags>
-		<verbs>
-		  <li Class="Combat_Realism.VerbPropertiesCR">
-			<verbClass>Combat_Realism.Verb_ShootCR</verbClass>
-			<forceNormalTimeSpeed>false</forceNormalTimeSpeed>
-			<hasStandardCommand>true</hasStandardCommand>
-			<projectileDef>Bullet_PlasmaTurret</projectileDef>
-			<burstShotCount>20</burstShotCount>
-			<ticksBetweenBurstShots>6</ticksBetweenBurstShots>
-			<forcedMissRadius>1.1</forcedMissRadius>
-			<warmupTicks>180</warmupTicks>
-			<range>50</range>
-			<minRange>2</minRange>
-			<soundCast>PlasmaShot</soundCast>
-			<soundCastTail>GunTail_Medium</soundCastTail>
-			<muzzleFlashScale>12</muzzleFlashScale>
-		  </li>
-		</verbs>
-  </ThingDef>
-
-
-<!-- ================ Automated security gun ============== -->
-
-	<ThingDef ParentName="BaseGun">
-		<defName>Gun_NavalGun</defName>
-		<label>Automated Autocannon</label>
-	 <graphicData>
-		<texPath>Things/Building/Security/NavalGunTurretGun_Top</texPath>
-		<graphicClass>Graphic_Single</graphicClass>
-	 </graphicData>
-    <menuHidden>True</menuHidden>
-	<canBeSpawningInventory>false</canBeSpawningInventory>
-    <destroyOnDrop>True</destroyOnDrop>
-	<tradeability>Never</tradeability>
-    <statBases>
-      <MarketValue>6000</MarketValue>
-	  <AimEfficiency>0.2</AimEfficiency>
-      <RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
-    </statBases>
-      <weaponTags>
-      <li>TurretGun</li>
-    </weaponTags>
-		<verbs>
-			  <li Class="Combat_Realism.VerbPropertiesCR">
-				<verbClass>Combat_Realism.Verb_ShootMortarCR</verbClass>
-				<forceNormalTimeSpeed>false</forceNormalTimeSpeed>
-        		<hasStandardCommand>true</hasStandardCommand>
-				<projectileDef>Bullet_35mm</projectileDef>
-				<range>75</range>
-                <minRange>8</minRange>
-				<warmupTicks>220</warmupTicks>
-                <forcedMissRadius>1.5</forcedMissRadius>
-                <ticksBetweenBurstShots>17</ticksBetweenBurstShots>
-                <burstShotCount>3</burstShotCount>
-				<soundCast>Bullet_57mm</soundCast>
-                <muzzleFlashScale>11</muzzleFlashScale>
+	</verbs>
+		<comps>
+			<li Class="Combat_Realism.CompProperties_AmmoUser">
+				<magazineSize>6</magazineSize>
+				<reloadTicks>1800</reloadTicks>
+				<spawnUnloaded>true</spawnUnloaded>
+				<ammoSet>AmmoSet_130mmRocketMissile</ammoSet>
 			</li>
-		</verbs>
+		</comps>
 	</ThingDef>
+
 
 </ThingDefs>
