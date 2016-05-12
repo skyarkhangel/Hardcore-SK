@@ -5,6 +5,7 @@
   <ThingDef Name="BaseTurretGun" ParentName="BaseGun" Abstract="True">
     <soundInteract>InteractRifle</soundInteract>
     <weaponTags>
+      <li>Gun</li>
 		<li>TurretGun</li>
     </weaponTags>
     <tradeability>Never</tradeability>
@@ -24,6 +25,40 @@
 		</comps>
   </ThingDef>
 
+  
+  <ThingDef Name="BaseArtilleryGun" Abstract="True">
+    <category>Item</category>
+    <thingClass>ThingWithComps</thingClass>
+    <label>artillery error</label>
+    <equipmentType>Primary</equipmentType>
+    <graphicData>
+      <texPath>Things/Item/Equipment/WeaponRanged/ChargeRifle</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <tickerType>Never</tickerType>
+    <techLevel>Midworld</techLevel>
+    <soundInteract>ArtilleryShellLoaded</soundInteract>
+	
+    <tradeability>Never</tradeability>
+    <destroyOnDrop>True</destroyOnDrop>
+    <menuHidden>True</menuHidden>
+    <canBeSpawningInventory>false</canBeSpawningInventory>
+	
+    <comps>
+      <li>
+        <compClass>CompEquippable</compClass>
+      </li>
+			<li Class="Combat_Realism.CompProperties_Charges">
+				<charges>
+					<li>(29,85)</li>
+					<li>(72,300)</li>
+					<li>(92,660)</li>
+				</charges>
+      </li>
+    </comps>
+  </ThingDef>
+  
+  
   <!-- ================ Improvised turret gun ============== -->
  
   <ThingDef ParentName="BaseAutoTurretGun">
@@ -50,7 +85,7 @@
 				<recoilAmount>0.41</recoilAmount>
 				<verbClass>Combat_Realism.Verb_ShootCR</verbClass>
 				<hasStandardCommand>true</hasStandardCommand>
-				<projectileDef>Bullet_32ACP_FMJ</projectileDef>
+				<projectileDef>Bullet_40Rimfire_FMJ</projectileDef>
 				<warmupTicks>90</warmupTicks>
 				<range>35</range>
 				<ticksBetweenBurstShots>4</ticksBetweenBurstShots>
@@ -65,7 +100,7 @@
 				<magazineSize>200</magazineSize>
 				<reloadTicks>600</reloadTicks>
 				<spawnUnloaded>true</spawnUnloaded>
-				<ammoSet>AmmoSet_32ACP</ammoSet>
+				<ammoSet>AmmoSet_40Rimfire</ammoSet>
 			</li>
 			<li Class="Combat_Realism.CompProperties_FireModes">
 				<aimedBurstShotCount>5</aimedBurstShotCount>
@@ -317,7 +352,7 @@
 		</verbs>
 		<comps>
 			<li Class="Combat_Realism.CompProperties_AmmoUser">
-				<magazineSize>60</magazineSize>
+				<magazineSize>10</magazineSize>
 				<reloadTicks>600</reloadTicks>
 				<spawnUnloaded>true</spawnUnloaded>
 				<ammoSet>AmmoSet_130mmRocketMissile</ammoSet>
@@ -1016,6 +1051,7 @@
         <verbClass>Combat_Realism.Verb_ShootMortarCR</verbClass>
         <hasStandardCommand>true</hasStandardCommand>
 		<projectileDef>Bullet_FGMJGrenade_HEAT</projectileDef>
+		
         <forcedMissRadius>5</forcedMissRadius>
         <ai_IsIncendiary>true</ai_IsIncendiary>
         <warmupTicks>110</warmupTicks>
@@ -1063,7 +1099,7 @@
 	<verbs>
       <li Class="Combat_Realism.VerbPropertiesCR">
         <verbClass>Combat_Realism.Verb_ShootMortarCR</verbClass>
-        <forceNormalTimeSpeed>false</forceNormalTimeSpeed>
+		<forceNormalTimeSpeed>true</forceNormalTimeSpeed>
         <hasStandardCommand>true</hasStandardCommand>
 		<projectileDef>Bullet_130mmRocketMissile</projectileDef>
         <ai_IsIncendiary>true</ai_IsIncendiary>
@@ -1091,7 +1127,7 @@
 
 <!-- ================ Heavy missile system ============== -->
 
-  <ThingDef ParentName="BaseTurretGun">
+  <ThingDef ParentName="BaseArtilleryGun">
 		<defName>Gun_RL</defName>
 		<label>Heavy Missile System</label>
     <description>A mounted heavy missile system on a turret. Uses six rockets.</description>
@@ -1113,6 +1149,7 @@
 		<li Class="Combat_Realism.VerbPropertiesCR">
 			<verbClass>Combat_Realism.Verb_ShootMortarCR</verbClass>
         	<hasStandardCommand>true</hasStandardCommand>
+			<forceNormalTimeSpeed>true</forceNormalTimeSpeed>
 			<projectileDef>Bullet_130mmRocketMissile</projectileDef>
         	<ai_IsIncendiary>true</ai_IsIncendiary>
             <forcedMissRadius>19</forcedMissRadius>
