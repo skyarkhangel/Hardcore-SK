@@ -13,6 +13,9 @@
         <volume>(0.2, 0.4, 0.2)</volume>
         <offset>(0,0,-0.1)</offset>
       </shadowData>
+      <damageData>
+        <rect>(0.2,0.2,0.6,0.6)</rect>
+      </damageData>
     </graphicData>
     <altitudeLayer>BuildingTall</altitudeLayer>
     <passability>PassThroughOnly</passability>
@@ -116,7 +119,8 @@
       <texPath>Things/Building/Misc/DropBeacon</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <shadowData>
-        <volume>(0.3, 0.6, 0.3)</volume>
+        <volume>(0.3, 0.4, 0.3)</volume>
+        <offset>(0,0,-0.1)</offset>
       </shadowData>
       <damageData>
         <rect>(0.2,0.2,0.6,0.6)</rect>
@@ -218,6 +222,9 @@
       <texPath>Things/Building/Misc/MultiAnalyzer</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>(2,2)</drawSize>
+      <damageData>
+        <rect>(0.15,0.15,1.7,1.7)</rect>
+      </damageData>
     </graphicData>
     <size>(2,2)</size>
     <rotatable>false</rotatable>
@@ -275,7 +282,15 @@
         <offset>(0,0,-0.3)</offset>
         <volume>(0.3, 0.3, 0.4)</volume>
       </shadowData>
+      <damageData>
+        <rectN>(0.078125,0.46875,0.859375,0.53125)</rectN>
+        <rectS>(0.078125,0.46875,0.859375,0.53125)</rectS>
+        <rectE>(0.125,0.46875,0.625,0.296875)</rectE>
+        <rectW>(0.25,0.46875,0.625,0.296875)</rectW>
+        <cornerTR>Damage/Corner</cornerTR>
+      </damageData>
     </graphicData>
+    <defaultPlacingRot>South</defaultPlacingRot>
     <altitudeLayer>Waist</altitudeLayer>
     <passability>Impassable</passability>
     <fillPercent>1.0</fillPercent>
@@ -332,6 +347,12 @@
       <graphicClass>Graphic_Multi</graphicClass>
       <drawSize>(2,1)</drawSize>
       <color>(96,114,95)</color>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
     </graphicData>
     <altitudeLayer>Waist</altitudeLayer>
     <passability>Impassable</passability>
@@ -469,7 +490,62 @@
   </ThingDef>
 
 
-
+  <ThingDef ParentName="BuildingBase">
+    <defName>FirefoamPopper</defName>
+    <label>Firefoam popper</label>
+    <thingClass>Building_FirefoamPopper</thingClass>
+    <description>When touched by fire or triggered by hand, this pops and sprays a fire-extinguishing foam in a circular field around itself.</description>
+    <graphicData>
+      <texPath>Things/Building/Misc/FirefoamPopper</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shadowData>
+        <volume>(0.25, 0.5, 0.25)</volume>
+        <offset>(0,0,-0.1)</offset>
+      </shadowData>
+      <damageData>
+        <rect>(0.2,0.2,0.6,0.6)</rect>
+      </damageData>
+    </graphicData>
+    <comps>
+      <li Class="CompProperties_Explosive">
+        <explosiveRadius>9.9</explosiveRadius>
+        <explosiveDamageType>Extinguish</explosiveDamageType>
+        <startWickHitPointsPercent>-1</startWickHitPointsPercent>
+        <startWickOnDamageTaken>Flame</startWickOnDamageTaken>
+        <postExplosionSpawnThingDef>FilthFireFoam</postExplosionSpawnThingDef>
+        <postExplosionSpawnChance>1</postExplosionSpawnChance>
+        <applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+        <explosionEffect>ExtinguisherExplosion</explosionEffect>
+      </li>
+    </comps>
+    <tickerType>Normal</tickerType>
+    <altitudeLayer>Waist</altitudeLayer>
+    <minifiedDef>MinifiedFurniture</minifiedDef>
+    <statBases>
+      <MaxHitPoints>50</MaxHitPoints>
+      <WorkToMake>1500</WorkToMake>
+      <Flammability>1.0</Flammability>
+      <Beauty>-8</Beauty>
+    </statBases>
+    <fillPercent>0.15</fillPercent>
+	<stuffCategories>
+		<li>Metallic</li>
+	</stuffCategories>
+		<costStuffCount>75</costStuffCount>
+    <costList>
+      <Components>2</Components>
+    </costList>
+    <specialDisplayRadius>9.9</specialDisplayRadius>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <pathCost>25</pathCost>
+    <designationCategory>Misc</designationCategory>
+    <rotatable>false</rotatable>
+    <designationHotKey>F</designationHotKey>
+    <researchPrerequisites>
+      <li>Firefoam</li>
+    </researchPrerequisites>
+  </ThingDef>
+  
 
   <ThingDef ParentName="BuildingBase">
     <defName>Grave</defName>
