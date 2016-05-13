@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <StatDef Abstract="True" Name="AccuracyBase">
+    <category>Weapon</category>
+    <defaultBaseValue>1</defaultBaseValue>
+    <minValue>0.1</minValue>
+    <maxValue>1</maxValue>
+    <toStringStyle>PercentZero</toStringStyle>
+    <showIfUndefined>false</showIfUndefined>
+    <parts>
+      <li Class="StatPart_Quality">
+        <factorAwful>0.7</factorAwful>
+        <factorShoddy>0.8</factorShoddy>
+        <factorPoor>0.93</factorPoor>
+        <factorNormal>1</factorNormal>
+        <factorGood>1.05</factorGood>
+        <factorSuperior>1.1</factorSuperior>
+        <factorExcellent>1.2</factorExcellent>
+        <factorMasterwork>1.35</factorMasterwork>
+        <factorLegendary>1.5</factorLegendary>
+      </li>
+      <li Class="StatPart_Health">
+        <curve>
+          <points>
+            <li>(0,0.6)</li>
+            <li>(1,1)</li>
+          </points>
+        </curve>
+      </li>
+    </parts>
+  </StatDef>
+
+  <StatDef>
+    <defName>RangedWeapon_Cooldown</defName>
+    <label>Ranged cooldown</label>
+    <description>How long it takes to recover after firing this weapon.</description>
+    <category>Weapon</category>
+    <defaultBaseValue>1</defaultBaseValue>
+    <minValue>0.01</minValue>
+    <toStringStyle>FloatTwo</toStringStyle>
+    <formatString>{0} s</formatString>
+    <showIfUndefined>false</showIfUndefined>
+    <displayPriorityInCategory>500</displayPriorityInCategory>
+    <parts>
+      <li Class="Infusion.StatPart_InfusionModifier">
+        <notifier>RangedWeapon_Cooldown</notifier>
+      </li>
+    </parts>
+  </StatDef>
+  
+  <StatDef>
+    <defName>AimEfficiency</defName>
+    <label>aiming efficiency</label>
+    <description>How efficient the weapon is at leading and range-finding. This is multiplied against the aiming accuracy of the shooter to calculate the amount of range and lead error.\n\nThe final modifier is calculated via this formula:\n(1.5 - aiming accuracy) / aiming efficiency\n\nLead error is calculated by multiplying this factor against total lead distance in cells. Range error is calculated by multiplying it against the total distance to the target divided by 4.</description>
+    <category>Weapon</category>
+    <defaultBaseValue>1</defaultBaseValue>
+    <minValue>0.01</minValue>
+    <maxValue>2</maxValue>
+    <toStringStyle>PercentZero</toStringStyle>
+    <showIfUndefined>false</showIfUndefined>
+    <parts>
+      <li Class="StatPart_Quality">
+        <factorAwful>0.7</factorAwful>
+        <factorShoddy>0.8</factorShoddy>
+        <factorPoor>0.93</factorPoor>
+        <factorNormal>1</factorNormal>
+        <factorGood>1.05</factorGood>
+        <factorSuperior>1.1</factorSuperior>
+        <factorExcellent>1.2</factorExcellent>
+        <factorMasterwork>1.35</factorMasterwork>
+        <factorLegendary>1.5</factorLegendary>
+      </li>
+      <li Class="StatPart_Health">
+        <curve>
+          <points>
+            <li>(0,0.2)</li>
+            <li>(1,1)</li>
+          </points>
+        </curve>
+      </li>
+      <li Class="Infusion.StatPart_InfusionModifier">
+        <notifier>AimEfficiency</notifier>
+      </li>
+    </parts>
+    <displayPriorityInCategory>896</displayPriorityInCategory>
+  </StatDef>
+  
+  <StatDef>
+    <defName>ShotSpread</defName>
+    <label>spread</label>
+    <description>Inherent projectile spread. This represents the inherent inaccuracy of the gun and causes random conical deviation that is not influenced by skill.</description>
+    <category>Weapon</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>FloatTwo</toStringStyle>
+    <formatString>{0}°</formatString>
+    <showIfUndefined>false</showIfUndefined>
+    <parts>
+      <li Class="StatPart_Quality">
+        <factorAwful>1.6</factorAwful>
+        <factorShoddy>1.4</factorShoddy>
+        <factorPoor>1.2</factorPoor>
+        <factorNormal>1</factorNormal>
+        <factorGood>0.9</factorGood>
+        <factorSuperior>0.8</factorSuperior>
+        <factorExcellent>0.7</factorExcellent>
+        <factorMasterwork>0.6</factorMasterwork>
+        <factorLegendary>0.5</factorLegendary>
+      </li>
+      <li Class="StatPart_Health">
+        <curve>
+          <points>
+            <li>(0,3)</li>
+            <li>(1,1)</li>
+          </points>
+        </curve>
+      </li>
+      <li Class="Infusion.StatPart_InfusionModifier">
+        <notifier>ShotSpread</notifier>
+      </li>
+    </parts>
+    <displayPriorityInCategory>895</displayPriorityInCategory>
+  </StatDef>
+  
+  <StatDef>
+    <defName>SwayFactor</defName>
+    <label>weapon sway</label>
+    <description>How difficult the gun is to keep steady. \n\nThe total sway is calculated as:\n(4.5 - shooting accuracy) * weapon sway factor\n\nAiming accuracy influences the sway reduction during aimed shots. For example, at 75% aiming accuracy sway will be reduced to 25%.</description>
+    <category>Weapon</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>FloatTwo</toStringStyle>
+    <showIfUndefined>false</showIfUndefined>
+    <displayPriorityInCategory>894</displayPriorityInCategory>
+    <parts>
+      <li Class="Infusion.StatPart_InfusionModifier">
+        <notifier>SwayFactor</notifier>
+      </li>
+    </parts>
+  </StatDef>
+
+</Defs>
