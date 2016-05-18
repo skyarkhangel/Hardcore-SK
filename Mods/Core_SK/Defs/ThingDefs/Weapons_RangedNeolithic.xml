@@ -27,22 +27,16 @@
       <li>Midworld</li>
     </weaponTags>
     <comps>
-      <li>
-        <compClass>CompForbiddable</compClass>
-      </li>
+      <li Class="CompProperties_Forbiddable"/>
       <li>
         <compClass>CompEquippable</compClass>
       </li>
       <li>
         <compClass>CompQuality</compClass>
       </li>
-      <li>
-        <compClass>Combat_Realism.CompGizmos</compClass>
-      </li>
-      <li>
-        <compClass>CompArt</compClass>
-        <nameMaker>NamerGun</nameMaker>
-        <descriptionMaker>ArtWeaponGun</descriptionMaker>
+      <li Class="CompProperties_Art">
+        <nameMaker>ArtName_WeaponGun</nameMaker>
+        <descriptionMaker>ArtDescription_WeaponGun</descriptionMaker>
         <minQualityForArtistic>Excellent</minQualityForArtistic>
       </li>
     </comps>
@@ -53,34 +47,18 @@
     <category>Projectile</category>
     <tickerType>Normal</tickerType>
     <altitudeLayer>Projectile</altitudeLayer>
-    <thingClass>Combat_Realism.BulletCRNoShell</thingClass>
-    <label>Arrow</label>
+    <thingClass>Combat_Realism.BulletCR</thingClass>
+    <label>arrow</label>
     <useHitPoints>False</useHitPoints>
     <neverMultiSelect>True</neverMultiSelect>
     <graphicData>
       <shaderType>Transparent</shaderType>
     </graphicData>
+    <projectile Class="Combat_Realism.ProjectilePropertiesCR" />
   </ThingDef>
 
   
   <!-- ========================== SPECIFICS ============================== -->
-
-
-  <ThingDef ParentName="BaseProjectileNeolithic">
-    <defName>Arrow_Short</defName>
-    <label>Short Bow Arrow</label>
-    <graphicData>
-      <texPath>Things/Projectile/Arrow_Small</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-    </graphicData>
-    <projectile>
-      <flyOverhead>false</flyOverhead>
-      <damageDef>Arrow</damageDef>
-      <damageAmountBase>8</damageAmountBase>
-      <speed>50</speed>
-    </projectile>
-  </ThingDef>
-
 
   <ThingDef ParentName="BaseWeaponNeolithic">
     <defName>Bow_Short</defName>
@@ -97,34 +75,39 @@
 		<costStuffCount>60</costStuffCount>
     <statBases>
       <MarketValue>60</MarketValue>
-      <AccuracyTouch>0.50</AccuracyTouch>
-      <AccuracyShort>0.50</AccuracyShort>
-      <AccuracyMedium>0.40</AccuracyMedium>
-      <AccuracyLong>0.35</AccuracyLong>
-      <RangedWeapon_Cooldown>1.0</RangedWeapon_Cooldown>
+      <AimEfficiency>0.5</AimEfficiency>
+      <ShotSpread>2</ShotSpread>
+      <SwayFactor>1</SwayFactor>
+      <Bulk>3.00</Bulk>
+      <Weight>2.00</Weight>
+      <RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
     </statBases>
-<tradeability>Sellable</tradeability>
+	<tradeability>Sellable</tradeability>
     <weaponTags>
       <li>NeolithicRanged</li>
+      <li>CR_Bow</li>
     </weaponTags>
     <verbs>
       <li Class="Combat_Realism.VerbPropertiesCR">
         <verbClass>Combat_Realism.Verb_ShootCR</verbClass>
         <hasStandardCommand>true</hasStandardCommand>
-        <projectileDef>Arrow_Short</projectileDef>
-        <warmupTicks>75</warmupTicks>
+        <projectileDef>Projectile_Arrow_Stone</projectileDef>
+        <warmupTicks>60</warmupTicks>
         <range>16</range>
         <soundCast>BowSmall</soundCast>
       </li>
     </verbs>
     <comps>
-      <li Class="Combat_Realism.CompPropertiesFireModes">
-        <compClass>Combat_Realism.CompFireModes</compClass>
-      </li>
-      <li Class="Combat_Realism.CompProperties_AP">
-        <compClass>Combat_Realism.CompAP</compClass>
-        <armorPenetration>0.12</armorPenetration>
-      </li>
+	  <li Class="Combat_Realism.CompProperties_AmmoUser">
+	    <magazineSize>1</magazineSize>
+		<reloadTicks>30</reloadTicks>
+		<ammoSet>AmmoSet_Arrow</ammoSet>
+		<throwMote>false</throwMote>
+	  </li>
+	  <li Class="Combat_Realism.CompProperties_FireModes">
+		<aiUseBurstMode>false</aiUseBurstMode>
+		<aiUseAimMode>false</aiUseAimMode>
+	  </li>
     </comps>
     <equippedStatOffsets>
       <MoveSpeed>-0.05</MoveSpeed>
@@ -134,24 +117,8 @@
       <li>BowRanged</li>
     </thingCategories>
   </ThingDef>
-  
-  
-  <ThingDef ParentName="BaseProjectileNeolithic">
-    <defName>Pilum_Thrown</defName>
-    <label>Pilum (Thrown)</label>
-    <graphicData>
-      <texPath>Things/Projectile/Pilum</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-    </graphicData>
-    <projectile>
-      <flyOverhead>false</flyOverhead>
-      <damageDef>Stab</damageDef>
-      <DamageAmountBase>25</DamageAmountBase>
-      <Speed>25</Speed>
-    </projectile>
-  </ThingDef>
-
-  
+ 
+ 
   <ThingDef ParentName="BaseWeaponNeolithic">
     <defName>Pila</defName>
     <label>Pila</label>
@@ -161,28 +128,31 @@
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <soundInteract>Interact_BeatFire</soundInteract>
-<tradeability>Sellable</tradeability>			
+	<tradeability>Sellable</tradeability>			
 		<stuffCategories>
 			<li>WoodLogs</li>
 		</stuffCategories>
-		<costStuffCount>60</costStuffCount>
+		<costStuffCount>1</costStuffCount>
 		<CostList>
-			<SteelBar>15</SteelBar>
+			<SteelBar>1</SteelBar>
 		</CostList>
     <statBases>
-      <MarketValue>90</MarketValue>
-      <AccuracyTouch>0.50</AccuracyTouch>
-      <AccuracyShort>0.50</AccuracyShort>
-      <AccuracyMedium>0.45</AccuracyMedium>
-      <AccuracyLong>0.40</AccuracyLong>
-      <RangedWeapon_Cooldown>1.4</RangedWeapon_Cooldown>
+      <MarketValue>4</MarketValue>
+      <AimEfficiency>0.25</AimEfficiency>
+      <ShotSpread>2.5</ShotSpread>
+      <SwayFactor>2</SwayFactor>
+      <Bulk>4.00</Bulk>
+      <Weight>3.00</Weight>
+      <RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
     </statBases>
+    <equippedAngleOffset>30</equippedAngleOffset>
+    <stackLimit>75</stackLimit>
     <weaponTags>
-      <li>NeolithicRanged</li>
+	  <li>CR_Pila</li>
     </weaponTags>
     <verbs>
       <li Class="Combat_Realism.VerbPropertiesCR">
-        <verbClass>Combat_Realism.Verb_ShootCR</verbClass>
+        <verbClass>Combat_Realism.Verb_ShootCROneUse</verbClass>
         <hasStandardCommand>true</hasStandardCommand>
         <projectileDef>Pilum_Thrown</projectileDef>
         <warmupTicks>120</warmupTicks>
@@ -190,15 +160,12 @@
         <soundCast>Interact_BeatFire</soundCast>
       </li>
     </verbs>
-    <comps>
-      <li Class="Combat_Realism.CompPropertiesFireModes">
-        <compClass>Combat_Realism.CompFireModes</compClass>
-      </li>
-      <li Class="Combat_Realism.CompProperties_AP">
-        <compClass>Combat_Realism.CompAP</compClass>
-        <armorPenetration>0.2</armorPenetration>
-      </li>
-    </comps>
+	<comps>
+	  <li Class="Combat_Realism.CompProperties_FireModes">
+		<aiUseBurstMode>false</aiUseBurstMode>
+		<aiUseAimMode>false</aiUseAimMode>
+	  </li>
+	</comps>
     <equippedStatOffsets>
       <MoveSpeed>-0.14</MoveSpeed>
       <WorkSpeedGlobal>-0.1</WorkSpeedGlobal>
@@ -208,22 +175,6 @@
     </thingCategories>
   </ThingDef>
 
-
-  <ThingDef ParentName="BaseProjectileNeolithic">
-    <defName>Arrow_Great</defName>
-    <label>Great Bow Arrow</label>
-    <graphicData>
-      <texPath>Things/Projectile/Arrow_Small</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-    </graphicData>
-    <projectile>
-      <flyOverhead>false</flyOverhead>
-      <damageDef>Arrow</damageDef>
-      <damageAmountBase>10</damageAmountBase>
-      <speed>50</speed>
-    </projectile>
-  </ThingDef>
-  
 
   <ThingDef ParentName="BaseWeaponNeolithic">
     <defName>Bow_Great</defName>
@@ -243,36 +194,41 @@
 			<SteelBar>10</SteelBar>
 		</CostList>
     <statBases>
-      <MarketValue>180</MarketValue>
-      <AccuracyTouch>0.50</AccuracyTouch>
-      <AccuracyShort>0.50</AccuracyShort>
-      <AccuracyMedium>0.43</AccuracyMedium>
-      <AccuracyLong>0.37</AccuracyLong>
-      <RangedWeapon_Cooldown>1.2</RangedWeapon_Cooldown>
+      <MarketValue>160</MarketValue>
+      <AimEfficiency>0.6</AimEfficiency>
+      <ShotSpread>2</ShotSpread>
+      <SwayFactor>1</SwayFactor>
+      <Bulk>5.00</Bulk>
+      <Weight>2.00</Weight>
+      <RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
     </statBases>
     <weaponTags>
       <li>MedievalRanged</li>
       <li>NeolithicRanged</li>
+      <li>CR_Bow</li>
     </weaponTags>
     <verbs>
       <li Class="Combat_Realism.VerbPropertiesCR">
         <verbClass>Combat_Realism.Verb_ShootCR</verbClass>
         <hasStandardCommand>true</hasStandardCommand>
-        <projectileDef>Arrow_Great</projectileDef>
-        <warmupTicks>95</warmupTicks>
+        <projectileDef>Projectile_GreatArrow_Stone</projectileDef>
+        <warmupTicks>90</warmupTicks>
         <range>18</range>
         <soundCast>BowGreat</soundCast>
       </li>
     </verbs>
-    <comps>
-      <li Class="Combat_Realism.CompPropertiesFireModes">
-        <compClass>Combat_Realism.CompFireModes</compClass>
-      </li>
-      <li Class="Combat_Realism.CompProperties_AP">
-        <compClass>Combat_Realism.CompAP</compClass>
-        <armorPenetration>0.15</armorPenetration>
-      </li>
-    </comps>
+	<comps>
+	  <li Class="Combat_Realism.CompProperties_AmmoUser">
+	    <magazineSize>1</magazineSize>
+		<reloadTicks>38</reloadTicks>
+		<ammoSet>AmmoSet_GreatArrow</ammoSet>
+		<throwMote>false</throwMote>
+	  </li>
+	  <li Class="Combat_Realism.CompProperties_FireModes">
+		<aiUseBurstMode>false</aiUseBurstMode>
+		<aiUseAimMode>false</aiUseAimMode>
+	  </li>
+	</comps>
     <equippedStatOffsets>
       <MoveSpeed>-0.065</MoveSpeed>
       <WorkSpeedGlobal>-0.03</WorkSpeedGlobal>
@@ -281,23 +237,6 @@
       <li>BowRanged</li>
     </thingCategories>
   </ThingDef>
-  
-  
-  <ThingDef ParentName="BaseProjectileNeolithic">
-    <defName>Norbal_BoardingCrossbow</defName>
-    <label>Bolt</label>
-    <graphicData>
-      <texPath>Things/Projectile/Arrow_Small</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-    </graphicData>
-    <projectile>
-      <flyOverhead>false</flyOverhead>
-      <damageDef>Arrow</damageDef>
-      <DamageAmountBase>14</DamageAmountBase>
-      <Speed>60</Speed>
-    </projectile>
-  </ThingDef>
-
   
   <ThingDef ParentName="BaseWeaponNeolithic">
     <defName>Norbal_Scorpion</defName>
@@ -316,11 +255,12 @@
 			<SteelBar>10</SteelBar>
 		</CostList>
     <statBases>
-		<AccuracyTouch>0.50</AccuracyTouch>
-		<AccuracyShort>0.50</AccuracyShort>
-		<AccuracyMedium>0.44</AccuracyMedium>
-		<AccuracyLong>0.4</AccuracyLong>
-      <RangedWeapon_Cooldown>1.4</RangedWeapon_Cooldown>
+		  <AimEfficiency>0.7</AimEfficiency>
+		  <ShotSpread>2.5</ShotSpread>
+		  <SwayFactor>2</SwayFactor>
+		  <Bulk>4.50</Bulk>
+		  <Weight>3.30</Weight>
+		  <RangedWeapon_Cooldown>1.5</RangedWeapon_Cooldown>
     </statBases>
     <weaponTags>
       <li>MedievalRanged</li>
@@ -331,21 +271,24 @@
       <li Class="Combat_Realism.VerbPropertiesCR">
         <verbClass>Combat_Realism.Verb_ShootCR</verbClass>
         <hasStandardCommand>true</hasStandardCommand>
-        <projectileDef>Norbal_BoardingCrossbow</projectileDef>
+        <projectileDef>Projectile_MetallicBolt</projectileDef>
         <warmupTicks>120</warmupTicks>
         <range>19</range>
         <SoundCast>Interact_BeatFire</SoundCast>
       </li>
     </verbs>
-    <comps>
-      <li Class="Combat_Realism.CompPropertiesFireModes">
-        <compClass>Combat_Realism.CompFireModes</compClass>
-      </li>
-      <li Class="Combat_Realism.CompProperties_AP">
-        <compClass>Combat_Realism.CompAP</compClass>
-        <armorPenetration>0.28</armorPenetration>
-      </li>
-    </comps>
+	<comps>
+	  <li Class="Combat_Realism.CompProperties_AmmoUser">
+	    <magazineSize>1</magazineSize>
+		<reloadTicks>50</reloadTicks>
+		<ammoSet>AmmoSet_Bolt</ammoSet>
+		<throwMote>false</throwMote>
+	  </li>
+	  <li Class="Combat_Realism.CompProperties_FireModes">
+		<aiUseBurstMode>false</aiUseBurstMode>
+		<aiUseAimMode>false</aiUseAimMode>
+	  </li>
+	</comps>
     <equippedStatOffsets>
       <MoveSpeed>-0.09</MoveSpeed>
       <WorkSpeedGlobal>-0.05</WorkSpeedGlobal>
@@ -355,22 +298,7 @@
     </thingCategories>
   </ThingDef>
   
-  
-  <ThingDef ParentName="BaseProjectileNeolithic">
-    <defName>Bolt_Arbalest</defName>
-    <label>Bolt</label>
-    <graphicData>
-      <texPath>Things/Projectile/Arrow_Small</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-    </graphicData>
-    <projectile>
-      <flyOverhead>false</flyOverhead>
-      <damageDef>Arrow</damageDef>
-      <DamageAmountBase>19</DamageAmountBase>
-      <Speed>60</Speed>
-    </projectile>
-  </ThingDef>
-  
+
   
   <ThingDef ParentName="BaseWeaponNeolithic">
     <defName>Arbalest</defName>
@@ -389,11 +317,12 @@
 			<SteelBar>15</SteelBar>
 		</CostList>
     <statBases>
-        <AccuracyTouch>0.50</AccuracyTouch>
-		<AccuracyShort>0.50</AccuracyShort>
-		<AccuracyMedium>0.45</AccuracyMedium>
-		<AccuracyLong>0.42</AccuracyLong>
-		<RangedWeapon_Cooldown>1.5</RangedWeapon_Cooldown>
+		  <AimEfficiency>0.65</AimEfficiency>
+		  <ShotSpread>2.5</ShotSpread>
+		  <SwayFactor>2</SwayFactor>
+		  <Bulk>4.50</Bulk>
+		  <Weight>3.30</Weight>
+		  <RangedWeapon_Cooldown>1.6</RangedWeapon_Cooldown>
     </statBases>
     <weaponTags>
       <li>MedievalRanged</li>
@@ -403,21 +332,24 @@
       <li Class="Combat_Realism.VerbPropertiesCR">
         <verbClass>Combat_Realism.Verb_ShootCR</verbClass>
         <hasStandardCommand>true</hasStandardCommand>
-        <projectileDef>Bolt_Arbalest</projectileDef>
+        <projectileDef>Projectile_MetallicBolt</projectileDef>
         <warmupTicks>125</warmupTicks>
         <range>22</range>
         <SoundCast>Interact_BeatFire</SoundCast>
       </li>
     </verbs>
-    <comps>
-      <li Class="Combat_Realism.CompPropertiesFireModes">
-        <compClass>Combat_Realism.CompFireModes</compClass>
-      </li>
-      <li Class="Combat_Realism.CompProperties_AP">
-        <compClass>Combat_Realism.CompAP</compClass>
-        <armorPenetration>0.32</armorPenetration>
-      </li>
-    </comps>
+	<comps>
+	  <li Class="Combat_Realism.CompProperties_AmmoUser">
+	    <magazineSize>1</magazineSize>
+		<reloadTicks>60</reloadTicks>
+		<ammoSet>AmmoSet_Bolt</ammoSet>
+		<throwMote>false</throwMote>
+	  </li>
+	  <li Class="Combat_Realism.CompProperties_FireModes">
+		<aiUseBurstMode>false</aiUseBurstMode>
+		<aiUseAimMode>false</aiUseAimMode>
+	  </li>
+	</comps>
     <equippedStatOffsets>
       <MoveSpeed>-0.11</MoveSpeed>
       <WorkSpeedGlobal>-0.07</WorkSpeedGlobal>
@@ -428,22 +360,7 @@
   </ThingDef>
   
   
-  <ThingDef ParentName="BaseProjectileNeolithic">
-    <defName>Bolt_Crossbow</defName>
-    <label>Bolt</label>
-    <graphicData>
-      <texPath>Things/Projectile/Arrow_Small</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-    </graphicData>
-    <projectile>
-      <flyOverhead>false</flyOverhead>
-      <damageDef>Arrow</damageDef>
-      <DamageAmountBase>16</DamageAmountBase>
-      <Speed>60</Speed>
-    </projectile>
-  </ThingDef>
-  
-  
+
   <ThingDef ParentName="BaseWeaponNeolithic">
     <defName>Crossbow</defName>
     <label>Crossbow</label>
@@ -461,11 +378,12 @@
 			<SteelBar>20</SteelBar>
 		</CostList>
     <statBases>
-		<AccuracyTouch>0.50</AccuracyTouch>
-		<AccuracyShort>0.50</AccuracyShort>
-		<AccuracyMedium>0.42</AccuracyMedium>
-		<AccuracyLong>0.38</AccuracyLong>
-		<RangedWeapon_Cooldown>1.3</RangedWeapon_Cooldown>
+		  <AimEfficiency>0.73</AimEfficiency>
+		  <ShotSpread>2.5</ShotSpread>
+		  <SwayFactor>2</SwayFactor>
+		  <Bulk>4.50</Bulk>
+		  <Weight>3.30</Weight>
+		  <RangedWeapon_Cooldown>1.3</RangedWeapon_Cooldown>
     </statBases>
     <weaponTags>
       <li>MedievalRanged</li>
@@ -476,21 +394,24 @@
       <li Class="Combat_Realism.VerbPropertiesCR">
         <verbClass>Combat_Realism.Verb_ShootCR</verbClass>
         <hasStandardCommand>true</hasStandardCommand>
-        <projectileDef>Bolt_Crossbow</projectileDef>
+        <projectileDef>Projectile_MetallicBolt</projectileDef>
         <warmupTicks>120</warmupTicks>
         <range>20</range>
         <SoundCast>Interact_BeatFire</SoundCast>
       </li>
     </verbs>
-    <comps>
-      <li Class="Combat_Realism.CompPropertiesFireModes">
-        <compClass>Combat_Realism.CompFireModes</compClass>
-      </li>
-      <li Class="Combat_Realism.CompProperties_AP">
-        <compClass>Combat_Realism.CompAP</compClass>
-        <armorPenetration>0.32</armorPenetration>
-      </li>
-    </comps>
+	<comps>
+	  <li Class="Combat_Realism.CompProperties_AmmoUser">
+	    <magazineSize>1</magazineSize>
+		<reloadTicks>50</reloadTicks>
+		<ammoSet>AmmoSet_Bolt</ammoSet>
+		<throwMote>false</throwMote>
+	  </li>
+	  <li Class="Combat_Realism.CompProperties_FireModes">
+		<aiUseBurstMode>false</aiUseBurstMode>
+		<aiUseAimMode>false</aiUseAimMode>
+	  </li>
+	</comps>
     <equippedStatOffsets>
       <MoveSpeed>-0.12</MoveSpeed>
       <WorkSpeedGlobal>-0.07</WorkSpeedGlobal>
@@ -498,22 +419,6 @@
     <thingCategories>
       <li>CrossbarRanged</li>
     </thingCategories>
-  </ThingDef>
-  
-  
-  <ThingDef ParentName="BaseProjectileNeolithic">
-    <defName>NorbalArrow_Grape</defName>
-    <label>Greatbow Arrow</label>
-    <graphicData>
-      <texPath>Things/Projectile/Arrow_Small</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-    </graphicData>
-    <projectile>
-      <flyOverhead>false</flyOverhead>
-      <damageDef>Arrow</damageDef>
-      <DamageAmountBase>9</DamageAmountBase>
-      <Speed>50</Speed>
-    </projectile>
   </ThingDef>
   
   
@@ -531,35 +436,40 @@
 		</stuffCategories>
 		<costStuffCount>62</costStuffCount>
     <statBases>
-      <AccuracyTouch>0.50</AccuracyTouch>
-      <AccuracyShort>0.50</AccuracyShort>
-      <AccuracyMedium>0.41</AccuracyMedium>
-      <AccuracyLong>0.36</AccuracyLong>
-      <RangedWeapon_Cooldown>1.1</RangedWeapon_Cooldown>
+		  <AimEfficiency>0.6</AimEfficiency>
+		  <ShotSpread>2.1</ShotSpread>
+		  <SwayFactor>1</SwayFactor>
+		  <Bulk>4.50</Bulk>
+		  <Weight>1.30</Weight>
+		  <RangedWeapon_Cooldown>1.1</RangedWeapon_Cooldown>
     </statBases>
     <weaponTags>
       <li>NeolithicRanged</li>
+      <li>CR_Bow</li>
     </weaponTags>
 	<tradeability>Sellable</tradeability>
     <verbs>
       <li Class="Combat_Realism.VerbPropertiesCR">
         <verbClass>Combat_Realism.Verb_ShootCR</verbClass>
         <hasStandardCommand>true</hasStandardCommand>
-        <projectileDef>NorbalArrow_Grape</projectileDef>
+        <projectileDef>Projectile_Arrow_Stone</projectileDef>
         <warmupTicks>80</warmupTicks>
         <range>17</range>
         <SoundCast>BowGreat</SoundCast>
       </li>
     </verbs>
-    <comps>
-      <li Class="Combat_Realism.CompPropertiesFireModes">
-        <compClass>Combat_Realism.CompFireModes</compClass>
-      </li>
-      <li Class="Combat_Realism.CompProperties_AP">
-        <compClass>Combat_Realism.CompAP</compClass>
-        <armorPenetration>0.18</armorPenetration>
-      </li>
-    </comps>
+	<comps>
+	  <li Class="Combat_Realism.CompProperties_AmmoUser">
+	    <magazineSize>1</magazineSize>
+		<reloadTicks>40</reloadTicks>
+		<ammoSet>AmmoSet_Arrow</ammoSet>
+		<throwMote>false</throwMote>
+	  </li>
+	  <li Class="Combat_Realism.CompProperties_FireModes">
+		<aiUseBurstMode>false</aiUseBurstMode>
+		<aiUseAimMode>false</aiUseAimMode>
+	  </li>
+	</comps>
     <equippedStatOffsets>
       <MoveSpeed>-0.08</MoveSpeed>
       <WorkSpeedGlobal>-0.03</WorkSpeedGlobal>
@@ -584,36 +494,41 @@
 		</stuffCategories>
 		<costStuffCount>75</costStuffCount>
     <statBases>
-      <AccuracyTouch>0.50</AccuracyTouch>
-      <AccuracyShort>0.50</AccuracyShort>
-      <AccuracyMedium>0.43</AccuracyMedium>
-      <AccuracyLong>0.37</AccuracyLong>
-      <RangedWeapon_Cooldown>1.1</RangedWeapon_Cooldown>
+		  <AimEfficiency>0.55</AimEfficiency>
+		  <ShotSpread>2.25</ShotSpread>
+		  <SwayFactor>1</SwayFactor>
+		  <Bulk>4.50</Bulk>
+		  <Weight>1.30</Weight>
+		  <RangedWeapon_Cooldown>1.15</RangedWeapon_Cooldown>
     </statBases>
     <weaponTags>
       <li>MedievalRanged</li>
       <li>NorbalRanged</li>
+      <li>CR_Bow</li>
     </weaponTags>
 	<tradeability>Sellable</tradeability>
     <verbs>
       <li Class="Combat_Realism.VerbPropertiesCR">
         <verbClass>Combat_Realism.Verb_ShootCR</verbClass>
         <hasStandardCommand>true</hasStandardCommand>
-        <projectileDef>NorbalArrow_Grape</projectileDef>
+        <projectileDef>Projectile_GreatArrow_Stone</projectileDef>
         <warmupTicks>80</warmupTicks>
         <range>18</range>
         <SoundCast>BowGreat</SoundCast>
       </li>
     </verbs>
-    <comps>
-      <li Class="Combat_Realism.CompPropertiesFireModes">
-        <compClass>Combat_Realism.CompFireModes</compClass>
-      </li>
-      <li Class="Combat_Realism.CompProperties_AP">
-        <compClass>Combat_Realism.CompAP</compClass>
-        <armorPenetration>0.18</armorPenetration>
-      </li>
-    </comps>
+	<comps>
+	  <li Class="Combat_Realism.CompProperties_AmmoUser">
+	    <magazineSize>1</magazineSize>
+		<reloadTicks>32</reloadTicks>
+		<ammoSet>AmmoSet_GreatArrow</ammoSet>
+		<throwMote>false</throwMote>
+	  </li>
+	  <li Class="Combat_Realism.CompProperties_FireModes">
+		<aiUseBurstMode>false</aiUseBurstMode>
+		<aiUseAimMode>false</aiUseAimMode>
+	  </li>
+	</comps>
     <equippedStatOffsets>
       <MoveSpeed>-0.07</MoveSpeed>
       <WorkSpeedGlobal>-0.04</WorkSpeedGlobal>

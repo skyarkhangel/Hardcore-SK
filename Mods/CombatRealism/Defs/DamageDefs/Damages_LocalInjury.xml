@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
   
-  <DamageDef Name="LocalInjuryBase" Abstract="True">
+  <DamageDef Class="Combat_Realism.DamageDef_CR" Name="LocalInjuryBase" Abstract="True">
     <workerClass>Combat_Realism.DamageWorker_AddInjuryCR</workerClass>
   </DamageDef>
 
@@ -16,6 +16,7 @@
     <harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
     <impactSoundType>Slice</impactSoundType>
     <armorCategory>Sharp</armorCategory>
+		<deflectable>true</deflectable>
   </DamageDef>
 
   <DamageDef ParentName="LocalInjuryBase">
@@ -29,9 +30,10 @@
     <harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
     <impactSoundType>Blunt</impactSoundType>
     <armorCategory>Blunt</armorCategory>
+    <harmOnlyOutsideLayers>true</harmOnlyOutsideLayers>
   </DamageDef>
 
-  <DamageDef ParentName="LocalInjuryBase">
+  <DamageDef Name="Blunt" ParentName="LocalInjuryBase">
     <defName>Blunt</defName>
     <label>blunt</label>
     <externalViolence>true</externalViolence>
@@ -43,6 +45,20 @@
     <harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
     <hasChanceToAdditionallyDamageInnerSolidParts>true</hasChanceToAdditionallyDamageInnerSolidParts>
     <impactSoundType>Blunt</impactSoundType>
+    <armorCategory>Blunt</armorCategory>
+    <harmOnlyOutsideLayers>true</harmOnlyOutsideLayers>
+  </DamageDef>
+  
+  <DamageDef ParentName="Blunt">
+    <defName>Beanbag</defName>
+    <label>beanbag</label>
+    <deathMessage>{0} has been shot to death.</deathMessage>
+    <additionalHediffs>
+      <li>
+        <hediff>MuscleSpasms</hediff>
+        <severityPerDamageDealt>0.07</severityPerDamageDealt>
+      </li>
+    </additionalHediffs>
     <armorCategory>Blunt</armorCategory>
   </DamageDef>
 
@@ -57,9 +73,10 @@
     <harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
     <impactSoundType>Slice</impactSoundType>
     <armorCategory>Sharp</armorCategory>
+		<deflectable>true</deflectable>
   </DamageDef>
 
-  <DamageDef ParentName="LocalInjuryBase">
+  <DamageDef Name="DamageBulletBase" ParentName="LocalInjuryBase">
     <defName>Bullet</defName>
     <label>bullet</label>
     <externalViolence>true</externalViolence>
@@ -69,6 +86,16 @@
     <harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
     <impactSoundType>Bullet</impactSoundType>
     <armorCategory>Sharp</armorCategory>
+		<deflectable>true</deflectable>
+  </DamageDef>
+
+  <DamageDef ParentName="DamageBulletBase">
+    <defName>Fragment</defName>
+    <label>fragment</label>
+    <deathMessage>{0} has been shredded to death.</deathMessage>
+    <hediff>Shredded</hediff>
+    <hediffSolid>Crack</hediffSolid>
+    <spreadOut>false</spreadOut>
   </DamageDef>
 
   <DamageDef ParentName="LocalInjuryBase">
@@ -82,6 +109,7 @@
     <harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
     <impactSoundType>Bullet</impactSoundType>
     <armorCategory>Sharp</armorCategory>
+	<deflectable>true</deflectable>
   </DamageDef>
 
   <DamageDef ParentName="LocalInjuryBase">
@@ -95,6 +123,9 @@
     <harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
     <impactSoundType>Slice</impactSoundType>
     <armorCategory>Sharp</armorCategory>
+		<deflectable>true</deflectable>
+		<absorbable>true</absorbable>
+    <harmOnlyOutsideLayers>true</harmOnlyOutsideLayers>
   </DamageDef>
 
   <DamageDef Name="Bite" ParentName="LocalInjuryBase">
@@ -108,6 +139,7 @@
     <harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
     <impactSoundType>Slice</impactSoundType>
     <armorCategory>Sharp</armorCategory>
+		<deflectable>true</deflectable>
   </DamageDef>
   
   <DamageDef ParentName="Bite">
@@ -119,16 +151,18 @@
         <severityPerDamageDealt>0.001</severityPerDamageDealt>
       </li>
     </additionalHediffs>
+		<deflectable>true</deflectable>
+		<absorbable>true</absorbable>
   </DamageDef>
 
-  <DamageDef ParentName="LocalInjuryBase">
+  <DamageDef Name="DamageBombBase" ParentName="LocalInjuryBase">
     <defName>Bomb</defName>
     <label>bomb</label>
     <externalViolence>true</externalViolence>
     <isExplosive>true</isExplosive>
     <battleWound>true</battleWound>
     <deathMessage>{0} has died in an explosion.</deathMessage>
-    <hediff>Shredded</hediff>
+    <hediff>Blast</hediff>
     <hediffSolid>Crack</hediffSolid>
     <harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
     <impactSoundType>Blunt</impactSoundType>
@@ -141,19 +175,76 @@
     <explosionCellMote>Mote_BlastDry</explosionCellMote>
     <soundExplosion>Explosion_Bomb</soundExplosion>
   </DamageDef>
+  
+  <DamageDef ParentName="DamageBombBase">
+    <defName>Bomb_Secondary</defName>
+    <harmAllLayersUntilOutside>false</harmAllLayersUntilOutside>
+    <spreadOut>false</spreadOut>
+		<deflectable>true</deflectable>
+  </DamageDef>
+  
+  <DamageDef ParentName="DamageBombBase">
+    <defName>Thermobaric</defName>
+    <label>thermobaric</label>
+    <workerClass>Combat_Realism.DamageWorker_FlameCR</workerClass>
+  </DamageDef>
+
+  <DamageDef Name="Flame" ParentName="LocalInjuryBase">
+    <defName>Flame</defName>
+    <workerClass>Combat_Realism.DamageWorker_FlameCR</workerClass>
+    <label>flame</label>
+    <hasForcefulImpact>false</hasForcefulImpact>
+    <makesBlood>false</makesBlood>
+    <incapChanceMultiplier>1.5</incapChanceMultiplier>
+    <canInterruptJobs>false</canInterruptJobs>
+    <externalViolence>true</externalViolence>
+    <deathMessage>{0} has burned to death.</deathMessage>
+    <hediff>Burn</hediff>
+    <armorCategory>Heat</armorCategory>
+    <spreadOut>true</spreadOut>
+    <explosionDamage>10</explosionDamage>
+    <explosionHeatEnergyPerCell>15</explosionHeatEnergyPerCell>
+    <explosionCellMote>Mote_BlastFlame</explosionCellMote>
+    <soundExplosion>Explosion_Flame</soundExplosion>
+    <harmOnlyOutsideLayers>true</harmOnlyOutsideLayers>
+  </DamageDef>
+  
+  <DamageDef ParentName="Flame">
+    <defName>Flame_Secondary</defName>
+    <harmAllLayersUntilOutside>false</harmAllLayersUntilOutside>
+    <spreadOut>false</spreadOut>
+		<deflectable>true</deflectable>
+  </DamageDef>
 
   <DamageDef ParentName="LocalInjuryBase">
-    <defName>Fragment</defName>
-    <label>fragment</label>
-    <externalViolence>true</externalViolence>
-    <battleWound>true</battleWound>
-    <deathMessage>{0} has been shredded to death.</deathMessage>
-    <hediff>Shredded</hediff>
-    <hediffSolid>Crack</hediffSolid>
+    <defName>Frostbite</defName>
+    <label>frostbite</label>
+    <externalViolence>false</externalViolence>
+    <battleWound>false</battleWound>
+    <deathMessage>{0} has succumbed to frostbite.</deathMessage>
+    <hediff>Frostbite</hediff>
     <harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
-    <impactSoundType>Bullet</impactSoundType>
-    <armorCategory>Sharp</armorCategory>
+    <armorCategory>Heat</armorCategory>
+  </DamageDef>
+
+  <DamageDef ParentName="LocalInjuryBase">
+    <defName>Electrical</defName>
+    <label>electrical</label>
+    <hasForcefulImpact>false</hasForcefulImpact>
+    <makesBlood>false</makesBlood>
+    <incapChanceMultiplier>1.5</incapChanceMultiplier>
+    <externalViolence>true</externalViolence>
+    <deathMessage>{0} has been electrocuted.</deathMessage>
+    <hediff>ElectricalBurn</hediff>
+    <impactSoundType>Electric</impactSoundType>
+    <armorCategory>Electric</armorCategory>
     <spreadOut>true</spreadOut>
+    <explosionDamage>10</explosionDamage>
+    <explosionHeatEnergyPerCell>10</explosionHeatEnergyPerCell>
+    <explosionCellMote>Mote_BlastEMP</explosionCellMote>
+    <explosionInteriorMote>Mote_ElectricalSpark</explosionInteriorMote>
+    <soundExplosion>Explosion_EMP</soundExplosion>
+    <harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
   </DamageDef>
 
 </Defs>

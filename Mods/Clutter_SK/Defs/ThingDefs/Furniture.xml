@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
+
 <Buildings>
- <ThingDef Name="BuildingBase" Abstract="True">
-    <category>Building</category>
-    <thingClass>Building</thingClass>
-    <soundImpactDefault>BulletImpactMetal</soundImpactDefault>
-    <selectable>true</selectable>
-    <drawerType>MapMeshAndRealTime</drawerType>
-    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
-    <repairEffect>Repair</repairEffect>
-    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
-    <filthLeaving>BuildingRubble</filthLeaving>
+
+	<ThingDef Name="BuildingBase" Abstract = "True">
+		<category>Building</category>
+		<thingClass>Building</thingClass>
+		<soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+		<selectable>true</selectable>
+		<drawerType>MapMeshAndRealTime</drawerType>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<repairEffect>Repair</repairEffect>
+		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+		<filthLeaving>BuildingRubble</filthLeaving>
     <damageMultipliers>
       <li>
         <damageDef>Bomb</damageDef>
@@ -48,8 +50,8 @@
         <multiplier>1.5</multiplier>
       </li>
     </damageMultipliers>
-  </ThingDef>
-  
+		</ThingDef>
+	
   <ThingDef Name="FurnitureBase" ParentName="BuildingBase" Abstract="True">
     <comps>
       <li>
@@ -59,17 +61,16 @@
     <DesignationCategory>Furniture</DesignationCategory>
     <minifiedDef>MinifiedFurniture</minifiedDef>
   </ThingDef>
+
   
   <ThingDef Name="HighQualityFurnitureBase" ParentName="BuildingBase" Abstract="True">
     <comps>
       <li>
         <compClass>CompQuality</compClass>
       </li>
-      <li>
-        <compClass>CompArt</compClass>
-        <nameMaker>NamerFurniture</nameMaker>
-        <descriptionMaker>ArtFurniture</descriptionMaker>
-        <minQualityForArtistic>Excellent</minQualityForArtistic>
+      <li Class="CompProperties_Art">
+        <nameMaker>ArtName_Sculpture</nameMaker>
+        <descriptionMaker>ArtDescription_Sculpture</descriptionMaker>
       </li>
     </comps>
     <inspectorTabs>
@@ -80,6 +81,66 @@
   </ThingDef>
 
   <!--================ Beds ================-->
+  
+  <ThingDef Class="Clutter_Furniture.ClutterThingDefs" ParentName="FurnitureBase">
+    <defName>ClutterEkieBed</defName>
+    <label>Sleeping pod</label>
+    <Description>Redesigned cryo pod.</Description>
+    <ThingClass>Clutter_Furniture.Beds</ThingClass>
+    <graphicData>
+      <texPath>Clutter/Beds/EkieBed/MBed</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(1.2,2.2)</drawSize>
+      <damageData>
+        <rect>(0,0.05,1,1.95)</rect>
+      </damageData>
+    </graphicData>
+    <AltitudeLayer>Waist</AltitudeLayer>
+    <statBases>
+      <MaxHitPoints>140</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <Beauty>8</Beauty>
+      <WorkToMake>5000</WorkToMake>
+      <BedRestEffectiveness>1</BedRestEffectiveness>
+      <Comfort>0.75</Comfort>
+      <ImmunityGainSpeedFactor>1.1</ImmunityGainSpeedFactor>
+    </statBases>
+    <Size>(1,2)</Size>
+	<stuffCategories>
+      	<li>Fabric</li>
+	</stuffCategories>
+	<costStuffCount>70</costStuffCount>
+	<costList>
+		<Components>6</Components>
+		<Medicine>5</Medicine>
+	</costList>
+    <building>
+		<Bed_ShowSleeperBody>False</Bed_ShowSleeperBody>
+		<Bed_HealTickInterval>2000</Bed_HealTickInterval>
+    </building>
+    <comps>
+      <li Class="CompProperties_AffectedByFacilities">
+        <linkableFacilities>
+          <li>VitalsMonitor</li>
+		  <li>ClutterCabinetA</li>
+		  <li>ClutterLockerA</li>
+		 </linkableFacilities>
+      </li>
+    </comps>
+    <fillPercent>0.4</fillPercent>
+    <PathCost>60</PathCost>
+    <Passability>PassThroughOnly</Passability>
+    <DrawGUIOverlay>True</DrawGUIOverlay>
+    	<researchPrerequisites><li>ComfyTechTierII</li></researchPrerequisites>
+		<DesignationCategory>Furniture</DesignationCategory>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+		</placeWorkers>
+		<PrisonerBedTexture>Clutter/Beds/EkieBed/MBedPrisoner</PrisonerBedTexture>
+		<MedicalBedTexture>Clutter/Beds/EkieBed/MBedMedical</MedicalBedTexture>
+		<MedicalPrisonerBedTexture>Clutter/Beds/EkieBed/MBedPrisonerMedical</MedicalPrisonerBedTexture>
+  </ThingDef>
 
 	<ThingDef Class="Clutter_Furniture.ClutterThingDefs" ParentName="FurnitureBase">
 		<defName>ClutterBedA</defName>
@@ -87,10 +148,13 @@
 		<Description>A stylish bed with a large gear design on the sheets. An improvement over the fancy bed in both style and comfort.</Description>
 		<ThingClass>Clutter_Furniture.Beds</ThingClass>
 		<graphicData>
-		<shaderType>CutoutComplex</shaderType>
-		 <texPath>Clutter/Beds/SlabBed/SlabBed</texPath>
-		<graphicClass>Graphic_Multi</graphicClass>
-		 <drawSize>(3,4)</drawSize>
+		  <texPath>Clutter/Beds/SlabBed/SlabBed</texPath>
+		  <graphicClass>Graphic_Multi</graphicClass>
+		  <shaderType>CutoutComplex</shaderType>
+		  <drawSize>(3,4)</drawSize>
+		  <damageData>
+			<rect>(0,0.05,1,1.95)</rect>
+		  </damageData>
 		</graphicData>
 		<uiIconPath>Clutter/Beds/BedA</uiIconPath>
 		<AltitudeLayer>Waist</AltitudeLayer>
@@ -110,15 +174,14 @@
 		</stuffCategories>
 		<costStuffCount>30</costStuffCount>
 		<costList>
-			<Spare_Parts>5</Spare_Parts>
+			<Components>5</Components>
 		</costList>
 	<building>
       <Bed_ShowSleeperBody>False</Bed_ShowSleeperBody>
       <Bed_HealTickInterval>2000</Bed_HealTickInterval>
     </building>
 	 <comps>
-      <li>
-        <compClass>CompAffectedByFacilities</compClass>
+      <li Class="CompProperties_AffectedByFacilities">
         <linkableFacilities>
           <li>VitalsMonitor</li>
         </linkableFacilities>
@@ -134,7 +197,7 @@
 		 <CastEdgeShadows>True</CastEdgeShadows>
 		<LeaveResourcesWhenKilled>True</LeaveResourcesWhenKilled>
 		<DesignationCategory>Furniture</DesignationCategory>
-    		<researchPrerequisite>ComfyTechTierIII</researchPrerequisite>
+    		<researchPrerequisites><li>ComfyTechTierIII</li></researchPrerequisites>
 		<Passability>PassThroughOnly</Passability>
 		<DrawGUIOverlay>True</DrawGUIOverlay>
 		
@@ -157,6 +220,12 @@
 		<shaderType>Transparent</shaderType>
 		 <texPath>Clutter/Tables/TableSpacerSmallClean</texPath>
 		<graphicClass>Graphic_Multi</graphicClass>
+		 <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+		</damageData>
 		</graphicData>
 		<AltitudeLayer>Waist</AltitudeLayer>
 		<Description>A very small table for those anti-social types. Suitable for one person.</Description>
@@ -169,7 +238,7 @@
 		</stuffCategories>
     <costStuffCount>25</costStuffCount>
 		<costList>
-			<Spare_Parts>3</Spare_Parts>
+			<Components>3</Components>
 		</costList>
 	<statBases>
       <MaxHitPoints>150</MaxHitPoints>
@@ -181,7 +250,7 @@
 		<PathCost>60</PathCost>
 		<fillPercent>0.3</fillPercent>
 		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
-    		<researchPrerequisite>ComfyTechTierIV</researchPrerequisite>
+    		<researchPrerequisites><li>ComfyTechTierIV</li></researchPrerequisites>
 		<DesignationCategory>Furniture</DesignationCategory>
 		 <surfaceType>Eat</surfaceType>
     <comps>
@@ -213,6 +282,12 @@
 		 <texPath>Clutter/Tables/TableSpacerMediumClean</texPath>
 		<graphicClass>Graphic_Multi</graphicClass>
 		 <drawSize>(2,1)</drawSize>
+		<damageData>
+			<cornerTL>Damage/Corner</cornerTL>
+			<cornerTR>Damage/Corner</cornerTR>
+			<cornerBL>Damage/Corner</cornerBL>
+			<cornerBR>Damage/Corner</cornerBR>
+        </damageData>
 		</graphicData>
 		<AltitudeLayer>Waist</AltitudeLayer>
 		<Description>A medium sized table suitable for two people.</Description>
@@ -225,7 +300,7 @@
 		</stuffCategories>
    		 <costStuffCount>45</costStuffCount>
 		<costList>
-			<Spare_Parts>4</Spare_Parts>
+			<Components>4</Components>
 		</costList>
 	<statBases>
       <MaxHitPoints>150</MaxHitPoints>
@@ -237,7 +312,7 @@
 		<PathCost>60</PathCost>
 		<fillPercent>0.3</fillPercent>
 		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
-    		<researchPrerequisite>ComfyTechTierV</researchPrerequisite>
+    		<researchPrerequisites><li>ComfyTechTierV</li></researchPrerequisites>
 		<DesignationCategory>Furniture</DesignationCategory>
 		<surfaceType>Eat</surfaceType>
     <comps>
@@ -268,6 +343,12 @@
 		 <texPath>Clutter/Tables/TableSpacerSquare</texPath>
 		<graphicClass>Graphic_Single</graphicClass>
 		 <drawSize>(2,2)</drawSize>
+		 <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+		</damageData>
 		</graphicData>
 		<AltitudeLayer>Waist</AltitudeLayer>
 		<Description>A standard square table suitable for 4 people. Improvements in style add to the beauty of it.</Description>
@@ -280,7 +361,7 @@
 		</stuffCategories>
     		<costStuffCount>65</costStuffCount>
 		<costList>
-			<Spare_Parts>3</Spare_Parts>
+			<Components>3</Components>
 		</costList>
 	<statBases>
       <MaxHitPoints>150</MaxHitPoints>
@@ -293,7 +374,7 @@
 		<rotatable>false</rotatable>
 		<fillPercent>0.3</fillPercent>
 		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
-    		<researchPrerequisite>ComfyTechTierVI</researchPrerequisite>
+    		<researchPrerequisites><li>ComfyTechTierVI</li></researchPrerequisites>
 		<DesignationCategory>Furniture</DesignationCategory>
     <comps>
       <li>
@@ -322,6 +403,12 @@
 		 <graphicClass>Graphic_Multi</graphicClass>
 		<shaderType>CutoutComplex</shaderType>
 		<drawSize>(2,1)</drawSize>
+		 <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
 		</graphicData>
 		<uiIconPath>Clutter/Furniture/Couch/Couch_front</uiIconPath>
 		<AltitudeLayer>Waist</AltitudeLayer>
@@ -343,7 +430,7 @@
 		</stuffCategories>
 		<costStuffCount>65</costStuffCount>
 		<costList>
-			<Spare_Parts>5</Spare_Parts>
+			<Components>5</Components>
 		</costList>
 		<comps>
 			<li>
@@ -353,7 +440,7 @@
 		<PathCost>30</PathCost>
 		<DesignationCategory>Furniture</DesignationCategory>
 		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
-    		<researchPrerequisite>ComfyTechTierIV</researchPrerequisite>
+    		<researchPrerequisites><li>ComfyTechTierIV</li></researchPrerequisites>
 		    <building>
       <isSittable>true</isSittable>
     </building>
@@ -366,6 +453,12 @@
 		<shaderType>CutoutComplex</shaderType>
 		 <texPath>Clutter/Furniture/Comfy_Seat/ComfySeat</texPath>
 		<graphicClass>Graphic_Multi</graphicClass>
+		<damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
 		</graphicData>
 		<AltitudeLayer>Waist</AltitudeLayer>
 		<Description>A cozy, old-fashioned armchair covered in a textile of your choosing. Smoothed animal leather was a favorite in ancient times.</Description>
@@ -383,11 +476,11 @@
 		</stuffCategories>
 		<costStuffCount>80</costStuffCount>
 		<costList>
-			<Spare_Parts>8</Spare_Parts>
+			<Components>8</Components>
 		</costList>
 		<PathCost>30</PathCost>
 		<DesignationCategory>Furniture</DesignationCategory>
-    		<researchPrerequisite>ComfyTechTierV</researchPrerequisite>
+    		<researchPrerequisites><li>ComfyTechTierV</li></researchPrerequisites>
 		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
 		<socialPropernessMatters>true</socialPropernessMatters>
 		<building>
@@ -402,6 +495,12 @@
 		<shaderType>CutoutComplex</shaderType>
 		 <texPath>Clutter/Furniture/Stool/Stool</texPath>
 		<graphicClass>Graphic_Multi</graphicClass>
+			 <damageData>
+			<cornerTL>Damage/Corner</cornerTL>
+			<cornerTR>Damage/Corner</cornerTR>
+			<cornerBL>Damage/Corner</cornerBL>
+			<cornerBR>Damage/Corner</cornerBR>
+			</damageData>
 		</graphicData>
 		<AltitudeLayer>Waist</AltitudeLayer>
 		<Description>A redesign of the classic stool. These small, durable seats are useful as improvised weapons in bar fights.</Description>
@@ -421,15 +520,15 @@
 		</stuffCategories>
 		<costStuffCount>15</costStuffCount>
 		<CostList>
-			<Spare_Parts>5</Spare_Parts>
+			<Components>5</Components>
 		</CostList>
 		<building>
-	<isSittable>true</isSittable>
+			<isSittable>true</isSittable>
 		</building>
 		<PathCost>30</PathCost>
 		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
 		<DesignationCategory>Furniture</DesignationCategory>
-    		<researchPrerequisite>ComfyTechTierII</researchPrerequisite>
+    		<researchPrerequisites><li>ComfyTechTierII</li></researchPrerequisites>
 		<socialPropernessMatters>true</socialPropernessMatters>
 		</ThingDef>
 		
@@ -442,6 +541,12 @@
 	<shaderType>Transparent</shaderType>
 	<texPath>Clutter/Tables/ServingTable/Fridge</texPath>
 	<graphicClass>Graphic_Single</graphicClass>
+	    <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
 	</graphicData>
 	<tickerType>Normal</tickerType>
 	<placingDraggableDimensions>1</placingDraggableDimensions>
@@ -477,17 +582,16 @@
 		<costStuffCount>35</costStuffCount>
 		<CostList>
 			<Rubber>10</Rubber>
-			<Spare_Parts>5</Spare_Parts>
+			<Components>5</Components>
 			<Mechanism>2</Mechanism>
 		</CostList>
 	 <comps>
-	<li>
-		<compClass>CompForbiddable</compClass>
-	</li>
-	<li>
-		<compClass>CompPowerTrader</compClass>
-		<basePowerConsumption>150</basePowerConsumption>
-	</li>
+        <li Class="CompProperties_Forbiddable"/>
+		<li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <startElectricalFires>true</startElectricalFires>
+        <basePowerConsumption>150</basePowerConsumption>
+      </li>
 	<li>
 		<compClass>CommunityCoreLibrary.CompRefrigerated</compClass>
 	</li>
@@ -499,7 +603,7 @@
 		<cycleHighTicks>6000</cycleHighTicks>
 	</li>
 	</comps>
-	<researchPrerequisite>ComfyTechTierIII</researchPrerequisite>
+	<researchPrerequisites><li>ComfyTechTierIII</li></researchPrerequisites>
     <designationCategory>Accessories</designationCategory>
 	<FreezerBase>Clutter/Tables/ServingTable/FridgeButtom</FreezerBase>
 	</ThingDef>
@@ -532,17 +636,16 @@
 		<costStuffCount>35</costStuffCount>
 		<CostList>
 			<Rubber>15</Rubber>
-			<Spare_Parts>8</Spare_Parts>
+			<Components>8</Components>
 			<Mechanism>3</Mechanism>
 		</CostList>
 		<comps>
-			<li>
+			<li Class="CompProperties_Power">
 				<compClass>CompPowerTrader</compClass>
-				<basePowerConsumption>70</basePowerConsumption>
+				<basePowerConsumption>75</basePowerConsumption>
 				
 			</li>
-			<li>
-				<compClass>CompGlower</compClass>
+			<li Class="CompProperties_Glower">
 				<glowRadius>6</glowRadius>
 				<glowColor>(180,255,0,1)</glowColor>
 			</li>
@@ -552,7 +655,7 @@
 		<tickerType>Normal</tickerType>
 		<selectable>true</selectable>
 		<neverMultiSelect>false</neverMultiSelect>
-		<researchPrerequisite>ComfyTechTierIII</researchPrerequisite>
+		<researchPrerequisites><li>ComfyTechTierIII</li></researchPrerequisites>
 	</ThingDef>
 	
 	
@@ -564,9 +667,19 @@
 		<interactionCellOffset>(0,0,1)</interactionCellOffset>
 		<category>Building</category>
 		<graphicData>
-		<shaderType>Transparent</shaderType>
+		<shaderType>CutoutComplex</shaderType>
 		 <texPath>Clutter/Decoration/LockerA</texPath>
 		<graphicClass>Graphic_Multi</graphicClass>
+		  <damageData>
+			<rectN>(0.125,0.296875,0.734375,0.421875)</rectN>
+			<rectS>(0.125,0.296875,0.734375,0.421875)</rectS>
+			<rectE>(0.234375,0.296875,0.5,0.546875)</rectE>
+			<rectW>(0.234375,0.296875,0.5,0.546875)</rectW>
+			<cornerTL>Damage/Corner</cornerTL>
+			<cornerTR>Damage/Corner</cornerTR>
+			<cornerBL>Damage/Corner</cornerBL>
+			<cornerBR>Damage/Corner</cornerBR>
+		  </damageData>
 		</graphicData>
 		<AltitudeLayer>Waist</AltitudeLayer>
 		<statBases>
@@ -590,7 +703,7 @@
 		<costStuffCount>40</costStuffCount>
 			<costList>
 				<Glass>6</Glass>
-				<Spare_Parts>3</Spare_Parts>
+				<Components>3</Components>
 			</costList>
 		<rotatable>true</rotatable>
 		<selectable>true</selectable>
@@ -598,7 +711,7 @@
 		<neverMultiSelect>false</neverMultiSelect>
 		<DesignationCategory>Furniture</DesignationCategory>
 		<DrawGUIOverlay>True</DrawGUIOverlay>
-		<researchPrerequisite>ComfyTech</researchPrerequisite>
+		<researchPrerequisites><li>ComfyTech</li></researchPrerequisites>
 		   <inspectorTabs>
       <li>Clutter_Furniture.ITab_LockerContent</li>
     </inspectorTabs>
@@ -611,7 +724,18 @@
 		<thingClass>Clutter_Furniture.ClothLocker</thingClass>
 		<graphicData>
 		 <texPath>Clutter/Decoration/Cabinet/Cabinet</texPath>
+		<shaderType>CutoutComplex</shaderType>
 		<graphicClass>Graphic_Multi</graphicClass>
+		  <damageData>
+			<rectN>(0.125,0.296875,0.734375,0.421875)</rectN>
+			<rectS>(0.125,0.296875,0.734375,0.421875)</rectS>
+			<rectE>(0.234375,0.296875,0.5,0.546875)</rectE>
+			<rectW>(0.234375,0.296875,0.5,0.546875)</rectW>
+			<cornerTL>Damage/Corner</cornerTL>
+			<cornerTR>Damage/Corner</cornerTR>
+			<cornerBL>Damage/Corner</cornerBL>
+			<cornerBR>Damage/Corner</cornerBR>
+		  </damageData>
 		</graphicData>
 		<AltitudeLayer>Waist</AltitudeLayer>
 		<statBases>
@@ -636,13 +760,13 @@
 		<costStuffCount>40</costStuffCount>
 			<costList>
 				<Glass>4</Glass>
-				<Spare_Parts>2</Spare_Parts>
+				<Components>2</Components>
 			</costList>
 		<rotatable>true</rotatable>
 		<selectable>true</selectable>
 		<neverMultiSelect>true</neverMultiSelect>
 		<DesignationCategory>Furniture</DesignationCategory>
-    		<researchPrerequisite>ComfyTechTierVI</researchPrerequisite>
+    		<researchPrerequisites><li>ComfyTechTierVI</li></researchPrerequisites>
 		   <inspectorTabs>
       <li>Clutter_Furniture.ITab_LockerContent</li>
     </inspectorTabs>
@@ -657,9 +781,19 @@
 		<interactionCellOffset>(0,0,1)</interactionCellOffset>
 		<category>Building</category>
 		<graphicData>
-		<shaderType>Transparent</shaderType>
+		<shaderType>CutoutComplex</shaderType>
 		 <texPath>Clutter/Decoration/Locker</texPath>
 		<graphicClass>Graphic_Multi</graphicClass>
+		  <damageData>
+			<rectN>(0.125,0.296875,0.734375,0.421875)</rectN>
+			<rectS>(0.125,0.296875,0.734375,0.421875)</rectS>
+			<rectE>(0.234375,0.296875,0.5,0.546875)</rectE>
+			<rectW>(0.234375,0.296875,0.5,0.546875)</rectW>
+			<cornerTL>Damage/Corner</cornerTL>
+			<cornerTR>Damage/Corner</cornerTR>
+			<cornerBL>Damage/Corner</cornerBL>
+			<cornerBR>Damage/Corner</cornerBR>
+		  </damageData>
 		</graphicData>
 		<AltitudeLayer>Waist</AltitudeLayer>
 		<statBases>
@@ -682,7 +816,7 @@
 		</stuffCategories>
 		<costStuffCount>25</costStuffCount>
 			<costList>
-				<Spare_Parts>2</Spare_Parts>
+				<Components>2</Components>
 			</costList>
 		<rotatable>true</rotatable>
 		<selectable>true</selectable>
@@ -690,96 +824,10 @@
 		<neverMultiSelect>false</neverMultiSelect>
 		<DesignationCategory>Furniture</DesignationCategory>
 		<DrawGUIOverlay>True</DrawGUIOverlay>
-    		<researchPrerequisite>ComfyTechTierIV</researchPrerequisite>
+    		<researchPrerequisites><li>ComfyTechTierIV</li></researchPrerequisites>
 		   <inspectorTabs>
       <li>Clutter_Furniture.ITab_LockerContent</li>
     </inspectorTabs>
-	</ThingDef>
-	
-	
-	<ThingDef ParentName="FurnitureBase" Class="Clutter_Furniture.ClutterThingDefs">
-		<defName>TinkerTable</defName>
-		<label>Tinker Table</label>
-		<thingClass>Building_WorkTable</thingClass>
-		<socialPropernessMatters>true</socialPropernessMatters>
-		<graphicData>
-		<shaderType>Transparent</shaderType>
-		 <texPath>Clutter/Tables/TT1</texPath>
-		<graphicClass>Graphic_Multi</graphicClass>
-		</graphicData>
-		<AltitudeLayer>Waist</AltitudeLayer>
-		<Description>A place where you can hit your hand with a hammer with excelent accuracy</Description>
-		<Size>(1,1)</Size>
-		<stuffCategories>
-		<li>Metallic</li>
-		</stuffCategories>
-		<costStuffCount>45</costStuffCount>
-		<CostList>
-			<Spare_Parts>6</Spare_Parts>
-		</CostList>
-	<statBases>
-      <MaxHitPoints>120</MaxHitPoints>
-      <WorkToMake>4500</WorkToMake>
-      <Flammability>1.0</Flammability>
-    </statBases>
-		<Passability>PassThroughOnly</Passability>
-		<PathCost>60</PathCost>
-		<fillPercent>0.3</fillPercent>
-		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
-		<researchPrerequisite>ComfyTechTierII</researchPrerequisite>
-		<DesignationCategory>Production</DesignationCategory>
-		 <surfaceType>Item</surfaceType>
-		<inspectorTabs>
-      <li>ITab_Bills</li>
-    </inspectorTabs>
-	    <hasInteractionCell>True</hasInteractionCell>
-    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
-	</ThingDef>
-	
-		<ThingDef ParentName="FurnitureBase" Class="Clutter_Furniture.ClutterThingDefs">
-		<defName>TinkerTableMKII</defName>
-		<label>Tinker Table MK2</label>
-		<thingClass>Building_WorkTable</thingClass>
-		<socialPropernessMatters>true</socialPropernessMatters>
-		<graphicData>
-		<shaderType>Transparent</shaderType>
-		 <texPath>Clutter/Tables/TT2</texPath>
-		<graphicClass>Graphic_Multi</graphicClass>
-		</graphicData>
-		<AltitudeLayer>Waist</AltitudeLayer>
-		<Description>A place where you can hit your hand with a hammer with even better accuracy</Description>
-		<Size>(1,1)</Size>
-		<stuffCategories>
-		<li>Metallic</li>
-		</stuffCategories>
-		<costStuffCount>75</costStuffCount>
-		<CostList>
-			<Spare_Parts>10</Spare_Parts>
-		</CostList>
-	<statBases>
-      <MaxHitPoints>120</MaxHitPoints>
-      <WorkToMake>8500</WorkToMake>
-      <Flammability>1.0</Flammability>
-    </statBases>
-		<Passability>PassThroughOnly</Passability>
-		<PathCost>60</PathCost>
-		<fillPercent>0.3</fillPercent>
-		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
-		<DesignationCategory>none</DesignationCategory>
-		 <surfaceType>Item</surfaceType>
-		<inspectorTabs>
-      <li>ITab_Bills</li>
-    </inspectorTabs>
-    <recipes>
-      <li>MakeUsedCandle</li>
-	  <li>MakeColorStation</li>
-	  <li>MakeFluffster</li>
-	  <li>MakePillow</li>
-	  <li>MakeDeskLamp</li>
-	  <li>MakeHolo</li>
-    </recipes>
-	    <hasInteractionCell>True</hasInteractionCell>
-    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
 	</ThingDef>
 
 

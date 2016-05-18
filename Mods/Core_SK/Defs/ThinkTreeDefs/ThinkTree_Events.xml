@@ -1,25 +1,78 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ThinkTrees>
 
 	<ThinkTreeDef>
 		<defName>Void</defName>
 		<thinkRoot Class="ThinkNode_Priority">
       <subNodes>
+        <!-- Keep lying down if we have to -->
+				<li Class="ThinkNode_ConditionalMustKeepLyingDown">
+					<subNodes>
+            <li Class="JobGiver_KeepLyingDown" />
+          </subNodes>
+        </li>
+        
         <li Class="ThinkNode_Subtree">
           <treeDef>Downed</treeDef>
         </li>
         <li Class="ThinkNode_Subtree">
-          <treeDef>SelfDefense</treeDef>
+          <treeDef>BurningResponse</treeDef>
         </li>
+        <li Class="ThinkNode_Subtree">
+          <treeDef>MentalStateCritical</treeDef>
+        </li>
+        
+        <!-- React to close melee threat -->
+				<li Class="JobGiver_ReactToCloseMeleeThreat" />
+				
         <li Class="SK.Events.JobGiver_Kill"/>
-        <li Class="SK.Events.JobGiver_TakenInTheDark"/>
-		
+        <li Class="SK.Events.JobGiver_TakenInTheDark"/>	
+
+        <!-- Leave if timed out -->
+        <li Class="ThinkNode_ConditionalExitTimedOut">
+          <subNodes>
+            <li Class="JobGiver_ExitMapRandom">
+              <locomotion>Walk</locomotion>
+            </li>
+          </subNodes>
+        </li>
+       
+        <!-- Mental state non critical -->
+        <li Class="ThinkNode_Subtree">
+          <treeDef>MentalStateNonCritical</treeDef>
+        </li>
+
+        <!-- Forced goto -->
         <li Class="ThinkNode_ConditionalForcedGoto">
           <subNodes>
             <li Class="JobGiver_ForcedGoto" />
           </subNodes>
         </li>
-		
+        
+				<!-- Lord directives -->
+        <li Class="ThinkNode_Subtree">
+          <treeDef>LordDuty</treeDef>
+        </li>
+        
+        <!-- Insertion hook for modders -->
+        <li Class="ThinkNode_SubtreesByTag">
+          <insertTag>Animal_PreMain</insertTag>
+        </li>
+
+        <!-- Wild animals leave map in some conditions -->
+        <li Class="ThinkNode_ConditionalHasFaction">
+          <invert>true</invert>
+          <subNodes>
+            <li Class="ThinkNode_Subtree">
+              <treeDef>LeaveIfWrongSeason</treeDef>
+            </li>
+            <li Class="ThinkNode_Subtree">
+              <treeDef>LeaveIfStarving</treeDef>
+            </li>
+          </subNodes>
+        </li>
+       
+       
         <li Class="ThinkNode_ConditionalHerdAnimal">
           <subNodes>
             <li Class="JobGiver_WanderHerd">
@@ -37,25 +90,79 @@
 		</thinkRoot>
 	</ThinkTreeDef>
 	
+	
 	<ThinkTreeDef>
 		<defName>TheThing</defName>
 		<thinkRoot Class="ThinkNode_Priority">
       <subNodes>
+        <!-- Keep lying down if we have to -->
+				<li Class="ThinkNode_ConditionalMustKeepLyingDown">
+					<subNodes>
+            <li Class="JobGiver_KeepLyingDown" />
+          </subNodes>
+        </li>
+        
         <li Class="ThinkNode_Subtree">
           <treeDef>Downed</treeDef>
         </li>
         <li Class="ThinkNode_Subtree">
-          <treeDef>SelfDefense</treeDef>
+          <treeDef>BurningResponse</treeDef>
         </li>
+        <li Class="ThinkNode_Subtree">
+          <treeDef>MentalStateCritical</treeDef>
+        </li>
+        
+        <!-- React to close melee threat -->
+				<li Class="JobGiver_ReactToCloseMeleeThreat" />
+				
         <li Class="SK.Events.JobGiver_Kill"/>
         <li Class="SK.Events.JobGiver_TheThingSegmentation"/>
-		
+
+        <!-- Leave if timed out -->
+        <li Class="ThinkNode_ConditionalExitTimedOut">
+          <subNodes>
+            <li Class="JobGiver_ExitMapRandom">
+              <locomotion>Walk</locomotion>
+            </li>
+          </subNodes>
+        </li>
+       
+        <!-- Mental state non critical -->
+        <li Class="ThinkNode_Subtree">
+          <treeDef>MentalStateNonCritical</treeDef>
+        </li>
+
+        <!-- Forced goto -->
         <li Class="ThinkNode_ConditionalForcedGoto">
           <subNodes>
             <li Class="JobGiver_ForcedGoto" />
           </subNodes>
         </li>
-		
+        
+				<!-- Lord directives -->
+        <li Class="ThinkNode_Subtree">
+          <treeDef>LordDuty</treeDef>
+        </li>
+        
+        <!-- Insertion hook for modders -->
+        <li Class="ThinkNode_SubtreesByTag">
+          <insertTag>Animal_PreMain</insertTag>
+        </li>
+
+        <!-- Wild animals leave map in some conditions -->
+        <li Class="ThinkNode_ConditionalHasFaction">
+          <invert>true</invert>
+          <subNodes>
+            <li Class="ThinkNode_Subtree">
+              <treeDef>LeaveIfWrongSeason</treeDef>
+            </li>
+            <li Class="ThinkNode_Subtree">
+              <treeDef>LeaveIfStarving</treeDef>
+            </li>
+          </subNodes>
+        </li>
+       
+       
         <li Class="ThinkNode_ConditionalHerdAnimal">
           <subNodes>
             <li Class="JobGiver_WanderHerd">
@@ -72,5 +179,8 @@
       </subNodes>
 		</thinkRoot>
 	</ThinkTreeDef>
-  
+
+
+
+
 </ThinkTrees>

@@ -1,59 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ThingDefs>
 
-  <ThingDef Name="HatBase" Abstract="True">
-    <thingClass>Apparel</thingClass>
-    <category>Item</category>
-    <selectable>True</selectable>
-    <pathCost>10</pathCost>
-    <useHitPoints>True</useHitPoints>
-    <graphicData>
-      <onGroundRandomRotateAngle>35</onGroundRandomRotateAngle>
-    </graphicData>
-    <drawGUIOverlay>true</drawGUIOverlay>
-    <statBases>
-      <MaxHitPoints>100</MaxHitPoints>
-      <Flammability>1.0</Flammability>
-      <DeteriorationRate>1</DeteriorationRate>
-      <SellPriceFactor>0.5</SellPriceFactor>
-    </statBases>
-    <altitudeLayer>Item</altitudeLayer>
-    <alwaysHaulable>True</alwaysHaulable>
-    <tickerType>Never</tickerType>
+  <ThingDef Name="HatBase" ParentName="ApparelBase" Abstract="True">
     <thingCategories>
       <li>Headgear</li>
     </thingCategories>
-    <comps>
-      <li>
-        <compClass>CompForbiddable</compClass>
-      </li>
-      <li>
-        <compClass>CompColorable</compClass>
-      </li>
-      <li>
-        <compClass>CompQuality</compClass>
-      </li>
-    </comps>
   </ThingDef>
 
-  <ThingDef Name="ApparelMakeableBase" ParentName="HatBase" Abstract="True">
-    <recipeMaker>
-      <workSpeedStat>TailoringSpeed</workSpeedStat>
-      <workSkill>Crafting</workSkill>
-      <effectWorking>Tailor</effectWorking>
-      <soundWorking>Recipe_Tailor</soundWorking>
-      <recipeUsers>
-        <li>TableTailor</li>
-      </recipeUsers>
-      <unfinishedThingDef>UnfinishedApparel</unfinishedThingDef>
-    </recipeMaker>
+  <ThingDef Name="HatMakeableBase" ParentName="ApparelMakeableBase" Abstract="True">
+    <thingCategories>
+      <li>Headgear</li>
+    </thingCategories>
+  </ThingDef>
+
+  <ThingDef Name="ArmorHelmetMakeableBase" ParentName="ArmorMakeableBase" Abstract="True">
+    <thingCategories>
+      <li>Headgear</li>
+    </thingCategories>
   </ThingDef>
 
   
   
   
 
-  <ThingDef ParentName="ApparelMakeableBase">
+  <ThingDef ParentName="HatMakeableBase">
     <defName>Apparel_CowboyHat</defName>
     <label>cowboy hat</label>
     <description>Stylish yet rugged, this hat keeps the sun and rain off - and it gives anyone who wears it a bit of extra charm. It is the most important part of traditional western attire.</description>
@@ -109,9 +79,7 @@
     </colorGenerator>
   </ThingDef>
 
-
-
-  <ThingDef ParentName="ApparelMakeableBase">
+  <ThingDef ParentName="HatMakeableBase">
     <defName>Apparel_Tuque</defName>
     <label>tuque</label>
     <description>A soft, thick cap. Great for keeping warm in winter.</description>
@@ -170,18 +138,21 @@
     </colorGenerator>
   </ThingDef>
 
-
-
-
-  <ThingDef ParentName="HatBase">
+  <ThingDef ParentName="ArmorHelmetMakeableBase">
     <defName>Apparel_PowerArmorHelmet</defName>
     <label>power armor helmet</label>
     <description>A part of power armor set, mostly used by heavy infantry.</description>
+    <techLevel>Spacer</techLevel>
+    <recipeMaker>
+      <unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
+      <researchPrerequisite>PoweredArmor</researchPrerequisite>
+    </recipeMaker>
     <graphicData>
       <texPath>Things/Pawn/Humanlike/Apparel/PowerArmorHelmet/PowerArmorHelmet</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <statBases>
+      <WorkToMake>22000</WorkToMake>
       <MaxHitPoints>180</MaxHitPoints>
       <MarketValue>2000</MarketValue>
       <ArmorRating_Blunt>0.35</ArmorRating_Blunt>
@@ -194,6 +165,10 @@
     <equippedStatOffsets>
       <MoveSpeed>-0.04</MoveSpeed>
     </equippedStatOffsets>
+    <costList>
+      <Components>7</Components>
+      <Plasteel>60</Plasteel>
+    </costList>
     <apparel>
       <bodyPartGroups>
         <li>FullHead</li>
@@ -233,22 +208,29 @@
     </colorGenerator>
   </ThingDef>
 
-
-
-  <ThingDef ParentName="HatBase">
+  <ThingDef ParentName="ArmorHelmetMakeableBase">
     <defName>Apparel_KevlarHelmet</defName>
     <label>kevlar helmet</label>
     <description>A lightweight combat helmet.</description>
+    <techLevel>Midworld</techLevel>
+    <recipeMaker>
+      <unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
+    </recipeMaker>
     <graphicData>
       <texPath>Things/Pawn/Humanlike/Apparel/KevlarHelmet/KevlarHelmet</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <statBases>
+      <WorkToMake>8000</WorkToMake>
       <MaxHitPoints>120</MaxHitPoints>
       <MarketValue>300</MarketValue>
       <ArmorRating_Blunt>0.1</ArmorRating_Blunt>
       <ArmorRating_Sharp>0.35</ArmorRating_Sharp>
     </statBases>
+    <costList>
+      <Components>2</Components>
+      <Steel>70</Steel>
+    </costList>
     <equippedStatOffsets>
       <MoveSpeed>-0.02</MoveSpeed>
     </equippedStatOffsets>
@@ -290,10 +272,11 @@
     </colorGenerator>
   </ThingDef>
 
-  <ThingDef ParentName="HatBase">
+  <ThingDef ParentName="ArmorHelmetMakeableBase">
     <defName>Apparel_MilitaryHelmet</defName>
     <label>military helmet</label>
     <description>Old-looking and heavy, but effective. Protects against low-velocity projectiles, shrapnel, falling debris, and cuts to the head.</description>
+    <techLevel>Midworld</techLevel>
     <graphicData>
       <texPath>Things/Pawn/Humanlike/Apparel/MilitaryHelmet/MilitaryHelmet</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -303,6 +286,7 @@
       <li>Metallic</li>
     </stuffCategories>
     <statBases>
+      <WorkToMake>7000</WorkToMake>
       <MaxHitPoints>100</MaxHitPoints>
       <ArmorRating_Blunt>0.1</ArmorRating_Blunt>
       <ArmorRating_Sharp>0.25</ArmorRating_Sharp>
@@ -311,6 +295,9 @@
       <MoveSpeed>-0.04</MoveSpeed>
       <PsychicSensitivity>-0.10</PsychicSensitivity>
     </equippedStatOffsets>
+    <costList>
+      <Components>2</Components>
+    </costList>
     <apparel>
       <bodyPartGroups>
         <li>UpperHead</li>

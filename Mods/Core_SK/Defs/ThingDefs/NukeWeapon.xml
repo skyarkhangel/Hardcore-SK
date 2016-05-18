@@ -1,153 +1,62 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ThingDefs>
 
-  <ThingDef Name="BaseGun" Abstract="True">
-    <category>Item</category>
-    <thingClass>ThingWithComps</thingClass>
-    <equipmentType>Primary</equipmentType>
-    <pathCost>10</pathCost>
-    <useHitPoints>True</useHitPoints>
-    <selectable>True</selectable>
-    <graphicData>
-      <onGroundRandomRotateAngle>35</onGroundRandomRotateAngle>
-    </graphicData>
-    <drawGUIOverlay>true</drawGUIOverlay>
-    <statBases>
-      <MaxHitPoints>100</MaxHitPoints>
-      <Flammability>1.0</Flammability>
-      <DeteriorationRate>1</DeteriorationRate>
-      <SellPriceFactor>0.5</SellPriceFactor>
-    </statBases>
-    <altitudeLayer>Item</altitudeLayer>
-    <alwaysHaulable>True</alwaysHaulable>
-    <tickerType>Never</tickerType>
-    <techLevel>Midworld</techLevel>
-    <thingCategories>
-      <li>SpecialWeapons</li>
-    </thingCategories>
-    <inspectorTabs>
-      <li>ITab_Art</li>
-    </inspectorTabs>
-    <comps>
-      <li>
-        <compClass>CompForbiddable</compClass>
-      </li>
-      <li>
-        <compClass>CompEquippable</compClass>
-      </li>
-    </comps>
-    <smeltProducts>
-      <Steel>20</Steel>
-    </smeltProducts>
-  </ThingDef>
-
-  <ThingDef Name="BaseHumanGun" ParentName="BaseGun" Abstract="True">
-    <weaponTags>
-      <li>Gun</li>
-    </weaponTags>
-  </ThingDef>
-
-  <ThingDef Name="BaseBullet" Abstract="True">
-    <category>Projectile</category>
-    <tickerType>Normal</tickerType>
-    <altitudeLayer>Projectile</altitudeLayer>
-    <thingClass>Bullet</thingClass>
-    <label>bullet</label>
-    <useHitPoints>False</useHitPoints>
-    <neverMultiSelect>True</neverMultiSelect>
-    <graphicData>
-      <shaderType>Transparent</shaderType>
-    </graphicData>
-  </ThingDef>
-
-
 <ThingDef Name="NukeBullet" Abstract="True">
-		
-<category>Projectile</category>
-		
-<tickerType>Normal</tickerType>
-		
-<altitudeLayer>Projectile</altitudeLayer>
-		
-<thingClass>TurretCollection.Projectile_NukeBullet</thingClass>
-			
-<useHitPoints>false</useHitPoints>		
-<neverMultiSelect>True</neverMultiSelect>
-		
-    <graphicData>
-      <shaderType>Transparent</shaderType>
-    </graphicData>
-	
+	<category>Projectile</category>
+	<tickerType>Normal</tickerType>
+	<altitudeLayer>Projectile</altitudeLayer>
+	<thingClass>TurretCollection.Projectile_NukeBullet</thingClass>
+	<useHitPoints>false</useHitPoints>		
+	<neverMultiSelect>True</neverMultiSelect>
+	<graphicData>
+	  <shaderType>Transparent</shaderType>
+	</graphicData>
 </ThingDef>
-
-
 
 <!-- ============================================== -->
 
+  <ThingDef ParentName="NukeBullet">
+    <defName>Bullet_Nuke</defName>
+    <label>Nuclear Warhead</label>
+	<graphicData>
+		<texPath>Things/Projectile/SpotlightInv</texPath>
+		<graphicClass>Graphic_Single</graphicClass>
+	</graphicData>
+    <projectile>
+		<flyOverhead>true</flyOverhead>
+		<damageDef>Stun</damageDef>
+		<DamageAmountBase>0</DamageAmountBase>
+		<Speed>1000</Speed>
+	</projectile>
+  </ThingDef>
 
-	<ThingDef ParentName="NukeBullet">
-		
-                               <defName>Bullet_Nuke</defName>
-		
-                               <label>Nuclear Warhead</label>
-
-<graphicData>	     
-                                <texPath>Things/Projectile/SpotlightInv</texPath>
-    <graphicClass>Graphic_Single</graphicClass>
-</graphicData>	
-                                <projectile>
-			
-                                <flyOverhead>true</flyOverhead>
-      
-                                <damageDef>Stun</damageDef>
-			
-                                <DamageAmountBase>0</DamageAmountBase>
-			
-                                <Speed>1000</Speed>
-	
-                                </projectile>
-	
-                </ThingDef>
-
-
-
-
-
-	<ThingDef ParentName="BaseGun">
+  <ThingDef ParentName="BaseGun">
 		<defName>Weapon_TacticalNuclearStrike</defName>
 		<label>Tactical Nuclear Strike</label>
 		<description>A device with a code giving you access to a tactical nuclear missile onboard with a combat supplier. You can use this device to order a tactical nuclear strike at any time. This item is a one time use. The warhead can't reach the target if it is inside of a mountain.</description>
-<graphicData>
+	<graphicData>
 		<texPath>Things/Building/Security/NukeLauncher</texPath>
-                                <graphicClass>Graphic_Single</graphicClass>
-</graphicData>
-		<soundInteract>NukeReady</soundInteract>
+		<graphicClass>Graphic_Single</graphicClass>
+	</graphicData>
+	<soundInteract>NukeReady</soundInteract>
     <canBeSpawningInventory>false</canBeSpawningInventory>
-    <weaponTags>
-      <li>Gun</li>
-      <li>GunHeavy</li>
-    </weaponTags>
     <statBases>
       <MarketValue>10000</MarketValue>
     </statBases>
 		<verbs>
 		   <li>
 			<verbClass>Verb_ShootOneUse</verbClass>
-        		<hasStandardCommand>true</hasStandardCommand>
+        	<hasStandardCommand>true</hasStandardCommand>
 			<projectileDef>Bullet_Nuke</projectileDef>
 			<warmupTicks>240</warmupTicks>
-                                                <range>9999</range>
-        <forcedMissRadius>3</forcedMissRadius>
-        <accuracyTouch>1.0</accuracyTouch>
-        <accuracyShort>1.0</accuracyShort>
-        <accuracyMedium>1.0</accuracyMedium>
-        <accuracyLong>1.0</accuracyLong>
-        <burstShotCount>1</burstShotCount>
-        <onlyManualCast>true</onlyManualCast>
+            <range>9999</range>
+			<forcedMissRadius>3</forcedMissRadius>
+			<burstShotCount>1</burstShotCount>
+			<onlyManualCast>true</onlyManualCast>
 			<soundCast>NukeLaunch</soundCast>
-        <targetParams>
-          <canTargetLocations>true</canTargetLocations>
-        </targetParams>
+			<targetParams>
+			  <canTargetLocations>true</canTargetLocations>
+			</targetParams>
 		   </li>
 		</verbs>
 	</ThingDef>

@@ -2,7 +2,7 @@
 <Buildings>
 
 
-  <ThingDef Name="BuildingBase" Abstract="True">
+  <ThingDef Name="BuildingPowerSwitchBase" Abstract="True">
     <category>Building</category>
     <soundImpactDefault>BulletImpactMetal</soundImpactDefault>
     <selectable>true</selectable>
@@ -14,9 +14,9 @@
   </ThingDef>
 
 
-	<ThingDef ParentName="BuildingBase">
+	<ThingDef ParentName="BuildingPowerSwitchBase">
 		<defName>PowerSwitch</defName>
-		<label>power switch</label>
+		<label>Power switch</label>
 		<thingClass>PowerSwitch.Building_PowerSwitchMod</thingClass>
 		<category>Building</category>
 		<description>Switches power on/off.</description>
@@ -24,10 +24,12 @@
 			<texPath>Things/Building/Power/PowerSwitch_On</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<shaderType>Transparent</shaderType>
+      <damageData>
+        <rect>(0.2,0.2,0.6,0.6)</rect>
+      </damageData>
 		</graphicData>
 		<building>
 			<ignoreNeedsPower>true</ignoreNeedsPower>
-			<isEdifice>true</isEdifice>
 			<allowWireConnection>false</allowWireConnection>
 		</building>
 		<altitudeLayer>Waist</altitudeLayer>
@@ -42,14 +44,15 @@
 		<placingDraggableDimensions>0</placingDraggableDimensions>
 		<costList>
 			<Wire>3</Wire>
-			<Spare_Parts>2</Spare_Parts>
+			<Components>2</Components>
 			<Electronics>1</Electronics>
 		</costList>
 		<comps>
-			<li>
-				<compClass>CompPowerTransmitter</compClass>
-				<transmitsPower>true</transmitsPower>
-			</li>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTransmitter</compClass>
+        <transmitsPower>true</transmitsPower>
+      </li>
+      <li Class="CompProperties_Flickable"/>
 		</comps>
 		<rotatable>false</rotatable>
 		<selectable>true</selectable>
@@ -57,7 +60,7 @@
 		<tickerType>Normal</tickerType>
 		<designationCategory>Power</designationCategory>
 		<constructEffect>ConstructMetal</constructEffect>
-		<researchPrerequisite>PowerI</researchPrerequisite>
+		<researchPrerequisites><li>PowerI</li></researchPrerequisites>
 	</ThingDef>
 	
 </Buildings>
