@@ -396,7 +396,7 @@
   <ThingDef ParentName="BuildingBase">
     <defName>Cooler</defName>
     <label>Medium Cooler</label>
-    <thingClass>Building_Cooler</thingClass>
+	<thingClass>Enhanced_Development.Temperature.Building_ReverseCycleCooler</thingClass>
     <graphicData>
       <texPath>Things/Building/Misc/TempControl/Cooler</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
@@ -520,7 +520,7 @@
 	<ThingDef ParentName="BuildingBase">
 		<defName>Vent</defName>
 		<label>Vent</label>
-		<thingClass>Building_Vent</thingClass>
+		<thingClass>Enhanced_Development.Temperature.Building_ClosableVent</thingClass>
 		<graphicData>
 		  <texPath>Things/Building/Misc/TempControl/Vent</texPath>
 		  <graphicClass>Graphic_Multi</graphicClass>
@@ -531,12 +531,15 @@
 			<cornerBR>Damage/Corner</cornerBR>
 		  </damageData>
 		</graphicData>
-		<altitudeLayer>BuildingTall</altitudeLayer>
+		<altitudeLayer>PawnUnused</altitudeLayer>
 		<passability>Impassable</passability>
+		<fillPercent>0.99</fillPercent>
+		<coversFloor>true</coversFloor>
+		<blockLight>true</blockLight>
 		<castEdgeShadows>true</castEdgeShadows>
-		<fillPercent>1</fillPercent>
+		<staticSunShadowHeight>1.0</staticSunShadowHeight>
 		<statBases>
-			<WorkToMake>400</WorkToMake>
+			<WorkToMake>1700</WorkToMake>
 			<MaxHitPoints>100</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 		</statBases>
@@ -546,19 +549,36 @@
 		<stuffCategories>
 		<li>Metallic</li>
 		</stuffCategories>
-    	<costStuffCount>25</costStuffCount>
+    	<costStuffCount>35</costStuffCount>
 		<costList>
-			<Components>2</Components>
+			<Components>3</Components>
 			<Mechanism>1</Mechanism>
 		</costList>
 		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
 		<placeWorkers>
 			<li>PlaceWorker_Vent</li>
+			<li>CommunityCoreLibrary.PlaceWorker_OnlyOnThing</li>
 		</placeWorkers>
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
 		<building>
 			<canPlaceOverWall>true</canPlaceOverWall>
+			<isEdifice>false</isEdifice>
 		</building>
+		<comps>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CommunityCoreLibrary.CompProperties_RestrictedPlacement">
+				<compClass>CommunityCoreLibrary.CompRestrictedPlacement</compClass>
+              <thingDefs>
+                    <li>Wall</li>
+					<li>WallLog</li>
+					<li>WallLighted</li>
+					<!--<li>ClutterSilverWall</li>
+					<li>ClutterUtilityWall</li>
+					<li>ClutterUWallLight</li>-->
+					<li>Snowywall</li>
+                </thingDefs>
+			</li>
+		</comps>
 		<designationCategory>Temperature</designationCategory>
 		<researchPrerequisites><li>PowerI</li></researchPrerequisites>
 	</ThingDef>
