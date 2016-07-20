@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!--=====================================================================-->
+  <!--=============================== Misc ================================-->
+  <!--=====================================================================-->
+
+  <ThingDef ParentName="PlantFoodRawBase">
+    <defName>Milk</defName>
+    <label>milk</label>
+    <description>Milk from an animal.</description>
+    <graphicData>
+      <texPath>Things/Item/Resource/Milk</texPath>
+    </graphicData>
+    <statBases>
+      <MarketValue>2.1</MarketValue>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Rottable">
+        <daysToRotStart>14</daysToRotStart>
+      </li>
+    </comps>
+    <ingestible>
+      <foodType>AnimalProduct, Fluid</foodType>
+      <joy>0.004</joy>
+    </ingestible>
+  </ThingDef>
+
+  <ThingDef ParentName="OrganicProductBase">
+    <defName>InsectJelly</defName>
+    <label>insect jelly</label>
+    <description>Jelly stored and used as food by oversized insects. It is smooth, rich, and brings joy to those who consume it. Because of its unique biological properties, it can nourish almost any creature and never rots.</description>
+    <graphicData>
+      <texPath>Things/Item/Resource/AnimalProductRaw/InsectJelly</texPath>
+    </graphicData>
+    <statBases>
+      <MarketValue>8.0</MarketValue>
+    </statBases>
+    <ingestible>
+      <foodType>AnimalProduct</foodType>
+      <preferability>MealFine</preferability>
+      <nutrition>0.05</nutrition>
+      <joy>0.08</joy>
+      <eatEffect>EatVegetarian</eatEffect>
+      <soundEat>Meal_Eat</soundEat>
+    </ingestible>
+    <thingCategories>
+      <li>AnimalProductRaw</li>
+    </thingCategories>
+  </ThingDef>
+
+  <!--=====================================================================-->
+  <!--=============================== Eggs ================================-->
+  <!--=====================================================================-->
+
+  <ThingDef Abstract="True" Name="EggBase" ParentName="OrganicProductBase" >
+    <graphicData>
+      <texPath>Things/Item/Resource/AnimalProductRaw/EggBirdSmall</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <ingestible>
+      <foodType>AnimalProduct</foodType>
+      <nutrition>0.25</nutrition>
+      <eatEffect>EatMeat</eatEffect>
+      <soundEat>RawMeat_Eat</soundEat>
+      <tastesRaw>true</tastesRaw>
+    </ingestible>
+  </ThingDef>
+
+  <ThingDef Abstract="True" Name="EggUnfertBase" ParentName="EggBase" >
+    <ingestible>
+      <preferability>RawBad</preferability>
+    </ingestible>
+    <thingCategories>
+      <li>EggsUnfertilized</li>
+    </thingCategories>
+    <comps>
+      <li Class="CompProperties_Rottable">
+        <daysToRotStart>15</daysToRotStart>
+      </li>
+      <li Class="CompProperties_FoodPoisoningChance" />
+    </comps>
+  </ThingDef>
+
+  <ThingDef Abstract="True" Name="EggFertBase" ParentName="EggBase" >
+    <tickerType>Normal</tickerType>
+    <ingestible>
+      <preferability>DesperateOnly</preferability>
+    </ingestible>
+    <thingCategories>
+      <li>EggsFertilized</li>
+    </thingCategories>
+  </ThingDef>
+
+  <!-- Chicken -->
+  
+  <ThingDef ParentName="EggUnfertBase">
+    <defName>EggChickenUnfertilized</defName>
+    <label>chicken egg (unfert.)</label>
+    <description>Unfertilized chicken egg. It can be eaten raw, but it's much, much better cooked.</description>
+    <graphicData>
+      <color>(228,185,135)</color>
+    </graphicData>
+    <statBases>
+      <MarketValue>7.0</MarketValue>
+    </statBases>
+  </ThingDef>
+
+  <ThingDef ParentName="EggFertBase">
+    <defName>EggChickenFertilized</defName>
+    <label>chicken egg (fert.)</label>
+    <description>Fertilized chicken egg. If all goes well, it should hatch into a chick. It can be eaten raw, but it's much better cooked.</description>
+    <graphicData>
+      <color>(245,245,245)</color>
+    </graphicData>
+    <statBases>
+      <MarketValue>7.0</MarketValue>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Hatcher">
+        <hatcherDaysToHatch>3.5</hatcherDaysToHatch>
+        <hatcherPawn>Chicken</hatcherPawn>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <!-- Cobra -->
+  
+  <ThingDef ParentName="EggFertBase">
+    <defName>EggCobraFertilized</defName>
+    <label>cobra egg (fert.)</label>
+    <description>Fertilized cobra egg. If all goes well, it should hatch into a baby cobra. It can be eaten raw, but it's much better cooked.</description>
+    <graphicData>
+      <texPath>Things/Item/Resource/AnimalProductRaw/EggOval</texPath>
+      <color>(245,245,245)</color>
+    </graphicData>
+    <statBases>
+      <MarketValue>40.0</MarketValue>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Hatcher">
+        <hatcherDaysToHatch>4.5</hatcherDaysToHatch>
+        <hatcherPawn>Cobra</hatcherPawn>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <!-- Iguana -->
+
+  <ThingDef ParentName="EggFertBase">
+    <defName>EggIguanaFertilized</defName>
+    <label>iguana egg (fert.)</label>
+    <description>Fertilized iguana egg. If all goes well, it should hatch into a baby iguana. It can be eaten raw, but it's much better cooked.</description>
+    <graphicData>
+      <texPath>Things/Item/Resource/AnimalProductRaw/EggOval</texPath>
+      <color>(245,245,245)</color>
+    </graphicData>
+    <statBases>
+      <MarketValue>25.0</MarketValue>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Hatcher">
+        <hatcherDaysToHatch>3.5</hatcherDaysToHatch>
+        <hatcherPawn>Iguana</hatcherPawn>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <!-- Tortoise -->
+
+  <ThingDef ParentName="EggFertBase">
+    <defName>EggTortoiseFertilized</defName>
+    <label>tortoise egg (fert.)</label>
+    <description>Fertilized tortoise egg. If all goes well, it should hatch into a baby tortoise. It can be eaten raw, but it's much better cooked.</description>
+    <graphicData>
+      <texPath>Things/Item/Resource/AnimalProductRaw/EggRound</texPath>
+      <color>(245,245,245)</color>
+      <drawSize>0.8</drawSize>
+    </graphicData>
+    <statBases>
+      <MarketValue>23.0</MarketValue>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Hatcher">
+        <hatcherDaysToHatch>3.5</hatcherDaysToHatch>
+        <hatcherPawn>Tortoise</hatcherPawn>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <!-- Cassowary -->
+
+  <ThingDef ParentName="EggFertBase">
+    <defName>EggCassowaryFertilized</defName>
+    <label>cassowary egg (fert.)</label>
+    <description>Fertilized cassowary egg. If all goes well, it should hatch into a baby cassowary. It can be eaten raw, but it's much better cooked.</description>
+    <graphicData>
+      <color>(125,138,97)</color>
+      <drawSize>1.2</drawSize>
+    </graphicData>
+    <statBases>
+      <MarketValue>19.0</MarketValue>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Hatcher">
+        <hatcherDaysToHatch>7</hatcherDaysToHatch>
+        <hatcherPawn>Cassowary</hatcherPawn>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <!-- Emu -->
+
+  <ThingDef ParentName="EggFertBase">
+    <defName>EggEmuFertilized</defName>
+    <label>emu egg (fert.)</label>
+    <description>Fertilized emu egg. If all goes well, it should hatch into a baby emu. It can be eaten raw, but it's much better cooked.</description>
+    <graphicData>
+      <color>(48,104,100)</color>
+      <drawSize>1.2</drawSize>
+    </graphicData>
+    <statBases>
+      <MarketValue>18.0</MarketValue>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Hatcher">
+        <hatcherDaysToHatch>6</hatcherDaysToHatch>
+        <hatcherPawn>Emu</hatcherPawn>
+      </li>
+    </comps>
+  </ThingDef>
+  
+  <!-- Ostrich -->
+
+  <ThingDef ParentName="EggFertBase">
+    <defName>EggOstrichFertilized</defName>
+    <label>ostrich egg (fert.)</label>
+    <description>Fertilized ostrich egg. If all goes well, it should hatch into a baby ostrich. It can be eaten raw, but it's much better cooked.</description>
+    <graphicData>
+      <color>(230,230,230)</color>
+      <drawSize>1.3</drawSize>
+    </graphicData>
+    <statBases>
+      <MarketValue>23.0</MarketValue>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Hatcher">
+        <hatcherDaysToHatch>8</hatcherDaysToHatch>
+        <hatcherPawn>Ostrich</hatcherPawn>
+      </li>
+    </comps>
+  </ThingDef>
+  
+  <!-- Turkey -->
+
+  <ThingDef ParentName="EggFertBase">
+    <defName>EggTurkeyFertilized</defName>
+    <label>turkey egg (fert.)</label>
+    <description>Fertilized turkey egg. If all goes well, it should hatch into a baby turkey. It can be eaten raw, but it's much better cooked.</description>
+    <graphicData>
+      <color>(236,217,184)</color>
+      <drawSize>1.1</drawSize>
+    </graphicData>
+    <statBases>
+      <MarketValue>11.0</MarketValue>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Hatcher">
+        <hatcherDaysToHatch>5</hatcherDaysToHatch>
+        <hatcherPawn>Turkey</hatcherPawn>
+      </li>
+    </comps>
+  </ThingDef>
+  
+  
+  
+</Defs>
