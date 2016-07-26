@@ -3,7 +3,6 @@
 
 
   <HediffDef>
-    <hediffClass>Hediff_Staged</hediffClass>
     <defName>BloodLoss</defName>
     <label>blood loss</label>
     <lethalSeverity>1</lethalSeverity>
@@ -59,7 +58,7 @@
 
 
   <HediffDef Name="DiseaseBase" Abstract="True">
-    <hediffClass>Hediff_Staged</hediffClass>
+    <hediffClass>HediffWithComps</hediffClass>
     <defaultLabelColor>(0.8, 0.8, 0.35)</defaultLabelColor>
   </HediffDef>
 
@@ -69,7 +68,10 @@
     <comps>
       <li>
         <compClass>HediffComp_Disappears</compClass>
-        <disappearsAfterTicks>15000</disappearsAfterTicks>
+        <disappearsAfterTicks>
+          <min>15000</min>
+          <max>15000</max>
+        </disappearsAfterTicks>
       </li>
     </comps>
     <stages>
@@ -90,7 +92,10 @@
     <comps>
       <li>
         <compClass>HediffComp_Disappears</compClass>
-        <disappearsAfterTicks>25000</disappearsAfterTicks>
+        <disappearsAfterTicks>
+          <min>25000</min>
+          <max>25000</max>
+        </disappearsAfterTicks>
       </li>
     </comps>
     <stages>
@@ -111,7 +116,10 @@
     <comps>
       <li>
         <compClass>HediffComp_Disappears</compClass>
-        <disappearsAfterTicks>7500</disappearsAfterTicks>
+        <disappearsAfterTicks>
+          <min>7500</min>
+          <max>7500</max>
+        </disappearsAfterTicks>
       </li>
     </comps>
     <stages>
@@ -129,15 +137,19 @@
   <HediffDef ParentName="DiseaseBase">
     <defName>CryptosleepSickness</defName>
     <label>cryptosleep sickness</label>
+    <makesSickThought>true</makesSickThought>
     <comps>
       <li>
         <compClass>HediffComp_Disappears</compClass>
-        <disappearsAfterTicks>10000</disappearsAfterTicks>
+        <disappearsAfterTicks>
+          <min>10000</min>
+          <max>10000</max>
+        </disappearsAfterTicks>
       </li>
     </comps>
     <stages>
       <li>
-        <vomitMtbDays>0.25</vomitMtbDays>
+        <vomitMtbDays>0.125</vomitMtbDays>
         <capMods>
           <li>
             <capacity>Consciousness</capacity>
@@ -159,12 +171,15 @@
     <comps>
       <li>
         <compClass>HediffComp_Disappears</compClass>
-        <disappearsAfterTicks>30000</disappearsAfterTicks>
+        <disappearsAfterTicks>
+          <min>30000</min>
+          <max>30000</max>
+        </disappearsAfterTicks>
       </li>
     </comps>
     <stages>
       <li>
-        <vomitMtbDays>0.7</vomitMtbDays>
+        <vomitMtbDays>0.35</vomitMtbDays>
         <capMods>
           <li>
             <capacity>Consciousness</capacity>
@@ -178,11 +193,17 @@
 
   <HediffDef>
     <defName>ToxicBuildup</defName>
-    <hediffClass>Hediff_Staged</hediffClass>
+    <hediffClass>HediffWithComps</hediffClass>
     <defaultLabelColor>(0.7, 1.0, 0.7)</defaultLabelColor>
     <label>toxic buildup</label>
-    <severityPerDay>-0.04</severityPerDay>
     <lethalSeverity>1</lethalSeverity>
+    <makesSickThought>true</makesSickThought>
+    <comps>
+      <li>
+        <compClass>HediffComp_Immunizable</compClass>
+        <severityPerDayNotImmune>-0.08</severityPerDayNotImmune>
+      </li>
+    </comps>
     <stages>
       <li>
         <label>initial-hidden</label>
@@ -211,7 +232,7 @@
       <li>
         <label>moderate</label>
         <minSeverity>0.40</minSeverity>
-        <vomitMtbDays>10</vomitMtbDays>
+        <vomitMtbDays>5</vomitMtbDays>
         <capMods>
           <li>
             <capacity>Consciousness</capacity>
@@ -221,14 +242,14 @@
         <hediffGivers>
           <li Class="HediffGiver_Random">
             <hediff>Dementia</hediff>
-            <mtbDays>220</mtbDays>
+            <mtbDays>110</mtbDays>
           </li>
         </hediffGivers>
       </li>
       <li>
         <label>serious</label>
         <minSeverity>0.60</minSeverity>
-        <vomitMtbDays>2</vomitMtbDays>
+        <vomitMtbDays>1</vomitMtbDays>
         <capMods>
           <li>
             <capacity>Consciousness</capacity>
@@ -238,14 +259,14 @@
         <hediffGivers>
           <li Class="HediffGiver_Random">
             <hediff>Dementia</hediff>
-            <mtbDays>50</mtbDays>
+            <mtbDays>28</mtbDays>
           </li>
         </hediffGivers>
       </li>
       <li>
         <label>extreme</label>
         <minSeverity>0.80</minSeverity>
-        <vomitMtbDays>1</vomitMtbDays>
+        <vomitMtbDays>0.5</vomitMtbDays>
         <capMods>
           <li>
             <capacity>Consciousness</capacity>
@@ -255,7 +276,7 @@
         <hediffGivers>
           <li Class="HediffGiver_Random">
             <hediff>Dementia</hediff>
-            <mtbDays>14</mtbDays>
+            <mtbDays>10</mtbDays>
           </li>
         </hediffGivers>
       </li>
@@ -280,7 +301,7 @@
       <li>
         <label>early-stage-hidden</label>
         <everVisible>false</everVisible>
-        <vomitMtbDays>5</vomitMtbDays>
+        <vomitMtbDays>2.5</vomitMtbDays>
       </li>
       <li>
         <label>middle-stage</label>
@@ -295,7 +316,7 @@
       <li>
         <label>late-stage</label>
         <minSeverity>0.666</minSeverity>
-        <vomitMtbDays>4</vomitMtbDays>
+        <vomitMtbDays>2</vomitMtbDays>
         <capMods>
           <li>
             <capacity>Moving</capacity>
@@ -305,7 +326,5 @@
       </li>
     </stages>
   </HediffDef>
-
-
-
+  
 </Defs>

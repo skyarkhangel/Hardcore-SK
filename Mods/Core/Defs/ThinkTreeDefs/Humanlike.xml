@@ -5,98 +5,73 @@
 		<defName>Humanlike</defName>
 		<thinkRoot Class="ThinkNode_Priority">
 			<subNodes>
+        <!-- Do something while lying down -->
+				<li Class="ThinkNode_ConditionalLyingDown">
+          <subNodes>
+            <li Class="ThinkNode_ChancePerHour_Lovin">
+              <subNodes>
+                <li Class="JobGiver_DoLovin" />
+              </subNodes>
+            </li>
+            <li Class="JobGiver_GetJoyWhileLyingDown" />
+          </subNodes>
+        </li>
+            
+        <!-- Keep lying down if we have to -->
+				<li Class="ThinkNode_ConditionalMustKeepLyingDown">
+					<subNodes>
+            <li Class="JobGiver_KeepLyingDown" />
+          </subNodes>
+        </li>
+      
         <li Class="ThinkNode_Subtree">
           <treeDef>Downed</treeDef>
         </li>
-
-        <!-- Burning response -->
 				<li Class="ThinkNode_Subtree">
 					<treeDef>BurningResponse</treeDef>
 				</li>
-        
-        <!-- Mind broken -->
 				<li Class="ThinkNode_Subtree">
-					<treeDef>BrokenCritical</treeDef>
+					<treeDef>MentalStateCritical</treeDef>
 				</li>
-
-        <!-- Flee explosions -->
-        <li Class="JobGiver_FleeExplosion" />
         
-				<!-- Self-defense only if not drafted -->
-				<li Class="ThinkNode_ConditionalDrafted">
-          <invert>true</invert>
+        <!-- React to close melee threat -->
+				<li Class="JobGiver_ReactToCloseMeleeThreat" />
+            
+        <!-- Mental state non critical -->
+        <li Class="ThinkNode_Subtree">
+          <treeDef>MentalStateNonCritical</treeDef>
+        </li>
+
+        <!-- Insertion hook for modders -->
+        <li Class="ThinkNode_SubtreesByTag">
+          <insertTag>Humanlike_PostMentalState</insertTag>
+        </li>
+        
+				<!-- Take direct orders when drafted -->
+        <li Class="ThinkNode_ConditionalColonist">
 					<subNodes>
-						<li Class="ThinkNode_Subtree">
-							<treeDef>SelfDefense</treeDef>
-						</li>
-					</subNodes>
-				</li>
-
-				<!-- Mind broken - Give up and leave -->
-				<li Class="ThinkNode_ConditionalBrokenState">
-          <state>GiveUpExit</state>
-          <subNodes>
-            <li Class="JobGiver_ExitMapWalkRandom" />
-            <li Class="JobGiver_WanderAnywhere">
-              <maxDanger>Deadly</maxDanger>
-            </li>
+						<li Class="JobGiver_Orders" />
           </subNodes>
         </li>
-
-        <!-- Mind broken - Panic flee -->
-        <li Class="ThinkNode_ConditionalBrokenState">
-          <state>PanicFlee</state>
+        
+				<!-- Lord directives (high priority) -->
+        <li Class="ThinkNode_JoinVoluntarilyJoinableLord">
+          <dutyHook>HighPriority</dutyHook>
           <subNodes>
-            <li Class="JobGiver_PanicFlee" />
-            <li Class="JobGiver_WanderAnywhere"> <!-- Can happen if there is no way to exit the map -->
-              <maxDanger>Some</maxDanger>
-              <locomotionUrgency>Jog</locomotionUrgency>
+            <li Class="ThinkNode_Subtree">
+              <treeDef>LordDuty</treeDef>
             </li>
-          </subNodes>
-        </li>
-
-        <!-- Mind broken - Wander -->
-        <li Class="ThinkNode_ConditionalBrokenState">
-          <state>DazedWander</state>
-          <subNodes>
-            <li Class="JobGiver_WanderAnywhere">
-              <maxDanger>Deadly</maxDanger>
-            </li>
-          </subNodes>
-        </li>
-        <li Class="ThinkNode_ConditionalBrokenState">
-          <state>ConfusedWander</state>
-          <subNodes>
-            <li Class="JobGiver_WanderAnywhere">
-              <maxDanger>Deadly</maxDanger>
-            </li>
-          </subNodes>
-        </li>
-
-        <!-- Mind broken - Binging -->
-        <li Class="ThinkNode_ConditionalBrokenState">
-          <state>BingingAlcohol</state>
-          <subNodes>
-            <li Class="ThinkNode_PrioritySorter">
-              <minPriority>0.5</minPriority>
-              <subNodes>
-                <li Class="JobGiver_GetFood"/>
-                <li Class="JobGiver_GetRest"/>
-                <li Class="JobGiver_GetJoy"/>
-              </subNodes>
-              </li>
-            <li Class="JobGiver_Binge"/>
-            <li Class="JobGiver_WanderColony" />
           </subNodes>
         </li>
 
         <!-- Insertion hook for modders -->
         <li Class="ThinkNode_SubtreesByTag">
-          <insertTag>Humanlike_PostBroken</insertTag>
+          <insertTag>Humanlike_PostDuty</insertTag>
         </li>
         
 				<!-- Prisoner -->
 				<li Class="ThinkNode_ConditionalPrisoner">
+          <leaveJoinableLordIfIssuesJob>true</leaveJoinableLordIfIssuesJob>
 					<subNodes>
 						<li Class="JobGiver_PrisonerEscape" />
             <li Class="JobGiver_PatientGoToBed" />
@@ -110,7 +85,9 @@
             </li>
             <li Class="ThinkNode_ConditionalReleased">
               <subNodes>
-                <li Class="JobGiver_ExitMapWalkNearest" />
+                <li Class="JobGiver_ExitMapNearest">
+                  <locomotion>Walk</locomotion>
+                </li>
               </subNodes>
             </li>
             <li Class="JobGiver_WanderCurrentRoom">
@@ -120,24 +97,13 @@
 					</subNodes>
 				</li>
 
-				<!-- Squad brain directives -->
-        <li Class="ThinkNode_Subtree">
-          <treeDef>SquadBrainDuty</treeDef>
-        </li>
-
-        <!-- Insertion hook for modders -->
-        <li Class="ThinkNode_SubtreesByTag">
-          <insertTag>Humanlike_PostDuty</insertTag>
-        </li>
-
         <!-- If on colonist team, do forced and emergency work -->
 				<li Class="ThinkNode_ConditionalColonist">
 					<subNodes>
-						<!-- Take direct orders when drafted -->
-						<li Class="JobGiver_Orders" />
-
 						<!-- Queue for forced work -->
-						<li Class="JobGiver_JobQueue" />
+						<li Class="JobGiver_JobQueue">
+              <leaveJoinableLordIfIssuesJob>true</leaveJoinableLordIfIssuesJob>
+            </li>
 
             <!-- Seek allowed area -->
             <li Class="JobGiver_SeekAllowedArea" />
@@ -151,27 +117,43 @@
 						<!-- Get food (only if starving) -->
             <li Class="ThinkNode_ConditionalStarving">
               <subNodes>
-                <li Class="JobGiver_GetFood"/>
+                <li Class="JobGiver_GetFood">
+                  <leaveJoinableLordIfIssuesJob>true</leaveJoinableLordIfIssuesJob>
+                </li>
               </subNodes>
             </li>
 
             <!-- Emergency work -->
             <li Class="JobGiver_Work">
+              <leaveJoinableLordIfIssuesJob>true</leaveJoinableLordIfIssuesJob>
               <emergency>true</emergency>
             </li>
-
-            <!-- Optimize apparel -->
-            <li Class="JobGiver_OptimizeApparel" />
-
-            <!-- Pack food if not hungry-->
-            <li Class="ThinkNode_ConditionalNeedAbove">
-              <need>Food</need>
-              <threshold>0.6</threshold>
+            
+            <!-- Lord directives (medium priority) -->
+            <li Class="ThinkNode_JoinVoluntarilyJoinableLord">
+              <dutyHook>MediumPriority</dutyHook>
               <subNodes>
-                <li Class="JobGiver_PackFood" />
+                <li Class="ThinkNode_Subtree">
+                  <treeDef>LordDuty</treeDef>
+                </li>
               </subNodes>
             </li>
             
+            <!-- Optimize apparel -->
+            <li Class="JobGiver_OptimizeApparel">
+              <leaveJoinableLordIfIssuesJob>true</leaveJoinableLordIfIssuesJob>
+            </li>
+
+            <!-- Pack food if not hungry-->
+            <li Class="ThinkNode_ConditionalNeedPercentageAbove">
+              <need>Food</need>
+              <threshold>0.6</threshold>
+              <subNodes>
+                <li Class="JobGiver_PackFood">
+                  <leaveJoinableLordIfIssuesJob>true</leaveJoinableLordIfIssuesJob>
+                </li>
+              </subNodes>
+            </li>
 					</subNodes>
 				</li>
 
@@ -184,12 +166,17 @@
         </li>
         
         <!-- Main colonist behavior core-->
-        <li Class="ThinkNode_PrioritySorter">
-          <subNodes>
-            <li Class="JobGiver_GetFood"/>
-            <li Class="JobGiver_GetRest"/>
-            <li Class="JobGiver_GetJoy"/>
-            <li Class="JobGiver_Work"/>
+				<li Class="ThinkNode_ConditionalColonist">
+					<subNodes>
+						<li Class="ThinkNode_PrioritySorter">
+							<leaveJoinableLordIfIssuesJob>true</leaveJoinableLordIfIssuesJob>
+							<subNodes>
+								<li Class="JobGiver_GetFood"/>
+								<li Class="JobGiver_GetRest"/>
+								<li Class="JobGiver_GetJoy"/>
+								<li Class="JobGiver_Work"/>
+							</subNodes>
+						</li>
 					</subNodes>
 				</li>
 
@@ -219,7 +206,9 @@
             <li Class="ThinkNode_ConditionalNeutralFaction">
               <subNodes>
                 <li Class="JobGiver_PatientGoToBed" />
-                <li Class="JobGiver_ExitMapWalkNearest" />
+                <li Class="JobGiver_ExitMapNearest">
+                  <locomotion>Walk</locomotion>
+                </li>
               </subNodes>
             </li>
           </subNodes>
@@ -229,9 +218,31 @@
           <maxDanger>Deadly</maxDanger>
         </li>
 
-        <li Class="JobGiver_IdleError"/>
-
+        <li Class="JobGiver_IdleError" />
 			</subNodes>
 		</thinkRoot>
 	</ThinkTreeDef>
+  
+	<ThinkTreeDef>
+		<defName>HumanlikeConstant</defName>
+		<thinkRoot Class="ThinkNode_Priority">
+			<subNodes>
+				<li Class="ThinkNode_ConditionalCanDoConstantThinkTreeJobNow">
+					<subNodes>
+            <!-- Flee explosion -->
+            <li Class="JobGiver_FleeExplosion" />
+        
+            <!-- Hostility response -->
+            <li Class="JobGiver_ConfigurableHostilityResponse" />
+            
+            <!-- Lord directives -->
+            <li Class="ThinkNode_Subtree">
+              <treeDef>LordDutyConstant</treeDef>
+            </li>
+					</subNodes>
+				</li>
+			</subNodes>
+		</thinkRoot>
+	</ThinkTreeDef>
+  
 </ThinkTrees>

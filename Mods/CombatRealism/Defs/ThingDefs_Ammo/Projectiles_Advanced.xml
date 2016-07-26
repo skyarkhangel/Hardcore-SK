@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ThingDefs>
+
+  <ThingDef Name="BaseBullet" Abstract="True">
+    <category>Projectile</category>
+    <tickerType>Normal</tickerType>
+    <altitudeLayer>Projectile</altitudeLayer>
+    <thingClass>Combat_Realism.BulletCR</thingClass>
+    <label>bullet</label>
+    <useHitPoints>False</useHitPoints>
+    <neverMultiSelect>True</neverMultiSelect>
+    <graphicData>
+      <shaderType>Transparent</shaderType>
+    </graphicData>
+	<projectile Class="Combat_Realism.ProjectilePropertiesCR"/>
+  </ThingDef>
+	
+  <!-- ==================== 30x64mm Fuel Cell ========================== -->
+	
+  <ThingDef Name="Base30x64mmFuelBullet" ParentName="BaseBullet" Abstract="true">
+    <graphicData>
+      <texPath>Things/Projectile/InfernoCannonShot</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>TransparentPostLight</shaderType>
+    </graphicData>
+    <projectile>
+      <speed>60</speed>
+    </projectile>
+  </ThingDef>
+  
+  <ThingDef ParentName="Base30x64mmFuelBullet">
+    <defName>Bullet_30x64mmFuel_Incendiary</defName>
+    <thingClass>Combat_Realism.ProjectileCR_Explosive</thingClass>
+    <label>incendiary bolt</label>
+    <projectile>
+      <damageDef>Flame</damageDef>
+      <damageAmountBase>50</damageAmountBase>
+      <explosionRadius>2.0</explosionRadius>
+      <preExplosionSpawnThingDef>Puddle_Fuel</preExplosionSpawnThingDef>
+    </projectile>
+  </ThingDef>
+  
+  <ThingDef ParentName="Base30x64mmFuelBullet">
+    <defName>Bullet_30x64mmFuel_Thermobaric</defName>
+    <label>thermobaric bolt</label>
+    <projectile>
+      <damageDef>Thermobaric</damageDef>
+      <damageAmountBase>30</damageAmountBase>
+	  <soundExplode>MortarBomb_Explode</soundExplode>
+    </projectile>
+	<comps>
+	  <li Class="Combat_Realism.CompProperties_ExplosiveCR">
+	    <explosionDamage>50</explosionDamage>
+	    <explosionDamageDef>Thermobaric</explosionDamageDef>
+	    <explosionRadius>2.0</explosionRadius>
+	    <soundExplode>MortarBomb_Explode</soundExplode>
+	    <damageAdjacentTiles>true</damageAdjacentTiles>
+	  </li>
+	</comps>
+  </ThingDef>
+  
+  <ThingDef ParentName="Base30x64mmFuelBullet">
+    <defName>Bullet_30x64mmFuel_Foam</defName>
+    <thingClass>Combat_Realism.ProjectileCR_Explosive</thingClass>
+    <label>foam bolt</label>
+    <projectile>
+      <damageDef>Extinguish</damageDef>
+      <damageAmountBase>50</damageAmountBase>
+      <explosionRadius>5.0</explosionRadius>
+      <postExplosionSpawnThingDef>FilthFireFoam</postExplosionSpawnThingDef>
+      <explosionSpawnChance>1</explosionSpawnChance>
+	  <damageAdjacentTiles>true</damageAdjacentTiles>
+    </projectile>
+  </ThingDef>
+  
+  <!-- ==================== 80x256mm Fuel Cell ========================== -->
+  
+  <ThingDef ParentName="BaseBullet">
+    <defName>Bullet_80x256mmFuel_Thermobaric</defName>
+    <thingClass>Combat_Realism.ProjectileCR_Explosive</thingClass>
+    <label>inferno cannon shell</label>
+    <graphicData>
+			<texPath>Things/Projectile/InfernoCannonShot</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>TransparentPostLight</shaderType>
+		</graphicData>
+    <projectile>
+      <damageDef>Flame</damageDef>
+      <damageAmountBase>40</damageAmountBase>
+      <speed>60</speed>
+      <explosionRadius>2.8</explosionRadius>
+      <preExplosionSpawnThingDef>Puddle_Fuel</preExplosionSpawnThingDef>
+      <explosionSpawnChance>0.5</explosionSpawnChance>
+      <soundExplode>MortarIncendiary_Explode</soundExplode>
+      <soundHitThickRoof>ArtilleryHitThickRoof</soundHitThickRoof>
+      <soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
+      <soundAmbient>MortarRound_Ambient</soundAmbient>
+    </projectile>
+  </ThingDef>
+  
+  
+  
+  <!-- ==================== 6x24mm Charged ========================== -->
+
+  <ThingDef Name="Base6x24mmChargedBullet" ParentName="BaseBullet" Abstract="true">
+    <graphicData>
+      <texPath>Things/Projectile/Charge_Small</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <projectile>
+	  <damageDef>Bullet</damageDef>
+      <speed>170</speed>
+    </projectile>
+  </ThingDef>
+
+  <ThingDef ParentName="Base6x24mmChargedBullet">
+    <defName>Bullet_6x24mmCharged</defName>
+    <label>charge shot</label>
+    <projectile>
+      <damageAmountBase>11</damageAmountBase>
+	  <secondaryDamage>
+	    <li>
+		  <def>Bomb_Secondary</def>
+		  <amount>7</amount>
+		</li>
+	  </secondaryDamage>
+	  <armorPenetration>0.8</armorPenetration>
+    </projectile>
+  </ThingDef>
+
+  <ThingDef ParentName="Base6x24mmChargedBullet">
+    <defName>Bullet_6x24mmCharged_AP</defName>
+    <label>charge shot (Conc.)</label>
+    <projectile>
+      <damageAmountBase>11</damageAmountBase>
+	  <secondaryDamage>
+	    <li>
+		  <def>Bomb_Secondary</def>
+		  <amount>3</amount>
+		</li>
+	  </secondaryDamage>
+	  <armorPenetration>0.9</armorPenetration>
+    </projectile>
+  </ThingDef>
+
+  <ThingDef ParentName="Base6x24mmChargedBullet">
+    <defName>Bullet_6x24mmCharged_Ion</defName>
+    <label>charge shot (Ion)</label>
+    <projectile>
+      <damageAmountBase>11</damageAmountBase>
+	  <secondaryDamage>
+	    <li>
+		  <def>Electrical</def>
+		  <amount>3</amount>
+		</li>
+	    <li>
+		  <def>EMP</def>
+		  <amount>6</amount>
+		</li>
+	  </secondaryDamage>
+	  <armorPenetration>0.8</armorPenetration>
+    </projectile>
+  </ThingDef>
+  
+  <!-- ==================== 5x35mm Charged ========================== -->
+
+  <ThingDef ParentName="BaseBullet">
+    <defName>Bullet_5x35mmCharged</defName>
+    <label>charge lance shot</label>
+    <graphicData>
+      <texPath>Things/Projectile/ChargeLanceShot</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>TransparentPostLight</shaderType>
+      <drawSize>(3,3)</drawSize>
+    </graphicData>
+    <projectile>
+      <damageDef>Bullet</damageDef>
+      <damageAmountBase>10</damageAmountBase>
+      <speed>170</speed>
+	  <secondaryDamage>
+	    <li>
+		  <def>Bomb_Secondary</def>
+		  <amount>3</amount>
+		</li>
+	  </secondaryDamage>
+	  <armorPenetration>0.95</armorPenetration>
+    </projectile>
+  </ThingDef>
+  
+  <!-- ==================== 12x64mm Charged ========================== -->
+
+  <ThingDef ParentName="BaseBullet">
+    <defName>Bullet_12x64mmCharged</defName>
+    <label>charge blaster shot</label>
+    <graphicData>
+      <texPath>Things/Projectile/Charge_Small</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>TransparentPostLight</shaderType>
+    </graphicData>
+    <projectile>
+      <damageDef>Bullet</damageDef>
+      <damageAmountBase>25</damageAmountBase>
+      <speed>180</speed>
+	  <secondaryDamage>
+	    <li>
+		  <def>Bomb_Secondary</def>
+		  <amount>15</amount>
+		</li>
+	  </secondaryDamage>
+	  <armorPenetration>1.2</armorPenetration>
+    </projectile>
+  </ThingDef>
+
+</ThingDefs>

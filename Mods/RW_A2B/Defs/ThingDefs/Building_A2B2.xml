@@ -1,76 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-    <ThingDef Name="BuildingBase" Abstract="True">
-        <category>Building</category>
-
-        <soundImpactDefault>BulletImpactSteel</soundImpactDefault>
-
-        <selectable>true</selectable>
-        <rotatable>true</rotatable>
-
-        <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
-        <constructEffect>ConstructMetal</constructEffect>
-        <repairEffect>Repair</repairEffect>
-        <holdsRoof>false</holdsRoof>
-        <blockLight>false</blockLight>
-        <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
-        <filthLeaving>BuildingRubble</filthLeaving>
-
-        <altitudeLayer>Waist</altitudeLayer>
-        <passability>PassThroughOnly</passability>
-        <pathCost>1000</pathCost>
-
-        <drawerType>MapMeshAndRealTime</drawerType>
-        <castEdgeShadows>true</castEdgeShadows>
-        <fillPercent>1</fillPercent>
-        <staticSunShadowHeight>0.34</staticSunShadowHeight>
-
-        <tickerType>Normal</tickerType>
-
-        <designationCategory>ConveyorBelts</designationCategory>
-        <researchPrerequisite>A2B2</researchPrerequisite>
-    <damageMultipliers>
-      <li>
-        <damageDef>Bomb</damageDef>
-        <multiplier>3.0</multiplier>
-      </li>
-      <li>
-        <damageDef>Bullet</damageDef>
-        <multiplier>0.3</multiplier>
-      </li>
-      <li>
-        <damageDef>Fragment</damageDef>
-        <multiplier>0.2</multiplier>
-      </li>
-      <li>
-        <damageDef>ArmorPiercing</damageDef>
-        <multiplier>2.5</multiplier>
-      </li>
-      <li>
-        <damageDef>LaserBurn</damageDef>
-        <multiplier>2.0</multiplier>
-      </li>
-      <li>
-        <damageDef>AntiMateriel</damageDef>
-        <multiplier>2.0</multiplier>
-      </li>
-      <li>
-        <damageDef>Optic</damageDef>
-        <multiplier>1.5</multiplier>
-      </li>
-      <li>
-        <damageDef>Plasma</damageDef>
-        <multiplier>2.0</multiplier>
-      </li>
-      <li>
-        <damageDef>Microwave</damageDef>
-        <multiplier>1.5</multiplier>
-      </li>
-    </damageMultipliers>
+    <ThingDef Name="A2B2Base" ParentName="BuildingBase" Abstract="True">
+        <researchPrerequisites>
+            <li>A2B2</li>
+        </researchPrerequisites>
     </ThingDef>
 
-    <ThingDef ParentName="BuildingBase">
+    <ThingDef Name="A2B2Minified" ParentName="A2B2Base" Abstract="True">
+        <minifiedDef>MinifiedFurniture</minifiedDef>
+    </ThingDef>
+
+    <ThingDef ParentName="A2B2Minified">
         <defName>A2BSelector</defName>
         <label>selector</label>
         <thingClass>Building_Storage</thingClass>
@@ -89,7 +30,7 @@
         </statBases>
         <description>Sort and redirect items.</description>
         <comps>
-            <li>
+            <li Class="CompProperties_Power">
                 <compClass>CompPowerTrader</compClass>
                 <basePowerConsumption>25</basePowerConsumption>
                 <soundPowerOn>PowerOnSmall</soundPowerOn>
@@ -97,7 +38,7 @@
                 <transmitsPower>true</transmitsPower>
                 <startElectricalFires>true</startElectricalFires> 
             </li>
-            <li>
+            <li Class="CompProperties_Glower">
                 <compClass>CompGlower</compClass>
                 <glowRadius>1</glowRadius>
                 <glowColor>(255,200,0,0)</glowColor>
@@ -105,18 +46,19 @@
             <li>
                 <compClass>A2B.BeltSelectorComponent</compClass>
             </li>
+            <li Class="CompProperties_Breakdownable" />
         </comps>
         <size>(1,1)</size>
          <costList>
 	<Rubber>10</Rubber>
-	<SteelBar>18</SteelBar>
+	<Components>3</Components>
 	<Mechanism>3</Mechanism>
 	<Electronics>2</Electronics>
         </costList>
         <designationHotkey>H</designationHotkey>
     </ThingDef>
 
-    <ThingDef ParentName="BuildingBase">
+    <ThingDef ParentName="A2B2Minified">
         <defName>A2BUndercover</defName>
         <label>underground belt</label>
         <thingClass>Building</thingClass>
@@ -155,17 +97,16 @@
         </comps>
         <size>(1,1)</size>
          <costList>
-	<Rubber>8</Rubber>
-	<SteelBar>20</SteelBar>
+	<Rubber>12</Rubber>
+	<Components>4</Components>
 	<Mechanism>2</Mechanism>
-	<Electronics>2</Electronics>
 	<ReinforcedConcrete>2</ReinforcedConcrete>
         </costList>
         <placingDraggableDimensions>1</placingDraggableDimensions>
         <designationHotkey>G</designationHotkey>
     </ThingDef>
 
-    <ThingDef ParentName="BuildingBase">
+    <ThingDef ParentName="A2B2Minified">
         <defName>A2BUndercoverCover</defName>
         <label>underground belt cover</label>
         <thingClass>Building</thingClass>
@@ -188,7 +129,7 @@
         </statBases>
          <costList>
 	<Rubber>8</Rubber>
-	<SteelBar>20</SteelBar>
+	<Components>4</Components>
 	<Mechanism>3</Mechanism>
 	<ReinforcedConcrete>2</ReinforcedConcrete>
         </costList>
@@ -209,8 +150,8 @@
         <designationCategory>None</designationCategory>
     </ThingDef>
 
-    <ThingDef ParentName="BuildingBase">
-        <defName>A2BUndertaker</defName>
+	
+    <ThingDef Name="UndertakerBase" ParentName="A2B2Base" Abstract="True">
         <label>undertaker</label>
         <thingClass>Building</thingClass>
         <graphicData>
@@ -226,41 +167,30 @@
             <Beauty>0</Beauty>
         </statBases>
         <description>Connects surface and underground belts.</description>
+        <size>(1,1)</size>
+         <costList>
+	<Rubber>10</Rubber>
+	<Components>5</Components>
+	<Mechanism>3</Mechanism>
+	<ReinforcedConcrete>3</ReinforcedConcrete>
+        </costList>
+    </ThingDef>
+	
+	
+    <ThingDef ParentName="UndertakerBase">
+        <defName>A2BUndertaker</defName>
         <comps>
             <li>
                 <compClass>A2B.BeltUndertakerComponent</compClass>
             </li>
         </comps>
-        <size>(1,1)</size>
-         <costList>
-	<Rubber>10</Rubber>
-	<SteelBar>30</SteelBar>
-	<Mechanism>3</Mechanism>
-	<Electronics>2</Electronics>
-	<ReinforcedConcrete>3</ReinforcedConcrete>
-        </costList>
         <designationHotkey>R</designationHotkey>
     </ThingDef>
 
-    <ThingDef ParentName="BuildingBase">
+    <ThingDef ParentName="UndertakerBase">
         <defName>A2BLift</defName>
-        <label>undertaker</label>
-        <thingClass>Building</thingClass>
-        <graphicData>
-            <texPath>Things/Building/Undertaker</texPath>
-            <graphicClass>Graphic_Single</graphicClass>
-            <drawSize>(3,3)</drawSize>
-        </graphicData>
-        <altitudeLayer>Projectile</altitudeLayer>
-        <statBases>
-            <WorkToMake>800</WorkToMake>
-            <MaxHitPoints>300</MaxHitPoints>
-            <Flammability>1.0</Flammability>
-            <Beauty>0</Beauty>
-        </statBases>
-        <description>Connects surface and underground belts.</description>
         <comps>
-            <li>
+            <li Class="CompProperties_Power">
                 <compClass>CompPowerTrader</compClass>
                 <basePowerConsumption>50</basePowerConsumption>
                 <soundPowerOn>PowerOnSmall</soundPowerOn>
@@ -268,7 +198,7 @@
                 <transmitsPower>true</transmitsPower>
                 <startElectricalFires>true</startElectricalFires> 
             </li>
-            <li>
+            <li Class="CompProperties_Glower">
                 <compClass>CompGlower</compClass>
                 <glowRadius>3</glowRadius>
                 <glowColor>(255,58,0,0)</glowColor>
@@ -276,46 +206,18 @@
             <li>
                 <compClass>A2B.BeltLiftComponent</compClass>
             </li>
+            <li Class="CompProperties_Breakdownable" />
         </comps>
-        <size>(1,1)</size>
-         <costList>
-	<Rubber>8</Rubber>
-	<SteelBar>30</SteelBar>
-	<Mechanism>3</Mechanism>
-	<ReinforcedConcrete>3</ReinforcedConcrete>
-        </costList>
         <designationCategory>None</designationCategory>
     </ThingDef>
 
-    <ThingDef ParentName="BuildingBase">
+    <ThingDef ParentName="UndertakerBase">
         <defName>A2BSlide</defName>
-        <label>undertaker</label>
-        <thingClass>Building</thingClass>
-        <graphicData>
-            <texPath>Things/Building/Undertaker</texPath>
-            <graphicClass>Graphic_Single</graphicClass>
-            <drawSize>(3,3)</drawSize>
-        </graphicData>
-        <altitudeLayer>Projectile</altitudeLayer>
-        <statBases>
-            <WorkToMake>800</WorkToMake>
-            <MaxHitPoints>300</MaxHitPoints>
-            <Flammability>1.0</Flammability>
-            <Beauty>0</Beauty>
-        </statBases>
-        <description>Connects surface and underground belts.</description>
         <comps>
             <li>
                 <compClass>A2B.BeltSlideComponent</compClass>
             </li>
         </comps>
-        <size>(1,1)</size>
-         <costList>
-	<Rubber>10</Rubber>
-	<SteelBar>25</SteelBar>
-	<Mechanism>3</Mechanism>
-	<ReinforcedConcrete>2</ReinforcedConcrete>
-        </costList>
         <designationCategory>None</designationCategory>
     </ThingDef>
 

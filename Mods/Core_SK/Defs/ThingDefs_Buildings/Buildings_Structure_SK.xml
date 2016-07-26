@@ -1,0 +1,1013 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Buildings>
+
+
+  <!--========================= Doors =============================-->
+
+  
+  <ThingDef ParentName="BuildingBase" Name="DoorBase" Abstract="True">
+    <thingClass>SK.Building_FixedDoor</thingClass>
+    <blueprintClass>Blueprint_Door</blueprintClass>
+    <category>Building</category>
+    <blueprintGraphicData>
+      <texPath>Things/Building/Door/Door_Blueprint</texPath>
+    </blueprintGraphicData>
+    <altitudeLayer>DoorMoveable</altitudeLayer>
+    <fillPercent>1</fillPercent>
+    <useHitPoints>true</useHitPoints>
+    <statBases>
+	    <Flammability>1.0</Flammability>
+    </statBases>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <selectable>true</selectable>
+    <tickerType>Normal</tickerType>
+    <rotatable>false</rotatable>
+    <soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+    <designationCategory>Structure</designationCategory>
+    <holdsRoof>true</holdsRoof>
+    <staticSunShadowHeight>1.0</staticSunShadowHeight>
+    <blockLight>true</blockLight>
+    <drawerType>RealtimeOnly</drawerType>
+    <building>
+      <soundDoorOpenPowered>DoorOpenPowered</soundDoorOpenPowered>
+      <soundDoorClosePowered>DoorClosePowered</soundDoorClosePowered>
+      <soundDoorOpenManual>DoorOpenManual</soundDoorOpenManual>
+      <soundDoorCloseManual>DoorCloseManual</soundDoorCloseManual>
+      <ignoreNeedsPower>true</ignoreNeedsPower>
+      <canPlaceOverWall>true</canPlaceOverWall>
+    </building>
+    <comps>
+        <li Class="CompProperties_Forbiddable"/>
+    </comps>
+  </ThingDef>
+
+  
+  <ThingDef ParentName="BuildingBase" Name="DoorBased" Abstract="True">
+    <thingClass>SK.Building_FixedDoor</thingClass>
+    <blueprintClass>Blueprint_Door</blueprintClass>
+    <category>Building</category>
+    <blueprintGraphicData>
+      <texPath>Things/Building/Door/Door_Blueprint</texPath>
+    </blueprintGraphicData>
+    <altitudeLayer>DoorMoveable</altitudeLayer>
+    <fillPercent>1</fillPercent>
+    <useHitPoints>true</useHitPoints>
+    <statBases>
+      <Flammability>1.0</Flammability>
+    </statBases>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <selectable>true</selectable>
+    <tickerType>Normal</tickerType>
+    <rotatable>false</rotatable>
+    <soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+    <designationCategory>Structure</designationCategory>
+    <holdsRoof>false</holdsRoof>
+    <staticSunShadowHeight>1.0</staticSunShadowHeight>
+    <blockLight>true</blockLight>
+    <drawerType>RealtimeOnly</drawerType>
+    <building>
+      <soundDoorOpenPowered>DoorOpenPowered</soundDoorOpenPowered>
+      <soundDoorClosePowered>DoorClosePowered</soundDoorClosePowered>
+      <soundDoorOpenManual>DoorOpenManual</soundDoorOpenManual>
+      <soundDoorCloseManual>DoorCloseManual</soundDoorCloseManual>
+      <ignoreNeedsPower>true</ignoreNeedsPower>
+      <canPlaceOverWall>true</canPlaceOverWall>
+    </building>
+    <comps>
+        <li Class="CompProperties_Forbiddable"/>
+    </comps>
+  </ThingDef>
+
+
+  <ThingDef ParentName="DoorBase">
+    <defName>Door</defName>
+    <label>door</label>
+    <description>Divides rooms. Must be manually opened and closed, which slows people down.</description>
+    <statBases>
+	  <MaxHitPoints>200</MaxHitPoints>
+      <WorkToMake>850</WorkToMake>
+    </statBases>
+    <graphicData>
+      <texPath>Things/Building/Door/DoorSimple_Mover</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <damageData>
+        <rect>(0,0.1,1,0.8)</rect>
+      </damageData>
+    </graphicData>
+    <uiIconPath>Things/Building/Door/DoorSimple_MenuIcon</uiIconPath>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Woody</li>
+		</stuffCategories>
+		<costStuffCount>15</costStuffCount>
+	<costList>
+	<Components>1</Components>
+	</costList>
+    <designationHotKey>P</designationHotKey>
+  </ThingDef>
+  
+
+  <ThingDef ParentName="DoorBased">
+    <defName>Autodoor</defName>
+    <label>Autodoor</label>
+    <description>A door divides rooms with a closable opening. Powered operation allows people to move through the door without slowing down.</description>
+    <statBases>
+	<MaxHitPoints>250</MaxHitPoints>
+      <WorkToMake>1200</WorkToMake>
+    </statBases>
+    <graphicData>
+      <texPath>Things/Building/Door/Autodoor_Mover</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <damageData>
+        <rect>(0,0.1,1,0.8)</rect>
+      </damageData>
+    </graphicData>
+    <uiIconPath>Things/Building/Doors/Autodoor_MenuIcon</uiIconPath>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Woody</li>
+		</stuffCategories>
+		<costStuffCount>30</costStuffCount>
+		<costList>
+			<Components>1</Components>
+			<ElectronicComponents>1</ElectronicComponents>
+		</costList>
+    <comps>
+		    <li Class="CompProperties_Power">
+			<compClass>CompPowerTrader</compClass>
+			<basePowerConsumption>100</basePowerConsumption>
+		    </li>
+		    <li Class="CompProperties_Breakdownable"/>
+			<li Class="CommunityCoreLibrary.CompProperties_LowIdleDraw">
+				<compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
+				<idlePowerFactor>0.1</idlePowerFactor>
+				<operationalMode>WhenNear</operationalMode>
+			</li>
+    </comps>
+    <designationHotKey>O</designationHotKey>
+		<researchPrerequisites><li>ConstructionII</li></researchPrerequisites>
+  </ThingDef>
+
+
+	<ThingDef ParentName="DoorBased">
+		<defName>FenceGate</defName>
+		<label>Fence Gate</label>
+		<description>A fence gate. It must be manually opened and closed, which slows people down.</description>
+		<statBases>
+		<MaxHitPoints>150</MaxHitPoints>
+			<WorkToMake>850</WorkToMake>
+		</statBases>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Woody</li>
+		</stuffCategories>
+		<costStuffCount>8</costStuffCount>
+		<costList>
+			<Components>1</Components>
+		</costList>
+    <blueprintGraphicData>
+		<texPath>Things/Building/Doors/FenceGate_Blueprint</texPath>
+    </blueprintGraphicData>
+    <graphicData>
+		<texPath>Things/Building/Doors/FenceGate_Mover</texPath>
+		<graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+		<uiIconPath>Things/Building/Doors/FenceGate_MenuIcon</uiIconPath>
+		<holdsRoof>false</holdsRoof>
+		<designationCategory>Structure</designationCategory>
+		<staticSunShadowHeight>0.30</staticSunShadowHeight>
+		<researchPrerequisites><li>AgricultureI</li></researchPrerequisites>
+	</ThingDef>
+
+	
+	<ThingDef ParentName="DoorBased">
+		<defName>Blastdoor</defName>
+		<label>Blast Autodoor</label>
+		<description>A powered, reinforced door that allows people to move through the door without slowing down.</description>
+		<statBases>
+			<MaxHitPoints>375</MaxHitPoints>
+			<WorkToMake>2000</WorkToMake>
+		</statBases>
+    <stuffCategories>
+      <li>Metallic</li>
+    </stuffCategories>
+    <costStuffCount>70</costStuffCount>
+		<costList>
+      		<ReinforcedConcrete>6</ReinforcedConcrete>
+			<Components>3</Components>
+			<ElectronicComponents>1</ElectronicComponents>
+		</costList>
+    <graphicData>
+		<texPath>Things/Building/Doors/DoorBlast_Mover</texPath>
+		<graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+		<uiIconPath>Things/Building/Doors/DoorBlast_MenuIcon</uiIconPath>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>100</basePowerConsumption>
+				<transmitsPower>true</transmitsPower>
+			</li>
+			<li Class="CommunityCoreLibrary.CompProperties_LowIdleDraw">
+				<compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
+				<idlePowerFactor>0.1</idlePowerFactor>
+				<operationalMode>WhenNear</operationalMode>
+			</li>
+			<li Class="CompProperties_Breakdownable"/>
+		</comps>
+		<researchPrerequisites><li>ConstructionIII</li></researchPrerequisites>
+	</ThingDef>
+	
+	
+	<ThingDef ParentName="DoorBase">
+		<defName>CellDoor</defName>
+		<label>Cell Door</label>
+		<thingClass>SK.Building_CellDoor</thingClass>
+		<description>Door which prisoners as well as colonists can open. It divides rooms.</description>
+		<statBases>
+		<MaxHitPoints>200</MaxHitPoints>
+			<WorkToMake>850</WorkToMake>
+		</statBases>
+    <stuffCategories>
+      <li>Metallic</li>
+    </stuffCategories>
+    <costStuffCount>15</costStuffCount>
+		<costList>
+			<Components>1</Components>
+		</costList>
+		<graphicData>
+      <texPath>Things/Buildings/CellDoor_Mover</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+		<uiIconPath>Things/Buildings/CellDoor_MenuIcon</uiIconPath>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTransmitter</compClass>
+				<transmitsPower>true</transmitsPower>
+			</li>
+			<li Class="CompProperties_Breakdownable"/>
+		</comps>
+		<researchPrerequisites><li>ConstructionII</li></researchPrerequisites>
+	</ThingDef>
+    
+	
+<ThingDef ParentName="BuildingBase">
+    <defName>OpenBlastDoor</defName>
+    <label>Large Blast Gate (Open)</label>
+	<description>A very large gate that provides protection against hostile outside entities. It requires power, and must be manually opened and closed. The gate is currently open.</description>
+    <thingClass>SK.Building_OpenedBlastDoor</thingClass>
+    <graphicData>
+      <texPath>Things/Building/BlastDoorOpen</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(5,2)</drawSize>
+    </graphicData>
+    <altitudeLayer>DoorMoveable</altitudeLayer>
+    <neverMultiSelect>true</neverMultiSelect>
+    <rotatable>true</rotatable>
+    <size>(5,2)</size>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>	
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+	<holdsRoof>true</holdsRoof>
+    <passability>Standable</passability>
+    <fillPercent>0.3</fillPercent>
+    <statBases>
+      <WorkToMake>10</WorkToMake>
+      <MaxHitPoints>2000</MaxHitPoints>
+      <Flammability>0</Flammability>
+    </statBases>
+    <tickerType>Normal</tickerType>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>350</basePowerConsumption>
+      </li>
+	  <li Class="CompProperties_Breakdownable"/>
+    </comps>
+    <blockLight>false</blockLight>
+  </ThingDef>
+    
+	
+  <ThingDef ParentName="BuildingBase">
+    <defName>ClosedBlastDoor</defName>
+    <label>Large Blast Gate (Closed)</label>
+    <description>A very large gate that provides protection against hostile outside entities. It requires power, and must be manually opened and closed. The gate is currently closed.</description>
+    <thingClass>SK.Building_ClosedBlastDoor</thingClass>
+    <graphicData>
+      <texPath>Things/Building/BlastDoorClosed</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(5,2)</drawSize>
+    </graphicData>
+    <altitudeLayer>DoorMoveable</altitudeLayer>
+    <neverMultiSelect>true</neverMultiSelect>
+    <rotatable>true</rotatable>
+    <size>(5,2)</size>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>	
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+	<holdsRoof>true</holdsRoof>
+    <fillPercent>1</fillPercent>
+    <passability>Impassable</passability>
+    <statBases>
+      <WorkToMake>8000</WorkToMake>
+      <MaxHitPoints>2000</MaxHitPoints>
+      <Flammability>0</Flammability>
+    </statBases>
+    <tickerType>Normal</tickerType>
+    <constructEffect>ConstructMetal</constructEffect>
+    <costList>
+	<ReinforcedConcrete>70</ReinforcedConcrete>
+	<Components>10</Components>
+	<Electronics>6</Electronics>
+	<Mechanism>5</Mechanism>
+    </costList>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>350</basePowerConsumption>
+      </li>
+	  <li Class="CompProperties_Breakdownable"/>
+    </comps>
+    <designationCategory>Structure</designationCategory>
+    <building>
+      <canPlaceOverWall>true</canPlaceOverWall>
+    </building>
+    <blockLight>true</blockLight>
+    <researchPrerequisites><li>ConstructionIV</li></researchPrerequisites>
+  </ThingDef>
+  
+  
+  <ThingDef ParentName="BuildingBase">
+    <defName>JammedBlastDoor</defName>
+    <label>Large Blast Gate (Jammed)</label>
+	<description>A very large gate that provides protection against hostile outside entities. It requires power, and must be manually opened and closed. The gate is jammed.</description>
+    <thingClass>SK.Building_JammedBlastDoor</thingClass>
+    <graphicData>
+      <texPath>Things/Building/JammedBlastDoor</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(5,2)</drawSize>
+    </graphicData>
+    <altitudeLayer>DoorMoveable</altitudeLayer>
+    <neverMultiSelect>true</neverMultiSelect>
+    <rotatable>true</rotatable>
+    <size>(5,2)</size>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>	
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+	<holdsRoof>true</holdsRoof>
+    <fillPercent>1</fillPercent>
+    <statBases>
+      <WorkToMake>10</WorkToMake>
+      <MaxHitPoints>2000</MaxHitPoints>
+      <Flammability>0</Flammability>
+    </statBases>
+    <tickerType>Rare</tickerType>
+    <blockLight>false</blockLight>
+  </ThingDef>
+
+
+  <!--========================= Walls =============================-->
+
+
+  <ThingDef ParentName="BuildingBase" Name="Wall">
+    <defName>Wall</defName>
+    <label>wall</label>
+    <thingClass>Building</thingClass>
+    <category>Building</category>
+    <description>An impassable wall. It is capable of holding up a roof.</description>
+    <graphicData>
+      <texPath>Things/Building/Linked/Wall</texPath>
+      <graphicClass>Graphic_Appearances</graphicClass>
+      <linkType>CornerFiller</linkType>
+      <linkFlags>
+        <li>Wall</li>
+        <li>Rock</li>
+      </linkFlags>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+        <edgeTop>Damage/Edge</edgeTop>
+        <edgeBot>Damage/Edge</edgeBot>
+        <edgeLeft>Damage/Edge</edgeLeft>
+        <edgeRight>Damage/Edge</edgeRight>
+      </damageData>
+    </graphicData>
+    <blueprintGraphicData>
+      <texPath>Things/Building/Linked/Wall_Blueprint_Atlas</texPath>
+    </blueprintGraphicData>
+    <uiIconPath>Things/Building/Linked/WallSmooth_MenuIcon</uiIconPath>
+    <statBases>
+      <MaxHitPoints>350</MaxHitPoints>
+      <WorkToMake>550</WorkToMake>
+      <Flammability>1.0</Flammability>
+    </statBases>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <altitudeLayer>BuildingTall</altitudeLayer>
+    <passability>Impassable</passability>
+    <castEdgeShadows>true</castEdgeShadows>
+    <fillPercent>1</fillPercent>
+    <coversFloor>true</coversFloor>
+    <placingDraggableDimensions>1</placingDraggableDimensions>
+    <tickerType>Never</tickerType>
+    <rotatable>false</rotatable>
+    <selectable>true</selectable>
+    <neverMultiSelect>true</neverMultiSelect>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+    <holdsRoof>true</holdsRoof>
+    <designationCategory>Structure</designationCategory>
+    <staticSunShadowHeight>1.0</staticSunShadowHeight>
+    <blockLight>true</blockLight>
+    <stuffCategories>
+      <li>Metallic</li>
+      <li>Woody</li>
+      <li>Stony</li>
+    </stuffCategories>
+    <costStuffCount>5</costStuffCount>
+    <building>
+      <isInert>true</isInert>
+      <ignoreNeedsPower>true</ignoreNeedsPower>
+    </building>
+    <designationHotKey>B</designationHotKey>
+  </ThingDef>
+
+  
+ <!-- Serves same purpose as the utility wall. Merging stats and disabling this one.
+ 
+	<ThingDef ParentName="BuildingBase">
+		<defName>WallConduit</defName>
+		<label>Wall Conduit</label>
+		<thingClass>Building</thingClass>
+		<category>Building</category>
+		<description>A heavily reinforced wall with a built in power conduit.</description>
+    <graphicData>
+		<texPath>Things/Building/Walls/Wall</texPath>
+		<graphicClass>Graphic_Single</graphicClass>
+      		<linkType>CornerFiller</linkType>
+		<linkFlags>
+			<li>Wall</li>
+		</linkFlags>
+    </graphicData>
+		<uiIconPath>Things/Building/Walls/Wall_MenuIcon</uiIconPath>
+    <blueprintGraphicData>
+		<texPath>Things/Building/Linked/Wall_Blueprint_Atlas</texPath>
+    </blueprintGraphicData>
+		<statBases>
+			<MaxHitPoints>350</MaxHitPoints>
+			<WorkToMake>150</WorkToMake>
+			<Flammability>1.0</Flammability>
+		</statBases>
+		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+		<altitudeLayer>BuildingTall</altitudeLayer>
+		<passability>Impassable</passability>
+		<castEdgeShadows>true</castEdgeShadows>
+    		<fillPercent>1.0</fillPercent>
+		<coversFloor>true</coversFloor>
+		<placingDraggableDimensions>1</placingDraggableDimensions>
+		<tickerType>Never</tickerType>
+		<rotatable>false</rotatable>
+		<selectable>true</selectable>
+		<neverMultiSelect>true</neverMultiSelect>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<holdsRoof>true</holdsRoof>
+		<designationCategory>Structure</designationCategory>
+		<staticSunShadowHeight>1.0</staticSunShadowHeight>
+		<blockLight>true</blockLight>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Woody</li>
+			<li>Stony</li>
+		</stuffCategories>
+		<costStuffCount>6</costStuffCount>
+		<CostList>
+			<Wire>8</Wire>
+			<Components>1</Components>
+		</CostList>
+		<Comps>
+			<li>
+				<compClass>CompPowerTransmitter</compClass>
+				<transmitsPower>true</transmitsPower>
+			</li>
+		</Comps>
+		<building>
+		<isInert>true</isInert>
+		<ignoreNeedsPower>true</ignoreNeedsPower>
+		</building>
+		<researchPrerequisites><li>ConstructionII</li></researchPrerequisites>
+	</ThingDef> -->
+
+
+  <ThingDef ParentName="BuildingBase">
+    <defName>WallLog</defName>
+    <label>Wall</label>
+    <thingClass>Building</thingClass>
+    <category>Building</category>
+    <description>A wall made of logs stacked together. Strong and very fast to build, but it is flammable and does not transmit power.</description>
+    <graphicData>
+      <texPath>Things/Building/Walls/WallLog_Atlas</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <linkType>CornerFiller</linkType>
+      <linkFlags>
+        <li>Wall</li>
+        <li>Rock</li>
+      </linkFlags>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+        <edgeTop>Damage/Edge</edgeTop>
+        <edgeBot>Damage/Edge</edgeBot>
+        <edgeLeft>Damage/Edge</edgeLeft>
+        <edgeRight>Damage/Edge</edgeRight>
+      </damageData>
+    </graphicData>
+    <blueprintGraphicData>
+      <texPath>Things/Building/Linked/Wall_Blueprint_Atlas</texPath>
+    </blueprintGraphicData>
+    <uiIconPath>Things/Building/Walls/WallLog_MenuIcon</uiIconPath>
+    <statBases>
+      <MaxHitPoints>250</MaxHitPoints>
+      <WorkToMake>400</WorkToMake>
+      <Flammability>15.0</Flammability>
+    </statBases>
+    <stuffCategories>
+      <li>WoodLogs</li>
+    </stuffCategories>
+    <costStuffCount>6</costStuffCount>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <altitudeLayer>BuildingTall</altitudeLayer>
+    <passability>Impassable</passability>
+    <castEdgeShadows>true</castEdgeShadows>
+    <fillPercent>1</fillPercent>
+    <coversFloor>true</coversFloor>
+    <placingDraggableDimensions>1</placingDraggableDimensions>
+    <tickerType>Never</tickerType>
+    <rotatable>false</rotatable>
+    <selectable>true</selectable>
+    <neverMultiSelect>true</neverMultiSelect>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+    <holdsRoof>true</holdsRoof>
+    <designationCategory>Structure</designationCategory>
+    <staticSunShadowHeight>1.0</staticSunShadowHeight>
+    <blockLight>true</blockLight>
+    <building>
+      <isInert>true</isInert>
+      <ignoreNeedsPower>true</ignoreNeedsPower>
+    </building>
+  </ThingDef>
+
+
+  <ThingDef ParentName="BuildingBase">
+    <defName>Snowywall</defName>
+    <label>Snow Wall</label>
+    <thingClass>Building</thingClass>
+    <category>Building</category>
+    <description>A wall made from packed snow. Weak and very fast to build, but it is flammable and does not transmit power. It can melt if the temperature is not freezing or below.</description>
+    <graphicData>
+      <texPath>Things/Building/Linked/Wall</texPath>
+      <graphicClass>Graphic_Appearances</graphicClass>
+      <linkType>CornerFiller</linkType>
+      <linkFlags>
+        <li>Wall</li>
+        <li>Rock</li>
+      </linkFlags>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+        <edgeTop>Damage/Edge</edgeTop>
+        <edgeBot>Damage/Edge</edgeBot>
+        <edgeLeft>Damage/Edge</edgeLeft>
+        <edgeRight>Damage/Edge</edgeRight>
+      </damageData>
+    </graphicData>
+    <blueprintGraphicData>
+      <texPath>Things/Building/Linked/Wall_Blueprint_Atlas</texPath>
+    </blueprintGraphicData>
+    <uiIconPath>Things/Building/Linked/WallSmooth_MenuIcon</uiIconPath>
+    <statBases>
+      <MaxHitPoints>25</MaxHitPoints>
+      <WorkToMake>200</WorkToMake>
+      <Flammability>25.0</Flammability>
+    </statBases>
+		<CostList>
+			<Snow>6</Snow>
+		</CostList>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <altitudeLayer>BuildingTall</altitudeLayer>
+    <passability>Impassable</passability>
+    <castEdgeShadows>true</castEdgeShadows>
+    <fillPercent>1</fillPercent>
+    <coversFloor>true</coversFloor>
+    <placingDraggableDimensions>1</placingDraggableDimensions>
+    <tickerType>Rare</tickerType>
+    <rotatable>false</rotatable>
+    <selectable>true</selectable>
+    <neverMultiSelect>true</neverMultiSelect>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+    <holdsRoof>true</holdsRoof>
+    <designationCategory>Structure</designationCategory>
+    <staticSunShadowHeight>1.0</staticSunShadowHeight>
+    <blockLight>true</blockLight>
+    <comps>
+      <li>
+        <compClass>CompMelter</compClass>
+      </li>
+    </comps>
+    <forceDebugSpawnable>true</forceDebugSpawnable>
+    <building>
+      <isInert>true</isInert>
+      <repairable>false</repairable>
+      <ignoreNeedsPower>true</ignoreNeedsPower>
+    </building>
+  </ThingDef>
+
+
+	<ThingDef ParentName="BuildingBase">
+		<defName>WallLighted</defName>
+		<label>Motion Sensor Lighted Wall</label>
+		<thingClass>Building</thingClass>
+		<category>Building</category>
+		<description>A lighted wall with a built in power conduit and a motion sensor! The lights on this wall will only turn on when something moves nearby, like a colonist. If no movement is detected, the lights will turn off.</description>
+    <graphicData>
+		<texPath>Things/Building/Walls/WallLights_Atlas</texPath>
+		<graphicClass>Graphic_Single</graphicClass>
+      		<linkType>CornerFiller</linkType>
+		<linkFlags>
+			<li>Wall</li>
+			<li>Rock</li>
+		</linkFlags>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+        <edgeTop>Damage/Edge</edgeTop>
+        <edgeBot>Damage/Edge</edgeBot>
+        <edgeLeft>Damage/Edge</edgeLeft>
+        <edgeRight>Damage/Edge</edgeRight>
+      </damageData>
+    </graphicData>
+		<uiIconPath>Things/Building/Walls/WallLights_MenuIcon</uiIconPath>
+    <blueprintGraphicData>
+		<texPath>Things/Building/Linked/Wall_Blueprint_Atlas</texPath>
+    </blueprintGraphicData>
+		<statBases>
+			<MaxHitPoints>350</MaxHitPoints>
+			<WorkToMake>750</WorkToMake>
+			<Flammability>1.0</Flammability>
+		</statBases>
+		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+		<altitudeLayer>BuildingTall</altitudeLayer>
+		<passability>Impassable</passability>
+		<castEdgeShadows>true</castEdgeShadows>
+		<fillPercent>1</fillPercent>
+		<coversFloor>true</coversFloor>
+		<placingDraggableDimensions>1</placingDraggableDimensions>
+		<tickerType>Normal</tickerType>
+		<rotatable>false</rotatable>
+		<selectable>true</selectable>
+		<neverMultiSelect>true</neverMultiSelect>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<holdsRoof>true</holdsRoof>
+		<designationCategory>Structure</designationCategory>
+		<staticSunShadowHeight>1.0</staticSunShadowHeight>
+		<blockLight>true</blockLight>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Stony</li>
+		</stuffCategories>
+		<costStuffCount>5</costStuffCount>
+		<CostList>
+			<Glass>2</Glass>
+			<ElectronicComponents>1</ElectronicComponents>
+			<Components>1</Components>
+			<Wire>1</Wire>
+		</CostList>
+		<building>
+		<isInert>true</isInert>
+		<ignoreNeedsPower>false</ignoreNeedsPower>
+		</building>
+		<Comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<transmitsPower>true</transmitsPower>
+				<basePowerConsumption>25</basePowerConsumption>
+				<shortCircuitInRain>false</shortCircuitInRain>
+				<soundPowerOn>PowerOnSmall</soundPowerOn>
+				<soundPowerOff>PowerOffSmall</soundPowerOff>
+			</li>
+			<li Class="CompProperties_Glower">
+				<glowRadius>5</glowRadius>
+				<glowColor>(217,217,208,0)</glowColor>
+			</li>
+			<li Class="CommunityCoreLibrary.CompProperties_LowIdleDraw">
+				<compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
+				<idlePowerFactor>0.1</idlePowerFactor>
+				<operationalMode>WhenNear</operationalMode>
+			</li>
+		</Comps>
+		<researchPrerequisites><li>BaseUtilities</li></researchPrerequisites>
+	</ThingDef>
+
+	
+	<ThingDef ParentName="BuildingBase">
+		<defName>Fence</defName>
+		<label>Fence</label>
+		<thingClass>Building</thingClass>
+		<category>Building</category>
+		<description>A small fence is perfect for outdoor gardens. It is very fast to build, but weak.</description>
+    <graphicData>
+		<texPath>Things/Building/Walls/Fence_Atlas</texPath>
+		<graphicClass>Graphic_Single</graphicClass>
+      		<linkType>CornerFiller</linkType>
+		<linkFlags>
+			<li>Custom4</li>
+		</linkFlags>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+        <edgeTop>Damage/Edge</edgeTop>
+        <edgeBot>Damage/Edge</edgeBot>
+        <edgeLeft>Damage/Edge</edgeLeft>
+        <edgeRight>Damage/Edge</edgeRight>
+      </damageData>
+    </graphicData>
+		<uiIconPath>Things/Building/Walls/Fence_MenuIcon</uiIconPath>
+    <blueprintGraphicData>
+		<texPath>Things/Building/Walls/Fence_Blueprint_Atlas</texPath>
+    </blueprintGraphicData>
+		<statBases>
+			<MaxHitPoints>180</MaxHitPoints>
+			<WorkToMake>350</WorkToMake>
+			<Flammability>1.0</Flammability>
+		</statBases>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Woody</li>
+		</stuffCategories>
+		<costStuffCount>4</costStuffCount>
+   		 <costList>
+			<Components>1</Components>
+		</costList>
+		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+		<altitudeLayer>Waist</altitudeLayer>
+		<pathCost>98</pathCost>
+		<passability>PassThroughOnly</passability>
+		<castEdgeShadows>true</castEdgeShadows>
+		<fillPercent>0.2</fillPercent>
+		<coversFloor>false</coversFloor>
+		<placingDraggableDimensions>1</placingDraggableDimensions>
+		<tickerType>Never</tickerType>
+		<rotatable>false</rotatable>
+		<selectable>true</selectable>
+		<neverMultiSelect>true</neverMultiSelect>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<holdsRoof>false</holdsRoof>
+		<designationCategory>Structure</designationCategory>
+		<staticSunShadowHeight>0.30</staticSunShadowHeight>
+		<blockLight>false</blockLight>
+		<building>
+			<isInert>true</isInert>
+			<ignoreNeedsPower>true</ignoreNeedsPower>
+		</building>
+		<researchPrerequisites><li>AgricultureI</li></researchPrerequisites>
+	</ThingDef>
+
+
+	<!--========================= Roof Support ============================= -->
+	
+	
+	<ThingDef ParentName="BuildingBase" Name="RoofSupport">
+		<defName>RoofSupport</defName>
+		<label>Roof Support</label>
+		<thingClass>Building</thingClass>
+		<category>Building</category>
+		<description>A structural column capable of holding up a roof. It does not impede movement or provide cover.</description>
+    <graphicData>
+		<texPath>Things/Building/RoofSupport</texPath>
+		<graphicClass>Graphic_Single</graphicClass>
+      		<drawSize>(1,1)</drawSize>
+    </graphicData>
+		<statBases>
+			<MaxHitPoints>250</MaxHitPoints>
+			<WorkToMake>750</WorkToMake>
+			<Flammability>0.2</Flammability>
+			<Beauty>10</Beauty>
+		</statBases>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Stony</li>
+		</stuffCategories>
+		<costStuffCount>10</costStuffCount>
+		<altitudeLayer>BuildingTall</altitudeLayer>
+		<passability>Standable</passability>
+		<fillPercent>0</fillPercent>
+		<tickerType>Never</tickerType>
+		<rotatable>false</rotatable>
+		<selectable>true</selectable>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<holdsRoof>true</holdsRoof>
+		<designationCategory>Structure</designationCategory>
+		<blockLight>false</blockLight>
+		<specialDisplayRadius>5.9</specialDisplayRadius>
+		<researchPrerequisites><li>Stonecutting</li></researchPrerequisites>
+	</ThingDef>
+
+
+	<!--========================= Glass doors =============================-->
+	
+	
+	<ThingDef ParentName="BuildingBase" Name="DoorGlassBase" Abstract="True">
+    <thingClass>Building_Door</thingClass>
+    <blueprintClass>Blueprint_Door</blueprintClass>
+    <category>Building</category>
+	<blueprintGraphicData>
+		<texPath>Things/Building/Door/Door_Blueprint</texPath>
+	</blueprintGraphicData>
+    <altitudeLayer>DoorMoveable</altitudeLayer>
+    <fillPercent>1</fillPercent>
+    <useHitPoints>true</useHitPoints>
+    <stuffCategories>
+      <li>Glass</li>
+    </stuffCategories>
+    <statBases>
+      <MaxHitPoints>150</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+    </statBases>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <selectable>true</selectable>
+    <tickerType>Normal</tickerType>
+    <size>(1,1)</size>
+    <rotatable>false</rotatable>
+    <soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+    <designationCategory>Structure</designationCategory>
+    <holdsRoof>false</holdsRoof>
+    <staticSunShadowHeight>1.0</staticSunShadowHeight>
+    <blockLight>false</blockLight>
+    <drawerType>RealtimeOnly</drawerType>
+    <building>
+      <soundDoorOpenPowered>DoorOpenPowered</soundDoorOpenPowered>
+      <soundDoorClosePowered>DoorClosePowered</soundDoorClosePowered>
+      <soundDoorOpenManual>DoorOpenManual</soundDoorOpenManual>
+      <soundDoorCloseManual>DoorCloseManual</soundDoorCloseManual>
+      <ignoreNeedsPower>true</ignoreNeedsPower>
+      <canPlaceOverWall>true</canPlaceOverWall>
+      <ai_combatDangerous>false</ai_combatDangerous>
+    </building>
+  </ThingDef>
+
+  
+	<ThingDef ParentName="DoorGlassBase">
+		<defName>DoorGlass</defName>
+		<label>Door</label>
+		<description>A door divides rooms with a closable opening. Powered operation allows people to move through the door without slowing down. This door is made from glass.</description>
+		<blockLight>false</blockLight>
+		<GraphicData>
+			<texPath>Things/Building/DoorGlass_Mover</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</GraphicData>
+		<uiIconPath>Things/Building/DoorGlass_Icon</uiIconPath>
+		<statBases>
+			<MaxHitPoints>280</MaxHitPoints>
+			<MarketValue>15</MarketValue>
+			<WorkToMake>750</WorkToMake>
+			<Flammability>1.0</Flammability>
+			<Beauty>15</Beauty>
+		</statBases>
+		<stuffCategories>
+			<li>Glass</li>
+		</stuffCategories>
+		<costStuffCount>2</costStuffCount>
+		<costList>
+			<Components>3</Components>
+			<ElectronicComponents>1</ElectronicComponents>
+		</costList>
+		<comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>100</basePowerConsumption>
+      </li>
+			<li Class="CommunityCoreLibrary.CompProperties_LowIdleDraw">
+				<compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
+				<idlePowerFactor>0.1</idlePowerFactor>
+				<operationalMode>WhenNear</operationalMode>
+			</li>
+      		<li Class="CompProperties_Forbiddable"/>
+		</comps>
+		<filthLeaving>BrokenGlass</filthLeaving>
+		<researchPrerequisites><li>ObtainingGlass</li></researchPrerequisites>
+	</ThingDef>
+
+
+	<!--========================= Glass walls =============================-->
+	
+	<ThingDef Name="WindowBase" Abstract="True">
+    <category>Building</category>
+    <thingClass>Building</thingClass>
+    <soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+    <selectable>true</selectable>
+    <drawerType>MapMeshAndRealTime</drawerType>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+    <repairEffect>Repair</repairEffect>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <filthLeaving>BuildingRubble</filthLeaving>
+  </ThingDef>
+	
+	<ThingDef ParentName="WindowBase">
+		<DefName>Window</DefName>
+		<label>Window frame</label>
+		<Description>A simple window for allowing natural light into a room. Can be built into a wall.</Description>
+		<graphicData>
+			<texPath>Things/Building/Window/Window</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+		</graphicData>
+		<AltitudeLayer>Pawn</AltitudeLayer>
+		<useHitPoints>True</useHitPoints>
+		<statBases>
+			<MaxHitPoints>20</MaxHitPoints>
+			<Flammability>0</Flammability>
+		</statBases>
+		<Size>(1,1)</Size>
+		<selectable>true</selectable>
+		<building>
+			<isEdifice>false</isEdifice>
+		</building>
+		<filthLeaving>BrokenGlass</filthLeaving>
+	</ThingDef>
+	
+  
+	<ThingDef ParentName="WindowBase">
+		<DefName>WindowSpawner</DefName>
+		<label>Window</label>
+		<Description>A simple window for allowing natural light into a room. Can be built into a wall.</Description>
+		<thingClass>SK.Building_Window</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Window/Window</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+		</graphicData>
+		<stuffCategories>
+			<li>Glass</li>
+		</stuffCategories>
+		<costStuffCount>2</costStuffCount>
+		<costList>
+				<Components>2</Components>
+		</costList>
+		<AltitudeLayer>Pawn</AltitudeLayer>
+		<statBases>
+			<WorkToMake>900</WorkToMake>
+		</statBases>
+		<Size>(1,1)</Size>
+		<DesignationCategory>Structure</DesignationCategory>
+		<selectable>true</selectable>
+		<building>
+			<isEdifice>false</isEdifice>
+		</building>
+		<placeWorkers>
+			<li>SK.PlaceWorker_Window</li>
+		</placeWorkers>
+		<filthLeaving>BrokenGlass</filthLeaving>
+		<researchPrerequisites><li>ObtainingGlass</li></researchPrerequisites>
+	</ThingDef>
+	
+	
+	<ThingDef ParentName="WindowBase">
+		<defName>WindowGlower</defName>
+		<label>sunlight</label>
+		<thingClass>SK.Building_WindowGlower</thingClass>
+		<graphicData>
+			<graphicClass>Graphic_Single</graphicClass>
+			<texPath>Things/Null</texPath>
+			<drawSize>(0,0)</drawSize>
+		</graphicData>
+		<size>(1,1)</size>
+		<useHitPoints>false</useHitPoints>
+		<statBases>
+			<Flammability>0</Flammability>
+		</statBases>
+		<altitudeLayer>Floor</altitudeLayer>
+		<passability>Standable</passability>
+		<selectable>false</selectable>
+		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+		<tickerType>Rare</tickerType>
+		<building>
+			<isEdifice>false</isEdifice>
+			<deconstructible>false</deconstructible>
+		</building>
+		<comps>
+			<li>
+				<compClass>SK.CompSunlight</compClass>
+			</li>
+			<li Class="CompProperties_Glower">
+				<glowRadius>8</glowRadius>
+				<glowColor>(0,0,0,0)</glowColor>
+			</li>
+		</comps>
+	</ThingDef>
+
+</Buildings>

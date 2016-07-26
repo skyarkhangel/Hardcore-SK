@@ -5,7 +5,7 @@
   <!-- =========== bases =========== -->
 
 
-  <ThingDef Name="ResourceBase" Abstract="True">
+  <ThingDef Name="vsBase" Abstract="True">
     <thingClass>ThingWithComps</thingClass>
     <label>unspecified resource</label>
     <category>Item</category>
@@ -15,9 +15,7 @@
     <altitudeLayer>Item</altitudeLayer>
     <stackLimit>75</stackLimit>
     <comps>
-      <li>
-        <compClass>CompForbiddable</compClass>
-      </li>
+		<li Class="CompProperties_Forbiddable"/>
     </comps>
     <alwaysHaulable>true</alwaysHaulable>
     <drawGUIOverlay>true</drawGUIOverlay>
@@ -25,12 +23,13 @@
     <pathCost>15</pathCost>
   </ThingDef>
 
+  
   <ThingDef Name="ChunkBase" Abstract="True">
     <category>Item</category>
     <thingClass>Thing</thingClass>
     <altitudeLayer>Item</altitudeLayer>
     <passability>PassThroughOnly</passability>
-    <fillPercent>0.4</fillPercent>
+    <fillPercent>0.34</fillPercent>
     <statBases>
       <MaxHitPoints>300</MaxHitPoints>
       <Flammability>0</Flammability>
@@ -86,18 +85,7 @@
     </damageMultipliers>
   </ThingDef>
 
-  <ThingDef Name="BuildingNaturalBase" Abstract="True">
-    <category>Building</category>
-    <selectable>true</selectable>
-    <drawerType>MapMeshOnly</drawerType>
-  </ThingDef>
-
-
-
-
-
-
-  <ThingDef ParentName="ResourceBase" Name="StoneBlocksBase" Abstract="True">
+  <ThingDef ParentName="vsBase" Name="StoneBlocksBase" Abstract="True">
     <description>Blocks of stone. Mostly useful for building long-lasting, simple structures.</description>
     <graphicData>
       <texPath>Things/Item/Resource/StoneBlocks</texPath>
@@ -137,8 +125,6 @@
   </ThingDef>
 
 
-
-
   <ThingDef Name="RockBase" ParentName="BuildingNaturalBase" Abstract="True" >
     <thingClass>Mineable</thingClass>
     <graphicData>
@@ -176,9 +162,8 @@
   </ThingDef>
 
 
-
-
   <!-- =========== Misc chunks =========== -->
+  
   
   <ThingDef ParentName="ChunkBase">
     <defName>ChunkSlagSteel</defName>
@@ -193,28 +178,30 @@
       <li>Chunks</li>
     </thingCategories>
     <smeltProducts>
-      <SteelBar>10</SteelBar>
+		<SteelBar>10</SteelBar>
     </smeltProducts>
   </ThingDef>
 
+  
   <!-- =========== Stone solids, chunks, and blocks =========== -->
  
   
   <ThingDef ParentName="RockBase">
     <defName>Sandstone</defName>
-    <label>Sandstone</label>
+    <label>Sandstone Deposit</label>
     <description>Sandstone is a sedimentary rock that is composed of sand particles that have been compressed together.</description>
     <graphicData>
     <Color>(126,104,94)</Color>
     </graphicData>
     <statBases>
-      <MaxHitPoints>400</MaxHitPoints>
+      <MaxHitPoints>1100</MaxHitPoints>
     </statBases>
     <building>
       <mineableThing>ChunkSandstone</mineableThing>
       <mineableDropChance>0.25</mineableDropChance>
     </building>
   </ThingDef>
+  
   
   <ThingDef ParentName="ChunkBase">
     <defName>ChunkSandstone</defName>
@@ -226,27 +213,26 @@
     <Color>(126,104,94)</Color>
     </graphicData>
     <soundDrop>ChunkRock_Drop</soundDrop>
-
     <thingCategories>
       <li>StoneChunks</li>
     </thingCategories>
     <butcherProducts>
-      <BlocksSandstone>20</BlocksSandstone>
+	  		<BlocksSandstone>20</BlocksSandstone>
+	  		<CrushedStone>5</CrushedStone>
+			<Sand>20</Sand>
     </butcherProducts>
   </ThingDef>
 
 
-
-
   <ThingDef ParentName="RockBase">
     <defName>Granite</defName>
-    <label>Granite</label>
+    <label>Granite Deposit</label>
     <description>Granite is a very hard igneous rock.</description>
     <graphicData>
     <Color>(105,95,97)</Color>
     </graphicData>
     <statBases>
-      <MaxHitPoints>900</MaxHitPoints>
+      <MaxHitPoints>1700</MaxHitPoints>
     </statBases>
     <building>
       <mineableThing>ChunkGranite</mineableThing>
@@ -254,6 +240,7 @@
     </building>
   </ThingDef>
 
+  
   <ThingDef ParentName="ChunkBase">
     <defName>ChunkGranite</defName>
     <label>Granite Chunk</label>
@@ -264,29 +251,26 @@
     <Color>(105,95,97)</Color>
     </graphicData>
     <soundDrop>ChunkRock_Drop</soundDrop>
-
     <thingCategories>
       <li>StoneChunks</li>
     </thingCategories>
     <butcherProducts>
-      <BlocksGranite>20</BlocksGranite>  
+			<BlocksGranite>20</BlocksGranite>
+ 			<CrushedStone>5</CrushedStone>
+			<Sand>20</Sand>	  
     </butcherProducts>
   </ThingDef>
 
 
-
-
-
-
   <ThingDef ParentName="RockBase">
     <defName>Limestone</defName>
-    <label>Limestone</label>
+    <label>Limestone Deposit</label>
     <description>Limestone is a sedimentary rock formed from the compacted remains of ancient seashells.</description>
     <graphicData>
     <Color>(158,153,135)</Color>
     </graphicData>
     <statBases>
-      <MaxHitPoints>700</MaxHitPoints>
+      <MaxHitPoints>1300</MaxHitPoints>
     </statBases>
     <building>
       <mineableThing>ChunkLimestone</mineableThing>
@@ -294,6 +278,7 @@
     </building>
   </ThingDef>
 
+  
   <ThingDef ParentName="ChunkBase">
     <defName>ChunkLimestone</defName>
     <label>Limestone Chunk</label>
@@ -308,22 +293,22 @@
       <li>StoneChunks</li>
     </thingCategories>
     <butcherProducts>
-      <BlocksLimestone>20</BlocksLimestone>
+			<BlocksLimestone>20</BlocksLimestone>
+			<CrushedStone>5</CrushedStone>
+			<Sand>20</Sand>
     </butcherProducts>
   </ThingDef>
 
 
-
-
   <ThingDef ParentName="RockBase">
     <defName>Slate</defName>
-    <label>Slate</label>
+    <label>Slate Deposit</label>
     <description>Slate is a dark-colored metamorphic rock. Its fine layers are emblematic of slaty cleavage.</description>
     <graphicData>
     <Color>(70,70,70)</Color>
     </graphicData>
     <statBases>
-      <MaxHitPoints>500</MaxHitPoints>
+      <MaxHitPoints>1400</MaxHitPoints>
     </statBases>
     <building>
       <mineableThing>ChunkSlate</mineableThing>
@@ -331,6 +316,7 @@
     </building>
   </ThingDef>
 
+  
   <ThingDef ParentName="ChunkBase">
     <defName>ChunkSlate</defName>
     <label>Slate Chunk</label>
@@ -345,22 +331,22 @@
       <li>StoneChunks</li>
     </thingCategories>
     <butcherProducts>
-      <BlocksSlate>20</BlocksSlate>
+			<BlocksSlate>20</BlocksSlate>
+		 	<CrushedStone>5</CrushedStone>
+			<Sand>20</Sand>
     </butcherProducts>
   </ThingDef>
 
 
-
-
   <ThingDef ParentName="RockBase">
     <defName>Marble</defName>
-    <label>Marble</label>
+    <label>Marble Deposit</label>
     <description>Marble is a soft metamorphic rock composed of recrystallized carbonate minerals. It is commonly used in sculptures.</description>
     <graphicData>
     <Color>(132,135,132)</Color>
     </graphicData>
     <statBases>
-      <MaxHitPoints>450</MaxHitPoints>
+      <MaxHitPoints>1250</MaxHitPoints>
       <Beauty>-1</Beauty>
     </statBases>
     <building>
@@ -369,6 +355,7 @@
     </building>
   </ThingDef>
 
+  
   <ThingDef ParentName="ChunkBase">
     <defName>ChunkMarble</defName>
     <label>Marble Chunk</label>
@@ -383,7 +370,9 @@
       <li>StoneChunks</li>
     </thingCategories>
     <butcherProducts>
-      <BlocksMarble>20</BlocksMarble>
+			<BlocksMarble>20</BlocksMarble>
+	 	 	<CrushedStone>5</CrushedStone>
+			<Sand>20</Sand>
     </butcherProducts>
   </ThingDef>
 

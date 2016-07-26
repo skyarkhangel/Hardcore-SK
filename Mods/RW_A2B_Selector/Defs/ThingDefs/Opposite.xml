@@ -1,35 +1,77 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-	<ThingDef Name="BuildingBase" Abstract="True">
-		<category>Building</category>
 
-		<soundImpactDefault>BulletImpactSteel</soundImpactDefault>
+    <ThingDef Name="BuildingBase" Abstract="True">
+        <category>Building</category>
+        <thingClass>Building_Storage</thingClass>
 
-		<selectable>true</selectable>
-		<rotatable>true</rotatable>
+        <soundImpactDefault>BulletImpactSteel</soundImpactDefault>
 
-		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
-		<constructEffect>ConstructMetal</constructEffect>
-		<repairEffect>Repair</repairEffect>
-		<holdsRoof>false</holdsRoof>
-		<blockLight>false</blockLight>
-		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
-		<filthLeaving>BuildingRubble</filthLeaving>
+        <selectable>true</selectable>
+        <rotatable>true</rotatable>
 
-		<altitudeLayer>Waist</altitudeLayer>
-		<passability>PassThroughOnly</passability>
-		<pathCost>1000</pathCost>
+        <statBases>
+            <WorkToMake>550</WorkToMake>
+            <MaxHitPoints>200</MaxHitPoints>
+            <Flammability>1.0</Flammability>
+            <Beauty>0</Beauty>
+        </statBases>
 
-		<drawerType>MapMeshAndRealTime</drawerType>
-		<castEdgeShadows>true</castEdgeShadows>
-		<fillPercent>1</fillPercent>
-		<staticSunShadowHeight>0.34</staticSunShadowHeight>
+        <inspectorTabs>
+            <li>ITab_Storage</li>
+        </inspectorTabs>
 
-		<tickerType>Normal</tickerType>
+        <description>Sort and redirect items.</description>
 
-		<designationCategory>ConveyorBelts</designationCategory>
-		<researchPrerequisite>A2B2</researchPrerequisite>
+        <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+        <constructEffect>ConstructMetal</constructEffect>
+        <repairEffect>Repair</repairEffect>
+        <holdsRoof>false</holdsRoof>
+        <blockLight>false</blockLight>
+        <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+        <filthLeaving>BuildingRubble</filthLeaving>
+
+        <altitudeLayer>Waist</altitudeLayer>
+        <passability>PassThroughOnly</passability>
+        <pathCost>1000</pathCost>
+
+        <drawerType>MapMeshAndRealTime</drawerType>
+        <castEdgeShadows>true</castEdgeShadows>
+        <fillPercent>1</fillPercent>
+        <staticSunShadowHeight>0.34</staticSunShadowHeight>
+
+        <comps>
+            <li Class="CompProperties_Flickable" />
+            <li Class="CompProperties_Breakdownable" />
+            <li Class="CompProperties_Power">
+                <compClass>CompPowerTrader</compClass>
+                <basePowerConsumption>25</basePowerConsumption>
+                <soundPowerOn>PowerOnSmall</soundPowerOn>
+                <soundPowerOff>PowerOffSmall</soundPowerOff>
+                <transmitsPower>true</transmitsPower>
+                <startElectricalFires>true</startElectricalFires>
+            </li>
+            <li Class="CompProperties_Glower">
+                <compClass>CompGlower</compClass>
+                <glowRadius>1</glowRadius>
+                <glowColor>(255,200,0,0)</glowColor>
+            </li>
+        </comps>
+
+        <tickerType>Normal</tickerType>
+
+        <size>(1,1)</size>
+
+		<costList>
+            	<Rubber>8</Rubber>
+            	<Components>4</Components>
+				<Mechanism>2</Mechanism>
+           		<Electronics>2</Electronics>
+		</costList>
+
+        <designationHotkey/>
+        <designationCategory>ConveyorOptions</designationCategory>
     <damageMultipliers>
       <li>
         <damageDef>Bomb</damageDef>
@@ -68,52 +110,30 @@
         <multiplier>1.5</multiplier>
       </li>
     </damageMultipliers>
-	</ThingDef>
+    </ThingDef>
 
-	<ThingDef ParentName="BuildingBase">
-		<defName>A2BSelectorOpposite</defName>
-		<label>opposite selector</label>
-		<thingClass>Building_Storage</thingClass>
-		<graphicData>
-			<texPath>Things/Building/SelectorOpposite</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
-		</graphicData>
-		<inspectorTabs>
-			<li>ITab_Storage</li>
-		</inspectorTabs>
-		<statBases>
-			<WorkToMake>550</WorkToMake>
-			<MaxHitPoints>200</MaxHitPoints>
-			<Flammability>1.0</Flammability>
-			<Beauty>0</Beauty>
-		</statBases>
-		<description>Sort and redirect items.</description>
-		<comps>
-			<li>
-				<compClass>CompPowerTrader</compClass>
-				<basePowerConsumption>25</basePowerConsumption>
-				<soundPowerOn>PowerOnSmall</soundPowerOn>
-				<soundPowerOff>PowerOffSmall</soundPowerOff>
-				<transmitsPower>true</transmitsPower>
-				<startElectricalFires>true</startElectricalFires>
-			</li>
-			<li>
-				<compClass>CompGlower</compClass>
-				<glowRadius>1</glowRadius>
-				<glowColor>(255,200,0,0)</glowColor>
-			</li>
-			<li>
-				<compClass>A2B_Selector.Opposite</compClass>
-			</li>
-		</comps>
-		<size>(1,1)</size>
-		<costList>
-            	<Rubber>8</Rubber>
-            	<SteelBar>20</SteelBar>
-				<Mechanism>2</Mechanism>
-           		<Electronics>2</Electronics>
-		</costList>
-		<designationHotkey/>
-	</ThingDef>
+    <ThingDef Name="A2BSBase" ParentName="BuildingBase" Abstract="True">
+        <researchPrerequisites>
+            <li>A2B2</li>
+        </researchPrerequisites>
+    </ThingDef>
 
+    <ThingDef Name="A2BSMinified" ParentName="A2BSBase" Abstract="True">
+        <minifiedDef>MinifiedFurniture</minifiedDef>
+    </ThingDef>
+
+    <ThingDef ParentName="A2BSMinified">
+        <defName>A2BSelectorOpposite</defName>
+        <label>opposite selector</label>
+        <graphicData>
+            <texPath>Things/Building/SelectorOpposite</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+        </graphicData>
+        <comps>
+            <li>
+                <compClass>A2B_Selector.Opposite</compClass>
+            </li>
+        </comps>
+    </ThingDef>
+	
 </Defs>
