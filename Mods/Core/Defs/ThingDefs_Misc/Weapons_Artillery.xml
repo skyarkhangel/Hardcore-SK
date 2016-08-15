@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ThingDefs>
+
+  <!-- gun def for artillery, never used as an independent thing-->
+  <ThingDef Name="BaseArtilleryWeapon" Abstract="True">
+    <category>Item</category>
+    <thingClass>ThingWithComps</thingClass>
+    <label>artillery error</label>
+    <equipmentType>Primary</equipmentType>
+    <tickerType>Never</tickerType>
+    <techLevel>Industrial</techLevel>
+    <comps>
+      <li>
+        <compClass>CompEquippable</compClass>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef Name="BaseBullet" Abstract="True">
+    <category>Projectile</category>
+    <tickerType>Normal</tickerType>
+    <altitudeLayer>Projectile</altitudeLayer>
+    <thingClass>Bullet</thingClass>
+    <label>bullet</label>
+    <useHitPoints>False</useHitPoints>
+    <neverMultiSelect>True</neverMultiSelect>
+    <graphicData>
+      <shaderType>Transparent</shaderType>
+    </graphicData>
+  </ThingDef>
+
+
+
+
+  <!-- ================== Incendiary mortar ================== -->
+
+  <ThingDef ParentName="BaseBullet">
+    <defName>Bullet_MortarIncendiary</defName>
+    <label>incendiary mortar shell</label>
+    <graphicData>
+      <texPath>Things/Projectile/ShellIncendiary</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>TransparentPostLight</shaderType>
+    </graphicData>
+    <thingClass>Projectile_Explosive</thingClass>
+    <projectile>
+      <damageDef>Flame</damageDef>
+      <damageAmountBase>10</damageAmountBase>
+      <speed>41</speed>
+      <explosionRadius>2.9</explosionRadius>
+      <preExplosionSpawnThingDef>FilthFuel</preExplosionSpawnThingDef>
+      <explosionSpawnChance>0.25</explosionSpawnChance>
+      <flyOverhead>true</flyOverhead>
+      <soundHitThickRoof>ArtilleryHitThickRoof</soundHitThickRoof>
+      <soundExplode>MortarIncendiary_Explode</soundExplode>
+      <soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
+      <soundAmbient>MortarRound_Ambient</soundAmbient>
+    </projectile>
+  </ThingDef>
+  <ThingDef ParentName="BaseArtilleryWeapon">
+    <defName>Artillery_MortarIncendiary</defName>
+    <label>incendiary mortar</label>
+    <description>Incendiary mortar launcher. Lobs fire-starting bombs over walls. Very inaccurate but long-ranged.</description>
+    <techLevel>Industrial</techLevel>
+    <destroyOnDrop>True</destroyOnDrop>
+    <menuHidden>True</menuHidden>
+    <tradeability>Never</tradeability>
+    <statBases>
+      <MarketValue>1500</MarketValue>
+      <AccuracyTouch>0.79</AccuracyTouch>
+      <AccuracyShort>0.42</AccuracyShort>
+      <AccuracyMedium>0.18</AccuracyMedium>
+      <AccuracyLong>0.06</AccuracyLong>
+      <RangedWeapon_Cooldown>34</RangedWeapon_Cooldown>
+    </statBases>
+    <weaponTags>
+      <li>Artillery</li>
+      <li>Artillery_BaseDestroyer</li>
+    </weaponTags>
+    <verbs>
+      <li>
+        <verbClass>Verb_Shoot</verbClass>
+        <forceNormalTimeSpeed>false</forceNormalTimeSpeed>
+        <hasStandardCommand>true</hasStandardCommand>
+        <projectileDef>Bullet_MortarIncendiary</projectileDef>
+        <forcedMissRadius>16</forcedMissRadius>
+        <ai_IsIncendiary>true</ai_IsIncendiary>
+        <warmupTicks>500</warmupTicks>
+        <minRange>30</minRange>
+        <range>500</range>
+        <burstShotCount>1</burstShotCount>
+        <soundCast>Mortar_LaunchA</soundCast>
+        <muzzleFlashScale>16</muzzleFlashScale>
+      </li>
+    </verbs>
+  </ThingDef>
+
+
+  <!-- ================= Bomb mortar ================= -->
+
+  <ThingDef ParentName="BaseBullet">
+    <defName>Bullet_MortarBomb</defName>
+    <label>explosive mortar shell</label>
+    <graphicData>
+      <texPath>Things/Projectile/ShellBomb</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>TransparentPostLight</shaderType>
+    </graphicData>
+    <thingClass>Projectile_Explosive</thingClass>
+    <projectile>
+      <damageDef>Bomb</damageDef>
+      <damageAmountBase>50</damageAmountBase>
+      <speed>41</speed>
+      <explosionRadius>3.5</explosionRadius>
+      <flyOverhead>true</flyOverhead>
+      <soundHitThickRoof>ArtilleryHitThickRoof</soundHitThickRoof>
+      <soundExplode>MortarBomb_Explode</soundExplode>
+      <soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
+      <soundAmbient>MortarRound_Ambient</soundAmbient>
+    </projectile>
+  </ThingDef>
+  <ThingDef ParentName="BaseArtilleryWeapon">
+    <defName>Artillery_MortarBomb</defName>
+    <label>explosive mortar</label>
+    <description>Mortar launcher. Lobs bombs over walls. Very inaccurate but long-ranged.</description>
+    <techLevel>Industrial</techLevel>
+    <destroyOnDrop>True</destroyOnDrop>
+    <menuHidden>True</menuHidden>
+    <tradeability>Never</tradeability>
+    <statBases>
+      <MarketValue>1500</MarketValue>
+      <AccuracyTouch>0.79</AccuracyTouch>
+      <AccuracyShort>0.42</AccuracyShort>
+      <AccuracyMedium>0.18</AccuracyMedium>
+      <AccuracyLong>0.06</AccuracyLong>
+      <RangedWeapon_Cooldown>34</RangedWeapon_Cooldown>
+    </statBases>
+      <weaponTags>
+      <li>Artillery</li>
+      <li>Artillery_BaseDestroyer</li>
+    </weaponTags>
+    <verbs>
+      <li>
+        <verbClass>Verb_Shoot</verbClass>
+        <forceNormalTimeSpeed>false</forceNormalTimeSpeed>
+        <hasStandardCommand>true</hasStandardCommand>
+        <projectileDef>Bullet_MortarBomb</projectileDef>
+        <forcedMissRadius>16</forcedMissRadius>
+        <warmupTicks>500</warmupTicks>
+        <minRange>30</minRange>
+        <range>500</range>
+        <burstShotCount>1</burstShotCount>
+        <soundCast>Mortar_LaunchA</soundCast>
+        <muzzleFlashScale>16</muzzleFlashScale>
+      </li>
+    </verbs>
+  </ThingDef>
+
+  <!-- ================= EMP mortar ================= -->
+
+  <ThingDef ParentName="BaseBullet">
+    <defName>Bullet_MortarEMP</defName>
+    <label>EMP mortar bomb</label>
+    <graphicData>
+      <texPath>Things/Projectile/ShellEMP</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>TransparentPostLight</shaderType>
+    </graphicData>
+    <thingClass>Projectile_Explosive</thingClass>
+    <projectile>
+      <damageDef>EMP</damageDef>
+      <damageAmountBase>360</damageAmountBase>
+      <speed>41</speed>
+      <explosionRadius>8.5</explosionRadius>
+      <flyOverhead>true</flyOverhead>
+      <soundHitThickRoof>ArtilleryHitThickRoof</soundHitThickRoof>
+      <soundExplode>Explosion_EMP</soundExplode>
+      <soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
+      <soundAmbient>MortarRound_Ambient</soundAmbient>
+    </projectile>
+  </ThingDef>
+  <ThingDef ParentName="BaseArtilleryWeapon">
+    <defName>Artillery_MortarEMP</defName>
+    <label>EMP mortar</label>
+    <description>Mortar launcher. Lobs EMP bombs over walls. Very inaccurate but long-ranged.</description>
+    <techLevel>Industrial</techLevel>
+    <destroyOnDrop>True</destroyOnDrop>
+    <menuHidden>True</menuHidden>
+    <tradeability>Never</tradeability>
+    <statBases>
+      <MarketValue>1500</MarketValue>
+      <AccuracyTouch>0.79</AccuracyTouch>
+      <AccuracyShort>0.42</AccuracyShort>
+      <AccuracyMedium>0.18</AccuracyMedium>
+      <AccuracyLong>0.06</AccuracyLong>
+      <RangedWeapon_Cooldown>34</RangedWeapon_Cooldown>
+    </statBases>
+    <weaponTags>
+      <li>Artillery</li>
+    </weaponTags>
+    <verbs>
+      <li>
+        <verbClass>Verb_Shoot</verbClass>
+        <forceNormalTimeSpeed>false</forceNormalTimeSpeed>
+        <hasStandardCommand>true</hasStandardCommand>
+        <projectileDef>Bullet_MortarEMP</projectileDef>
+        <forcedMissRadius>16</forcedMissRadius>
+        <warmupTicks>500</warmupTicks>
+        <minRange>30</minRange>
+        <range>500</range>
+        <burstShotCount>1</burstShotCount>
+        <soundCast>Mortar_LaunchA</soundCast>
+        <muzzleFlashScale>16</muzzleFlashScale>
+      </li>
+    </verbs>
+  </ThingDef>
+
+
+</ThingDefs>

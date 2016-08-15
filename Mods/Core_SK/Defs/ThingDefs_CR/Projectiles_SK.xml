@@ -15,8 +15,24 @@
     </graphicData>
 	<projectile Class="Combat_Realism.ProjectilePropertiesCR"/>
   </ThingDef>
+
+  <ThingDef Name="BaseBulletv" Abstract="True">
+    <category>Projectile</category>
+	<defName>BaseBulletv</defName>
+    <tickerType>Normal</tickerType>
+    <altitudeLayer>Projectile</altitudeLayer>
+    <thingClass>Combat_Realism.BulletCRV</thingClass>
+    <label>bullet</label>
+    <useHitPoints>False</useHitPoints>
+    <neverMultiSelect>True</neverMultiSelect>
+    <graphicData>
+      <shaderType>Transparent</shaderType>
+    </graphicData>
+	<projectile Class="Combat_Realism.ProjectilePropertiesCR"/>
+  </ThingDef>
   
-	<ThingDef Name="BaseArtilleryShell" ParentName="BaseBullet" Abstract="true">
+  
+	<ThingDef Name="BaseArtilleryShell" ParentName="BaseBullet" Abstract="true" Class="Combat_Realism.ThingDef_CaseLeaver">
 		<thingClass>Combat_Realism.ProjectileCR_Explosive</thingClass>
 		<graphicData>
       <shaderType>TransparentPostLight</shaderType>
@@ -26,13 +42,27 @@
       <soundHitThickRoof>ArtilleryHitThickRoof</soundHitThickRoof>
       <soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
       <soundAmbient>MortarRound_Ambient</soundAmbient>
-      <flyOverhead>true</flyOverhead>
+		</projectile>
+	<isBigGunDropper>True</isBigGunDropper>	
+	</ThingDef>
+	
+	<ThingDef Name="BaseRocketLauncher" ParentName="BaseBulletv" Abstract="true">
+		<thingClass>Combat_Realism.ProjectileCR_Explosive_RL</thingClass>
+		<graphicData>
+      <shaderType>TransparentPostLight</shaderType>
+		</graphicData>
+		<projectile>
+		<speed>60</speed>
+      <soundHitThickRoof>ArtilleryHitThickRoof</soundHitThickRoof>
+      <soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
+      <soundAmbient>RocketPropelledLoop_Big</soundAmbient>
+		 <flyOverhead>false</flyOverhead>
 		</projectile>
 	</ThingDef>
   
   <!-- ================== Bolt ================== -->
 
-  <ThingDef Name="BaseBoltProjectile" ParentName="BaseBullet" Abstract="true">
+  <ThingDef Name="BaseBoltProjectile" ParentName="BaseBulletv" Abstract="true">
     <graphicData>
       <texPath>Things/Projectile/Arrow_Small</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -67,7 +97,7 @@
     </projectile>
   </ThingDef>
   
-  <ThingDef ParentName="BaseBullet">
+  <ThingDef ParentName="BaseBullet" Class="Combat_Realism.ThingDef_CaseLeaver">
 		<defName>Bullet_44inchMAG</defName>
 		<label>.44 Remington Magnum</label>
     <graphicData>
@@ -86,7 +116,7 @@
 
  	<!-- ================== .50 AE ================== -->
 	
-  <ThingDef Name="Base50AEBullet" ParentName="BaseBullet" Abstract="true">
+  <ThingDef Name="Base50AEBullet" ParentName="BaseBullet" Abstract="true" Class="Combat_Realism.ThingDef_CaseLeaver">
     <graphicData>
       <texPath>Things/Projectile/Bullet_Small</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -127,7 +157,7 @@
 
  	<!-- ================== 5.45mm Russian bullet ================== -->
   
-  <ThingDef ParentName="BaseBullet">
+  <ThingDef ParentName="BaseBullet" Class="Combat_Realism.ThingDef_CaseLeaver">
     <defName>Bullet_545x39mmR_FMJ</defName>
     <label>5.45mm Russian bullet (FMJ)</label>
     <graphicData>
@@ -174,7 +204,7 @@
   </ThingDef>
   
   
-  <ThingDef ParentName="BaseBullet">
+  <ThingDef ParentName="BaseBullet" Class="Combat_Realism.ThingDef_CaseLeaver">
 		<defName>Bullet_9x39Soviet</defName>
 		<label>9x39mm Soviet sniper standart</label>
     <graphicData>
@@ -190,9 +220,10 @@
   </ThingDef>
  
   
-	<ThingDef Name="BaseM72LAW" ParentName="BaseBullet" Abstract="true">
+	<ThingDef Name="BaseM72LAW" ParentName="BaseRocketLauncher" Abstract="true">
 		<projectile>
-			<speed>90</speed>
+			<speed>65</speed>
+			<soundAmbient>RocketPropelledLoop_Small</soundAmbient>
 		</projectile>
 	</ThingDef>
 
@@ -207,13 +238,13 @@
       <damageDef>Bullet</damageDef>
       <damageAmountBase>60</damageAmountBase>
 	  <armorPenetration>1.2</armorPenetration>
+      <soundExplode>MortarBomb_Explode</soundExplode>
     </projectile>
     <comps>
       <li Class="Combat_Realism.CompProperties_ExplosiveCR">
         <explosionDamage>30</explosionDamage>
         <explosionDamageDef>Bomb</explosionDamageDef>
         <explosionRadius>3.5</explosionRadius>
-        <soundExplode>Explosion_Bomb</soundExplode>
       </li>
     </comps>
   </ThingDef>
@@ -226,8 +257,10 @@
 		<graphicClass>Graphic_Single</graphicClass>
 	</graphicData>
     <projectile>
+	  <explosionRadius>2.0</explosionRadius>
       <damageDef>Thermobaric</damageDef>
       <damageAmountBase>50</damageAmountBase>
+      <soundExplode>MortarBomb_Explode</soundExplode>
     </projectile>
     <comps>
 	  <li Class="Combat_Realism.CompProperties_ExplosiveCR">
@@ -235,7 +268,6 @@
 	    <explosionDamageDef>Flame</explosionDamageDef>
 	    <explosionRadius>4.5</explosionRadius>
 	    <damageAdjacentTiles>true</damageAdjacentTiles>
-	    <soundExplode>MortarBomb_Explode</soundExplode>
 	  </li>
     </comps>
   </ThingDef>
@@ -248,29 +280,31 @@
 		<graphicClass>Graphic_Single</graphicClass>
 	</graphicData>
     <projectile>
-      <explosionRadius>1.5</explosionRadius>
+      <explosionRadius>1.8</explosionRadius>
       <damageDef>Bomb</damageDef>
       <damageAmountBase>60</damageAmountBase>
+      <soundExplode>MortarBomb_Explode</soundExplode>
     </projectile>
     <comps>
       <li Class="Combat_Realism.CompProperties_ExplosiveCR">
         <fragRange>10</fragRange>
         <fragments>
-          <Fragment_GrenadeFragSmall>450</Fragment_GrenadeFragSmall>
-          <Fragment_GrenadeFragMedium>270</Fragment_GrenadeFragMedium>
-          <Fragment_GrenadeFragLarge>90</Fragment_GrenadeFragLarge>
+          <Fragment_GrenadeFragSmall>170</Fragment_GrenadeFragSmall>
+          <Fragment_GrenadeFragMedium>110</Fragment_GrenadeFragMedium>
+          <Fragment_GrenadeFragLarge>35</Fragment_GrenadeFragLarge>
         </fragments>
-	    <soundExplode>Explosion_Bomb</soundExplode>
       </li>
     </comps>
   </ThingDef>
 
   
-	<ThingDef Name="BaseFGMJGrenade" ParentName="BaseBullet" Abstract="true">
+	<ThingDef Name="BaseFGMJGrenade" ParentName="BaseRocketLauncher" Abstract="true">
 		<projectile>
-			<speed>130</speed>
+			<speed>65</speed>
+			<soundAmbient>RocketPropelledLoop_Small</soundAmbient>
 		</projectile>
 	</ThingDef>
+	
 
   <ThingDef ParentName="BaseFGMJGrenade">
     <defName>Bullet_FGMJGrenade_HEAT</defName>
@@ -283,13 +317,13 @@
       <damageDef>Bullet</damageDef>
       <damageAmountBase>80</damageAmountBase>
 	  <armorPenetration>2</armorPenetration>
+      <soundExplode>MortarBomb_Explode</soundExplode>
     </projectile>
     <comps>
       <li Class="Combat_Realism.CompProperties_ExplosiveCR">
         <explosionDamage>40</explosionDamage>
         <explosionDamageDef>Bomb</explosionDamageDef>
         <explosionRadius>4</explosionRadius>
-        <soundExplode>Explosion_Bomb</soundExplode>
       </li>
     </comps>
   </ThingDef>
@@ -302,8 +336,10 @@
 		<graphicClass>Graphic_Single</graphicClass>
 	</graphicData>
     <projectile>
+      <explosionRadius>1.5</explosionRadius>
       <damageDef>Thermobaric</damageDef>
       <damageAmountBase>65</damageAmountBase>
+      <soundExplode>MortarBomb_Explode</soundExplode>
     </projectile>
     <comps>
 	  <li Class="Combat_Realism.CompProperties_ExplosiveCR">
@@ -311,7 +347,6 @@
 	    <explosionDamageDef>Flame</explosionDamageDef>
 	    <explosionRadius>5</explosionRadius>
 	    <damageAdjacentTiles>true</damageAdjacentTiles>
-	    <soundExplode>MortarBomb_Explode</soundExplode>
 	  </li>
     </comps>
   </ThingDef>
@@ -324,24 +359,25 @@
 		<graphicClass>Graphic_Single</graphicClass>
 	</graphicData>
     <projectile>
-      <explosionRadius>1.5</explosionRadius>
+      <explosionRadius>2.0</explosionRadius>
       <damageDef>Bomb</damageDef>
       <damageAmountBase>50</damageAmountBase>
+	  <soundExplode>MortarBomb_Explode</soundExplode>
     </projectile>
     <comps>
       <li Class="Combat_Realism.CompProperties_ExplosiveCR">
         <fragRange>12</fragRange>
         <fragments>
-          <Fragment_GrenadeFragSmall>520</Fragment_GrenadeFragSmall>
-          <Fragment_GrenadeFragMedium>310</Fragment_GrenadeFragMedium>
-          <Fragment_GrenadeFragLarge>110</Fragment_GrenadeFragLarge>
+          <Fragment_GrenadeFragSmall>200</Fragment_GrenadeFragSmall>
+          <Fragment_GrenadeFragMedium>100</Fragment_GrenadeFragMedium>
+          <Fragment_GrenadeFragLarge>30</Fragment_GrenadeFragLarge>
         </fragments>
       </li>
     </comps>
   </ThingDef>
   
   
-  <ThingDef ParentName="BaseBullet">
+  <ThingDef ParentName="BaseBulletv">
     <defName>Bullet_Plasma</defName>
     <thingClass>SK.Projectile_PlasmaCR</thingClass>
     <label>Plasma bolt</label>
@@ -363,7 +399,7 @@
     </projectile>
   </ThingDef>
   
-  <ThingDef ParentName="BaseBullet">
+  <ThingDef ParentName="BaseBulletv">
     <defName>Bullet_PlasmaTurret</defName>
     <thingClass>SK.Projectile_PlasmaCR</thingClass>
     <label>Dual plasma bolt</label>
@@ -386,7 +422,7 @@
   </ThingDef>
   
   
-  <ThingDef Class="SK.ThingDef_LaserProjectileCR" ParentName="BaseBullet">
+  <ThingDef Class="SK.ThingDef_LaserProjectileCR" ParentName="BaseBulletv">
     <defName>Bullet_ChargeLance</defName>
     <thingClass>SK.Projectile_LaserCR</thingClass>
     <label>MH-1 Charge lance</label>
@@ -409,7 +445,7 @@
   </ThingDef>
   
   
-  <ThingDef Class="SK.ThingDef_LaserProjectileCR" ParentName="BaseBullet">
+  <ThingDef Class="SK.ThingDef_LaserProjectileCR" ParentName="BaseBulletv">
     <defName>Bullet_Laserbeam</defName>
     <thingClass>SK.Projectile_LaserCR</thingClass>
     <label>Laser beam</label>
@@ -434,14 +470,16 @@
   
 	<!-- ================== 120mm cannon shell ================== -->
 
-	<ThingDef Name="Base120mmCannonShell" ParentName="BaseBullet" Abstract="true">
+	<ThingDef Name="Base120mmCannonShell" ParentName="BaseBullet" Abstract="true" Class="Combat_Realism.ThingDef_CaseLeaver">
 		<graphicData>
       <shaderType>TransparentPostLight</shaderType>
 		</graphicData>
 		<projectile>
-			<speed>160</speed>
-      <soundExplode>MortarBomb_Explode</soundExplode>
+			<speed>140</speed>
+			<soundExplode>MortarBomb_Explode</soundExplode>
+	  		<flyOverhead>false</flyOverhead>
 		</projectile>
+	<isBigGunDropper>True</isBigGunDropper>	
 	</ThingDef>
 
   <ThingDef ParentName="Base120mmCannonShell">
@@ -455,7 +493,7 @@
       <damageDef>Bullet</damageDef>
       <damageAmountBase>230</damageAmountBase>
 	  <soundHitThickRoof>ArtilleryHitThickRoof</soundHitThickRoof>
-	  <soundExplode>CannonTurret/Explosion</soundExplode>
+	  <soundExplode>MortarBomb_Explode</soundExplode>
       <soundImpactAnticipate>FlyingShell</soundImpactAnticipate>
     </projectile>
 		<comps>
@@ -464,12 +502,11 @@
 				<explosionDamageDef>Bomb</explosionDamageDef>
 				<explosionRadius>1.8</explosionRadius>
 				<fragments>
-					<Fragment_MortarSmall>70</Fragment_MortarSmall>
-					<Fragment_MortarMedium>45</Fragment_MortarMedium>
-					<Fragment_MortarLarge>20</Fragment_MortarLarge>
+					<Fragment_MortarSmall>45</Fragment_MortarSmall>
+					<Fragment_MortarMedium>25</Fragment_MortarMedium>
+					<Fragment_MortarLarge>12</Fragment_MortarLarge>
 				</fragments>
 				<fragRange>8.5</fragRange>
-				<soundExplode>MortarBomb_Explode</soundExplode>
 			</li>
 		</comps>
   </ThingDef>
@@ -487,7 +524,7 @@
       <damageAmountBase>15</damageAmountBase>
       <explosionRadius>1.5</explosionRadius>
 	  <soundHitThickRoof>ArtilleryHitThickRoof</soundHitThickRoof>
-	  <soundExplode>CannonTurret/Explosion</soundExplode>
+	  <soundExplode>MortarBomb_Explode</soundExplode>
       <soundImpactAnticipate>FlyingShell</soundImpactAnticipate>
     </projectile>
 		<comps>
@@ -496,12 +533,11 @@
 				<explosionDamageDef>Bomb</explosionDamageDef>
 				<explosionRadius>3.0</explosionRadius>
 				<fragments>
-					<Fragment_MortarSmall>370</Fragment_MortarSmall>
-					<Fragment_MortarMedium>280</Fragment_MortarMedium>
-					<Fragment_MortarLarge>110</Fragment_MortarLarge>
+					<Fragment_MortarSmall>140</Fragment_MortarSmall>
+					<Fragment_MortarMedium>110</Fragment_MortarMedium>
+					<Fragment_MortarLarge>35</Fragment_MortarLarge>
 				</fragments>
 				<fragRange>8</fragRange>
-				<soundExplode>MortarBomb_Explode</soundExplode>
 			</li>
 		</comps>
   </ThingDef>
@@ -519,27 +555,29 @@
       <damageDef>EMP</damageDef>
       <damageAmountBase>95</damageAmountBase>
       <explosionRadius>6.5</explosionRadius>
+	  <soundExplode>MortarBomb_Explode</soundExplode>
     </projectile>
 		<comps>
 			<li Class="Combat_Realism.CompProperties_ExplosiveCR">
 				<explosionDamage>25</explosionDamage>
 				<explosionDamageDef>Electrical</explosionDamageDef>
 				<explosionRadius>6.5</explosionRadius>
-				<soundExplode>MortarEMP_Explode</soundExplode>
 			</li>
 		</comps>
   </ThingDef>
   
 	<!-- ================== 155mm howitzer shell ================== -->
 
-	<ThingDef Name="Base155mmHowitzerShell" ParentName="BaseArtilleryShell" Abstract="true">
+	<ThingDef Name="Base155mmHowitzerShell" ParentName="BaseArtilleryShell" Abstract="true" Class="Combat_Realism.ThingDef_CaseLeaver">
 		<graphicData>
       <shaderType>TransparentPostLight</shaderType>
 		</graphicData>
 		<projectile>
-		<speed>155</speed>
-		<soundExplode>MortarBomb_Explode</soundExplode>
+		<speed>60</speed>
+		<soundExplode>Explosion</soundExplode>
+		<flyOverhead>true</flyOverhead>
 		</projectile>
+		<isBigGunDropper>True</isBigGunDropper>
 	</ThingDef>
 
   <ThingDef ParentName="Base155mmHowitzerShell">
@@ -555,7 +593,6 @@
       <damageAmountBase>150</damageAmountBase>
       <explosionRadius>2.8</explosionRadius>
       <soundHitThickRoof>ArtilleryHitThickRoof</soundHitThickRoof>
-      <soundExplode>MortarBomb_Explode</soundExplode>
       <soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
     </projectile>
 		<comps>
@@ -564,12 +601,11 @@
 				<explosionDamageDef>Bomb</explosionDamageDef>
 				<explosionRadius>3.8</explosionRadius>
 				<fragments>
-					<Fragment_MortarSmall>460</Fragment_MortarSmall>
-					<Fragment_MortarMedium>370</Fragment_MortarMedium>
-					<Fragment_MortarLarge>140</Fragment_MortarLarge>
+					<Fragment_MortarSmall>180</Fragment_MortarSmall>
+					<Fragment_MortarMedium>130</Fragment_MortarMedium>
+					<Fragment_MortarLarge>45</Fragment_MortarLarge>
 				</fragments>
 				<fragRange>13</fragRange>
-				<soundExplode>MortarBomb_Explode</soundExplode>
 			</li>
 		</comps>
   </ThingDef>
@@ -587,13 +623,13 @@
       <damageDef>EMP</damageDef>
       <damageAmountBase>150</damageAmountBase>
       <explosionRadius>9</explosionRadius>
+      <soundExplode>MortarBomb_Explode</soundExplode>
     </projectile>
 		<comps>
 			<li Class="Combat_Realism.CompProperties_ExplosiveCR">
 				<explosionDamage>50</explosionDamage>
 				<explosionDamageDef>Electrical</explosionDamageDef>
 				<explosionRadius>9</explosionRadius>
-				<soundExplode>MortarEMP_Explode</soundExplode>
 			</li>
 		</comps>
   </ThingDef>
@@ -601,13 +637,14 @@
   
 	<!-- ================== 130mm rocket missile ================== -->
 
-	<ThingDef Name="Base130mmRocketMissile" ParentName="BaseArtilleryShell" Abstract="true">
+	<ThingDef Name="Base130mmRocketMissile" ParentName="BaseRocketLauncher" Abstract="true">
 		<graphicData>
-      <shaderType>TransparentPostLight</shaderType>
+			<shaderType>TransparentPostLight</shaderType>
 		</graphicData>
 		<projectile>
-		<speed>85</speed>
-		<soundExplode>MortarBomb_Explode</soundExplode>
+		<speed>60</speed>
+		<soundExplode>Explosion</soundExplode>
+		<flyOverhead>true</flyOverhead>
 		</projectile>
 	</ThingDef>
 
@@ -624,8 +661,7 @@
       <damageAmountBase>130</damageAmountBase>
       <explosionRadius>2</explosionRadius>
       <soundHitThickRoof>ArtilleryHitThickRoof</soundHitThickRoof>
-      <soundExplode>CannonTurret/Explosion</soundExplode>
-      <soundImpactAnticipate>RocketLauncher/RL_PreImpact</soundImpactAnticipate>
+      <soundImpactAnticipate>RL_PreImpact</soundImpactAnticipate>
     </projectile>
 		<comps>
 			<li Class="Combat_Realism.CompProperties_ExplosiveCR">
@@ -633,12 +669,11 @@
 				<explosionDamageDef>Bomb</explosionDamageDef>
 				<explosionRadius>3</explosionRadius>
 				<fragments>
-					<Fragment_MortarSmall>470</Fragment_MortarSmall>
-					<Fragment_MortarMedium>360</Fragment_MortarMedium>
-					<Fragment_MortarLarge>130</Fragment_MortarLarge>
+					<Fragment_MortarSmall>160</Fragment_MortarSmall>
+					<Fragment_MortarMedium>120</Fragment_MortarMedium>
+					<Fragment_MortarLarge>40</Fragment_MortarLarge>
 				</fragments>
 				<fragRange>13</fragRange>
-				<soundExplode>MortarBomb_Explode</soundExplode>
 			</li>
 		</comps>
   </ThingDef>
@@ -646,7 +681,7 @@
   
 	<!-- ================== 20x102mm ================== -->
 
-  <ThingDef Name="Base20x102mmBullet" ParentName="BaseBullet" Abstract="true">
+  <ThingDef Name="Base20x102mmBullet" ParentName="BaseBullet" Abstract="true" Class="Combat_Realism.ThingDef_CaseLeaver">
     <graphicData>
       <texPath>Things/Projectile/50CalRound</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -675,7 +710,7 @@
 
 	<!-- ================== 30x173mm ================== -->
 
-  <ThingDef ParentName="BaseBullet">
+  <ThingDef ParentName="BaseBullet" Class="Combat_Realism.ThingDef_CaseLeaver">
     <defName>Bullet_30x173mm</defName>
     <label>30x173mm avenger shell</label>
     <graphicData>
@@ -698,11 +733,10 @@
 			<explosionDamage>15</explosionDamage>
 			<explosionDamageDef>Bomb</explosionDamageDef>
 			<explosionRadius>1.1</explosionRadius>
-			<soundExplode>MortarBomb_Explode</soundExplode>
 			<fragments>
-			  <Fragment_GrenadeFragSmall>20</Fragment_GrenadeFragSmall>
-			  <Fragment_GrenadeFragMedium>7</Fragment_GrenadeFragMedium>
-			  <Fragment_GrenadeFragLarge>3</Fragment_GrenadeFragLarge>
+			  <Fragment_GrenadeFragSmall>12</Fragment_GrenadeFragSmall>
+			  <Fragment_GrenadeFragMedium>5</Fragment_GrenadeFragMedium>
+			  <Fragment_GrenadeFragLarge>2</Fragment_GrenadeFragLarge>
 			</fragments>
 			<fragRange>3.0</fragRange>
 		  </li>
@@ -711,7 +745,7 @@
   
 	<!-- ================== 35x228mm ================== -->
   
-  <ThingDef ParentName="BaseBullet">
+  <ThingDef ParentName="BaseBullet" Class="Combat_Realism.ThingDef_CaseLeaver">
     <defName>Bullet_35x228mm</defName>
     <label>35x228mm avenger shell</label>
     <graphicData>
@@ -734,11 +768,10 @@
 			<explosionDamage>22</explosionDamage>
 			<explosionDamageDef>Flame</explosionDamageDef>
 			<explosionRadius>1.3</explosionRadius>
-			<soundExplode>MortarBomb_Explode</soundExplode>
 			<fragments>
-			  <Fragment_GrenadeFragSmall>30</Fragment_GrenadeFragSmall>
-			  <Fragment_GrenadeFragMedium>10</Fragment_GrenadeFragMedium>
-			  <Fragment_GrenadeFragLarge>5</Fragment_GrenadeFragLarge>
+			  <Fragment_GrenadeFragSmall>20</Fragment_GrenadeFragSmall>
+			  <Fragment_GrenadeFragMedium>6</Fragment_GrenadeFragMedium>
+			  <Fragment_GrenadeFragLarge>3</Fragment_GrenadeFragLarge>
 			</fragments>
 			<fragRange>3.0</fragRange>
 		  </li>

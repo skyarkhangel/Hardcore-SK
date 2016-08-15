@@ -5,7 +5,7 @@
 		<defName>Humanlike</defName>
 		<thinkRoot Class="ThinkNode_Priority">
 			<subNodes>
-        <!-- Do something while lying down -->
+        <!-- Do lovin' -->
 				<li Class="ThinkNode_ConditionalLyingDown">
           <subNodes>
             <li Class="ThinkNode_ChancePerHour_Lovin">
@@ -13,13 +13,16 @@
                 <li Class="JobGiver_DoLovin" />
               </subNodes>
             </li>
-            <li Class="JobGiver_GetJoyWhileLyingDown" />
           </subNodes>
         </li>
             
-        <!-- Keep lying down if we have to -->
+        <!-- If we HAVE to keep lying down... -->
 				<li Class="ThinkNode_ConditionalMustKeepLyingDown">
 					<subNodes>
+            <!-- Get joy -->
+            <li Class="JobGiver_GetJoyInBed" />
+            
+            <!-- Keep lying down -->
             <li Class="JobGiver_KeepLyingDown" />
           </subNodes>
         </li>
@@ -80,13 +83,17 @@
               <subNodes>
                 <li Class="JobGiver_GetFood"/>
                 <li Class="JobGiver_GetRest"/>
-                <li Class="JobGiver_GetJoy"/>
+                <li Class="ThinkNode_Priority_GetJoy">
+                  <subNodes>
+                    <li Class="JobGiver_GetJoy"/>
+                  </subNodes>
+                </li>
               </subNodes>
             </li>
             <li Class="ThinkNode_ConditionalReleased">
               <subNodes>
-                <li Class="JobGiver_ExitMapNearest">
-                  <locomotion>Walk</locomotion>
+                <li Class="JobGiver_ExitMapBest">
+                  <defaultLocomotion>Walk</defaultLocomotion>
                 </li>
               </subNodes>
             </li>
@@ -173,7 +180,12 @@
 							<subNodes>
 								<li Class="JobGiver_GetFood"/>
 								<li Class="JobGiver_GetRest"/>
-								<li Class="JobGiver_GetJoy"/>
+                <li Class="ThinkNode_Priority_GetJoy">
+                  <subNodes>
+                    <li Class="JobGiver_GetJoyInBed"/>
+                    <li Class="JobGiver_GetJoy"/>
+                  </subNodes>
+                </li>
 								<li Class="JobGiver_Work"/>
 							</subNodes>
 						</li>
@@ -185,12 +197,23 @@
           <insertTag>Humanlike_PostMain</insertTag>
         </li>
 
-        <!-- Idle wander for colonists -->
+        <!-- Idle colonist -->
         <li Class="ThinkNode_ConditionalColonist">
           <subNodes>
             <li Class="ThinkNode_Tagger">
               <tagToGive>Idle</tagToGive>
               <subNodes>
+                <!-- Do random joy activity -->
+                <li Class="ThinkNode_ConditionalNeedPercentageAbove">
+                  <need>Joy</need>
+                  <threshold>0.9</threshold>
+                  <invert>true</invert>
+                  <subNodes>
+                    <li Class="JobGiver_IdleJoy" />
+                  </subNodes>
+                </li>
+              
+                <!-- Wander -->
                 <li Class="JobGiver_WanderColony">
                   <maxDanger>None</maxDanger>
                 </li>
@@ -206,8 +229,8 @@
             <li Class="ThinkNode_ConditionalNeutralFaction">
               <subNodes>
                 <li Class="JobGiver_PatientGoToBed" />
-                <li Class="JobGiver_ExitMapNearest">
-                  <locomotion>Walk</locomotion>
+                <li Class="JobGiver_ExitMapBest">
+                  <defaultLocomotion>Walk</defaultLocomotion>
                 </li>
               </subNodes>
             </li>

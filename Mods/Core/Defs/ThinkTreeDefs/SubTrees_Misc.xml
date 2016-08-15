@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ThinkTrees>
 
-
   <!--============= Downed ============-->
+  
   <ThinkTreeDef>
     <defName>Downed</defName>
     <thinkRoot Class="ThinkNode_ConditionalDowned">
@@ -13,6 +13,7 @@
   </ThinkTreeDef>
   
   <!--============= Burning ============-->
+  
   <ThinkTreeDef>
 		<defName>BurningResponse</defName>
 		<thinkRoot Class="ThinkNode_ConditionalBurning">
@@ -29,7 +30,23 @@
 		</thinkRoot>
 	</ThinkTreeDef>
 
-  <!--============= Mental state ============-->
+  <!--============= Dig out if I can't reach map edge ===========-->
+  
+  <ThinkTreeDef>
+    <defName>DigOutIfCannotReachMapEdge</defName>
+    <thinkRoot Class="ThinkNode_ConditionalCannotReachMapEdge">
+      <subNodes>
+        <li Class="JobGiver_ExitMapBest">
+          <defaultLocomotion>Walk</defaultLocomotion>
+          <forceCanDig>true</forceCanDig>
+          <canBash>true</canBash>
+        </li>
+      </subNodes>
+    </thinkRoot>
+  </ThinkTreeDef>
+  
+  <!--============= Mental states (critical) ============-->
+  
   <ThinkTreeDef>
 		<defName>MentalStateCritical</defName>
     <thinkRoot Class="ThinkNode_Priority">
@@ -47,41 +64,34 @@
 				    </li>
 			    </subNodes>
 		    </li>
+		    <li Class="ThinkNode_ConditionalMentalState">
+			    <state>SocialFighting</state>
+			    <subNodes>
+				    <li Class="ThinkNode_Priority">
+					    <subNodes>
+						    <li Class="JobGiver_SocialFighting" />
+                <li Class="JobGiver_WanderAnywhere">
+                  <maxDanger>Deadly</maxDanger>
+                </li>
+                </subNodes>
+				    </li>
+			    </subNodes>
+		    </li>
       </subNodes>
     </thinkRoot>
 	</ThinkTreeDef>
+
+
+  <!--============= Mental states (non-critical) ============-->
 
   <ThinkTreeDef>
     <defName>MentalStateNonCritical</defName>
     <thinkRoot Class="ThinkNode_Priority">
       <subNodes>
-        <!-- Give up and leave -->
+ 
+        <!-- Various wanders  -->
         <li Class="ThinkNode_ConditionalMentalState">
-          <state>GiveUpExit</state>
-          <subNodes>
-            <li Class="JobGiver_ExitMapRandom">
-              <locomotion>Walk</locomotion>
-            </li>
-            <li Class="JobGiver_WanderAnywhere">
-              <maxDanger>Deadly</maxDanger>
-            </li>
-          </subNodes>
-        </li>
-        <!-- Panic flee -->
-        <li Class="ThinkNode_ConditionalMentalState">
-          <state>PanicFlee</state>
-          <subNodes>
-            <li Class="JobGiver_PanicFlee" />
-            <li Class="JobGiver_WanderAnywhere">
-              <!-- Can happen if there is no way to exit the map -->
-              <maxDanger>Some</maxDanger>
-              <locomotionUrgency>Jog</locomotionUrgency>
-            </li>
-          </subNodes>
-        </li>
-        <!-- Wander -->
-        <li Class="ThinkNode_ConditionalMentalState">
-          <state>DazedWander</state>
+          <state>WanderPsychotic</state>
           <subNodes>
             <li Class="JobGiver_WanderAnywhere">
               <maxDanger>Deadly</maxDanger>
@@ -89,14 +99,33 @@
           </subNodes>
         </li>
         <li Class="ThinkNode_ConditionalMentalState">
-          <state>ConfusedWander</state>
+          <state>WanderSad</state>
+          <subNodes>
+            <li Class="JobGiver_WanderColony">
+              <maxDanger>Deadly</maxDanger>
+            </li>
+          </subNodes>
+        </li>
+        <li Class="ThinkNode_ConditionalMentalState">
+          <state>WanderConfused</state>
           <subNodes>
             <li Class="JobGiver_WanderAnywhere">
               <maxDanger>Deadly</maxDanger>
             </li>
           </subNodes>
         </li>
-        <!-- Binging -->
+        
+        <!-- Hide in room -->
+        <li Class="ThinkNode_ConditionalMentalState">
+          <state>WanderOwnRoom</state>
+          <subNodes>
+            <li Class="JobGiver_WanderOwnRoom">
+              <maxDanger>Deadly</maxDanger>
+            </li>
+          </subNodes>
+        </li>
+        
+        <!-- Binging on alcohol -->
         <li Class="ThinkNode_ConditionalMentalState">
           <state>BingingAlcohol</state>
           <subNodes>
@@ -105,14 +134,39 @@
               <subNodes>
                 <li Class="JobGiver_GetFood"/>
                 <li Class="JobGiver_GetRest"/>
-                <li Class="JobGiver_GetJoy"/>
+                <li Class="ThinkNode_Priority_GetJoy">
+                  <subNodes>
+                    <li Class="JobGiver_GetJoy"/>
+                  </subNodes>
+                </li>
               </subNodes>
             </li>
-            <li Class="JobGiver_Binge"/>
+            <li Class="JobGiver_BingeAlcohol"/>
             <li Class="JobGiver_WanderColony" />
           </subNodes>
         </li>
 
+        <!-- Binging on food -->
+        <li Class="ThinkNode_ConditionalMentalState">
+          <state>BingingFood</state>
+          <subNodes>
+            <li Class="ThinkNode_PrioritySorter">
+              <minPriority>0.5</minPriority>
+              <subNodes>
+                <li Class="JobGiver_GetFood"/>
+                <li Class="JobGiver_GetRest"/>
+                <li Class="ThinkNode_Priority_GetJoy">
+                  <subNodes>
+                    <li Class="JobGiver_GetJoy"/>
+                  </subNodes>
+                </li>
+              </subNodes>
+            </li>
+            <li Class="JobGiver_BingeFood"/>
+            <li Class="JobGiver_WanderColony" />
+          </subNodes>
+        </li>
+        
         <!-- Manhunter -->
         <!-- Hack: these have to be identical -->
         <li Class="ThinkNode_ConditionalMentalState">
@@ -142,12 +196,46 @@
           </subNodes>
         </li>
         
+        <!-- Panic flee -->
+        <li Class="ThinkNode_ConditionalMentalState">
+          <state>PanicFlee</state>
+          <subNodes>
+            <li Class="JobGiver_ExitMapPanic" />
+            <li Class="JobGiver_WanderAnywhere">
+              <!-- Can happen if there is no way to exit the map -->
+              <maxDanger>Some</maxDanger>
+              <locomotionUrgency>Jog</locomotionUrgency>
+            </li>
+          </subNodes>
+        </li>
+
+        <!-- Give up and leave -->
+        <li Class="ThinkNode_ConditionalMentalState">
+          <state>GiveUpExit</state>
+          <subNodes>
+            <li Class="JobGiver_ExitMapRandom">
+              <defaultLocomotion>Walk</defaultLocomotion>
+            </li>
+            <li Class="JobGiver_WanderAnywhere">
+              <maxDanger>Deadly</maxDanger>
+            </li>
+          </subNodes>
+        </li>
+          
+        <!-- Fire starting spree -->
+        <li Class="ThinkNode_ConditionalMentalState">
+          <state>FireStartingSpree</state>
+          <subNodes>
+            <li Class="JobGiver_FireStartingSpree"></li>
+          </subNodes>
+        </li>
+        
       </subNodes>
     </thinkRoot>
   </ThinkTreeDef>
  
-  
   <!--============= Animal leave map if out of season ============-->
+  
   <ThinkTreeDef>
     <defName>LeaveIfWrongSeason</defName>
 		<thinkRoot Class="ThinkNode_Priority">
@@ -155,7 +243,7 @@
         <li Class="ThinkNode_ConditionalAnimalWrongSeason">
           <subNodes>
             <li Class="JobGiver_ExitMapRandom">
-            <locomotion>Walk</locomotion>
+              <defaultLocomotion>Walk</defaultLocomotion>
             </li>
 					</subNodes>
 				</li>
@@ -164,7 +252,7 @@
 						<li Class="ThinkNode_ConditionalOutdoorTemperature">
 							<subNodes>
 								<li Class="JobGiver_ExitMapRandom">
-                  <locomotion>Jog</locomotion>
+                  <defaultLocomotion>Jog</defaultLocomotion>
                 </li>
 							</subNodes>
 						</li>
@@ -174,21 +262,22 @@
 		</thinkRoot>
   </ThinkTreeDef>
 	
-
 	<!--============= Leave map if starving ============-->
+  
   <ThinkTreeDef>
     <defName>LeaveIfStarving</defName>
     <thinkRoot Class="ThinkNode_ConditionalStarving">
       <subNodes>
         <li Class="JobGiver_GetFood" /> <!-- One last chance to find some food -->
         <li Class="JobGiver_ExitMapRandom">
-          <locomotion>Walk</locomotion>
+          <defaultLocomotion>Walk</defaultLocomotion>
         </li>
       </subNodes>
     </thinkRoot>
   </ThinkTreeDef> 
 
   <!--============= Test of insertion hooks ============-->
+  
   <!-- If you remove the comments around this, it will inject
       this AI control node into all ThinkTrees where there is an
       insertion hook seeking a matching InsertTag.
@@ -205,9 +294,5 @@
     <thinkRoot Class="JobGiver_Berserk" />
   </ThinkTreeDef>
   -->
-
-
-
-
 
 </ThinkTrees>

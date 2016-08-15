@@ -9,7 +9,7 @@
         <!-- Note this exit node can happen at odd times
             like if you block siegers from hitting their siege location before they arrive-->
         <li Class="JobGiver_ExitMapRandom">
-          <locomotion>Walk</locomotion>
+          <defaultLocomotion>Walk</defaultLocomotion>
         </li>
       </subNodes>
     </thinkNode>
@@ -178,9 +178,10 @@
     <thinkNode Class="ThinkNode_Priority">
       <subNodes>
         <li Class="JobGiver_Kidnap" />
-        <li Class="JobGiver_ExitMapNearest">
-          <locomotion>Jog</locomotion>
+        <li Class="JobGiver_ExitMapBest">
+          <defaultLocomotion>Jog</defaultLocomotion>
           <jobMaxDuration>200</jobMaxDuration>
+          <forceCanDig>true</forceCanDig>
         </li>
       </subNodes>
     </thinkNode>
@@ -191,14 +192,29 @@
     <thinkNode Class="ThinkNode_Priority">
       <subNodes>
         <li Class="JobGiver_TakeWoundedGuest" />
-        <li Class="JobGiver_ExitMapNearest">
-          <locomotion>Jog</locomotion>
+        <li Class="JobGiver_ExitMapBest">
+          <defaultLocomotion>Jog</defaultLocomotion>
           <jobMaxDuration>500</jobMaxDuration>
+          <forceCanDig>true</forceCanDig>
         </li>
       </subNodes>
     </thinkNode>
   </DutyDef>
   
+  <DutyDef>
+    <defName>Steal</defName>
+    <thinkNode Class="ThinkNode_Priority">
+      <subNodes>
+        <li Class="JobGiver_Steal" />
+        <li Class="JobGiver_ExitMapBest">
+          <defaultLocomotion>Jog</defaultLocomotion>
+          <jobMaxDuration>200</jobMaxDuration>
+          <forceCanDig>true</forceCanDig>
+        </li>
+      </subNodes>
+    </thinkNode>
+  </DutyDef>
+
   <DutyDef>
     <defName>PrisonerEscape</defName>
     <alwaysShowWeapon>true</alwaysShowWeapon>
@@ -278,18 +294,56 @@
   </DutyDef>
   
   <DutyDef>
-    <defName>ExitMapAnywhere</defName>
-    <thinkNode Class="JobGiver_ExitMapRandom">
-      <locomotion>Walk</locomotion>
+    <defName>DefendAndExpandHive</defName>
+    <thinkNode Class="ThinkNode_Priority">
+      <subNodes>
+        <li Class="JobGiver_HiveDefense">
+          <needLOSToAcquireNonPawnTargets>true</needLOSToAcquireNonPawnTargets>
+          <targetAcquireRadius>30</targetAcquireRadius>
+          <chaseTarget>false</chaseTarget>
+        </li>
+        <li Class="ThinkNode_ChancePerHour_Constant">
+          <mtbHours>5</mtbHours>
+          <subNodes>
+            <li Class="JobGiver_MaintainHives" />
+          </subNodes>
+        </li>
+        <li Class="ThinkNode_ConditionalBodySize">
+          <min>0.7</min>
+          <subNodes>
+            <li Class="ThinkNode_ChancePerHour_Constant">
+              <mtbHours>18</mtbHours>
+              <subNodes>
+                <li Class="JobGiver_MineRandom" />
+              </subNodes>
+            </li>
+          </subNodes>
+        </li>
+        <li Class="ThinkNode_PrioritySorter">
+          <subNodes>
+            <li Class="JobGiver_GetFood" />
+            <li Class="JobGiver_GetRest" />
+          </subNodes>
+        </li>
+        <li Class="JobGiver_WanderHive">
+          <maxDanger>Deadly</maxDanger>
+        </li>
+      </subNodes>
     </thinkNode>
   </DutyDef>
 
   <DutyDef>
-    <defName>ExitMapNearest</defName>
-    <thinkNode Class="JobGiver_ExitMapNearest">
-      <locomotion>Walk</locomotion>
+    <defName>ExitMapRandom</defName>
+    <thinkNode Class="JobGiver_ExitMapRandom">
+      <defaultLocomotion>Walk</defaultLocomotion>
     </thinkNode>
   </DutyDef>
-
+  
+  <DutyDef>
+    <defName>ExitMapBest</defName>
+    <thinkNode Class="JobGiver_ExitMapBest">
+      <defaultLocomotion>Walk</defaultLocomotion>
+    </thinkNode>
+  </DutyDef>
 
 </Defs>

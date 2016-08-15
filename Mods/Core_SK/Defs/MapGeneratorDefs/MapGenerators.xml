@@ -1,36 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-    <!-- Modified stock file -->
 
-    <MapGeneratorDef>
-        <defName>MainMapGenerator</defName>
-        <genSteps>
+  <MapGeneratorDef>
+    <defName>MainMapGenerator</defName>
+    <genSteps>
 
-            <!-- Generate abstract grids-->
-            <li Class="Genstep_ElevationFertility" />
+      <!-- Generate abstract grids-->
+      <li Class="Genstep_ElevationFertility" />
+      
+      <!-- Generate basic rocks and terrain from grid-->
+      <li Class="Genstep_RocksFromGrid" />
+      <li Class="Genstep_Terrain" />
+      <li Class="Genstep_RockChunks" />
 
-            <!-- Generate basic rocks and terrain from grid-->
-            <li Class="Genstep_RocksFromGrid" />
-            <li Class="Genstep_Terrain" />
-            <li Class="Genstep_RockChunks" />
+      <!-- Empty ruins -->
+      <li Class="Genstep_ScatterRuinsSimple">
+        <countPer10kCellsRange><min>2</min><max>4</max></countPer10kCellsRange>
+      </li>
 
-			  <!-- Empty ruins -->
-			  <li Class="Genstep_ScatterRuinsSimple">
-				<countPer10kCellsRange><min>2</min><max>4</max></countPer10kCellsRange>
-			  </li>
 
-			  <!-- Ancient casket shrines -->
-			  <li Class="Genstep_ScatterShrines">
-				<countPer10kCellsRange><min>0.35</min><max>0.55</max></countPer10kCellsRange>
-			  </li>
+      <!-- Ancient casket shrines -->
+      <li Class="Genstep_ScatterShrines">
+        <countPer10kCellsRange><min>0.3</min><max>0.55</max></countPer10kCellsRange>
+      </li>
 				
 			
             <!-- Steam geysers -->
             <li Class="Genstep_ScatterThings">
-                <thingDefs>
-                    <li>SteamGeyser</li>
-                </thingDefs>
+				<thingDef>SteamGeyser</thingDef>
                 <minSpacing>25</minSpacing>
                 <extraNoBuildEdgeDist>4</extraNoBuildEdgeDist>
                 <countPer10kCellsRange>
@@ -38,7 +36,7 @@
                     <max>1</max>
                 </countPer10kCellsRange>
                 <clearSpaceSize>30</clearSpaceSize>
-				<neededSurfaceType>Heavy</neededSurfaceType>
+				<neededTerrainAffordance>Heavy</neededTerrainAffordance>
 				<validators>
 				  <li Class="ScattererValidator_Buildable">
 					<radius>4</radius>
@@ -52,9 +50,7 @@
 			
             <!-- Mineral deposits -->
             <li Class="Genstep_ScatterThings">
-                <thingDefs>
-                    <li>MineralDeposits</li>
-                </thingDefs>
+				<thingDef>MineralDeposits</thingDef>
                 <minSpacing>21</minSpacing>
                 <extraNoBuildEdgeDist>4</extraNoBuildEdgeDist>
                 <countPer10kCellsRange>
@@ -62,7 +58,7 @@
                     <max>3</max>
                 </countPer10kCellsRange>
                 <clearSpaceSize>26</clearSpaceSize>
-				<neededSurfaceType>Heavy</neededSurfaceType>
+				<neededTerrainAffordance>Heavy</neededTerrainAffordance>
 				<validators>
 				  <li Class="ScattererValidator_Buildable">
 					<radius>4</radius>
@@ -76,9 +72,7 @@
 			
 			<!-- Rare mineral deposits -->
             <li Class="Genstep_ScatterThings">
-                <thingDefs>
-                    <li>RareMineralDeposits</li>
-                </thingDefs>
+				<thingDef>RareMineralDeposits</thingDef>			
                 <minSpacing>25</minSpacing>
                 <extraNoBuildEdgeDist>4</extraNoBuildEdgeDist>
                 <countPer10kCellsRange>
@@ -86,7 +80,7 @@
 				  <max>0.6</max>
                 </countPer10kCellsRange>
                 <clearSpaceSize>30</clearSpaceSize>
-				<neededSurfaceType>Heavy</neededSurfaceType>
+				<neededTerrainAffordance>Heavy</neededTerrainAffordance>
 				<validators>
 				  <li Class="ScattererValidator_Buildable">
 					<radius>4</radius>
@@ -100,9 +94,7 @@
 			
 			  <!-- Oil deposits -->
             <li Class="Genstep_ScatterThings">
-                <thingDefs>
-				  <li>Oilfield</li>
-                </thingDefs>
+				<thingDef>Oilfield</thingDef>	
                 <minSpacing>25</minSpacing>
                 <extraNoBuildEdgeDist>4</extraNoBuildEdgeDist>
                 <countPer10kCellsRange>
@@ -110,7 +102,7 @@
 				  <max>0.9</max>
                 </countPer10kCellsRange>
                 <clearSpaceSize>30</clearSpaceSize>
-				<neededSurfaceType>Heavy</neededSurfaceType>
+				<neededTerrainAffordance>Heavy</neededTerrainAffordance>
 				<validators>
 				  <li Class="ScattererValidator_Buildable">
 					<radius>4</radius>
@@ -122,119 +114,16 @@
 				</validators>
             </li>
 		
-            <!-- Some essentials -->
-            <li Class="Genstep_Plants" />
-            <li Class="Genstep_Snow" />
+      <li Class="Genstep_FindPlayerStartSpot" />
 
-            <!-- Necessary for the below steps to work properly -->
-            <li Class="Genstep_FindPlayerStartSpot" />
-			
-		  <!-- Scatter some ship chunks across the map -->
-		  <li Class="Genstep_ScatterThings">
-			<thingDefs>
-			  <li>ShipChunk</li>
-			</thingDefs>
-			<minSpacing>20</minSpacing>
-			<countPer10kCellsRange><min>0.5</min><max>0.9</max></countPer10kCellsRange>
-			<spotMustBeStandable>true</spotMustBeStandable>
-			<neededSurfaceType>Light</neededSurfaceType>
-		  </li>
+      <li Class="Genstep_ScenParts" />
 
-		  <!-- Scatter some resources across the map -->
-		  <li Class="Genstep_ScatterThingGroups">
-			<thingDefs>
-			  <li>Steel</li>
-			</thingDefs>
-			<minSpacing>15</minSpacing>
-			<countPer10kCellsRange><min>1.0</min><max>1.0</max></countPer10kCellsRange>
-			<spotMustBeStandable>true</spotMustBeStandable>
-			<groupSizeRange><min>3</min><max>6</max></groupSizeRange>
-			<stackCountRange><min>30</min><max>50</max></stackCountRange>
-		  </li>
-
-		  <!-- Scatter some meals across the map -->
-		  <li Class="Genstep_ScatterThingGroups">
-			<thingDefs>
-			  <li>MealSurvivalPack</li>
-			</thingDefs>
-			<minSpacing>20</minSpacing>
-			<countPer10kCellsRange><min>0.3</min><max>0.5</max></countPer10kCellsRange>
-			<spotMustBeStandable>true</spotMustBeStandable>
-			<groupSizeRange><min>3</min><max>6</max></groupSizeRange>
-			<stackCountRange><min>1</min><max>1</max></stackCountRange>
-		  </li>
-
-		  <!-- Scatter some meals across the map -->
-		  <li Class="Genstep_ScatterThingGroups">
-			<thingDefs>
-			  <li>MealSurvivalPack</li>
-			</thingDefs>
-			<minSpacing>20</minSpacing>
-			<countPer10kCellsRange><min>0.3</min><max>0.5</max></countPer10kCellsRange>
-			<spotMustBeStandable>true</spotMustBeStandable>
-			<groupSizeRange><min>3</min><max>6</max></groupSizeRange>
-			<stackCountRange><min>1</min><max>1</max></stackCountRange>
-		  </li>    
-	 
-		  <!-- Place starting resources near players' start location -->
-		  <li Class="Genstep_ScatterThingGroups">
-			<thingDefs>
-			  <li>Steel</li>
-			</thingDefs>
-			<spotMustBeStandable>true</spotMustBeStandable>
-			<groupSizeRange><min>6</min><max>6</max></groupSizeRange>
-			<stackCountRange><min>75</min><max>75</max></stackCountRange>
-			<countAtPlayerStart>1</countAtPlayerStart>
-		  </li>
-		  <li Class="Genstep_ScatterThingGroups">
-			<thingDefs>
-			  <li>WoodLog</li>
-			</thingDefs>
-			<spotMustBeStandable>true</spotMustBeStandable>
-			<groupSizeRange><min>6</min><max>6</max></groupSizeRange>
-			<stackCountRange><min>40</min><max>60</max></stackCountRange>
-			<countAtPlayerStart>1</countAtPlayerStart>
-		  </li>
-		  <li Class="Genstep_ScatterThingGroups">
-			<thingDefs>
-			  <li>Silver</li>
-			</thingDefs>
-			<spotMustBeStandable>true</spotMustBeStandable>
-			<groupSizeRange><min>5</min><max>5</max></groupSizeRange>
-			<stackCountRange><min>40</min><max>60</max></stackCountRange>
-			<countAtPlayerStart>2</countAtPlayerStart>
-		  </li>
-		  <li Class="Genstep_ScatterThingGroups">
-			<thingDefs>
-			  <li>Silver</li>
-			</thingDefs>
-			<spotMustBeStandable>true</spotMustBeStandable>
-			<groupSizeRange><min>3</min><max>3</max></groupSizeRange>
-			<stackCountRange><min>40</min><max>60</max></stackCountRange>
-			<countAtPlayerStart>2</countAtPlayerStart>
-		  </li>
-		  <li Class="Genstep_ScatterThingGroups">
-			<thingDefs>
-			  <li>Components</li>
-			</thingDefs>
-			<spotMustBeStandable>true</spotMustBeStandable>
-			<groupSizeRange><min>3</min><max>3</max></groupSizeRange>
-			<stackCountRange><min>10</min><max>10</max></stackCountRange>
-			<countAtPlayerStart>1</countAtPlayerStart>
-		  </li>
-
-            <!-- Some final essentials -->
-            <li Class="Genstep_Colonists" />
-            <li Class="Core_SK.Genstep_SpareParts" />
-            <li Class="Core_SK.Genstep_PartsSteel" />
-            <li Class="Core_SK.Genstep_Mechanism" />
-            <li Class="Core_SK.Genstep_EC" />
-            <li Class="Core_SK.Genstep_Wire" />
-            <li Class="Core_SK.Genstep_Lifesupport" />
-            <li Class="Core_SK.Genstep_Weapon" />
-            <li Class="Core_SK.Genstep_Coltsupport" />
-            <li Class="Core_SK.Genstep_Enfieldsupport" />
-            <li Class="Genstep_Animals" />
+      <li Class="Genstep_Plants" />
+      
+      <li Class="Genstep_Snow" />
+      
+      <li Class="Genstep_Animals" />
+	  
         </genSteps>
     </MapGeneratorDef>
 

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-  <ThingDef Abstract="True" ParentName="BaseAnimal" Name="BaseBear">
+  <ThingDef Abstract="True" ParentName="AnimalThingBase" Name="BaseBear">
     <statBases>
       <MoveSpeed>4.3</MoveSpeed>
       <ComfyTemperatureMin>-40</ComfyTemperatureMin>
@@ -63,10 +63,10 @@
       <baseHealthScale>2.5</baseHealthScale>
       <foodType>OmnivoreAnimal, OvivoreAnimal</foodType>
       <gestationPeriodDays>30</gestationPeriodDays>
-      <wildness>0.75</wildness>
-      <nuzzleChancePerHour>0.05</nuzzleChancePerHour>
+      <wildness>0.80</wildness>
       <lifeExpectancy>22</lifeExpectancy>
-      <manhunterOnTameFailChance>0.01</manhunterOnTameFailChance>
+      <trainableIntelligence>Advanced</trainableIntelligence>
+      <manhunterOnTameFailChance>0.025</manhunterOnTameFailChance>
       <manhunterOnDamageChance>1</manhunterOnDamageChance>
       <lifeStageAges>
         <li>
@@ -95,6 +95,14 @@
       <li>BadassAnimal</li>
     </tradeTags>
   </ThingDef>
+  
+  <PawnKindDef Abstract="True" ParentName="AnimalKindBase" Name="BearBase">
+    <combatPower>240</combatPower>
+    <wildSpawn_spawnWild>true</wildSpawn_spawnWild>
+    <wildSpawn_EcoSystemWeight>0.3</wildSpawn_EcoSystemWeight>
+  </PawnKindDef>
+
+
 
 
   <ThingDef ParentName="BaseBear">
@@ -102,12 +110,70 @@
     <label>grizzly bear</label>
     <description>Huge omnivorous mammals adapted for cold climates. Their thick blubber and fur keep them warm in winter.\n\nWhile their usual diet consists of fish, berries, honey, and scavenged meat, the grizzly is capable of using its massive strength and deadly claws to kill live prey. They are startlingly quick for such lumbering creatures.</description>
     <race>
+      <wildness>0.80</wildness>
       <leatherColor>(112,82,65)</leatherColor>
-      <leatherInsulation>1.45</leatherInsulation>
+      <leatherInsulation>1.0</leatherInsulation>
       <leatherLabel>bearskin</leatherLabel>
+      <meatLabel>bear meat</meatLabel>
     </race>
   </ThingDef>
 
+  <PawnKindDef ParentName="BearBase">
+    <defName>GrizzlyBear</defName>
+    <label>grizzly bear</label>
+    <race>GrizzlyBear</race>
+    <lifeStages>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/Bear/Bear</texPath>
+          <drawSize>1.4</drawSize>
+          <color>(112,82,65)</color>
+          <shadowData>
+            <volume>(0.4, 0.3, 0.3)</volume>
+            <offset>(0,0,-0.2)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Muffalo/MuffaloDessicated</texPath>
+          <drawSize>1.4</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/Bear/Bear</texPath>
+          <drawSize>2</drawSize>
+          <color>(112,82,65)</color>
+          <shadowData>
+            <volume>(0.6, 0.45, 0.45)</volume>
+            <offset>(0,0,-0.25)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Muffalo/MuffaloDessicated</texPath>
+          <drawSize>2</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/Bear/Bear</texPath>
+          <drawSize>2.7</drawSize>
+          <color>(112,82,65)</color>
+          <shadowData>
+            <volume>(0.8, 0.6, 0.6)</volume>
+            <offset>(0,0,-0.3)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Muffalo/MuffaloDessicated</texPath>
+          <drawSize>2.7</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+    </lifeStages>
+  </PawnKindDef>
+  
+  
+  
+  
   <ThingDef ParentName="BaseBear">
     <defName>PolarBear</defName>
     <label>polar bear</label>
@@ -118,10 +184,64 @@
     <race>
       <wildness>0.85</wildness>
       <leatherColor>(180,180,180)</leatherColor>
-      <leatherInsulation>1.80</leatherInsulation>
+      <leatherInsulation>1.0</leatherInsulation>
       <leatherLabel>polarbearskin</leatherLabel>
+      <useMeatFrom>GrizzlyBear</useMeatFrom>
     </race>
   </ThingDef>
-  
 
+  <PawnKindDef ParentName="BearBase">
+    <defName>PolarBear</defName>
+    <label>polar bear</label>
+    <race>PolarBear</race>
+    <lifeStages>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/Bear/Bear</texPath>
+          <drawSize>1.4</drawSize>
+          <color>(180,180,180)</color>
+          <shadowData>
+            <volume>(0.4, 0.3, 0.3)</volume>
+            <offset>(0,0,-0.2)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Muffalo/MuffaloDessicated</texPath>
+          <drawSize>1.4</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/Bear/Bear</texPath>
+          <drawSize>2</drawSize>
+          <color>(180,180,180)</color>
+          <shadowData>
+            <volume>(0.6, 0.45, 0.45)</volume>
+            <offset>(0,0,-0.25)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Muffalo/MuffaloDessicated</texPath>
+          <drawSize>2</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/Bear/Bear</texPath>
+          <drawSize>2.7</drawSize>
+          <color>(180,180,180)</color>
+          <shadowData>
+            <volume>(0.8, 0.6, 0.6)</volume>
+            <offset>(0,0,-0.3)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Muffalo/MuffaloDessicated</texPath>
+          <drawSize>2.7</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+    </lifeStages>
+  </PawnKindDef>
+  
+  
 </Defs>

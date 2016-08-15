@@ -1,8 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <GameData>
 
-  <ThingDef ParentName="ResourceBase">
-    <thingClass>Artifact</thingClass>
+  <ThingDef ParentName="ResourceBase" Name="ArtifactBase" Abstract="True">
+    <thingClass>ThingWithComps</thingClass>
+    <thingCategories>
+      <li>Artifacts</li>
+    </thingCategories>
+    <tradeTags>
+      <li>Artifact</li>
+    </tradeTags>
+    <comps>
+      <li Class="CompProperties_Usable">
+        <useJob>UseArtifact</useJob>
+        <useLabel>Activate</useLabel>
+      </li>
+      <li Class="CompProperties_UseEffect">
+        <compClass>CompUseEffect_Artifact</compClass>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="ArtifactBase">
     <defName>PsychicInsanityLance</defName>
     <label>psychic insanity lance</label>
     <description>One-use artifact that drives any character into a berserk state from any distance - even through walls.</description>
@@ -18,25 +36,22 @@
       <MarketValue>500</MarketValue>
       <MaxHitPoints>80</MaxHitPoints>
     </statBases>
-    <thingCategories>
-      <li>Items</li>
-    </thingCategories>
     <drawGUIOverlay>false</drawGUIOverlay>
-    <tradeTags>
-      <li>Artifact</li>
-    </tradeTags>
-    <artifact>
-      <psychicSensitiveTargetsOnly>true</psychicSensitiveTargetsOnly>
-      <targeterClass>ArtifactTargeter_SinglePawn</targeterClass>
-      <effectDoerClasses>
-        <li>ArtifactEffectDoer_Berserk</li>
-        <li>ArtifactEffectDoer_GoodwillImpact</li>
-      </effectDoerClasses>
-    </artifact>
+    <comps>
+      <li Class="CompProperties_Targetable">
+        <compClass>CompTargetable_SinglePawn</compClass>
+        <psychicSensitiveTargetsOnly>true</psychicSensitiveTargetsOnly>
+      </li>
+      <li>
+        <compClass>CompTargetEffect_Berserk</compClass>
+      </li>
+      <li>
+        <compClass>CompTargetEffect_GoodwillImpact</compClass>
+      </li>
+    </comps>
   </ThingDef>
   
-  <ThingDef ParentName="ResourceBase">
-    <thingClass>Artifact</thingClass>
+  <ThingDef ParentName="ArtifactBase">
     <defName>PsychicShockLance</defName>
     <label>psychic shock lance</label>
     <description>One-use artifact that directs psychic disturbances towards one character, dropping them into a state of psychic shock for some time. Large risk of brain damage.</description>
@@ -52,26 +67,25 @@
       <MarketValue>500</MarketValue>
       <MaxHitPoints>80</MaxHitPoints>
     </statBases>
-    <thingCategories>
-      <li>Items</li>
-    </thingCategories>
     <drawGUIOverlay>false</drawGUIOverlay>
-    <tradeTags>
-      <li>Artifact</li>
-    </tradeTags>
-    <artifact>
-      <psychicSensitiveTargetsOnly>true</psychicSensitiveTargetsOnly>
-      <targeterClass>ArtifactTargeter_SinglePawn</targeterClass>
-      <effectDoerClasses>
-        <li>ArtifactEffectDoer_PsychicShock</li>
-        <li>ArtifactEffectDoer_BrainDamageChance</li>
-        <li>ArtifactEffectDoer_GoodwillImpact</li>
-      </effectDoerClasses>
-    </artifact>
+    <comps>
+      <li Class="CompProperties_Targetable">
+        <compClass>CompTargetable_SinglePawn</compClass>
+        <psychicSensitiveTargetsOnly>true</psychicSensitiveTargetsOnly>
+      </li>
+      <li>
+        <compClass>CompTargetEffect_PsychicShock</compClass>
+      </li>
+      <li>
+        <compClass>CompTargetEffect_BrainDamageChance</compClass>
+      </li>
+      <li>
+        <compClass>CompTargetEffect_GoodwillImpact</compClass>
+      </li>
+    </comps>
   </ThingDef>
 
-  <ThingDef ParentName="ResourceBase">
-    <thingClass>Artifact</thingClass>
+  <ThingDef ParentName="ArtifactBase">
     <defName>PsychicAnimalPulser</defName>
     <label>psychic animal pulser</label>
     <description>One-use artifact that drives all animals in the region into a manhunting rage.</description>
@@ -87,26 +101,23 @@
       <MarketValue>750</MarketValue>
       <MaxHitPoints>80</MaxHitPoints>
     </statBases>
-    <thingCategories>
-      <li>Items</li>
-    </thingCategories>
     <drawGUIOverlay>false</drawGUIOverlay>
-    <tradeTags>
-      <li>Artifact</li>
-    </tradeTags>
-    <artifact>
-      <psychicSensitiveTargetsOnly>true</psychicSensitiveTargetsOnly>
-      <targeterClass>ArtifactTargeter_AllAnimalsOnTheMap</targeterClass>
-      <effectDoerClasses>
-        <li>ArtifactEffectDoer_Manhunter</li>
-        <li>ArtifactEffectDoer_GoodwillImpact</li>
-      </effectDoerClasses>
-      <doCameraShake>true</doCameraShake>
-    </artifact>
+    <comps>
+      <li Class="CompProperties_Targetable">
+        <compClass>CompTargetable_AllAnimalsOnTheMap</compClass>
+        <psychicSensitiveTargetsOnly>true</psychicSensitiveTargetsOnly>
+        <doCameraShake>true</doCameraShake>
+      </li>
+      <li>
+        <compClass>CompTargetEffect_Manhunter</compClass>
+      </li>
+      <li>
+        <compClass>CompTargetEffect_GoodwillImpact</compClass>
+      </li>
+    </comps>
   </ThingDef>
   
-  <ThingDef ParentName="ResourceBase">
-    <thingClass>Artifact</thingClass>
+  <ThingDef ParentName="ArtifactBase">
     <defName>PsychicSoothePulser</defName>
     <label>psychic soothe pulser</label>
     <description>One-use artifact which gives a temporary mood boost to everyone on the map.</description>
@@ -122,21 +133,17 @@
       <MarketValue>400</MarketValue>
       <MaxHitPoints>80</MaxHitPoints>
     </statBases>
-    <thingCategories>
-      <li>Items</li>
-    </thingCategories>
     <drawGUIOverlay>false</drawGUIOverlay>
-    <tradeTags>
-      <li>Artifact</li>
-    </tradeTags>
-    <artifact>
-      <psychicSensitiveTargetsOnly>true</psychicSensitiveTargetsOnly>
-      <targeterClass>ArtifactTargeter_AllPawnsOnTheMap</targeterClass>
-      <effectDoerClasses>
-        <li>ArtifactEffectDoer_MoodBoost</li>
-      </effectDoerClasses>
-      <doCameraShake>true</doCameraShake>
-    </artifact>
+    <comps>
+      <li Class="CompProperties_Targetable">
+        <compClass>CompTargetable_AllPawnsOnTheMap</compClass>
+        <psychicSensitiveTargetsOnly>true</psychicSensitiveTargetsOnly>
+        <doCameraShake>true</doCameraShake>
+      </li>
+      <li>
+        <compClass>CompTargetEffect_MoodBoost</compClass>
+      </li>
+    </comps>
   </ThingDef>
   
 </GameData>
