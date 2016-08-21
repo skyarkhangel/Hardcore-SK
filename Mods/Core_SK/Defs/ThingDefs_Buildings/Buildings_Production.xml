@@ -70,7 +70,7 @@
 	
   <ThingDef ParentName="BuildingBase">
     <DefName>TableButcherNeolithic</DefName>
-    <label>Primitive butcher table</label>
+    <label>Small butcher table</label>
     <ThingClass>Building_WorkTable</ThingClass>
     <Description>A heavy table for butchering dead creatures into pieces of raw meat.</Description>
 		<graphicData>
@@ -126,9 +126,6 @@
       <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
     </building>
     <designationHotKey>Misc1</designationHotKey>
-		<placeWorkers>
-			<li>PlaceWorker_ShowFacilitiesConnections</li>
-		</placeWorkers>
   </ThingDef>
   
   
@@ -739,6 +736,9 @@
 			  <li Class="CompProperties_Flickable"/>
 			  <li Class="CompProperties_Breakdownable"/>
 		</comps>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+		</placeWorkers>
 		<researchPrerequisites><li>Brewing</li></researchPrerequisites>
   </ThingDef>
 
@@ -800,9 +800,11 @@
           <li>PodChair</li>
         </linkableFacilities>
 		</li>
-
       <li Class="CompProperties_Breakdownable"/>
 	</comps>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+		</placeWorkers>
 	<building>
 	  <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
 	</building>
@@ -937,7 +939,7 @@
 		<defName>TableFurnace</defName>
 		<label>Furnace</label>
 		<ThingClass>Building_WorkTable</ThingClass>
-		<Description>A furnace used for smelting basic metal ores into metal alloys. Can make metal cans and produce charcoal from logs. (Can be fueled by Coal, Charcoal and Peat)</Description>
+		<Description>A furnace used for smelting basic metal ores into metal alloys. Can make metal cans and produce charcoal from logs. (Can be fueled by Kindling, Coal, Charcoal, Peat and wooden stuff.)</Description>
     <graphicData>
 		<texPath>Things/Building/Production/Furnace</texPath>
 		<graphicClass>Graphic_Single</graphicClass>
@@ -989,7 +991,11 @@
             <li>Coal</li>
             <li>Charcoal</li>
             <li>Peat</li>
+			<li>Kindling</li>
           </thingDefs>
+			<categories>
+			  <li>Wooden</li>
+			</categories>  
         </fuelFilter>
         <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
       </li>
@@ -1027,7 +1033,7 @@
 		<defName>Kiln</defName>
 		<label>Kiln</label>
 		<ThingClass>Building_WorkTable</ThingClass>
-		<description>An impovised kiln used to produce clay briks, burning apparel and used as crematorium.</description>
+		<description>An impovised kiln used to produce clay briks, burning apparel and used as crematorium.  (Can be fueled by Kindling, Coal, Charcoal, Peat and wooden stuff.)</description>
 	<graphicData>
 		<texPath>Things/Building/Production/Kiln</texPath>
 		<graphicClass>Graphic_Single</graphicClass>
@@ -1074,7 +1080,11 @@
             <li>Coal</li>
             <li>Charcoal</li>
             <li>Peat</li>
+			<li>Kindling</li>
           </thingDefs>
+			<categories>
+			  <li>Wooden</li>
+			</categories>
         </fuelFilter>
         <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
       </li>
@@ -1529,6 +1539,9 @@
 		<li Class="CompProperties_Flickable"/>
 		<li Class="CompProperties_Breakdownable"/>
     </comps>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+		</placeWorkers>
     <building>
 		<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
     </building>
@@ -2092,12 +2105,24 @@
 			<Mechanism>2</Mechanism>
 		</CostList>
     <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>700</basePowerConsumption>
+        <startElectricalFires>true</startElectricalFires>
+      </li>
+            <li Class="CommunityCoreLibrary.CompProperties_LowIdleDraw">
+                <compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
+                <idlePowerFactor>0.1</idlePowerFactor>
+            </li>
       <li Class="CompProperties_AffectedByFacilities">
         <linkableFacilities>
           <li>FileCabinet</li>
         </linkableFacilities>
       </li>
     </comps>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+		</placeWorkers>
     <fillPercent>0.5</fillPercent>
     <interactionCellOffset>(0,0,-1)</interactionCellOffset>
     <hasInteractionCell>true</hasInteractionCell>
@@ -2151,9 +2176,13 @@
     <comps>
       <li Class="CompProperties_Power">
         <compClass>CompPowerTrader</compClass>
-        <basePowerConsumption>250</basePowerConsumption>
+        <basePowerConsumption>700</basePowerConsumption>
         <startElectricalFires>true</startElectricalFires>
       </li>
+            <li Class="CommunityCoreLibrary.CompProperties_LowIdleDraw">
+                <compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
+                <idlePowerFactor>0.1</idlePowerFactor>
+            </li>
       <li Class="CompProperties_Flickable"/>
       <li Class="CompProperties_AffectedByFacilities">
         <linkableFacilities>
@@ -2473,6 +2502,15 @@
       <li>ITab_Bills</li>
     </inspectorTabs>
     <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <startElectricalFires>true</startElectricalFires>
+        <basePowerConsumption>500</basePowerConsumption>
+      </li>
+            			<li Class="CommunityCoreLibrary.CompProperties_LowIdleDraw">
+                		<compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
+                		<idlePowerFactor>0.1</idlePowerFactor>
+            			</li>
         <li Class="CompProperties_AffectedByFacilities">
         <linkableFacilities>
           <li>Small_ToolCabinet</li>
@@ -2482,6 +2520,7 @@
 		<li Class="CompProperties_Breakdownable"/>
     </comps>
     <building>
+      <unpoweredWorkTableWorkSpeedFactor>0.3</unpoweredWorkTableWorkSpeedFactor>
       <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
     </building>
 		<researchPrerequisites><li>SK_ProductionI</li></researchPrerequisites>
@@ -2535,6 +2574,15 @@
       <li>ITab_Bills</li>
     </inspectorTabs>
     <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <startElectricalFires>true</startElectricalFires>
+        <basePowerConsumption>800</basePowerConsumption>
+      </li>
+            			<li Class="CommunityCoreLibrary.CompProperties_LowIdleDraw">
+                		<compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
+                		<idlePowerFactor>0.1</idlePowerFactor>
+            			</li>
         <li Class="CompProperties_AffectedByFacilities">
         <linkableFacilities>
           <li>Small_ToolCabinet</li>
@@ -2611,6 +2659,7 @@
       <li>ITab_Bills</li>
     </inspectorTabs>
     <building>
+      <unpoweredWorkTableWorkSpeedFactor>0.3</unpoweredWorkTableWorkSpeedFactor>
       <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
     </building>
     <researchPrerequisites><li>SK_MedicineI</li></researchPrerequisites>
