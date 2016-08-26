@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs> 
   
-  <ThingDef ParentName="AnimalThingBase">
-<thingClass>Core_SK.PersonalShields.Animal.ShieldPawn</thingClass>
-    <defName>Fluffy_DomesticCat</defName>
-    <label>Domestic Cat</label>
-    <description>Cats are small, furry, domesticated, and carnivorous mammals that come in a variety of breeds. With their small sharp claws, they are often referenced as "fluffy balls of DEATH!".</description>
+  <ThingDef ParentName="AnimalThingBase" Name="AnimalDomesticCatBase" Abstract="True">
+	<thingClass>Core_SK.PersonalShields.Animal.ShieldPawn</thingClass>
     <statBases>
       <MoveSpeed>4.5</MoveSpeed>
       <ComfyTemperatureMin>-14</ComfyTemperatureMin>
@@ -68,9 +65,61 @@
       <baseBodySize>0.25</baseBodySize>
       <baseHungerRate>0.15</baseHungerRate>
       <baseHealthScale>0.4</baseHealthScale>
-      <foodType>OmnivoreAnimal, OvivoreAnimal</foodType>
-	  <meatLabel>Domestic Cat Meat</meatLabel>
-      <leatherLabel>Domestic Cat Fur</leatherLabel>
+      <foodType>CarnivoreAnimal, OmnivoreAnimal, OvivoreAnimal</foodType>
+      <gestationPeriodDays>20</gestationPeriodDays>
+      <nameOnTameChance>1</nameOnTameChance>
+      <manhunterOnDamageChance>0.05</manhunterOnDamageChance>
+      <trainableIntelligence>Advanced</trainableIntelligence>
+      <wildness>0.2</wildness>
+      <nuzzleMtbHours>40</nuzzleMtbHours>
+      <litterSizeCurve>
+        <points>
+          <li>(0.5, 0)</li>
+          <li>(1, 1)</li>
+          <li>(2, 1.7)</li>
+          <li>(3, 0.7)</li>
+          <li>(3.5, 0)</li>
+        </points>
+      </litterSizeCurve>
+      <lifeExpectancy>15</lifeExpectancy>
+      <lifeStageAges>
+        <li>
+          <def>AnimalBaby</def>
+          <minAge>0</minAge>
+        </li>
+        <li>
+          <def>AnimalJuvenile</def>
+          <minAge>0.1</minAge>
+        </li>
+        <li>
+          <def>AnimalAdult</def>
+          <minAge>1</minAge>
+          <soundWounded>Pawn_Cat_Injured</soundWounded>
+          <soundDeath>Pawn_Cat_Death</soundDeath>
+          <soundCall>Pawn_Cat_Call</soundCall>
+          <soundAngry>Pawn_Cat_Angry</soundAngry>
+        </li>
+      </lifeStageAges>
+      <soundMeleeHitPawn>Pawn_Melee_SmallScratch_HitPawn</soundMeleeHitPawn>
+      <soundMeleeHitBuilding>Pawn_Melee_SmallScratch_HitBuilding</soundMeleeHitBuilding>
+      <soundMeleeMiss>Pawn_Melee_SmallScratch_Miss</soundMeleeMiss>
+    </race>
+		<tradeTags>
+		  <li>StandardAnimal</li>
+		</tradeTags>
+  </ThingDef>
+  
+  <ThingDef ParentName="AnimalDomesticCatBase">
+    <defName>Cat</defName>
+    <label>Cat</label>
+    <description>Cats are small, furry, domesticated, and carnivorous mammals that come in a variety of breeds. With their small sharp claws, they are often referenced as "fluffy balls of DEATH!".</description>
+    <race>
+      <thinkTreeMain>DomesticCat</thinkTreeMain>
+      <body>QuadrupedAnimalWithPawsAndTail</body>
+      <predator>true</predator>
+      <maxPreyBodySize>0.26</maxPreyBodySize>
+	  <meatLabel>Cat Meat</meatLabel>
+      <leatherLabel>Cat Fur</leatherLabel>
 	  <leatherMarketValue>4</leatherMarketValue>
       <leatherStatFactors>
 		<MaxHitPoints>0.7</MaxHitPoints>
@@ -87,54 +136,61 @@
 		<ImmunityGainSpeedFactor>1.0</ImmunityGainSpeedFactor>
 		<MedicalTreatmentQualityFactor>0.9</MedicalTreatmentQualityFactor>
       </leatherStatFactors>
-      <gestationPeriodDays>20</gestationPeriodDays>
-      <nameOnTameChance>1</nameOnTameChance>
-      <manhunterOnDamageChance>0</manhunterOnDamageChance>
-      <trainableIntelligence>Advanced</trainableIntelligence>
-      <wildness>0.2</wildness>
-      <nuzzleMtbHours>40</nuzzleMtbHours>
-      <litterSizeCurve>
-        <points>
-          <li>(0.5, 0)</li>
-          <li>(1, 1)</li>
-          <li>(2, 1.7)</li>
-          <li>(3, 1.7)</li>
-          <li>(4, 0.7)</li>
-          <li>(4.5, 0)</li>
-        </points>
-      </litterSizeCurve>
-      <lifeExpectancy>15</lifeExpectancy>
-      <lifeStageAges>
-        <li>
-          <def>AnimalBaby</def>
-          <minAge>0</minAge>
-        </li>
-        <li>
-          <def>AnimalJuvenile</def>
-          <minAge>0.1</minAge>
-        </li>
-        <li>
-          <def>AnimalAdult</def>
-          <minAge>0.3</minAge>
-          <soundWounded>Fluffy_DomesticCat_Hurt</soundWounded>
-          <soundDeath>Fluffy_DomesticCat_Hurt</soundDeath>
-          <soundCall>Fluffy_Pawn_Cat_Call</soundCall>
-          <soundAngry>Fluffy_Pawn_Cat_Angry</soundAngry>
-        </li>
-      </lifeStageAges>
-      <soundMeleeHitPawn>Pawn_Melee_SmallScratch_HitPawn</soundMeleeHitPawn>
-      <soundMeleeHitBuilding>Pawn_Melee_SmallScratch_HitBuilding</soundMeleeHitBuilding>
-      <soundMeleeMiss>Pawn_Melee_SmallScratch_Miss</soundMeleeMiss>
     </race>
-    <tradeTags>
-      <li>StandardAnimal</li>
-    </tradeTags>
   </ThingDef>
+  
+  <PawnKindDef ParentName="AnimalKindBase">
+    <defName>Cat</defName>
+    <label>black cat</label>
+    <race>Cat</race>
+    <combatPower>35</combatPower>
+    <wildSpawn_spawnWild>false</wildSpawn_spawnWild>
+    <lifeStages>
+      <li>
+        <label>kitten</label>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/Cat/Cat</texPath>
+          <drawSize>0.6</drawSize>
+          <color>(189,171,159)</color>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <drawSize>0.6</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/Cat/Cat</texPath>
+          <drawSize>0.8</drawSize>
+          <color>(189,171,159)</color>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <drawSize>0.8</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/Cat/Cat</texPath>
+          <drawSize>1.0</drawSize>
+          <color>(189,171,159)</color>
+          <shadowData>
+            <volume>(0.25, 0.3, 0.25)</volume>
+            <offset>(0,0,-0.15)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <drawSize>1.0</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+    </lifeStages>
+  </PawnKindDef>
   
 	<PawnKindDef ParentName="AnimalKindBase">
 		<defName>Fluffy_MiniMaineCoon</defName>
 		<label>miniature Maine Coon</label>
-		<race>Fluffy_DomesticCat</race>
+		<race>Cat</race>
 		<combatPower>35</combatPower>
 		<lifeStages>
 			<li>
@@ -186,7 +242,7 @@
 	<PawnKindDef ParentName="AnimalKindBase">
 		<defName>Fluffy_MaineCoon</defName>
 		<label>Maine Coon</label>
-		<race>Fluffy_DomesticCat</race>
+		<race>Cat</race>
 		<combatPower>30</combatPower>
 		<lifeStages>
 			<li>
@@ -238,7 +294,7 @@
 	<PawnKindDef ParentName="AnimalKindBase">
 		<defName>Fluffy_EuropeanShorthair</defName>
 		<label>European Shorthair</label>
-		<race>Fluffy_DomesticCat</race>
+		<race>Cat</race>
 		<combatPower>30</combatPower>
 		<lifeStages>
 			<li>
@@ -290,7 +346,7 @@
 	<PawnKindDef ParentName="AnimalKindBase">
 		<defName>Fluffy_NorwegianForestCat</defName>
 		<label>Norwegian Forest Cat</label>
-		<race>Fluffy_DomesticCat</race>
+		<race>Cat</race>
 		<combatPower>35</combatPower>
 		<lifeStages>
 			<li>
@@ -342,7 +398,7 @@
 	<PawnKindDef ParentName="AnimalKindBase">
 		<defName>Fluffy_BritishShorthair</defName>
 		<label>British Shorthair</label>
-		<race>Fluffy_DomesticCat</race>
+		<race>Cat</race>
 		<combatPower>35</combatPower>
 		<lifeStages>
 			<li>
@@ -394,7 +450,7 @@
 	<PawnKindDef ParentName="AnimalKindBase">
 		<defName>Fluffy_Siamese</defName>
 		<label>Siamese</label>
-		<race>Fluffy_DomesticCat</race>
+		<race>Cat</race>
 		<combatPower>35</combatPower>
 		<lifeStages>
 			<li>
@@ -442,186 +498,8 @@
 		</lifeStages>
 		<wildSpawn_spawnWild>false</wildSpawn_spawnWild>
 	</PawnKindDef>
-  
-  
-  <ThingDef ParentName="AnimalThingBase">
-<thingClass>Core_SK.PersonalShields.Animal.ShieldPawn</thingClass>
-    <defName>Cat</defName>
-    <label>Cat</label>
-    <description>One of mankind's first pets, the cat is a small mammal which hunts vermin. Known for their aloofness, cats are nevertheless popular companions because of their calmness, independence, and fine, pettable fur.</description>
-    <statBases>
-      <MoveSpeed>4.5</MoveSpeed>
-      <ComfyTemperatureMin>-14</ComfyTemperatureMin>
-      <MarketValue>250</MarketValue>
-	  <ArmorPenetration>0.05</ArmorPenetration>
-    </statBases>
-    <verbs>
-      <li>
-        <verbClass>Verb_MeleeAttack</verbClass>
-        <defaultCooldownTicks>90</defaultCooldownTicks>
-        <meleeDamageBaseAmount>3</meleeDamageBaseAmount>
-        <meleeDamageDef>Scratch</meleeDamageDef>
-        <linkedBodyPartsGroup>FrontLeftPaw</linkedBodyPartsGroup>
-        <surpriseAttack>
-          <extraMeleeDamages>
-            <li>
-              <def>Stun</def>
-              <amount>10</amount>
-            </li>
-          </extraMeleeDamages>
-        </surpriseAttack>
-      </li>
-      <li>
-        <verbClass>Verb_MeleeAttack</verbClass>
-        <defaultCooldownTicks>90</defaultCooldownTicks>
-        <meleeDamageBaseAmount>3</meleeDamageBaseAmount>
-        <meleeDamageDef>Scratch</meleeDamageDef>
-        <linkedBodyPartsGroup>FrontRightPaw</linkedBodyPartsGroup>
-        <surpriseAttack>
-          <extraMeleeDamages>
-            <li>
-              <def>Stun</def>
-              <amount>10</amount>
-            </li>
-          </extraMeleeDamages>
-        </surpriseAttack>
-      </li>
-      <li>
-        <verbClass>Verb_MeleeAttack</verbClass>
-        <defaultCooldownTicks>100</defaultCooldownTicks>
-        <meleeDamageBaseAmount>5</meleeDamageBaseAmount>
-        <meleeDamageDef>Bite</meleeDamageDef>
-        <linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
-        <surpriseAttack>
-          <extraMeleeDamages>
-            <li>
-              <def>Stun</def>
-              <amount>10</amount>
-            </li>
-          </extraMeleeDamages>
-        </surpriseAttack>
-      </li>
-    </verbs>
-    <race>
-      <predator>true</predator>
-      <maxPreyBodySize>0.26</maxPreyBodySize>
-      <body>QuadrupedAnimalWithPawsAndTail</body>
-      <thinkTreeMain>DomesticCat</thinkTreeMain>
-      <baseBodySize>0.255</baseBodySize>
-      <baseHungerRate>0.15</baseHungerRate>
-      <baseHealthScale>0.4</baseHealthScale>
-      <foodType>CarnivoreAnimal, OvivoreAnimal</foodType>
-	  <meatLabel>Domestic Cat Meat</meatLabel>
-      <leatherLabel>Domestic Cat Fur</leatherLabel>
-	  <leatherMarketValue>4</leatherMarketValue>
-      <leatherStatFactors>
-		<MaxHitPoints>0.7</MaxHitPoints>
-        <Beauty>1.3</Beauty>
-        <MarketValue>1.7</MarketValue>
-        <ArmorRating_Blunt>1.15</ArmorRating_Blunt>
-        <ArmorRating_Sharp>1.12</ArmorRating_Sharp>
-        <ArmorRating_Electric>1.3</ArmorRating_Electric>
-        <ArmorRating_Heat>0.7</ArmorRating_Heat>
-        <Insulation_Cold>1.0</Insulation_Cold>
-        <ArmorRating_Heat>0.9</ArmorRating_Heat>
-		<WorkToMake>1.1</WorkToMake>
-		<BedRestEffectiveness>0.9</BedRestEffectiveness>
-		<ImmunityGainSpeedFactor>1.0</ImmunityGainSpeedFactor>
-		<MedicalTreatmentQualityFactor>0.9</MedicalTreatmentQualityFactor>
-      </leatherStatFactors>
-      <wildness>0.2</wildness>
-      <petness>1</petness>
-      <trainableIntelligence>Advanced</trainableIntelligence>
-      <mateMtbHours>12</mateMtbHours>
-      <nuzzleMtbHours>40</nuzzleMtbHours>
-      <gestationPeriodDays>20</gestationPeriodDays>
-      <nameOnTameChance>1</nameOnTameChance>
-      <litterSizeCurve>
-        <points>
-          <li>(0.5, 0)</li>
-          <li>(1, 1)</li>
-          <li>(2, 1.7)</li>
-          <li>(3, 0.7)</li>
-          <li>(3.5, 0)</li>
-        </points>
-      </litterSizeCurve>
-      <lifeExpectancy>10</lifeExpectancy>
-      <lifeStageAges>
-        <li>
-          <def>AnimalBaby</def>
-          <minAge>0</minAge>
-        </li>
-        <li>
-          <def>AnimalJuvenile</def>
-          <minAge>0.15</minAge>
-        </li>
-        <li>
-          <def>AnimalAdult</def>
-          <minAge>1</minAge>
-          <soundWounded>Pawn_Cat_Injured</soundWounded>
-          <soundDeath>Pawn_Cat_Death</soundDeath>
-          <soundCall>Pawn_Cat_Call</soundCall>
-          <soundAngry>Pawn_Cat_Angry</soundAngry>
-        </li>
-      </lifeStageAges>
-      <soundMeleeHitPawn>Pawn_Melee_SmallScratch_HitPawn</soundMeleeHitPawn>
-      <soundMeleeHitBuilding>Pawn_Melee_SmallScratch_HitBuilding</soundMeleeHitBuilding>
-      <soundMeleeMiss>Pawn_Melee_SmallScratch_Miss</soundMeleeMiss>
-    </race>
-    <tradeTags>
-      <li>StandardAnimal</li>
-    </tradeTags>
-  </ThingDef>
-  
-  <PawnKindDef ParentName="AnimalKindBase">
-    <defName>Cat</defName>
-    <label>cat</label>
-    <race>Cat</race>
-    <combatPower>35</combatPower>
-    <wildSpawn_spawnWild>false</wildSpawn_spawnWild>
-    <lifeStages>
-      <li>
-        <label>kitten</label>
-        <bodyGraphicData>
-          <texPath>Things/Pawn/Animal/Cat/Cat</texPath>
-          <drawSize>0.6</drawSize>
-          <color>(189,171,159)</color>
-        </bodyGraphicData>
-        <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-          <drawSize>0.6</drawSize>
-        </dessicatedBodyGraphicData>
-      </li>
-      <li>
-        <bodyGraphicData>
-          <texPath>Things/Pawn/Animal/Cat/Cat</texPath>
-          <drawSize>0.8</drawSize>
-          <color>(189,171,159)</color>
-        </bodyGraphicData>
-        <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-          <drawSize>0.8</drawSize>
-        </dessicatedBodyGraphicData>
-      </li>
-      <li>
-        <bodyGraphicData>
-          <texPath>Things/Pawn/Animal/Cat/Cat</texPath>
-          <drawSize>1.0</drawSize>
-          <color>(189,171,159)</color>
-          <shadowData>
-            <volume>(0.25, 0.3, 0.25)</volume>
-            <offset>(0,0,-0.15)</offset>
-          </shadowData>
-        </bodyGraphicData>
-        <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-          <drawSize>1.0</drawSize>
-        </dessicatedBodyGraphicData>
-      </li>
-    </lifeStages>
-  </PawnKindDef>
-  
-  <!-- Wild cats -->
+
+	<!-- Wild cats -->
 
   <ThingDef ParentName="AnimalThingBase">
     <defName>Fluffy_Lion</defName>
@@ -809,347 +687,5 @@
 		</wildSpawn_GroupSizeRange>
 	</PawnKindDef>
 
-  
-  <!-- Feenix -->
-  
-  
-  <ThingDef ParentName="AnimalThingBase">
-    <defName>Fluffy_Feenix</defName>
-    <thingClass>Fluffy.Feenix</thingClass>
-    <!-- Tried thingClass Pawn, didn't work -->
-    <label>Feenix</label>
-    <description>Said to be fire incarnate, a single Feenix can lay waste to an entire colony. The leave a trail of flames wherever they go. Their hearts will continue to pulse with heat even after the creature has died.</description>
-    <comps>
-      <li Class="CompProperties_Glower">
-        <glowRadius>6</glowRadius>
-        <glowColor>(255,150,100,0)</glowColor>
-      </li>
-      <li Class="CompProperties_HeatPusher">
-        <compClass>CompHeatPusher</compClass>
-        <heatPerSecond>60</heatPerSecond>
-        <!-- no max? -->
-      </li>
-    </comps>
-    <statBases>
-      <Flammability>0</Flammability>
-      <LeatherAmount>0</LeatherAmount>
-      <MoveSpeed>6.00</MoveSpeed>
-      <ComfyTemperatureMin>-10</ComfyTemperatureMin>
-      <ComfyTemperatureMax>99999</ComfyTemperatureMax>
-      <MarketValue>15000</MarketValue>
-	  <ArmorRating_Blunt>0.30</ArmorRating_Blunt>
-      <ArmorRating_Sharp>0.23</ArmorRating_Sharp>
-	  <ArmorPenetration>0.75</ArmorPenetration>
-    </statBases>
-    <verbs>
-      <li>
-        <verbClass>Verb_MeleeAttack</verbClass>
-        <defaultCooldownTicks>80</defaultCooldownTicks>
-        <meleeDamageBaseAmount>17</meleeDamageBaseAmount>
-        <meleeDamageDef>Flame</meleeDamageDef>
-        <linkedBodyPartsGroup>FrontLeftPaw</linkedBodyPartsGroup>
-        <surpriseAttack>
-          <extraMeleeDamages>
-            <li>
-              <def>Stun</def>
-              <amount>21</amount>
-            </li>
-          </extraMeleeDamages>
-        </surpriseAttack>
-      </li>
-      <li>
-        <verbClass>Verb_MeleeAttack</verbClass>
-        <defaultCooldownTicks>80</defaultCooldownTicks>
-        <meleeDamageBaseAmount>17</meleeDamageBaseAmount>
-        <meleeDamageDef>Flame</meleeDamageDef>
-        <linkedBodyPartsGroup>FrontRightPaw</linkedBodyPartsGroup>
-        <surpriseAttack>
-          <extraMeleeDamages>
-            <li>
-              <def>Stun</def>
-              <amount>21</amount>
-            </li>
-          </extraMeleeDamages>
-        </surpriseAttack>
-      </li>
-      <li>
-        <verbClass>Verb_MeleeAttack</verbClass>
-        <defaultCooldownTicks>120</defaultCooldownTicks>
-        <meleeDamageBaseAmount>28</meleeDamageBaseAmount>
-        <meleeDamageDef>Flame</meleeDamageDef>
-        <linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
-        <surpriseAttack>
-          <extraMeleeDamages>
-            <li>
-              <def>Stun</def>
-              <amount>45</amount>
-            </li>
-          </extraMeleeDamages>
-        </surpriseAttack>
-      </li>
-    </verbs>
-    <race>
-      <thinkTreeMain>Feenix</thinkTreeMain> 
-      <deathActionWorkerClass>DeathActionWorker_DropBodyParts</deathActionWorkerClass>
-      <executionRange>5</executionRange>
-      <hasGenders>false</hasGenders>
-      <nameGenerator>NamerAnimalGeneric</nameGenerator>
-      <hediffGiverSets>
-        <li>OrganicStandard</li>
-      </hediffGiverSets>
-      <body>QuadrupedAnimalWithPawsTailAndHeartGroup</body>
-      <petness>0</petness>
-      <baseBodySize>1.6</baseBodySize>
-      <baseHungerRate>2</baseHungerRate>
-      <baseHealthScale>8</baseHealthScale>
-      <foodType>OmnivoreAnimal, OvivoreAnimal</foodType>
-	  <meatLabel>Feenix Meat</meatLabel>
-      <trainableIntelligence>Intermediate</trainableIntelligence>
-      <wildness>0.99</wildness>
-      <manhunterOnTameFailChance>0.005</manhunterOnTameFailChance>
-      <manhunterOnDamageChance>1</manhunterOnDamageChance>
-      <lifeExpectancy>500</lifeExpectancy>
-      <lifeStageAges>
-        <li>
-          <def>AnimalBaby</def>
-          <minAge>0</minAge>
-        </li>
-        <li>
-          <def>AnimalJuvenile</def>
-          <minAge>25</minAge>
-        </li>
-        <li>
-          <def>AnimalAdult</def>
-          <minAge>100</minAge>
-          <soundWounded>Fluffy_Lion_Hurt</soundWounded>
-          <soundDeath>Fluffy_Pawn_Lion_Death</soundDeath>
-          <soundCall>Fluffy_Pawn_Lion_Call</soundCall>
-          <soundAngry>Fluffy_Pawn_Lion_Angry</soundAngry>
-        </li>
-      </lifeStageAges>
-      <soundMeleeHitPawn>Interact_Ignite</soundMeleeHitPawn>
-      <soundMeleeHitBuilding>Interact_Ignite</soundMeleeHitBuilding>
-      <soundMeleeMiss>Interact_Ignite</soundMeleeMiss>
-    </race>
-  </ThingDef>
-
-  
-	<PawnKindDef ParentName="AnimalKindBase">
-		<defName>Fluffy_Feenix</defName>
-		<label>Feenix</label>
-		<race>Fluffy_Feenix</race>
-		<combatPower>300</combatPower>       
-		<lifeStages>
-			<li>
-				<label>Feenix Ember</label>
-				<bodyGraphicData>
-					<texPath>ExoticCat/Feenix</texPath>
-					<drawSize>.5</drawSize>
-					<color>(255,255,255)</color>
-				</bodyGraphicData>
-			</li>
-			<li>
-				<bodyGraphicData>
-					<texPath>ExoticCat/Feenix</texPath>
-					<drawSize>2.5</drawSize>
-					<color>(255,255,255)</color>
-					<shadowData>
-						<volume>(0.4, 0.4, 0.4)</volume>
-						<offset>(0,0,-0.2)</offset>
-					</shadowData>
-				</bodyGraphicData>
-				<dropBodyPart>
-					<bodyPartGroup>Fluffy_Heart</bodyPartGroup>
-					<thing>Fluffy_LivingFire</thing>
-				</dropBodyPart>
-			</li>
-			<li>
-				<bodyGraphicData>
-					<texPath>ExoticCat/Feenix</texPath>
-					<drawSize>3</drawSize>
-					<color>(255,255,255)</color>
-					<shadowData>
-						<volume>(0.4, 0.4, 0.4)</volume>
-						<offset>(0,0,-0.2)</offset>
-					</shadowData>
-				</bodyGraphicData>
-				<dropBodyPart>
-					<bodyPartGroup>Fluffy_Heart</bodyPartGroup>
-					<thing>Fluffy_LivingFire</thing>
-				</dropBodyPart>
-			</li>
-		</lifeStages>
-		<wildSpawn_spawnWild>false</wildSpawn_spawnWild>
-	</PawnKindDef>
-  
-<!-- Feenix -->
-
-
-  <ThingDef ParentName="AnimalThingBase">
-    <defName>Fluffy_Icicat</defName>
-    <label>Icicat</label>
-    <description>Born of frost, Icicats leave a trail of frost wherever they go. They are solitary creatures. Their fur and heart are highly prized on the rim worlds for their high insulation, and supposed medicinal usage.</description>
-    <comps>
-      <li Class="CompProperties_Glower">
-        <glowRadius>6</glowRadius>
-        <glowColor>(175,238,238,0)</glowColor>
-      </li>
-      <li Class="Fluffy.CompPropertiesSnow">
-        <compClass>Fluffy.CompSnow</compClass>
-        <heatSuckMinTemperature>-10</heatSuckMinTemperature>
-        <coldPerSecond>50</coldPerSecond>
-        <snowRadius>6</snowRadius>
-        <snowDepth>.2</snowDepth>
-      </li>
-    </comps>
-    <statBases>
-      <Flammability>1</Flammability>
-      <LeatherAmount>0</LeatherAmount>
-      <MoveSpeed>6.00</MoveSpeed>
-      <ComfyTemperatureMin>-999999</ComfyTemperatureMin>
-      <ComfyTemperatureMax>20</ComfyTemperatureMax>
-      <MarketValue>15000</MarketValue>
-	  <ArmorRating_Blunt>0.30</ArmorRating_Blunt>
-      <ArmorRating_Sharp>0.23</ArmorRating_Sharp>
-	  <ArmorPenetration>0.7</ArmorPenetration>
-    </statBases>
-    <verbs>
-      <li>
-        <verbClass>Verb_MeleeAttack</verbClass>
-        <defaultCooldownTicks>90</defaultCooldownTicks>
-        <meleeDamageBaseAmount>11</meleeDamageBaseAmount>
-        <meleeDamageDef>Frostbite</meleeDamageDef>
-        <linkedBodyPartsGroup>FrontLeftPaw</linkedBodyPartsGroup>
-        <surpriseAttack>
-          <extraMeleeDamages>
-            <li>
-              <def>Stun</def>
-              <amount>21</amount>
-            </li>
-          </extraMeleeDamages>
-        </surpriseAttack>
-      </li>
-      <li>
-        <verbClass>Verb_MeleeAttack</verbClass>
-        <defaultCooldownTicks>90</defaultCooldownTicks>
-        <meleeDamageBaseAmount>11</meleeDamageBaseAmount>
-        <meleeDamageDef>Frostbite</meleeDamageDef>
-        <linkedBodyPartsGroup>FrontRightPaw</linkedBodyPartsGroup>
-        <surpriseAttack>
-          <extraMeleeDamages>
-            <li>
-              <def>Stun</def>
-              <amount>21</amount>
-            </li>
-          </extraMeleeDamages>
-        </surpriseAttack>
-      </li>
-      <li>
-        <verbClass>Verb_MeleeAttack</verbClass>
-        <defaultCooldownTicks>120</defaultCooldownTicks>
-        <meleeDamageBaseAmount>22</meleeDamageBaseAmount>
-        <meleeDamageDef>Frostbite</meleeDamageDef>
-        <linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
-        <surpriseAttack>
-          <extraMeleeDamages>
-            <li>
-              <def>Stun</def>
-              <amount>45</amount>
-            </li>
-          </extraMeleeDamages>
-        </surpriseAttack>
-      </li>
-    </verbs>
-    <race>
-      <deathActionWorkerClass>DeathActionWorker_DropBodyParts</deathActionWorkerClass>
-      <executionRange>5</executionRange>
-      <hasGenders>false</hasGenders>
-      <nameGenerator>NamerAnimalGeneric</nameGenerator>
-      <hediffGiverSets>
-        <li>OrganicStandard</li>
-      </hediffGiverSets>
-      <body>QuadrupedAnimalWithPawsTailAndHeartGroup</body>
-      <petness>0</petness>
-      <baseBodySize>1.6</baseBodySize>
-      <baseHungerRate>2</baseHungerRate>
-      <baseHealthScale>8</baseHealthScale>
-      <foodType>OmnivoreAnimal, OvivoreAnimal</foodType>
-	  <meatLabel>Icicat Meat</meatLabel>
-      <trainableIntelligence>Advanced</trainableIntelligence>
-      <wildness>0.99</wildness>
-      <manhunterOnTameFailChance>0.005</manhunterOnTameFailChance>
-      <manhunterOnDamageChance>1</manhunterOnDamageChance>
-      <lifeExpectancy>500</lifeExpectancy>
-      <lifeStageAges>
-        <li>
-          <def>AnimalBaby</def>
-          <minAge>0</minAge>
-        </li>
-        <li>
-          <def>AnimalJuvenile</def>
-          <minAge>25</minAge>
-        </li>
-        <li>
-          <def>AnimalAdult</def>
-          <minAge>100</minAge>
-          <soundWounded>Pawn_Muffalo_Wounded</soundWounded>
-          <soundDeath>Pawn_Muffalo_Death</soundDeath>
-          <soundCall>Pawn_Muffalo_Call</soundCall>
-          <soundAngry>Pawn_Muffalo_Angry</soundAngry>
-        </li>
-      </lifeStageAges>
-      <soundMeleeHitPawn>Interact_Ignite</soundMeleeHitPawn>
-      <soundMeleeHitBuilding>Interact_Ignite</soundMeleeHitBuilding>
-      <soundMeleeMiss>Interact_Ignite</soundMeleeMiss>
-    </race>
-  </ThingDef>
-
-	<PawnKindDef ParentName="AnimalKindBase">
-		<defName>Fluffy_Icicat</defName>
-		<label>Icicat</label>
-		<race>Fluffy_Icicat</race>
-		<combatPower>260</combatPower>    
-		<lifeStages>
-			<li>
-				<label>Icicat Snowflake</label>
-				<bodyGraphicData>
-					<texPath>ExoticCat/Icicat</texPath>
-					<drawSize>.5</drawSize>
-					<color>(255,255,255)</color>
-				</bodyGraphicData>
-			</li>
-			<li>
-				<bodyGraphicData>
-					<texPath>ExoticCat/Icicat</texPath>
-					<drawSize>2.5</drawSize>
-					<color>(255,255,255)</color>
-					<shadowData>
-						<volume>(0.4, 0.4, 0.4)</volume>
-						<offset>(0,0,-0.2)</offset>
-					</shadowData>
-				</bodyGraphicData>
-				<dropBodyPart>
-					<bodyPartGroup>Fluffy_Heart</bodyPartGroup>
-					<thing>Fluffy_LivingFrost</thing>
-				</dropBodyPart>
-			</li>
-			<li>
-				<bodyGraphicData>
-					<texPath>ExoticCat/Icicat</texPath>
-					<drawSize>3</drawSize>
-					<color>(255,255,255)</color>
-					<shadowData>
-						<volume>(0.4, 0.4, 0.4)</volume>
-						<offset>(0,0,-0.2)</offset>
-					</shadowData>
-				</bodyGraphicData>
-				<dropBodyPart>
-					<bodyPartGroup>Fluffy_Heart</bodyPartGroup>
-					<thing>Fluffy_LivingFrost</thing>
-				</dropBodyPart>
-			</li>
-		</lifeStages>
-		<wildSpawn_spawnWild>false</wildSpawn_spawnWild>
-	</PawnKindDef>
   
 </Defs>
