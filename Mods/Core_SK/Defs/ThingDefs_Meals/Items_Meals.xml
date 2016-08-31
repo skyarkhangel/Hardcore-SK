@@ -1,0 +1,405 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ThingDefs>
+
+  <!-- =========== REALISTIC PRODUCTION SK MOD =========== -->
+
+  <ThingDef Name="ResBase" Abstract="True">
+    <thingClass>ThingWithComps</thingClass>
+    <label>unspecified resource</label>
+    <category>Item</category>
+    <resourceReadoutPriority>Middle</resourceReadoutPriority>
+    <useHitPoints>true</useHitPoints>
+    <selectable>true</selectable>
+    <altitudeLayer>Item</altitudeLayer>
+    <stackLimit>75</stackLimit>
+    <comps>
+		<li Class="CompProperties_Forbiddable"/>
+    </comps>
+    <alwaysHaulable>true</alwaysHaulable>
+    <drawGUIOverlay>true</drawGUIOverlay>
+    <rotatable>false</rotatable>
+    <pathCost>15</pathCost>
+  </ThingDef>
+  
+    <ThingDef Abstract="True" Name="OrganicMeals" ParentName="ResBase">
+    <graphicData>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <socialPropernessMatters>true</socialPropernessMatters>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <DeteriorationRate>5</DeteriorationRate>
+    </statBases>
+    <tickerType>Rare</tickerType>
+  </ThingDef>
+
+  <ThingDef Name="MealBase" Abstract="True">
+    <thingClass>ThingWithComps</thingClass>
+    <category>Item</category>
+    <useHitPoints>true</useHitPoints>
+    <selectable>true</selectable>
+    <statBases>
+      <MaxHitPoints>50</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+	  <Bulk>0.20</Bulk>
+	  <Weight>0.20</Weight>
+    </statBases>
+    <altitudeLayer>Item</altitudeLayer>
+    <stackLimit>10</stackLimit>
+    <tickerType>Rare</tickerType>
+    <description>"Meal lacks desc."</description>
+    <socialPropernessMatters>true</socialPropernessMatters>
+    <thingCategories>
+      <li>FoodMeals</li>
+    </thingCategories>
+    <alwaysHaulable>true</alwaysHaulable>
+    <comps>
+      <li Class="CompProperties_Forbiddable"/>
+      <li Class="CompProperties_Ingredients" />
+      <li Class="CompProperties_FoodPoisonable" />	  
+    </comps>
+    <pathCost>15</pathCost>
+    <resourceReadoutPriority>Last</resourceReadoutPriority>
+    <drawGUIOverlay>true</drawGUIOverlay>
+    <ingestible>
+      <foodType>Meal, Processed</foodType>
+      <maxNumToIngestAtOnce>1</maxNumToIngestAtOnce>
+    </ingestible>
+  </ThingDef>
+
+	<ThingDef ParentName="MealBase" Name="MealRottable" Abstract="True">
+		<comps>
+			<li Class="CompProperties_Rottable">
+				<daysToRotStart>4</daysToRotStart>
+				<rotDestroys>true</rotDestroys>
+			</li>
+		</comps>
+	</ThingDef>
+
+
+	<ThingDef ParentName="MealBase" Name="MealBeverage" Abstract="True">
+		<statBases>
+		  <Bulk>1.0</Bulk>
+		  <Weight>0.70</Weight>
+		</statBases>
+	</ThingDef>
+
+
+  <ThingDef ParentName="OrganicProductBase">
+    <defName>Kibble</defName>
+    <label>Kibble</label>
+    <thingCategories>
+      <li>FoodMeals</li>
+    </thingCategories>
+    <description>Kibble animal feed made from mixed meat and plant sources.</description>
+    <graphicData>
+      <texPath>Things/Item/Resource/Kibble</texPath>
+    </graphicData>
+    <statBases>
+      <MarketValue>2.1</MarketValue>
+		<Weight>0.05</Weight>
+		<Bulk>0.05</Bulk>
+    </statBases>
+    <ingestible>
+      <foodType>Kibble</foodType>
+      <preferability>RawBad</preferability>
+      <tastesRaw>true</tastesRaw>
+      <nutrition>0.05</nutrition>
+      <eatEffect>EatVegetarian</eatEffect>
+      <soundEat>RawVegetable_Eat</soundEat>
+    </ingestible>
+    <comps>
+      <li Class="CompProperties_FoodPoisoningChance" />
+    </comps>
+	<stackLimit>150</stackLimit>
+  </ThingDef>
+
+  <ThingDef ParentName="OrganicProductBase">
+    <defName>Pemmican</defName>
+    <label>Pemmican</label>
+    <thingClass>ThingWithComps</thingClass>
+    <thingCategories>
+      <li>FoodMeals</li>
+    </thingCategories>
+    <description>A preserved mashed mixture of fat and plant food. Tastes bland, but not offensive. It lasts a very long time without refrigeration.</description>
+    <graphicData>
+      <texPath>Things/Item/Resource/Pemmican</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>3.1</MarketValue>
+      <WorkToMake>600</WorkToMake>
+		<Weight>0.08</Weight>
+		<Bulk>0.1</Bulk>
+    </statBases>
+    <ingestible>
+      <foodType>Meal</foodType>
+      <preferability>MealSimple</preferability>
+      <nutrition>0.05</nutrition>
+      <eatEffect>EatVegetarian</eatEffect>
+      <soundEat>Meal_Eat</soundEat>
+    </ingestible>
+    <comps>
+      <li Class="CompProperties_Rottable">
+        <daysToRotStart>80</daysToRotStart>
+        <rotDestroys>true</rotDestroys>
+      </li>
+      <li Class="CompProperties_Ingredients" />
+      <li Class="CompProperties_FoodPoisonable" />
+    </comps>
+	<stackLimit>150</stackLimit>
+  </ThingDef>
+  
+ 
+  <ThingDef ParentName="MealBase">
+    <defName>MealSurvivalPack</defName>
+    <label>Packaged Survival Meal</label>
+    <description>A high-quality packaged meal, manufactured for use in survival situations.</description>
+    <graphicData>
+		<texPath>Things/Item/Meal/Meal_Survival</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <DeteriorationRate>0.25</DeteriorationRate>
+      <MarketValue>30</MarketValue>
+	  <Bulk>1.50</Bulk>
+	  <Weight>1.20</Weight>
+    </statBases>
+    <ingestible>
+	  <foodType>Meal, Processed</foodType>
+      <preferability>MealFine</preferability>
+      <nutrition>0.90</nutrition>
+      <joy>0.02</joy>
+      <eatEffect>EatVegetarian</eatEffect>
+      <soundEat>Meal_Eat</soundEat>
+    </ingestible>
+  </ThingDef>
+
+  <ThingDef ParentName="MealRottable">
+    <defName>MealSimple</defName>
+    <label>Simple Meal</label>
+    <description>A simple meal quickly cooked from a few ingredients.</description>
+    <graphicData>
+		<texPath>Things/Item/Meal/Meal_Simple</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <DeteriorationRate>10</DeteriorationRate>
+      <MarketValue>25</MarketValue>
+      <WorkToMake>300</WorkToMake>
+	  <Bulk>1.50</Bulk>
+	  <Weight>1.20</Weight>
+    </statBases>
+    <ingestible>
+	  <foodType>Meal, Processed</foodType>
+      <preferability>MealSimple</preferability>
+      <nutrition>0.85</nutrition>
+      <joy>0.02</joy>
+      <eatEffect>EatVegetarian</eatEffect>
+      <soundEat>Meal_Eat</soundEat>
+    </ingestible>
+  </ThingDef>
+
+	
+  <ThingDef ParentName="MealRottable">
+    <defName>MealFine</defName>
+    <label>Fine Meal</label>
+    <description>A complex dish assembled with care from a wide selection of ingredients.</description>
+    <graphicData>
+		<texPath>Things/Item/Meal/Meal_Fine</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <DeteriorationRate>10</DeteriorationRate>
+      <MarketValue>28</MarketValue>
+      <WorkToMake>450</WorkToMake>
+	  <Bulk>1.50</Bulk>
+	  <Weight>1.20</Weight>
+    </statBases>
+    <ingestible>
+	  <foodType>Meal, Processed</foodType>
+      <preferability>MealFine</preferability>
+      <nutrition>0.90</nutrition>
+      <joy>0.045</joy>
+      
+      <eatEffect>EatVegetarian</eatEffect>
+      <soundEat>Meal_Eat</soundEat>
+    </ingestible>
+  </ThingDef>
+
+	
+  <ThingDef ParentName="MealRottable">
+    <defName>MealLavish</defName>
+    <label>Lavish Meal</label>
+    <description>An elborate concoction of food skillfully prepared into a succulent meal.</description>
+    <graphicData>
+		<texPath>Things/Item/Meal/Meal_Lavish</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <DeteriorationRate>10</DeteriorationRate>
+      <MarketValue>40</MarketValue>
+      <WorkToMake>800</WorkToMake>
+	  <Bulk>1.50</Bulk>
+	  <Weight>1.20</Weight>
+    </statBases>
+    <ingestible>
+	  <foodType>Meal, Processed</foodType>
+      <preferability>MealLavish</preferability>
+      <nutrition>1.00</nutrition>
+      <joy>0.065</joy>
+      
+      <eatEffect>EatVegetarian</eatEffect>
+      <soundEat>Meal_Eat</soundEat>
+    </ingestible>
+  </ThingDef>
+	
+
+  <ThingDef ParentName="MealRottable">
+    <defName>MealLuxury</defName>
+    <label>Luxury Meal</label>
+    <description>A masterpiece of the culinary arts, this meal nourishes the body, mind, and soul.</description>
+    <graphicData>
+		<texPath>Things/Item/Meal/Meal_Lavish</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <DeteriorationRate>10</DeteriorationRate>
+      <MarketValue>60</MarketValue>
+      <WorkToMake>800</WorkToMake>
+	  <Bulk>1.50</Bulk>
+	  <Weight>1.20</Weight>
+    </statBases>
+    <ingestible>
+	 <foodType>Meal, Processed</foodType>
+      <preferability>MealLavish</preferability>
+      <nutrition>1.00</nutrition>
+      <joy>0.085</joy>
+      
+      <eatEffect>EatVegetarian</eatEffect>
+      <soundEat>Meal_Eat</soundEat>
+    </ingestible>
+  </ThingDef>
+	
+
+	<ThingDef ParentName="MealRottable">
+		<defName>MealSalad</defName>
+		<label>Simple Salad</label>
+		<description>A simple salad made from gathered vegetables.</description>
+    <graphicData>
+		<texPath>Things/Item/Meal/Meal_Salad</texPath>
+		<graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+		<statBases>
+			<DeteriorationRate>10</DeteriorationRate>
+			<MarketValue>15</MarketValue>
+			<WorkToMake>300</WorkToMake>
+			<Bulk>1.50</Bulk>
+			<Weight>1.20</Weight>
+		</statBases>
+		<ingestible>
+			<foodType>Meal, Processed</foodType>
+			<preferability>MealFine</preferability>
+			<nutrition>0.60</nutrition>
+			<joy>0.02</joy>
+			<eatEffect>EatVegetarian</eatEffect>
+			<soundEat>Meal_Eat</soundEat>
+		</ingestible>
+		<stackLimit>10</stackLimit>
+	</ThingDef>
+
+
+	<ThingDef ParentName="MealBase">
+		<defName>MealJerky</defName>
+		<label>Jerky</label>
+		<description>Jerky made from raw meat.</description>
+    <graphicData>
+		<texPath>Things/Item/Meal/Jerky</texPath>
+		<graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+		<statBases>
+			<DeteriorationRate>10</DeteriorationRate>
+			<MarketValue>15</MarketValue>
+			<WorkToMake>300</WorkToMake>
+	  <Bulk>1.50</Bulk>
+	  <Weight>1.20</Weight>
+		</statBases>
+		<stackLimit>10</stackLimit>
+		<ingestible>
+			<foodType>Meal, Processed</foodType>
+			<preferability>MealSimple</preferability>
+			<nutrition>0.60</nutrition>
+			<joy>0.02</joy>
+			<eatEffect>EatMeat</eatEffect>
+			<soundEat>Meal_Eat</soundEat>
+		</ingestible>
+		<comps>
+			<li Class="CompProperties_Rottable">
+				<daysToRotStart>30</daysToRotStart>
+				<rotDestroys>true</rotDestroys>
+			</li>
+		</comps>
+	</ThingDef>
+
+
+	<ThingDef ParentName="MealBase">
+		<defName>RoastedMeat</defName>
+		<label>Roasted Meat</label>
+		<description>Freshly roasted meat.</description>
+    <graphicData>
+		<texPath>Things/Item/Meal/RoastedMeat</texPath>
+		<graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+		<statBases>
+			<DeteriorationRate>17</DeteriorationRate>
+			<MarketValue>12</MarketValue>
+			<WorkToMake>200</WorkToMake>
+			<Bulk>1.5</Bulk>
+			<Weight>1.2</Weight>				
+		</statBases>
+		<stackLimit>10</stackLimit>
+		<ingestible>
+			<foodType>Meal, Processed</foodType>
+			<preferability>MealFine</preferability>
+			<nutrition>0.70</nutrition>
+			<joy>0.03</joy>
+			<eatEffect>EatMeat</eatEffect>
+			<soundEat>Meal_Eat</soundEat>
+		</ingestible>
+		<comps>
+			<li Class="CompProperties_Rottable">
+				
+				<daysToRotStart>3</daysToRotStart>
+				<rotDestroys>true</rotDestroys>
+			</li>
+		</comps>
+	</ThingDef>
+	
+  <ThingDef ParentName="MealRottable">
+    <defName>FriedVegetables</defName>
+    <label>Fried Assorts</label>
+    <description>A simple fried assortment of vegetables. Not too nutritious or tasty.</description>
+    <graphicData>
+      <texPath>Things/Item/Meal/RoastM</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <DeteriorationRate>10</DeteriorationRate>
+      <MarketValue>11</MarketValue>
+      <WorkToMake>200</WorkToMake>
+      <Bulk>1.0</Bulk>
+      <Weight>0.7</Weight>	
+    </statBases>
+    <stackLimit>10</stackLimit>
+    <ingestible>
+      <foodType>Meal, Processed</foodType>
+      <preferability>MealSimple</preferability>
+      <nutrition>0.45</nutrition>
+      <joy>0.00</joy>
+      <eatEffect>EatVegetarian</eatEffect>
+      <soundEat>Meal_Eat</soundEat>
+    </ingestible>
+  </ThingDef>
+	
+</ThingDefs>
