@@ -40,8 +40,8 @@
     <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
     <comps>
 	   <li Class="CompProperties_Refuelable">
-        <fuelConsumptionRate>10.0</fuelConsumptionRate>
-        <fuelCapacity>20.0</fuelCapacity>
+        <fuelConsumptionRate>8.0</fuelConsumptionRate>
+        <fuelCapacity>10.0</fuelCapacity>
         <fuelFilter>
           <thingDefs>
             <li>Kindling</li>
@@ -54,10 +54,11 @@
         <glowRadius>10</glowRadius>
         <glowColor>(252,187,113,0)</glowColor>
       </li>
-      <li Class="CompProperties_HeatPusher"> 
-        <heatPerSecond>15</heatPerSecond>
-        <heatPushMaxTemperature>28</heatPushMaxTemperature>
-      </li>
+			<li Class="SK.CompProperties_HeatPusherAdvanced">
+				<compClass>SK.CompHeatPusherAdvanced</compClass>
+				<heatPerSecond>18</heatPerSecond>
+				<heatPushMaxTemperature>30</heatPushMaxTemperature>
+			</li>
       <li Class="SK.CompProperties_FireOverlayMod">
         <fireSize>1</fireSize>
       </li>
@@ -88,6 +89,68 @@
     </building>
   </ThingDef>
 
+	<ThingDef ParentName="BuildingBase">
+		<defName>Building_Heater</defName>
+		<label>Coal burner</label>
+		<ThingClass>Building</ThingClass>
+		<graphicData>
+		<texPath>Things/Building/Temperature/MedievalHeater</texPath>
+		<graphicClass>Graphic_Single</graphicClass>
+		<drawSize>(2,2)</drawSize>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>70</pathCost>
+		<fillPercent>1</fillPercent>
+		<castEdgeShadows>true</castEdgeShadows>
+		<statBases>
+			<MaxHitPoints>310</MaxHitPoints>
+			<WorkToMake>2500</WorkToMake>
+			<Flammability>0</Flammability>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<description>A burner produces only heat by burning basic coal-like fuel sources.h coal, charcoal, kindling or peat in order to function.</description>
+		<size>(2,2)</size>
+		<building>
+			<ignoreNeedsPower>true</ignoreNeedsPower>
+		</building>
+		<stuffCategories>
+			<li>Stony</li>
+		</stuffCategories>
+		<costStuffCount>120</costStuffCount>
+		<comps>
+			  <li Class="CompProperties_Flickable"/>
+		  <li Class="CompProperties_Refuelable">
+			<fuelConsumptionRate>17.0</fuelConsumptionRate>
+			<fuelCapacity>50.0</fuelCapacity>
+			<fuelFilter>
+			  <thingDefs>
+				<li>Coal</li>
+				<li>Charcoal</li>
+				<li>Peat</li>
+				<li>Kindling</li>
+			  </thingDefs>
+				<categories>
+				  <li>Wooden</li>
+				</categories>
+			</fuelFilter>
+			<consumeFuelOnlyWhenUsed>false</consumeFuelOnlyWhenUsed>
+		  </li>
+			<li Class="CompProperties_Glower">
+			<glowRadius>3</glowRadius>
+			<glowColor>(217,112,33,0)</glowColor>
+		  </li>
+			<li Class="SK.CompProperties_HeatPusherAdvanced">
+				<compClass>SK.CompHeatPusherAdvanced</compClass>
+				<heatPerSecond>40</heatPerSecond>
+				<heatPushMaxTemperature>50</heatPushMaxTemperature>
+			</li>
+		</comps>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<designationCategory>Temperature</designationCategory>
+		<staticSunShadowHeight>0.20</staticSunShadowHeight>
+		<researchPrerequisites><li>SK_Craftsmanship</li></researchPrerequisites>
+	</ThingDef>
   
   <ThingDef ParentName="BuildingBase">
     <defName>EHeatedFloor</defName>
@@ -125,19 +188,20 @@
     </placeWorkers>
     <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
     <comps>
+			  <li Class="CompProperties_Flickable"/>
+			  <li Class="CompProperties_Breakdownable"/>
       <li Class="CompProperties_Power">
         <compClass>CompPowerTrader</compClass>
         <startElectricalFires>true</startElectricalFires>
         <soundPowerOn>PowerOnSmall</soundPowerOn>
         <soundPowerOff>PowerOffSmall</soundPowerOff>
-        <basePowerConsumption>0.5</basePowerConsumption>
+        <basePowerConsumption>1</basePowerConsumption>
       </li>
-      <li Class="CompProperties_HeatPusher">
-        <heatPerSecond>1</heatPerSecond>
-        <heatPushMaxTemperature>6</heatPushMaxTemperature>
-      </li>
-	  <li Class="CompProperties_Flickable"/>
-      <li Class="CompProperties_Breakdownable"/>
+			<li Class="SK.CompProperties_HeatPusherAdvanced">
+				<compClass>SK.CompHeatPusherAdvanced</compClass>
+				<heatPerSecond>2</heatPerSecond>
+				<heatPushMaxTemperature>12</heatPushMaxTemperature>
+			</li>
     </comps>
     <designationCategory>Temperature</designationCategory>
     <researchPrerequisites><li>Batteries</li></researchPrerequisites>
@@ -390,10 +454,11 @@
     <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
     <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
     <comps>
-      <li Class="CompProperties_HeatPusher">
-        <heatPerSecond>48</heatPerSecond>
-        <heatPushMaxTemperature>21</heatPushMaxTemperature>
-      </li>
+			<li Class="SK.CompProperties_HeatPusherAdvanced">
+				<compClass>SK.CompHeatPusherAdvanced</compClass>
+				<heatPerSecond>50</heatPerSecond>
+				<heatPushMaxTemperature>80</heatPushMaxTemperature>
+			</li>
             <li Class="CommunityCoreLibrary.CompProperties_RestrictedPlacement">
                 <compClass>CommunityCoreLibrary.CompRestrictedPlacement</compClass>
                 <RestrictedThing>

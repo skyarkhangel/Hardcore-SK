@@ -6,7 +6,7 @@
 	<ThingDef ParentName="BenchBase">
 		<DefName>TableGrill</DefName>
 		<label>Simple Grill</label>
-		<ThingClass>Building_WorkTable_HeatPush</ThingClass>
+		<ThingClass>SK.Building_WorkTable_HeatPushAdvanced</ThingClass>
 		<Description>A small grill used to cook meat into simple jerky or roasts. (Can be fueled by Kindling)</Description>
 		<graphicData>
 			<texPath>Things/Building/Production/TableGrill1x1</texPath>
@@ -211,7 +211,7 @@
 <ThingDef ParentName="BenchBase">
     <defName>FueledStove</defName>
     <label>Fueled Stove</label>
-    <ThingClass>Building_WorkTable_HeatPush</ThingClass>
+    <ThingClass>SK.Building_WorkTable_HeatPushAdvanced</ThingClass>
     <Description>A simple wood-fueled stove with an attached countertop for preparing meals. (Can be fueled by Kindling, Coal or Charcoal)</Description>
     <graphicData>
       <texPath>Things/Building/Production/TableStoveFueled</texPath>
@@ -297,7 +297,7 @@
 	<ThingDef ParentName="BenchBase">
 		<defName>TableOven</defName>
 		<label>Oven</label>
-		<ThingClass>Building_WorkTable_HeatPush</ThingClass>
+		<ThingClass>SK.Building_WorkTable_HeatPushAdvanced</ThingClass>
 		<Description>A fueled oven for baking candies and tasty treats. Requires kindking, coal or charcoal.</Description>
 		<graphicData>
 		  <texPath>Things/Building/Production/Tableoven</texPath>
@@ -423,6 +423,8 @@
       <li>ITab_Bills</li>
     </inspectorTabs>
     <comps>
+			  <li Class="CompProperties_Flickable"/>
+			  <li Class="CompProperties_Breakdownable"/>
       <li Class="CompProperties_Power">
         <compClass>CompPowerTrader</compClass>
         <basePowerConsumption>250</basePowerConsumption>
@@ -444,8 +446,6 @@
           <li>CookingTools</li>
         </linkableFacilities>
       </li>
-			  <li Class="CompProperties_Flickable"/>
-			  <li Class="CompProperties_Breakdownable"/>
     </comps>
 		<placeWorkers>
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
@@ -596,7 +596,7 @@
   <ThingDef ParentName="BenchBase">
     <DefName>Brewery</DefName>
     <label>Brewery</label>
-    <ThingClass>Building_WorkTable</ThingClass>
+    <ThingClass>SK.Building_WorkTable_HeatPushAdvanced</ThingClass>
     <Description>A work station with all the equipment needed to brew beer.  (Can be fueled by Kindling, Coal or Charcoal)</Description>
     <graphicData>
       <texPath>Things/Building/Production/TableBrewer/TableBrewerNeolithic</texPath>
@@ -663,7 +663,7 @@
   <ThingDef ParentName="BenchBase">
     <DefName>ElectricBrewery</DefName>
     <label>Electric Brewery</label>
-    <ThingClass>Building_WorkTable</ThingClass>
+    <ThingClass>SK.Building_WorkTable_HeatPushAdvanced</ThingClass>
     <Description>A work station with all the equipment needed to brew alocholic drinks and ethanol fuel. Requires power.</Description>
     <graphicData>
       <texPath>Things/Building/Production/TableBrewery</texPath>
@@ -718,11 +718,6 @@
 				<basePowerConsumption>240</basePowerConsumption>
 				<soundPowerOn>PowerOnSmall</soundPowerOn>
 				<soundPowerOff>PowerOffSmall</soundPowerOff>
-			</li>
-			<li Class="CompProperties_HeatPusher">
-				<compClass>CompHeatPusherPowered</compClass>
-				<heatPerSecond>22</heatPerSecond>
-				<heatPushMaxTemperature>35</heatPushMaxTemperature>
 			</li>
             <li Class="CommunityCoreLibrary.CompProperties_LowIdleDraw">
                 <compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
@@ -973,6 +968,7 @@
 		<hasInteractionCell>True</hasInteractionCell>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
 		<surfaceType>Item</surfaceType>
+		<tickerType>Normal</tickerType>
 		<recipes>
 			<li>MakeTinBars_Hand</li>
 			<li>MakeCopperBars_Hand</li>
@@ -988,9 +984,10 @@
 			<li>ITab_Bills</li>
 		</inspectorTabs>
 		<comps>
+			<li Class="CompProperties_Flickable"/>
       <li Class="CompProperties_Refuelable">
         <fuelConsumptionRate>18.0</fuelConsumptionRate>
-        <fuelCapacity>50.0</fuelCapacity>
+        <fuelCapacity>10.0</fuelCapacity>
         <fuelFilter>
           <thingDefs>
             <li>Coal</li>
@@ -1013,19 +1010,18 @@
           <li>ToolCabinet</li>
         </linkableFacilities>
       </li>
-			 <li Class="CompProperties_HeatPusher">
-				<compClass>CompHeatPusher</compClass>
-				<heatPerSecond>35</heatPerSecond>
+			<li Class="SK.CompProperties_HeatPusherAdvanced">
+				<compClass>SK.CompHeatPusherAdvanced</compClass>
+				<heatPerSecond>30</heatPerSecond>
 				<heatPushMaxTemperature>75</heatPushMaxTemperature>
 			</li>
 		  <li Class="SK.CompProperties_FireOverlayMod">
-			<fireSize>2</fireSize>
-			<offset>(0,9.0,0.3)</offset>
+			<fireSize>1</fireSize>
+			<offset>(0,9.5,0.3)</offset>
 		  </li>
 		</comps>
 		<building>
 			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
-			<heatPerTickWhileWorking>3</heatPerTickWhileWorking>
 		</building>
 		<placeWorkers>
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
@@ -1066,6 +1062,7 @@
 		<Passability>Impassable</Passability>
 		<hasInteractionCell>True</hasInteractionCell>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
+		<tickerType>Normal</tickerType>
 		<surfaceType>Item</surfaceType>
 		<recipes>
 			<li>MakeCharcoal_Hand</li>
@@ -1077,9 +1074,10 @@
 			<li>ITab_Bills</li>
 		</inspectorTabs>
 		<comps>
+			<li Class="CompProperties_Flickable"/>
       <li Class="CompProperties_Refuelable">
         <fuelConsumptionRate>20.0</fuelConsumptionRate>
-        <fuelCapacity>50.0</fuelCapacity>
+        <fuelCapacity>10.0</fuelCapacity>
         <fuelFilter>
           <thingDefs>
             <li>Coal</li>
@@ -1093,28 +1091,27 @@
         </fuelFilter>
         <consumeFuelOnlyWhenUsed>false</consumeFuelOnlyWhenUsed>
       </li>
-		<li Class="CompProperties_Glower">
-			<glowRadius>4</glowRadius>
-			<glowColor>(217,112,33,0)</glowColor>
-		</li>
         <li Class="CompProperties_AffectedByFacilities">
         <linkableFacilities>
           <li>ToolCabinet</li>
         </linkableFacilities>
       </li>
-			 <li Class="CompProperties_HeatPusher">
-				<compClass>CompHeatPusher</compClass>
+			<li Class="SK.CompProperties_HeatPusherAdvanced">
+				<compClass>SK.CompHeatPusherAdvanced</compClass>
 				<heatPerSecond>35</heatPerSecond>
 				<heatPushMaxTemperature>75</heatPushMaxTemperature>
 			</li>
 		  <li Class="SK.CompProperties_FireOverlayMod">
-			<fireSize>2</fireSize>
-			<offset>(0,8.0,0.3)</offset>
+			<fireSize>1.7</fireSize>
+			<offset>(0,9.0,0.3)</offset>
 		  </li>
+			<li Class="CompProperties_Glower">
+				<glowRadius>4</glowRadius>
+				<glowColor>(217,112,33,0)</glowColor>
+			</li>
 		</comps>
 		<building>
 			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
-			<heatPerTickWhileWorking>3</heatPerTickWhileWorking>
 		</building>
 		<placeWorkers>
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
@@ -1165,6 +1162,8 @@
 			<li>ITab_Bills</li>
 		</inspectorTabs>
 		<comps>
+			  <li Class="CompProperties_Flickable"/>
+			  <li Class="CompProperties_Breakdownable"/>
       <li Class="CompProperties_AffectedByFacilities">
         <linkableFacilities>
           <li>Small_ToolCabinet</li>
@@ -1191,8 +1190,6 @@
 				<heatPerSecond>25</heatPerSecond>
 				<heatPushMaxTemperature>45</heatPushMaxTemperature>
 			</li>
-			  <li Class="CompProperties_Flickable"/>
-			  <li Class="CompProperties_Breakdownable"/>
 		</comps>
 		<building>
 			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
@@ -1368,6 +1365,8 @@
       <unpoweredWorkTableWorkSpeedFactor>0.25</unpoweredWorkTableWorkSpeedFactor>
     </building>
     <comps>
+			  <li Class="CompProperties_Flickable"/>
+			  <li Class="CompProperties_Breakdownable"/>
       <li Class="CompProperties_Power">
         <compClass>CompPowerTrader</compClass>
         <startElectricalFires>true</startElectricalFires>
@@ -1386,8 +1385,6 @@
                 <compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
                 <idlePowerFactor>0.1</idlePowerFactor>
             </li>
-			  <li Class="CompProperties_Flickable"/>
-			  <li Class="CompProperties_Breakdownable"/>
     </comps>
     <designationHotKey>Misc6</designationHotKey>
 		<placeWorkers>
@@ -1452,6 +1449,8 @@
 			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
 		</building>
 		<comps>
+			  <li Class="CompProperties_Flickable"/>
+			  <li Class="CompProperties_Breakdownable"/>
 		  <li Class="CompProperties_AffectedByFacilities">
 			<linkableFacilities>
 			  <li>Patterner</li>
@@ -1468,8 +1467,6 @@
 				<compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
 				<idlePowerFactor>0.1</idlePowerFactor>
             </li>
-			<li Class="CompProperties_Flickable"/>
-			<li Class="CompProperties_Breakdownable"/>
 		</comps>
 		<researchPrerequisites><li>ComplexClothing</li></researchPrerequisites>
 		<placeWorkers>
@@ -1522,6 +1519,8 @@
 	</inspectorTabs>
      <tickerType>Normal</tickerType>
     <comps>
+			  <li Class="CompProperties_Flickable"/>
+			  <li Class="CompProperties_Breakdownable"/>
       <li Class="CompProperties_Power">
         <compClass>CompPowerTrader</compClass>
         <basePowerConsumption>400</basePowerConsumption>
@@ -1542,8 +1541,6 @@
           <li>Patterner</li>
         </linkableFacilities>
       </li>
-		<li Class="CompProperties_Flickable"/>
-		<li Class="CompProperties_Breakdownable"/>
     </comps>
 		<placeWorkers>
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
@@ -1776,10 +1773,12 @@
     <building>
       <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
     </building>
+	<tickerType>Normal</tickerType>
     <comps>
+		<li Class="CompProperties_Flickable"/>
       <li Class="CompProperties_Refuelable">
-        <fuelConsumptionRate>120.0</fuelConsumptionRate>
-        <fuelCapacity>50.0</fuelCapacity>
+        <fuelConsumptionRate>30.0</fuelConsumptionRate>
+        <fuelCapacity>15.0</fuelCapacity>
         <fuelFilter>
           <thingDefs>
             <li>Coal</li>
@@ -1787,7 +1786,7 @@
             <li>Peat</li>
           </thingDefs>
         </fuelFilter>
-        <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+        <consumeFuelOnlyWhenUsed>false</consumeFuelOnlyWhenUsed>
       </li>
       <li Class="CompProperties_AffectedByFacilities">
         <linkableFacilities>
@@ -1795,6 +1794,11 @@
           <li>PodChair</li>
         </linkableFacilities>
       </li>
+			<li Class="SK.CompProperties_HeatPusherAdvanced">
+				<compClass>SK.CompHeatPusherAdvanced</compClass>
+				<heatPerSecond>40</heatPerSecond>
+				<heatPushMaxTemperature>75</heatPushMaxTemperature>
+			</li>
 		  <li Class="SK.CompProperties_FireOverlayMod">
 			<fireSize>3</fireSize>
 			<offset>(0,3.5,0.3)</offset>
@@ -1855,7 +1859,7 @@
   <ThingDef ParentName="BenchBase">
     <DefName>TableStonecutter</DefName>
     <label>Hand Machining Table</label>
-    <ThingClass>Building_WorkTable_HeatPush</ThingClass>
+    <ThingClass>Building_WorkTable</ThingClass>
     <Description>An unpowered work table equipped to process stone chunks into blocks, rubble or sand. Reinforced concrete is prepared here as well.</Description>
     <graphicData>
       <texPath>Things/Building/Production/TableSmithingFueled</texPath>
@@ -2186,6 +2190,7 @@
       <ResearchSpeedFactor>1.0</ResearchSpeedFactor>
     </statBases>
     <comps>
+			  <li Class="CompProperties_Flickable"/>
       <li Class="CompProperties_Power">
         <compClass>CompPowerTrader</compClass>
         <basePowerConsumption>700</basePowerConsumption>
@@ -2195,7 +2200,6 @@
                 <compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
                 <idlePowerFactor>0.1</idlePowerFactor>
             </li>
-      <li Class="CompProperties_Flickable"/>
       <li Class="CompProperties_AffectedByFacilities">
         <linkableFacilities>
           <li>MultiAnalyzer</li>
@@ -2359,6 +2363,8 @@
 			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
 		</building>
 		<comps>
+			  <li Class="CompProperties_Flickable"/>
+			  <li Class="CompProperties_Breakdownable"/>
       <li Class="CompProperties_AffectedByFacilities">
         <linkableFacilities>
           <li>Small_ToolCabinet</li>
@@ -2376,8 +2382,6 @@
                 <compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
                 <idlePowerFactor>0.1</idlePowerFactor>
             </li>
-			  <li Class="CompProperties_Flickable"/>
-			  <li Class="CompProperties_Breakdownable"/>
 		</comps>
 		<researchPrerequisites><li>SmithingI</li></researchPrerequisites>
 		<placeWorkers>
@@ -2616,6 +2620,54 @@
 
 	<!-- ========================= EPOE ==========================-->
 
+	<!-- ========================= EPOE ==========================-->
+	
+  <ThingDef ParentName="BenchBase">
+    <DefName>TablePremitiveProsthetic</DefName>
+    <label>Premitive prosthetics bench</label>
+    <ThingClass>Building_WorkTable</ThingClass>
+    <Description>A workbench equipped for production of basic prosthetics. Requires power.</Description>
+    <graphicData>
+      <texPath>Things/Building/Production/TableCraftsman/Neolithic/TableCraftsmanNeolithic</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(3.4,1.3)</drawSize>
+    </graphicData>
+	<stuffCategories>
+		<li>Stony</li>
+		<li>Woody</li>
+	</stuffCategories>
+	<costStuffCount>130</costStuffCount>
+    <altitudeLayer>Building</altitudeLayer>
+    <statBases>
+      <WorkToMake>5700</WorkToMake>
+      <MaxHitPoints>120</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <Cleanliness>-6</Cleanliness>
+    </statBases>
+    <Size>(3,1)</Size>
+    <DesignationCategory>Production</DesignationCategory>
+    <Passability>PassThroughOnly</Passability>
+    <pathCost>60</pathCost>
+    <hasInteractionCell>True</hasInteractionCell>
+    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
+    <surfaceType>Item</surfaceType>
+    <recipes>
+	<li>CreatePegLeg</li>
+	<li>CreateSteelArm</li>
+	<li>CreateHookHand</li>
+	<li>CreateEyePatch</li>
+	<li>CreateDenture</li>
+	<li>CreateWoodenFoot</li>
+	<li>CreateCrystalEye</li>
+	<li>CreateGlassEye</li>
+    </recipes>
+    <inspectorTabs>
+      <li>ITab_Bills</li>
+    </inspectorTabs>
+    <building>
+      <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+    </building>
+  </ThingDef>
 
   <ThingDef ParentName="BenchBase">
     <DefName>TableBasicProsthetic</DefName>
@@ -2677,6 +2729,8 @@
     </building>
     <researchPrerequisites><li>SK_MedicineI</li></researchPrerequisites>
     <comps>
+			  <li Class="CompProperties_Flickable"/>
+			  <li Class="CompProperties_Breakdownable"/>
 	  <li Class="CompProperties_AffectedByFacilities">
         <linkableFacilities>
 
@@ -2695,8 +2749,6 @@
                 <compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
                 <idlePowerFactor>0.1</idlePowerFactor>
             </li>
-			  <li Class="CompProperties_Flickable"/>
-			  <li Class="CompProperties_Breakdownable"/>
     </comps>
 	<placeWorkers>
 		<li>PlaceWorker_ShowFacilitiesConnections</li>
