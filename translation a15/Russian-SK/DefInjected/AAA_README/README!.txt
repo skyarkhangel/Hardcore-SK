@@ -9,6 +9,7 @@ ScenPartDefs\ScenParts_Various
 StatDef\Stats_Pawns_WorkRecipes
 StorytellerDef
 ThingCategoryDef
+ThoughtDef\Thoughts_Memory_Death
 WorkGiverDef
 
 нужно перевести эти файлы\файлы в этих папках
