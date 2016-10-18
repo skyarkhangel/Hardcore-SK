@@ -649,10 +649,14 @@
     <defName>RefrigeratedTrayRack</defName>
     <label>Fridge</label>
     <graphicData>
-      <texPath>Things/Building/Furniture/Containers/Fridge</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <drawSize>(0.9,0.9)</drawSize>
+      <texPath>Things/Building/Temperature/Fridge/SingleFridge</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(3,3)</drawSize>
+		<shadowData>
+			<volume>(0.3, 0.6, 0.3)</volume>
+		</shadowData>
     </graphicData>
+    <size>(1,1)</size>
     <fillPercent>0.4</fillPercent>
     <stuffCategories>
 	<li>Metallic</li>
@@ -667,11 +671,11 @@
 	<Electronics>2</Electronics>
     </costList>
     <statBases>
-      <MaxHitPoints>150</MaxHitPoints>
+      <MaxHitPoints>120</MaxHitPoints>
       <WorkToMake>2350</WorkToMake>
       <Beauty>7</Beauty>
     </statBases>
-    <description>Stores food. Up to 3 items. This track rack requires power in order to keep food refrigerated.</description>
+    <description>Stores food. Up to 4 items. This track rack requires power in order to keep food refrigerated.</description>
     <building>
       <preventDeterioration>true</preventDeterioration>
       <fixedStorageSettings>
@@ -682,28 +686,34 @@
         </filter>
       </fixedStorageSettings>
     </building>
-		<tickerType>Normal</tickerType>
+		<tickerType>Rare</tickerType>
         <comps>
 			<li Class="SK.CompContainer_Properties">
-				<itemsCap>3</itemsCap>
+				<itemsCap>4</itemsCap>
 			</li>
-            <li>
-                <compClass>CommunityCoreLibrary.CompRefrigerated</compClass>
-            </li>
             <li Class="CompProperties_Forbiddable"/>
 			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_Power">
                 <compClass>CompPowerTrader</compClass>
-                <basePowerConsumption>70</basePowerConsumption>
+                <basePowerConsumption>140</basePowerConsumption>
             </li>
-            <li Class="CommunityCoreLibrary.CompProperties_LowIdleDraw">
-                <compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
-                <idlePowerFactor>0.25</idlePowerFactor>
-                <operationalMode>Cycle</operationalMode>
-                <cycleLowTicks>2500</cycleLowTicks>
-                <cycleHighTicks>1500</cycleHighTicks>
-            </li>
+		  <li Class="CompProperties_Glower">
+			<glowRadius>2</glowRadius>
+			<glowColor>(89,188,255,0)</glowColor>
+		  </li>
+		  <li Class="SK.CompProperties_SecondLayer">
+			<graphicData>
+			  <texPath>Things/Building/Temperature/Fridge/SingleFridgeLid</texPath>
+			  <graphicClass>Graphic_Multi</graphicClass>
+			  <shaderType>Transparent</shaderType>
+			  <drawSize>(3,3)</drawSize>
+			</graphicData>
+			<altitudeLayer>MoteOverhead</altitudeLayer>
+		  </li>
         </comps>
+    <placeWorkers>
+      <li>PlaceWorker_Heater</li>
+    </placeWorkers>
     <researchPrerequisites><li>SK_StorageIII</li></researchPrerequisites>
   </ThingDef>
   
@@ -735,35 +745,29 @@
 			<Component>6</Component>
 	</costList>
          <building>
-		<preventDeterioration>true</preventDeterioration>
+		<preventDeterioration>false</preventDeterioration>
       <fixedStorageSettings>
         <filter>
           <categories>
             <li>FoodMeals</li>
+			<li>Medicine</li>
           </categories>
+          <thingDefs>
+            <li>MintLeaves</li>
+            <li>Hypericum</li>
+            <li>WildRose</li>
+            <li>aloe</li>
+            <li>HerbalMedicaKit</li>
+            <li>RawTea</li>
+            <li>RawTobacco</li>
+          </thingDefs>
         </filter>
       </fixedStorageSettings>
     </building>
-		<tickerType>Normal</tickerType>
         <comps>
-            <li>
-                <compClass>CommunityCoreLibrary.CompRefrigerated</compClass>
-            </li>
-                <li Class="CompProperties_Forbiddable"/>
-			<li Class="CompProperties_Flickable"/>
-			<li Class="CompProperties_Power">
-                <compClass>CompPowerTrader</compClass>
-                <basePowerConsumption>70</basePowerConsumption>
-            </li>
-            <li Class="CommunityCoreLibrary.CompProperties_LowIdleDraw">
-                <compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
-                <idlePowerFactor>0.25</idlePowerFactor>
-                <operationalMode>Cycle</operationalMode>
-                <cycleLowTicks>2500</cycleLowTicks>
-                <cycleHighTicks>1500</cycleHighTicks>
-            </li>
 			<li Class="SK.CompContainer_Properties">
 			<itemsCap>3</itemsCap>
+			<rotModifier>0.5</rotModifier>
 			</li>
         </comps>
     <researchPrerequisites><li>SK_StorageII</li></researchPrerequisites>
@@ -801,28 +805,13 @@
 		</costList>
 		<tickerType>Normal</tickerType>
         <comps>
-            <li>
-                <compClass>CommunityCoreLibrary.CompRefrigerated</compClass>
-            </li>
-                <li Class="CompProperties_Forbiddable"/>
-			<li Class="CompProperties_Flickable"/>
-			<li Class="CompProperties_Power">
-                <compClass>CompPowerTrader</compClass>
-                <basePowerConsumption>120</basePowerConsumption>
-            </li>
-            <li Class="CommunityCoreLibrary.CompProperties_LowIdleDraw">
-                <compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
-                <idlePowerFactor>0.25</idlePowerFactor>
-                <operationalMode>Cycle</operationalMode>
-                <cycleLowTicks>2500</cycleLowTicks>
-                <cycleHighTicks>1500</cycleHighTicks>
-            </li>
 			<li Class="SK.CompContainer_Properties">
 				<itemsCap>3</itemsCap>
+				<rotModifier>0.5</rotModifier>
 			</li>
         </comps>
     <building>
-      <preventDeterioration>true</preventDeterioration>
+      <preventDeterioration>false</preventDeterioration>
       <fixedStorageSettings>
         <filter>
           <categories>
