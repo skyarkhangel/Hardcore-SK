@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ThinkTrees>
+
+	<ThinkTreeDef>
+		<defName>Terminator</defName>
+		<thinkRoot Class="ThinkNode_Priority">
+			<subNodes>
+            
+        <!-- If we HAVE to keep lying down... -->
+				<li Class="ThinkNode_ConditionalMustKeepLyingDown">
+					<subNodes>
+            <!-- Keep lying down -->
+            <li Class="JobGiver_KeepLyingDown" />
+          </subNodes>
+        </li>
+      
+        <li Class="ThinkNode_Subtree">
+          <treeDef>Downed</treeDef>
+        </li>
+        <!-- React to close melee threat -->
+				<li Class="JobGiver_ReactToCloseMeleeThreat" />
+
+        <!-- Insertion hook for modders -->
+        <li Class="ThinkNode_SubtreesByTag">
+          <insertTag>Humanlike_PostMentalState</insertTag>
+        </li>
+        
+				<!-- Take direct orders when drafted -->
+        <li Class="ThinkNode_ConditionalColonist">
+					<subNodes>
+						<li Class="JobGiver_Orders" />
+          </subNodes>
+        </li>
+        
+				<!-- Lord directives (high priority) -->
+        <li Class="ThinkNode_JoinVoluntarilyJoinableLord">
+          <dutyHook>HighPriority</dutyHook>
+          <subNodes>
+            <li Class="ThinkNode_Subtree">
+              <treeDef>SkynetLordDuty</treeDef>
+            </li>
+          </subNodes>
+        </li>
+
+        <!-- Insertion hook for modders -->
+        <li Class="ThinkNode_SubtreesByTag">
+          <insertTag>Humanlike_PostDuty</insertTag>
+        </li>
+        
+        <!-- If on colonist team, do forced and emergency work -->
+				<li Class="ThinkNode_ConditionalColonist">
+					<subNodes>
+						<!-- Queue for forced work -->
+						<li Class="JobGiver_JobQueue">
+              <leaveJoinableLordIfIssuesJob>true</leaveJoinableLordIfIssuesJob>
+            </li>
+
+            <!-- Seek allowed area -->
+            <li Class="JobGiver_SeekAllowedArea" />
+
+            <!-- Seek safe temperatures -->
+            <li Class="JobGiver_SeekSafeTemperature" />
+            
+            <!-- Drop unnused inventory -->
+            <li Class="JobGiver_DropUnusedInventory" />
+
+
+            <!-- Emergency work -->
+            <li Class="JobGiver_Work">
+              <leaveJoinableLordIfIssuesJob>true</leaveJoinableLordIfIssuesJob>
+              <emergency>true</emergency>
+            </li>
+            
+            <!-- Lord directives (medium priority) -->
+            <li Class="ThinkNode_JoinVoluntarilyJoinableLord">
+              <dutyHook>MediumPriority</dutyHook>
+              <subNodes>
+                <li Class="ThinkNode_Subtree">
+                  <treeDef>LordDuty</treeDef>
+                </li>
+              </subNodes>
+            </li>
+            
+            <!-- Optimize apparel -->
+            <li Class="JobGiver_OptimizeApparel">
+              <leaveJoinableLordIfIssuesJob>true</leaveJoinableLordIfIssuesJob>
+            </li>
+
+            <!-- Pack food if not hungry-->
+						<!--
+            <li Class="ThinkNode_ConditionalNeedPercentageAbove">
+              <need>Food</need>
+              <threshold>0.6</threshold>
+              <subNodes>
+                <li Class="JobGiver_PackFood">
+                  <leaveJoinableLordIfIssuesJob>true</leaveJoinableLordIfIssuesJob>
+                </li>
+              </subNodes>
+            </li>
+						-->
+					</subNodes>
+				</li>
+
+        <!-- Behavior from traits -->
+        <li Class="ThinkNode_TraitBehaviors" />
+
+        <!-- Insertion hook for modders -->
+        <li Class="ThinkNode_SubtreesByTag">
+          <insertTag>Humanlike_PreMain</insertTag>
+        </li>
+        
+        <!-- Main colonist behavior core-->
+				<li Class="ThinkNode_ConditionalColonist">
+					<subNodes>
+						<li Class="ThinkNode_PrioritySorter">
+							<leaveJoinableLordIfIssuesJob>true</leaveJoinableLordIfIssuesJob>
+							<subNodes>
+								<li Class="JobGiver_Work"/>
+								<li Class="Combat_Realism.JobGiver_UpdateLoadout"/>
+								
+                                <!-- CCL Insertion hook for modders -->
+                                <li Class="CommunityCoreLibrary.ThinkNode_PrioritySorter_SubtreesByTag">
+                                    <insertTag>Colonist_PrioritySorter</insertTag>
+                                </li>
+								
+							</subNodes>
+						</li>
+						
+                        <!-- CCL Insertion hook for modders -->
+                        <li Class="ThinkNode_SubtreesByTag">
+                            <insertTag>Colonist_PostMain</insertTag>
+                        </li>
+						
+					</subNodes>
+				</li>
+
+        <!-- Insertion hook for modders -->
+        <li Class="ThinkNode_SubtreesByTag">
+          <insertTag>Humanlike_PostMain</insertTag>
+        </li>
+
+        <!-- Idle colonist -->
+        <li Class="ThinkNode_ConditionalColonist">
+          <subNodes>
+            <li Class="ThinkNode_Tagger">
+              <tagToGive>Idle</tagToGive>
+              <subNodes>
+              
+                <!-- Wander -->
+                <li Class="JobGiver_WanderColony">
+                  <maxDanger>None</maxDanger>
+                </li>
+              </subNodes>
+            </li>
+          </subNodes>
+        </li>
+        
+        <li Class="JobGiver_WanderAnywhere">
+          <maxDanger>Deadly</maxDanger>
+        </li>
+
+        <li Class="JobGiver_IdleError" />
+			</subNodes>
+		</thinkRoot>
+	</ThinkTreeDef>
+  
+</ThinkTrees>

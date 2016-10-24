@@ -4,7 +4,7 @@
 	
 	<ThingDef Name="BurnerFueled" ParentName="BuildingBase" Abstract="True">
 		<thingClass>Building</thingClass>
-		<passability>Impassable</passability>
+		<passability>PassThroughOnly</passability>
 		<tickerType>Normal</tickerType>
 		<altitudeLayer>Building</altitudeLayer>
 		<surfaceType>Item</surfaceType>
@@ -22,7 +22,7 @@
 	<ThingDef ParentName="WorkTableFueled">
     <defName>Campfire</defName>
     <label>Campfire</label>
-    <description>A camfire can cook meals and produce heat but it will burn out after a few days. As with all heat sources, it must be placed indoors so it has a closed space to heat.</description>    
+    <description>A campfire that can cook meals and produce heat, but it will burn out after a few days. As with all heat sources, it must be placed indoors so it has a closed space to heat.</description>    
     <graphicData>
       <texPath>Things/Building/Misc/Campfire</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -31,11 +31,15 @@
       <damageData>
         <rect>(0.2,0,0.6,0.1)</rect>
       </damageData>
+			<shadowData>
+				<volume>(0.5, 0.5, 0.5)</volume>
+			</shadowData>
     </graphicData>
     <statBases>
       <MaxHitPoints>80</MaxHitPoints>
       <WorkToMake>200</WorkToMake>
       <Flammability>0</Flammability>
+	  <WorkTableWorkSpeedFactor>0.7</WorkTableWorkSpeedFactor>
     </statBases>
 	<Size>(1,1)</Size>
     <stuffCategories>
@@ -69,13 +73,17 @@
 				<fuelDrawOffset>(0,0.1,0.01)</fuelDrawOffset>
 				<fuelDrawScale>0.7</fuelDrawScale>
 				<smokesize>0.3</smokesize>
+				<canAutoBurn>true</canAutoBurn>
+				<effectOnWeather>true</effectOnWeather>				
 				<fuelFilter>
 				  <thingDefs>
-					<li>Charcoal</li>
-					<li>Kindling</li>
+						<li>Charcoal</li>
+						<li>Coal</li>
+						<li>Kindling</li>
 				  </thingDefs>
 					<categories>
 					  <li>Wooden</li>
+					  <li>Woody</li>
 					</categories>  
 				</fuelFilter>
 			</li>
@@ -117,7 +125,7 @@
 			<Flammability>0</Flammability>
 		</statBases>
 		<tickerType>Normal</tickerType>
-		<description>A burner produces only heat by burning basic coal-like fuel sources.h coal, charcoal, kindling or peat in order to function.</description>
+		<description>A fueled burner that produces heat by burning basic fuel sources. Can be fueled by Kindling, Coal, Charcoal, Peat and wooden stuff.</description>
 		<size>(2,2)</size>
 		<building>
 			<ignoreNeedsPower>true</ignoreNeedsPower>
@@ -142,16 +150,18 @@
 				<drawfirefuel>false</drawfirefuel>
 				<smokeDrawOffset>(0.5,-0.1,1.1)</smokeDrawOffset>
 				<smokesize>0.5</smokesize>
+				<effectOnWeather>true</effectOnWeather>
 				<fuelFilter>
 				  <thingDefs>
-					<li>Coal</li>
-					<li>Charcoal</li>
-					<li>Peat</li>
-					<li>Kindling</li>
+						<li>Coal</li>
+						<li>Charcoal</li>
+						<li>Peat</li>
+						<li>Kindling</li>
 				  </thingDefs>
 					<categories>
 					  <li>Wooden</li>
-					</categories>
+					  <li>Woody</li>
+					</categories>  
 				</fuelFilter>
 			</li>
 		</comps>
@@ -289,7 +299,7 @@
 		<defName>ColdstoneBattery</defName>
 		<label>Coldstone Battery</label>
 		<description>A tank built to cool a medium-sized room to below freezing. Requires coldstone as fuel. Able to support a roof.</description>
-		<thingClass>Powerless.Building_ColdstoneBattery</thingClass>
+		<thingClass>SK.Building_ColdstoneBattery</thingClass>
 		<graphicData>
 			<texPath>Things/Building/ColdstoneBattery</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
@@ -334,14 +344,14 @@
 				</fuelFilter>
 				<destroyOnNoFuel>false</destroyOnNoFuel>
 			</li>
-			<li Class="CorePanda.CompProperties_ColdPusher">
+			<li Class="SK.CompProperties_ColdPusher">
 				<coldPerSecond>-30</coldPerSecond>
 				<coldPushMinTemperature>-4</coldPushMinTemperature>
 			</li>
 			<li Class="CompProperties_Breakdownable"/>
 		</comps>
 		<placeWorkers>
-			<li>Powerless.PlaceWorker_ColdstoneBattery</li>
+			<li>SK.PlaceWorker_ColdstoneBattery</li>
 		</placeWorkers>
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
 		<researchPrerequisites><li>EnthalpicCooling</li></researchPrerequisites>
@@ -429,7 +439,7 @@
 <ThingDef ParentName="BuildingBase">
     <defName>GH</defName>
     <label>Geothermal Heater</label>
-    <thingClass>SK_GH.Building_GeothermalHeater</thingClass>
+    <thingClass>SK.Building_GeothermalHeater</thingClass>
 	<graphicData>
 		<texPath>Things/Building/GH</texPath>
 		<graphicClass>Graphic_Single</graphicClass>
