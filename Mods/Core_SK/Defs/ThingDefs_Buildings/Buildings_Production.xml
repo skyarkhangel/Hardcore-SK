@@ -3,15 +3,63 @@
 
   <!-- =========== REALISTIC PRODUCTION SK MOD =========== -->
 
-	<ThingDef ParentName="BenchBase">
+	<ThingDef Name="WorkTable" ParentName="BuildingBase" Abstract="True">
+		<thingClass>SK.SK_Building_WorkTable</thingClass>
+		<graphicData>
+			<shaderType>CutoutComplex</shaderType>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<shadowData>
+				<volume>(1, 0.5, 1)</volume>
+				<offset>(0,0,-0.1)</offset>
+			</shadowData>
+		</graphicData>
+		<building>
+			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+		</building>
+		<altitudeLayer>Building</altitudeLayer>
+		<surfaceType>Item</surfaceType>
+		<Size>(1,1)</Size>
+		<fillPercent>0.5</fillPercent>
+		<passability>PassThroughOnly</passability>
+		<pathCost>70</pathCost>
+		<hasInteractionCell>True</hasInteractionCell>
+		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
+		<comps>
+			<li>
+				<compClass>SK.CompFadingShadowThrower</compClass>
+			</li>
+		</comps>
+		<inspectorTabs>
+			<li>ITab_Bills</li>
+		</inspectorTabs>
+	</ThingDef>
+
+
+	<ThingDef Name="WorkTableFueled" ParentName="WorkTable" Abstract="True">
+		<thingClass>SK.WorkTableFueled</thingClass>
+		<passability>PassThroughOnly</passability>
+		<tickerType>Normal</tickerType>
+		<graphicData>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<!-- 		<comps>
+			<li Class="CompProperties_Flickable"/>
+		</comps> -->
+		<inspectorTabs>
+			<li>SK.ITab_Fuel</li>
+		</inspectorTabs>
+	</ThingDef>
+
+  
+	<ThingDef ParentName="WorkTableFueled">
 		<DefName>TableGrill</DefName>
 		<label>Simple Grill</label>
-		<ThingClass>SK.Building_WorkTable_HeatPushAdvanced</ThingClass>
-		<Description>A small grill used to cook meat into simple jerky or roasts. (Can be fueled by Kindling)</Description>
+		<Description>A small grill used to cook meat into simple jerky or roasts. Can be fueled by Kindling, Coal, Charcoal, Peat and wooden stuff.</Description>
 		<graphicData>
 			<texPath>Things/Building/Production/TableGrill1x1</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<drawSize>(1,1)</drawSize>
+			<drawRotated>false</drawRotated>
 		</graphicData>
 		<stuffCategories>
 		<li>Metallic</li>
@@ -20,20 +68,14 @@
 		<CostList>
 			<Component>4</Component>
 		</CostList>
-		<altitudeLayer>Building</altitudeLayer>
-		<fillPercent>0.5</fillPercent>
-		<useHitPoints>True</useHitPoints>
 		<statBases>
 			<WorkToMake>1500</WorkToMake>
 			<MaxHitPoints>50</MaxHitPoints>
 			<Flammability>1.0</Flammability>
+			<WorkTableWorkSpeedFactor>0.75</WorkTableWorkSpeedFactor>
 		</statBases>
 		<Size>(1,1)</Size>
 		<DesignationCategory>Production</DesignationCategory>
-		<Passability>Impassable</Passability>
-		<hasInteractionCell>True</hasInteractionCell>
-		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
-    	<surfaceType>Item</surfaceType>
 		<recipes>
 			<li>CookMealJerky</li>
 			<li>CookRoastedMeat</li>
@@ -44,33 +86,45 @@
             <li>MakeBurgerDeluxe</li>
             <li>MakeCheeseGrilled</li>
 		</recipes>
-		<inspectorTabs>
-			<li>ITab_Bills</li>
-		</inspectorTabs>
 		<comps>
-		  <li Class="CompProperties_Refuelable">
-			<fuelConsumptionRate>50.0</fuelConsumptionRate>
-			<fuelCapacity>10.0</fuelCapacity>
-			<fuelFilter>
-			  <thingDefs>
-				<li>Kindling</li>
-				<li>Coal</li>
-				<li>Charcoal</li>
-			  </thingDefs>
-			</fuelFilter>
-			<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
-		  </li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusher</compClass>
+				<heatPerSecond>14</heatPerSecond>
+				<heatPushMaxTemperature>18</heatPushMaxTemperature>
+			</li>
+			<li Class="CompProperties_Glower">
+				<glowRadius>2</glowRadius>
+				<glowColor>(217,112,33,0)</glowColor>
+			</li>
+			<li Class="SK.CompFueled_Properties">
+				<operatingTemp>400</operatingTemp>
+				<fireDrawOffset>(0,0,0.1)</fireDrawOffset>
+				<smokeDrawOffset>(0,0,0.1)</smokeDrawOffset>
+				<fuelDrawOffset>(0,0,0.01)</fuelDrawOffset>
+				<fuelDrawScale>0.7</fuelDrawScale>
+				<fuelCapacity>10</fuelCapacity>
+				<effectOnWeather>true</effectOnWeather>
+				<fuelFilter>
+				  <thingDefs>
+					<li>Charcoal</li>
+					<li>Coal</li>
+					<li>Kindling</li>
+				  </thingDefs>
+					<categories>
+					  <li>Wooden</li>
+					</categories>
+				</fuelFilter>
+			</li>
 		</comps>
 		<building>
 			<isMealSource>true</isMealSource>
-			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
-            <heatPerTickWhileWorking>1</heatPerTickWhileWorking>
 		</building>
 	<researchPrerequisites><li>SK_Craftsmanship</li></researchPrerequisites>
 	</ThingDef>
 
 	
-  <ThingDef ParentName="BuildingBase">
+  <ThingDef ParentName="WorkTable">
     <DefName>TableButcherNeolithic</DefName>
     <label>Small butcher table</label>
     <ThingClass>Building_WorkTable</ThingClass>
@@ -122,9 +176,6 @@
 			<li>MakeHerbMedicine</li>
 			<li>MakeKibble</li>
 		</recipes>
-    <inspectorTabs>
-      <li>ITab_Bills</li>
-    </inspectorTabs>
     <building>
       <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
     </building>
@@ -212,11 +263,10 @@
 
 
 
-<ThingDef ParentName="BenchBase">
+	<ThingDef ParentName="WorkTableFueled">
     <defName>FueledStove</defName>
     <label>Fueled Stove</label>
-    <ThingClass>SK.Building_WorkTable_HeatPushAdvanced</ThingClass>
-    <Description>A simple wood-fueled stove with an attached countertop for preparing meals. (Can be fueled by Kindling, Coal or Charcoal)</Description>
+    <Description>A simple wood-fueled stove with an attached countertop for preparing meals. Can be fueled by Kindling, Coal, Charcoal, Peat and wooden stuff.</Description>
     <graphicData>
       <texPath>Things/Building/Production/TableStoveFueled</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
@@ -236,21 +286,14 @@
 			<Component>10</Component>
 			<Mechanism>5</Mechanism>
 		</CostList>
-    <altitudeLayer>Building</altitudeLayer>
-    <fillPercent>0.5</fillPercent>
-    <useHitPoints>True</useHitPoints>
     <statBases>
       <WorkToMake>2000</WorkToMake>
       <MaxHitPoints>180</MaxHitPoints>
       <Flammability>1.0</Flammability>
+	  <WorkTableWorkSpeedFactor>0.9</WorkTableWorkSpeedFactor>
     </statBases>
     <Size>(3,1)</Size>
     <DesignationCategory>Production</DesignationCategory>
-    <Passability>PassThroughOnly</Passability>
-    <pathCost>70</pathCost>
-    <hasInteractionCell>True</hasInteractionCell>
-    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
-    <surfaceType>Item</surfaceType>
     <recipes>
 			<li>CookMealJerky</li>
 			<li>CookRoastedMeat</li>
@@ -271,38 +314,48 @@
             <li>MakeChocoMilk</li>
             <li>MakeFruitYogurt</li>
     </recipes>
-    <inspectorTabs>
-      <li>ITab_Bills</li>
-    </inspectorTabs>
     <comps>
-      <li Class="CompProperties_Refuelable">
-        <fuelConsumptionRate>60.0</fuelConsumptionRate>
-        <fuelCapacity>30.0</fuelCapacity>
-        <fuelFilter>
-          <thingDefs>
-            <li>Kindling</li>
-			<li>Coal</li>
-            <li>Charcoal</li>
-          </thingDefs>
-        </fuelFilter>
-        <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
-      </li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusher</compClass>
+				<heatPerSecond>17</heatPerSecond>
+				<heatPushMaxTemperature>25</heatPushMaxTemperature>
+			</li>
+			<li Class="CompProperties_Glower">
+				<glowRadius>3</glowRadius>
+				<glowColor>(217,112,33,0)</glowColor>
+			</li>
+			<li Class="SK.CompFueled_Properties">
+				<operatingTemp>400</operatingTemp>
+				<fireDrawOffset>(0,0,0.1)</fireDrawOffset>
+				<smokeDrawOffset>(0,0,0.1)</smokeDrawOffset>
+				<fuelDrawOffset>(0,0,0.01)</fuelDrawOffset>
+				<fuelDrawScale>0.7</fuelDrawScale>
+				<fuelCapacity>30</fuelCapacity>
+				<effectOnWeather>true</effectOnWeather>
+				<fuelFilter>
+				  <thingDefs>
+					<li>Charcoal</li>
+					<li>Coal</li>
+					<li>Kindling</li>
+				  </thingDefs>
+					<categories>
+					  <li>Wooden</li>
+					</categories>  
+				</fuelFilter>
+			</li>
     </comps>
-    <building>
-      <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
-      <heatPerTickWhileWorking>0.25</heatPerTickWhileWorking>
-    </building>
+		<building>
+			<isMealSource>true</isMealSource>
+		</building>
 	<researchPrerequisites><li>SK_Technology</li></researchPrerequisites>
   </ThingDef>
 
 
-
-
-	<ThingDef ParentName="BenchBase">
+  <ThingDef ParentName="WorkTableFueled">
 		<defName>TableOven</defName>
 		<label>Oven</label>
-		<ThingClass>SK.Building_WorkTable_HeatPushAdvanced</ThingClass>
-		<Description>A fueled oven for baking candies and tasty treats. Requires kindking, coal or charcoal.</Description>
+		<Description>A fueled oven for baking candies and tasty treats. Can be fueled by Kindling, Coal, Charcoal, Peat and wooden stuff.</Description>
 		<graphicData>
 		  <texPath>Things/Building/Production/Tableoven</texPath>
 		  <graphicClass>Graphic_Multi</graphicClass>
@@ -321,22 +374,15 @@
 		<CostList>
 			<Component>5</Component>
         </CostList>
-		<altitudeLayer>Building</altitudeLayer>
-		<fillPercent>0.5</fillPercent>
-		<useHitPoints>True</useHitPoints>
 		<statBases>
 			<WorkToMake>3000</WorkToMake>
 			<MaxHitPoints>180</MaxHitPoints>
 			<Flammability>1.0</Flammability>
+			<WorkTableWorkSpeedFactor>0.85</WorkTableWorkSpeedFactor>
 		</statBases>
 		<Size>(3,1)</Size>
 		<DesignationCategory>Production</DesignationCategory>
-		<staticSunShadowHeight>0.20</staticSunShadowHeight>
-		<Passability>PassThroughOnly</Passability>
-		<pathCost>70</pathCost>
-		<hasInteractionCell>True</hasInteractionCell>
 		<interactionCellOffset>(1,0,-1)</interactionCellOffset>
-		<surfaceType>Item</surfaceType>
 		<recipes>
 			<li>MakeCaramel</li>
 			<li>MakeTaffy</li>
@@ -347,43 +393,50 @@
             <li>MakeSweetBun</li>
             <li>MakePizza</li>
 		</recipes>
-		<inspectorTabs>
-			<li>ITab_Bills</li>
-		</inspectorTabs>
-		<tickerType>Normal</tickerType>
 		<comps>
+		  <li Class="CompProperties_Flickable"/>
 		  <li Class="CompProperties_AffectedByFacilities">
 			<linkableFacilities>
 				<li>CookingTools</li>
 			</linkableFacilities>
 		  </li>
-		  <li Class="CompProperties_Refuelable">
-			<fuelConsumptionRate>70.0</fuelConsumptionRate>
-			<fuelCapacity>40.0</fuelCapacity>
-			<fuelFilter>
-			  <thingDefs>
-				<li>Kindling</li>
-				<li>Coal</li>
-				<li>Charcoal</li>
-			  </thingDefs>
-			</fuelFilter>
-			<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
-		  </li>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusher</compClass>
+				<heatPerSecond>18</heatPerSecond>
+				<heatPushMaxTemperature>24</heatPushMaxTemperature>
+			</li>
+			<li Class="CompProperties_Glower">
+				<glowRadius>3</glowRadius>
+				<glowColor>(217,112,33,0)</glowColor>
+			</li>
+			<li Class="SK.CompFueled_Properties">
+				<operatingTemp>400</operatingTemp>
+				<fireDrawOffset>(0,0,0.1)</fireDrawOffset>
+				<smokeDrawOffset>(0,0,0.1)</smokeDrawOffset>
+				<fuelDrawOffset>(0,0,0.01)</fuelDrawOffset>
+				<fuelDrawScale>0.7</fuelDrawScale>
+				<fuelCapacity>30</fuelCapacity>
+				<effectOnWeather>true</effectOnWeather>
+				<fuelFilter>
+				  <thingDefs>
+					<li>Charcoal</li>
+					<li>Coal</li>
+					<li>Kindling</li>
+				  </thingDefs>
+					<categories>
+					  <li>Wooden</li>
+					</categories>
+				</fuelFilter>
+			</li>
 		</comps>
 		<placeWorkers>
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
 		</placeWorkers>
 		<building>
 			<isMealSource>true</isMealSource>
-			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
-			<heatPerTickWhileWorking>1.5</heatPerTickWhileWorking>
 		</building>
 		<researchPrerequisites><li>SK_ProductionI</li></researchPrerequisites>
 	</ThingDef>
-
-
-
-
 
 <ThingDef ParentName="BenchBase">
     <DefName>CandyTable</DefName>
@@ -426,6 +479,7 @@
     <inspectorTabs>
       <li>ITab_Bills</li>
     </inspectorTabs>
+	<tickerType>Normal</tickerType>
     <comps>
 			  <li Class="CompProperties_Flickable"/>
 			  <li Class="CompProperties_Breakdownable"/>
@@ -441,7 +495,7 @@
                 		<idlePowerFactor>0.1</idlePowerFactor>
             			</li>
 			<li Class="CompProperties_HeatPusher">
-        <compClass>CompHeatPusherPowered</compClass>
+				<compClass>CompHeatPusherPowered</compClass>
 				<heatPerSecond>10</heatPerSecond>
 				<heatPushMaxTemperature>35</heatPushMaxTemperature>
 			</li>
@@ -594,14 +648,10 @@
   </ThingDef>
 
 
-
-
-
-  <ThingDef ParentName="BenchBase">
+	<ThingDef ParentName="WorkTableFueled">
     <DefName>Brewery</DefName>
     <label>Brewery</label>
-    <ThingClass>SK.Building_WorkTable_HeatPushAdvanced</ThingClass>
-    <Description>A work station with all the equipment needed to brew beer.  (Can be fueled by Kindling, Coal or Charcoal)</Description>
+    <Description>A work station with all the equipment needed to brew beer. Can be fueled by Kindling, Coal, Charcoal, Peat and wooden stuff.</Description>
     <graphicData>
       <texPath>Things/Building/Production/TableBrewer/TableBrewerNeolithic</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
@@ -620,9 +670,6 @@
 		<CostList>
 			<WoodLog>40</WoodLog>
 		</CostList>
-    <AltitudeLayer>Building</AltitudeLayer>
-    <fillPercent>0.5</fillPercent>
-    <useHitPoints>True</useHitPoints>
     <statBases>
       <WorkToMake>2500</WorkToMake>
       <MaxHitPoints>180</MaxHitPoints>
@@ -631,38 +678,41 @@
     </statBases>
     <Size>(3,1)</Size>
     <DesignationCategory>Production</DesignationCategory>
-    <Passability>PassThroughOnly</Passability>
-    <pathCost>70</pathCost>
-    <hasInteractionCell>True</hasInteractionCell>
-    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
-    <surfaceType>Item</surfaceType>
 		<recipes>
 			<li>BrewBeer</li>
 		</recipes>
-    <inspectorTabs>
-      <li>ITab_Bills</li>
-    </inspectorTabs>
     <comps>
-      <li Class="CompProperties_Refuelable">
-        <fuelConsumptionRate>80.0</fuelConsumptionRate>
-        <fuelCapacity>30.0</fuelCapacity>
-        <fuelFilter>
-          <thingDefs>
-            <li>Kindling</li>
-			<li>Coal</li>
-            <li>Charcoal</li>
-          </thingDefs>
-        </fuelFilter>
-        <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
-      </li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusher</compClass>
+				<heatPerSecond>19</heatPerSecond>
+				<heatPushMaxTemperature>28</heatPushMaxTemperature>
+			</li>
+			<li Class="CompProperties_Glower">
+				<glowRadius>3</glowRadius>
+				<glowColor>(217,112,33,0)</glowColor>
+			</li>
+			<li Class="SK.CompFueled_Properties">
+				<operatingTemp>350</operatingTemp>
+				<fireDrawOffset>(0,0,0.1)</fireDrawOffset>
+				<smokeDrawOffset>(0,0,0.1)</smokeDrawOffset>
+				<fuelDrawOffset>(0,0,0.01)</fuelDrawOffset>
+				<fuelDrawScale>0.7</fuelDrawScale>
+				<fuelCapacity>30</fuelCapacity>
+				<effectOnWeather>true</effectOnWeather>
+				<fuelFilter>
+				  <thingDefs>
+					<li>Charcoal</li>
+					<li>Coal</li>
+					<li>Kindling</li>
+				  </thingDefs>
+					<categories>
+					  <li>Wooden</li>
+					</categories>  
+				</fuelFilter>
+			</li>
     </comps>
-    <building>
-      <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
-      <heatPerTickWhileWorking>0.25</heatPerTickWhileWorking>
-    </building>
   </ThingDef>
-
-
 
   <ThingDef ParentName="BenchBase">
     <DefName>ElectricBrewery</DefName>
@@ -715,6 +765,7 @@
       <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
       <heatPerTickWhileWorking>0.5</heatPerTickWhileWorking>
 	  </building>
+		<tickerType>Normal</tickerType>
 		<comps>
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerTrader</compClass>
@@ -932,17 +983,17 @@
 	</ThingDef>
 
 
-	<ThingDef ParentName="BuildingBase">
+	<ThingDef ParentName="WorkTableFueled">
 		<defName>TableFurnace</defName>
 		<label>Furnace</label>
-		<ThingClass>Building_WorkTable</ThingClass>
-		<Description>A furnace used for smelting basic metal ores into metal alloys. Can make metal cans and produce charcoal from logs. (Can be fueled by Kindling, Coal, Charcoal, Peat and wooden stuff.)</Description>
+		<Description>A furnace used for smelting basic metal ores into metal alloys. Can make metal cans and produce charcoal from logs. Can be fueled by Kindling, Coal, Charcoal, Peat and wooden stuff.</Description>
     <graphicData>
 		<texPath>Things/Building/Production/Furnace</texPath>
 		<graphicClass>Graphic_Multi</graphicClass>
-      	<drawSize>(2,2)</drawSize>
+      	<drawSize>(3,3)</drawSize>
+		<shaderType>CutoutComplex</shaderType>
 		<shadowData>
-        		<volume>(0.3, 0.6, 0.3)</volume>
+        		<volume>(2.3, 2.6, 2.3)</volume>
 		</shadowData>
 		<damageData>
         <cornerTL>Damage/Corner</cornerTL>
@@ -951,26 +1002,20 @@
         <cornerBR>Damage/Corner</cornerBR>
        </damageData>
     </graphicData>
+		<uiIconPath>Things/Building/Production/Furnace_back</uiIconPath>
 		<stuffCategories>
 			<li>Stony</li>
 		</stuffCategories>
 		<costStuffCount>160</costStuffCount>
-		<altitudeLayer>Building</altitudeLayer>
-		<fillPercent>0.5</fillPercent>
-		<useHitPoints>True</useHitPoints>
 		<statBases>
 			<WorkToMake>6800</WorkToMake>
 			<MaxHitPoints>250</MaxHitPoints>
 			<Flammability>0</Flammability>
 			<Cleanliness>-8</Cleanliness>
 		</statBases>
-		<Size>(2,2)</Size>
+		<Size>(3,3)</Size>
 		<DesignationCategory>Production</DesignationCategory>
-		<Passability>Impassable</Passability>
-		<hasInteractionCell>True</hasInteractionCell>
-		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
-		<surfaceType>Item</surfaceType>
-		<tickerType>Normal</tickerType>
+		<interactionCellOffset>(0,0,-2)</interactionCellOffset>
 		<recipes>
 	        <li>MakeCharcoal_Hand</li>
 			<li>MakeTinBars_Hand</li>
@@ -983,48 +1028,41 @@
 			<li>MakeGlass</li>
 			<li>MakeMetalCan</li>
 		</recipes>
-		<inspectorTabs>
-			<li>ITab_Bills</li>
-		</inspectorTabs>
 		<comps>
-      <li Class="CompProperties_Refuelable">
-        <fuelConsumptionRate>5.0</fuelConsumptionRate>
-        <fuelCapacity>10.0</fuelCapacity>
-        <fuelFilter>
-          <thingDefs>
-            <li>Coal</li>
-            <li>Charcoal</li>
-            <li>Peat</li>
-			<li>Kindling</li>
-          </thingDefs>
-			<categories>
-			  <li>Wooden</li>
-			</categories>  
-        </fuelFilter>
-        <consumeFuelOnlyWhenUsed>false</consumeFuelOnlyWhenUsed>
-      </li>
-		<li Class="CompProperties_Glower">
-			<glowRadius>3</glowRadius>
-			<glowColor>(217,112,33,0)</glowColor>
-		</li>
-        <li Class="CompProperties_AffectedByFacilities">
-        <linkableFacilities>
-          <li>ToolCabinet</li>
-        </linkableFacilities>
-      </li>
-			<li Class="SK.CompProperties_HeatPusherAdvanced">
-				<compClass>SK.CompHeatPusherAdvanced</compClass>
-				<heatPerSecond>25</heatPerSecond>
-				<heatPushMaxTemperature>75</heatPushMaxTemperature>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_AffectedByFacilities">
+			<linkableFacilities>
+			  <li>ToolCabinet</li>
+			</linkableFacilities>
+		    </li>
+			<li Class="CompProperties_Glower">
+				<glowRadius>3</glowRadius>
+				<glowColor>(217,112,33,0)</glowColor>
 			</li>
-		  <li Class="SK.CompProperties_FireOverlayMod">
-			<fireSize>1</fireSize>
-			<offset>(0,9.5,0.3)</offset>
-		  </li>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusher</compClass>
+				<heatPerSecond>25</heatPerSecond>
+				<heatPushMaxTemperature>27</heatPushMaxTemperature>
+			</li>
+			<li Class="SK.CompFueled_Properties">
+				<operatingTemp>500</operatingTemp>
+				<fireDrawOffset>(0,0.1,-0.65)</fireDrawOffset>
+				<smokeDrawOffset>(0.5,-0.1,1.5)</smokeDrawOffset>
+				<fuelDrawOffset>(0,0.1,-0.8)</fuelDrawOffset>
+				<fuelCapacity>40</fuelCapacity>
+				<fuelFilter>
+				  <thingDefs>
+					<li>Coal</li>
+					<li>Charcoal</li>
+					<li>Peat</li>
+					<li>Kindling</li>
+				  </thingDefs>
+					<categories>
+					  <li>Wooden</li>
+					</categories>  
+				</fuelFilter>
+			</li>
 		</comps>
-		<building>
-			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
-		</building>
 		<placeWorkers>
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
 		</placeWorkers>
@@ -1032,88 +1070,74 @@
 	</ThingDef>
 	
 	
-	<ThingDef ParentName="BuildingBase">
+	<ThingDef ParentName="WorkTableFueled">
 		<defName>Kiln</defName>
 		<label>Kiln</label>
-		<ThingClass>Building_WorkTable</ThingClass>
-		<description>An impovised kiln used to produce clay briks, burning apparel and used as crematorium. (Can be fueled by Kindling, Coal, Charcoal, Peat and wooden stuff.)</description>
+		<description>An impovised kiln used to produce clay bricks, burning apparel and used as crematorium. Can be fueled by Kindling, Coal, Charcoal, Peat and wooden stuff.</description>
 	<graphicData>
 		<texPath>Things/Building/Production/Kiln</texPath>
-		<graphicClass>Graphic_Single</graphicClass>
-      	<drawSize>(2,2)</drawSize>
+		<graphicClass>Graphic_Multi</graphicClass>
+      	<drawSize>(3,3)</drawSize>
+        <shaderType>CutoutComplex</shaderType>
 		<shadowData>
-        		<volume>(0.3, 0.6, 0.3)</volume>
+        		<volume>(2.3, 2.6, 2.3)</volume>
 		</shadowData>
     </graphicData>
-    <rotatable>false</rotatable>
+		<uiIconPath>Things/Building/Production/Kiln_back</uiIconPath>
 		<stuffCategories>
 			<li>Stony</li>
 		</stuffCategories>
 		<costStuffCount>160</costStuffCount>
-		<altitudeLayer>Building</altitudeLayer>
-		<fillPercent>0.5</fillPercent>
-		<useHitPoints>True</useHitPoints>
 		<statBases>
 			<WorkToMake>6800</WorkToMake>
 			<MaxHitPoints>250</MaxHitPoints>
 			<Flammability>0</Flammability>
 			<Cleanliness>-8</Cleanliness>
 		</statBases>
-		<Size>(2,2)</Size>
+		<Size>(3,3)</Size>
 		<DesignationCategory>Production</DesignationCategory>
-		<Passability>Impassable</Passability>
-		<hasInteractionCell>True</hasInteractionCell>
-		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
-		<tickerType>Normal</tickerType>
-		<surfaceType>Item</surfaceType>
+		<interactionCellOffset>(0,0,-2)</interactionCellOffset>
 		<recipes>
 			<li>MakeCharcoal_Hand</li>
 			<li>CremateCorpse</li>
 			<li>BurnApparel</li>
 			<li>BurnThings</li>
 		</recipes>
-		<inspectorTabs>
-			<li>ITab_Bills</li>
-		</inspectorTabs>
 		<comps>
-      <li Class="CompProperties_Refuelable">
-        <fuelConsumptionRate>5.0</fuelConsumptionRate>
-        <fuelCapacity>10.0</fuelCapacity>
-        <fuelFilter>
-          <thingDefs>
-            <li>Coal</li>
-            <li>Charcoal</li>
-            <li>Peat</li>
-			<li>Kindling</li>
-          </thingDefs>
-			<categories>
-			  <li>Wooden</li>
-			</categories>
-        </fuelFilter>
-        <consumeFuelOnlyWhenUsed>false</consumeFuelOnlyWhenUsed>
-      </li>
+		<li Class="CompProperties_Flickable"/>
         <li Class="CompProperties_AffectedByFacilities">
         <linkableFacilities>
           <li>ToolCabinet</li>
         </linkableFacilities>
       </li>
-			<li Class="SK.CompProperties_HeatPusherAdvanced">
-				<compClass>SK.CompHeatPusherAdvanced</compClass>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusher</compClass>
 				<heatPerSecond>20</heatPerSecond>
-				<heatPushMaxTemperature>75</heatPushMaxTemperature>
+				<heatPushMaxTemperature>25</heatPushMaxTemperature>
 			</li>
-		  <li Class="SK.CompProperties_FireOverlayMod">
-			<fireSize>1.5</fireSize>
-			<offset>(0,9.0,0.3)</offset>
-		  </li>
 			<li Class="CompProperties_Glower">
 				<glowRadius>3</glowRadius>
 				<glowColor>(217,112,33,0)</glowColor>
 			</li>
+			<li Class="SK.CompFueled_Properties">
+				<operatingTemp>500</operatingTemp>
+				<fireDrawOffset>(0,0.1,-0.65)</fireDrawOffset>
+				<smokeDrawOffset>(0.5,-0.1,1.5)</smokeDrawOffset>
+				<fuelDrawOffset>(0,0.1,-0.8)</fuelDrawOffset>
+				<fuelCapacity>30</fuelCapacity>
+				<fuelFilter>
+				  <thingDefs>
+					<li>Coal</li>
+					<li>Charcoal</li>
+					<li>Peat</li>
+					<li>Kindling</li>
+				  </thingDefs>
+					<categories>
+					  <li>Wooden</li>
+					</categories>  
+				</fuelFilter>
+			</li>
 		</comps>
-		<building>
-			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
-		</building>
 		<placeWorkers>
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
 		</placeWorkers>
@@ -1162,6 +1186,7 @@
 		<inspectorTabs>
 			<li>ITab_Bills</li>
 		</inspectorTabs>
+		<tickerType>Normal</tickerType>
 		<comps>
 			  <li Class="CompProperties_Flickable"/>
 			  <li Class="CompProperties_Breakdownable"/>
@@ -1365,6 +1390,7 @@
       <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
       <unpoweredWorkTableWorkSpeedFactor>0.25</unpoweredWorkTableWorkSpeedFactor>
     </building>
+	<tickerType>Normal</tickerType>
     <comps>
 			  <li Class="CompProperties_Flickable"/>
 			  <li Class="CompProperties_Breakdownable"/>
@@ -1394,10 +1420,6 @@
 		<researchPrerequisites><li>TailoringII</li></researchPrerequisites>
   </ThingDef>
 
-
-
-
-
 	<ThingDef ParentName="BenchBase">
 		<DefName>TableLoom</DefName>
 		<label>Tailor's Loom</label>
@@ -1426,7 +1448,6 @@
 			<MaxHitPoints>80</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Cleanliness>-3</Cleanliness>
-			<WorkTableWorkSpeedFactor>0.4</WorkTableWorkSpeedFactor>
 		</statBases>
 		<Size>(3,2)</Size>
 		<DesignationCategory>Production</DesignationCategory>
@@ -1447,8 +1468,10 @@
 			<li>ITab_Bills</li>
 		</inspectorTabs>
 		<building>
+			<unpoweredWorkTableWorkSpeedFactor>0.2</unpoweredWorkTableWorkSpeedFactor>
 			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
 		</building>
+		<tickerType>Normal</tickerType>
 		<comps>
 			  <li Class="CompProperties_Flickable"/>
 			  <li Class="CompProperties_Breakdownable"/>
@@ -1622,6 +1645,7 @@
 				</filter>
 			</defaultStorageSettings>
 		</building>
+	<tickerType>Normal</tickerType>
     <comps>
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerTrader</compClass>
@@ -1647,10 +1671,6 @@
 		</placeWorkers>
     <researchPrerequisites><li>Machining</li></researchPrerequisites>
   </ThingDef>
-
-
-
-
 
   <ThingDef ParentName="BenchBase">
     <DefName>ComponentAssemblyBench</DefName>
@@ -1728,18 +1748,14 @@
   </ThingDef>
 
 
-
-
-
-  <ThingDef ParentName="BuildingBase">
+	<ThingDef ParentName="WorkTableFueled">
     <DefName>FueledSmithy</DefName>
     <label>Fueled Smithy</label>
-    <ThingClass>Building_WorkTable</ThingClass>
-    <Description>A wood-fueled station equipped for smithing non-mechanical weapons and tools. (Can be fueled by Coal, Charcoal or Peat)</Description>
+    <Description>A fueled station equipped for smithing non-mechanical weapons and tools. Can be fueled by Coal or Peat.</Description>
     <graphicData>
 		<texPath>Things/Building/Production/BYF</texPath>
 		<graphicClass>Graphic_Multi</graphicClass>
-      	<drawSize>(2,2)</drawSize>
+      	<drawSize>(3,3)</drawSize>
 		<shadowData>
         		<volume>(0.3, 0.6, 0.3)</volume>
 		</shadowData>
@@ -1753,58 +1769,47 @@
 			<Component>8</Component>
 			<Mechanism>6</Mechanism>
 		</CostList>
-    <altitudeLayer>Building</altitudeLayer>
-    <fillPercent>0.5</fillPercent>
-    <useHitPoints>True</useHitPoints>
     <statBases>
       <WorkToMake>3000</WorkToMake>
       <MaxHitPoints>180</MaxHitPoints>
       <Flammability>1.0</Flammability>
       <Cleanliness>-3</Cleanliness>
     </statBases>
-    <Size>(2,2)</Size>
+    <Size>(3,3)</Size>
     <DesignationCategory>Production</DesignationCategory>
-    <Passability>PassThroughOnly</Passability>
-    <pathCost>70</pathCost>
     <hasInteractionCell>True</hasInteractionCell>
-    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
-    <surfaceType>Item</surfaceType>
-    <inspectorTabs>
-      <li>ITab_Bills</li>
-    </inspectorTabs>
-    <building>
-      <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
-    </building>
-	<tickerType>Normal</tickerType>
+    <interactionCellOffset>(0,0,-2)</interactionCellOffset>
     <comps>
-		<li Class="CompProperties_Flickable"/>
-      <li Class="CompProperties_Refuelable">
-        <fuelConsumptionRate>30.0</fuelConsumptionRate>
-        <fuelCapacity>15.0</fuelCapacity>
-        <fuelFilter>
-          <thingDefs>
-            <li>Coal</li>
-            <li>Charcoal</li>
-            <li>Peat</li>
-          </thingDefs>
-        </fuelFilter>
-        <consumeFuelOnlyWhenUsed>false</consumeFuelOnlyWhenUsed>
-      </li>
       <li Class="CompProperties_AffectedByFacilities">
         <linkableFacilities>
           <li>Small_ToolCabinet</li>
           <li>PodChair</li>
         </linkableFacilities>
       </li>
-			<li Class="SK.CompProperties_HeatPusherAdvanced">
-				<compClass>SK.CompHeatPusherAdvanced</compClass>
-				<heatPerSecond>40</heatPerSecond>
-				<heatPushMaxTemperature>75</heatPushMaxTemperature>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusher</compClass>
+				<heatPerSecond>30</heatPerSecond>
+				<heatPushMaxTemperature>45</heatPushMaxTemperature>
 			</li>
-		  <li Class="SK.CompProperties_FireOverlayMod">
-			<fireSize>3</fireSize>
-			<offset>(0,3.5,0.3)</offset>
-		  </li>
+			<li Class="CompProperties_Glower">
+				<glowRadius>3</glowRadius>
+				<glowColor>(217,112,33,0)</glowColor>
+			</li>
+			<li Class="SK.CompFueled_Properties">
+				<operatingTemp>1000</operatingTemp>
+				<fireDrawOffset>(0,0.1,-0.65)</fireDrawOffset>
+				<smokeDrawOffset>(0.5,-0.1,1.5)</smokeDrawOffset>
+				<fuelDrawOffset>(0,0.1,-0.8)</fuelDrawOffset>
+				<fuelCapacity>30</fuelCapacity>
+				<effectOnWeather>true</effectOnWeather>
+				<fuelFilter>
+				  <thingDefs>
+					<li>Coal</li>
+					<li>Peat</li>
+				  </thingDefs>
+				</fuelFilter>
+			</li>
     </comps>
 		<placeWorkers>
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
@@ -2053,177 +2058,6 @@
     <researchPrerequisites><li>SK_ConstructionI</li></researchPrerequisites>
   </ThingDef>
 
- 
-  <ThingDef ParentName="BenchBase">
-    <defName>PrimitiveResearchBench</defName>
-    <label>Primitive research table</label>
-	<description>Study surrounding materials here to research new things.</description>
-    <thingClass>Building_ResearchBench</thingClass>
-	<graphicData>
-	  <texPath>Things/Building/Production/TableResearch/Neolithic/TableResearchNeolithic</texPath>
-      <graphicClass>Graphic_Multi</graphicClass>
-      <shaderType>CutoutComplex</shaderType>
-      <drawSize>(3,1)</drawSize>
-      <damageData>
-        <cornerTL>Damage/Corner</cornerTL>
-        <cornerTR>Damage/Corner</cornerTR>
-        <cornerBL>Damage/Corner</cornerBL>
-        <cornerBR>Damage/Corner</cornerBR>
-      </damageData>
-    </graphicData>
-    <altitudeLayer>Building</altitudeLayer>
-    <passability>Impassable</passability>
-    <castEdgeShadows>true</castEdgeShadows>
-    <statBases>
-      <MaxHitPoints>120</MaxHitPoints>
-      <WorkToMake>2800</WorkToMake>
-      <Flammability>1.0</Flammability>
-      <ResearchSpeedFactor>0.5</ResearchSpeedFactor>
-    </statBases>
-    <size>(3,1)</size>
-	<stuffCategories>
-	<li>Stony</li>
-	</stuffCategories>
-	<costStuffCount>80</costStuffCount>
-    <fillPercent>0.5</fillPercent>
-    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
-    <hasInteractionCell>true</hasInteractionCell>
-    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
-    <DesignationCategory>Misc</DesignationCategory>
-    <staticSunShadowHeight>0.20</staticSunShadowHeight>
-    <surfaceType>Item</surfaceType>
-  </ThingDef>
-
-  <ThingDef ParentName="BenchBase">
-    <defName>SimpleResearchBench</defName>
-    <label>Research Bench</label>
-    <description>A simple bench with writing implements and low-tech scientific tools. Researchers work here to discover new things.</description>
-    <thingClass>Building_ResearchBench</thingClass>
-    <graphicData>
-      <texPath>Things/Building/Production/ResearchBenchSimple</texPath>
-      <graphicClass>Graphic_Multi</graphicClass>
-      <shaderType>CutoutComplex</shaderType>
-      <drawSize>(5,4)</drawSize>
-      <damageData>
-        <cornerTL>Damage/Corner</cornerTL>
-        <cornerTR>Damage/Corner</cornerTR>
-        <cornerBL>Damage/Corner</cornerBL>
-        <cornerBR>Damage/Corner</cornerBR>
-      </damageData>
-    </graphicData>
-    <altitudeLayer>Building</altitudeLayer>
-    <passability>Impassable</passability>
-    <castEdgeShadows>true</castEdgeShadows>
-    <statBases>
-      <MaxHitPoints>120</MaxHitPoints>
-      <WorkToMake>2800</WorkToMake>
-      <Flammability>1.0</Flammability>
-      <ResearchSpeedFactor>0.7</ResearchSpeedFactor>
-    </statBases>
-    <size>(3,2)</size>
-	<stuffCategories>
-	<li>Metallic</li>
-	<li>Woody</li>
-	<li>Plastic</li>
-	</stuffCategories>
-	<costStuffCount>150</costStuffCount>
-		<CostList>
-			<Component>8</Component>
-			<Mechanism>2</Mechanism>
-		</CostList>
-    <comps>
-      <li Class="CompProperties_AffectedByFacilities">
-        <linkableFacilities>
-          <li>FileCabinet</li>
-        </linkableFacilities>
-      </li>
-    </comps>
-		<placeWorkers>
-			<li>PlaceWorker_ShowFacilitiesConnections</li>
-		</placeWorkers>
-    <fillPercent>0.5</fillPercent>
-    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
-    <hasInteractionCell>true</hasInteractionCell>
-    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
-    <DesignationCategory>Misc</DesignationCategory>
-    <staticSunShadowHeight>0.20</staticSunShadowHeight>
-    <surfaceType>Item</surfaceType>
-    <researchPrerequisites>
-      <li>SK_Technology</li>
-    </researchPrerequisites>
-  </ThingDef>
-
-
-	<ThingDef ParentName="BenchBase">
-    <defName>HiTechResearchBench</defName>
-    <label>Hi-Tech Research Bench</label>
-    <description>A high-tech bench with computers and electronic measurement equipment. Research is sped up by the high-tech tools. Requires power.</description>
-    <thingClass>Building_ResearchBench</thingClass>
-    <size>(5,2)</size>
-    <stuffCategories>
-      <li>Metallic</li>
-    </stuffCategories>
-    <costStuffCount>180</costStuffCount>
-    <costList>
-	  <Plastic>85</Plastic>
-	  <Component>15</Component>
-	  <Electronics>5</Electronics>
-	  <AdvMechanism>5</AdvMechanism>
-    </costList>
-    <graphicData>
-      <texPath>Things/Building/Production/ResearchBenchHiTech</texPath>
-      <graphicClass>Graphic_Multi</graphicClass>
-      <shaderType>CutoutComplex</shaderType>
-      <drawSize>(7,4)</drawSize>
-      <damageData>
-        <cornerTL>Damage/Corner</cornerTL>
-        <cornerTR>Damage/Corner</cornerTR>
-        <cornerBL>Damage/Corner</cornerBL>
-        <cornerBR>Damage/Corner</cornerBR>
-      </damageData>
-    </graphicData>
-    <altitudeLayer>Building</altitudeLayer>
-    <passability>PassThroughOnly</passability>
-    <pathCost>70</pathCost>
-    <statBases>
-      <MaxHitPoints>250</MaxHitPoints>
-      <WorkToMake>5000</WorkToMake>
-      <Flammability>1.0</Flammability>
-      <ResearchSpeedFactor>1.0</ResearchSpeedFactor>
-    </statBases>
-    <comps>
-			  <li Class="CompProperties_Flickable"/>
-      <li Class="CompProperties_Power">
-        <compClass>CompPowerTrader</compClass>
-        <basePowerConsumption>700</basePowerConsumption>
-        <startElectricalFires>true</startElectricalFires>
-      </li>
-            <li Class="CommunityCoreLibrary.CompProperties_LowIdleDraw">
-                <compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
-                <idlePowerFactor>0.1</idlePowerFactor>
-            </li>
-      <li Class="CompProperties_AffectedByFacilities">
-        <linkableFacilities>
-          <li>MultiAnalyzer</li>
-          <li>FileCabinet</li>
-        </linkableFacilities>
-      </li>
-    </comps>
-    <fillPercent>0.5</fillPercent>
-    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
-    <hasInteractionCell>true</hasInteractionCell>
-    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
-    <designationCategory>Production</designationCategory>
-    <surfaceType>Item</surfaceType>
-    <designationHotKey>Misc9</designationHotKey>
-		<placeWorkers>
-			<li>PlaceWorker_ShowFacilitiesConnections</li>
-		</placeWorkers>
-    <researchPrerequisites>
-      <li>Batteries</li>
-    </researchPrerequisites>
-  </ThingDef>
-
 
   <ThingDef ParentName="BuildingBase">
     <DefName>CompostBin</DefName>
@@ -2259,6 +2093,9 @@
             <li>FoodRaw</li>
             <li>Corpses</li>
           </categories>
+          <exceptedCategories>
+            <li>CorpsesMechanoid</li>
+          </exceptedCategories>
           <specialFiltersToAllow>
             <li>AllowRotten</li>
           </specialFiltersToAllow>
@@ -2273,6 +2110,68 @@
 	<researchPrerequisites><li>SK_SoilFertillizationI</li></researchPrerequisites>
   </ThingDef>
 
+<ThingDef ParentName="BuildingBase">
+    <defName>FertilizerProductionMachine</defName>
+    <label>Fertilizer Production Machine</label>
+    <description>Use plants to produce fertilizer. Requires to install near hopper!</description>
+    <thingClass>BiomeOcean.Building_FertilizerProductionMachine</thingClass>
+    <graphicData>
+      <texPath>Things/Building/FertilizerProductionMachine</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(3,2)</drawSize>
+      <damageData>
+        <rect>(0.02,0.25,2.96,2.85)</rect>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+      </damageData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Impassable</passability>
+    <fillPercent>1</fillPercent>
+    <statBases>
+      <WorkToMake>2200</WorkToMake>
+      <MaxHitPoints>350</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+    </statBases>
+    <building>
+      <isMealSource>true</isMealSource>
+      <wantsHopperAdjacent>true</wantsHopperAdjacent>
+      <foodCostPerDispense>10</foodCostPerDispense>
+      <soundDispense>DispensePaste</soundDispense>
+    </building>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <startElectricalFires>true</startElectricalFires>
+        <basePowerConsumption>600</basePowerConsumption>
+      </li>
+            <li Class="CommunityCoreLibrary.CompProperties_LowIdleDraw">
+                <compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
+                <idlePowerFactor>0.1</idlePowerFactor>
+            </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Breakdownable"/>
+    </comps>
+    <size>(3,2)</size>
+	<stuffCategories>
+	<li>Metallic</li>
+	</stuffCategories>
+	<costStuffCount>130</costStuffCount>
+    <costList>
+		<Component>10</Component>
+		<ElectronicComponents>6</ElectronicComponents>
+		<Mechanism>5</Mechanism>
+    </costList>
+    <socialPropernessMatters>true</socialPropernessMatters>
+    <interactionCellOffset>(0,0,2)</interactionCellOffset>
+    <hasInteractionCell>true</hasInteractionCell>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+    <designationCategory>Production</designationCategory>
+    <tickerType>Rare</tickerType>
+		<researchPrerequisites>
+			<li>FertilizerProduction</li>
+		</researchPrerequisites>
+  </ThingDef>
 	
   <ThingDef ParentName="BuildingBase">
     <defName>CraftingSpot</defName>
@@ -2364,6 +2263,7 @@
 		<building>
 			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
 		</building>
+		<tickerType>Normal</tickerType>
 		<comps>
 			  <li Class="CompProperties_Flickable"/>
 			  <li Class="CompProperties_Breakdownable"/>
@@ -2442,6 +2342,7 @@
 		<building>
 			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
 		</building>
+		<tickerType>Normal</tickerType>
 		<comps>
       <li Class="CompProperties_AffectedByFacilities">
         <linkableFacilities>
@@ -2519,6 +2420,7 @@
     <inspectorTabs>
       <li>ITab_Bills</li>
     </inspectorTabs>
+	<tickerType>Normal</tickerType>
     <comps>
       <li Class="CompProperties_Power">
         <compClass>CompPowerTrader</compClass>
@@ -2592,6 +2494,7 @@
     <inspectorTabs>
       <li>ITab_Bills</li>
     </inspectorTabs>
+	<tickerType>Normal</tickerType>
     <comps>
       <li Class="CompProperties_Power">
         <compClass>CompPowerTrader</compClass>
@@ -2609,6 +2512,7 @@
         </linkableFacilities>
         </li>
 		<li Class="CompProperties_Breakdownable"/>
+		<li Class="CompProperties_Flickable"/>
     </comps>
     <building>
       <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
@@ -2619,14 +2523,11 @@
 		</placeWorkers>
   </ThingDef>
 
-
-	<!-- ========================= EPOE ==========================-->
-
 	<!-- ========================= EPOE ==========================-->
 	
   <ThingDef ParentName="BenchBase">
-    <DefName>TablePremitiveProsthetic</DefName>
-    <label>Premitive prosthetics bench</label>
+    <DefName>TablePrimitiveProsthetic</DefName>
+    <label>Primitive prosthetics bench</label>
     <ThingClass>Building_WorkTable</ThingClass>
     <Description>A workbench equipped for production of basic prosthetics.</Description>
     <graphicData>
@@ -2654,14 +2555,10 @@
     <interactionCellOffset>(0,0,-1)</interactionCellOffset>
     <surfaceType>Item</surfaceType>
     <recipes>
-	<li>CreatePegLeg</li>
-	<li>CreateSteelArm</li>
-	<li>CreateHookHand</li>
-	<li>CreateEyePatch</li>
-	<li>CreateDenture</li>
-	<li>CreateWoodenFoot</li>
-	<li>CreateCrystalEye</li>
-	<li>CreateGlassEye</li>
+		<li>CreateEyePatch</li>
+		<li>CreateHookHand</li>
+		<li>CreatePegLeg</li>
+		<li>CreateWoodenFoot</li>
     </recipes>
     <inspectorTabs>
       <li>ITab_Bills</li>
@@ -2730,6 +2627,7 @@
       <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
     </building>
     <researchPrerequisites><li>SK_MedicineI</li></researchPrerequisites>
+	<tickerType>Normal</tickerType>
     <comps>
 			  <li Class="CompProperties_Flickable"/>
 			  <li Class="CompProperties_Breakdownable"/>
@@ -2761,7 +2659,7 @@
   <!-- ========== Hydroponics ==============-->
 
   <ThingDef ParentName="BuildingBase">
-    <defName>PremitiveHydroponic</defName>
+    <defName>PrimitiveHydroponic</defName>
     <label>Saturated soil</label>
     <thingClass>HydroponicRoom.Building_PlantGrowerLinked</thingClass>
     <graphicData>
@@ -2795,9 +2693,10 @@
     </building>
     <tickerType>Rare</tickerType>
     <rotatable>true</rotatable>
+	<blockWind>false</blockWind>
     <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
     <terrainAffordanceNeeded>Diggable</terrainAffordanceNeeded>
-    <designationCategory>Misc</designationCategory>
+    <designationCategory>Production</designationCategory>
 	<researchPrerequisites><li>SK_IndoorFarming</li></researchPrerequisites>
   </ThingDef>
 
@@ -2855,7 +2754,7 @@
     </comps>
     <researchPrerequisites><li>Hydroponics</li></researchPrerequisites>
     <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
-		<DesignationCategory>Misc</DesignationCategory>
+		<DesignationCategory>Production</DesignationCategory>
     <!--<staticSunShadowHeight>0.03</staticSunShadowHeight>-->
   </ThingDef>
 
@@ -2932,7 +2831,7 @@
 		</comps>
 		<researchPrerequisites><li>SK_HydroponicsII</li></researchPrerequisites>
 		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
-		<designationCategory>Misc</designationCategory>
+		<designationCategory>Production</designationCategory>
 		<staticSunShadowHeight>0.03</staticSunShadowHeight>
 	</ThingDef>
 
@@ -2987,7 +2886,7 @@
     <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
     <researchPrerequisites><li>SK_HydroponicsII</li></researchPrerequisites>
     <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
-    <designationCategory>Misc</designationCategory>
+    <designationCategory>Production</designationCategory>
   </ThingDef>
 
 
@@ -2996,7 +2895,7 @@
       <label>Hydroponic Box</label>
       <description>A small self-watering wooden wood box with earth in it for growing plants. Requires power.</description>
       <thingClass>Building_PlantGrower</thingClass>
-      <designationCategory>Misc</designationCategory>
+      <designationCategory>Production</designationCategory>
       <statBases>
          <MaxHitPoints>200</MaxHitPoints>
          <Beauty>1</Beauty>

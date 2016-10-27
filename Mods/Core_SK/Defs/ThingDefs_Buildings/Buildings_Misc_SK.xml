@@ -1,48 +1,175 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Buildings>
 
-  <ThingDef ParentName="BuildingBase">
-    <defName>TradingSpot</defName>
-    <label>Trading spot</label>
-	<thingClass>SK.TradingSpot</thingClass>
-    <Description>Designates a spot where traders will stop when visiting your colony.</Description>
-    <graphicData>
-      <texPath>Things/Building/Misc/TradingPost/TradingPost</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <drawSize>(3,3)</drawSize>
-		<shadowData>
-        		<volume>(2.0, 2.3, 2.0)</volume>
-		</shadowData>
+  <ThingDef ParentName="BenchBase">
+    <defName>PrimitiveResearchBench</defName>
+    <label>Primitive research table</label>
+	<description>Study surrounding materials here to research new things.</description>
+    <thingClass>Building_ResearchBench</thingClass>
+	<graphicData>
+	  <texPath>Things/Building/Production/TableResearch/Neolithic/TableResearchNeolithic</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(3,1)</drawSize>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
     </graphicData>
-    <size>(3,3)</size>
     <altitudeLayer>Building</altitudeLayer>
+    <passability>Impassable</passability>
+    <castEdgeShadows>true</castEdgeShadows>
     <statBases>
-	  <MaxHitPoints>100</MaxHitPoints>
-      <WorkToMake>8500</WorkToMake>
+      <MaxHitPoints>120</MaxHitPoints>
+      <WorkToMake>2800</WorkToMake>
       <Flammability>1.0</Flammability>
+      <ResearchSpeedFactor>0.5</ResearchSpeedFactor>
     </statBases>
-		<stuffCategories>
-			<li>Leathery</li>
-		</stuffCategories>
-		<costStuffCount>120</costStuffCount>
-		<costList>
-			<Component>6</Component>
-		</costList>
+    <size>(3,1)</size>
+	<stuffCategories>
+	<li>Stony</li>
+	</stuffCategories>
+	<costStuffCount>80</costStuffCount>
+    <fillPercent>0.5</fillPercent>
+    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
+    <hasInteractionCell>true</hasInteractionCell>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
     <DesignationCategory>Misc</DesignationCategory>
-	<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
-	<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
-    <passability>Standable</passability>
-	<rotatable>false</rotatable>
+    <staticSunShadowHeight>0.20</staticSunShadowHeight>
+    <surfaceType>Item</surfaceType>
+  </ThingDef>
+
+  <ThingDef ParentName="BenchBase">
+    <defName>SimpleResearchBench</defName>
+    <label>Research Bench</label>
+    <description>A simple bench with writing implements and low-tech scientific tools. Researchers work here to discover new things.</description>
+    <thingClass>Building_ResearchBench</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Production/ResearchBenchSimple</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(5,4)</drawSize>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Impassable</passability>
+    <castEdgeShadows>true</castEdgeShadows>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <WorkToMake>2800</WorkToMake>
+      <Flammability>1.0</Flammability>
+      <ResearchSpeedFactor>0.7</ResearchSpeedFactor>
+    </statBases>
+    <size>(3,2)</size>
+	<stuffCategories>
+	<li>Metallic</li>
+	<li>Woody</li>
+	<li>Plastic</li>
+	</stuffCategories>
+	<costStuffCount>150</costStuffCount>
+		<CostList>
+			<Component>8</Component>
+			<Mechanism>2</Mechanism>
+		</CostList>
+    <comps>
+      <li Class="CompProperties_AffectedByFacilities">
+        <linkableFacilities>
+          <li>FileCabinet</li>
+        </linkableFacilities>
+      </li>
+    </comps>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+		</placeWorkers>
+    <fillPercent>0.5</fillPercent>
+    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
+    <hasInteractionCell>true</hasInteractionCell>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+    <DesignationCategory>Misc</DesignationCategory>
+    <staticSunShadowHeight>0.20</staticSunShadowHeight>
+    <surfaceType>Item</surfaceType>
+    <researchPrerequisites>
+      <li>SK_Technology</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+
+	<ThingDef ParentName="BenchBase">
+    <defName>HiTechResearchBench</defName>
+    <label>Hi-Tech Research Bench</label>
+    <description>A high-tech bench with computers and electronic measurement equipment. Research is sped up by the high-tech tools. Requires power.</description>
+    <thingClass>Building_ResearchBench</thingClass>
+    <size>(5,2)</size>
+    <stuffCategories>
+      <li>Metallic</li>
+    </stuffCategories>
+    <costStuffCount>180</costStuffCount>
+    <costList>
+	  <Plastic>85</Plastic>
+	  <Component>15</Component>
+	  <Electronics>5</Electronics>
+	  <AdvMechanism>5</AdvMechanism>
+    </costList>
+    <graphicData>
+      <texPath>Things/Building/Production/ResearchBenchHiTech</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(7,4)</drawSize>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>70</pathCost>
+    <statBases>
+      <MaxHitPoints>250</MaxHitPoints>
+      <WorkToMake>5000</WorkToMake>
+      <Flammability>1.0</Flammability>
+      <ResearchSpeedFactor>1.0</ResearchSpeedFactor>
+    </statBases>
 	<tickerType>Normal</tickerType>
-       <comps>
-           <li Class="CommunityCoreLibrary.CompProperties_RestrictedPlacement">
-            <compClass>CommunityCoreLibrary.CompRestrictedPlacement</compClass>
-            <MaxCount>1</MaxCount>
-			</li>
-       </comps>
-        <placeWorkers>
-            <li>CommunityCoreLibrary.PlaceWorker_RestrictedCount</li>
-        </placeWorkers>
+    <comps>
+			  <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>700</basePowerConsumption>
+        <startElectricalFires>true</startElectricalFires>
+      </li>
+            <li Class="CommunityCoreLibrary.CompProperties_LowIdleDraw">
+                <compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
+                <idlePowerFactor>0.1</idlePowerFactor>
+            </li>
+      <li Class="CompProperties_AffectedByFacilities">
+        <linkableFacilities>
+          <li>MultiAnalyzer</li>
+          <li>FileCabinet</li>
+        </linkableFacilities>
+      </li>
+    </comps>
+    <fillPercent>0.5</fillPercent>
+    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
+    <hasInteractionCell>true</hasInteractionCell>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+    <designationCategory>Misc</designationCategory>
+    <surfaceType>Item</surfaceType>
+    <designationHotKey>Misc9</designationHotKey>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+		</placeWorkers>
+    <researchPrerequisites>
+      <li>Batteries</li>
+    </researchPrerequisites>
   </ThingDef>
   
   <ThingDef ParentName="BuildingBase">
@@ -173,54 +300,49 @@
 
 
 
-	<ThingDef ParentName="BuildingBase">
-		<defName>FertilizerPump</defName>
-		<label>Terraforming Pump</label>
-		<thingClass>Core_SK.Building_FertilizerPump</thingClass>
-    		<graphicData>
-		<texPath>Things/Building/Misc/FertilizerPump</texPath>
-		<graphicClass>Graphic_Single</graphicClass>
+  <ThingDef ParentName="BuildingBase">
+    <defName>TradingSpot</defName>
+    <label>Trading spot</label>
+	<thingClass>SK.TradingSpot</thingClass>
+    <Description>Designates a spot where traders will stop when visiting your colony.</Description>
+    <graphicData>
+      <texPath>Things/Building/Misc/TradingPost/TradingPost</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(3,3)</drawSize>
 		<shadowData>
-        		<volume>(0.3, 0.6, 0.3)</volume>
+        		<volume>(2.0, 2.3, 2.0)</volume>
 		</shadowData>
-    		</graphicData>
-		<altitudeLayer>Building</altitudeLayer>
-		<passability>Standable</passability>
-		<fillPercent>0.2</fillPercent>
-		<tickerType>Rare</tickerType>	
-		<statBases>
-			<MaxHitPoints>240</MaxHitPoints>
-			<WorkToMake>4000</WorkToMake>
-			<Flammability>1.0</Flammability>
-		</statBases>
-		<description>This pump slowly expands a field of growable soil around itself. Requires power.</description>
-		<size>(1,1)</size>
+    </graphicData>
+    <size>(3,3)</size>
+    <altitudeLayer>Building</altitudeLayer>
+    <statBases>
+	  <MaxHitPoints>100</MaxHitPoints>
+      <WorkToMake>8500</WorkToMake>
+      <Flammability>1.0</Flammability>
+    </statBases>
+		<stuffCategories>
+			<li>Leathery</li>
+		</stuffCategories>
+		<costStuffCount>120</costStuffCount>
 		<costList>
-			<Component>8</Component>
-			<Rubber>35</Rubber>
-			<Plastic>15</Plastic>
-			<ElectronicComponents>3</ElectronicComponents>
-			<Mechanism>3</Mechanism>
+			<Component>6</Component>
 		</costList>
-		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
-		<designationCategory>Misc</designationCategory>
-		<comps>
-			  <li Class="CompProperties_Flickable"/>
-			  <li Class="CompProperties_Breakdownable"/>
-			<li Class="CompProperties_Power">
-				<compClass>CompPowerTrader</compClass>
-				<startElectricalFires>false</startElectricalFires>
-				<basePowerConsumption>300</basePowerConsumption>
+    <DesignationCategory>Misc</DesignationCategory>
+	<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+	<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <passability>Standable</passability>
+	<rotatable>false</rotatable>
+	<tickerType>Normal</tickerType>
+       <comps>
+           <li Class="CommunityCoreLibrary.CompProperties_RestrictedPlacement">
+            <compClass>CommunityCoreLibrary.CompRestrictedPlacement</compClass>
+            <MaxCount>1</MaxCount>
 			</li>
-			<li>
-				<compClass>CompQuality</compClass>
-			</li>
-		</comps>
-		<rotatable>false</rotatable>
-	<researchPrerequisites><li>MoisturePump</li></researchPrerequisites>
-	</ThingDef>
-
-
+       </comps>
+        <placeWorkers>
+            <li>CommunityCoreLibrary.PlaceWorker_RestrictedCount</li>
+        </placeWorkers>
+  </ThingDef>
 
 
   <ThingDef ParentName="BuildingBase">
@@ -323,6 +445,67 @@
     <designationHotKey>Misc3</designationHotKey>
 		<researchPrerequisites><li>SK_TelecommunicationI</li></researchPrerequisites>
   </ThingDef>
+  
+	<ThingDef ParentName="BuildingBase">
+		<defName>Buildings_SubspaceBurstTransponder</defName>
+		<label>Subspace Burst Transponder</label>
+		<description>Contacts Ships at a distance and guides them to your colony.</description>
+		<thingClass>SK.Building_SubspaceBurstTransponder</thingClass>
+		<graphicData>
+			<texPath>Things/Building/ComUnitBase</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(3,3)</drawSize>
+			<damageData>
+				<rect>(0.02,0.25,2.96,2.85)</rect>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+			</damageData>
+		</graphicData>
+		<uiIconPath>Things/Building/ComUnit</uiIconPath>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>Impassable</passability>
+		<fillPercent>1</fillPercent>
+		<statBases>
+			<WorkToMake>18200</WorkToMake>
+			<MaxHitPoints>250</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+		</statBases>
+		<building>
+			<isMealSource>true</isMealSource>
+			<wantsHopperAdjacent>true</wantsHopperAdjacent>
+			<foodCostPerDispense>6</foodCostPerDispense>
+			<soundDispense>DispensePaste</soundDispense>
+		</building>
+		<comps>
+			  <li Class="CompProperties_Flickable"/>
+			  <li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<startElectricalFires>true</startElectricalFires>
+				<basePowerConsumption>1200</basePowerConsumption>
+			</li>
+		</comps>
+		<size>(3,3)</size>
+		<stuffCategories>
+			<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>110</costStuffCount>
+		<costList>
+			<Plastic>20</Plastic>
+			<Glass>15</Glass>
+			<Component>5</Component>
+			<Electronics>8</Electronics>
+		</costList>
+		<socialPropernessMatters>true</socialPropernessMatters>
+		<interactionCellOffset>(0,0,-2)</interactionCellOffset>
+		<hasInteractionCell>true</hasInteractionCell>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<designationCategory>Misc</designationCategory>
+		<tickerType>Normal</tickerType>
+		<researchPrerequisites>
+			<li>SK_TelecommunicationII</li>
+		</researchPrerequisites>
+	</ThingDef>
 
 
   <!-- Facilities -->
@@ -443,12 +626,84 @@
         <mustBePlacedAdjacent>true</mustBePlacedAdjacent>
         <canLinkToMedBedsOnly>true</canLinkToMedBedsOnly>
       </li>
+			<li Class="CommunityCoreLibrary.CompProperties_LowIdleDraw">
+				<compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
+				<!-- 0 watts when not in use -->
+			</li>
     </comps>
+		<tickerType>Normal</tickerType>
     <designationHotKey>Misc5</designationHotKey>
 		<placeWorkers>
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
 		</placeWorkers>
-	<researchPrerequisites><li>VitalsMonitor</li></researchPrerequisites>	
+	<researchPrerequisites><li>VitalsMonitor</li></researchPrerequisites>
+  </ThingDef>
+  
+  <ThingDef ParentName="BuildingBase">
+	<defName>AdvancedVitalsMonitor</defName>
+	<label>Advanced vitals monitor</label>
+    <graphicData>
+      <texPath>Things/Building/AdvancedVitalMonitor</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawRotated>false</drawRotated>
+	  <drawSize>(1,2)</drawSize>
+      <shadowData>
+        <volume>(0.3, 0.3, 0.4)</volume>
+      </shadowData>
+		<damageData>
+			<rect>(0.15,0.15,1.7,1.7)</rect>
+		</damageData>
+    </graphicData>
+    <rotatable>false</rotatable>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Impassable</passability>
+    <fillPercent>1.0</fillPercent>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <WorkToMake>9000</WorkToMake>
+      <Flammability>1.0</Flammability>
+    </statBases>
+	<description>An advanced vitals monitor capable of diagnosing the root cause of almost any symptom. Needs to be placed adjacent to a Hi-tech medical bed.</description>
+	<size>(1,1)</size>
+		<stuffCategories>
+			<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>75</costStuffCount>
+    <costList>
+			<Plastic>15</Plastic>
+			<Glass>15</Glass>
+			<Component>10</Component>
+			<Electronics>5</Electronics>
+    </costList>
+    <designationCategory>Misc</designationCategory>
+    <minifiedDef>MinifiedFurniture</minifiedDef>
+    <comps>
+			  <li Class="CompProperties_Flickable"/>
+			  <li Class="CompProperties_Breakdownable"/>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <startElectricalFires>true</startElectricalFires>
+        <basePowerConsumption>280</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Facility">
+        <statOffsets>
+          <MedicalTreatmentQualityFactor>0.06</MedicalTreatmentQualityFactor>
+          <ImmunityGainSpeedFactor>0.035</ImmunityGainSpeedFactor>
+        </statOffsets>
+        <maxSimultaneous>1</maxSimultaneous>
+        <mustBePlacedAdjacent>true</mustBePlacedAdjacent>
+        <canLinkToMedBedsOnly>true</canLinkToMedBedsOnly>
+      </li>
+			<li Class="CommunityCoreLibrary.CompProperties_LowIdleDraw">
+				<compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
+				<!-- 0 watts when not in use -->
+			</li>
+    </comps>
+		<tickerType>Normal</tickerType>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+		</placeWorkers>
+	<researchPrerequisites><li>SK_HospitalIV</li></researchPrerequisites>
   </ThingDef>
 
 
@@ -783,7 +1038,7 @@
       <li Class="CompProperties_Power">
         <compClass>CompPowerTrader</compClass>
         <startElectricalFires>true</startElectricalFires>
-        <basePowerConsumption>150</basePowerConsumption>
+        <basePowerConsumption>300</basePowerConsumption>
         <shortCircuitInRain>false</shortCircuitInRain>
       </li>
       <li Class="CompProperties_TerrainPumpDry">
@@ -813,7 +1068,53 @@
       <li>MoisturePump</li>
     </researchPrerequisites>
   </ThingDef>
-
+  
+	<ThingDef ParentName="BuildingBase">
+		<defName>FertilizerPump</defName>
+		<label>Terraforming Pump</label>
+		<thingClass>SK.Building_FertilizerPump</thingClass>
+    		<graphicData>
+		<texPath>Things/Building/Misc/FertilizerPump</texPath>
+		<graphicClass>Graphic_Single</graphicClass>
+		<shadowData>
+        		<volume>(0.3, 0.6, 0.3)</volume>
+		</shadowData>
+    		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>Standable</passability>
+		<fillPercent>0.2</fillPercent>
+		<tickerType>Rare</tickerType>	
+		<statBases>
+			<MaxHitPoints>240</MaxHitPoints>
+			<WorkToMake>4000</WorkToMake>
+			<Flammability>1.0</Flammability>
+		</statBases>
+		<description>This pump slowly expands a field of growable soil around itself. Requires power.</description>
+		<size>(1,1)</size>
+		<costList>
+			<Component>8</Component>
+			<Rubber>35</Rubber>
+			<Plastic>15</Plastic>
+			<ElectronicComponents>3</ElectronicComponents>
+			<Mechanism>3</Mechanism>
+		</costList>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<designationCategory>Misc</designationCategory>
+		<comps>
+			  <li Class="CompProperties_Flickable"/>
+			  <li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<startElectricalFires>false</startElectricalFires>
+				<basePowerConsumption>300</basePowerConsumption>
+			</li>
+			<li>
+				<compClass>CompQuality</compClass>
+			</li>
+		</comps>
+		<rotatable>false</rotatable>
+	<researchPrerequisites><li>MoisturePump</li></researchPrerequisites>
+	</ThingDef>
   
   <ThingDef ParentName="BuildingBase">
     <defName>Grave</defName>
@@ -963,7 +1264,7 @@
       <graphicClass>Graphic_Multi</graphicClass>
       <drawSize>(2,3)</drawSize>
     </graphicData>
-    <researchPrerequisites><li>SK_MedicineIII</li></researchPrerequisites>
+    <researchPrerequisites><li>Cryptosleep</li></researchPrerequisites>
     <altitudeLayer>Building</altitudeLayer>
     <passability>PassThroughOnly</passability>
     <pathCost>70</pathCost>
@@ -1050,7 +1351,7 @@
  	<ThingDef ParentName="BuildingBase">
 		<defName>Holodeck</defName>
 		<label>Holosuite</label>
-		<thingClass>Core_SK.Building_Holodeck</thingClass>
+		<thingClass>SK.Building_Holodeck</thingClass>
 		<graphicData>
 			<texPath>Things/Building/Misc/Holodeck1x2</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
@@ -1141,7 +1442,7 @@
 	<ThingDef ParentName="BuildingBase">
 		<defName>PunchingBag</defName>
 		<label>Punching Bag</label>
-		<thingClass>Core_SK.Building_PunchingBag</thingClass>
+		<thingClass>SK.Building_PunchingBag</thingClass>
 		<graphicData>
 			<texPath>Things/Building/Misc/PunchingBag1x1</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
@@ -1404,69 +1705,7 @@
 		<researchPrerequisites><li>SK_AppliedPhysicsIII</li></researchPrerequisites>
 	</ThingDef>
  
-  
-	<ThingDef ParentName="BuildingBase">
-		<defName>Buildings_SubspaceBurstTransponder</defName>
-		<label>Subspace Burst Transponder</label>
-		<description>Contacts Ships at a distance and guides them to your colony.</description>
-		<thingClass>SubspaceBurstTransponder.Building_SubspaceBurstTransponder</thingClass>
-		<graphicData>
-			<texPath>Things/Building/ComUnitBase</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
-			<drawSize>(3,3)</drawSize>
-			<damageData>
-				<rect>(0.02,0.25,2.96,2.85)</rect>
-				<cornerTL>Damage/Corner</cornerTL>
-				<cornerTR>Damage/Corner</cornerTR>
-			</damageData>
-		</graphicData>
-		<uiIconPath>Things/Building/ComUnit</uiIconPath>
-		<altitudeLayer>Building</altitudeLayer>
-		<passability>Impassable</passability>
-		<fillPercent>1</fillPercent>
-		<statBases>
-			<WorkToMake>18200</WorkToMake>
-			<MaxHitPoints>250</MaxHitPoints>
-			<Flammability>1.0</Flammability>
-		</statBases>
-		<building>
-			<isMealSource>true</isMealSource>
-			<wantsHopperAdjacent>true</wantsHopperAdjacent>
-			<foodCostPerDispense>6</foodCostPerDispense>
-			<soundDispense>DispensePaste</soundDispense>
-		</building>
-		<comps>
-			  <li Class="CompProperties_Flickable"/>
-			  <li Class="CompProperties_Breakdownable"/>
-			<li Class="CompProperties_Power">
-				<compClass>CompPowerTrader</compClass>
-				<startElectricalFires>true</startElectricalFires>
-				<basePowerConsumption>1200</basePowerConsumption>
-			</li>
-		</comps>
-		<size>(3,3)</size>
-		<stuffCategories>
-			<li>Metallic</li>
-		</stuffCategories>
-		<costStuffCount>110</costStuffCount>
-		<costList>
-			<Plastic>20</Plastic>
-			<Glass>15</Glass>
-			<Component>5</Component>
-			<Electronics>8</Electronics>
-		</costList>
-		<socialPropernessMatters>true</socialPropernessMatters>
-		<interactionCellOffset>(0,0,-2)</interactionCellOffset>
-		<hasInteractionCell>true</hasInteractionCell>
-		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
-		<designationCategory>Misc</designationCategory>
-		<tickerType>Normal</tickerType>
-		<researchPrerequisites>
-			<li>SK_TelecommunicationII</li>
-		</researchPrerequisites>
-	</ThingDef>
 
-	
 	<ThingDef Class="Enhanced_Development.Stargate.StargateThingDef" ParentName="BuildingBase">
 		<defName>Stargate</defName>
 		<label>Stargate</label>

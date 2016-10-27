@@ -5,7 +5,23 @@
     <castEdgeShadows>true</castEdgeShadows>
     <staticSunShadowHeight>0.20</staticSunShadowHeight>
   </ThingDef>
-
+	
+	<ThingDef Name="PowerFueled" ParentName="BuildingBase" Abstract="True">
+		<thingClass>Building</thingClass>
+		<passability>Impassable</passability>
+		<tickerType>Normal</tickerType>
+		<altitudeLayer>Building</altitudeLayer>
+		<surfaceType>Item</surfaceType>
+		<fillPercent>1</fillPercent>
+		<comps>
+			<li>
+				<compClass>SK.CompFadingShadowThrower</compClass>
+			</li>
+		</comps>
+		<inspectorTabs>
+			<li>SK.ITab_Fuel</li>
+		</inspectorTabs>
+	</ThingDef>
 
   <ThingDef ParentName="BuildingBase">
     <defName>PowerConduit</defName>
@@ -56,6 +72,7 @@
       <li>PlaceWorker_Conduit</li>
     </placeWorkers>
     <rotatable>false</rotatable>
+	<blockWind>false</blockWind>
     <selectable>true</selectable>
     <neverMultiSelect>true</neverMultiSelect>
     <soundImpactDefault>BulletImpactMetal</soundImpactDefault>
@@ -117,6 +134,7 @@
 			<li>PlaceWorker_Conduit</li>
 		</placeWorkers>
 		<rotatable>false</rotatable>
+		<blockWind>false</blockWind>
 		<selectable>true</selectable>
 		<neverMultiSelect>true</neverMultiSelect>
 		<soundImpactDefault>BulletImpactMetal</soundImpactDefault>
@@ -168,6 +186,7 @@
 	  <li Class="CompProperties_Flickable"/>
     </comps>
     <rotatable>false</rotatable>
+	<blockWind>false</blockWind>
     <selectable>true</selectable>
     <neverMultiSelect>false</neverMultiSelect>
     <tickerType>Normal</tickerType>
@@ -405,14 +424,74 @@
 				<compClass>CompPowerPlantWind</compClass>
 				<basePowerConsumption>-700</basePowerConsumption>
 				<transmitsPower>true</transmitsPower>
-      </li>
+			</li>
 	  		<li Class="CompProperties_Breakdownable"/>
 		</comps>
 		<researchPrerequisites><li>SK_RenewableI</li></researchPrerequisites>
 	</ThingDef>
+	
+	<ThingDef ParentName="BuildingBase">
+		<defName>TidalGenerator</defName>
+    <thingClass>BiomeOcean.Building_TidalGenerator</thingClass>
+		<label>Tidal generator</label>
+		<description>Tidal generator.</description>
+    <graphicData>
+      <texPath>Things/Building/Power/TidalGen/TidalGeneratory</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(3,6)</drawSize>
+	<!--  
+      <shadowData>
+        <volume>(0.2, 1.0, 0.8)</volume>
+      </shadowData>
+	  -->
+      <damageData>
+        <rect>(2,0.15,1,1.4)</rect>
+      </damageData>
+    </graphicData>
+    <altitudeLayer>Floor</altitudeLayer>
+		<passability>Impassable</passability>
+		<fillPercent>0.5</fillPercent>
+		<statBases>
+			<MaxHitPoints>150</MaxHitPoints>
+			<WorkToMake>3300</WorkToMake>
+			<Flammability>0.4</Flammability>
+			<Beauty>-12</Beauty>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<size>(3,6)</size>
+		<selectable>true</selectable>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<rotatable>true</rotatable>
+		<designationCategory>Power</designationCategory>
+		<building>
+			<ignoreNeedsPower>true</ignoreNeedsPower>
+		</building>
+		<stuffCategories>
+		<li>Metallic</li>
+		</stuffCategories>
+    	<costStuffCount>320</costStuffCount>
+		<costList>
+		<ReinforcedConcrete>80</ReinforcedConcrete>
+		<Rubber>60</Rubber>
+		<Component>10</Component>
+		<Mechanism>10</Mechanism>
+		</costList>
+    <placeWorkers>
+      <li>BiomeOcean.PlaceWorker_TidalGenerator</li>
+    </placeWorkers>
+	<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>-400</basePowerConsumption>
+				<transmitsPower>true</transmitsPower>
+      </li>
+      <li Class="CompProperties_Breakdownable"/>
+	</comps>
+	<researchPrerequisites><li>SolarPanels</li></researchPrerequisites>
+	<terrainAffordanceNeeded>Undefined</terrainAffordanceNeeded>
+	</ThingDef>
 
-
-	<ThingDef ParentName="BenchBase">
+	<ThingDef ParentName="PowerFueled">
 		<defName>SteamGenerator</defName>
 		<label>Steam Generator</label>
 		<thingClass>Building</thingClass>
@@ -421,19 +500,13 @@
 		<graphicClass>Graphic_Single</graphicClass>
 		<drawSize>(2,2)</drawSize>
 		</graphicData>
-		<altitudeLayer>Building</altitudeLayer>
-		<passability>PassThroughOnly</passability>
-		<pathCost>70</pathCost>
-		<fillPercent>1</fillPercent>
-		<castEdgeShadows>true</castEdgeShadows>
 		<statBases>
 			<MaxHitPoints>200</MaxHitPoints>
 			<WorkToMake>3800</WorkToMake>
 			<Flammability>1.0</Flammability>
 		</statBases>
-		<tickerType>Normal</tickerType>
-		<description>The Steam Generator produces electricity. Requires a hopper filled with Ethanol Fuel or Kindling for a fuel source.
-Power output: 750 W.</description>
+		<description>The basic Steam Generator that produces electricity. Can be fueled with Ethanol Fuel, Charcoal, Kindling and wooden stuff.
+Power output: around 750 W.</description>
 		<size>(2,2)</size>
 		<building>
 			<ignoreNeedsPower>true</ignoreNeedsPower>
@@ -448,36 +521,41 @@ Power output: 750 W.</description>
 		</costList>
 		<comps>
 			<li Class="CompProperties_Flickable"/>
-			<li Class="CompProperties_Refuelable">
-				<fuelConsumptionRate>14.0</fuelConsumptionRate>
-				<fuelCapacity>100.0</fuelCapacity>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_Power">
+				<compClass>SK.CompPowerPlantFueled</compClass>
+				<basePowerConsumption>-750</basePowerConsumption>
+				<transmitsPower>true</transmitsPower>
+			</li>
+			<li Class="CompProperties_Glower">
+				<glowRadius>3</glowRadius>
+				<glowColor>(217,112,33,0)</glowColor>
+			</li>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusher</compClass>
+				<heatPerSecond>30</heatPerSecond>
+				<heatPushMaxTemperature>75</heatPushMaxTemperature>
+			</li>
+			<li Class="SK.CompFueled_Properties">
+				<operatingTemp>500</operatingTemp>
+				<drawfirefuel>false</drawfirefuel>
+				<smokeDrawOffset>(0,0,0.1)</smokeDrawOffset>
+				<smokesize>0.5</smokesize>
+				<fuelCapacity>40</fuelCapacity>
 				<fuelFilter>
 					<thingDefs>
 						<li>EthanolFuel</li>
 						<li>Kindling</li>
 						<li>Charcoal</li>
 					</thingDefs>
+					<categories>
+					  <li>Wooden</li>
+					</categories>  
 				</fuelFilter>
 			</li>
-			<li Class="CompProperties_Power">
-				<compClass>CompPowerPlant</compClass>
-				<basePowerConsumption>-750</basePowerConsumption>
-				<transmitsPower>true</transmitsPower>
-			</li>
-			<li Class="CompProperties_Glower">
-				<glowRadius>6</glowRadius>
-				<glowColor>(217,112,33,0)</glowColor>
-			</li>
-			<li Class="SK.CompProperties_HeatPusherAdvanced">
-				<compClass>SK.CompHeatPusherAdvanced</compClass>
-				<heatPerSecond>30</heatPerSecond>
-				<heatPushMaxTemperature>75</heatPushMaxTemperature>
-			</li>
-			  <li Class="CompProperties_Breakdownable"/>
 		</comps>
 		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
 		<designationCategory>Power</designationCategory>
-		<staticSunShadowHeight>0.20</staticSunShadowHeight>
 		<researchPrerequisites><li>SK_ConvectionalI</li></researchPrerequisites>
 	</ThingDef>
 	
@@ -516,8 +594,7 @@ Power output: 750 W.</description>
 			<Mechanism>4</Mechanism>
 		</costList>
     <comps>
-      
-      <li Class="CompProperties_Refuelable">
+       <li Class="CompProperties_Refuelable">
 			<fuelConsumptionRate>1.0</fuelConsumptionRate>
 			<fuelCapacity>5.0</fuelCapacity>
 			<fuelFilter>
@@ -531,7 +608,7 @@ Power output: 750 W.</description>
 			</fuelFilter>
       </li>
       <li Class="CompProperties_Glower">
-        <glowRadius>3</glowRadius>
+        <glowRadius>2</glowRadius>
         <glowColor>(217,112,33,0)</glowColor>
       </li>
       <li Class="CompProperties_Power">
@@ -553,7 +630,7 @@ Power output: 750 W.</description>
 	<researchPrerequisites><li>SK_ConvectionalIII</li><li>SK_Bioenergy</li></researchPrerequisites>
   </ThingDef>
 
-	<ThingDef ParentName="BenchBase">
+	<ThingDef ParentName="PowerFueled">
 		<defName>BioGenerator</defName>
 		<label>BioGenerator</label>
 		<thingClass>Building</thingClass>
@@ -572,8 +649,8 @@ Power output: 750 W.</description>
 			<Flammability>1.0</Flammability>
 		</statBases>
 		<tickerType>Normal</tickerType>
-		<description>A BioGenerator that produces electricity. Requires a hopper filled with BioDiesel or BioMatter for a fuel source.
-Power output: 950 W.</description>
+		<description>A BioGenerator that produces electricity. Requires BioDiesel for a fuel source.
+Power output: 1000 W.</description>
 		<size>(2,2)</size>
 		<building>
 			<ignoreNeedsPower>true</ignoreNeedsPower>
@@ -589,23 +666,14 @@ Power output: 950 W.</description>
 		</costList>
 		<comps>
 			<li Class="CompProperties_Flickable"/>
-			<li Class="CompProperties_Refuelable">
-				<fuelConsumptionRate>13.0</fuelConsumptionRate>
-				<fuelCapacity>20.0</fuelCapacity>
-					<fuelFilter>
-						<thingDefs>
-							<li>Biomatter</li>
-							<li>BioDiesel</li>
-					  	</thingDefs>
-					</fuelFilter>
-			</li>
+			<li Class="CompProperties_Breakdownable"/>
 			<li Class="CompProperties_Power">
-				<compClass>CompPowerPlant</compClass>
-				<basePowerConsumption>-950</basePowerConsumption>
+				<compClass>SK.CompPowerPlantFueled</compClass>
+				<basePowerConsumption>-1000</basePowerConsumption>
 				<transmitsPower>true</transmitsPower>
 			</li>
-			<li Class="SK.CompProperties_HeatPusherAdvanced">
-				<compClass>SK.CompHeatPusherAdvanced</compClass>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusher</compClass>
 				<heatPerSecond>15</heatPerSecond>
 				<heatPushMaxTemperature>75</heatPushMaxTemperature>
 			</li>
@@ -613,80 +681,27 @@ Power output: 950 W.</description>
 				<glowRadius>3</glowRadius>
 				<glowColor>(217,112,33,0)</glowColor>
 			</li>
-			<li Class="CompProperties_Breakdownable"/>
+			<li Class="SK.CompFueled_Properties">
+				<operatingTemp>1200</operatingTemp>
+				<drawfirefuel>false</drawfirefuel>
+				<smokeDrawOffset>(0,0,0.1)</smokeDrawOffset>
+				<smokesize>0.5</smokesize>
+				<fuelCapacity>40</fuelCapacity>
+					<fuelFilter>
+						<thingDefs>
+							<li>FSX</li>
+							<li>BioDiesel</li>
+					  	</thingDefs>
+					</fuelFilter>
+			</li>
 		</comps>
 		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
 		<designationCategory>Power</designationCategory>
 		<staticSunShadowHeight>0.20</staticSunShadowHeight>
 		<researchPrerequisites><li>SK_Bioenergy</li></researchPrerequisites>
 	</ThingDef>
-	 
-  
-<ThingDef ParentName="BenchBase">
-	<defName>BioRefinery</defName>
-	<label>BioRefinery</label>
-	<thingClass>Building_WorkTable</thingClass>
-	<Description>A machine for making BioDiesel and Silage.</Description>
-	<graphicData>
-      <texPath>Things/Building/BioRefinery</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <drawSize>(2,2)</drawSize>
-    </graphicData>
-		<stuffCategories>
-		<li>Metallic</li>
-		</stuffCategories>
-    	<costStuffCount>65</costStuffCount>
-		<costList>
-			<Glass>25</Glass>
-			<Rubber>40</Rubber>
-			<Component>6</Component>
-			<Mechanism>3</Mechanism>
-		</costList>
-	<altitudeLayer>Building</altitudeLayer>
-    	<tickerType>Normal</tickerType>
-	<fillPercent>1</fillPercent>
-	<useHitPoints>True</useHitPoints>
-	<statBases>
-	  <WorkToMake>7500</WorkToMake>
-	  <MaxHitPoints>150</MaxHitPoints>
-	  <Flammability>1.0</Flammability>
-	</statBases>
-	<Size>(2,2)</Size>
-	<DesignationCategory>Hitech</DesignationCategory>
-	<Passability>PassThroughOnly</Passability>
-	<pathCost>70</pathCost>
-	<hasInteractionCell>True</hasInteractionCell>
-	<interactionCellOffset>(0,0,-1)</interactionCellOffset>
-	<surfaceType>Item</surfaceType>
-	<recipes>
-	 <li>MakeBioDiesel</li>
-    </recipes>
-	<inspectorTabs>
-		<li>ITab_Bills</li>
-	</inspectorTabs>
-		<comps>
-			<li Class="CompProperties_Power">
-				<compClass>CompPowerTrader</compClass>
-				<startElectricalFires>true</startElectricalFires>
-				<basePowerConsumption>500</basePowerConsumption>
-				<soundPowerOn>PowerOnSmall</soundPowerOn>
-				<soundPowerOff>PowerOffSmall</soundPowerOff>
-			</li>
-            <li Class="CommunityCoreLibrary.CompProperties_LowIdleDraw">
-                <compClass>CommunityCoreLibrary.CompPowerLowIdleDraw</compClass>
-                <idlePowerFactor>0.1</idlePowerFactor>
-            </li>
-			  <li Class="CompProperties_Breakdownable"/>
-			  <li Class="CompProperties_Flickable" />
-        </comps>
-	<building>
-	  <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
-	</building>
-		<researchPrerequisites><li>SK_BiochemistryI</li></researchPrerequisites>
-  </ThingDef>
 
-
-	<ThingDef ParentName="BenchBase">
+	<ThingDef ParentName="PowerFueled">
 		<defName>CoalPowerPlant</defName>
 		<label>Coal Power Plant</label>
 		<thingClass>Building</thingClass>
@@ -706,9 +721,8 @@ Power output: 950 W.</description>
       <Flammability>1.0</Flammability>
       <Beauty>-60</Beauty>
     </statBases>
-		<tickerType>Normal</tickerType>
-		<description>The Coal Power Plant produces electricity by burning coal-like fuels. Requires a hopper filled with Coal Ore, Charcoal or Peat.
-Power output: 2,300 W.</description>
+		<description>The Coal Power Plant that produces electricity by burning coal-like fuels. Can be fueled with Coal Ore or Peat.
+Power output: 2,000 W.</description>
 		<size>(2,3)</size>
 		<building>
 			<ignoreNeedsPower>true</ignoreNeedsPower>
@@ -724,40 +738,41 @@ Power output: 2,300 W.</description>
     </costList>
 		<comps>
 			<li Class="CompProperties_Flickable"/>
-			<li Class="CompProperties_Refuelable">
-				<fuelConsumptionRate>28.0</fuelConsumptionRate>
-				<fuelCapacity>150.0</fuelCapacity>
-				<fuelFilter>
-					<thingDefs>
-						<li>Coal</li>
-						<li>Charcoal</li>
-						<li>Peat</li>
-					</thingDefs>
-				</fuelFilter>
-			</li>
+			<li Class="CompProperties_Breakdownable"/>
 			<li Class="CompProperties_Power">
-				<compClass>CompPowerPlant</compClass>
-				<basePowerConsumption>-2300</basePowerConsumption>
+				<compClass>SK.CompPowerPlantFueled</compClass>
+				<basePowerConsumption>-2000</basePowerConsumption>
 				<transmitsPower>true</transmitsPower>
-			</li>
-			<li Class="SK.CompProperties_HeatPusherAdvanced">
-				<compClass>SK.CompHeatPusherAdvanced</compClass>
-				<heatPerSecond>25</heatPerSecond>
-				<heatPushMaxTemperature>75</heatPushMaxTemperature>
 			</li>
 			<li Class="CompProperties_Glower">
 				<glowRadius>3</glowRadius>
 				<glowColor>(217,112,33,0)</glowColor>
 			</li>
-			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusher</compClass>
+				<heatPerSecond>26</heatPerSecond>
+				<heatPushMaxTemperature>75</heatPushMaxTemperature>
+			</li>
+			<li Class="SK.CompFueled_Properties">
+				<operatingTemp>1200</operatingTemp>
+				<drawfirefuel>false</drawfirefuel>
+				<smokeDrawOffset>(0,0,1.0)</smokeDrawOffset>
+				<smokesize>0.7</smokesize>
+				<fuelCapacity>60</fuelCapacity>
+				<fuelFilter>
+					<thingDefs>
+						<li>Coal</li>
+						<li>Peat</li>
+					</thingDefs>
+				</fuelFilter>
+			</li>
 		</comps>
 		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
 		<designationCategory>Power</designationCategory>
-    		<staticSunShadowHeight>1.0</staticSunShadowHeight>
 		<researchPrerequisites><li>SK_ConvectionalII</li></researchPrerequisites>
 	</ThingDef>
 	
-	<ThingDef ParentName="BenchBase">
+	<ThingDef ParentName="PowerFueled">
 		<defName>FuelPowerPlant</defName>
 		<label>Fuel Power Plant</label>
 		<thingClass>Building</thingClass>
@@ -779,8 +794,8 @@ Power output: 2,300 W.</description>
       <Beauty>-60</Beauty>
     </statBases>
 		<tickerType>Normal</tickerType>
-		<description>A Fuel Power Plant that produces electricity. Requires a hopper filled with Fuel.
-Power output: 2,800 W.</description>
+		<description>A Fuel Power Plant that produces electricity. Can be fueled with Fuel, Prometheum or FSX.
+Power output: 3,500 W.</description>
 		<size>(3,2)</size>
 		<building>
 			<ignoreNeedsPower>true</ignoreNeedsPower>
@@ -797,36 +812,44 @@ Power output: 2,800 W.</description>
     </costList>
 		<comps>
 			<li Class="CompProperties_Flickable"/>
-			<li Class="CompProperties_Refuelable">
-				<fuelConsumptionRate>34.0</fuelConsumptionRate>
-				<fuelCapacity>150.0</fuelCapacity>
-				<fuelFilter>
-					<thingDefs>
-						<li>Fuel</li>
-					</thingDefs>
-				</fuelFilter>
-			</li>
+			<li Class="CompProperties_Breakdownable"/>
 			<li Class="CompProperties_Power">
-				<compClass>CompPowerPlant</compClass>
-				<basePowerConsumption>-2800</basePowerConsumption>
+				<compClass>SK.CompPowerPlantFueled</compClass>
+				<basePowerConsumption>-3500</basePowerConsumption>
 				<transmitsPower>true</transmitsPower>
 			</li>
 			<li Class="CompProperties_Glower">
-				<glowRadius>6</glowRadius>
+				<glowRadius>3</glowRadius>
 				<glowColor>(217,112,33,0)</glowColor>
 			</li>
-			<li Class="SK.CompProperties_HeatPusherAdvanced">
-				<compClass>SK.CompHeatPusherAdvanced</compClass>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusher</compClass>
 				<heatPerSecond>30</heatPerSecond>
 				<heatPushMaxTemperature>75</heatPushMaxTemperature>
 			</li>
-			<li Class="CompProperties_Breakdownable"/>
+			<li Class="SK.CompFueled_Properties">
+				<operatingTemp>1600</operatingTemp>
+				<drawfirefuel>false</drawfirefuel>
+				<smokeDrawOffset>(0.5,-0.1,1.1)</smokeDrawOffset>
+				<smokesize>0.7</smokesize>
+				<fuelCapacity>80</fuelCapacity>
+				<fuelFilter>
+					<thingDefs>
+						<li>Fuel</li>
+						<li>Prometheum</li>
+						<li>FSX</li>
+					</thingDefs>
+				</fuelFilter>
+			</li>
 		</comps>
 		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
 		<designationCategory>Power</designationCategory>
     	<staticSunShadowHeight>1.0</staticSunShadowHeight>
 		<researchPrerequisites><li>SK_ConvectionalIII</li></researchPrerequisites>
 	</ThingDef>
+	
+	
+	
 	
   <ThingDef ParentName="BenchBase">
     <defName>GeothermalGenerator</defName>
@@ -879,7 +902,7 @@ Power output: 2,500 W.</description>
     <staticSunShadowHeight>1.0</staticSunShadowHeight>
     <placeWorkers>
 	    <li>PlaceWorker_OnSteamGeyser</li>
-		<li>SK_GG.PlaceWorker_NoNearGeothermalGenerator</li>
+		<li>SK.PlaceWorker_NoNearGeothermalGenerator</li>
     </placeWorkers>
     <building>
       <soundAmbient>GeothermalPlant_Ambience</soundAmbient>
@@ -946,40 +969,27 @@ Power output: 2,500 W.</description>
 	<researchPrerequisites><li>SK_RenewableIV</li></researchPrerequisites>
   </ThingDef>
 
-
-<ThingDef Class="SK_NPP.ThingDef_NPP">
-		<category>Building</category>
-		<soundImpactDefault>BulletImpactMetal</soundImpactDefault>
-		<selectable>true</selectable>
-		<drawerType>MapMeshAndRealTime</drawerType>
-		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
-		<constructEffect>ConstructMetal</constructEffect>
-		<repairEffect>Repair</repairEffect>
-        <filthLeaving>BuildingRubble</filthLeaving>
+	<ThingDef Class="SK.ThingDef_NPP" ParentName="PowerFueled">
     <defName>NPP</defName>
     <label>Nuclear Power Plant</label>
-    <thingClass>SK_NPP.Building_NPP</thingClass>
+    <thingClass>SK.Building_NPP</thingClass>
 	<graphicData>
 		<texPath>NPP</texPath>
 		<graphicClass>Graphic_Single</graphicClass>
-	<drawSize>(7,7)</drawSize>
-		  <shadowData>
+		<drawSize>(7,7)</drawSize>
+		<shadowData>
 			<volume>(3.5, 2, 3.5)</volume>
 			<offset>(0,0,-0.1)</offset>
-		  </shadowData>
+		</shadowData>
 	</graphicData>
-    <altitudeLayer>Building</altitudeLayer>
-    <passability>Impassable</passability>
-    <fillPercent>1</fillPercent>
-    <castEdgeShadows>false</castEdgeShadows>
     <rotatable>false</rotatable>
+	<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
     <statBases>
       <MaxHitPoints>2400</MaxHitPoints>
       <WorkToMake>30000</WorkToMake>
       <Flammability>0</Flammability>
       <Beauty>-180</Beauty>
     </statBases>
-    <tickerType>Normal</tickerType>
     <description>A Nuclear Power Plant with 24,000 W power output. Requires a hopper with Enriched Uranium as a fuel source. WARNING: In case of a nuclear meltdown, build walls around the debris to contain the radiation!</description>
     <size>(7,7)</size>
     <building>
@@ -992,33 +1002,45 @@ Power output: 2,500 W.</description>
 	<Component>60</Component>
 	<Microchips>8</Microchips>
     </costList>
-    <comps>
+		<comps>
+			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_Breakdownable"/>
-			<li Class="CompProperties_Refuelable">
-				<fuelConsumptionRate>3.0</fuelConsumptionRate>
-				<fuelCapacity>100.0</fuelCapacity>
+			<li Class="CompProperties_Power">
+				<compClass>SK.CompPowerPlantFueled</compClass>
+				<basePowerConsumption>-24000</basePowerConsumption>
+				<transmitsPower>true</transmitsPower>
+			</li>
+			  <li Class="CompProperties_Explosive">
+				<compClass>SK.CompExplosiveNPP</compClass>
+				<explosiveRadius>1</explosiveRadius>
+				<explosiveDamageType>Bomb</explosiveDamageType>
+			  </li>
+			  <li Class="CompProperties_Explosive">
+				<explosiveRadius>12.9</explosiveRadius>
+				<explosiveDamageType>Bomb</explosiveDamageType>
+			</li>
+			<li Class="CompProperties_Glower">
+				<glowRadius>7</glowRadius>
+				<glowColor>(217,112,33,0)</glowColor>
+			</li>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusher</compClass>
+				<heatPerSecond>70</heatPerSecond>
+				<heatPushMaxTemperature>75</heatPushMaxTemperature>
+			</li>
+			<li Class="SK.CompFueled_Properties">
+				<operatingTemp>5000</operatingTemp>
+				<drawfirefuel>false</drawfirefuel>
+				<smokeDrawOffset>(0.5,-0.1,2.0)</smokeDrawOffset>
+				<smokesize>1.5</smokesize>
+				<fuelCapacity>20</fuelCapacity>
 				<fuelFilter>
 				  <thingDefs>
 					<li>HEU</li>
 				  </thingDefs>
 				</fuelFilter>
-			<consumeFuelOnlyWhenUsed>false</consumeFuelOnlyWhenUsed>
 			</li>
-			<li Class="CompProperties_Power">
-				<compClass>CompPowerPlant</compClass>
-				<basePowerConsumption>-24000</basePowerConsumption>
-				<transmitsPower>true</transmitsPower>
-			</li>
-			  <li Class="CompProperties_Explosive">
-				<compClass>CompExplosiveNPP</compClass>
-				<explosiveRadius>1</explosiveRadius>
-				<explosiveDamageType>Bomb</explosiveDamageType>
-			</li>
-			  <li Class="CompProperties_Explosive">
-				<explosiveRadius>12.9</explosiveRadius>
-				<explosiveDamageType>Bomb</explosiveDamageType>
-			</li>
-    </comps>
+		</comps>
     <placeWorkers>
       <li>PlaceWorker_NotUnderRoof</li>
     </placeWorkers>
@@ -1032,45 +1054,6 @@ Power output: 2,500 W.</description>
 		<DamageAppliedSelfMin>40</DamageAppliedSelfMin>
 		<DamageAppliedSelfMax>80</DamageAppliedSelfMax>
 		<DamageApplySelfCounter>300</DamageApplySelfCounter>
-
-    <damageMultipliers>
-      <li>
-        <damageDef>Bomb</damageDef>
-        <multiplier>3.0</multiplier>
-      </li>
-      <li>
-        <damageDef>Bullet</damageDef>
-        <multiplier>0.3</multiplier>
-      </li>
-      <li>
-        <damageDef>Fragment</damageDef>
-        <multiplier>0.2</multiplier>
-      </li>
-      <li>
-        <damageDef>ArmorPiercing</damageDef>
-        <multiplier>2.5</multiplier>
-      </li>
-      <li>
-        <damageDef>LaserBurn</damageDef>
-        <multiplier>2.0</multiplier>
-      </li>
-      <li>
-        <damageDef>AntiMateriel</damageDef>
-        <multiplier>2.0</multiplier>
-      </li>
-      <li>
-        <damageDef>Optic</damageDef>
-        <multiplier>1.5</multiplier>
-      </li>
-      <li>
-        <damageDef>Plasma</damageDef>
-        <multiplier>2.0</multiplier>
-      </li>
-      <li>
-        <damageDef>Microwave</damageDef>
-        <multiplier>1.5</multiplier>
-      </li>
-    </damageMultipliers>
   </ThingDef>
 
 <ThingDef Class="SK.ThingDef_ItemRAD">
@@ -1123,200 +1106,7 @@ Power output: 2,500 W.</description>
 		<radiationRadius>20</radiationRadius>
   </ThingDef>
 
-
-
-
-<ThingDef Class="SK_MNP.ThingDef_MNP">
-		<category>Building</category>
-		<soundImpactDefault>BulletImpactMetal</soundImpactDefault>
-		<selectable>true</selectable>
-		<drawerType>MapMeshAndRealTime</drawerType>
-		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
-		<constructEffect>ConstructMetal</constructEffect>
-		<repairEffect>Repair</repairEffect>
-        <filthLeaving>BuildingRubble</filthLeaving>
-    <defName>MNP</defName>
-    <label>Military Nuclear Plant</label>
-    <thingClass>SK_MNP.Building_MNP</thingClass>
-	<graphicData>
-		<texPath>MNP</texPath>
-		<graphicClass>Graphic_Single</graphicClass>
-	<drawSize>(5,5)</drawSize>
-		  <shadowData>
-			<volume>(3.5, 2, 3.5)</volume>
-			<offset>(0,0,-0.1)</offset>
-		  </shadowData>
-	</graphicData>
-    <altitudeLayer>Building</altitudeLayer>
-    <passability>Impassable</passability>
-    <fillPercent>1</fillPercent>
-    <rotatable>false</rotatable>
-    <statBases>
-      <MaxHitPoints>2400</MaxHitPoints>
-      <WorkToMake>35000</WorkToMake>
-      <Flammability>0</Flammability>
-      <Beauty>-180</Beauty>
-    </statBases>
-    <castEdgeShadows>false</castEdgeShadows>
-    <tickerType>Normal</tickerType>
-    <description>A small Military Nuclear Power Plant with 12,000 W power output. Nuclear warheads can be made here. Requires a hopper with Enriched Uranium as a fuel source. WARNING: In case of a nuclear meltdown, build walls around the debris to contain the radiation!</description>
-    <size>(5,5)</size>
-    <hasInteractionCell>True</hasInteractionCell>
-    <interactionCellOffset>(0,0,-3)</interactionCellOffset>
-    <surfaceType>Item</surfaceType>
-    <recipes>
-      		<!-- <li>MakeNuclearWarhead</li> -->
-    </recipes>
-    <inspectorTabs>
-      <li>ITab_Bills</li>
-    </inspectorTabs>
-    <building>
-      <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
-      <soundAmbient>MatterFab</soundAmbient>
-      <ignoreNeedsPower>true</ignoreNeedsPower>
-    </building>
-    <costList>
-	<ReinforcedConcrete>480</ReinforcedConcrete>
-	<Rubber>100</Rubber>
-	<AdvMechanism>15</AdvMechanism>
-	<Microchips>7</Microchips>
-    </costList>
-    <comps>
-			<li Class="CompProperties_Breakdownable"/>
-			<li Class="CompProperties_Flickable" />
-			<li Class="CompProperties_Refuelable">
-				<fuelConsumptionRate>3.0</fuelConsumptionRate>
-				<fuelCapacity>100.0</fuelCapacity>
-				<fuelFilter>
-				  <thingDefs>
-					<li>HEU</li>
-				  </thingDefs>
-				</fuelFilter>
-			</li>
-			<li Class="CompProperties_Power">
-				<compClass>CompPowerPlant</compClass>
-				<basePowerConsumption>-12000</basePowerConsumption>
-				<transmitsPower>true</transmitsPower>
-			</li>
-			<li Class="CompProperties_Glower">
-				<glowRadius>6</glowRadius>
-				<glowColor>(217,112,33,0)</glowColor>
-			</li>
-			  <li Class="CompProperties_Explosive">
-				<compClass>SK_MNP.CompExplosiveMNP</compClass>
-				<explosiveRadius>1</explosiveRadius>
-				<explosiveDamageType>Bomb</explosiveDamageType>
-			</li>
-			  <li Class="CompProperties_Explosive">
-				<explosiveRadius>14.9</explosiveRadius>
-				<explosiveDamageType>Bomb</explosiveDamageType>
-			</li>
-	</comps>
-    <placeWorkers>
-      <li>PlaceWorker_NotUnderRoof</li>
-    </placeWorkers>
-    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
-   		<!-- Damage<designationCategory>Power</designationCategory>	 -->
-    <constructEffect>ConstructMetal</constructEffect>
-    <researchPrerequisites><li>SK_NuclearIII</li></researchPrerequisites>
-		<!-- Damage to self -->
-        <OverheatThreshold>1600</OverheatThreshold>
-		<DamageAppliedSelfMin>40</DamageAppliedSelfMin>
-		<DamageAppliedSelfMax>80</DamageAppliedSelfMax>
-		<DamageApplySelfCounter>300</DamageApplySelfCounter>
-    <damageMultipliers>
-      <li>
-        <damageDef>Bomb</damageDef>
-        <multiplier>3.0</multiplier>
-      </li>
-      <li>
-        <damageDef>Bullet</damageDef>
-        <multiplier>0.3</multiplier>
-      </li>
-      <li>
-        <damageDef>Fragment</damageDef>
-        <multiplier>0.2</multiplier>
-      </li>
-      <li>
-        <damageDef>ArmorPiercing</damageDef>
-        <multiplier>2.5</multiplier>
-      </li>
-      <li>
-        <damageDef>LaserBurn</damageDef>
-        <multiplier>2.0</multiplier>
-      </li>
-      <li>
-        <damageDef>AntiMateriel</damageDef>
-        <multiplier>2.0</multiplier>
-      </li>
-      <li>
-        <damageDef>Optic</damageDef>
-        <multiplier>1.5</multiplier>
-      </li>
-      <li>
-        <damageDef>Plasma</damageDef>
-        <multiplier>2.0</multiplier>
-      </li>
-      <li>
-        <damageDef>Microwave</damageDef>
-        <multiplier>1.5</multiplier>
-      </li>
-    </damageMultipliers>
-  </ThingDef>
-
-  
-	<ThingDef Class="SK.ThingDef_ItemRAD">
-		<category>Building</category>
-		<soundImpactDefault>BulletImpactMetal</soundImpactDefault>
-		<selectable>true</selectable>
-		<drawerType>MapMeshAndRealTime</drawerType>
-		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
-		<constructEffect>ConstructMetal</constructEffect>
-		<repairEffect>Repair</repairEffect>
-        <filthLeaving>BuildingRubble</filthLeaving>
-    <defName>MNPD</defName>
-    <label>Military Nuclear Plant Debris</label>
-    <thingClass>SK.BuildingRAD</thingClass>
-	<graphicData>
-		<texPath>MNPD</texPath>
-		<graphicClass>Graphic_Single</graphicClass>
-	<drawSize>(5,5)</drawSize>
-		  <shadowData>
-			<volume>(3.5, 2, 3.5)</volume>
-			<offset>(0,0,-0.1)</offset>
-		  </shadowData>
-	</graphicData>
-    <altitudeLayer>Building</altitudeLayer>
-    <passability>Impassable</passability>
-    <fillPercent>0.8</fillPercent>
-    <castEdgeShadows>false</castEdgeShadows>
-    <useHitPoints>false</useHitPoints>
-    <destroyable>false</destroyable>
-    <statBases>
-      <Flammability>0</Flammability>
-      <Beauty>-600</Beauty>
-    </statBases>	
-    <tickerType>Normal</tickerType>
-    <description>Radioactive debris of a Military Nuclear Plant. Build walls around it to contain the radiation!</description>
-    <size>(5,5)</size>
-    <specialDisplayRadius>40</specialDisplayRadius>
-    <comps>
-		<li Class="CompProperties_Glower">
-        <glowRadius>20</glowRadius>
-		<glowColor>(5,30,5,5)</glowColor>
-      </li>		 
-    </comps>
-		<DamageAppliedSeverityMin>0.01</DamageAppliedSeverityMin>
-		<DamageAppliedSeverityMax>0.04</DamageAppliedSeverityMax>
-		<ThingDamageAppliedMin>-5</ThingDamageAppliedMin>
-		<ThingDamageAppliedMax>2</ThingDamageAppliedMax>
-		<terrainradfrequency>5</terrainradfrequency>
-		<radfrequency>500</radfrequency>
-		<radiationRadius>20</radiationRadius>
-  </ThingDef>
-  
-
-  
+ 
   <ThingDef ParentName="BuildingBase">
     <defName>CapsuleReactor</defName>
     <label>Capsule Reactor</label>
@@ -1410,7 +1200,7 @@ Power output: 2,500 W.</description>
 		</placeWorkers>
         <comps>
             <li Class="CompProperties_Power">
-                <compClass>CompPowerPlantWind</compClass>
+                <compClass>CompPowerTrader</compClass>
                 <basePowerConsumption>-1500</basePowerConsumption>
                 <transmitsPower>true</transmitsPower>
             </li>
@@ -1484,7 +1274,7 @@ Power output: 2,500 W.</description>
   </ThingDef>
 
   
-  <ThingDef ParentName="BenchBase">
+  <ThingDef ParentName="PowerFueled">
     <defName>PlasmaGeothermalPlant</defName>
     <label>Plasma Reactor</label>
     <thingClass>SK.Building_Plasmareactor</thingClass>
@@ -1494,17 +1284,13 @@ Power output: 2,500 W.</description>
     <graphicClass>Graphic_Single</graphicClass>
 	<drawSize>(4,4)</drawSize>
 	</graphicData>
-    <AltitudeLayer>Building</AltitudeLayer>
-    <Passability>Impassable</Passability>
-     <fillPercent>1</fillPercent>
     <statBases>
       <MaxHitPoints>180</MaxHitPoints>
       <WorkToMake>16000</WorkToMake>
       <Flammability>1.0</Flammability>
       <Beauty>-10</Beauty>
     </statBases>
-    <tickerType>Normal</tickerType>
-    <Description>Produces tax-free electricity from a steam geyser. Must be placed on a steam geyser. A Plasma Generator can be linked to absorb plasma discharges. Use for work Tin or Aluminium.</Description>
+    <Description>Produces tax-free electricity from a steam geyser. Must be placed on a steam geyser. A Plasma Generator can be linked to absorb plasma discharges. Requires to be fueled by Tin or Aluminium.</Description>
     <Size>(4,4)</Size>
 		<stuffCategories>
 		<li>Metallic</li>
@@ -1517,11 +1303,19 @@ Power output: 2,500 W.</description>
 			<Microchips>5</Microchips>
 		</costList>
 	<comps>
-
+			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_Breakdownable"/>
-			<li Class="CompProperties_Refuelable">
-				<fuelConsumptionRate>40.0</fuelConsumptionRate>
-				<fuelCapacity>200.0</fuelCapacity>
+			<li Class="CompProperties_Power">
+				<compClass>SK.CompPowerPlantFueled</compClass>
+				<basePowerConsumption>-1</basePowerConsumption>
+				<transmitsPower>true</transmitsPower>
+			</li>
+			<li Class="SK.CompFueled_Properties">
+				<operatingTemp>3000</operatingTemp>
+				<drawfirefuel>false</drawfirefuel>
+				<smokeDrawOffset>(0,0,1.5)</smokeDrawOffset>
+				<smokesize>1.0</smokesize>
+				<fuelCapacity>100</fuelCapacity>
 				<fuelFilter>
 				  <thingDefs>
 					<li>Aluminium</li>
@@ -1529,14 +1323,14 @@ Power output: 2,500 W.</description>
 				  </thingDefs>
 				</fuelFilter>
 			</li>
-			<li Class="CompProperties_Power">
-				<compClass>CompPowerPlant</compClass>
-				<basePowerConsumption>-1</basePowerConsumption>
-				<transmitsPower>true</transmitsPower>
-			</li>
 	  		<li Class="CompProperties_Glower">
-				<glowRadius>3</glowRadius>
+				<glowRadius>5</glowRadius>
 				<glowColor>(0,255,246,1)</glowColor>
+			</li>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusher</compClass>
+				<heatPerSecond>40</heatPerSecond>
+				<heatPushMaxTemperature>75</heatPushMaxTemperature>
 			</li>
 			<li Class="CompProperties_Explosive">
 				<explosiveRadius>7</explosiveRadius>
@@ -1548,18 +1342,13 @@ Power output: 2,500 W.</description>
 						<li>SteamGeyser</li>
 					</RestrictedThing>
 			</li>
-			<li Class="SK.CompProperties_HeatPusherAdvanced">
-				<compClass>SK.CompHeatPusherAdvanced</compClass>
-				<heatPerSecond>20</heatPerSecond>
-				<heatPushMaxTemperature>75</heatPushMaxTemperature>
-			</li>
     </comps>
     <rotatable>false</rotatable>
     <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
     <DesignationCategory>Power</DesignationCategory>
 	<placeWorkers>
 		<li>CommunityCoreLibrary.PlaceWorker_OnlyOnThing</li>
-		<li>SK_Plasmareactor.PlaceWorker_NoNearPlasmaGeothermalPlant</li>
+		<li>SK.PlaceWorker_NoNearPlasmaGeothermalPlant</li>
 	</placeWorkers>
      <building>
       <soundAmbient>PlasmaTurbine</soundAmbient>
@@ -1704,7 +1493,7 @@ Power output: 2,500 W.</description>
 	</ThingDef>
 	
 	
-	<ThingDef ParentName="BuildingBase">
+	<ThingDef ParentName="PowerFueled">
 		<defName>AntimatterReactor</defName>
 		<label>Antimatter Reactor</label>
 		<thingClass>SK.Building_AntimatterReactor</thingClass>
@@ -1713,17 +1502,13 @@ Power output: 2,500 W.</description>
 			<graphicClass>Graphic_Single</graphicClass>
 			<drawSize>(8,8)</drawSize>
 		</graphicData>
-		<altitudeLayer>Building</altitudeLayer>
-		<passability>Impassable</passability>
-		<castEdgeShadows>true</castEdgeShadows>
-		<fillPercent>1</fillPercent>
 		<statBases>
 			<MaxHitPoints>500</MaxHitPoints>
 			<WorkToMake>35000</WorkToMake>
 			<Flammability>1.0</Flammability>
 			<Beauty>-120</Beauty>
 		</statBases>
-		<tickerType>Normal</tickerType>
+		<rotatable>false</rotatable>
 		<description>The contained antimatter separates from normal matter by magnetic fields so that no unintended reactions take place. The energy would then be extracted in much the same way that nuclear reactors capture the expended heat and light energy from fission reactions. Power output: 32,000 W.</description>
 		<size>(8,8)</size>
 		<stuffCategories>
@@ -1738,39 +1523,41 @@ Power output: 2,500 W.</description>
 			<Microchips>5</Microchips>
 		</costList>
 		<comps>
+			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_Breakdownable"/>
-			<li Class="CompProperties_Refuelable">
-				<fuelConsumptionRate>7.0</fuelConsumptionRate>
-				<fuelCapacity>100.0</fuelCapacity>
+			<li Class="CompProperties_Power">
+				<compClass>SK.CompPowerPlantFueled</compClass>
+				<basePowerConsumption>-32000</basePowerConsumption>
+				<transmitsPower>true</transmitsPower>
+			</li>
+			<li Class="SK.CompFueled_Properties">
+				<operatingTemp>10000</operatingTemp>
+				<drawfirefuel>false</drawfirefuel>
+				<smokeDrawOffset>(0,0,0.1)</smokeDrawOffset>
+				<smokesize>1.5</smokesize>
+				<fuelCapacity>50</fuelCapacity>
 				<fuelFilter>
 				  <thingDefs>
 					<li>Antimatter</li>
 				  </thingDefs>
 				</fuelFilter>
 			</li>
-			<li Class="CompProperties_Power">
-				<compClass>CompPowerPlant</compClass>
-				<basePowerConsumption>-32000</basePowerConsumption>
-				<transmitsPower>true</transmitsPower>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusher</compClass>
+				<heatPerSecond>50</heatPerSecond>
+				<heatPushMaxTemperature>150</heatPushMaxTemperature>
 			</li>
 			<li Class="CompProperties_Glower">
-				<glowRadius>8</glowRadius>
+				<glowRadius>9</glowRadius>
 				<glowColor>(255,255,0,0)</glowColor>
 			</li>
 			<li Class="CompProperties_Explosive">
 			<explosiveRadius>11</explosiveRadius>
 			<explosiveDamageType>Flame</explosiveDamageType>
 			</li>
-			<li Class="SK.CompProperties_HeatPusherAdvanced">
-				<compClass>SK.CompHeatPusherAdvanced</compClass>
-				<heatPerSecond>80</heatPerSecond>
-				<heatPushMaxTemperature>100</heatPushMaxTemperature>
-			</li>
 		</comps>
-		<rotatable>false</rotatable>
 		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
 		<designationCategory>Power</designationCategory>
-		<staticSunShadowHeight>2.0</staticSunShadowHeight>
 		<building>
 			<soundAmbient>PlasmaTurbine</soundAmbient>
 			<ignoreNeedsPower>false</ignoreNeedsPower>
