@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Buildings>
+    <!--============================== Lights ==============================-->
+    <ThingDef Abstract="True" Name="LampBase" ParentName="BuildingBase">
+        <thingClass>Building</thingClass>
+        <category>Building</category>
+        <minifiedDef>MinifiedFurniture</minifiedDef>
+        <altitudeLayer>Building</altitudeLayer>
+        <passability>PassThroughOnly</passability>
+        <selectable>true</selectable>
+        <fillPercent>0.20</fillPercent>
+     
+        <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+        <soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+        <rotatable>true</rotatable>
+       
+	    <graphicData>
+            <graphicClass>Graphic_Single</graphicClass>
+        </graphicData>
+		
+        <comps>
+            <li Class="CompProperties_Flickable"/>
+        </comps>
+        <statBases>
+            <MaxHitPoints>25</MaxHitPoints>
+            <WorkToMake>250</WorkToMake>
+            <Flammability>1.0</Flammability>
+        </statBases>
+        <researchPrerequisites>
+            <li>LEDTechnologyScience</li>
+        </researchPrerequisites>
+    </ThingDef>
+	
+	
+	
+	<ThingDef Abstract="True" Name="LEDStripLampBase" ParentName="LampBase">
+		 <building>
+            <isInert>true</isInert>
+            <ignoreNeedsPower>false</ignoreNeedsPower>
+            <isEdifice>false</isEdifice>
+        </building>
+		<passability>Standable</passability>
+		<designationCategory>Accessories</designationCategory>
+        <placingDraggableDimensions>1</placingDraggableDimensions>
+        <altitudeLayer>FloorEmplacement</altitudeLayer>
+		<pathCost>0</pathCost>
+		 <costList>
+			<Plastic>5</Plastic>
+			<Component>2</Component>
+			<ElectronicComponents>1</ElectronicComponents>
+        </costList>
+		 
+	</ThingDef>
+	
+	
+    <!--============================== Centre Strips ==============================-->
+	  <ThingDef ParentName="LEDStripLampBase">
+        <defName>LEDCentreStrip</defName>
+        <label>LED Centre Strip</label>
+        <description>Drag and draw your LED Strip pattern.</description>
+        <thingClass>SK.LEDTechnology.LEDCentreStrip</thingClass>
+		<uiIconPath>Things/Building/LED/LEDCentre/LEDCentreStrip_BluePrint</uiIconPath>
+        <graphicData>
+            <texPath>Things/Building/LED/LEDCentre/LEDStrip_Atlas</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>Transparent</shaderType>
+			<linkType>Transmitter</linkType>
+			<linkFlags>
+				<li>PowerConduit</li>
+			</linkFlags>
+        </graphicData>
+		
+		<blueprintGraphicData>
+			<texPath>Things/Building/LED/LEDCentre/LEDStrip_Blueprint_Atlas</texPath>
+		</blueprintGraphicData>
+        <statBases>
+            <MaxHitPoints>50</MaxHitPoints>
+            <WorkToMake>600</WorkToMake>
+            <Beauty>3</Beauty>
+        </statBases>
+		 <comps>
+            <li Class="CompProperties_Power">
+                <compClass>CompPowerTrader</compClass>
+				<transmitsPower>true</transmitsPower>
+                <basePowerConsumption>12</basePowerConsumption>
+                <shortCircuitInRain>true</shortCircuitInRain>
+            </li>
+            <li Class="CompProperties_Glower">
+                <glowRadius>3</glowRadius>
+                <glowColor>214,221,84,0</glowColor>
+            </li>
+            <li Class="CommunityCoreLibrary.CompProperties_ColoredLight">
+                <compClass>CommunityCoreLibrary.CompColoredLight</compClass>
+                <color>
+                    <li>
+                        <name>white</name>
+                        <value>(255,255,255,0)</value>
+                    </li>
+                    <li>
+                        <name>red</name>
+                        <value>(255,0,0,0)</value>
+                    </li>
+                    <li>
+                        <name>green</name>
+                        <value>(100,255,100,0)</value>
+                    </li>
+                    <li>
+                        <name>blue</name>
+                        <value>(0,0,255,0)</value>
+                    </li>
+                    <li>
+                        <name>yellow</name>
+                        <value>(255,255,0,0)</value>
+                    </li>
+                </color>
+            </li>
+        </comps>
+    </ThingDef>
+	
+    <!-- ======================== LED LIGHTS ======================= -->
+
+    <ThingDef ParentName="LEDStripLampBase">
+        <defName>RopeLight</defName>
+        <label>LED Rope Light</label>
+		<thingClass>SK.LEDTechnology.LEDCentreStrip</thingClass>
+        <graphicData>
+            <texPath>Things/Building/Furniture/Lights/RopeLight_Atlas</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+			<linkType>Transmitter</linkType>
+			<linkFlags>
+				<li>PowerConduit</li>
+			</linkFlags>
+            <shaderType>Transparent</shaderType>
+        </graphicData>
+        <blueprintGraphicData>
+            <texPath>Things/Building/Linked/PowerConduit_Blueprint_Atlas</texPath>
+        </blueprintGraphicData>
+        <uiIconPath>Things/Building/Furniture/Lights/RopeLight_MenuIcon</uiIconPath>
+        <statBases>
+            <MaxHitPoints>50</MaxHitPoints>
+            <WorkToMake>600</WorkToMake>
+            <Beauty>3</Beauty>
+        </statBases>
+        <description>This LED rope light can be placed over walls and other buildings. It requires 25 W and can be used to help move power around otherwise inaccessable areas.</description>
+        <placingDraggableDimensions>1</placingDraggableDimensions>
+    	<costList>
+			<Plastic>2</Plastic>
+			<Component>1</Component>
+			<ElectronicComponents>1</ElectronicComponents>
+    	</costList>
+        <comps>
+			<li Class="CompProperties_Power">
+                <transmitsPower>true</transmitsPower>
+                <compClass>CompPowerTrader</compClass>
+                <basePowerConsumption>6</basePowerConsumption>
+                <shortCircuitInRain>false</shortCircuitInRain>
+                <soundPowerOn>PowerOnSmall</soundPowerOn>
+                <soundPowerOff>PowerOffSmall</soundPowerOff>
+
+            </li>
+			  <li Class="CompProperties_Glower">
+                <glowRadius>2</glowRadius>
+                <glowColor>(255,255,255,0)</glowColor>
+            </li>
+            <li Class="CommunityCoreLibrary.CompProperties_ColoredLight">
+                <compClass>CommunityCoreLibrary.CompColoredLight</compClass>
+                <color>
+                    <li>
+                        <name>white</name>
+                        <value>(255,255,255,0)</value>
+                    </li>
+                    <li>
+                        <name>red</name>
+                        <value>(255,0,0,0)</value>
+                    </li>
+                    <li>
+                        <name>green</name>
+                        <value>(100,255,100,0)</value>
+                    </li>
+                    <li>
+                        <name>blue</name>
+                        <value>(0,0,255,0)</value>
+                    </li>
+                    <li>
+                        <name>yellow</name>
+                        <value>(255,255,0,0)</value>
+                    </li>
+                </color>
+            </li>
+        </comps>
+        <rotatable>false</rotatable>
+        <neverMultiSelect>false</neverMultiSelect>
+        <constructEffect>ConstructMetal</constructEffect>
+        <researchPrerequisites><li>LEDTechnologyScience</li></researchPrerequisites>
+    </ThingDef>
+	
+	
+	<!--Obsolete - Left for compatibility only - Delete in version v0.20-->
+    <ThingDef ParentName="LEDStripLampBase">
+        <defName>LEDSmallStrip</defName>
+        <label>Centre Strip</label>
+        <description>A small and power efficient centred LED strip.</description>
+        <thingClass>SK.LEDTechnology.LEDCentreStrip</thingClass>
+        <graphicData>
+            <texPath>Things/Building/LED/LEDCentre/LEDCentreStrip</texPath>
+        </graphicData>
+		<designationCategory>LEDTechnologyObsolete</designationCategory>
+    </ThingDef>
+	
+    <ThingDef ParentName="LEDStripLampBase">
+        <defName>LEDSmallStripCorner</defName>
+        <label>Centre Strip Bend</label>
+        <description>A small and power efficient centred LED bend strip.</description>
+        <thingClass>SK.LEDTechnology.LEDCentreStripCorner</thingClass>
+        <graphicData>
+            <texPath>Things/Building/LED/LEDCentre/LEDCentreStrip_Corner</texPath>
+        </graphicData>
+		<designationCategory>LEDTechnologyObsolete</designationCategory>
+    </ThingDef>
+	
+    <ThingDef ParentName="LEDStripLampBase">
+        <defName>LEDSmallStripTee</defName>
+        <label>Centre Strip Tee</label>
+        <description>A small and power efficient centred tee LED strip.</description>
+        <thingClass>SK.LEDTechnology.LEDCentreStripTee</thingClass>
+        <designationHotKey>Misc11</designationHotKey>
+        <graphicData>
+            <texPath>Things/Building/LED/LEDCentre/LEDCentreStrip_Tee</texPath>
+        </graphicData>
+		<designationCategory>LEDTechnologyObsolete</designationCategory>
+    </ThingDef>
+	
+    <ThingDef ParentName="LEDStripLampBase">
+        <defName>LEDSmallStripCross</defName>
+        <label>Centre Strip Tee</label>
+        <description>A small and power efficient centred cross LED strip.</description>
+        <thingClass>SK.LEDTechnology.LEDCentreStripCross</thingClass>
+        <designationHotKey>Misc11</designationHotKey>
+        <graphicData>
+            <texPath>Things/Building/LED/LEDCentre/LEDCentreStrip_Cross</texPath>
+        </graphicData>
+		<designationCategory>LEDTechnologyObsolete</designationCategory>
+    </ThingDef>
+	
+	
+	
+    <!--============================== Corner Strips ==============================-->
+    <ThingDef ParentName="LEDStripLampBase">
+        <defName>LEDCornerStrip</defName>
+        <label>Corner Strip</label>
+        <description>A small and power efficient LED strip that fits snug against walls.</description>
+        <thingClass>SK.LEDTechnology.LEDCornerStrip</thingClass>
+        <graphicData>
+            <texPath>Things/Building/LED/LEDCorner/LEDCornerStrip</texPath>
+        </graphicData>
+		 <comps>
+            <li Class="CompProperties_Power">
+                <compClass>CompPowerTrader</compClass>
+                <basePowerConsumption>8</basePowerConsumption>
+                <shortCircuitInRain>true</shortCircuitInRain>
+            </li>
+            <li Class="CompProperties_Glower">
+                <glowRadius>3</glowRadius>
+                <glowColor>214,221,84,0</glowColor>
+            </li>
+            <li Class="CommunityCoreLibrary.CompProperties_ColoredLight">
+                <compClass>CommunityCoreLibrary.CompColoredLight</compClass>
+                <color>
+                    <li>
+                        <name>white</name>
+                        <value>(255,255,255,0)</value>
+                    </li>
+                    <li>
+                        <name>red</name>
+                        <value>(255,0,0,0)</value>
+                    </li>
+                    <li>
+                        <name>green</name>
+                        <value>(100,255,100,0)</value>
+                    </li>
+                    <li>
+                        <name>blue</name>
+                        <value>(0,0,255,0)</value>
+                    </li>
+                    <li>
+                        <name>yellow</name>
+                        <value>(255,255,0,0)</value>
+                    </li>
+                </color>
+            </li>
+        </comps>
+    </ThingDef>
+	
+    <ThingDef ParentName="LEDStripLampBase">
+        <defName>LEDCornerStripCorner</defName>
+        <label>Corner Strip Bend</label>
+        <description>A small and power efficient LED strip that fits snug against bends on walls.</description>
+        <thingClass>SK.LEDTechnology.LEDCornerStripCorner</thingClass>
+        <graphicData>
+            <texPath>Things/Building/LED/LEDCorner/LEDCornerStrip_Corner</texPath>
+        </graphicData>
+		 <comps>
+            <li Class="CompProperties_Power">
+                <compClass>CompPowerTrader</compClass>
+                <basePowerConsumption>8</basePowerConsumption>
+                <shortCircuitInRain>true</shortCircuitInRain>
+            </li>
+            <li Class="CompProperties_Glower">
+                <glowRadius>3</glowRadius>
+                <glowColor>214,221,84,0</glowColor>
+            </li>
+            <li Class="CommunityCoreLibrary.CompProperties_ColoredLight">
+                <compClass>CommunityCoreLibrary.CompColoredLight</compClass>
+                <color>
+                    <li>
+                        <name>white</name>
+                        <value>(255,255,255,0)</value>
+                    </li>
+                    <li>
+                        <name>red</name>
+                        <value>(255,0,0,0)</value>
+                    </li>
+                    <li>
+                        <name>green</name>
+                        <value>(100,255,100,0)</value>
+                    </li>
+                    <li>
+                        <name>blue</name>
+                        <value>(0,0,255,0)</value>
+                    </li>
+                    <li>
+                        <name>yellow</name>
+                        <value>(255,255,0,0)</value>
+                    </li>
+                </color>
+            </li>
+        </comps>
+    </ThingDef>
+	
+	
+    <!--============================== Security LED Lights ==============================-->
+    <ThingDef ParentName="LampBase">
+        <defName>LEDSecurityLamp</defName>
+        <label>High Power Array</label>
+        <description>A high power array of LED's used to illuminate a large area.</description>
+        <thingClass>SK.LEDTechnology.LEDSecurityLamp</thingClass>
+        <graphicData>
+            <texPath>Things/Building/Spotlights/LED_HighpowerArray</texPath>
+        </graphicData>
+        <costList>
+			<Glass>35</Glass>
+			<Plastic>30</Plastic>
+			<Component>10</Component>
+			<ElectronicComponents>6</ElectronicComponents>
+        </costList>
+		<pathCost>20</pathCost>
+        <comps>
+            <li Class="CompProperties_Power">
+                <compClass>CompPowerTrader</compClass>
+                <basePowerConsumption>300</basePowerConsumption>
+                <shortCircuitInRain>false</shortCircuitInRain>
+            </li>
+            <li Class="CompProperties_Glower">
+                <overlightRadius>0.0</overlightRadius>
+                <glowRadius>30</glowRadius>
+                <glowColor>214,221,84,0</glowColor>
+            </li>
+            <li Class="CommunityCoreLibrary.CompProperties_ColoredLight">
+                <compClass>CommunityCoreLibrary.CompColoredLight</compClass>
+                <color>
+                    <li>
+                        <name>white</name>
+                        <value>(255,255,255,0)</value>
+                    </li>
+                    <li>
+                        <name>red</name>
+                        <value>(255,0,0,0)</value>
+                    </li>
+                    <li>
+                        <name>green</name>
+                        <value>(100,255,100,0)</value>
+                    </li>
+                    <li>
+                        <name>blue</name>
+                        <value>(0,0,255,0)</value>
+                    </li>
+                    <li>
+                        <name>yellow</name>
+                        <value>(255,255,0,0)</value>
+                    </li>
+                </color>
+            </li>
+        </comps>
+        <designationCategory>Accessories</designationCategory>
+    </ThingDef>
+	
+    <ThingDef ParentName="LampBase">
+        <defName>LEDSpotLight</defName>
+        <label>Spot Light</label>
+        <description>High power LED spotlight focused to roughly 45 degrees of intensive light.</description>
+        <thingClass>SK.LEDTechnology.LEDSpotLight</thingClass>
+        <uiIconPath>Things/Building/Spotlights/LED_Spotlight_Menu</uiIconPath>
+        <graphicData>
+            <texPath>Things/Building/Spotlights/LED_Spotlight</texPath>
+        </graphicData>
+        <costList>
+			<Glass>15</Glass>
+			<Plastic>15</Plastic>
+			<Component>5</Component>
+			<ElectronicComponents>3</ElectronicComponents>
+        </costList>
+		<pathCost>8</pathCost>
+        <comps>
+            <li Class="CompProperties_Power">
+                <compClass>CompPowerTrader</compClass>
+                <basePowerConsumption>100</basePowerConsumption>
+                <shortCircuitInRain>false</shortCircuitInRain>
+            </li>
+        </comps>
+        <designationCategory>Accessories</designationCategory>
+    </ThingDef>
+	
+	
+    <!--============================== Hydroponics ==============================-->
+    <ThingDef ParentName="BuildingBase">
+        <defName>LEDHydroponicsBasin</defName>
+        <label>UV Hydroponics</label>
+        <description>Grows plants quickly in an artificial nutrient bath and lit using UV LED lights. Requires power to work; plants will die if power is cut.</description>
+        <thingClass>SK.LEDTechnology.LEDHydroponicsBasin</thingClass>
+        <graphicData>
+            <texPath>Things/Building/Production/LEDHyrdoV3</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+            <drawSize>(1,4)</drawSize>
+            <damageData>
+                <cornerTL>Damage/Corner</cornerTL>
+                <cornerTR>Damage/Corner</cornerTR>
+                <cornerBL>Damage/Corner</cornerBL>
+                <cornerBR>Damage/Corner</cornerBR>
+            </damageData>
+        </graphicData>
+        <altitudeLayer>FloorEmplacement</altitudeLayer>
+        <passability>PassThroughOnly</passability>
+        <pathCost>60</pathCost>
+        <castEdgeShadows>true</castEdgeShadows>
+        <constructEffect>ConstructMetal</constructEffect>
+        <fillPercent>0.30</fillPercent>
+        <statBases>
+            <WorkToMake>4100</WorkToMake>
+            <MaxHitPoints>120</MaxHitPoints>
+            <Flammability>1.0</Flammability>
+            <Cleanliness>-2</Cleanliness>
+        </statBases>
+        <size>(1,4)</size>
+        <costList>
+			<Glass>45</Glass>
+			<Plastic>60</Plastic>
+			<Component>5</Component>
+			<Compost>30</Compost>
+			<ElectronicComponents>4</ElectronicComponents>
+        </costList>
+        <fertility>2.0</fertility>
+        <building>
+            <defaultPlantToGrow>PlantPotato</defaultPlantToGrow>
+            <plantsDestroyWithMe>true</plantsDestroyWithMe>
+            <sowTag>Hydroponic</sowTag>
+        </building>
+        <tickerType>Rare</tickerType>
+        <comps>
+            <li Class="CompProperties_Forbiddable"/>
+            <li Class="CompProperties_Power">
+                <compClass>CompPowerTrader</compClass>
+                <basePowerConsumption>120</basePowerConsumption>
+            </li>
+            <li Class="CompProperties_Flickable"/>
+            <li Class="CompProperties_Breakdownable"/>
+        </comps>
+        <researchPrerequisites>
+            <li>SK_HydroponicsII</li>
+            <li>LEDTechnologyScience</li>
+        </researchPrerequisites>
+        <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+        <designationCategory>Production</designationCategory>
+    </ThingDef>
+	
+</Buildings>

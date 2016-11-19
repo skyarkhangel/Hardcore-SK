@@ -184,6 +184,7 @@
         <transmitsPower>true</transmitsPower>
       </li>
 	  <li Class="CompProperties_Flickable"/>
+      <li Class="SK.CompProperties_AutoFlicker"/>
     </comps>
     <rotatable>false</rotatable>
 	<blockWind>false</blockWind>
@@ -194,7 +195,57 @@
     <constructEffect>ConstructMetal</constructEffect>
 		<researchPrerequisites><li>AirConditioning</li></researchPrerequisites>
   </ThingDef>
-
+  
+  <ThingDef ParentName="BuildingBase">
+    <defName>TimerSwitch</defName>
+    <label>Time of day switch</label>
+    <thingClass>SK.TimeOfDaySwitch</thingClass>
+    <category>Building</category>
+    <description>Switches power on/off based on the time of day.</description>
+    <graphicData>
+      <texPath>Things/Building/Power/PowerSwitch_On</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>Transparent</shaderType>
+      <damageData>
+        <rect>(0.2,0.2,0.6,0.6)</rect>
+      </damageData>
+    </graphicData>
+    <building>
+      <ignoreNeedsPower>true</ignoreNeedsPower>
+      <allowWireConnection>false</allowWireConnection>
+    </building>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Standable</passability>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <statBases>
+      <MaxHitPoints>150</MaxHitPoints>
+      <WorkToMake>210</WorkToMake>
+      <Flammability>0.4</Flammability>
+      <Beauty>-2</Beauty>
+    </statBases>
+    <placingDraggableDimensions>0</placingDraggableDimensions>
+		<costList>
+			<Plastic>10</Plastic>
+			<Component>5</Component>
+			<ElectronicComponents>2</ElectronicComponents>
+		</costList>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTransmitter</compClass>
+        <transmitsPower>true</transmitsPower>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+    </comps>
+    <rotatable>false</rotatable>
+    <selectable>true</selectable>
+    <neverMultiSelect>true</neverMultiSelect>
+    <tickerType>Normal</tickerType>
+    <designationCategory>Power</designationCategory>
+    <constructEffect>ConstructMetal</constructEffect>
+    <researchPrerequisites>
+      <li>MicroelectronicsBasics</li>
+    </researchPrerequisites>
+  </ThingDef>
   
   <ThingDef ParentName="BuildingBase">
     <defName>Battery</defName>
@@ -336,7 +387,7 @@
       <Flammability>1.0</Flammability>
     </statBases>
     <tickerType>Normal</tickerType>
-    <description>Produces electricity from sunlight. Does not work in the dark. Power output: 1,700 W at maximum sunlight.</description>
+    <description>Produces electricity from sunlight. Does not work in the dark.</description>
 		<size>(4,4)</size>
     <building>
       <ignoreNeedsPower>true</ignoreNeedsPower>
@@ -356,7 +407,7 @@
     </placeWorkers>
     <comps>
       <li Class="CompProperties_Power">
-        <compClass>CompPowerPlantSolar</compClass>
+        <compClass>SK.CompPowerPlantSolar</compClass>
         <basePowerConsumption>-1</basePowerConsumption>
         <transmitsPower>true</transmitsPower>
       </li>
@@ -368,8 +419,66 @@
     <designationHotKey>Misc3</designationHotKey>
 	<researchPrerequisites><li>SolarPanels</li></researchPrerequisites>
   </ThingDef>
-
-
+  
+  <ThingDef ParentName="BuildingBase">
+    <defName>AdvancedSolarGenerator</defName>
+    <label>Advanced Solar Generator</label>
+    <thingClass>Building</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Power/Advanced_solarpanel</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(4,4)</drawSize>
+	        <damageData>
+        <rect>(0,0.6,4,2.8)</rect>
+      </damageData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>70</pathCost>
+    <fillPercent>0.5</fillPercent>
+    <castEdgeShadows>true</castEdgeShadows>
+    <statBases>
+      <MaxHitPoints>50</MaxHitPoints>
+      <WorkToMake>4800</WorkToMake>
+      <Flammability>1.0</Flammability>
+    </statBases>
+    <tickerType>Normal</tickerType>
+    <description>Produces electricity from sunlight. Does not work in the dark.</description>
+		<size>(4,4)</size>
+    <building>
+      <ignoreNeedsPower>true</ignoreNeedsPower>
+    </building>
+		<stuffCategories>
+		<li>Metallic</li>
+		</stuffCategories>
+    	<costStuffCount>70</costStuffCount>
+		<costList>
+			<Glass>70</Glass>
+      		<ReinforcedConcrete>12</ReinforcedConcrete>
+			<AdvMechanism>5</AdvMechanism>
+			<Microchips>1</Microchips>
+		</costList>
+	<placeWorkers>
+      <li>PlaceWorker_NotUnderRoof</li>
+    </placeWorkers>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>SK.CompAdvPowerPlantSolar</compClass>
+        <basePowerConsumption>-1</basePowerConsumption>
+        <transmitsPower>true</transmitsPower>
+      </li>
+	  <li Class="CompProperties_Glower">
+        <glowRadius>5</glowRadius>
+        <glowColor>(1,213,238,0)</glowColor>
+      </li>
+	  <li Class="CompProperties_Breakdownable"/>
+    </comps>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+    <designationCategory>Power</designationCategory>
+    <staticSunShadowHeight>0.20</staticSunShadowHeight>
+    <designationHotKey>Misc3</designationHotKey>
+	<researchPrerequisites><li>SK_RenewableIV</li></researchPrerequisites>
+  </ThingDef>
   
 	<ThingDef ParentName="BuildingBase">
 		<defName>WindTurbine</defName>
@@ -429,6 +538,66 @@
 		</comps>
 		<researchPrerequisites><li>SK_RenewableI</li></researchPrerequisites>
 	</ThingDef>
+	
+	<ThingDef ParentName="BuildingBase">
+		<defName>AdvancedWindTurbine</defName>
+		<thingClass>Building</thingClass>
+		<label>Advanced Wind Turbine</label>
+		<description>A wind-powered electrical generator. Requires a large clear space in front and behind for optimal air flow.</description>
+	<graphicData>
+      <texPath>Things/Building/Power/Advanced_wind_turbine</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(5,2)</drawSize>
+      <shadowData>
+        <volume>(0.2, 1.0, 0.8)</volume>
+      </shadowData>
+      <damageData>
+        <rect>(2,0.15,1,1.4)</rect>
+      </damageData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+		<passability>Impassable</passability>
+		<fillPercent>0.5</fillPercent>
+		<statBases>
+			<MaxHitPoints>100</MaxHitPoints>
+			<WorkToMake>15500</WorkToMake>
+			<Flammability>0.4</Flammability>
+			<Beauty>-12</Beauty>
+		</statBases>
+		<blockWind>true</blockWind>
+		<tickerType>Normal</tickerType>
+		<size>(5,2)</size>
+		<selectable>true</selectable>
+    	<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<rotatable>true</rotatable>
+		<designationCategory>Power</designationCategory>
+		<building>
+			<ignoreNeedsPower>true</ignoreNeedsPower>
+		</building>
+		<stuffCategories>
+		<li>Metallic</li>
+		</stuffCategories>
+    	<costStuffCount>70</costStuffCount>
+		<costList>
+      		<ReinforcedConcrete>12</ReinforcedConcrete>
+			<AdvMechanism>5</AdvMechanism>
+			<BiosyntheticMaterial>5</BiosyntheticMaterial>
+			<Microchips>1</Microchips>
+		</costList>
+		<placeWorkers>
+		  <li>PlaceWorker_WindTurbine</li>
+		</placeWorkers>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerPlantWind</compClass>
+				<basePowerConsumption>-1500</basePowerConsumption>
+				<transmitsPower>true</transmitsPower>
+			</li>
+	  		<li Class="CompProperties_Breakdownable"/>
+		</comps>
+	<researchPrerequisites><li>SK_RenewableIV</li></researchPrerequisites>
+	</ThingDef>
+	
 	
 	<ThingDef ParentName="BuildingBase">
 		<defName>TidalGenerator</defName>
@@ -966,7 +1135,7 @@ Power output: 2,500 W.</description>
       <ignoreNeedsPower>true</ignoreNeedsPower>
 	  <canPlaceOverWall>true</canPlaceOverWall>
     </building>
-	<researchPrerequisites><li>SK_RenewableIV</li></researchPrerequisites>
+	<researchPrerequisites><li>SK_RenewableV</li></researchPrerequisites>
   </ThingDef>
 
 	<ThingDef Class="SK.ThingDef_NPP" ParentName="PowerFueled">
@@ -1210,11 +1379,11 @@ Power output: 2,500 W.</description>
               <li Class="CompProperties_Breakdownable"/>
               <li Class="CompProperties_Flickable" />
         </comps>
- <researchPrerequisites><li>SK_RenewableIV</li></researchPrerequisites>
+ <researchPrerequisites><li>SK_RenewableV</li></researchPrerequisites>
 </ThingDef>
 
 
-  <ThingDef ParentName="BenchBase">
+	<ThingDef ParentName="BuildingBase">
     <defName>TeslaLigthningPower</defName>
     <label>Tesla Lightning Generator</label>
     <thingClass>SK.TeslaLigthningPower</thingClass>
@@ -1359,7 +1528,7 @@ Power output: 2,500 W.</description>
 
 
   
- <ThingDef ParentName="BenchBase">
+	<ThingDef ParentName="BuildingBase">
     <defName>PlasmaGen</defName>
     <label>Plasma Generator</label>
     <thingClass>SK.Building_PlasmaGenerator</thingClass>
@@ -1368,6 +1537,9 @@ Power output: 2,500 W.</description>
      <texPath>Things/Building/PlasmaGenFrames/PlasmaGenOff</texPath>
     <graphicClass>Graphic_Single</graphicClass>
 	<drawSize>(2,2)</drawSize>
+      <shadowData>
+        <volume>(1, 1, 1)</volume>
+      </shadowData>
 	</graphicData>
     <AltitudeLayer>Building</AltitudeLayer>
     <Passability>Impassable</Passability>
@@ -1392,8 +1564,8 @@ Power output: 2,500 W.</description>
 			<Microchips>2</Microchips>
 		</costList>
 	<comps>
-      <li Class="CompProperties_Power">
-        <compClass>CompPowerPlant</compClass>
+       <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
         <basePowerConsumption>1</basePowerConsumption>
 		<startElectricalFires>true</startElectricalFires>
       </li>
