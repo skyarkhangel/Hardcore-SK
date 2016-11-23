@@ -1,4 +1,6 @@
-# Hardcore SK Rimworld project
+<center>[<img src="http://s008.radikal.ru/i304/1512/b8/e77f133acb4e.gif">]</center>
+
+# Description:
 
 At first would like to thank the creator of the game and all modders whose mods i used.
 
@@ -10,7 +12,7 @@ Main focus based on the growing complexity of the gameplay. Trying to achieve gr
 This project support English and Russian language.   
 Using additional mods (not included in the project) is not recommended.        
      
-## Installation Windows:
+## Installation:
 
 1. Go to the folder you installed the game in. (*gamefolder*)    
 Delete all mods inside your *Mods* folder.  
