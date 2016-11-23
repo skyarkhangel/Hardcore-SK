@@ -1,4 +1,4 @@
-<center>[<img src="http://s008.radikal.ru/i304/1512/b8/e77f133acb4e.gif">]</center>
+<center><img src="http://s008.radikal.ru/i304/1512/b8/e77f133acb4e.gif"></center>
 
 # Description:
 
