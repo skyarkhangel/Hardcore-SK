@@ -1,6 +1,256 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ThingDefs>
 
+  <!-- ============================ Human ========================== -->
+  <ThingDef Name="BaseHumanlikePawn" Abstract="True">
+    <thingClass>Pawn</thingClass>
+    <category>Pawn</category>
+    <selectable>true</selectable>
+    <tickerType>Normal</tickerType>
+    <altitudeLayer>Pawn</altitudeLayer>
+    <useHitPoints>false</useHitPoints>
+    <hasTooltip>true</hasTooltip>
+    <soundImpactDefault>BulletImpactFlesh</soundImpactDefault>
+    <inspectorTabs>
+      <li>ITab_Pawn_Health</li>
+      <li>ITab_Pawn_Needs</li>
+      <li>ITab_Pawn_Character</li>
+      <li>ITab_Pawn_Training</li>
+      <li>Combat_Realism.ITab_Inventory</li>
+      <li>ITab_Pawn_Guest</li>
+      <li>ITab_Pawn_Prisoner</li>
+      <li>ITab_Pawn_Social</li>
+    </inspectorTabs>
+    <comps>
+      <li>
+        <compClass>CompAttachBase</compClass>
+      </li>
+		  <li>
+			<compClass>WHands.HandDrawer</compClass>
+		  </li>
+    </comps>
+    <drawGUIOverlay>true</drawGUIOverlay>
+	
+		<uiIconPath>Things/Pawn/Humanlike/UI/IconHuman</uiIconPath>
+		<statBases>
+		  <MarketValue>1750</MarketValue>
+		  <MoveSpeed>4.61</MoveSpeed>
+		  <Flammability>1.0</Flammability>
+		  <ArmorPenetration>0.1</ArmorPenetration>
+		</statBases>
+        <race>
+			<thinkTreeMain>Humanlike</thinkTreeMain>
+			<thinkTreeConstant>HumanlikeConstant</thinkTreeConstant>
+			<intelligence>Humanlike</intelligence>
+			<makesFootprints>true</makesFootprints>
+			<lifeExpectancy>80</lifeExpectancy>
+            <leatherColor>(235,235,235)</leatherColor>
+            <leatherCommonalityFactor>0.01</leatherCommonalityFactor>
+            <leatherInsulation>1.25</leatherInsulation>
+            <leatherMarketValue>25</leatherMarketValue>
+            <nameCategory>HumanStandard</nameCategory>
+            <baseBodySize>1.0</baseBodySize>
+			<body>Human</body>
+			<baseHealthScale>1</baseHealthScale>
+            <foodType>OmnivoreHuman</foodType>
+			<gestationPeriodDays>45</gestationPeriodDays>
+			  <litterSizeCurve>
+				<points>
+				  <li>(0.5, 0)</li>
+				  <li>(1, 1)</li>
+				  <li>(1.01, 0.02)</li>
+				  <li>(3.5, 0)</li>
+				</points>
+			  </litterSizeCurve>
+            <lifeStageAges>
+                <li>
+                    <def>HumanlikeBaby</def>
+                    <minAge>0</minAge>
+                </li>
+                <li>
+                    <def>HumanlikeToddler</def>
+                    <minAge>1.2</minAge>
+                </li>
+                <li>
+                    <def>HumanlikeChild</def>
+                    <minAge>4</minAge>
+                </li>
+                <li>
+                    <def>HumanlikeTeenager</def>
+                    <minAge>11</minAge>
+                </li>
+                <li>
+                    <def>HumanlikeAdult</def>
+                    <minAge>14</minAge>
+                </li>
+            </lifeStageAges>
+            <soundMeleeHitPawn>Pawn_Melee_Punch_HitPawn</soundMeleeHitPawn>
+            <soundMeleeHitBuilding>Pawn_Melee_Punch_HitBuilding</soundMeleeHitBuilding>
+            <soundMeleeMiss>Pawn_Melee_Punch_Miss</soundMeleeMiss>
+            <specialshadowData>
+                <volume>(0.3, 0.8, 0.4)</volume>
+                <offset>(0,0,-0.3)</offset>
+            </specialshadowData>
+            <ageGenerationCurve>
+                <points>
+                    <li>(14,0)</li>
+                    <li>(16,100)</li>
+                    <li>(50,100)</li>
+                    <li>(60,30)</li>
+                    <li>(70,18)</li>
+                    <li>(80,10)</li>
+                    <li>(90,3)</li>
+                    <li>(100,0)</li>
+                </points>
+            </ageGenerationCurve>
+            <hediffGiverSets>
+                <li>OrganicStandard</li>
+            </hediffGiverSets>
+        </race>
+    <recipes>
+      <li>ExciseCarcinoma</li>
+	
+<!--Lifesupport-->
+      <li>installlifesupportheart</li>
+      <li>installlifesupportlung</li>
+      <li>installlifesupportkidney</li>
+      <li>installlifesupportliver</li>
+	  
+<!--Bones-->
+      <li>InstallArtificialBone_Small</li>
+      <li>InstallArtificialBone_Medium</li>
+      <li>InstallArtificialBonePiece_Large</li>
+	  
+<!--HealScars-->
+      <li>HealScars</li>
+	  
+<!--Basic-->
+      <li>InstallPegLeg</li>
+      <li>InstallSteelArm</li>
+      <li>InstallWoodenFoot</li>
+      <li>InstallHookHand</li>
+      <li>InstallDenture</li>
+      <li>InstallEyePatch</li>
+
+<!--Simple-->
+      <li>InstallGlassEye</li>
+      <li>InstallCrystalEye</li>	  
+      <li>InstallSimpleProstheticHand</li>
+      <li>InstallSimpleProstheticFoot</li>
+      <li>InstallHydraulicJaw</li>
+	  <li>InstallArtificialNose</li>
+      <li>InstallSimpleProstheticArm</li>
+      <li>InstallSimpleProstheticLeg</li>
+	  <li>InstallArtificialPelvis</li>
+<!--Bionic-->
+      <li>InstallBionicEye</li>
+      <li>InstallBionicHand</li>
+      <li>InstallBionicFoot</li>
+      <li>InstallPowerArm</li>
+      <li>InstallBionicArm</li>
+      <li>InstallBionicLeg</li>
+      <li>InstallBionicSpine</li>
+      <li>InstallBionicJaw</li>
+      <li>InstallBionicEar</li>
+      <li>InstallSilentJaw</li>
+      <li>InstallMedicalRib</li>
+      <li>InstallAdrenalineRib</li>
+
+	  
+<!--Advanced Bionic-->
+      <li>InstallAdvancedBionicHand</li>
+      <li>InstallAdvancedBionicFoot</li>
+      <li>InstallAdvancedPowerArm</li>
+      <li>InstallAdvancedBionicArm</li>
+      <li>InstallAdvancedBionicLeg</li>
+      <li>InstallAdvancedBionicSpine</li>	  
+      <li>InstallAdvancedBionicJaw</li>
+      <li>InstallAdvancedBionicEye</li>	  
+      <li>InstallAdvancedBionicEar</li>
+	  <li>InstallExoskeletonSuit</li>
+<!--Surrogate Organs-->
+      <li>InstallBrainStimulator</li>
+      <li>InstallSurrogateLung</li>
+      <li>InstallSurrogateStomach</li>
+      <li>InstallSurrogateLiver</li>
+      <li>InstallSurrogateKidney</li>
+      <li>InstallSurrogateHeart</li>
+<!--Synthetic Organs-->
+      <li>InstallAIChip</li>
+      <li>InstallSyntheticLung</li>
+      <li>InstallSyntheticStomach</li>
+      <li>InstallSyntheticLiver</li>
+      <li>InstallSyntheticKidney</li>
+      <li>InstallSyntheticHeart</li>
+<!--Natural-->
+      <li>InstallNaturalHeart</li>
+      <li>InstallNaturalLung</li>
+      <li>InstallNaturalKidney</li>
+      <li>InstallNaturalLiver</li>
+      <li>InstallNaturalEar</li>
+      <li>InstallNaturalEye</li>
+      <li>InstallNaturalNose</li>
+      <li>InstallNaturalArm</li>
+      <li>InstallNaturalLeg</li>
+      <li>InstallNaturalJaw</li>
+      <li>InstallNaturalStomach</li>
+	  
+<!--Cybernetics-->
+            <li>InstallGTHeart</li>
+            <li>InstallGTLung</li>
+            <li>InstallGTKidney</li>
+            <li>InstallGTLiver</li>
+            <li>InstallGTStomach</li>
+            <li>InstallGTEar</li>
+            <li>InstallGTEye</li>
+            <li>InstallGTArm</li>
+            <li>InstallGTHand</li>
+            <li>InstallGTLeg</li>
+            <li>InstallGTFoot</li>
+            <li>InstallGTDentures</li>
+            <li>InstallGTSpine</li>
+	  
+<!--DE Surgery-->
+            <li>RepairCosmeticEar</li>
+            <li>RepairCosmeticNose</li>
+            <li>RepairFinger</li>
+            <li>RepairToe</li>
+            <li>CureChronicBadBack</li>
+            <li>CureChronicFrail</li>
+            <li>CureChronicCataract</li>
+            <li>CureChronicHearingLoss</li>
+            <li>CureChronicDementia</li>
+            <li>CureMuscleParasites</li>
+            <li>CureGutWorms</li>
+            <li>CureChronicAlzheimers</li>
+            <li>CureChronicAsthma</li>
+            <li>CureChronicHeartArteryBlockage</li>
+            <li>CureInjuryBurn</li>
+            <li>CureInjuryCrush</li>
+            <li>CureInjuryCrack</li>
+            <li>CureInjuryCut</li>
+            <li>CureInjurySurgicalCut</li>
+            <li>CureInjuryScratch</li>
+            <li>CureInjuryBite</li>
+            <li>CureInjuryStab</li>
+            <li>CureInjuryGunshot</li>
+            <li>CureInjuryShredded</li>
+            <li>CureInjuryBruise</li>
+            <li>CureInjuryFrostbite</li>
+            <li>InjectMedicine</li>
+			
+            <li>Installsenex</li>
+			
+<!--Misc-->
+      <li>InstallJoywire</li>
+      <li>InstallPainstopper</li>
+	  <li>InstallPowerClaw</li>
+      <li>InstallScytherBlade</li>      
+	  <li>RemoveBodyPart</li>
+	  <li>Euthanize</li>
+    </recipes>
+  </ThingDef>
+
   <ThingDef Name="BasePawnSkynet" Abstract="True">
     <thingClass>Pawn</thingClass>
     <category>Pawn</category>
