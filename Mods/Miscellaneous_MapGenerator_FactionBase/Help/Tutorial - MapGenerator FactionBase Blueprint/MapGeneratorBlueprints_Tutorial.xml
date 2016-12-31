@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+<!-- NOTE: This is only a descriptive tutorial. To make it functional you'll need to remove all the descriptions!!!  -->
+
+	<MapGenerator.MapGeneratorBaseBlueprintDef Name="TutorialBase">
+		<defName>TutorialName</defName> <!-- This name needs to be unique -->
+		<createdBy>Haplo</createdBy> <!-- your name -->
+		<techLevelRequired>Neolithic</techLevelRequired> <!-- This defines which tech level the faction must at least have to use this blueprint -->
+		<chance>10</chance> <!-- This is the weighted chance for this blueprint to be selected -->
+		<size>9,7</size>  <!-- The size must be the size of the blueprint in all xxxxxData. e.g. in buildingData, ... - First number is the horizontal pane, second number the vertical pane  -->
+		<canHaveHoles>false</canHaveHoles> <!-- Define if randomly some spaces aren't set, though creating holes. Set to 'false' if you use pawns! -->
+		<createTrigger>true</createTrigger> <!-- Define if a trigger should be created. A trigger will unfog parts when a pawn enters it. Applies, if it isn't automatically unfogged -->
+		<buildingMaterial>GrizzlyBear_Leather</buildingMaterial> <!-- when this is set, the material of the walls will be this material. If it isn't set, it will be randomly chosen -->
+		<!-- Here starts the BUILDING layer. Everything here defines the walls and maybe tables or the like -->
+		<buildingData>   <!-- Here is the blueprint, where you define the layout -->
+			.wwwwwww.
+			w.......w
+			w.......w
+			ww.wwwwww
+			w...e.e.w
+			w.......w
+			.wwwwwww.
+		</buildingData>
+		<buildingLegend>   <!-- These values define what is what on the blueprint. Blueprint items not found here will not be set. See, how there isn't an entry '.'?  -->
+			<li> <!-- NOTE: The Stuff of an object can't be defined. It is chosen randomly. -->
+				<key>w</key>  <!-- The key corresponds to the letter/number in the blueprint. Allowed are all lowercase letters, numbers and '.' '#' '+' '-' nothing else!    -->
+				<value>Wall</value> <!-- For the buildings this represents a ThingDef. Look into the Core to find the def you want to use -->
+			</li>
+			<li>
+				<key>e</key>
+				<value>EquipmentRack</value> <!-- bigger buildings can also be placed, but the placement is a bit tricky! You need to place 1! letter, where the center of the item is -->
+			</li>
+		</buildingLegend>
+		<rotationLegend>   <!-- Optional: These values define how the object is rotated. If not set, the base rotation will apply -->
+			<li>
+				<key>e</key>
+				<value>0</value> <!-- Only set, if the object CAN be rotated! 0-North, 1-East, 2-South, 3-West -->
+			</li>
+		</rotationLegend>
+		
+		<!-- Optional: for things like power cables -->
+		<nonbuildingData>   <!-- Here is the blueprint, where you define the layout for non-building stuff like power conduits -->
+			.wwwpwww.
+			w...p...w
+			w...p...w
+			ww.wpwwww
+			w...p...w
+			w...p...w
+			.wwwpwww.
+		</nonbuildingData>
+		<nonbuildingLegend>
+			<li>
+				<key>p</key>  <!-- The key corresponds to the letter/number in the blueprint. Allowed are all lowercase letters, numbers and '.' '#' '+' '-' nothing else!    -->
+				<value>PowerConduit</value> <!-- For the buildings this represents a ThingDef. Look into the Core to find the def you want to use -->
+			</li>
+		</nonbuildingLegend>
+		
+		<!-- Here starts the FLOOR layer. Everything here defines the flooring -->
+		<floorData>  <!-- Note how I use the layer of the BUILDING and only change what I need? Not defined in the legend means that cell will not be changed (Exception: If it isn't defined and a wall is placed there, the floor will represent the stuff of the wall) -->
+			.wwwwwww.
+			w1111111w
+			w1111111w
+			w1111111w
+			w1111111w
+			w1111111w
+			.wwwwwww.
+		</floorData>
+		<floorLegend>
+			<li>
+				<key>1</key>
+				<value>MetalTile</value> <!-- CAUTION: For the flooring this represents a TerrainDef. Look into the Core to find the def you want to use -->
+			</li>
+		</floorLegend>
+	</MapGenerator.MapGeneratorBaseBlueprintDef>
+		
+	<!-- Here starts a second blueprint, that uses the data of the first blueprint (See 1.Name - 2.ParentName). This means, you don't need to write everything a second time! -->
+	<MapGenerator.MapGeneratorBaseBlueprintDef ParentName="TutorialBase">
+		<defName>TutorialNameB</defName> <!-- CAUTION: This needs to be unique and different to the parent blueprint! -->
+		<chance>5</chance> <!-- You want to change something? Just overwrite it. -->
+		<canHaveHoles>false</canHaveHoles>
+		
+		<!-- Here starts the PAWN layer. Everything here defines the placement of pawns -->
+		<pawnData> 
+			.wwwwwww.
+			w.....s.w
+			w.....c.w
+			ww.wwwwww
+			w.......w
+			w.......w
+			.wwwwwww.
+		</pawnData>
+		<pawnLegend>
+			<li>
+				<key>s</key>
+				<value>Scyther</value>
+			</li>
+			<li>
+				<key>c</key>
+				<value>Centipede</value> <!-- CAUTION: For the pawns this represents a PawnKindDef. Look into the Core to find the def you want to use -->
+			</li>
+		</pawnLegend>
+		<pawnSpawnChance>25</pawnSpawnChance> <!-- this defines the chance (1-100%) for a pawn to really spawn at the defined position. -->
+
+		<!-- Here starts the ITEM layer. Everything here defines the placement of items -->
+		<itemData>
+			.wwwwwww.
+			w4......w
+			w.......w
+			ww.wwwwww
+			w...1223w
+			w.......w
+			.wwwwwww.
+		</itemData>
+		<itemLegend>
+			<li>
+				<key>1</key>
+				<value>Gun_PDW</value> <!-- For the items this represents a ThingDef. Look into the Core to find the def you want to use -->
+			</li>
+			<li>
+				<key>2</key>
+				<value>Gun_PumpShotgun</value>
+			</li>
+			<li>
+				<key>3</key>
+				<value>Gun_AssaultRifle</value>
+			</li>
+			<li>
+				<key>4</key>
+				<value>Gun_SniperRifle</value>
+			</li>
+		</itemLegend>
+		<itemSpawnChance>20</itemSpawnChance> <!-- this defines the chance (1-100%) for an item to really appear at the defined position. -->
+		
+		<!-- A few things at the end: -->
+		<!-- * For a xxxData there always must be a xxxLegend, else that part doesn't work! -->
+		<!-- * Things on the xxxData map, that aren't in the xxxLegend are ignored, use that to copy/paste your building through the various xxxData. -->
+		<!-- * The size MUST fit to all xxxData. If it doesn't it will not be displayed correctly! -->
+		<!-- * Copy the finished blueprint into the sub folder Defs/MapGeneratorBaseBlueprintDefs/ and it is available for the MapGenerator at the next game start. -->
+		
+	</MapGenerator.MapGeneratorBaseBlueprintDef>
+	
+	
+</Defs>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <!--================== Drugs ==================-->
+
+
+
+
+<ThingDef ParentName="VG_MakeableDrugBase">
+	<defName>Cigarillos</defName>
+	<label>Cigarillos</label>
+	<description>A pack of cigarillos</description>
+    <graphicData>
+	<texPath>Things/Item/Cigarillos</texPath>
+	<graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+	<stackLimit>75</stackLimit>
+	<statBases>
+       <WorkToMake>200</WorkToMake>
+	  <MarketValue>10</MarketValue>
+	</statBases>
+    <techLevel>Neolithic</techLevel>
+	<ingestible>
+      <foodType>Plant, Processed</foodType>
+      <joy>0.4</joy>
+      <baseIngestTicks>720</baseIngestTicks>
+      <nurseable>true</nurseable>
+      <drugCategory>Social</drugCategory>
+      <ingestSound>Ingest_Smoke</ingestSound>
+      <ingestEffect>Smoke_Joint</ingestEffect>
+      <ingestHoldOffsetStanding>(0.27,0,0.08)</ingestHoldOffsetStanding>
+      <ingestHoldUsesTable>false</ingestHoldUsesTable>
+      <ingestCommandString>Smoke {0}</ingestCommandString>
+      <ingestReportString>Smoking {0}.</ingestReportString>
+      <outcomeDoers>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>Tobacco</hediffDef>
+          <severity>0.15</severity>
+          <toleranceChemical>Tobacco</toleranceChemical>
+        </li>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>TobaccoTolerance</hediffDef>
+          <severity>0.032</severity>
+        </li>
+      </outcomeDoers>
+	</ingestible>
+    <recipeMaker>
+      <recipeUsers>
+        <li>CraftingSpot</li>
+      </recipeUsers>
+    </recipeMaker>
+    <costList>
+      <RawTobacco>10</RawTobacco>
+    </costList>
+    <comps>
+      <li Class="CompProperties_Drug">
+        <chemical>Tobacco</chemical>
+        <addictiveness>0.006</addictiveness>
+        <minToleranceToAddict>0.25</minToleranceToAddict>
+        <existingAddictionSeverityOffset>0.06</existingAddictionSeverityOffset>
+        <needLevelOffset>1</needLevelOffset>
+        <listOrder>1300</listOrder>
+      </li>
+    </comps>
+</ThingDef>
+
+  <ThoughtDef>
+    <defName>Tobacco</defName>
+    <workerClass>ThoughtWorker_Hediff</workerClass>
+    <hediff>Tobacco</hediff>
+    <validWhileDespawned>true</validWhileDespawned>
+    <stages>
+      <li>
+        <label>Grabbed a smoke (comfortably numb)</label>
+        <description>I feel calm, cool, and collected.</description>
+        <baseMoodEffect>5</baseMoodEffect>
+      </li>
+      <li>
+        <label>Grabbed a smoke (comfortably buzzed)</label>
+        <description>I feel tingly all over.</description>
+        <baseMoodEffect>10</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+
+  <HediffDef>
+    <defName>Tobacco</defName>
+    <hediffClass>Hediff_Alcohol</hediffClass>
+    <label>tobacco</label>
+    <defaultLabelColor>(0,0.7,0)</defaultLabelColor>
+    <initialSeverity>0.2</initialSeverity>
+    <scenarioCanAdd>true</scenarioCanAdd>
+    <comps>
+      <li Class="HediffCompProperties_Effecter">
+        <stateEffecter>Drunk</stateEffecter>
+        <severityIndices>
+          <min>3</min>
+          <max>5</max>
+        </severityIndices>
+      </li>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-1.0</severityPerDay>
+      </li>
+    </comps>
+    <stages>
+        <li>
+          <minSeverity>0.01</minSeverity>
+          <label>comfortably numb</label>
+          <painFactor>0.9</painFactor>
+            <capMods>
+              <li>
+                <capacity>Manipulation</capacity>
+                <offset>0.05</offset>
+              </li>
+              <li>
+                <capacity>Moving</capacity>
+                <offset>-0.05</offset>
+              </li>
+            </capMods>
+        </li>
+        <li>
+          <minSeverity>0.4</minSeverity>
+          <label>comfortably buzzed</label>
+          <painFactor>0.8</painFactor>
+            <capMods>
+              <li>
+                <capacity>Manipulation</capacity>
+                <offset>0.15</offset>
+              </li>
+              <li>
+                <capacity>Moving</capacity>
+                <offset>-0.1</offset>
+              </li>
+            </capMods>
+        </li>
+        <li>
+          <minSeverity>1</minSeverity>
+          <label>blackout</label>
+          <painFactor>0.1</painFactor>
+            <capMods>
+              <li>
+                <capacity>Consciousness</capacity>
+                <setMax>0.1</setMax>
+              </li>
+            </capMods>
+        </li>
+    </stages>
+  </HediffDef>
+
+
+    <!-- Tobaccoaddiction -->
+  
+  <ChemicalDef>
+    <defName>Tobacco</defName>
+    <label>Tobacco</label>
+    <addictionHediff>TobaccoAddiction</addictionHediff>
+    <toleranceHediff>Tobacco</toleranceHediff>
+  </ChemicalDef>
+  
+  <NeedDef ParentName="VG_DrugAddictionNeedBase">
+    <defName>Chemical_Tobacco</defName>
+    <needClass>Need_Chemical</needClass>
+    <label>Tobacco</label>
+    <description>Because of an tobacco addiction, this person needs to regularly consume the drug to avoid withdrawal symptoms.</description>
+    <listPriority>35</listPriority>
+  </NeedDef>
+
+  <HediffDef ParentName="VG_DrugToleranceBase">
+    <defName>TobaccoTolerance</defName>
+    <label>tobacco tolerance</label>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-0.016</severityPerDay>
+      </li>
+      <li Class="HediffCompProperties_DrugEffectFactor">
+        <chemical>Tobacco</chemical>
+      </li>
+    </comps>
+		<hediffGivers>
+			<li Class="HediffGiver_RandomDrugEffect">
+				<hediff>Asthma</hediff>
+				<baseMtbDays>180</baseMtbDays>
+				<minSeverity>0.50</minSeverity>
+				<partsToAffect>
+					<li>LeftLung</li>
+					<li>RightLung</li>
+				</partsToAffect>
+				<countToAffect>2</countToAffect>
+			</li>
+			<li Class="HediffGiver_RandomDrugEffect">
+				<hediff>Carcinoma</hediff>
+				<baseMtbDays>180</baseMtbDays>
+				<minSeverity>0.40</minSeverity>
+				<partsToAffect>
+					<li>LeftLung</li>
+					<li>RightLung</li>
+				</partsToAffect>
+				<countToAffect>1</countToAffect>
+			</li>
+		</hediffGivers>
+
+  </HediffDef>
+
+  <HediffDef ParentName="VG_AddictionBase">
+    <defName>TobaccoAddiction</defName>
+    <hediffClass>Hediff_Addiction</hediffClass>
+    <label>tobacco addiction</label>
+    <causesNeed>Chemical_Tobacco</causesNeed>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-0.05</severityPerDay>
+      </li>
+    </comps>
+    <stages>
+      <li>
+      </li>
+      <li>
+        <label>withdrawal</label>
+        <socialFightChanceFactor>2.0</socialFightChanceFactor>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>-0.20</offset>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>-0.20</offset>
+          </li>
+          <li>
+            <capacity>Manipulation</capacity>
+            <offset>-0.50</offset>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <ThoughtDef>
+    <defName>TobaccoWithdrawal</defName>
+    <workerClass>ThoughtWorker_Hediff</workerClass>
+    <hediff>TobaccoAddiction</hediff>
+    <stages>
+      <li>
+        <visible>false</visible>
+      </li>
+      <li>
+        <label>tobacco withdrawal</label>
+        <description>Feeling shaky. Everything pisses me off. I keep thinking of smoking.</description>
+        <baseMoodEffect>-25</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+
+
+
+
+</Defs>

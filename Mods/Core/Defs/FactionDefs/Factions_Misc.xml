@@ -1,23 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <FactionDefs>
 
-
   <FactionDef>
 		<defName>Outlander</defName>
-		<label>outlander town</label>
-    <description>A small community of survivors.\n\nThese people have lived here for decades or centuries, and have lost most of the technology that brought them to this world. They usually work with simple mechanical tools and defend themselves with advanced gunpowder weapons.\n\nThey are concerned with the practical matters of trade, trust, and survival.</description>
+		<label>outlander union</label>
+    <description>These people have lived here for decades or centuries, and have lost most of the technology that brought them to this world. They usually work with simple mechanical tools and defend themselves with advanced gunpowder weapons.\n\nThey are concerned with the practical matters of trade, trust, and survival.</description>
     <pawnsPlural>outlanders</pawnsPlural>
+    <factionBaseSelectionWeight>1</factionBaseSelectionWeight>
     <requiredCountAtGameStart>1</requiredCountAtGameStart>
     <canMakeRandomly>true</canMakeRandomly>
     <raidCommonality>100</raidCommonality>
     <canSiege>true</canSiege>
     <canStageAttacks>true</canStageAttacks>
-    <leaderTitle>Mayor</leaderTitle>
+    <leaderTitle>mayor</leaderTitle>
+    <expandingIconTexture>World/WorldObjects/Expanding/Town</expandingIconTexture>
+    <colorSpectrum>
+      <li>(0.64, 0.42, 0.36)</li>
+      <li>(0.47, 0.5, 0.91)</li>
+    </colorSpectrum>
     <startingGoodwill>
       <min>10</min>
       <max>40</max>
     </startingGoodwill>
 		<factionNameMaker>NamerFactionOutlander</factionNameMaker>
+		<factionBaseNameMaker>NamerFactionBaseOutlander</factionBaseNameMaker>
 		<techLevel>Industrial</techLevel>
 		<backstoryCategory>Civil</backstoryCategory>
 		<hairTags>
@@ -36,12 +42,16 @@
     <visitorTraderKinds>
       <li>Visitor_Outlander_Standard</li>
     </visitorTraderKinds>
+    <factionBaseTraderKinds>
+      <li>FactionBase_Outlander_Standard</li>
+    </factionBaseTraderKinds>
     <allowedArrivalTemperatureRange>
       <min>-40</min>
       <max>45</max>
     </allowedArrivalTemperatureRange>
     <pawnGroupMakers>
-      <li Class="PawnGroupMaker_Normal">
+      <li>
+        <kindDef>Normal</kindDef>
         <options>
           <Villager>50</Villager>
           <TownGuard>250</TownGuard>
@@ -51,13 +61,14 @@
           <MercenarySlasher>100</MercenarySlasher>
         </options>
       </li>
-      <li Class="PawnGroupMaker_Trader">
+      <li>
+        <kindDef>Trader</kindDef>
         <traders>
           <TownTrader>1</TownTrader>
         </traders>
         <carriers>
-          <PackMuffalo>1</PackMuffalo>
-          <PackDromedary>1</PackDromedary>
+          <Muffalo>1</Muffalo>
+          <Dromedary>1</Dromedary>
         </carriers>
         <guards>
           <TownGuard>250</TownGuard>
@@ -66,9 +77,19 @@
           <MercenarySlasher>100</MercenarySlasher>
         </guards>
       </li>
+      <li>
+        <kindDef>FactionBase</kindDef>
+        <options>
+          <Villager>50</Villager>
+          <TownGuard>250</TownGuard>
+          <TownCouncilman>250</TownCouncilman>
+          <GrenadierDestructive>50</GrenadierDestructive>
+          <MercenaryGunner>100</MercenaryGunner>
+          <MercenarySlasher>100</MercenarySlasher>
+        </options>
+      </li>
     </pawnGroupMakers>
-    <homeIconPath>World/FactionHomes/DefaultHome</homeIconPath>
-    <homeIconColor>(150,150,255)</homeIconColor>
+    <homeIconPath>World/WorldObjects/DefaultFactionBase</homeIconPath>
   </FactionDef>
 
   <FactionDef>
@@ -76,20 +97,28 @@
     <label>tribe</label>
     <description>These people have been here a very long time. Maybe their ancestors crashed here a thousand years ago. Maybe they survived some cataclysm that destroyed a technological civilization here. In any case, the tribals are mostly nomadic people who live off the land using primitive tools and weapons.\n\nSome tribes are more aggressive than others; many are open to trade and alliances, even with strange peoples like yourselves. Close cooperation or recruitment will be very difficult because of the vast sociotechnological and linguistic gap between the tribals and yourselves.\n\nDespite their apparent technological weakness, the tribals can be dangerous enemies and valuable friends because of their skill with low-tech warfare, their numbers, and their hardiness.</description>
     <pawnsPlural>tribespeople</pawnsPlural>
+    <factionBaseSelectionWeight>1</factionBaseSelectionWeight>
     <requiredCountAtGameStart>1</requiredCountAtGameStart>
     <canMakeRandomly>true</canMakeRandomly>
     <raidCommonality>100</raidCommonality>
     <canStageAttacks>true</canStageAttacks>
+    <expandingIconTexture>World/WorldObjects/Expanding/Village</expandingIconTexture>
+    <colorSpectrum>
+      <li>(0.4, 0.92, 0.35)</li>
+      <li>(0.89, 0.89, 0.7)</li>
+      <li>(1, 1, 0.1)</li>
+    </colorSpectrum>
     <startingGoodwill>
       <min>10</min>
       <max>30</max>
     </startingGoodwill>
     <mustStartOneEnemy>true</mustStartOneEnemy>
     <factionNameMaker>NamerFactionTribal</factionNameMaker>
+    <factionBaseNameMaker>NamerFactionBaseTribal</factionBaseNameMaker>
     <pawnNameMaker>NamerPersonTribal</pawnNameMaker>
     <techLevel>Neolithic</techLevel>
     <backstoryCategory>Tribal</backstoryCategory>
-    <leaderTitle>Chief</leaderTitle>
+    <leaderTitle>chief</leaderTitle>
     <hairTags>
       <li>Tribal</li>
     </hairTags>
@@ -100,39 +129,51 @@
     <caravanTraderKinds>
       <li>Caravan_Neolithic_BulkGoods</li>
       <li>Caravan_Neolithic_CombatSupplier</li>
-      <li>Caravan_Neolithic_SlavesMerchant</li>
+      <li>Caravan_Neolithic_Slaver</li>
     </caravanTraderKinds>
     <visitorTraderKinds>
       <li>Visitor_Neolithic_Standard</li>
     </visitorTraderKinds>
+    <factionBaseTraderKinds>
+      <li>FactionBase_Neolithic_Standard</li>
+    </factionBaseTraderKinds>
     <allowedArrivalTemperatureRange>
       <min>-40</min>
       <max>45</max>
     </allowedArrivalTemperatureRange>
     <pawnGroupMakers>
-      <li Class="PawnGroupMaker_Normal">
+      <li>
+        <kindDef>Normal</kindDef>
         <options>
           <TribalWarrior>60</TribalWarrior>
           <TribalArcher>100</TribalArcher>
           <TribalChief>70</TribalChief>
         </options>
       </li>
-      <li Class="PawnGroupMaker_Trader">
+      <li>
+        <kindDef>Trader</kindDef>
         <traders>
           <TribalTrader>1</TribalTrader>
         </traders>
         <carriers>
-          <PackMuffalo>1</PackMuffalo>
-          <PackDromedary>1</PackDromedary>
+          <Muffalo>1</Muffalo>
+          <Dromedary>1</Dromedary>
         </carriers>
         <guards>
           <TribalWarrior>60</TribalWarrior>
           <TribalArcher>100</TribalArcher>
         </guards>
       </li>
+      <li>
+        <kindDef>FactionBase</kindDef>
+        <options>
+          <TribalWarrior>60</TribalWarrior>
+          <TribalArcher>100</TribalArcher>
+          <TribalChief>70</TribalChief>
+        </options>
+      </li>
     </pawnGroupMakers>
-    <homeIconPath>World/FactionHomes/DefaultHome</homeIconPath>
-    <homeIconColor>(50,200,50)</homeIconColor>
+    <homeIconPath>World/WorldObjects/TribalFactionBase</homeIconPath>
   </FactionDef>
 
   <FactionDef>
@@ -140,6 +181,7 @@
 		<label>pirate band</label>
     <description>A gang of bandits.\n\nPirates don't sow, they don't build, and they rarely trade. They enrich themselves mostly by raiding and robbing the more productive groups in the area.\n\nTheir technology level depends mostly on who they've managed to steal from recently. Mostly they carry gunpowder weapons, though the luckier ones may have advanced energy weapons, and some may just like to stab people at close range.</description>
     <pawnsPlural>pirates</pawnsPlural>
+    <factionBaseSelectionWeight>1</factionBaseSelectionWeight>
     <requiredCountAtGameStart>1</requiredCountAtGameStart>
     <maxCountAtGameStart>2</maxCountAtGameStart>
     <canMakeRandomly>true</canMakeRandomly>
@@ -147,14 +189,21 @@
     <canSiege>true</canSiege>
     <canStageAttacks>true</canStageAttacks>
 		<appreciative>false</appreciative>
-    <leaderTitle>Boss</leaderTitle>
+    <leaderTitle>boss</leaderTitle>
+    <expandingIconTexture>World/WorldObjects/Expanding/PirateOutpost</expandingIconTexture>
+    <colorSpectrum>
+      <li>(0.45, 0.03, 0.02)</li>
+      <li>(0.8, 0.08, 0.18)</li>
+      <li>(0.92, 0.62, 0.06)</li>
+    </colorSpectrum>
     <startingGoodwill>
       <min>-100</min>
       <max>-90</max>
     </startingGoodwill>
     <mustStartOneEnemy>true</mustStartOneEnemy>
 		<factionNameMaker>NamerFactionPirate</factionNameMaker>
-		<techLevel>Industrial</techLevel>
+    <factionBaseNameMaker>NamerFactionBasePirate</factionBaseNameMaker>
+		<techLevel>Spacer</techLevel>
 		<backstoryCategory>Raider</backstoryCategory>
 		<hairTags>
 			<li>Punk</li>
@@ -168,7 +217,8 @@
       <max>45</max>
     </allowedArrivalTemperatureRange>
     <pawnGroupMakers>
-      <li Class="PawnGroupMaker_Normal">
+      <li>
+        <kindDef>Normal</kindDef>
         <commonality>100</commonality>
         <options>
           <Drifter>5</Drifter>
@@ -185,7 +235,8 @@
           <MercenaryHeavy>60</MercenaryHeavy>
         </options>
       </li>
-      <li Class="PawnGroupMaker_Normal">
+      <li>
+        <kindDef>Normal</kindDef>
         <commonality>50</commonality>
         <disallowedStrategies>
           <li>Siege</li>
@@ -194,9 +245,23 @@
           <MercenarySlasher>200</MercenarySlasher>
         </options>
       </li>
+      <li>
+        <kindDef>FactionBase</kindDef>
+        <options>
+          <Drifter>5</Drifter>
+          <Thrasher>70</Thrasher>
+          <GrenadierDestructive>100</GrenadierDestructive>
+          <Scavenger>100</Scavenger>
+          <Pirate>150</Pirate>
+          <MercenaryGunner>200</MercenaryGunner>
+          <MercenarySniper>150</MercenarySniper>
+          <MercenarySlasher>180</MercenarySlasher>
+          <MercenaryElite>200</MercenaryElite>
+          <PirateBoss>200</PirateBoss>
+        </options>
+      </li>
     </pawnGroupMakers>
-    <homeIconPath>World/FactionHomes/DefaultHome</homeIconPath>
-    <homeIconColor>(255,50,50)</homeIconColor>
+    <homeIconPath>World/WorldObjects/DefaultFactionBase</homeIconPath>
   </FactionDef>
 
 </FactionDefs>

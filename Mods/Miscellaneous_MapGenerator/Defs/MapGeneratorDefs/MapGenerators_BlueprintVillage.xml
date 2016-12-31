@@ -1,141 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-  <MapGeneratorDef>
-    <defName>MainMapGenerator</defName>
-    <genSteps>
+  <!-- Empty ruins -->
+  <GenStepDef>
+    <defName>ScatterRuinsSimple</defName>
+    <mapGenerator>MainMapGenerator</mapGenerator>
+    <order>300</order>
+    <genStep Class="GenStep_ScatterRuinsSimple">
+      <countPer10kCellsRange><min>1</min><max>2.35</max></countPer10kCellsRange>
+    </genStep>
+  </GenStepDef>
 
-      <!-- Generate abstract grids-->
-      <li Class="Genstep_ElevationFertility" />
-      
-      <!-- Generate basic rocks and terrain from grid-->
-      <li Class="Genstep_RocksFromGrid" />
-      <li Class="Genstep_Terrain" />
-      <li Class="Genstep_RockChunks" />
+  <!-- Blueprint ruins (single buildings) -->
+  <GenStepDef>
+    <defName>ScatterBlueprintSimple</defName>
+    <mapGenerator>MainMapGenerator</mapGenerator>
+    <order>330</order>
+    <genStep Class="MapGenerator.Genstep_CreateBlueprintSingle">
+        <countPer10kCellsRange><min>0.65</min><max>1.35</max></countPer10kCellsRange>
+    </genStep>
+  </GenStepDef>
 
-      <!-- Empty ruins (vanilla) -->
-      <li Class="Genstep_ScatterRuinsSimple">
-        <countPer10kCellsRange><min>2</min><max>4</max></countPer10kCellsRange>
-      </li>  
-	
-      <!-- Empty ruins village -->
-      <li Class="MapGenerator.Genstep_CreateBlueprintVillage">
-        <countPer10kCellsRange><min>0.02</min><max>0.08</max></countPer10kCellsRange>
-		<ruinCountRange><min>2</min><max>4</max></ruinCountRange>
+  <!-- Blueprint ruins (village) -->
+  <GenStepDef>
+    <defName>ScatterBlueprintVillage</defName>
+    <mapGenerator>MainMapGenerator</mapGenerator>
+    <order>340</order>
+    <genStep Class="MapGenerator.Genstep_CreateBlueprintVillage">
+      <countPer10kCellsRange><min>0.03</min><max>0.09</max></countPer10kCellsRange>
+		<ruinCountRange><min>2</min><max>5</max></ruinCountRange>
 		<ruinDistanceRange><min>5</min><max>15</max></ruinDistanceRange>
 		<ruinOffsetHorizontalRange><min>5</min><max>15</max></ruinOffsetHorizontalRange>
 		<ruinOffsetVerticalRange><min>5</min><max>15</max></ruinOffsetVerticalRange>
-      </li> 
-	  <!-- Empty ruins single -->
-      <li Class="MapGenerator.Genstep_CreateBlueprintSingle">
-        <countPer10kCellsRange><min>0.65</min><max>1.35</max></countPer10kCellsRange>
-      </li>
-	  
+    </genStep>
+  </GenStepDef>
 
-      <!-- Ancient casket shrines -->
-      <li Class="Genstep_ScatterShrines">
-        <countPer10kCellsRange><min>0.12</min><max>0.25</max></countPer10kCellsRange>
-      </li>
-
-            <!-- Steam geysers -->
-            <li Class="Genstep_ScatterThings">
-				<thingDef>SteamGeyser</thingDef>
-                <minSpacing>25</minSpacing>
-                <extraNoBuildEdgeDist>4</extraNoBuildEdgeDist>
-                <countPer10kCellsRange>
-                    <min>0.7</min>
-                    <max>1</max>
-                </countPer10kCellsRange>
-                <clearSpaceSize>30</clearSpaceSize>
-				<neededTerrainAffordance>Heavy</neededTerrainAffordance>
-				<validators>
-				  <li Class="ScattererValidator_Buildable">
-					<radius>4</radius>
-					<affordance>Heavy</affordance>
-				  </li>
-				  <li Class="ScattererValidator_NoNonNaturalEdifices">
-					<radius>4</radius>
-				  </li>
-				</validators>
-            </li>
-			
-            <!-- Mineral deposits -->
-            <li Class="Genstep_ScatterThings">
-				<thingDef>MineralDeposits</thingDef>
-                <minSpacing>21</minSpacing>
-                <extraNoBuildEdgeDist>4</extraNoBuildEdgeDist>
-                <countPer10kCellsRange>
-                    <min>2</min>
-                    <max>3</max>
-                </countPer10kCellsRange>
-                <clearSpaceSize>26</clearSpaceSize>
-				<neededTerrainAffordance>Heavy</neededTerrainAffordance>
-				<validators>
-				  <li Class="ScattererValidator_Buildable">
-					<radius>4</radius>
-					<affordance>Heavy</affordance>
-				  </li>
-				  <li Class="ScattererValidator_NoNonNaturalEdifices">
-					<radius>4</radius>
-				  </li>
-				</validators>
-            </li>
-			
-			<!-- Rare mineral deposits -->
-            <li Class="Genstep_ScatterThings">
-				<thingDef>RareMineralDeposits</thingDef>			
-                <minSpacing>25</minSpacing>
-                <extraNoBuildEdgeDist>4</extraNoBuildEdgeDist>
-                <countPer10kCellsRange>
-				  <min>0.4</min>
-				  <max>0.6</max>
-                </countPer10kCellsRange>
-                <clearSpaceSize>30</clearSpaceSize>
-				<neededTerrainAffordance>Heavy</neededTerrainAffordance>
-				<validators>
-				  <li Class="ScattererValidator_Buildable">
-					<radius>4</radius>
-					<affordance>Heavy</affordance>
-				  </li>
-				  <li Class="ScattererValidator_NoNonNaturalEdifices">
-					<radius>4</radius>
-				  </li>
-				</validators>
-            </li>
-			
-			  <!-- Oil deposits -->
-            <li Class="Genstep_ScatterThings">
-				<thingDef>Oilfield</thingDef>	
-                <minSpacing>25</minSpacing>
-                <extraNoBuildEdgeDist>4</extraNoBuildEdgeDist>
-                <countPer10kCellsRange>
-				  <min>0.7</min>
-				  <max>0.9</max>
-                </countPer10kCellsRange>
-                <clearSpaceSize>30</clearSpaceSize>
-				<neededTerrainAffordance>Heavy</neededTerrainAffordance>
-				<validators>
-				  <li Class="ScattererValidator_Buildable">
-					<radius>4</radius>
-					<affordance>Heavy</affordance>
-				  </li>
-				  <li Class="ScattererValidator_NoNonNaturalEdifices">
-					<radius>4</radius>
-				  </li>
-				</validators>
-            </li>
-      
-      <li Class="Genstep_FindPlayerStartSpot" />
-
-      <li Class="EdB.PrepareCarefully.Genstep_ScenParts" />
-
-      <li Class="Genstep_Plants" />
-      
-      <li Class="Genstep_Snow" />
-      
-      <li Class="Genstep_Animals" />
-      
-    </genSteps>
-  </MapGeneratorDef>
   
 </Defs>

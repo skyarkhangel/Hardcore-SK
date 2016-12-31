@@ -1,6 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ThinkTrees>
 
+  <!--============= Main colonist behavior core ============-->
+  
+  <ThinkTreeDef>
+    <defName>MainColonistBehaviorCore</defName>
+    <thinkRoot Class="ThinkNode_PrioritySorter">
+      <subNodes>
+        <li Class="JobGiver_GetFood"/>
+        <li Class="JobGiver_GetRest"/>
+        <li Class="JobGiver_SatisfyChemicalNeed"/>
+        <li Class="JobGiver_TakeDrugsForDrugPolicy"/>
+        <li Class="ThinkNode_Priority_GetJoy">
+          <subNodes>
+            <li Class="JobGiver_GetJoyInBed"/>
+            <li Class="JobGiver_GetJoy"/>
+          </subNodes>
+        </li>
+        <li Class="JobGiver_Work"/>
+      </subNodes>
+    </thinkRoot>
+  </ThinkTreeDef>
+  
   <!--============= Downed ============-->
   
   <ThinkTreeDef>
@@ -125,15 +146,19 @@
           </subNodes>
         </li>
         
-        <!-- Binging on alcohol -->
-        <li Class="ThinkNode_ConditionalMentalState">
-          <state>BingingAlcohol</state>
+        <!-- Binging on drug -->
+        <li Class="ThinkNode_ConditionalMentalStates">
+          <states>
+            <li>BingingDrugMajor</li>
+            <li>BingingDrugExtreme</li>
+          </states>
           <subNodes>
             <li Class="ThinkNode_PrioritySorter">
               <minPriority>0.5</minPriority>
               <subNodes>
                 <li Class="JobGiver_GetFood"/>
                 <li Class="JobGiver_GetRest"/>
+                <li Class="JobGiver_SatisfyChemicalNeed"/>
                 <li Class="ThinkNode_Priority_GetJoy">
                   <subNodes>
                     <li Class="JobGiver_GetJoy"/>
@@ -141,7 +166,7 @@
                 </li>
               </subNodes>
             </li>
-            <li Class="JobGiver_BingeAlcohol"/>
+            <li Class="JobGiver_BingeDrug"/>
             <li Class="JobGiver_WanderColony" />
           </subNodes>
         </li>
@@ -155,6 +180,7 @@
               <subNodes>
                 <li Class="JobGiver_GetFood"/>
                 <li Class="JobGiver_GetRest"/>
+                <li Class="JobGiver_SatisfyChemicalNeed"/>
                 <li Class="ThinkNode_Priority_GetJoy">
                   <subNodes>
                     <li Class="JobGiver_GetJoy"/>
