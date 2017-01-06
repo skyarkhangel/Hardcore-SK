@@ -15,7 +15,7 @@ Using additional mods (not included in the project) is not recommended.
 ## Installation:
 
 1. Go to the folder you installed the game in. (*gamefolder*)    
-Delete all mods inside your *Mods* folder.  
+Delete all mods inside your Rimworld\Mods\ folder.  
 
 2. Open up the downloaded Hardcore sk project .zip file.
 Extract everything in the Hardcore-SK-master\Mods\ folder into your Rimworlds\Mods\ folder.
