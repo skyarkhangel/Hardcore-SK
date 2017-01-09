@@ -12,7 +12,7 @@
             <!-- Keep lying down -->
             <li Class="JobGiver_KeepLyingDown" />
           </subNodes>
-        </li>
+        </li>	
       
         <li Class="ThinkNode_Subtree">
           <treeDef>Downed</treeDef>
@@ -46,7 +46,78 @@
         <li Class="ThinkNode_SubtreesByTag">
           <insertTag>Humanlike_PostDuty</insertTag>
         </li>
-        
+
+ 		<!-- Prisoner -->
+		<li Class="ThinkNode_ConditionalPrisoner">
+          <leaveJoinableLordIfIssuesJob>true</leaveJoinableLordIfIssuesJob>
+					<subNodes>
+            <!-- If it's the player home map... -->
+            <li Class="ThinkNode_ConditionalInNonPlayerHomeMap">
+              <invert>true</invert>
+              <subNodes>
+                <!-- Wait instead of escaping if should -->
+                <li Class="JobGiver_PrisonerWaitInsteadOfEscaping">
+                  <maxDanger>Deadly</maxDanger>
+                </li>
+              
+                <!-- Escape -->
+                <li Class="JobGiver_PrisonerEscape" />
+              </subNodes>
+            </li>
+            
+            <li Class="JobGiver_PatientGoToBed" />
+            <li Class="JobGiver_PrisonerGetDressed" />
+            <li Class="ThinkNode_ConditionalReleased">
+              <subNodes>
+                <li Class="JobGiver_ExitMapBest">
+                  <defaultLocomotion>Walk</defaultLocomotion>
+                </li>
+              </subNodes>
+            </li>
+            
+            <!-- If in non-PlayerHomeMap -->
+            <li Class="ThinkNode_ConditionalInNonPlayerHomeMap">
+              <subNodes>
+                <!-- There is a caravan nearby -->
+                <li Class="ThinkNode_ConditionalAnyAutoJoinableCaravan">
+                  <subNodes>
+                    <!-- Exit map and join the caravan -->
+                    <li Class="JobGiver_ExitMapBest">
+                      <failIfCantJoinOrCreateCaravan>true</failIfCantJoinOrCreateCaravan> <!-- in case the caravan moves before we manage to exit the map -->
+                    </li>
+                  </subNodes>
+                </li>
+                <!-- Any colonist is now on his way to exit the map -->
+                <li Class="ThinkNode_ConditionalAnyColonistTryingToExitMap">
+                  <subNodes>
+                    <!-- Wander near the map edge -->
+                    <li Class="JobGiver_WanderMapEdge">
+                      <locomotionUrgency>Jog</locomotionUrgency>
+                      <maxDanger>Deadly</maxDanger>
+                    </li>
+                  </subNodes>
+                </li>
+                <!-- No colonist spawned in the map -->
+                <li Class="ThinkNode_ConditionalAnyUndownedColonistSpawnedNearby">
+                  <invert>true</invert>
+                  <subNodes>
+                    <li Class="JobGiver_PrisonerEscape" />
+                  </subNodes>
+                </li>
+                <!-- Wander -->
+                <li Class="JobGiver_WanderColony">
+                  <maxDanger>Deadly</maxDanger>
+                </li>
+              </subNodes>
+            </li>
+            
+            <li Class="JobGiver_WanderCurrentRoom">
+              <maxDanger>Deadly</maxDanger>
+            </li>
+						<li Class="JobGiver_IdleError" />
+					</subNodes>
+				</li>
+
         <!-- If on colonist team, do forced and emergency work -->
 				<li Class="ThinkNode_ConditionalColonist">
 					<subNodes>
@@ -75,9 +146,9 @@
             <li Class="JobGiver_OptimizeApparel">
               <leaveJoinableLordIfIssuesJob>true</leaveJoinableLordIfIssuesJob>
             </li>
+            
             <!-- Unload your inventory -->
             <li Class="JobGiver_UnloadYourInventory" />
-			
 					</subNodes>
 				</li>
 
@@ -107,14 +178,13 @@
         <li Class="ThinkNode_SubtreesByTag">
           <insertTag>Humanlike_PostMain</insertTag>
         </li>
-
+		
         <!-- Idle colonist -->
         <li Class="ThinkNode_ConditionalColonist">
           <subNodes>
             <li Class="ThinkNode_Tagger">
               <tagToGive>Idle</tagToGive>
               <subNodes>
-              
                 <!-- Wander -->
                 <li Class="JobGiver_WanderColony">
                   <maxDanger>None</maxDanger>
