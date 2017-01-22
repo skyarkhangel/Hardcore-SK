@@ -12,7 +12,7 @@
             <!-- Keep lying down -->
             <li Class="JobGiver_KeepLyingDown" />
           </subNodes>
-        </li>	
+        </li>
       
         <li Class="ThinkNode_Subtree">
           <treeDef>Downed</treeDef>
@@ -65,7 +65,6 @@
               </subNodes>
             </li>
             
-            <li Class="JobGiver_PatientGoToBed" />
             <li Class="JobGiver_PrisonerGetDressed" />
             <li Class="ThinkNode_ConditionalReleased">
               <subNodes>
@@ -141,6 +140,18 @@
               <leaveJoinableLordIfIssuesJob>true</leaveJoinableLordIfIssuesJob>
               <emergency>true</emergency>
             </li>
+			
+            <!-- Removed. Cause bugs with Join Party
+			Lord directives (medium priority) 
+            <li Class="ThinkNode_JoinVoluntarilyJoinableLord">
+              <dutyHook>MediumPriority</dutyHook>
+              <subNodes>
+                <li Class="ThinkNode_Subtree">
+                  <treeDef>LordDuty</treeDef>
+                </li>
+              </subNodes>
+            </li>
+			-->
             
             <!-- Optimize apparel -->
             <li Class="JobGiver_OptimizeApparel">
@@ -168,7 +179,6 @@
 							<subNodes>
 								<li Class="JobGiver_Work"/>
 								<li Class="Combat_Realism.JobGiver_UpdateLoadout"/>
-								
 							</subNodes>
 						</li>
 					</subNodes>
@@ -193,7 +203,33 @@
             </li>
           </subNodes>
         </li>
-        
+		
+        <!-- If you're a neutral non-prisoner, if you're not bleeding exit the map, otherwise wander the room -->
+        <li Class="ThinkNode_ConditionalPrisoner">
+          <invert>true</invert>
+          <subNodes>
+            <li Class="ThinkNode_ConditionalNeutralFaction">
+              <subNodes>
+                <li Class="JobGiver_ExitMapBest">
+                  <defaultLocomotion>Walk</defaultLocomotion>
+                </li>
+              </subNodes>
+            </li>
+          </subNodes>
+        </li>
+		
+				<!-- Final backup: If you're just here for no apparent reason, and not a colonist, leave the map
+						 e.g. This happens for pawns who are downed during combat, then later self-heal -->
+				<li Class="ThinkNode_ConditionalColonist">
+					<invert>true</invert>
+					<subNodes>
+						<li Class="JobGiver_ExitMapBest">
+							<defaultLocomotion>Walk</defaultLocomotion>
+						</li>
+					</subNodes>
+				</li>
+				
+		<!-- If you can't leave, just wander -->
         <li Class="JobGiver_WanderAnywhere">
           <maxDanger>Deadly</maxDanger>
         </li>
