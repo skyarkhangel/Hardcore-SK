@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <!-- Ptarmigan Egg -->
+  
+  <ThingDef Abstract="True" Name="PtarmiganEggBase" ParentName="OrganicProductBase" >
+    <graphicData>
+      <texPath>Things/Pawn/Animal/Ptarmigans/Egg</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <ingestible>
+      <foodType>AnimalProduct</foodType>
+      <nutrition>0.25</nutrition>
+      <ingestEffect>EatMeat</ingestEffect>
+      <ingestSound>RawMeat_Eat</ingestSound>
+      <tasteThought>AteRawFood</tasteThought>
+    </ingestible>
+    <statBases>
+      <Mass>0.15</Mass>
+    </statBases>
+  </ThingDef>
+
+  <ThingDef Abstract="True" Name="PtarmiganEggUnfertBase" ParentName="PtarmiganEggBase" >
+    <ingestible>
+      <preferability>RawBad</preferability>
+    </ingestible>
+    <thingCategories>
+      <li>EggsUnfertilized</li>
+    </thingCategories>
+    <comps>
+      <li Class="CompProperties_Rottable">
+        <daysToRotStart>15</daysToRotStart>
+	<rotDestroys>true</rotDestroys>
+      </li>
+      <li Class="CompProperties_FoodPoisoningChance" />
+    </comps>
+  </ThingDef>
+
+  <ThingDef Abstract="True" Name="PtarmiganEggFertBase" ParentName="PtarmiganEggBase" >
+    <tickerType>Normal</tickerType>
+    <ingestible>
+      <preferability>DesperateOnly</preferability>
+    </ingestible>
+    <thingCategories>
+      <li>EggsFertilized</li>
+    </thingCategories>
+    <comps>
+      <li Class="CompProperties_FoodPoisoningChance" />
+      <li Class="CompProperties_TemperatureRuinable">
+	<minSafeTemperature>-30</minSafeTemperature>
+	<maxSafeTemperature>30</maxSafeTemperature>
+	<progressPerDegreePerTick>0.00003</progressPerDegreePerTick>
+      </li>
+    </comps>
+  </ThingDef>
+  
+  <ThingDef ParentName="PtarmiganEggUnfertBase">
+    <defName>EggPtarmiganUnfertilized</defName>
+    <label>ptarmigan egg (unfert.)</label>
+    <description>Unfertilized ptarmigan egg. It can be eaten raw, but it's much, much better cooked.</description>
+    <graphicData>
+      <color>(255,255,255)</color>
+    </graphicData>
+    <statBases>
+      <MarketValue>7.0</MarketValue>
+    </statBases>
+  </ThingDef>
+
+  <ThingDef ParentName="PtarmiganEggFertBase">
+    <defName>EggPtarmiganFertilized</defName>
+    <label>ptarmigan egg (fert.)</label>
+    <description>Fertilized ptarmigan egg. If all goes well, it should hatch into a chick. It can be eaten raw, but it's much better cooked.</description>
+    <graphicData>
+      <color>(255,255,255)</color>
+    </graphicData>
+    <statBases>
+      <MarketValue>8.0</MarketValue>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Hatcher">
+        <hatcherDaysToHatch>4</hatcherDaysToHatch>
+        <hatcherPawn>Ptarmigan</hatcherPawn>
+      </li>
+    </comps>
+  </ThingDef>
+  
+  <!-- Animal -->
+  
+  <ThingDef ParentName="AnimalThingBase">
+    <defName>Ptarmigan</defName>
+    <label>Ptarmigan</label>
+    <description>A small gamebird notable for its feathered feet, to better survive in frigid temperatures.</description>
+    <statBases>
+	  <Mass>2</Mass>
+      <MoveSpeed>2.0</MoveSpeed>
+      <ComfyTemperatureMin>-30</ComfyTemperatureMin>
+      <ComfyTemperatureMax>30</ComfyTemperatureMax>
+      <MarketValue>75</MarketValue>
+      <LeatherAmount>0</LeatherAmount>
+    </statBases>
+    <verbs>
+      <li>
+        <verbClass>Verb_MeleeAttack</verbClass>
+        <defaultCooldownTime>1.65</defaultCooldownTime>
+        <meleeDamageBaseAmount>4</meleeDamageBaseAmount>
+        <meleeDamageDef>Bite</meleeDamageDef>
+        <linkedBodyPartsGroup>Beak</linkedBodyPartsGroup>
+      </li>
+    </verbs>
+    <comps>
+      <li Class="CompProperties_EggLayer">
+        <eggUnfertilizedDef>EggPtarmiganUnfertilized</eggUnfertilizedDef>
+        <eggFertilizedDef>EggPtarmiganFertilized</eggFertilizedDef>
+        <eggFertilizationCountMax>1</eggFertilizationCountMax>
+        <eggLayIntervalDays>5</eggLayIntervalDays>
+        <eggCountRange>
+	  <min>1</min>
+          <max>5</max>
+	</eggCountRange>
+      </li>
+    </comps>
+    <race>
+      <body>Bird</body>
+      <baseHungerRate>0.25</baseHungerRate>
+      <baseBodySize>0.25</baseBodySize>
+      <baseHealthScale>0.35</baseHealthScale>
+      <foodType>VegetarianRoughAnimal</foodType>
+      <trainableIntelligence>None</trainableIntelligence>
+      <wildness>0.05</wildness>
+      <gestationPeriodDays>7</gestationPeriodDays>
+      <mateMtbHours>3</mateMtbHours>
+      <litterSizeCurve>
+        <points>
+          <li>(0.99, 0)</li>
+          <li>(1, 1)</li>
+          <li>(1.01, 0)</li>
+        </points>
+      </litterSizeCurve>
+      <lifeExpectancy>6</lifeExpectancy>
+      <lifeStageAges>
+        <li>
+          <def>AnimalBaby</def>
+          <minAge>0</minAge>
+	  <soundWounded>Pawn_Chick_Call</soundWounded>
+	  <soundDeath>Pawn_Chick_Call</soundDeath>
+	  <soundCall>Pawn_Chick_Call</soundCall>
+	  <soundAngry>Pawn_Chick_Call</soundAngry>
+        </li>
+        <li>
+          <def>AnimalJuvenile</def>
+          <minAge>0.10</minAge>
+        </li>
+        <li>
+          <def>AnimalAdult</def>
+          <minAge>0.30</minAge>
+          <soundWounded>Pawn_Chicken_Wounded</soundWounded>
+          <soundDeath>Pawn_Chicken_Death</soundDeath>
+          <soundCall>Pawn_Chicken_Call</soundCall>
+          <soundAngry>Pawn_Chicken_Angry</soundAngry>
+        </li>
+      </lifeStageAges>
+      <soundMeleeHitPawn>Pawn_Melee_SmallScratch_HitPawn</soundMeleeHitPawn>
+      <soundMeleeHitBuilding>Pawn_Melee_SmallScratch_HitBuilding</soundMeleeHitBuilding>
+      <soundMeleeMiss>Pawn_Melee_SmallScratch_Miss</soundMeleeMiss>
+    </race>
+    <tradeTags>
+      <li>StandardAnimal</li>
+    </tradeTags>
+  </ThingDef>
+
+  <PawnKindDef ParentName="AnimalKindBase">
+    <defName>Ptarmigan</defName>
+    <label>ptarmigan</label>
+    <race>Ptarmigan</race>
+    <combatPower>15</combatPower>
+    <wildSpawn_EcoSystemWeight>0.20</wildSpawn_EcoSystemWeight>
+    <labelMale>ptarmigan cock</labelMale>
+    <labelFemale>ptarmigan hen</labelFemale>
+    <lifeStages>
+      <li>
+        <label>chick</label>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/Ptarmigans/SnowPtarmiganHen</texPath>
+          <drawSize>0.45</drawSize>
+          <color>(190,140,50)</color>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <drawSize>0.45</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <labelMale>cockerel</labelMale>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/Ptarmigans/RockPtarmiganCock</texPath>
+          <drawSize>0.75</drawSize>
+          <color>(255,255,255)</color>
+        </bodyGraphicData>
+        <femaleGraphicData>
+          <texPath>Things/Pawn/Animal/Ptarmigans/RockPtarmiganHen</texPath>
+          <drawSize>0.73</drawSize>
+        </femaleGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <drawSize>0.7</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Animal/Ptarmigans/RockPtarmiganCock</texPath>
+          <drawSize>0.87</drawSize>
+          <color>(255,255,255)</color>
+          <shadowData>
+            <volume>(0.3, 0.4, 0.3)</volume>
+            <offset>(0,0,-0.05)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <femaleGraphicData>
+          <texPath>Things/Pawn/Animal/Ptarmigans/RockPtarmiganHen</texPath>
+          <drawSize>0.85</drawSize>
+        </femaleGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <drawSize>0.85</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+    </lifeStages>
+  </PawnKindDef>
+  
+</Defs>

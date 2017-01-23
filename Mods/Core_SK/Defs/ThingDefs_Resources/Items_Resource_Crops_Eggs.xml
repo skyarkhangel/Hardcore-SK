@@ -5,13 +5,20 @@
 
   
   <ThingDef Abstract="True" Name="EggBase" ParentName="OrganicProductBase" >
+    <graphicData>
+      <texPath>Things/Item/Resource/AnimalProductRaw/EggBirdSmall</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
     <ingestible>
       <foodType>AnimalProduct</foodType>
       <nutrition>0.25</nutrition>
       <ingestEffect>EatMeat</ingestEffect>
       <ingestSound>RawMeat_Eat</ingestSound>
-      
+      <tasteThought>AteRawFood</tasteThought>
     </ingestible>
+    <statBases>
+      <Mass>0.15</Mass>
+    </statBases>
   </ThingDef>
   
   <ThingDef Abstract="True" Name="EggUnfertBase" ParentName="EggBase" >
@@ -24,18 +31,29 @@
     <comps>
       <li Class="CompProperties_Rottable">
         <daysToRotStart>15</daysToRotStart>
-      </li>
+				<rotDestroys>true</rotDestroys>
+			</li>
+      <li Class="CompProperties_FoodPoisoningChance" />
     </comps>
   </ThingDef>
 
   
   <ThingDef Abstract="True" Name="EggFertBase" ParentName="EggBase" >
+    <tickerType>Normal</tickerType>
     <ingestible>
       <preferability>DesperateOnly</preferability>
     </ingestible>
     <thingCategories>
       <li>EggsFertilized</li>
     </thingCategories>
+		<comps>
+			<li Class="CompProperties_FoodPoisoningChance" />
+			<li Class="CompProperties_TemperatureRuinable">
+				<minSafeTemperature>0</minSafeTemperature>
+				<maxSafeTemperature>50</maxSafeTemperature>
+				<progressPerDegreePerTick>0.00003</progressPerDegreePerTick>
+			</li>
+		</comps>
   </ThingDef>
   
   
@@ -51,12 +69,18 @@
     </graphicData>
     <statBases>
       <MarketValue>600.0</MarketValue>
+      <Mass>10</Mass>
     </statBases>
     <comps>
       <li Class="CompProperties_Hatcher">
         <hatcherDaysToHatch>30</hatcherDaysToHatch>
         <hatcherPawn>FRaptor</hatcherPawn>
       </li>
+			<li Class="CompProperties_TemperatureRuinable">
+				<minSafeTemperature>-20</minSafeTemperature>
+				<maxSafeTemperature>30</maxSafeTemperature>
+				<progressPerDegreePerTick>0.00003</progressPerDegreePerTick>
+			</li>
     </comps>
   </ThingDef>
 
@@ -73,6 +97,7 @@
     </graphicData>
     <statBases>
       <MarketValue>15.0</MarketValue>
+      <Mass>1</Mass>
     </statBases>
     <comps>
       <li Class="CompProperties_Hatcher">
@@ -93,12 +118,18 @@
     </graphicData>
     <statBases>
       <MarketValue>100.0</MarketValue>
+      <Mass>0.6</Mass>
     </statBases>
     <comps>
       <li Class="CompProperties_Hatcher">
         <hatcherDaysToHatch>15</hatcherDaysToHatch>
         <hatcherPawn>Nightling</hatcherPawn>
       </li>
+			<li Class="CompProperties_TemperatureRuinable">
+				<minSafeTemperature>-10</minSafeTemperature>
+				<maxSafeTemperature>40</maxSafeTemperature>
+				<progressPerDegreePerTick>0.00003</progressPerDegreePerTick>
+			</li>
     </comps>
   </ThingDef>
 
