@@ -15,6 +15,10 @@ Using additional mods (not included in the project) is not recommended.
 Feel free to join us on our Discord Server!
 https://discord.gg/FMPRSKr
 (Validated Account Required)
+
+
+Owlchemist has mini-mod to increase difficulty here:
+https://github.com/Owlchemist/Survival-Hardcore-SK
      
 ## Installation:
 
