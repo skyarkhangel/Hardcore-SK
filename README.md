@@ -41,6 +41,4 @@ And copy new "ModsConfig.xml", which at the root of the archive modpack.
 6. Have fun <i class="fa fa-smile-o"></i>   
 
 ____     
-The content of all individual mods is licensed under their respective licenses.    
-Additions exclusive to this project are licensed under the WTFPL.     
-[<img src="http://www.wtfpl.net/wp-content/uploads/2012/12/wtfpl-badge-1.png">](http://www.wtfpl.net/)
+The content of all individual mods is licensed under their respective licenses.
