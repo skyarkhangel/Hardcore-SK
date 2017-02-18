@@ -22,7 +22,7 @@ https://discord.gg/FMPRSKr
 Delete all mods inside your Rimworld\Mods\ folder except "Core".
 
 2. Open up the downloaded Hardcore sk project .zip file.
-Extract everything in the Hardcore-SK-master\Mods\ folder into your Rimworlds\Mods\ folder, and overwrite any files if prompted.
+Extract everything in the Hardcore-SK-master\Mods\ folder into your Rimworlds\Mods\ folder.
 
 3. Go to:  
 For Windows users:
