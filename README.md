@@ -51,7 +51,7 @@ HCSK 5.0 Jewel Team:
 <br>
 <br>EtherDreamer - Artist
 <br>Freijie - Coder and Russian translations
-<br>Owlchemists - Coding Lead (EN team) and Survival Add-on
+<br>Owlchemist - Coding Lead (EN team) and Survival Add-on
 <br>Sidfu - Coder
 <br>Adenia - Coder/Guide Writer (EN)
 <br>Soyaman - Guide Writer (EN)
