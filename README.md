@@ -41,6 +41,15 @@ And copy new "ModsConfig.xml", which at the root of the archive modpack.
 5. Have fun <i class="fa fa-smile-o"></i>   
 
 ____
+<br>
+Mod Pack Developer:
+<br>Skyarkhangel
+____
+<br>
+HCSK 5.0 Jewel Team:
+<br>
+(In no particular order)
+<br>
 <br>EtherDreamer - Artist
 <br>Freijie - Coder and Russian translations
 <br>Owlchemists - Coding Lead and Survival Add-on
@@ -59,6 +68,7 @@ ____
 
 
 Special Thanks to:
+<br>
 <br>NotFood
 <br>SpoonShortage
 <br>Mrofa
