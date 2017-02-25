@@ -40,5 +40,43 @@ And copy new "ModsConfig.xml", which at the root of the archive modpack.
 
 6. Have fun <i class="fa fa-smile-o"></i>   
 
-____     
+____
+
+
+EtherDreamer - Artist
+Freijie - Coder and Russian translations
+Owlchemists - Coding Lead and Survival Add-on
+Sidfu - Coder
+Adenia - Coder/Guide Writer (EN)
+Soyaman - Guide Writer (EN)
+Rhyssia - Coder and Co-ordinator
+FelGoblin - Coder
+Abhay - Artist
+Arai - Artist
+Murdantiks - Guide Writer (RU)
+FaHT1k - Russian translations
+Rey - Russian translations & site administrator
+Ivanzyfer - Russian translations & site moderator
+Dzeniba - site moderator
+
+
+Special Thanks to:
+NotFood
+Fotos
+Greeny
+Hunt3rKill3r
+Lambert2191
+Vursteen
+Tuvia
+Dunkhan
+jnkyacc
+Jalordon
+Varmonger
+funs777
+olizit
+
+
+____
+
+
 The content of all individual mods is licensed under their respective licenses.
