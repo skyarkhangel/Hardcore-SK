@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Buildings>
 
-  <ThingDef ParentName="BenchBase">
+  <ThingDef Name="ResearchBase" ParentName="BenchBase" Abstract="True">
+		<building>
+			<workSpeedPenaltyOutdoors>true</workSpeedPenaltyOutdoors>
+			<workSpeedPenaltyTemperature>true</workSpeedPenaltyTemperature>
+		</building>
+		<comps>
+			<li>
+				<compClass>CompReportWorkSpeed</compClass>
+			</li>
+		</comps>
+		<placeWorkers>
+			<li>PlaceWorker_ReportWorkSpeedPenalties</li>
+		</placeWorkers>
+  </ThingDef>
+
+  <ThingDef ParentName="ResearchBase">
     <defName>PrimitiveResearchBench</defName>
     <label>primitive research table</label>
 	<description>Study surrounding materials here to research new things.</description>
@@ -41,16 +56,16 @@
     <surfaceType>Item</surfaceType>
   </ThingDef>
 
-  <ThingDef ParentName="BenchBase">
+  <ThingDef ParentName="ResearchBase">
     <defName>SimpleResearchBench</defName>
     <label>research bench</label>
     <description>A simple bench with writing implements and low-tech scientific tools. Researchers work here to discover new things.</description>
     <thingClass>Building_ResearchBench</thingClass>
     <graphicData>
-      <texPath>Things/Building/Production/ResearchBenchSimple</texPath>
-      <graphicClass>Graphic_Multi</graphicClass>
-      <shaderType>CutoutComplex</shaderType>
-      <drawSize>(5,4)</drawSize>
+			<texPath>Things/Building/Research/ResearchBench</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<shaderType>CutoutComplex</shaderType>
+			<drawSize>(3.5,1.5)</drawSize>
       <damageData>
         <cornerTL>Damage/Corner</cornerTL>
         <cornerTR>Damage/Corner</cornerTR>
@@ -67,7 +82,7 @@
       <Flammability>1.0</Flammability>
       <ResearchSpeedFactor>0.7</ResearchSpeedFactor>
     </statBases>
-    <size>(3,2)</size>
+    <size>(3,1)</size>
 	<stuffCategories>
 	<li>Metallic</li>
 	<li>Woody</li>
@@ -101,12 +116,13 @@
   </ThingDef>
 
 
-	<ThingDef ParentName="BenchBase">
+	<ThingDef ParentName="ResearchBase">
     <defName>HiTechResearchBench</defName>
     <label>hi-tech research bench</label>
     <description>A high-tech bench with computers and electronic measurement equipment. Research is sped up by the high-tech tools. Requires power.</description>
     <thingClass>Building_ResearchBench</thingClass>
-    <size>(5,2)</size>
+	<uiIconPath>Things/Building/Research/ResearchBenchHiTechIco</uiIconPath>
+    <size>(3,1)</size>
     <stuffCategories>
       <li>Metallic</li>
     </stuffCategories>
@@ -118,10 +134,9 @@
 	  <AdvMechanism>5</AdvMechanism>
     </costList>
     <graphicData>
-      <texPath>Things/Building/Production/ResearchBenchHiTech</texPath>
+      <texPath>Things/Building/Research/ResearchBenchHiTech</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
-      <shaderType>CutoutComplex</shaderType>
-      <drawSize>(7,4)</drawSize>
+	  <drawSize>(3,1.25)</drawSize>
       <damageData>
         <cornerTL>Damage/Corner</cornerTL>
         <cornerTR>Damage/Corner</cornerTR>
@@ -153,7 +168,8 @@
       <li Class="CompProperties_AffectedByFacilities">
         <linkableFacilities>
           <li>MultiAnalyzer</li>
-          <li>FileCabinet</li>
+		  <li>LabStation</li>
+		  <li>LabTerminal</li>
         </linkableFacilities>
       </li>
     </comps>
@@ -204,7 +220,7 @@
     <costList>
 	<Component>8</Component>
 	<Glass>6</Glass>
-	<Electronics>2</Electronics>
+	<ElectronicComponents>7</ElectronicComponents>
     </costList>
     <soundImpactDefault>BulletImpactMetal</soundImpactDefault>
     <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
@@ -272,7 +288,7 @@
     <costList>
 	<Component>12</Component>
 	<Glass>6</Glass>
-	<Electronics>5</Electronics>
+	<Electronics>4</Electronics>
     </costList>
 	    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
     <placeWorkers>
@@ -283,8 +299,8 @@
     <comps>
 			  <li Class="CompProperties_Flickable"/>
       <li Class="CompProperties_Glower">
-        <overlightRadius>7.0</overlightRadius>
-        <glowRadius>14</glowRadius>
+        <overlightRadius>9.0</overlightRadius>
+        <glowRadius>16</glowRadius>
         <glowColor>(370,370,370,0)</glowColor>
       </li>
       <li Class="CompProperties_Power">
@@ -306,7 +322,29 @@
 	<researchPrerequisites><li>SK_HydroponicsII</li><li>MicroelectronicsBasics</li></researchPrerequisites>
   </ThingDef>
 
-
+<ThingDef ParentName="BuildingBase">
+    <defName>CaravanSpot</defName>
+	<label>caravan spot</label>
+	<thingClass>SK.CaravanSpot</thingClass>
+	<Description>Designates a spot where caravans will be formed.</Description>
+    <graphicData>
+      <texPath>Things/Building/Misc/PartySpot</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <AltitudeLayer>FloorEmplacement</AltitudeLayer>
+    <statBases>
+      <WorkToBuild>0</WorkToBuild>
+    </statBases>
+		<scatterableOnMapGen>false</scatterableOnMapGen>
+		<useHitPoints>False</useHitPoints>
+    <DesignationCategory>Misc</DesignationCategory>
+    <Passability>Standable</Passability>
+    <building>
+      <sowTag>SupportPlantsOnly</sowTag>
+      <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
+    </building>
+	<tickerType>Normal</tickerType>
+  </ThingDef>
 
   <ThingDef ParentName="BuildingBase">
     <defName>TradingSpot</defName>
@@ -526,7 +564,7 @@
     <label>multi-analyzer</label>
     <description>Increases research speed. Needs to be placed near a research bench. One research bench can be linked to only one multi-analyzer.</description>
     <graphicData>
-      <texPath>Things/Building/Misc/MultiAnalyzer</texPath>
+      <texPath>Things/Building/Research/MultiAnalyzer</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>(2,2)</drawSize>
       <damageData>
@@ -569,7 +607,7 @@
       </li>
       <li Class="CompProperties_Facility">
         <statOffsets>
-          <ResearchSpeedFactor>0.15</ResearchSpeedFactor>
+          <ResearchSpeedFactor>0.12</ResearchSpeedFactor>
         </statOffsets>
         <maxSimultaneous>1</maxSimultaneous>
       </li>
@@ -580,6 +618,198 @@
 	<researchPrerequisites><li>MultiAnalyzer</li></researchPrerequisites>
   </ThingDef>
 
+  
+  <ThingDef ParentName="BuildingBase">
+    <defName>CounterTopModular</defName>
+    <label>laboratory counter</label>
+    <description>A convenient countertop surface.</description>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Impassable</passability>
+    <castEdgeShadows>true</castEdgeShadows>
+    <fillPercent>0.4</fillPercent>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <designationCategory>Misc</designationCategory>
+    <staticSunShadowHeight>0.20</staticSunShadowHeight>	
+    <uiIconPath>Things/Building/Research/CounterIco</uiIconPath>	
+	<graphicData>
+		<texPath>Things/Building/Research/Counter_Atlas</texPath>
+		<graphicClass>Graphic_Single</graphicClass>
+		<linkType>Basic</linkType>
+			<linkFlags>
+				<li>Custom1</li>
+			</linkFlags>
+	</graphicData>	
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <WorkToMake>450</WorkToMake>
+      <Flammability>1.0</Flammability>
+      <Beauty>2</Beauty>
+    </statBases>
+	<minifiedDef>MinifiedFurniture</minifiedDef>
+    <size>(1,1)</size>
+		<stuffCategories>
+			<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>5</costStuffCount>
+    <rotatable>false</rotatable>
+    <placingDraggableDimensions>2</placingDraggableDimensions>
+    <researchPrerequisites>
+      <li>MicroelectronicsBasics</li>
+    </researchPrerequisites>
+  </ThingDef>
+  
+  <ThingDef ParentName="ResearchBase">
+    <DefName>LabStation</DefName>
+    <label>laboratory station</label>
+    <ThingClass>Building_ResearchBench</ThingClass>
+    <Description>An auxillary research station for expanding laboratory operations. Requires power.</Description>
+	<uiIconPath>Things/Building/Research/ScienceStationIco</uiIconPath>
+    <graphicData>
+      <texPath>Things/Building/Research/ScienceStation</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(3,3)</drawSize>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+		<stuffCategories>
+			<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>50</costStuffCount>
+    <costList>
+			<Plastic>5</Plastic>
+			<Glass>10</Glass>
+			<Component>5</Component>
+			<Electronics>3</Electronics>
+    </costList>
+    <AltitudeLayer>Building</AltitudeLayer>
+    <useHitPoints>True</useHitPoints>
+    <statBases>
+      <WorkToMake>12000</WorkToMake>
+      <MaxHitPoints>150</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+	  <ResearchSpeedFactor>0.9</ResearchSpeedFactor>
+			<Bulk>125</Bulk>
+			<Mass>80</Mass> 
+    </statBases>
+	<minifiedDef>MinifiedFurniture</minifiedDef>
+    <Size>(3,1)</Size>
+    <Passability>PassThroughOnly</Passability>
+    <pathCost>70</pathCost>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>850</basePowerConsumption>
+        <startElectricalFires>true</startElectricalFires>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Facility">
+        <statOffsets>
+          <ResearchSpeedFactor>0.13</ResearchSpeedFactor>
+        </statOffsets>
+      </li>
+	  <li Class="CompProperties_AffectedByFacilities">
+        <linkableFacilities>
+		  <li>HiTechResearchBench</li>
+          <li>MultiAnalyzer</li>
+        </linkableFacilities>
+      </li>
+      <li Class="CompProperties_Breakdownable"/>
+    </comps>
+    <castEdgeShadows>true</castEdgeShadows>
+    <staticSunShadowHeight>0.20</staticSunShadowHeight>
+    <fillPercent>0.5</fillPercent>
+    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
+    <hasInteractionCell>true</hasInteractionCell>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+    <designationCategory>Misc</designationCategory>
+    <surfaceType>Item</surfaceType>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+		</placeWorkers>
+    <researchPrerequisites>
+      <li>SK_ElectronicsIII</li>
+    </researchPrerequisites>
+  </ThingDef>
+  
+  <ThingDef ParentName="ResearchBase">
+    <DefName>LabTerminal</DefName>
+    <label>research terminal</label>
+    <ThingClass>Building_ResearchBench</ThingClass>
+    <Description>A compact research terminal for expanding laboratory operations. Requires power.</Description>
+	<uiIconPath>Things/Building/Research/ScienceTerminalIco</uiIconPath>
+    <graphicData>
+      <texPath>Things/Building/Research/ScienceTerminal</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(1,1.25)</drawSize>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+		<stuffCategories>
+			<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>60</costStuffCount>
+    <costList>
+			<Plastic>20</Plastic>
+			<Electronics>5</Electronics>
+			<Component>3</Component>
+    </costList>
+    <AltitudeLayer>Building</AltitudeLayer>
+    <useHitPoints>True</useHitPoints>
+    <statBases>
+      <WorkToMake>7000</WorkToMake>
+      <MaxHitPoints>120</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+	  <ResearchSpeedFactor>0.65</ResearchSpeedFactor>
+			<Bulk>55</Bulk>
+			<Mass>30</Mass> 
+    </statBases>
+	<minifiedDef>MinifiedFurniture</minifiedDef>
+    <Size>(1,1)</Size>
+    <Passability>PassThroughOnly</Passability>
+    <pathCost>70</pathCost>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>450</basePowerConsumption>
+        <startElectricalFires>true</startElectricalFires>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Facility">
+        <statOffsets>
+          <ResearchSpeedFactor>0.04</ResearchSpeedFactor>
+        </statOffsets>
+      </li>
+	  <li Class="CompProperties_AffectedByFacilities">
+        <linkableFacilities>
+		  <li>HiTechResearchBench</li>
+          <li>MultiAnalyzer</li>
+        </linkableFacilities>
+      </li>
+      <li Class="CompProperties_Breakdownable"/>
+    </comps>
+    <castEdgeShadows>true</castEdgeShadows>
+    <staticSunShadowHeight>0.20</staticSunShadowHeight>
+    <fillPercent>0.5</fillPercent>
+    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
+    <hasInteractionCell>true</hasInteractionCell>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+    <designationCategory>Misc</designationCategory>
+    <surfaceType>Item</surfaceType>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+		</placeWorkers>
+    <researchPrerequisites>
+      <li>MicroelectronicsBasics</li>
+    </researchPrerequisites>
+  </ThingDef>
 
   <ThingDef ParentName="BuildingBase">
     <defName>VitalsMonitor</defName>
@@ -1029,13 +1259,12 @@
 		<Mass>18</Mass>
     </statBases>
     <fillPercent>0.15</fillPercent>
-	<stuffCategories>
-		<li>Metallic</li>
-	</stuffCategories>
-		<costStuffCount>75</costStuffCount>
-    <costList>
-      <Component>2</Component>
-    </costList>
+		<costList>
+			<Component>5</Component>
+			<Plastic>15</Plastic>
+			<ElectronicComponents>1</ElectronicComponents>
+			<Mechanism>1</Mechanism>
+		</costList>
     <specialDisplayRadius>9.9</specialDisplayRadius>
     <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
     <pathCost>25</pathCost>
@@ -1079,7 +1308,7 @@
     <altitudeLayer>Building</altitudeLayer>
     <minifiedDef>MinifiedFurniture</minifiedDef>
     <statBases>
-      <MaxHitPoints>50</MaxHitPoints>
+      <MaxHitPoints>180</MaxHitPoints>
       <WorkToBuild>1500</WorkToBuild>
       <Flammability>1.0</Flammability>
       <Beauty>-8</Beauty>
@@ -1087,10 +1316,12 @@
 		<Mass>32</Mass> 
     </statBases>
     <fillPercent>0.15</fillPercent>
-    <costList>
-      <Steel>75</Steel>
-      <Component>5</Component>
-    </costList>
+		<costList>
+			<Component>8</Component>
+			<Rubber>35</Rubber>
+			<ElectronicComponents>2</ElectronicComponents>
+			<Mechanism>2</Mechanism>
+		</costList>
     <specialDisplayRadius>6.9</specialDisplayRadius>
     <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
     <pathCost>25</pathCost>
@@ -1119,7 +1350,7 @@
 		<tickerType>Rare</tickerType>	
 		<statBases>
 			<MaxHitPoints>240</MaxHitPoints>
-			<WorkToBuild>4000</WorkToBuild>
+			<WorkToBuild>3000</WorkToBuild>
 			<Flammability>1.0</Flammability>
 			<Bulk>65</Bulk>
 			<Mass>30</Mass>
