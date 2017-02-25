@@ -38,72 +38,46 @@ And copy new "ModsConfig.xml", which at the root of the archive modpack.
 
 4. Check mods in the game. Switch Language if needed. Play!
 
-6. Have fun <i class="fa fa-smile-o"></i>   
+5. Have fun <i class="fa fa-smile-o"></i>   
 
 ____
-
-
-EtherDreamer - Artist
-
-Freijie - Coder and Russian translations
-
-Owlchemists - Coding Lead and Survival Add-on
-
-Sidfu - Coder
-
-Adenia - Coder/Guide Writer (EN)
-
-Soyaman - Guide Writer (EN)
-
-Rhyssia - Coder and Co-ordinator
-
-FelGoblin - Coder
-
-Abhay - Artist
-
-Arai - Artist
-
-Murdantiks - Guide Writer (RU)
-
-FaHT1k - Russian translations
-
-Rey - Russian translations & site administrator
-
-Ivanzyfer - Russian translations & site moderator
-
-Dzeniba - site moderator
+<br>EtherDreamer - Artist
+<br>Freijie - Coder and Russian translations
+<br>Owlchemists - Coding Lead and Survival Add-on
+<br>Sidfu - Coder
+<br>Adenia - Coder/Guide Writer (EN)
+<br>Soyaman - Guide Writer (EN)
+<br>Rhyssia - Coder and Co-ordinator
+<br>FelGoblin - Coder
+<br>Abhay - Artist
+<br>Arai - Artist
+<br>Murdantiks - Guide Writer (RU)
+<br>FaHT1k - Russian translations
+<br>Rey - Russian translations & site administrator
+<br>Ivanzyfer - Russian translations & site moderator
+<br>Dzeniba - site moderator
 
 
 Special Thanks to:
-
-NotFood
-
-Fotos
-
-Greeny
-
-Hunt3rKill3r
-
-Lambert2191
-
-Vursteen
-
-Tuvia
-
-Dunkhan
-
-jnkyacc
-
-Jalordon
-
-Varmonger
-
-funs777
-
-olizit
-
-
-____
+<br>NotFood
+<br>SpoonShortage
+<br>Mrofa
+<br>Fluffy
+<br>Zhentar
+<br>Fotos
+<br>Greeny
+<br>Hunt3rKill3r
+<br>Lambert2191
+<br>Vursteen
+<br>Tuvia
+<br>Dunkhan
+<br>jnkyacc
+<br>Jalordon
+<br>Varmonger
+<br>funs777
+<br>olizit
+<br>
+<br>____
 
 
 The content of all individual mods is licensed under their respective licenses.
