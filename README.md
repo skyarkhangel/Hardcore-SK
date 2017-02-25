@@ -41,7 +41,6 @@ And copy new "ModsConfig.xml", which at the root of the archive modpack.
 5. Have fun <i class="fa fa-smile-o"></i>   
 
 ____
-<br>
 Mod Pack Developer:
 <br>Skyarkhangel
 ____
