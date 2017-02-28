@@ -1294,11 +1294,13 @@
 		<description>The mine extractor digs deep into the ground to extract metal ores and rocks. Must be placed on a Deposits of Minerals. Requires power.</description>
 		<thingClass>SK.Building_Extractor</thingClass>
 		<graphicData>
-			<texPath>Buildings/Extractor/Extractor</texPath>
+		<shaderType>Transparent</shaderType>
+			<!--<texPath>Things/Building/ExtractorFrames/ExtractorOFF</texPath>-->
+			<texPath>Things/Building/ExtractorFrames/Extractor</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<drawSize>(3,3)</drawSize>
 		</graphicData>
-		<uiIconPath>Buildings/Extractor/Extractor</uiIconPath>
+		<uiIconPath>Things/Building/ExtractorFrames/Extractor</uiIconPath>
 		<altitudeLayer>Building</altitudeLayer>
 		<Passability>PassThroughOnly</Passability>
 		<castEdgeShadows>true</castEdgeShadows>
@@ -1328,6 +1330,10 @@
 				<RestrictedThing>
 					<li>MineralDeposits</li>
 				</RestrictedThing>
+			</li>
+			<li Class="CompProperties_Glower">
+				<glowRadius>4</glowRadius>
+				<glowColor>(217,217,208,0)</glowColor>
 			</li>
 			<li Class="CompProperties_LifespanDebris">
 				<lifespanTicks>2500000</lifespanTicks>
@@ -1370,11 +1376,11 @@
 		<description>This mine extractor will no longer produce resources and should be deconstructed.</description>
 		<thingClass>Building</thingClass>
 		<graphicData>
-			<texPath>Buildings/Extractor/ExtractorDebris</texPath>
+			<texPath>Things/Building/ExtractorFrames/Extractorbu</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<drawSize>(3,3)</drawSize>
 		</graphicData>
-		<uiIconPath>Buildings/Extractor/Extractor</uiIconPath>
+		<uiIconPath>Things/Building/ExtractorFrames/Extractor</uiIconPath>
 		<altitudeLayer>Building</altitudeLayer>
 		<passability>PassThroughOnly</passability>
 		<castEdgeShadows>true</castEdgeShadows>
@@ -1763,13 +1769,13 @@
 
 	<ThingDef ParentName="BenchBase">
 		<DefName>ChemicalLab</DefName>
-		<label>petrochemical plant</label>
-		<ThingClass>Building_WorkTable</ThingClass>
-		<Description>The petrochemical plant refines crude into fuel and produces plastic, rubber, synthetic fiber and carbon. Requires power.</Description>
+		<label>Oil Refinery</label>
+		<ThingClass>SK.Building_OilRefinery</ThingClass>
+		<Description>The glitterworld basic Oil Refinery is the first step in downstreaming crude oil into useable materials. Requires power.</Description>
 		<graphicData>
-			<texPath>Things/Building/PB</texPath>
+			<texPath>Things/Building/oilrefinery63</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
-			<drawSize>(3,4)</drawSize>
+			<drawSize>(6,3)</drawSize>
 		</graphicData>
 		<stuffCategories>
 			<li>Metallic</li>
@@ -1791,39 +1797,27 @@
 			<Flammability>1.0</Flammability>
 			<Cleanliness>-10</Cleanliness>
 		</statBases>
-		<size>(4,4)</size>
+		<size>(6,3)</size>
 		<DesignationCategory>Production</DesignationCategory>
 		<passability>PassThroughOnly</passability>
 		<hasInteractionCell>True</hasInteractionCell>
-		<interactionCellOffset>(0,0,-2)</interactionCellOffset>
+		<interactionCellOffset>(2,0,-2)</interactionCellOffset>
 		<surfaceType>Item</surfaceType>
 		<recipes>
 			<li>OilRefining</li>
-			<li>MakePlastic</li>
-			<li>MakeRubber</li>
-			<li>VulcanizeRubber</li>
-			<li>MakeSyntheticFibers</li>
-			<li>MakeCarbon</li>
 		</recipes>
-		<inspectorTabs>
-			<li>ITab_Bills</li>
-		</inspectorTabs>
 		<tickerType>Normal</tickerType>
 		<comps>
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerTrader</compClass>
 				<startElectricalFires>true</startElectricalFires>
-				<basePowerConsumption>600</basePowerConsumption>
+				<basePowerConsumption>700</basePowerConsumption>
 				<soundPowerOn>PowerOnSmall</soundPowerOn>
 				<soundPowerOff>PowerOffSmall</soundPowerOff>
 			</li>
-			<li Class="SK.CompProperties_LowIdleDraw">
-				<compClass>SK.CompPowerLowIdleDraw</compClass>
-				<idlePowerFactor>0.1</idlePowerFactor>
-			</li>
 			<li Class="CompProperties_Glower">
-				<glowRadius>5</glowRadius>
-				<glowColor>(240,240,230,0)</glowColor>
+				<glowRadius>7</glowRadius>
+				<glowColor>(217,217,208,0)</glowColor>
 			</li>
 			<li Class="CompProperties_HeatPusher">
 				<compClass>CompHeatPusherPowered</compClass>
@@ -1833,7 +1827,6 @@
 			<li Class="CompProperties_AffectedByFacilities">
 				<linkableFacilities>
 					<li>Small_ToolCabinet</li>
-					<li>PodChair</li>
 				</linkableFacilities>
 			</li>
 			<li Class="CompProperties_Flickable"/>
@@ -1843,15 +1836,215 @@
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
 		</placeWorkers>
 		<building>
-			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
 			<heatPerTickWhileWorking>0.7</heatPerTickWhileWorking>
+			<soundAmbient>GeothermalPlant_Ambience</soundAmbient>
+			<wantsHopperAdjacent>true</wantsHopperAdjacent>
 		</building>
 		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
-		<staticSunShadowHeight>0.75</staticSunShadowHeight>
+		<staticSunShadowHeight>0.6</staticSunShadowHeight>
 		<researchPrerequisites>
 			<li>SK_Petrochemistry</li>
 		</researchPrerequisites>
 	</ThingDef>
+	
+	<ThingDef ParentName="BuildingBase">
+		<defName>OilFeeder</defName>
+	    <label>Oil Refinery Hopper</label>
+		<thingClass>Building_Storage</thingClass>
+		<graphicData>
+			<texPath>Things/Building/GenHopper</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<fillPercent>0.5</fillPercent>
+		<pathCost>70</pathCost>
+		<building>
+      <fixedStorageSettings>
+        <priority>Important</priority>
+        <filter>
+          <thingDefs>
+            <li>CrudeOil</li>
+          </thingDefs>
+        </filter>
+      </fixedStorageSettings>
+      <defaultStorageSettings>
+        <priority>Important</priority>
+        <filter>
+          <thingDefs>
+            <li>CrudeOil</li>
+          </thingDefs>
+        </filter>
+      </defaultStorageSettings>
+		</building>
+		<inspectorTabs>
+			<li>ITab_Storage</li>
+		</inspectorTabs>
+		<castEdgeShadows>true</castEdgeShadows>
+		<statBases>
+			<WorkToBuild>750</WorkToBuild>
+			<MaxHitPoints>100</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+		</statBases>
+		<description>Holds crude oil for the Oil Refinery. Must be placed adjacent to an Oil Refinery.</description>
+		<stuffCategories>
+		<li>Metallic</li>
+		</stuffCategories>
+    	<costStuffCount>20</costStuffCount>
+		<costList>
+			<Component>2</Component>
+		</costList>
+		<tickerType>Never</tickerType>
+		<rotatable>true</rotatable>
+		<neverMultiSelect>true</neverMultiSelect>
+		<DesignationCategory>Production</DesignationCategory>
+		<staticSunShadowHeight>0.3</staticSunShadowHeight>
+		<surfaceType>Item</surfaceType>
+		<placeWorkers>
+			<li>PlaceWorker_NextToHopperAccepter</li>
+		</placeWorkers>
+		<researchPrerequisites>
+			<li>SK_Petrochemistry</li>
+		</researchPrerequisites>
+	</ThingDef>
+
+
+	<!--
+    <ThingDef ParentName="BenchBase">
+    <DefName>OilRefinery</DefName>
+    <label>Oil Refinery</label>
+    <ThingClass>SK.Building_OilRefinery</ThingClass>
+    <Description>An oil refinery is an industrial processing plant where crude oil is processed and refined into more useful products. Requires power.</Description>
+    <graphicData>
+    <texPath>Things/Building/OilRefinery/OilRefinery6x6</texPath>
+    <graphicClass>Graphic_Single</graphicClass>
+      	<drawSize>(3,3)</drawSize>
+    </graphicData>
+	<stuffCategories>
+	<li>Metallic</li>
+	</stuffCategories>
+	<costStuffCount>170</costStuffCount>
+    <CostList>
+			<ReinforcedConcrete>25</ReinforcedConcrete>
+			<Component>12</Component>
+      		<ElectronicComponents>10</ElectronicComponents>
+			<Mechanism>10</Mechanism>
+    </CostList>
+    <altitudeLayer>Building</altitudeLayer>
+    <UseHitPoints>True</UseHitPoints>
+    <statBases>
+	  <Beauty>-80</Beauty>
+      <WorkToBuild>12000</WorkToBuild>
+      <MaxHitPoints>130</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <Cleanliness>-12</Cleanliness>
+    </statBases>
+    <fillPercent>1</fillPercent>
+    <size>(3,3)</size>
+    <DesignationCategory>Production</DesignationCategory>
+	<passability>PassThroughOnly</passability>
+    <hasInteractionCell>True</hasInteractionCell>
+    <interactionCellOffset>(0,0,-2)</interactionCellOffset>
+    <surfaceType>Item</surfaceType>
+    <comps>
+			<li>
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>-1</basePowerConsumption>
+				<transmitsPower>true</transmitsPower>
+			</li>
+			<li Class="CompProperties_Glower">
+				<glowRadius>4</glowRadius>
+				<glowColor>(0,255,246,1)</glowColor>
+			</li>
+			<li>
+				<compClass>CompHeatPusher</compClass>
+				<heatPerSecond>25</heatPerSecond>
+				<heatPushMaxTemperature>25000</heatPushMaxTemperature>
+			</li>
+    </comps>
+    <building>
+	<soundAmbient>GeothermalPlant_Ambience</soundAmbient>
+	<wantsHopperAdjacent>true</wantsHopperAdjacent>
+    </building>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+    <staticSunShadowHeight>0.75</staticSunShadowHeight>
+    <researchPrerequisites><li>ROilRefining</li></researchPrerequisites>
+  </ThingDef>
+
+    <ThingDef ParentName="BenchBase">
+    <DefName>ElectronicsFactory</DefName>
+    <label>Electronics Factory</label>
+    <ThingClass>Building_WorkTable</ThingClass>
+    <Description>The electronics factory is an industry building that produces integrated circuits, microchip integrated circuits and bioelectronic devices from electronic components. Requires power.</Description>
+    <graphicData>
+    <texPath>Things/Building/ElectronicsFactory</texPath>
+    <graphicClass>Graphic_Single</graphicClass>
+      	<drawSize>(3,2)</drawSize>
+    </graphicData>
+	<stuffCategories>
+	<li>Metallic</li>
+	</stuffCategories>
+	<costStuffCount>125</costStuffCount>
+    <CostList>
+			<Glass>25</Glass>
+			<ElectronicComponents>15</ElectronicComponents>
+			<Component>8</Component>
+			<Mechanism>8</Mechanism>
+    </CostList>
+    <altitudeLayer>Building</altitudeLayer>
+    <UseHitPoints>True</UseHitPoints>
+    <statBases>
+	<Beauty>-40</Beauty>
+      <WorkToBuild>15000</WorkToBuild>
+      <MaxHitPoints>120</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <Cleanliness>-5</Cleanliness>
+    </statBases>
+    <fillPercent>1</fillPercent>
+    <size>(3,2)</size>
+    <DesignationCategory>Production</DesignationCategory>
+	<passability>PassThroughOnly</passability>
+    <hasInteractionCell>True</hasInteractionCell>
+    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
+    <surfaceType>Item</surfaceType>
+    <comps>
+      <li Class="CompProperties_AffectedByFacilities">
+        <linkableFacilities>
+          <li>Small_ToolCabinet</li>
+          <li>PodChair</li>
+        </linkableFacilities>
+      </li>
+			<li>
+				<compClass>CompPowerTrader</compClass>
+				<startElectricalFires>true</startElectricalFires>
+				<basePowerConsumption>1000</basePowerConsumption>
+				<soundPowerOn>PowerOnSmall</soundPowerOn>
+				<soundPowerOff>PowerOffSmall</soundPowerOff>
+			</li>
+            			<li Class="SK.CompProperties_LowIdleDraw">
+                		<compClass>SK.CompPowerLowIdleDraw</compClass>
+                		<idlePowerFactor>0.1</idlePowerFactor>
+            			</li>
+    </comps>
+		<recipes>
+			<li>MakeIntegratedCircuits</li>
+			<li>MakeMicrochipIntegratedCircuits</li>
+		</recipes>
+		<inspectorTabs>
+			<li>ITab_Bills</li>
+		</inspectorTabs>
+    <building>
+	<soundAmbient>GeothermalPlant_Ambience</soundAmbient>
+	<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+    </building>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+		</placeWorkers>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+    <staticSunShadowHeight>0.75</staticSunShadowHeight>
+	<researchPrerequisites><li>PowerII</li></researchPrerequisites>
+  </ThingDef>
+-->
 
 
 	<ThingDef ParentName="BenchBase">
@@ -2154,23 +2347,24 @@
 
 	<ThingDef ParentName="BenchBase">
 		<defName>TableChemlab</defName>
-		<label>chemical laboratory</label>
+		<label>Petrochemical Laboratory</label>
 		<ThingClass>Building_WorkTable</ThingClass>
-		<Description>A chemical laboratory with all of the equipment needed to create carbon fiber alloy and artificial bones. Requires power.</Description>
+		<Description>A Petrochemical Laboratory where you can make byproducts of crude oil. Requires power.</Description>
 		<graphicData>
-			<texPath>Things/Building/Production/TableLab3x1</texPath>
+			<texPath>Things/Building/chemlab</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
-			<drawSize>(3,1)</drawSize>
+			<drawSize>(3,3)</drawSize>
 		</graphicData>
 		<stuffCategories>
 			<li>Metallic</li>
 		</stuffCategories>
 		<costStuffCount>130</costStuffCount>
 		<CostList>
-			<Glass>80</Glass>
-			<Rubber>55</Rubber>
-			<SyntheticFibers>35</SyntheticFibers>
+			<ReinforcedConcrete>40</ReinforcedConcrete>
+			<Glass>50</Glass>
+			<Component>20</Component>
 			<ElectronicComponents>5</ElectronicComponents>
+			<Mechanism>15</Mechanism>
 		</CostList>
 		<altitudeLayer>Building</altitudeLayer>
 		<fillPercent>0.5</fillPercent>
@@ -2181,15 +2375,19 @@
 			<Flammability>1.0</Flammability>
 			<Cleanliness>-3</Cleanliness>
 		</statBases>
-		<Size>(3,1)</Size>
+		<Size>(3,3)</Size>
 		<DesignationCategory>Production</DesignationCategory>
 		<Passability>PassThroughOnly</Passability>
 		<hasInteractionCell>True</hasInteractionCell>
-		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
+		<interactionCellOffset>(0,0,-2)</interactionCellOffset>
 		<surfaceType>Item</surfaceType>
 		<recipes>
+			<li>MakePlastic</li>
+			<li>MakeRubber</li>
+			<li>VulcanizeRubber</li>
+			<li>MakeSyntheticFibers</li>
+			<li>MakeCarbon</li>
 			<li>MakeCarbonAlloy</li>
-			<li>MakeArtificialBone</li>
 		</recipes>
 		<inspectorTabs>
 			<li>ITab_Bills</li>
@@ -2225,7 +2423,7 @@
 			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
 		</building>
 		<researchPrerequisites>
-			<li>SK_BiochemistryII</li>
+			<li>SK_Petrochemistry</li>
 		</researchPrerequisites>
 		<placeWorkers>
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
@@ -2596,6 +2794,7 @@
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
 		<surfaceType>Item</surfaceType>
 		<recipes>
+			<li>MakeArtificialBone</li>
 			<li>CreateSyntheticSkin</li>
 			<li>CreateAIChip</li>
 			<li>CreateSyntheticLung</li>
