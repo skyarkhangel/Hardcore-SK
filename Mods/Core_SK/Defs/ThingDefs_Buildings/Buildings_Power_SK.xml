@@ -479,14 +479,11 @@
   <ThingDef ParentName="BuildingBase">
     <defName>SolarGenerator</defName>
     <label>solar generator</label>
-    <thingClass>Building</thingClass>
+    <thingClass>SK.Building_SolarGenerator</thingClass>
     <graphicData>
-      <texPath>Things/Building/Power/SolarCollector</texPath>
+      <texPath>Things/Building/Power/SolarCollector/SolarCollector</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>(4,4)</drawSize>
-	        <damageData>
-        <rect>(0,0.6,4,2.8)</rect>
-      </damageData>
     </graphicData>
     <altitudeLayer>Building</altitudeLayer>
     <passability>PassThroughOnly</passability>
@@ -494,7 +491,7 @@
     <fillPercent>0.5</fillPercent>
     <castEdgeShadows>true</castEdgeShadows>
     <statBases>
-      <MaxHitPoints>50</MaxHitPoints>
+      <MaxHitPoints>100</MaxHitPoints>
       <WorkToBuild>4800</WorkToBuild>
       <Flammability>1.0</Flammability>
     </statBases>
@@ -523,6 +520,10 @@
         <basePowerConsumption>-1</basePowerConsumption>
         <transmitsPower>true</transmitsPower>
       </li>
+	  <li Class="CompProperties_Glower">
+        <glowRadius>4</glowRadius>
+        <glowColor>(1,213,238,0)</glowColor>
+      </li>
 	  <li Class="CompProperties_Breakdownable"/>
     </comps>
     <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
@@ -535,22 +536,25 @@
   <ThingDef ParentName="BuildingBase">
     <defName>AdvancedSolarGenerator</defName>
     <label>advanced solar generator</label>
-    <thingClass>Building</thingClass>
+    <thingClass>SK.Building_AdvSolarGenerator</thingClass>
     <graphicData>
-      <texPath>Things/Building/Power/Advanced_solarpanel</texPath>
+      <texPath>Things/Building/Power/Advanced_solarpanel/advSolarPanel_base</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>(4,4)</drawSize>
-	        <damageData>
-        <rect>(0,0.6,4,2.8)</rect>
-      </damageData>
+		<shadowData>
+			<volume>(0, 1, 0)</volume>
+			<offset>(0,0,-0.1)</offset>
+		</shadowData>
     </graphicData>
+	<uiIconPath>Things/Building/Power/Advanced_solarpanel/advSolarPane_icon</uiIconPath>	
     <altitudeLayer>Building</altitudeLayer>
     <passability>PassThroughOnly</passability>
+	<rotatable>false</rotatable>
     <pathCost>70</pathCost>
     <fillPercent>0.5</fillPercent>
-    <castEdgeShadows>true</castEdgeShadows>
+    <castEdgeShadows>false</castEdgeShadows>
     <statBases>
-      <MaxHitPoints>70</MaxHitPoints>
+      <MaxHitPoints>120</MaxHitPoints>
       <WorkToBuild>4800</WorkToBuild>
       <Flammability>1.0</Flammability>
     </statBases>
@@ -587,7 +591,7 @@
     </comps>
     <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
     <designationCategory>Power</designationCategory>
-    <staticSunShadowHeight>0.20</staticSunShadowHeight>
+    <staticSunShadowHeight>0</staticSunShadowHeight>
     <designationHotKey>Misc3</designationHotKey>
 	<researchPrerequisites><li>SK_RenewableIV</li></researchPrerequisites>
   </ThingDef>
@@ -598,7 +602,7 @@
 		<label>wind turbine</label>
 		<description>A wind-powered electrical generator. Requires a large clear space in front and behind for optimal air flow. Power output: 1,050 W at maximum wind speed.</description>
     <graphicData>
-      <texPath>Things/Building/Power/WindTurbine/WindTurbineBody</texPath>
+      <texPath>Things/Building/Power/WindTurbineBody</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>(5,2)</drawSize>
       <shadowData>
@@ -1055,16 +1059,18 @@ Power output: 3,500 W.</description>
 	</ThingDef>
 	
 	
-	
-	
-  <ThingDef ParentName="BenchBase">
+	<ThingDef ParentName="BuildingBase">
     <defName>GeothermalGenerator</defName>
     <label>geothermal generator</label>
-    <thingClass>Building</thingClass>
+    <thingClass>SK.Building_GeothermalPlant</thingClass>
     <graphicData>
-      <texPath>Things/Building/Power/GeothermalPlant</texPath>
+      <texPath>Things/Building/Power/GeothermalPlant/GeothermalPlant_off</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>(6,6)</drawSize>
+		<shadowData>
+			<volume>(3.5, 2, 3.5)</volume>
+			<offset>(0,0,-0.1)</offset>
+		</shadowData>
       <damageData>
         <rect>(0.3,0,5.4,6)</rect>
       </damageData>
@@ -1072,7 +1078,7 @@ Power output: 3,500 W.</description>
 	<blockWind>true</blockWind>
     <altitudeLayer>Building</altitudeLayer>
     <passability>Impassable</passability>
-    <castEdgeShadows>true</castEdgeShadows>
+    <castEdgeShadows>false</castEdgeShadows>
     <fillPercent>1</fillPercent>
     <statBases>
 			<MaxHitPoints>200</MaxHitPoints>
@@ -1105,7 +1111,6 @@ Power output: 2,500 W.</description>
     <rotatable>false</rotatable>
     <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
     <designationCategory>Power</designationCategory>
-    <staticSunShadowHeight>1.0</staticSunShadowHeight>
     <placeWorkers>
 	    <li>PlaceWorker_OnSteamGeyser</li>
 		<li>SK.PlaceWorker_NoNearGeothermalGenerator</li>
@@ -1125,14 +1130,14 @@ Power output: 2,500 W.</description>
     <label>thermoelectric generator</label>
     <thingClass>SK.Building_ThermoelectricGenerator</thingClass>
 	<graphicData>
-    <texPath>Things/Building/Thermoelectric_Generator</texPath>
+    <texPath>Things/Building/Power/ThermoelectricGenerator/Thermoelectric_Generator</texPath>
     <graphicClass>Graphic_Multi</graphicClass>
 	<drawSize>(1,1)</drawSize>
 	</graphicData>
-    <altitudeLayer>Building</altitudeLayer>
+	<altitudeLayer>PawnUnused</altitudeLayer>
     <passability>Impassable</passability>
     <castEdgeShadows>true</castEdgeShadows>
-    <fillPercent>1</fillPercent>
+	<fillPercent>0.99</fillPercent>
     <statBases>
       <MaxHitPoints>120</MaxHitPoints>
       <WorkToBuild>8800</WorkToBuild>
@@ -1172,6 +1177,7 @@ Power output: 2,500 W.</description>
       <soundAmbient>GeothermalPlant_Ambience</soundAmbient>
       <ignoreNeedsPower>true</ignoreNeedsPower>
 	  <canPlaceOverWall>true</canPlaceOverWall>
+	  <isEdifice>false</isEdifice>
     </building>
 	<researchPrerequisites><li>SK_RenewableV</li></researchPrerequisites>
   </ThingDef>
@@ -1328,6 +1334,7 @@ Power output: 2,500 W.</description>
         <volume>(0.2, 1.0, 0.8)</volume>
       </shadowData>
     </graphicData>
+    <uiIconPath>Things/Building/Power/HorizontalWindTurbine/HorizontalWindTurbine_icon</uiIconPath>
     <altitudeLayer>Building</altitudeLayer>
 		<passability>Impassable</passability>
 		<fillPercent>0.5</fillPercent>
