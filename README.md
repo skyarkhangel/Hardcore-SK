@@ -34,13 +34,61 @@ For Linux users:
 For Mac users: 
 /Users/your user name/Library/Application Support/RimWorld/Config
 Delete all the files that exist in that folder.
-And copy new "ModsConfig.xml", which at the root of the archive modpack.
+And copy "ColonistBar_KF.xml, ColonistBar_PSIKF.xml, and ModsConfig.xml", which at the root of the archive modpack.
 
 4. Check mods in the game. Switch Language if needed. Play!
 
-6. Have fun <i class="fa fa-smile-o"></i>   
+5. Have fun <i class="fa fa-smile-o"></i>   
 
-____     
-The content of all individual mods is licensed under their respective licenses.    
-Additions exclusive to this project are licensed under the WTFPL.     
-[<img src="http://www.wtfpl.net/wp-content/uploads/2012/12/wtfpl-badge-1.png">](http://www.wtfpl.net/)
+____
+Mod Pack Developer:
+<br>Skyarkhangel
+____
+<br>
+HCSK 5.0 Jewel Team:
+<br>
+(In no particular order)
+<br>
+<br>EtherDreamer - Artist
+<br>Freijie - Coder and Russian translations
+<br>Owlchemist - Coding Lead (EN team) and Survival Add-on
+<br>Sidfu - Coder
+<br>Adenia - Coder/Guide Writer (EN)
+<br>Soyaman - Guide Writer (EN)
+<br>Rhyssia - Coder and Co-ordinator
+<br>FelGoblin - Coder
+<br>Abhay - Artist
+<br>Arai - Artist
+<br>Murdantiks - Guide Writer (RU)
+<br>FaHT1k - Russian translations
+<br>Rey - Russian translations & site administrator
+<br>Ivanzyfer - Russian translations & site moderator
+<br>Dzeniba - site moderator
+
+
+Special Thanks to:
+<br>
+<br>NotFood
+<br>SpoonShortage
+<br>Mrofa
+<br>Fluffy
+<br>Zhentar
+<br>Fotos
+<br>Greeny
+<br>Hunt3rKill3r
+<br>Lambert2191
+<br>Vursteen
+<br>Tuvia
+<br>Dunkhan
+<br>jnkyacc
+<br>Jalordon
+<br>Varmonger
+<br>funs777
+<br>olizit
+<br>And to anyone else we might have missed!
+<br>
+<br>
+____
+
+
+The content of all individual mods is licensed under their respective licenses.

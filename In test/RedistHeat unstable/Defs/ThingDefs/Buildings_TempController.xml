@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Buildings>
+    <!-- Base -->
+    <ThingDef Abstract="True" Name="BuildingBase">
+        <category>Building</category>
+        <soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+        <selectable>true</selectable>
+        <drawerType>MapMeshAndRealTime</drawerType>
+        <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+        <repairEffect>Repair</repairEffect>
+        <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+        <filthLeaving>BuildingRubble</filthLeaving>
+        <damageMultipliers>
+            <li>
+                <damageDef>Bomb</damageDef>
+                <multiplier>3.0</multiplier>
+            </li>
+            <li>
+                <damageDef>Bullet</damageDef>
+                <multiplier>0.3</multiplier>
+            </li>
+            <li>
+                <damageDef>Fragment</damageDef>
+                <multiplier>0.2</multiplier>
+            </li>
+            <li>
+                <damageDef>ArmorPiercing</damageDef>
+                <multiplier>2.5</multiplier>
+            </li>
+            <li>
+                <damageDef>LaserBurn</damageDef>
+                <multiplier>2.0</multiplier>
+            </li>
+            <li>
+                <damageDef>AntiMateriel</damageDef>
+                <multiplier>2.0</multiplier>
+            </li>
+            <li>
+                <damageDef>Optic</damageDef>
+                <multiplier>1.5</multiplier>
+            </li>
+            <li>
+                <damageDef>Plasma</damageDef>
+                <multiplier>2.0</multiplier>
+            </li>
+            <li>
+                <damageDef>Microwave</damageDef>
+                <multiplier>1.5</multiplier>
+            </li>
+        </damageMultipliers>
+    </ThingDef>
+    <!-- Small Cooler -->
+    <ThingDef ParentName="BuildingBase">
+        <defName>RH_SmallCooler</defName>
+        <label>small cooler</label>
+        <description>An electrical device that fits into a wall and pushes cold air into a room. Its exhaust port generates a lot of heat.</description>
+        <thingClass>Building_Cooler</thingClass>
+        <graphicData>
+            <texPath>Things/Building/Cooler/SmallCooler</texPath>
+            <graphicClass>Graphic_Multi</graphicClass>
+        </graphicData>
+        <building>
+            <isEdifice>false</isEdifice>
+        </building>
+        <stuffCategories>
+            <li>Metallic</li>
+        </stuffCategories>
+        <costStuffCount>40</costStuffCount>
+        <costList>
+            <Component>3</Component>
+            <ElectronicComponents>1</ElectronicComponents>
+            <Mechanism>1</Mechanism>
+        </costList>
+        <statBases>
+            <WorkToBuild>500</WorkToBuild>
+            <MaxHitPoints>30</MaxHitPoints>
+            <Flammability>1.0</Flammability>
+        </statBases>
+        <comps>
+            <li Class="CompProperties_Power">
+                <compClass>CompPowerTrader</compClass>
+                <soundPowerOn>PowerOnSmall</soundPowerOn>
+                <soundPowerOff>PowerOffSmall</soundPowerOff>
+                <basePowerConsumption>100</basePowerConsumption>
+            </li>
+            <li Class="CompProperties_Flickable" />
+            <li Class="CompProperties_TempControl">
+                <compClass>CompTempControl</compClass>
+                <energyPerSecond>-13</energyPerSecond>
+            </li>
+            <li Class="RedistHeat.CompWallObjectProperties">
+                <checkTickInterval>120</checkTickInterval>
+            </li>
+            <li Class="CompProperties_Breakdownable" />
+        </comps>
+        <placeWorkers>
+            <li>PlaceWorker_Cooler</li>
+            <li>RedistHeat.PlaceWorker_WallObject</li>
+            <li>RedistHeat.PlaceWorker_WallChecker</li>
+        </placeWorkers>
+        <altitudeLayer>PawnUnused</altitudeLayer>
+        <blockLight>false</blockLight>
+        <designationCategory>Temperature</designationCategory>
+        <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+        <tickerType>Rare</tickerType>
+        <researchPrerequisites>
+            <li>RH_TemperatureControlHeating</li>
+        </researchPrerequisites>
+    </ThingDef>
+    <!-- Medium Cooler -->
+    <ThingDef ParentName="BuildingBase">
+        <defName>Cooler</defName>
+        <label>medium cooler</label>
+        <description>An electrical device that fits into a wall and pushes cold air into a room. Its exhaust port generates a lot of heat.</description>
+        <thingClass>RedistHeat.Building_Cooler</thingClass>
+        <graphicData>
+            <texPath>Things/Building/Misc/TempControl/Cooler</texPath>
+            <graphicClass>Graphic_Multi</graphicClass>
+            <damageData>
+                <cornerTL>Damage/Corner</cornerTL>
+                <cornerTR>Damage/Corner</cornerTR>
+                <cornerBL>Damage/Corner</cornerBL>
+                <cornerBR>Damage/Corner</cornerBR>
+            </damageData>
+        </graphicData>
+        <altitudeLayer>Building</altitudeLayer>
+        <passability>Impassable</passability>
+        <fillPercent>1</fillPercent>
+        <coversFloor>true</coversFloor>
+        <blockLight>true</blockLight>
+        <castEdgeShadows>true</castEdgeShadows>
+        <staticSunShadowHeight>1.0</staticSunShadowHeight>
+        <statBases>
+            <WorkToBuild>1600</WorkToBuild>
+            <MaxHitPoints>100</MaxHitPoints>
+            <Flammability>1.0</Flammability>
+        </statBases>
+        <tickerType>Normal</tickerType>
+        <stuffCategories>
+            <li>Metallic</li>
+        </stuffCategories>
+        <costStuffCount>60</costStuffCount>
+        <costList>
+            <Component>6</Component>
+            <ElectronicComponents>2</ElectronicComponents>
+            <Mechanism>2</Mechanism>
+        </costList>
+        <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+        <placeWorkers>
+            <li>PlaceWorker_Cooler</li>
+        </placeWorkers>
+        <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+        <building>
+            <canPlaceOverWall>true</canPlaceOverWall>
+        </building>
+        <comps>
+            <li Class="CompProperties_Power">
+                <compClass>CompPowerTrader</compClass>
+                <soundPowerOn>PowerOnSmall</soundPowerOn>
+                <soundPowerOff>PowerOffSmall</soundPowerOff>
+                <basePowerConsumption>200</basePowerConsumption>
+            </li>
+            <li Class="CompProperties_Flickable" />
+            <li Class="CompProperties_TempControl">
+                <compClass>CompTempControl</compClass>
+                <energyPerSecond>-5.04</energyPerSecond>
+            </li>
+            <li Class="CompProperties_Breakdownable" />
+        </comps>
+        <designationCategory>Temperature</designationCategory>
+        <designationHotKey>Misc3</designationHotKey>
+        <researchPrerequisites>
+            <li>RH_TemperatureControlHeating</li>
+        </researchPrerequisites>
+    </ThingDef>
+    <!-- Industrial Cooler -->
+    <ThingDef ParentName="BuildingBase">
+        <defName>RedistHeat_IndustrialCooler</defName>
+        <thingClass>RedistHeat.Building_IndustrialCooler</thingClass>
+        <label>industrial cooler</label>
+        <description>A massive electrical device that pushes cold air into a room. It needs at least one extenal exhaust port.</description>
+        <graphicData>
+            <texPath>Things/Building/Cooler/IndustrialCooler</texPath>
+            <graphicClass>Graphic_Multi</graphicClass>
+            <drawSize>(2,2)</drawSize>
+        </graphicData>
+        <statBases>
+            <WorkToBuild>7000</WorkToBuild>
+            <MaxHitPoints>250</MaxHitPoints>
+            <Flammability>1.0</Flammability>
+            <Beauty>-30</Beauty>
+        </statBases>
+        <stuffCategories>
+            <li>Metallic</li>
+        </stuffCategories>
+        <costStuffCount>145</costStuffCount>
+        <costList>
+            <Plastic>60</Plastic>
+            <Component>8</Component>
+            <Electronics>8</Electronics>
+            <Mechanism>4</Mechanism>
+        </costList>
+        <building>
+            <canPlaceOverWall>true</canPlaceOverWall>
+        </building>
+        <comps>
+            <li Class="RedistHeat.CompAirTraderProperties">
+                <compClass>RedistHeat.CompAirTrader</compClass>
+            </li>
+            <li Class="RedistHeat.CompDuctSwitchableProperties">
+                <compClass>RedistHeat.CompDuctSwitchable</compClass>
+            </li>
+            <li Class="CompProperties_Power">
+                <compClass>CompPowerTrader</compClass>
+                <soundPowerOn>PowerOnSmall</soundPowerOn>
+                <soundAmbientPowered>GeothermalPlant_Ambience</soundAmbientPowered>
+                <soundPowerOff>PowerOffSmall</soundPowerOff>
+                <basePowerConsumption>400</basePowerConsumption>
+                <transmitsPower>true</transmitsPower>
+            </li>
+            <li Class="CompProperties_Flickable" />
+            <li Class="CompProperties_TempControl">
+                <compClass>CompTempControl</compClass>
+                <energyPerSecond>-8.4</energyPerSecond>
+            </li>
+            <li Class="CompProperties_Breakdownable" />
+        </comps>
+        <placeWorkers>
+            <li>RedistHeat.PlaceWorker_IndustrialCooler</li>
+        </placeWorkers>
+        <altitudeLayer>Building</altitudeLayer>
+        <blockLight>true</blockLight>
+        <castEdgeShadows>true</castEdgeShadows>
+        <staticSunShadowHeight>1.0</staticSunShadowHeight>
+        <designationCategory>Temperature</designationCategory>
+        <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+        <fillPercent>1</fillPercent>
+        <holdsRoof>true</holdsRoof>
+        <passability>Impassable</passability>
+        <researchPrerequisites>
+            <li>RH_TemperatureControlCooling</li>
+            <!-- <li>SK_InfrastructureIV</li> Possibly too late into the tree -->
+        </researchPrerequisites>
+        <size>(2,2)</size>
+        <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+        <tickerType>Normal</tickerType>
+    </ThingDef>
+    <!-- Small Heater -->
+    <ThingDef ParentName="BuildingBase">
+        <defName>Heater</defName>
+        <label>small heater</label>
+        <description>An electrical device that converts electricity into heat. It can automatically turn itself on or off to reach a specific target temperature.</description>
+        <thingClass>RedistHeat.Building_Heater</thingClass>
+        <graphicData>
+            <texPath>Things/Building/Misc/TempControl/Heater</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+            <damageData>
+                <rect>(0.234375,0,0.515625,0.984375)</rect>
+                <cornerTL>Damage/Corner</cornerTL>
+                <cornerTR>Damage/Corner</cornerTR>
+                <cornerBL>Damage/Corner</cornerBL>
+                <cornerBR>Damage/Corner</cornerBR>
+            </damageData>
+        </graphicData>
+        <minifiedDef>MinifiedFurniture</minifiedDef>
+        <altitudeLayer>Building</altitudeLayer>
+        <passability>PassThroughOnly</passability>
+        <pathCost>40</pathCost>
+        <blockWind>true</blockWind>
+        <rotatable>false</rotatable>
+        <fillPercent>0.4</fillPercent>
+        <castEdgeShadows>true</castEdgeShadows>
+        <staticSunShadowHeight>1.0</staticSunShadowHeight>
+        <statBases>
+            <WorkToBuild>1000</WorkToBuild>
+            <MaxHitPoints>100</MaxHitPoints>
+            <Flammability>1.0</Flammability>
+        </statBases>
+        <tickerType>Normal</tickerType>
+        <stuffCategories>
+            <li>Metallic</li>
+        </stuffCategories>
+        <costStuffCount>60</costStuffCount>
+        <costList>
+            <Component>6</Component>
+            <ElectronicComponents>2</ElectronicComponents>
+            <Mechanism>2</Mechanism>
+        </costList>
+        <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+        <placeWorkers>
+            <li>PlaceWorker_Heater</li>
+        </placeWorkers>
+        <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+        <comps>
+            <li Class="CompProperties_Power">
+                <compClass>CompPowerTrader</compClass>
+                <startElectricalFires>true</startElectricalFires>
+                <soundPowerOn>PowerOnSmall</soundPowerOn>
+                <soundPowerOff>PowerOffSmall</soundPowerOff>
+                <basePowerConsumption>100</basePowerConsumption>
+            </li>
+            <li Class="CompProperties_Flickable" />
+            <li Class="CompProperties_TempControl">
+                <compClass>CompTempControl</compClass>
+                <energyPerSecond>5.04</energyPerSecond>
+                <!-- 21 -->
+            </li>
+            <li Class="CompProperties_Glower">
+                <compClass>CompGlower</compClass>
+                <glowRadius>3</glowRadius>
+                <glowColor>(255,150,100,0)</glowColor>
+            </li>
+            <li Class="CompProperties_Breakdownable" />
+        </comps>
+        <designationCategory>Temperature</designationCategory>
+        <designationHotKey>Misc2</designationHotKey>
+        <researchPrerequisites>
+            <li>RH_TemperatureControlHeating</li>
+        </researchPrerequisites>
+    </ThingDef>
+    <!-- Medium Heater -->
+    <ThingDef ParentName="BuildingBase">
+        <defName>RH_MediumHeater</defName>
+        <thingClass>RedistHeat.Building_MediumHeater</thingClass>
+        <label>medium heater</label>
+        <description>A wall mounted heater, which is more efficient at heating large rooms and bases. It can automatically turn itself on or off to reach a specific target temperature.</description>
+        <graphicData>
+            <texPath>Things/Building/Heater/MediumHeater</texPath>
+            <graphicClass>Graphic_Multi</graphicClass>
+        </graphicData>
+        <stuffCategories>
+            <li>Metallic</li>
+        </stuffCategories>
+        <costStuffCount>85</costStuffCount>
+        <costList>
+            <Plastic>50</Plastic>
+            <Component>4</Component>
+            <Electronics>4</Electronics>
+            <Mechanism>2</Mechanism>
+        </costList>
+        <building>
+            <isEdifice>false</isEdifice>
+        </building>
+        <statBases>
+            <WorkToBuild>1400</WorkToBuild>
+            <MaxHitPoints>30</MaxHitPoints>
+            <Flammability>1.0</Flammability>
+        </statBases>
+        <comps>
+            <li Class="CompProperties_Power">
+                <compClass>CompPowerTrader</compClass>
+                <soundPowerOn>PowerOnSmall</soundPowerOn>
+                <soundPowerOff>PowerOffSmall</soundPowerOff>
+                <basePowerConsumption>200</basePowerConsumption>
+            </li>
+            <li Class="CompProperties_Flickable" />
+            <li Class="CompProperties_TempControl">
+                <compClass>CompTempControl</compClass>
+                <energyPerSecond>8.4</energyPerSecond>
+            </li>
+            <li Class="RedistHeat.CompWallObjectProperties">
+                <checkTickInterval>120</checkTickInterval>
+            </li>
+            <li Class="CompProperties_Breakdownable" />
+        </comps>
+        <placeWorkers>
+            <li>RedistHeat.PlaceWorker_MediumHeater</li>
+            <li>RedistHeat.PlaceWorker_WallObject</li>
+            <li>RedistHeat.PlaceWorker_WallChecker</li>
+        </placeWorkers>
+        <altitudeLayer>PawnUnused</altitudeLayer>
+        <castEdgeShadows>false</castEdgeShadows>
+        <designationCategory>Temperature</designationCategory>
+        <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+        <tickerType>Normal</tickerType>
+        <researchPrerequisites>
+            <li>RH_TemperatureControlCooling</li>
+        </researchPrerequisites>
+    </ThingDef>
+    <!--Medium Heater Glower-->
+    <ThingDef ParentName="BuildingBase">
+        <defName>RedistHeat_HeaterGlower</defName>
+        <thingClass>RedistHeat.Building_HeaterGlower</thingClass>
+        <label>medium heater</label>
+        <graphicData>
+            <texPath>Things/Transparent</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+            <shaderType>Transparent</shaderType>
+        </graphicData>
+        <building>
+            <isEdifice>false</isEdifice>
+        </building>
+        <statBases>
+            <WorkToBuild>1</WorkToBuild>
+            <Flammability>0</Flammability>
+        </statBases>
+        <comps>
+            <li Class="CompProperties_Glower">
+                <compClass>RedistHeat.CompMyGlower</compClass>
+                <glowRadius>3</glowRadius>
+                <glowColor>(255,150,100,0)</glowColor>
+            </li>
+        </comps>
+        <altitudeLayer>Building</altitudeLayer>
+        <castEdgeShadows>false</castEdgeShadows>
+        <menuHidden>true</menuHidden>
+        <selectable>false</selectable>
+        <tickerType>Normal</tickerType>
+        <useHitPoints>false</useHitPoints>
+    </ThingDef>
+    <!-- Industrial Heater -->
+    <ThingDef ParentName="BuildingBase">
+        <defName>RedistHeat_IndustrialHeater</defName>
+        <thingClass>RedistHeat.Building_IndustrialHeater</thingClass>
+        <label>industrial heater</label>
+        <description>A massive industrial heater, can efficiently heat large rooms and bases. It can automatically turn itself on or off to reach a specific target temperature.</description>
+        <graphicData>
+            <texPath>Things/Building/Heater/SuperHeater</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+            <shadowData>
+                <volume>
+                    <x>1.8</x>
+                    <y>0.9</y>
+                    <z>1.8</z>
+                </volume>
+            </shadowData>
+            <drawSize>(2,2)</drawSize>
+        </graphicData>
+        <statBases>
+            <WorkToBuild>5000</WorkToBuild>
+            <MaxHitPoints>250</MaxHitPoints>
+            <Flammability>1.0</Flammability>
+            <Beauty>-20</Beauty>
+        </statBases>
+        <stuffCategories>
+            <li>Metallic</li>
+        </stuffCategories>
+        <costStuffCount>140</costStuffCount>
+        <costList>
+            <Plastic>55</Plastic>
+            <Component>8</Component>
+            <Electronics>8</Electronics>
+            <Mechanism>4</Mechanism>
+        </costList>
+        <placeWorkers>
+            <li>PlaceWorker_Heater</li>
+        </placeWorkers>
+        <comps>
+            <li Class="RedistHeat.CompAirTraderProperties">
+                <compClass>RedistHeat.CompAirTrader</compClass>
+            </li>
+            <li Class="RedistHeat.CompDuctSwitchableProperties">
+                <compClass>RedistHeat.CompDuctSwitchable</compClass>
+            </li>
+            <li Class="CompProperties_Power">
+                <compClass>CompPowerTrader</compClass>
+                <soundPowerOn>PowerOnSmall</soundPowerOn>
+                <soundPowerOff>PowerOffSmall</soundPowerOff>
+                <basePowerConsumption>500</basePowerConsumption>
+            </li>
+            <li Class="CompProperties_Flickable" />
+            <li Class="CompProperties_TempControl">
+                <compClass>CompTempControl</compClass>
+                <energyPerSecond>21.12</energyPerSecond>
+                <!--88-->
+            </li>
+            <li Class="CompProperties_Glower">
+                <compClass>CompGlower</compClass>
+                <glowColor>(255,150,100,0)</glowColor>
+                <glowRadius>6</glowRadius>
+            </li>
+            <li Class="CompProperties_Breakdownable" />
+        </comps>
+        <altitudeLayer>Building</altitudeLayer>
+        <passability>PassThroughOnly</passability>
+        <pathCost>40</pathCost>
+        <castEdgeShadows>false</castEdgeShadows>
+        <rotatable>false</rotatable>
+        <fillPercent>0.5</fillPercent>
+        <designationCategory>Temperature</designationCategory>
+        <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+        <researchPrerequisites>
+            <li>RH_TemperatureControlCooling</li>
+            <!-- <li>SK_InfrastructureIV</li> Possibly too late into the tree -->
+        </researchPrerequisites>
+        <size>(2,2)</size>
+        <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+        <tickerType>Normal</tickerType>
+    </ThingDef>
+    <!-- Exhaust Port -->
+    <ThingDef ParentName="BuildingBase">
+        <defName>RedistHeat_ExhaustPort</defName>
+        <thingClass>RedistHeat.Building_ExhaustPort</thingClass>
+        <label>exhaust port</label>
+        <description>An electrical device that works as a exhaust port for a industrial cooler. Generates a lot of heat.</description>
+        <graphicData>
+            <texPath>Things/Building/Cooler/ExhaustPort</texPath>
+            <graphicClass>Graphic_Multi</graphicClass>
+        </graphicData>
+        <passability>Impassable</passability>
+        <staticSunShadowHeight>1.0</staticSunShadowHeight>
+        <fillPercent>1</fillPercent>
+        <statBases>
+            <WorkToBuild>1000</WorkToBuild>
+            <MaxHitPoints>100</MaxHitPoints>
+            <Flammability>1.0</Flammability>
+            <Beauty>-10</Beauty>
+        </statBases>
+        <size>(1,1)</size>
+        <stuffCategories>
+            <li>Metallic</li>
+        </stuffCategories>
+        <costStuffCount>30</costStuffCount>
+        <costList>
+            <Component>2</Component>
+            <ElectronicComponents>2</ElectronicComponents>
+            <Mechanism>1</Mechanism>
+        </costList>
+        <building>
+            <canPlaceOverWall>true</canPlaceOverWall>
+        </building>
+        <comps>
+            <li Class="RedistHeat.CompAirTraderProperties">
+                <compClass>RedistHeat.CompAirTrader</compClass>
+            </li>
+            <li Class="RedistHeat.CompDuctSwitchableProperties">
+                <compClass>RedistHeat.CompDuctSwitchable</compClass>
+            </li>
+            <li Class="CompProperties_Power">
+                <compClass>CompPowerTrader</compClass>
+                <soundPowerOn>PowerOnSmall</soundPowerOn>
+                <soundPowerOff>PowerOffSmall</soundPowerOff>
+                <basePowerConsumption>100</basePowerConsumption>
+                <transmitsPower>true</transmitsPower>
+            </li>
+            <li Class="CompProperties_Flickable" />
+            <li Class="CompProperties_Breakdownable" />
+        </comps>
+        <placeWorkers>
+            <li>RedistHeat.PlaceWorker_ExhaustPort</li>
+        </placeWorkers>
+        <altitudeLayer>Building</altitudeLayer>
+        <blockLight>true</blockLight>
+        <castEdgeShadows>true</castEdgeShadows>
+        <designationCategory>Temperature</designationCategory>
+        <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+        <researchPrerequisites>
+            <li>RH_TemperatureControlCooling</li>
+            <!-- <li>SK_InfrastructureIV</li> Possibly too late into the tree -->
+        </researchPrerequisites>
+        <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+        <tickerType>Normal</tickerType>
+    </ThingDef>
+</Buildings>
