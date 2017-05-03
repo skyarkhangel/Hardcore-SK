@@ -6,6 +6,10 @@
     <alwaysShowWeapon>false</alwaysShowWeapon>
     <thinkNode Class="ThinkNode_Priority">
       <subNodes>
+		<!-- Insertion hook for modders -->
+		<li Class="ThinkNode_SubtreesByTag">
+		  <insertTag>Humanlike_PostDuty</insertTag>
+		</li>
 		<li Class="Hospitality.ThinkNode_InGuestArea">
 		  <invert>true</invert>
           <subNodes>
@@ -14,14 +18,30 @@
 		</li>
         <li Class="Hospitality.ThinkNode_FilterGuestRooms">
           <subNodes>
-            <li Class="ThinkNode_PrioritySorter">
-              <subNodes>
-				<li Class="Hospitality.JobGiver_Relax"/>
-                <li Class="JobGiver_GetFood"/>
-                <li Class="Hospitality.JobGiver_Sleep"/>
-                <li Class="JobGiver_Work"/>
-              </subNodes>
-            </li>
+			<!-- Insertion hook for modders -->
+			<li Class="ThinkNode_SubtreesByTag">
+			  <insertTag>Humanlike_PreMain</insertTag>
+			</li>
+
+			<li Class="ThinkNode_PrioritySorter">
+			  <subNodes>
+
+				<li Class="JobGiver_GetFood" />
+				<li Class="Hospitality.JobGiver_Sleep" />
+				<li Class="Hospitality.JobGiver_Relax" />
+				
+			  </subNodes>
+			</li>
+            
+			<!-- Insertion hook for modders -->
+			<li Class="ThinkNode_SubtreesByTag">
+			  <insertTag>Humanlike_PostMain</insertTag>
+			</li>
+			
+			<!-- Wander -->
+			<li Class="JobGiver_WanderColony">
+			  <maxDanger>None</maxDanger>
+			</li>
           </subNodes>
         </li>
       </subNodes>
