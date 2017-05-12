@@ -3,9 +3,11 @@
 
 	<!--========================= Doors =============================-->
 
+	
+	
 	<ThingDef ParentName="BuildingBase" Name="DoorBase" Abstract="True">
 		<!--<thingClass>Building_Door</thingClass>-->
-		<thingClass>SK.LockableDoors</thingClass>
+		<thingClass>SK.LinkedDoor</thingClass>
 		<blueprintClass>Blueprint_Door</blueprintClass>
 		<category>Building</category>
 		<blueprintGraphicData>
@@ -15,6 +17,7 @@
 		<fillPercent>1</fillPercent>
 		<useHitPoints>true</useHitPoints>
 		<statBases>
+			<MaxHitPoints>200</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 		</statBases>
 		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
@@ -43,43 +46,6 @@
 	</ThingDef>
 	
 	<ThingDef ParentName="DoorBase">
-		<defName>FenceGate</defName>
-		<thingClass>Building_Door</thingClass>
-		<label>fence gate</label>
-		<description>A fence gate. It must be manually opened and closed, which slows people down.</description>
-		<statBases>
-			<MaxHitPoints>150</MaxHitPoints>
-			<WorkToBuild>850</WorkToBuild>
-		</statBases>
-		<stuffCategories>
-			<li>Metallic</li>
-			<li>Woody</li>
-		</stuffCategories>
-		<costStuffCount>6</costStuffCount>
-		<blueprintGraphicData>
-			<texPath>Things/Building/Doors/FenceGate_Blueprint</texPath>
-		</blueprintGraphicData>
-		<graphicData>
-			<texPath>Things/Building/Doors/FenceGate_Mover</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
-		</graphicData>
-		<uiIconPath>Things/Building/Doors/FenceGate_MenuIcon</uiIconPath>
-		<holdsRoof>false</holdsRoof>
-		<blockLight>false</blockLight>
-		<blockWind>false</blockWind>
-		<designationCategory>Structure</designationCategory>
-		<staticSunShadowHeight>0.30</staticSunShadowHeight>
-		<comps>
-			<li Class="CompProperties_Forbiddable"/>
-		</comps>
-		<!-- Плейсворкер надо оставить пустым иначе наследует дорфикс см. Issue#246 -->
-		<placeWorkers>
-		</placeWorkers>
-		<researchPrerequisites><li>SK_Agriculture</li></researchPrerequisites>	
-	</ThingDef>
-
-	
-	<ThingDef ParentName="DoorBase">
 		<defName>Door</defName>
 		<label>rustic door</label>
 		<description>Divides rooms. Must be manually opened and closed, which slows people down.</description>
@@ -88,17 +54,64 @@
 			<WorkToBuild>600</WorkToBuild>
 		</statBases>
 		<graphicData>
-			<texPath>Things/Building/Doors/DoorLog_Mover</texPath>
+			<texPath>Inv</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
-			<damageData>
-				<rect>(0,0.1,1,0.8)</rect>
-			</damageData>
+			<shaderType>Transparent</shaderType>
 		</graphicData>
-		<uiIconPath>Things/Building/Doors/DoorLog_MenuIcon</uiIconPath>
+		<regionBarrier>true</regionBarrier>
+		<uiIconPath>Things/Building/Doors/WoodDoor_ico</uiIconPath>
 		<stuffCategories>
 			<li>Woody</li>
 		</stuffCategories>
 		<costStuffCount>10</costStuffCount>
+	 <comps>
+      <li Class="SK.StructureCompProps">
+        <compClass>SK.CompDoorsDrawer</compClass>
+		<FrontDoorTexPath>Things/Building/Doors/WoodDoor_front</FrontDoorTexPath>
+		<SideLeftTexPath>Things/Building/Doors/WoodDoor_lower_side</SideLeftTexPath>
+		<SideRightTexPath>Things/Building/Doors/WoodDoor_lower_side</SideRightTexPath>
+		<DoorTextureSet>
+		<li>
+			<TargetWall>Wall</TargetWall>
+			<TexDoorJambUp>Things/Building/Utilities/StoneWallJambUp</TexDoorJambUp>
+			<TexDoorJambDown>Things/Building/Utilities/StoneWallJambDown</TexDoorJambDown>
+			<TexDoorJambLeft>Things/Building/Utilities/StoneWallJambLeft</TexDoorJambLeft>
+			<TexDoorJambRight>Things/Building/Utilities/StoneWallJambRight</TexDoorJambRight>
+		</li>
+		<li>
+			<TargetWall>WallLog</TargetWall>
+			<TexDoorJambUp>Things/Building/Utilities/WoodWallJambUp</TexDoorJambUp>
+			<TexDoorJambDown>Things/Building/Utilities/WoodWallJambDown</TexDoorJambDown>
+			<TexDoorJambLeft>Things/Building/Utilities/WoodWallJambLeft</TexDoorJambLeft>
+			<TexDoorJambRight>Things/Building/Utilities/WoodWallJambRight</TexDoorJambRight>
+		</li>
+		<li>
+			<TargetWall>ClutterSilverWall</TargetWall>
+			<TexDoorJambUp>Things/Building/Utilities/ArmorWallJambUp</TexDoorJambUp>
+			<TexDoorJambDown>Things/Building/Utilities/ArmorWallJambDown</TexDoorJambDown>
+			<TexDoorJambLeft>Things/Building/Utilities/ArmorWallJambLeft</TexDoorJambLeft>
+			<TexDoorJambRight>Things/Building/Utilities/ArmorWallJambRight</TexDoorJambRight>
+		</li>
+		<li>
+			<TargetWall>ClutterUtilityWall</TargetWall>
+			<TexDoorJambUp>Things/Building/Utilities/MetallWallJambUp</TexDoorJambUp>
+			<TexDoorJambDown>Things/Building/Utilities/MetallWallJambDown</TexDoorJambDown>
+			<TexDoorJambLeft>Things/Building/Utilities/MetallWallJambLeft</TexDoorJambLeft>
+			<TexDoorJambRight>Things/Building/Utilities/MetallWallJambRight</TexDoorJambRight>
+		</li>
+		<li>
+			<TargetWall>ClutterUWallLight</TargetWall>
+			<TexDoorJambUp>Things/Building/Utilities/MetallWallJambUp</TexDoorJambUp>
+			<TexDoorJambDown>Things/Building/Utilities/MetallWallJambDown</TexDoorJambDown>
+			<TexDoorJambLeft>Things/Building/Utilities/MetallWallJambLeft</TexDoorJambLeft>
+			<TexDoorJambRight>Things/Building/Utilities/MetallWallJambRight</TexDoorJambRight>
+		</li>
+		</DoorTextureSet>
+      </li>
+    </comps>
+	<placeWorkers>
+      <li>SK.PlaceWorker_NoAdjacentDoor</li>
+    </placeWorkers>
 	</ThingDef>
 	
 
@@ -111,13 +124,11 @@
 			<WorkToBuild>1200</WorkToBuild>
 		</statBases>
 		<graphicData>
-			<texPath>Things/Building/Doors/DoorSimple_Mover</texPath>
+			<texPath>Inv</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
-			<damageData>
-				<rect>(0,0.1,1,0.8)</rect>
-			</damageData>
+			<shaderType>Transparent</shaderType>
 		</graphicData>
-		<uiIconPath>Things/Building/Doors/DoorSimple_MenuIcon</uiIconPath>
+		<uiIconPath>Things/Building/Doors/Metalicdoor_ico</uiIconPath>
 		<stuffCategories>
 			<li>Metallic</li>
 		</stuffCategories>
@@ -125,6 +136,54 @@
 		<costList>
 			<Component>1</Component>
 		</costList>
+	 <comps>
+      <li Class="SK.StructureCompProps">
+        <compClass>SK.CompDoorsDrawer</compClass>
+		<FrontDoorTexPath>Things/Building/Doors/MetalDoor_front</FrontDoorTexPath>
+		<SideLeftTexPath>Things/Building/Doors/MetalDoor_lower_side</SideLeftTexPath>
+		<SideRightTexPath>Things/Building/Doors/MetalDoor_lower_side</SideRightTexPath>
+		<DoorTextureSet>
+		<li>
+			<TargetWall>Wall</TargetWall>
+			<TexDoorJambUp>Things/Building/Utilities/StoneWallJambUp</TexDoorJambUp>
+			<TexDoorJambDown>Things/Building/Utilities/StoneWallJambDown</TexDoorJambDown>
+			<TexDoorJambLeft>Things/Building/Utilities/StoneWallJambLeft</TexDoorJambLeft>
+			<TexDoorJambRight>Things/Building/Utilities/StoneWallJambRight</TexDoorJambRight>
+		</li>
+		<li>
+			<TargetWall>WallLog</TargetWall>
+			<TexDoorJambUp>Things/Building/Utilities/WoodWallJambUp</TexDoorJambUp>
+			<TexDoorJambDown>Things/Building/Utilities/WoodWallJambDown</TexDoorJambDown>
+			<TexDoorJambLeft>Things/Building/Utilities/WoodWallJambLeft</TexDoorJambLeft>
+			<TexDoorJambRight>Things/Building/Utilities/WoodWallJambRight</TexDoorJambRight>
+		</li>
+		<li>
+			<TargetWall>ClutterSilverWall</TargetWall>
+			<TexDoorJambUp>Things/Building/Utilities/ArmorWallJambUp</TexDoorJambUp>
+			<TexDoorJambDown>Things/Building/Utilities/ArmorWallJambDown</TexDoorJambDown>
+			<TexDoorJambLeft>Things/Building/Utilities/ArmorWallJambLeft</TexDoorJambLeft>
+			<TexDoorJambRight>Things/Building/Utilities/ArmorWallJambRight</TexDoorJambRight>
+		</li>
+		<li>
+			<TargetWall>ClutterUtilityWall</TargetWall>
+			<TexDoorJambUp>Things/Building/Utilities/MetallWallJambUp</TexDoorJambUp>
+			<TexDoorJambDown>Things/Building/Utilities/MetallWallJambDown</TexDoorJambDown>
+			<TexDoorJambLeft>Things/Building/Utilities/MetallWallJambLeft</TexDoorJambLeft>
+			<TexDoorJambRight>Things/Building/Utilities/MetallWallJambRight</TexDoorJambRight>
+		</li>
+		<li>
+			<TargetWall>ClutterUWallLight</TargetWall>
+			<TexDoorJambUp>Things/Building/Utilities/MetallWallJambUp</TexDoorJambUp>
+			<TexDoorJambDown>Things/Building/Utilities/MetallWallJambDown</TexDoorJambDown>
+			<TexDoorJambLeft>Things/Building/Utilities/MetallWallJambLeft</TexDoorJambLeft>
+			<TexDoorJambRight>Things/Building/Utilities/MetallWallJambRight</TexDoorJambRight>
+		</li>
+		</DoorTextureSet>
+      </li>
+    </comps>
+	<placeWorkers>
+      <li>SK.PlaceWorker_NoAdjacentDoor</li>
+    </placeWorkers>
 		<designationHotKey>Misc2</designationHotKey>
 		<researchPrerequisites><li>SK_ConstructionI</li></researchPrerequisites>
 	</ThingDef>
@@ -135,6 +194,12 @@
 		<label>cell door</label>
 		<thingClass>SK.Building_CellDoor</thingClass>
 		<description>Door which prisoners as well as colonists can open. It divides rooms.</description>
+		<graphicData>
+			<texPath>Inv</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>Transparent</shaderType>
+		</graphicData>
+		<uiIconPath>Things/Building/Doors/CellDoor_MenuIcon</uiIconPath>
 		<statBases>
 			<MaxHitPoints>200</MaxHitPoints>
 			<WorkToBuild>850</WorkToBuild>
@@ -146,18 +211,59 @@
 		<costList>
 			<Component>2</Component>
 		</costList>
-		<graphicData>
-			<texPath>Things/Building/Doors/CellDoor_Mover</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
-		</graphicData>
-		<uiIconPath>Things/Building/Doors/CellDoor_MenuIcon</uiIconPath>
 		<comps>
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerTransmitter</compClass>
 				<transmitsPower>true</transmitsPower>
 			</li>
 			<li Class="CompProperties_Breakdownable"/>
+      <li Class="SK.StructureCompProps">
+        <compClass>SK.CompDoorsDrawer</compClass>
+		<FrontDoorTexPath>Things/Building/Doors/PrisonDoor_front</FrontDoorTexPath>
+		<SideLeftTexPath>Things/Building/Doors/PrisonDoor_lower_side</SideLeftTexPath>
+		<SideRightTexPath>Things/Building/Doors/PrisonDoor_lower_side</SideRightTexPath>
+		<DoorTextureSet>
+		<li>
+			<TargetWall>Wall</TargetWall>
+			<TexDoorJambUp>Things/Building/Utilities/StoneWallJambUp</TexDoorJambUp>
+			<TexDoorJambDown>Things/Building/Utilities/StoneWallJambDown</TexDoorJambDown>
+			<TexDoorJambLeft>Things/Building/Utilities/StoneWallJambLeft</TexDoorJambLeft>
+			<TexDoorJambRight>Things/Building/Utilities/StoneWallJambRight</TexDoorJambRight>
+		</li>
+		<li>
+			<TargetWall>WallLog</TargetWall>
+			<TexDoorJambUp>Things/Building/Utilities/WoodWallJambUp</TexDoorJambUp>
+			<TexDoorJambDown>Things/Building/Utilities/WoodWallJambDown</TexDoorJambDown>
+			<TexDoorJambLeft>Things/Building/Utilities/WoodWallJambLeft</TexDoorJambLeft>
+			<TexDoorJambRight>Things/Building/Utilities/WoodWallJambRight</TexDoorJambRight>
+		</li>
+		<li>
+			<TargetWall>ClutterSilverWall</TargetWall>
+			<TexDoorJambUp>Things/Building/Utilities/ArmorWallJambUp</TexDoorJambUp>
+			<TexDoorJambDown>Things/Building/Utilities/ArmorWallJambDown</TexDoorJambDown>
+			<TexDoorJambLeft>Things/Building/Utilities/ArmorWallJambLeft</TexDoorJambLeft>
+			<TexDoorJambRight>Things/Building/Utilities/ArmorWallJambRight</TexDoorJambRight>
+		</li>
+		<li>
+			<TargetWall>ClutterUtilityWall</TargetWall>
+			<TexDoorJambUp>Things/Building/Utilities/MetallWallJambUp</TexDoorJambUp>
+			<TexDoorJambDown>Things/Building/Utilities/MetallWallJambDown</TexDoorJambDown>
+			<TexDoorJambLeft>Things/Building/Utilities/MetallWallJambLeft</TexDoorJambLeft>
+			<TexDoorJambRight>Things/Building/Utilities/MetallWallJambRight</TexDoorJambRight>
+		</li>
+		<li>
+			<TargetWall>ClutterUWallLight</TargetWall>
+			<TexDoorJambUp>Things/Building/Utilities/MetallWallJambUp</TexDoorJambUp>
+			<TexDoorJambDown>Things/Building/Utilities/MetallWallJambDown</TexDoorJambDown>
+			<TexDoorJambLeft>Things/Building/Utilities/MetallWallJambLeft</TexDoorJambLeft>
+			<TexDoorJambRight>Things/Building/Utilities/MetallWallJambRight</TexDoorJambRight>
+		</li>
+		</DoorTextureSet>
+      </li>
 		</comps>
+	<placeWorkers>
+      <li>SK.PlaceWorker_NoAdjacentDoor</li>
+    </placeWorkers>
 		<researchPrerequisites><li>Autodoors</li></researchPrerequisites>
 	</ThingDef>
 
@@ -170,11 +276,9 @@
 			<WorkToBuild>1200</WorkToBuild>
 		</statBases>
 		<graphicData>
-			<texPath>Things/Building/Door/Autodoor_Mover</texPath>
+			<texPath>Inv</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
-			<damageData>
-				<rect>(0,0.1,1,0.8)</rect>
-			</damageData>
+			<shaderType>Transparent</shaderType>
 		</graphicData>
 		<uiIconPath>Things/Building/Doors/Autodoor_MenuIcon</uiIconPath>
 		<stuffCategories>
@@ -198,7 +302,53 @@
 				<idlePowerFactor>0.1</idlePowerFactor>
 				<operationalMode>WhenNear</operationalMode>
 			</li>
+      <li Class="SK.StructureCompProps">
+        <compClass>SK.CompDoorsDrawer</compClass>
+		<FrontDoorTexPath>Things/Building/Doors/AvtoDoor_front</FrontDoorTexPath>
+		<SideLeftTexPath>Things/Building/Doors/AvtoDoor_lower_side</SideLeftTexPath>
+		<SideRightTexPath>Things/Building/Doors/AvtoDoor_lower_side</SideRightTexPath>
+		<DoorTextureSet>
+		<li>
+			<TargetWall>Wall</TargetWall>
+			<TexDoorJambUp>Things/Building/Utilities/StoneWallJambUp</TexDoorJambUp>
+			<TexDoorJambDown>Things/Building/Utilities/StoneWallJambDown</TexDoorJambDown>
+			<TexDoorJambLeft>Things/Building/Utilities/StoneWallJambLeft</TexDoorJambLeft>
+			<TexDoorJambRight>Things/Building/Utilities/StoneWallJambRight</TexDoorJambRight>
+		</li>
+		<li>
+			<TargetWall>WallLog</TargetWall>
+			<TexDoorJambUp>Things/Building/Utilities/WoodWallJambUp</TexDoorJambUp>
+			<TexDoorJambDown>Things/Building/Utilities/WoodWallJambDown</TexDoorJambDown>
+			<TexDoorJambLeft>Things/Building/Utilities/WoodWallJambLeft</TexDoorJambLeft>
+			<TexDoorJambRight>Things/Building/Utilities/WoodWallJambRight</TexDoorJambRight>
+		</li>
+		<li>
+			<TargetWall>ClutterSilverWall</TargetWall>
+			<TexDoorJambUp>Things/Building/Utilities/ArmorWallJambUp</TexDoorJambUp>
+			<TexDoorJambDown>Things/Building/Utilities/ArmorWallJambDown</TexDoorJambDown>
+			<TexDoorJambLeft>Things/Building/Utilities/ArmorWallJambLeft</TexDoorJambLeft>
+			<TexDoorJambRight>Things/Building/Utilities/ArmorWallJambRight</TexDoorJambRight>
+		</li>
+		<li>
+			<TargetWall>ClutterUtilityWall</TargetWall>
+			<TexDoorJambUp>Things/Building/Utilities/MetallWallJambUp</TexDoorJambUp>
+			<TexDoorJambDown>Things/Building/Utilities/MetallWallJambDown</TexDoorJambDown>
+			<TexDoorJambLeft>Things/Building/Utilities/MetallWallJambLeft</TexDoorJambLeft>
+			<TexDoorJambRight>Things/Building/Utilities/MetallWallJambRight</TexDoorJambRight>
+		</li>
+		<li>
+			<TargetWall>ClutterUWallLight</TargetWall>
+			<TexDoorJambUp>Things/Building/Utilities/MetallWallJambUp</TexDoorJambUp>
+			<TexDoorJambDown>Things/Building/Utilities/MetallWallJambDown</TexDoorJambDown>
+			<TexDoorJambLeft>Things/Building/Utilities/MetallWallJambLeft</TexDoorJambLeft>
+			<TexDoorJambRight>Things/Building/Utilities/MetallWallJambRight</TexDoorJambRight>
+		</li>
+		</DoorTextureSet>
+      </li>
 		</comps>
+	<placeWorkers>
+      <li>SK.PlaceWorker_NoAdjacentDoor</li>
+    </placeWorkers>
 		<designationHotKey>Misc3</designationHotKey>
 		<researchPrerequisites><li>Autodoors</li></researchPrerequisites>
 	</ThingDef>
@@ -221,8 +371,9 @@
 			<ElectronicComponents>1</ElectronicComponents>
 		</costList>
 		<graphicData>
-			<texPath>Things/Building/Doors/DoorBlast_Mover</texPath>
+			<texPath>Inv</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>Transparent</shaderType>
 		</graphicData>
 		<uiIconPath>Things/Building/Doors/DoorBlast_MenuIcon</uiIconPath>
 		<tickerType>Normal</tickerType>
@@ -237,11 +388,56 @@
 				<idlePowerFactor>0.1</idlePowerFactor>
 				<operationalMode>WhenNear</operationalMode>
 			</li>
+      <li Class="SK.StructureCompProps">
+        <compClass>SK.CompDoorsDrawer</compClass>
+		<FrontDoorTexPath>Things/Building/Doors/ArmorDoor_front</FrontDoorTexPath>
+		<SideLeftTexPath>Things/Building/Doors/ArmorDoor_lower_side</SideLeftTexPath>
+		<SideRightTexPath>Things/Building/Doors/ArmorDoor_lower_side</SideRightTexPath>
+		<DoorTextureSet>
+		<li>
+			<TargetWall>Wall</TargetWall>
+			<TexDoorJambUp>Things/Building/Utilities/StoneWallJambUp</TexDoorJambUp>
+			<TexDoorJambDown>Things/Building/Utilities/StoneWallJambDown</TexDoorJambDown>
+			<TexDoorJambLeft>Things/Building/Utilities/StoneWallJambLeft</TexDoorJambLeft>
+			<TexDoorJambRight>Things/Building/Utilities/StoneWallJambRight</TexDoorJambRight>
+		</li>
+		<li>
+			<TargetWall>WallLog</TargetWall>
+			<TexDoorJambUp>Things/Building/Utilities/WoodWallJambUp</TexDoorJambUp>
+			<TexDoorJambDown>Things/Building/Utilities/WoodWallJambDown</TexDoorJambDown>
+			<TexDoorJambLeft>Things/Building/Utilities/WoodWallJambLeft</TexDoorJambLeft>
+			<TexDoorJambRight>Things/Building/Utilities/WoodWallJambRight</TexDoorJambRight>
+		</li>
+		<li>
+			<TargetWall>ClutterSilverWall</TargetWall>
+			<TexDoorJambUp>Things/Building/Utilities/ArmorWallJambUp</TexDoorJambUp>
+			<TexDoorJambDown>Things/Building/Utilities/ArmorWallJambDown</TexDoorJambDown>
+			<TexDoorJambLeft>Things/Building/Utilities/ArmorWallJambLeft</TexDoorJambLeft>
+			<TexDoorJambRight>Things/Building/Utilities/ArmorWallJambRight</TexDoorJambRight>
+		</li>
+		<li>
+			<TargetWall>ClutterUtilityWall</TargetWall>
+			<TexDoorJambUp>Things/Building/Utilities/MetallWallJambUp</TexDoorJambUp>
+			<TexDoorJambDown>Things/Building/Utilities/MetallWallJambDown</TexDoorJambDown>
+			<TexDoorJambLeft>Things/Building/Utilities/MetallWallJambLeft</TexDoorJambLeft>
+			<TexDoorJambRight>Things/Building/Utilities/MetallWallJambRight</TexDoorJambRight>
+		</li>
+		<li>
+			<TargetWall>ClutterUWallLight</TargetWall>
+			<TexDoorJambUp>Things/Building/Utilities/MetallWallJambUp</TexDoorJambUp>
+			<TexDoorJambDown>Things/Building/Utilities/MetallWallJambDown</TexDoorJambDown>
+			<TexDoorJambLeft>Things/Building/Utilities/MetallWallJambLeft</TexDoorJambLeft>
+			<TexDoorJambRight>Things/Building/Utilities/MetallWallJambRight</TexDoorJambRight>
+		</li>
+		</DoorTextureSet>
+      </li>	
 			<li Class="CompProperties_Breakdownable"/>
 		</comps>
+	<placeWorkers>
+      <li>SK.PlaceWorker_NoAdjacentDoor</li>
+    </placeWorkers>
 		<researchPrerequisites><li>SK_ConstructionIII</li></researchPrerequisites>
 	</ThingDef>
-
 
 	<ThingDef ParentName="BuildingBase">
 		<defName>OpenBlastDoor</defName>
@@ -354,159 +550,5 @@
 		<tickerType>Rare</tickerType>
 		<blockLight>false</blockLight>
 	</ThingDef>
-
-	<!--========================= Glass doors =============================-->
-
-
-	<ThingDef ParentName="DoorBase" Name="DoorGlassBase" Abstract="True">
-		<statBases>
-			<MaxHitPoints>150</MaxHitPoints>
-			<Flammability>1.0</Flammability>
-		</statBases>
-		<tickerType>Normal</tickerType>
-		<size>(1,1)</size>
-		<blockLight>false</blockLight>
-		<building>
-			<soundDoorOpenPowered>DoorOpenPowered</soundDoorOpenPowered>
-			<soundDoorClosePowered>DoorClosePowered</soundDoorClosePowered>
-			<soundDoorOpenManual>DoorOpenManual</soundDoorOpenManual>
-			<soundDoorCloseManual>DoorCloseManual</soundDoorCloseManual>
-		</building>
-	</ThingDef>
-
-	<ThingDef ParentName="DoorGlassBase">
-		<defName>DoorGlass</defName>
-		<label>door</label>
-		<description>A door divides rooms with a closable opening. Powered operation allows people to move through the door without slowing down. This door is made from glass.</description>
-		<blockLight>false</blockLight>
-		<GraphicData>
-			<texPath>Things/Building/DoorGlass_Mover</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
-		</GraphicData>
-		<uiIconPath>Things/Building/DoorGlass_Icon</uiIconPath>
-		<statBases>
-			<MaxHitPoints>280</MaxHitPoints>
-			<MarketValue>15</MarketValue>
-			<WorkToBuild>750</WorkToBuild>
-			<Flammability>1.0</Flammability>
-			<Beauty>8</Beauty>
-		</statBases>
-		<stuffCategories>
-			<li>Glass</li>
-		</stuffCategories>
-		<costStuffCount>8</costStuffCount>
-		<costList>
-			<Component>5</Component>
-			<ElectronicComponents>1</ElectronicComponents>
-		</costList>
-		<tickerType>Normal</tickerType>
-		<comps>
-			<li Class="CompProperties_Power">
-				<compClass>CompPowerTrader</compClass>
-				<basePowerConsumption>100</basePowerConsumption>
-			</li>
-			<li Class="SK.CompProperties_LowIdleDraw">
-				<compClass>SK.CompPowerLowIdleDraw</compClass>
-				<idlePowerFactor>0.1</idlePowerFactor>
-				<operationalMode>WhenNear</operationalMode>
-			</li>
-			<li Class="CompProperties_Forbiddable"/>
-		</comps>
-		<filthLeaving>BrokenGlass</filthLeaving>
-		<researchPrerequisites><li>SK_GlassworkingII</li></researchPrerequisites>
-	</ThingDef>
-
-	<!--========================= Glass =============================-->
-
-	<ThingDef ParentName="BuildingBase">
-		<DefName>Window</DefName>
-		<label>window frame</label>
-		<Description>A simple window for allowing natural light into a room. Can be built into a wall.</Description>
-		<graphicData>
-			<texPath>Things/Building/Window/Window</texPath>
-			<graphicClass>Graphic_Multi</graphicClass>
-		</graphicData>
-		<AltitudeLayer>Pawn</AltitudeLayer>
-		<useHitPoints>True</useHitPoints>
-		<statBases>
-			<MaxHitPoints>20</MaxHitPoints>
-			<Flammability>0</Flammability>
-		</statBases>
-		<Size>(1,1)</Size>
-		<selectable>true</selectable>
-		<building>
-			<isEdifice>false</isEdifice>
-		</building>
-		<filthLeaving>BrokenGlass</filthLeaving>
-	</ThingDef>
-
-
-	<ThingDef ParentName="BuildingBase">
-		<DefName>WindowSpawner</DefName>
-		<label>window</label>
-		<Description>A simple window for allowing natural light into a room. Can be built into a wall.</Description>
-		<thingClass>SK.Building_Window</thingClass>
-		<graphicData>
-			<texPath>Things/Building/Window/Window</texPath>
-			<graphicClass>Graphic_Multi</graphicClass>
-		</graphicData>
-		<stuffCategories>
-			<li>Glass</li>
-		</stuffCategories>
-		<costStuffCount>6</costStuffCount>
-		<costList>
-			<Component>3</Component>
-		</costList>
-		<AltitudeLayer>Pawn</AltitudeLayer>
-		<statBases>
-			<WorkToBuild>900</WorkToBuild>
-		</statBases>
-		<Size>(1,1)</Size>
-		<DesignationCategory>Structure</DesignationCategory>
-		<selectable>true</selectable>
-		<building>
-			<isEdifice>false</isEdifice>
-		</building>
-		<placeWorkers>
-			<li>SK.PlaceWorker_Window</li>
-		</placeWorkers>
-		<filthLeaving>BrokenGlass</filthLeaving>
-		<researchPrerequisites><li>SK_GlassworkingII</li></researchPrerequisites>
-	</ThingDef>
-
-
-	<ThingDef ParentName="BuildingBase">
-		<defName>WindowGlower</defName>
-		<label>sunlight</label>
-		<thingClass>SK.Building_WindowGlower</thingClass>
-		<graphicData>
-			<graphicClass>Graphic_Single</graphicClass>
-			<texPath>Things/Null</texPath>
-			<drawSize>(0,0)</drawSize>
-		</graphicData>
-		<size>(1,1)</size>
-		<useHitPoints>false</useHitPoints>
-		<statBases>
-			<Flammability>0</Flammability>
-		</statBases>
-		<altitudeLayer>Floor</altitudeLayer>
-		<passability>Standable</passability>
-		<selectable>false</selectable>
-		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
-		<tickerType>Rare</tickerType>
-		<building>
-			<isEdifice>false</isEdifice>
-			<deconstructible>false</deconstructible>
-		</building>
-		<comps>
-			<li>
-				<compClass>SK.CompSunlight</compClass>
-			</li>
-			<li Class="CompProperties_Glower">
-				<glowRadius>8</glowRadius>
-				<glowColor>(0,0,0,0)</glowColor>
-			</li>
-		</comps>
-	</ThingDef>
-
+	
 </Buildings>
