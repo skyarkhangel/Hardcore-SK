@@ -26,7 +26,7 @@ Extract everything in the Hardcore-SK-master\Mods\ folder into your Rimworlds\Mo
 
 3. Go to:  
 For Windows users:
-C:\Users\your user name\AppData\LocalLow\Ludeon Studios\RimWorld by Ludeon Studios\Config
+C:\Users\your user name\AppData\LocalLow\Ludeon Studios\RimWorld by Ludeon Studios by Ludeon Studios\Config
 windows button + R -> the Run dialog will appear
 type %APPDATA%\..\LocalLow -> this will open the appdata folder
 For Linux users:
