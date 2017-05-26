@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <MapGeneratorDef>
+    <defName>BasicMapGenerator</defName>
+    <selectionWeight>0</selectionWeight>
+  </MapGeneratorDef>
+  
+  <!-- Generate abstract grids-->
+  <GenStepDef>
+    <defName>ElevationFertility</defName>
+    <mapGenerator>BasicMapGenerator</mapGenerator>
+    <order>10</order>
+    <genStep Class="GenStep_ElevationFertility"/>
+  </GenStepDef>
+  
+  <!-- Generate deep resources -->
+  <GenStepDef>
+    <defName>ScatterDeepResourceLumps</defName>
+    <mapGenerator>BasicMapGenerator</mapGenerator>
+    <order>100</order>
+    <genStep Class="GenStep_ScatterDeepResourceLumps">
+      <minSpacing>3</minSpacing>
+      <countPer10kCellsRange>
+        <min>9</min>
+        <max>9</max>
+      </countPer10kCellsRange>
+      <warnOnFail>false</warnOnFail>
+    </genStep>
+  </GenStepDef>
+
+  <!-- Generate basic rocks and terrain from grid-->
+  <GenStepDef>
+    <defName>RocksFromGrid</defName>
+    <mapGenerator>BasicMapGenerator</mapGenerator>
+    <order>200</order>
+    <genStep Class="GenStep_RocksFromGrid"/>
+  </GenStepDef>
+  
+  <GenStepDef>
+    <defName>Terrain</defName>
+    <mapGenerator>BasicMapGenerator</mapGenerator>
+    <order>210</order>
+    <genStep Class="GenStep_Terrain"/>
+  </GenStepDef>
+    
+  <GenStepDef>
+    <defName>RockChunks</defName>
+    <mapGenerator>BasicMapGenerator</mapGenerator>
+    <order>220</order>
+    <genStep Class="GenStep_RockChunks"/>
+  </GenStepDef>
+
+  <!-- Empty ruins -->
+  <GenStepDef>
+    <defName>ScatterRuinsSimple</defName>
+    <mapGenerator>BasicMapGenerator</mapGenerator>
+    <order>300</order>
+    <genStep Class="GenStep_ScatterRuinsSimple">
+			<allowOnWater>false</allowOnWater>
+			<countPer10kCellsRange><min>2</min><max>4</max></countPer10kCellsRange>
+    </genStep>
+  </GenStepDef>
+  
+  <!-- Steam geysers -->
+  <GenStepDef>
+    <defName>SteamGeysers</defName>
+    <mapGenerator>BasicMapGenerator</mapGenerator>
+    <order>500</order>
+    <genStep Class="GenStep_ScatterThings">
+      <thingDef>SteamGeyser</thingDef>
+			<allowOnWater>false</allowOnWater>
+			<minSpacing>25</minSpacing>
+      <extraNoBuildEdgeDist>4</extraNoBuildEdgeDist>
+      <countPer10kCellsRange>
+        <min>0.7</min>
+        <max>1</max>
+      </countPer10kCellsRange>
+      <clearSpaceSize>30</clearSpaceSize>
+      <neededTerrainAffordance>Heavy</neededTerrainAffordance>
+      <validators>
+        <li Class="ScattererValidator_Buildable">
+          <radius>4</radius>
+          <affordance>Heavy</affordance>
+        </li>
+        <li Class="ScattererValidator_NoNonNaturalEdifices">
+          <radius>4</radius>
+        </li>
+      </validators>
+    </genStep>
+  </GenStepDef>
+  
+  <GenStepDef>
+    <defName>FindPlayerStartSpot</defName>
+    <mapGenerator>BasicMapGenerator</mapGenerator>
+    <order>600</order>
+    <genStep Class="GenStep_FindPlayerStartSpot"/>
+  </GenStepDef>
+
+  <GenStepDef>
+    <defName>ScenParts</defName>
+    <mapGenerator>BasicMapGenerator</mapGenerator>
+    <order>700</order>
+    <genStep Class="GenStep_ScenParts"/>
+  </GenStepDef>
+
+  <GenStepDef>
+    <defName>Plants</defName>
+    <mapGenerator>BasicMapGenerator</mapGenerator>
+    <order>800</order>
+    <genStep Class="GenStep_Plants"/>
+  </GenStepDef>
+    
+  <GenStepDef>
+    <defName>Snow</defName>
+    <mapGenerator>BasicMapGenerator</mapGenerator>
+    <order>900</order>
+    <genStep Class="GenStep_Snow"/>
+  </GenStepDef>
+    
+  <GenStepDef>
+    <defName>Animals</defName>
+    <mapGenerator>BasicMapGenerator</mapGenerator>
+    <order>1000</order>
+    <genStep Class="GenStep_Animals"/>
+  </GenStepDef>
+
+</Defs>

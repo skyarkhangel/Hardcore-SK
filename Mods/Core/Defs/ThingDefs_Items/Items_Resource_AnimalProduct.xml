@@ -5,7 +5,7 @@
   <!--=============================== Misc ================================-->
   <!--=====================================================================-->
 
-  <ThingDef ParentName="PlantFoodRawBase">
+  <ThingDef ParentName="OrganicProductBase">
     <defName>Milk</defName>
     <label>milk</label>
     <description>Milk from an animal.</description>
@@ -13,17 +13,24 @@
       <texPath>Things/Item/Resource/Milk</texPath>
     </graphicData>
     <statBases>
-      <MarketValue>2.1</MarketValue>
+      <MarketValue>3.1</MarketValue>
+      <Mass>0.045</Mass>
     </statBases>
     <comps>
+      <li Class="CompProperties_FoodPoisoningChance" />
       <li Class="CompProperties_Rottable">
         <daysToRotStart>14</daysToRotStart>
+				<rotDestroys>true</rotDestroys>
       </li>
     </comps>
     <ingestible>
+      <preferability>RawTasty</preferability>
       <foodType>AnimalProduct, Fluid</foodType>
-      <joy>0.004</joy>
+      <nutrition>0.05</nutrition>
     </ingestible>
+    <thingCategories>
+      <li>AnimalProductRaw</li>
+    </thingCategories>
   </ThingDef>
 
   <ThingDef ParentName="OrganicProductBase">
@@ -35,14 +42,16 @@
     </graphicData>
     <statBases>
       <MarketValue>8.0</MarketValue>
+      <Mass>0.025</Mass>
     </statBases>
     <ingestible>
       <foodType>AnimalProduct</foodType>
       <preferability>MealFine</preferability>
       <nutrition>0.05</nutrition>
       <joy>0.08</joy>
-      <eatEffect>EatVegetarian</eatEffect>
-      <soundEat>Meal_Eat</soundEat>
+      <joyKind>Gluttonous</joyKind>
+      <ingestEffect>EatVegetarian</ingestEffect>
+      <ingestSound>Meal_Eat</ingestSound>
     </ingestible>
     <thingCategories>
       <li>AnimalProductRaw</li>
@@ -61,10 +70,13 @@
     <ingestible>
       <foodType>AnimalProduct</foodType>
       <nutrition>0.25</nutrition>
-      <eatEffect>EatMeat</eatEffect>
-      <soundEat>RawMeat_Eat</soundEat>
-      <tastesRaw>true</tastesRaw>
+      <ingestEffect>EatMeat</ingestEffect>
+      <ingestSound>RawMeat_Eat</ingestSound>
+      <tasteThought>AteRawFood</tasteThought>
     </ingestible>
+    <statBases>
+      <Mass>0.15</Mass>
+    </statBases>
   </ThingDef>
 
   <ThingDef Abstract="True" Name="EggUnfertBase" ParentName="EggBase" >
@@ -77,7 +89,8 @@
     <comps>
       <li Class="CompProperties_Rottable">
         <daysToRotStart>15</daysToRotStart>
-      </li>
+				<rotDestroys>true</rotDestroys>
+			</li>
       <li Class="CompProperties_FoodPoisoningChance" />
     </comps>
   </ThingDef>
@@ -90,6 +103,14 @@
     <thingCategories>
       <li>EggsFertilized</li>
     </thingCategories>
+		<comps>
+			<li Class="CompProperties_FoodPoisoningChance" />
+			<li Class="CompProperties_TemperatureRuinable">
+				<minSafeTemperature>0</minSafeTemperature>
+				<maxSafeTemperature>50</maxSafeTemperature>
+				<progressPerDegreePerTick>0.00003</progressPerDegreePerTick>
+			</li>
+		</comps>
   </ThingDef>
 
   <!-- Chicken -->
@@ -142,7 +163,7 @@
         <hatcherDaysToHatch>4.5</hatcherDaysToHatch>
         <hatcherPawn>Cobra</hatcherPawn>
       </li>
-    </comps>
+		</comps>
   </ThingDef>
 
   <!-- Iguana -->
@@ -244,27 +265,27 @@
       <MarketValue>23.0</MarketValue>
     </statBases>
     <comps>
-      <li Class="CompProperties_Hatcher">
-        <hatcherDaysToHatch>8</hatcherDaysToHatch>
-        <hatcherPawn>Ostrich</hatcherPawn>
-      </li>
-    </comps>
-  </ThingDef>
-  
-  <!-- Turkey -->
+			<li Class="CompProperties_Hatcher">
+				<hatcherDaysToHatch>8</hatcherDaysToHatch>
+				<hatcherPawn>Ostrich</hatcherPawn>
+			</li>
+		</comps>
+	</ThingDef>
 
-  <ThingDef ParentName="EggFertBase">
-    <defName>EggTurkeyFertilized</defName>
-    <label>turkey egg (fert.)</label>
-    <description>Fertilized turkey egg. If all goes well, it should hatch into a baby turkey. It can be eaten raw, but it's much better cooked.</description>
-    <graphicData>
-      <color>(236,217,184)</color>
-      <drawSize>1.1</drawSize>
-    </graphicData>
-    <statBases>
-      <MarketValue>11.0</MarketValue>
-    </statBases>
-    <comps>
+	<!-- Turkey -->
+
+	<ThingDef ParentName="EggFertBase">
+		<defName>EggTurkeyFertilized</defName>
+		<label>turkey egg (fert.)</label>
+		<description>Fertilized turkey egg. If all goes well, it should hatch into a baby turkey. It can be eaten raw, but it's much better cooked.</description>
+		<graphicData>
+			<color>(236,217,184)</color>
+			<drawSize>1.1</drawSize>
+		</graphicData>
+		<statBases>
+			<MarketValue>11.0</MarketValue>
+		</statBases>
+		<comps>
       <li Class="CompProperties_Hatcher">
         <hatcherDaysToHatch>5</hatcherDaysToHatch>
         <hatcherPawn>Turkey</hatcherPawn>

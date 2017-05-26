@@ -11,7 +11,7 @@
     <passability>PassThroughOnly</passability>
     <fillPercent>0.4</fillPercent>
     <statBases>
-      <MaxHitPoints>300</MaxHitPoints>
+      <MaxHitPoints>200</MaxHitPoints>
       <Flammability>0</Flammability>
       <Beauty>-10</Beauty>
       <Cleanliness>-2</Cleanliness>
@@ -89,6 +89,7 @@
       <appearance>Bricks</appearance>
       <statOffsets>
         <WorkToMake>140</WorkToMake>
+		<WorkToBuild>140</WorkToBuild>
         <Beauty>2</Beauty>
       </statOffsets>
       <statFactors>
@@ -97,11 +98,19 @@
         <MaxHitPoints>2.4</MaxHitPoints>
         <Flammability>0</Flammability>
         <WorkToMake>4.5</WorkToMake>
+		<WorkToBuild>4.5</WorkToBuild>
         <DoorOpenSpeed>0.45</DoorOpenSpeed>
         <BedRestEffectiveness>0.9</BedRestEffectiveness>
         <MeleeWeapon_Cooldown>1.35</MeleeWeapon_Cooldown>
       </statFactors>
     </stuffProps>
+  </ThingDef>
+  
+  <ThingDef Name="UglyRockBase" ParentName="RockBase" Abstract="True" >
+    <statBases>
+      <Flammability>0</Flammability>
+      <Beauty>-2</Beauty>
+    </statBases>
   </ThingDef>
 
   <!-- =========== Misc chunks =========== -->
@@ -116,6 +125,10 @@
     <graphicClass>Graphic_Random</graphicClass>
     </graphicData>
     <soundDrop>ChunkSlag_Drop</soundDrop>
+	<statBases>
+		<DeteriorationRate>0.2</DeteriorationRate>
+		<Flammability>0.2</Flammability>
+	</statBases>
     <thingCategories>
       <li>Chunks</li>
     </thingCategories>
@@ -128,7 +141,7 @@
   <!-- =========== Stone solids, chunks, and blocks =========== -->
  
   
-  <ThingDef ParentName="RockBase">
+  <ThingDef ParentName="UglyRockBase">
     <defName>Sandstone</defName>
     <label>Sandstone Deposit</label>
     <description>Sandstone is a sedimentary rock that is composed of sand particles that have been compressed together.</description>
@@ -164,9 +177,62 @@
 			<Sand>20</Sand>
     </butcherProducts>
   </ThingDef>
+  
+  <ThingDef ParentName="StoneBlocksBase">
+    <defName>BlocksSandstone</defName>
+    <label>sandstone blocks</label>
+    <description>Blocks of solid sandstone. Sandstone is a relatively soft rock and chips easily.</description>
+    <graphicData>
+      <color>(126,104,94)</color>
+    </graphicData>
+    <statBases>
+      <MarketValue>1.9</MarketValue>
+      <Mass>1</Mass>
+      <SharpDamageMultiplier>0.5</SharpDamageMultiplier>
+    </statBases>
+    <stuffProps>
+      <color>(126,104,94)</color>
+      <soundImpactStuff>BulletImpactGround</soundImpactStuff>
+      <soundMeleeHitSharp>MeleeHit_Stone</soundMeleeHitSharp>
+      <soundMeleeHitBlunt>MeleeHit_Stone</soundMeleeHitBlunt>
+      <stuffAdjective>sandstone</stuffAdjective>
+      <statFactors>
+        <Beauty>1.1</Beauty>  
+        <MarketValue>0.4</MarketValue>
+        <MaxHitPoints>1.4</MaxHitPoints>
+				<WorkToBuild>5.0</WorkToBuild>
+				<WorkToMake>1.1</WorkToMake>
+      </statFactors>
+    </stuffProps>
+  </ThingDef>
 
+	<RecipeDef ParentName="MakeStoneBlocksBase">
+		<defName>MakeStoneBlocksSandstone</defName>
+		<label>Make Sandstone Blocks</label>
+		<description>Cuts sandstone chunks into usable blocks. Produces 20 sand and 5 rubble as a by-product.</description>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ChunkSandstone</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>ChunkSandstone</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<BlocksSandstone>20</BlocksSandstone>
+			<CrushedStone>5</CrushedStone>
+			<Sand>20</Sand>
+		</products>
+	</RecipeDef>
 
-  <ThingDef ParentName="RockBase">
+  <ThingDef ParentName="UglyRockBase">
     <defName>Granite</defName>
     <label>Granite Deposit</label>
     <description>Granite is a very hard igneous rock.</description>
@@ -203,8 +269,58 @@
     </butcherProducts>
   </ThingDef>
 
+  <ThingDef ParentName="StoneBlocksBase">
+    <defName>BlocksGranite</defName>
+    <label>granite blocks</label>
+    <description>Blocks of solid granite. Granite is a very hard stone.</description>
+    <graphicData>
+      <color>(105,95,97)</color>
+    </graphicData>
+    <statBases>
+      <MarketValue>2.1</MarketValue>
+      <Mass>1.25</Mass>
+      <SharpDamageMultiplier>0.65</SharpDamageMultiplier>
+    </statBases>
+    <stuffProps>
+      <color>(105,95,97)</color>
+      <soundImpactStuff>BulletImpactGround</soundImpactStuff>
+      <soundMeleeHitSharp>MeleeHit_Stone</soundMeleeHitSharp>
+      <soundMeleeHitBlunt>MeleeHit_Stone</soundMeleeHitBlunt>
+      <stuffAdjective>granite</stuffAdjective>
+      <statFactors>
+        <MarketValue>0.5</MarketValue>
+        <MaxHitPoints>1.7</MaxHitPoints>
+      </statFactors>
+    </stuffProps>
+  </ThingDef>
 
-  <ThingDef ParentName="RockBase">
+	<RecipeDef ParentName="MakeStoneBlocksBase">
+		<defName>MakeStoneBlocksGranite</defName>
+		<label>Make Granite Blocks</label>
+		<description>Cuts granite chunks into usable blocks. Produces 20 sand and 5 rubble as a by-product.</description>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ChunkGranite</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>ChunkGranite</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<BlocksGranite>20</BlocksGranite>
+			<CrushedStone>5</CrushedStone>
+			<Sand>20</Sand>
+		</products>
+	</RecipeDef>
+
+  <ThingDef ParentName="UglyRockBase">
     <defName>Limestone</defName>
     <label>Limestone Deposit</label>
     <description>Limestone is a sedimentary rock formed from the compacted remains of ancient seashells.</description>
@@ -242,7 +358,57 @@
   </ThingDef>
 
 
-  <ThingDef ParentName="RockBase">
+  <ThingDef ParentName="StoneBlocksBase">
+    <defName>BlocksLimestone</defName>
+    <label>limestone blocks</label>
+    <description>Blocks of solid limestone.</description>
+    <graphicData>
+      <color>(158,153,135)</color>
+    </graphicData>
+    <statBases>
+      <MarketValue>1.9</MarketValue>
+      <Mass>1.1</Mass>
+    </statBases>
+    <stuffProps>
+      <color>(158,153,135)</color>
+      <soundImpactStuff>BulletImpactGround</soundImpactStuff>
+      <soundMeleeHitSharp>MeleeHit_Stone</soundMeleeHitSharp>
+      <soundMeleeHitBlunt>MeleeHit_Stone</soundMeleeHitBlunt>
+      <stuffAdjective>limestone</stuffAdjective>
+      <statFactors>
+        <MarketValue>0.4</MarketValue>
+        <MaxHitPoints>1.55</MaxHitPoints>
+      </statFactors>
+    </stuffProps>
+  </ThingDef>
+
+	<RecipeDef ParentName="MakeStoneBlocksBase">
+		<defName>MakeStoneBlocksLimestone</defName>
+		<label>Make Limestone Blocks</label>
+		<description>Cuts limestone chunks into usable blocks. Produces 20 sand and 5 rubble as a by-product.</description>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ChunkLimestone</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>ChunkLimestone</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<BlocksLimestone>20</BlocksLimestone>
+			<CrushedStone>5</CrushedStone>
+			<Sand>20</Sand>
+		</products>
+	</RecipeDef>
+
+  <ThingDef ParentName="UglyRockBase">
     <defName>Slate</defName>
     <label>Slate Deposit</label>
     <description>Slate is a dark-colored metamorphic rock. Its fine layers are emblematic of slaty cleavage.</description>
@@ -278,9 +444,59 @@
 			<Sand>20</Sand>
     </butcherProducts>
   </ThingDef>
+  
+  <ThingDef ParentName="StoneBlocksBase">
+    <defName>BlocksSlate</defName>
+    <label>slate blocks</label>
+    <description>Blocks of solid slate. A dull-looking rock that chips easily.</description>
+    <graphicData>
+      <color>(70,70,70)</color>
+    </graphicData>
+    <statBases>
+      <MarketValue>1.9</MarketValue>
+      <Mass>0.9</Mass>
+    </statBases>
+    <stuffProps>
+      <color>(70,70,70)</color>
+      <soundImpactStuff>BulletImpactGround</soundImpactStuff>
+      <soundMeleeHitSharp>MeleeHit_Stone</soundMeleeHitSharp>
+      <soundMeleeHitBlunt>MeleeHit_Stone</soundMeleeHitBlunt>
+      <stuffAdjective>slate</stuffAdjective>
+      <statFactors>
+        <Beauty>1.1</Beauty>
+        <MarketValue>0.38</MarketValue>
+        <MaxHitPoints>1.3</MaxHitPoints>
+      </statFactors>
+    </stuffProps>
+  </ThingDef>
 
+	<RecipeDef ParentName="MakeStoneBlocksBase">
+		<defName>MakeStoneBlocksSlate</defName>
+		<label>Make Slate Blocks</label>
+		<description>Cuts slate chunks into usable blocks. Produces 20 sand and 5 rubble as a by-product.</description>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ChunkSlate</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>ChunkSlate</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<BlocksSlate>20</BlocksSlate>
+			<CrushedStone>5</CrushedStone>
+			<Sand>20</Sand>
+		</products>
+	</RecipeDef>
 
-  <ThingDef ParentName="RockBase">
+  <ThingDef ParentName="UglyRockBase">
     <defName>Marble</defName>
     <label>Marble Deposit</label>
     <description>Marble is a soft metamorphic rock composed of recrystallized carbonate minerals. It is commonly used in sculptures.</description>
@@ -318,5 +534,57 @@
     </butcherProducts>
   </ThingDef>
 
+  <ThingDef ParentName="StoneBlocksBase">
+    <defName>BlocksMarble</defName>
+    <label>marble blocks</label>
+    <description>Blocks of solid marble. Marble is a soft, beautiful stone, known for being easy to sculpt.</description>
+    <graphicData>
+      <color>(132,135,132)</color>
+    </graphicData>
+    <statBases>
+      <MarketValue>1.9</MarketValue>
+      <Mass>1.25</Mass>
+    </statBases>
+    <stuffProps>
+      <color>(132,135,132)</color>
+      <soundImpactStuff>BulletImpactGround</soundImpactStuff>
+      <soundMeleeHitSharp>MeleeHit_Stone</soundMeleeHitSharp>
+      <soundMeleeHitBlunt>MeleeHit_Stone</soundMeleeHitBlunt>
+      <stuffAdjective>marble</stuffAdjective>
+      <statFactors>
+        <Beauty>1.35</Beauty>
+        <MarketValue>0.45</MarketValue>
+        <MaxHitPoints>1.2</MaxHitPoints>
+				<WorkToBuild>5.5</WorkToBuild>
+				<WorkToMake>1.15</WorkToMake>
+      </statFactors>
+    </stuffProps>
+  </ThingDef>
+
+	<RecipeDef ParentName="MakeStoneBlocksBase">
+		<defName>MakeStoneBlocksMarble</defName>
+		<label>Make Marble Blocks</label>
+		<description>Cuts marble chunks into usable blocks. Produces 20 sand and 5 rubble as a by-product.</description>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ChunkMarble</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>ChunkMarble</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<BlocksMarble>20</BlocksMarble>
+			<CrushedStone>5</CrushedStone>
+			<Sand>20</Sand>
+		</products>
+	</RecipeDef>
 
 </Defs>

@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <RecipeDefs>
 
 	<RecipeDef>
 		<defName>ExtractMetalFromSlag</defName>
-		<label>Smelt Metal from Slag</label>
+		<label>smelt metal from slag</label>
 		<description>Use heat and strong electromagnets to separate useful metal from slag chunks.</description>
 		<jobString>Smelting metal from slag.</jobString>
 		<workAmount>1200</workAmount>
@@ -41,7 +41,7 @@
 	
 	<RecipeDef>
 		<defName>SmeltWeapon</defName>
-		<label>Smelt Metal from Weapon</label>
+		<label>smelt metal from weapon</label>
 		<description>Use heat and strong electromagnets to separate useful metal from weapons.</description>
 		<jobString>Smelting metal from weapon.</jobString>
 		<workAmount>600</workAmount>
@@ -74,11 +74,40 @@
       </skillRequirements>
 		<workSkill>Crafting</workSkill>
     	<workSkillLearnFactor>0.8</workSkillLearnFactor>
+		<forceHiddenSpecialFilters>
+			<li>AllowSmeltable</li>
+		</forceHiddenSpecialFilters>
+	</RecipeDef>
+	
+	<RecipeDef>
+		<defName>DestroyWeapon</defName>
+		<label>destroy weapon</label>
+		<description>Use heat to destroy unwanted weapons. Faster than smelting, and works on non-smeltable items, but yields no resources.</description>
+		<jobString>Destroying weapon.</jobString>
+		<workAmount>400</workAmount>
+		<workSpeedStat>SmeltingSpeed</workSpeedStat>
+		<effectWorking>Smelt</effectWorking>
+		<soundWorking>Recipe_Smelt</soundWorking>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Weapons</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Weapons</li>
+			</categories>
+		</fixedIngredientFilter>
 	</RecipeDef>
 
 	<RecipeDef>
 		<defName>ButcherCorpseFlesh</defName>
-		<label>Butcher Corpse</label>
+		<label>butcher corpse</label>
 		<description>Butchers a corpse to obtain its meat in usable form.</description>
 		<jobString>Butchering.</jobString>
 		<workAmount>450</workAmount>
@@ -109,9 +138,11 @@
 				<li>CorpsesMechanoid</li>
 			</exceptedCategories>
 			<exceptedThingDefs>
-        <li>Abomination_Corpse</li>
-		<li>Void_Corpse</li>
-      </exceptedThingDefs>
+				<li>Abomination_Corpse</li>
+				<li>Mosquito_Corpse</li>
+				<li>Fly_Corpse</li>
+				<li>Flea_Corpse</li>
+			</exceptedThingDefs>
       <specialFiltersToDisallow>
         <li>AllowRotten</li>
       </specialFiltersToDisallow>
@@ -126,11 +157,11 @@
 
 	<RecipeDef>
 		<workerCounterClass>RecipeWorkerCounter_MakeStoneBlocks</workerCounterClass>
-		<defName>MakeStoneBlocks</defName>
-		<label>Make Stone Blocks</label>
+		<defName>MakeStoneBlocksAny</defName>
+		<label>make stone blocks</label>
 		<description>Cuts a stone chunk into usable stone blocks. Produces 20 sand and 5 rubble as a by-product.</description>
 		<jobString>Cutting stone chunk into blocks.</jobString>
-		<workAmount>1200</workAmount>
+		<workAmount>1600</workAmount>
 		<workSpeedStat>StonecuttingSpeed</workSpeedStat>
 		<effectWorking>CutStone</effectWorking>
 		<soundWorking>Recipe_MakeStoneBlocks</soundWorking>
@@ -156,18 +187,17 @@
       <skillRequirements>
          <li>
             <skill>Crafting</skill>
-            <minLevel>2</minLevel>
          </li>
       </skillRequirements>
 		<workSkill>Crafting</workSkill>
-    	<workSkillLearnFactor>0.8</workSkillLearnFactor>
+    	<workSkillLearnFactor>0.25</workSkillLearnFactor>
 	</RecipeDef>
 
 
 	<RecipeDef>
 		<workerCounterClass>RecipeWorkerCounter_MakeStoneBlocks</workerCounterClass>
 		<defName>MakeStoneBlocks_Electric</defName>
-		<label>Make Stone Blocks</label>
+		<label>make stone blocks</label>
 		<description>Cuts a stone chunk into usable stone blocks. Produces 20 sand and 5 rubble as a by-product.</description>
 		<jobString>Cutting stone chunk into blocks.</jobString>
 		<workAmount>600</workAmount>
@@ -200,14 +230,14 @@
          </li>
       </skillRequirements>
 		<workSkill>Crafting</workSkill>
-    	<workSkillLearnFactor>0.8</workSkillLearnFactor>
+    	<workSkillLearnFactor>0.25</workSkillLearnFactor>
 	</RecipeDef>
 	
 	
 	<RecipeDef>
 		<defName>ExtractBiomatterCorpse</defName>
-		<label>Extract BioMatter from Corpse</label>
-		<description>Extracts BioMatter from a corpse. Produces 15.</description>
+		<label>extract biomatter from corpse</label>
+		<description>Extracts BioMatter from a corpse. Produces 35.</description>
 		<jobString>Extracting BioMatter from corpse.</jobString>
 		<workAmount>600</workAmount>
 		<workSpeedStat>BrewingSpeed</workSpeedStat>
@@ -242,7 +272,7 @@
 			</specialFiltersToAllow>
 		</defaultIngredientFilter>
 		<products>
-			<Biomatter>15</Biomatter>
+			<Biomatter>35</Biomatter>
 		</products>
       <skillRequirements>
          <li>
@@ -254,11 +284,51 @@
     	<workSkillLearnFactor>0.8</workSkillLearnFactor>
 	</RecipeDef>
 	
+	<RecipeDef>
+		<defName>ExtractBiomatterAnimal</defName>
+		<label>extract biomatter from animal corpse</label>
+		<description>Extracts BioMatter from an animal corpse. Produces 10.</description>
+		<jobString>Extracting BioMatter from animal corpse.</jobString>
+		<workAmount>600</workAmount>
+		<workSpeedStat>BrewingSpeed</workSpeedStat>
+        <effectWorking>ButcherFlesh</effectWorking>
+		<soundWorking>Bio_Matter_Sound</soundWorking>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Corpses</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Corpses</li>
+			</categories>
+			<exceptedCategories>
+				<li>CorpsesMechanoid</li>
+				<li>CorpsesHumanlike</li>
+			</exceptedCategories>
+		</fixedIngredientFilter>
+		<products>
+			<Biomatter>10</Biomatter>
+		</products>
+      <skillRequirements>
+         <li>
+            <skill>Medicine</skill>
+            <minLevel>6</minLevel>
+         </li>
+      </skillRequirements>
+		<workSkill>Medicine</workSkill>
+    	<workSkillLearnFactor>0.8</workSkillLearnFactor>
+	</RecipeDef>
 	
    <!-- SOYLENT GREEN -->
    <RecipeDef>
       <defName>makesoylentgreen</defName>
-      <label>Make Soylent Green</label>
+      <label>make soylent green</label>
       <description>Make Soylent Green from a humanlike corpse. Produces 25.</description>
       <jobString>Making Soylent Green.</jobString>
       <workAmount>1400</workAmount>
@@ -290,7 +360,7 @@
 			<thingDefs>
         <li>Human_Corpse</li>
         <li>Norbal_Corpse</li>
-        <li>Nova_Corpse</li>
+        <li>Alien_Nova_Corpse</li>
 		<li>Alien_Orassan</li>
         <li>Alien_Asari_Corpse</li>
 			</thingDefs>
@@ -307,7 +377,7 @@
 	
   <RecipeDef>
     <defName>ReclaimFabric</defName>
-    <label>Reclaim Fabric</label>
+    <label>reclaim fabric</label>
     <description>Reclaims fabrics and leathers from clothing, the amount returned is based on the items condition and tailor skill.</description>
     <jobString>Reclaiming fabrics.</jobString>
     <workAmount>600</workAmount>

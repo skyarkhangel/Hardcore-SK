@@ -25,7 +25,7 @@
     <fillPercent>0.25</fillPercent>
     <statBases>
       <MaxHitPoints>80</MaxHitPoints>
-      <WorkToMake>200</WorkToMake>
+      <WorkToBuild>200</WorkToBuild>
       <Flammability>0</Flammability>
     </statBases>
     <selectable>true</selectable>
@@ -43,7 +43,7 @@
       <li Class="CompProperties_Refuelable">
         <fuelConsumptionRate>10.0</fuelConsumptionRate>
         <fuelCapacity>20.0</fuelCapacity>
-        <fuelConsumptionPerTickInRain>0.045</fuelConsumptionPerTickInRain>
+        <fuelConsumptionPerTickInRain>0.0006</fuelConsumptionPerTickInRain>
         <fuelFilter>
           <thingDefs>
             <li>WoodLog</li>
@@ -73,6 +73,8 @@
     <recipes>
       <li>CookMealSimpleCampfire</li>
       <li>MakePemmicanCampfire</li>
+      <li>BurnApparelCampfire</li>
+      <li>BurnDrugs</li>
     </recipes>
     <inspectorTabs>
       <li>ITab_Bills</li>
@@ -83,6 +85,59 @@
     </building>
   </ThingDef>
 
+  <ThingDef ParentName="BuildingBase">
+    <defName>PassiveCooler</defName>
+    <label>passive cooler</label>
+    <description>A traditional unpowered cooler that works by water evaporation. Will run out and self-destruct after several days.</description>
+    <category>Building</category>
+    <graphicData>
+      <texPath>Things/Building/Misc/PassiveCooler</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawRotated>false</drawRotated>
+      <allowFlip>false</allowFlip>
+      <damageData>
+        <rect>(0.2,0,0.6,0.1)</rect>
+      </damageData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>50</pathCost>
+    <constructEffect>ConstructDirt</constructEffect>
+    <tickerType>Normal</tickerType>
+    <drawerType>RealtimeOnly</drawerType>
+    <fillPercent>0.40</fillPercent>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <WorkToBuild>200</WorkToBuild>
+      <Flammability>0</Flammability>
+    </statBases>
+    <selectable>true</selectable>
+    <costList>
+      <WoodLog>50</WoodLog>
+    </costList>
+    <soundImpactDefault>BulletImpactGround</soundImpactDefault>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <resourcesFractionWhenDeconstructed>0</resourcesFractionWhenDeconstructed>
+    <placeWorkers>
+      <li>PlaceWorker_CoolerSimple</li>
+    </placeWorkers>
+    <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+    <comps>
+      <li Class="CompProperties_HeatPusher">
+        <heatPerSecond>-11</heatPerSecond>
+        <heatPushMinTemperature>15</heatPushMinTemperature>
+      </li>
+      <li Class="CompProperties_Lifespan">
+        <lifeSpanTicks>300000</lifeSpanTicks>
+      </li>
+    </comps>
+    <designationCategory>Temperature</designationCategory>
+    <designationHotKey>Misc2</designationHotKey>
+    <researchPrerequisites>
+      <li>PassiveCooler</li>
+    </researchPrerequisites>
+  </ThingDef>
+  
   <ThingDef ParentName="BuildingBase">
     <defName>Heater</defName>
     <label>heater</label>
@@ -110,8 +165,9 @@
     <rotatable>false</rotatable>
     <fillPercent>0.4</fillPercent>
     <statBases>
-      <WorkToMake>1000</WorkToMake>
+      <WorkToBuild>1000</WorkToBuild>
       <MaxHitPoints>100</MaxHitPoints>
+      <Mass>6</Mass>
       <Flammability>1.0</Flammability>
     </statBases>
     <tickerType>Rare</tickerType>
@@ -129,7 +185,7 @@
       <li Class="CompProperties_Power">
         <compClass>CompPowerTrader</compClass>
         <startElectricalFires>true</startElectricalFires>
-        <basePowerConsumption>100</basePowerConsumption>
+        <basePowerConsumption>175</basePowerConsumption>
       </li>
       <li Class="CompProperties_Flickable"/>
       <li Class="CompProperties_TempControl">
@@ -142,13 +198,11 @@
       <li Class="CompProperties_Breakdownable"/>
     </comps>
     <designationCategory>Temperature</designationCategory>
-    <designationHotKey>Misc2</designationHotKey>
+    <designationHotKey>Misc3</designationHotKey>
     <researchPrerequisites>
       <li>Electricity</li>
     </researchPrerequisites>
   </ThingDef>
-
-  
   
   <ThingDef ParentName="BuildingBase">
     <defName>Cooler</defName>
@@ -173,7 +227,7 @@
     <castEdgeShadows>true</castEdgeShadows>
     <staticSunShadowHeight>1.0</staticSunShadowHeight>
     <statBases>
-      <WorkToMake>1600</WorkToMake>
+      <WorkToBuild>1600</WorkToBuild>
       <MaxHitPoints>100</MaxHitPoints>
       <Flammability>1.0</Flammability>
     </statBases>
@@ -203,7 +257,7 @@
       <li Class="CompProperties_Breakdownable"/>
     </comps>
     <designationCategory>Temperature</designationCategory>
-    <designationHotKey>Misc3</designationHotKey>
+    <designationHotKey>Misc4</designationHotKey>
     <researchPrerequisites>
       <li>AirConditioning</li>
     </researchPrerequisites>
@@ -232,7 +286,7 @@
     <castEdgeShadows>true</castEdgeShadows>
     <staticSunShadowHeight>1.0</staticSunShadowHeight>
     <statBases>
-			<WorkToMake>400</WorkToMake>
+			<WorkToBuild>400</WorkToBuild>
 			<MaxHitPoints>100</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 		</statBases>
@@ -250,7 +304,7 @@
 			<canPlaceOverWall>true</canPlaceOverWall>
 		</building>
 		<designationCategory>Temperature</designationCategory>
-    <designationHotKey>Misc4</designationHotKey>
+    <designationHotKey>Misc5</designationHotKey>
   </ThingDef>
   
 </Defs>

@@ -1,13 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-  <ThingDef ParentName="BuildingBase" Name="ShipPartBase" Abstract="True">
+  <ThingDef ParentName="BuildingBase" Name="MechShipPart" Abstract="True">
     <altitudeLayer>Building</altitudeLayer>
-    <pathCost>150</pathCost>
+	<pathCost>75</pathCost>
     <blockWind>true</blockWind>
-    <passability>Impassable</passability>
-    <fillPercent>1.0</fillPercent>
-    <size>(6,3)</size>
+	<passability>PassThroughOnly</passability>
+    <fillPercent>0.98</fillPercent>
     <statBases>
       <MaxHitPoints>1200</MaxHitPoints>
       <Flammability>0</Flammability>
@@ -15,32 +14,35 @@
     </statBases>
     <tickerType>Normal</tickerType>
     <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
-    <rotatable>true</rotatable>
     <selectable>true</selectable>
-    <neverMultiSelect>true</neverMultiSelect>
     <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
     <soundImpactDefault>BulletImpactMetal</soundImpactDefault>
-    <drawerType>MapMeshOnly</drawerType>
+	<drawerType>MapMeshOnly</drawerType>
     <repairEffect>ConstructMetal</repairEffect>
-    <castEdgeShadows>false</castEdgeShadows>
-    <staticSunShadowHeight>1.0</staticSunShadowHeight>
     <forceDebugSpawnable>true</forceDebugSpawnable>
     <building>
-      <soundAmbient>CrashedShipPart_Ambience</soundAmbient>
-      <roofCollapseDamageMultiplier>0.2</roofCollapseDamageMultiplier>
+		<claimable>false</claimable>
+		<soundAmbient>CrashedShipPart_Ambience</soundAmbient>
+		<roofCollapseDamageMultiplier>0.2</roofCollapseDamageMultiplier>
     </building>
   </ThingDef>
 
-  <ThingDef ParentName="ShipPartBase">
+  <ThingDef ParentName="MechShipPart">
     <defName>CrashedPsychicEmanatorShipPart</defName>
     <label>crashed ship part</label>
     <description>A mysterious crashed piece of a spaceship. It may contain exotic materials, computers, even AI personas. This kind of technology can be dangerous.</description>
     <thingClass>Building_PsychicEmanator</thingClass>
     <graphicData>
-      <texPath>Things/Building/Exotic/CrashedShipPart</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <drawSize>(6,3)</drawSize>
+		<texPath>Things/Building/Genstep/MechanoidShipIncoming</texPath>
+        <graphicClass>Graphic_Single</graphicClass>
+	    <shaderType>CutoutComplex</shaderType>
+		<drawSize>(6,6)</drawSize>
+		<shadowData>
+			<volume>(3.5, 2, 3.5)</volume>
+		</shadowData>
     </graphicData>
+	<size>(6,6)</size>
+    <rotatable>false</rotatable>
     <killedLeavings>
       <AIPersonaCore>1</AIPersonaCore>
       <SteelBar>280</SteelBar>
@@ -49,16 +51,22 @@
     </killedLeavings>
   </ThingDef>
 
-  <ThingDef ParentName="ShipPartBase">
+  <ThingDef ParentName="MechShipPart">
     <defName>CrashedPoisonShipPart</defName>
     <label>crashed poison ship part</label>
     <description>A mysterious crashed piece of a spaceship. It may contain exotic materials, computers, even AI personas. This one seems to be poisoning the ground around it.</description>
     <thingClass>Building_PoisonShipPart</thingClass>
     <graphicData>
-      <texPath>Things/Building/Exotic/CrashedPoisonShipPart</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <drawSize>(6,3)</drawSize>
+		<texPath>Things/Building/Genstep/MechanoidShipIncoming</texPath>
+        <graphicClass>Graphic_Single</graphicClass>
+		<shaderType>CutoutComplex</shaderType>
+		<drawSize>(6,6)</drawSize>
+		<shadowData>
+			<volume>(3.5, 2, 3.5)</volume>
+		</shadowData>
     </graphicData>
+	<size>(6,6)</size>
+    <rotatable>false</rotatable>
     <killedLeavings>
       <SteelBar>230</SteelBar>
       <SilverBar>120</SilverBar>
@@ -72,12 +80,12 @@
 		<pathCost>35</pathCost>
 		<blockWind>true</blockWind>
 		<passability>PassThroughOnly</passability>
-		<fillPercent>0.8</fillPercent>
+		<fillPercent>0.98</fillPercent>
 		<statBases>
 		  <MaxHitPoints>300</MaxHitPoints>
 		  <Flammability>0</Flammability>
 		  <Beauty>-20</Beauty>
-		  <WorkToMake>12000</WorkToMake>
+		  <WorkToBuild>12000</WorkToBuild>
 		</statBases>
 		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
 		<killedLeavings>
@@ -95,18 +103,16 @@
   
   <ThingDef ParentName="ShipParts">
     <defName>ShipMechChunk</defName>
-    <label>Ship mechanics chunk</label>
+    <label>ship mechanics chunk</label>
     <description>A chunk of a spacecraft. Can be deconstructed to yield useful mechanisms, wire and electronic components.</description>
     <graphicData>
       <texPath>Things/Building/Genstep/ShipChunk</texPath>
       <graphicClass>Graphic_Random</graphicClass>
+	  <shaderType>CutoutComplex</shaderType>
       <drawSize>(2,2)</drawSize>
       <damageData>
         <rect>(0.1,0.1,1.8,1.8)</rect>
       </damageData>
-		<shadowData>
-        		<volume>(0.3, 0.6, 0.3)</volume>
-		</shadowData>
     </graphicData>
     <size>(2,2)</size>
     <costList>
@@ -117,41 +123,16 @@
     </costList>
   </ThingDef>
   
-  <ThingDef ParentName="ShipParts">
-    <defName>ShipBeamChunk</defName>
-    <label>Ship beam chunk</label>
-    <description>A chunk of a spacecraft. Can be deconstructed to yield useful metals and components.</description>
-    <graphicData>
-      <texPath>Things/Building/Genstep/ShipBeamPart</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>CutoutFlying</shaderType>
-      <drawSize>(3,5)</drawSize>
-    </graphicData>
-    <size>(1,3)</size>
-    <statBases>
-      <MaxHitPoints>300</MaxHitPoints>
-      <Flammability>0</Flammability>
-      <Beauty>-20</Beauty>
-      <WorkToMake>12000</WorkToMake>
-    </statBases>
-    <costList>
-      <SteelBar>45</SteelBar>
-      <Component>6</Component>
-    </costList>
-    <castEdgeShadows>true</castEdgeShadows>
-    <staticSunShadowHeight>0.1</staticSunShadowHeight>
-  </ThingDef>
-  
   <ThingDef ParentName="ShipParts" Name="ShipPartsSmoke" Abstract="True">
 		<thingClass>SK.Shippart</thingClass>
 		<tickerType>Normal</tickerType>
 		<Passability>Impassable</Passability>
-		<fillPercent>1</fillPercent>
+		<fillPercent>0.99</fillPercent>
 		<statBases>
 			  <MaxHitPoints>300</MaxHitPoints>
 			  <Flammability>0</Flammability>
 			  <Beauty>-30</Beauty>
-			<WorkToMake>25000</WorkToMake>
+			<WorkToBuild>25000</WorkToBuild>
 		</statBases>
 		<killedLeavings>
 		  <ChunkSlagSteel>5</ChunkSlagSteel>
@@ -161,13 +142,18 @@
 	
 	<ThingDef ParentName="ShipPartsSmoke">
 		<defName>CrashedShipWreck</defName>
-		<label>Crashed ship wreck</label>
+		<label>crashed ship wreck</label>
 		<graphicData>
 			<texPath>Things/Building/Genstep/CrashedShipPart</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
-			<drawSize>(5,3)</drawSize>
+			<shaderType>CutoutComplex</shaderType>
+			<drawSize>(4,2)</drawSize>
+			<shadowData>
+				<volume>(2, 0.6, 1.2)</volume>
+			</shadowData>
 		</graphicData>
-		<size>(5,3)</size>
+		<rotatable>false</rotatable>
+		<size>(4,2)</size>
 		<costList>
 		  <SteelBar>200</SteelBar>
 		  <Wire>55</Wire>
@@ -179,13 +165,18 @@
 	
 	<ThingDef ParentName="ShipPartsSmoke">
 		<defName>ShipWreck</defName>
-		<label>Ship wreck</label>
+		<label>ship wreck</label>
 		<graphicData>
 			<texPath>Things/Building/Genstep/ShipWreckLanded</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
-			<drawSize>(5,3)</drawSize>
+			<shaderType>CutoutComplex</shaderType>
+			<drawSize>(4,2)</drawSize>
+			<shadowData>
+				<volume>(2, 0.6, 1.2)</volume>
+			</shadowData>
 		</graphicData>
-		<size>(5,3)</size>
+		<rotatable>false</rotatable>
+		<size>(4,2)</size>
 		<costList>
 		  <SteelBar>200</SteelBar>
 		  <Wire>55</Wire>
@@ -202,13 +193,11 @@
     <graphicData>
       <texPath>Things/Building/Genstep/ShipPart</texPath>
       <graphicClass>Graphic_Random</graphicClass>
+	  <shaderType>CutoutComplex</shaderType>
       <drawSize>(2,2)</drawSize>
       <damageData>
         <rect>(0.1,0.1,1.8,1.8)</rect>
       </damageData>
-		<shadowData>
-        		<volume>(0.3, 0.6, 0.3)</volume>
-		</shadowData>
     </graphicData>
     <pathCost>35</pathCost>
     <passability>PassThroughOnly</passability>
@@ -232,7 +221,7 @@
 		  <MaxHitPoints>120</MaxHitPoints>
 		  <Flammability>1</Flammability>
 		  <Beauty>25</Beauty>
-		  <WorkToMake>48000</WorkToMake>
+		  <WorkToBuild>48000</WorkToBuild>
 		</statBases>
 		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
 		<rotatable>false</rotatable>
@@ -260,11 +249,11 @@
   
   <ThingDef ParentName="GenstepArts">
 	<defName>Totem</defName>
-	<label>Totem</label>
+	<label>totem</label>
 	<size>(1,2)</size>
 		<description>A person-sized piece of material sculpted into an artistic form.</description>
 		<graphicData>
-			<graphicClass>Graphic_Single</graphicClass>
+			<graphicClass>Graphic_Random</graphicClass>
 			<shaderType>CutoutComplex</shaderType>
 			<texPath>Things/Building/Genstep/Totem</texPath>
 			<drawSize>(2.1,2.1)</drawSize>
@@ -281,23 +270,24 @@
   
   <ThingDef ParentName="GenstepArts">
 	<defName>Cairn</defName>
-	<label>Cairn</label>
-	<size>(1,1)</size>
+	<label>cairn</label>
+	<size>(1,2)</size>
 	<description>A person-sized piece of material sculpted into an artistic form.</description>
 	<graphicData>
 		<texPath>Things/Building/Genstep/Cairn</texPath>
 		<graphicClass>Graphic_Random</graphicClass>
 		<shaderType>Cutout</shaderType>
 		<shadowData>
-			<volume>(0.45, 0.85, 0.45)</volume>
+			<volume>(0.7, 0.6, 0.7)</volume>
 			<offset>(0,0,-0.60)</offset>
 		</shadowData>
+		<drawSize>(1,2)</drawSize>
 	</graphicData>
     <statBases>
       <MaxHitPoints>180</MaxHitPoints>
       <Flammability>0</Flammability>
       <Beauty>10</Beauty>
-      <WorkToMake>18000</WorkToMake>
+      <WorkToBuild>18000</WorkToBuild>
     </statBases>
 	<stuffCategories>
 		<li>Stony</li>
@@ -322,11 +312,12 @@
 
 	<ThingDef ParentName="ShipPartsLanded">
 		<defName>DropPodLanded</defName>
-		<label>Drop pod wreckage</label>
+		<label>drop pod wreckage</label>
 		<thingClass>SK.DropPodLanded</thingClass>
 		<graphicData>
 			<texPath>Things/Building/Genstep/DropPodLanded</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>CutoutComplex</shaderType>
 			<shadowData>
 				<volume>(0.8, 0.6, 0.8)</volume>
 			</shadowData>
@@ -348,16 +339,21 @@
 
 	<ThingDef ParentName="ShipPartsLanded">
 		<defName>ShipWreckLanded</defName>
-		<label>Ship wreck</label>
+		<label>ship wreck</label>
 		<thingClass>SK.ShipWreckLanded</thingClass>
 		<graphicData>
 			<texPath>Things/Building/Genstep/ShipWreckLanded</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
-			<drawSize>(5,3)</drawSize>
+			<shaderType>CutoutComplex</shaderType>
+			<drawSize>(4,2)</drawSize>
+			<shadowData>
+				<volume>(2, 0.5, 1.2)</volume>
+			</shadowData>
 		</graphicData>
-		<size>(5,3)</size>
+		<size>(4,2)</size>
+		<rotatable>false</rotatable>
 		<statBases>
-			<WorkToMake>1000</WorkToMake>
+			<WorkToBuild>1000</WorkToBuild>
 		</statBases>
 		<comps>
 			<li Class="SK.CompLoot_Properties">
