@@ -2,14 +2,14 @@
 <Defs>
 
   <MapGeneratorDef>
-    <defName>BasicMapGenerator</defName>
+    <defName>BasicMap</defName>
     <selectionWeight>0</selectionWeight>
   </MapGeneratorDef>
   
   <!-- Generate abstract grids-->
   <GenStepDef>
     <defName>ElevationFertility</defName>
-    <mapGenerator>BasicMapGenerator</mapGenerator>
+    <linkWithMapGenerator>BasicMap</linkWithMapGenerator>
     <order>10</order>
     <genStep Class="GenStep_ElevationFertility"/>
   </GenStepDef>
@@ -17,7 +17,7 @@
   <!-- Generate deep resources -->
   <GenStepDef>
     <defName>ScatterDeepResourceLumps</defName>
-    <mapGenerator>BasicMapGenerator</mapGenerator>
+    <linkWithMapGenerator>BasicMap</linkWithMapGenerator>
     <order>100</order>
     <genStep Class="GenStep_ScatterDeepResourceLumps">
       <minSpacing>3</minSpacing>
@@ -32,29 +32,36 @@
   <!-- Generate basic rocks and terrain from grid-->
   <GenStepDef>
     <defName>RocksFromGrid</defName>
-    <mapGenerator>BasicMapGenerator</mapGenerator>
+    <linkWithMapGenerator>BasicMap</linkWithMapGenerator>
     <order>200</order>
     <genStep Class="GenStep_RocksFromGrid"/>
   </GenStepDef>
   
   <GenStepDef>
     <defName>Terrain</defName>
-    <mapGenerator>BasicMapGenerator</mapGenerator>
+    <linkWithMapGenerator>BasicMap</linkWithMapGenerator>
     <order>210</order>
     <genStep Class="GenStep_Terrain"/>
   </GenStepDef>
-    
+
+  <GenStepDef>
+    <defName>Roads</defName>
+    <linkWithMapGenerator>BasicMap</linkWithMapGenerator>
+    <order>250</order>
+    <genStep Class="GenStep_Roads"/>
+  </GenStepDef>
+  
   <GenStepDef>
     <defName>RockChunks</defName>
-    <mapGenerator>BasicMapGenerator</mapGenerator>
-    <order>220</order>
+    <linkWithMapGenerator>BasicMap</linkWithMapGenerator>
+    <order>270</order>
     <genStep Class="GenStep_RockChunks"/>
   </GenStepDef>
 
   <!-- Empty ruins -->
   <GenStepDef>
     <defName>ScatterRuinsSimple</defName>
-    <mapGenerator>BasicMapGenerator</mapGenerator>
+    <linkWithMapGenerator>BasicMap</linkWithMapGenerator>
     <order>300</order>
     <genStep Class="GenStep_ScatterRuinsSimple">
 			<allowOnWater>false</allowOnWater>
@@ -65,7 +72,7 @@
   <!-- Steam geysers -->
   <GenStepDef>
     <defName>SteamGeysers</defName>
-    <mapGenerator>BasicMapGenerator</mapGenerator>
+    <linkWithMapGenerator>BasicMap</linkWithMapGenerator>
     <order>500</order>
     <genStep Class="GenStep_ScatterThings">
       <thingDef>SteamGeyser</thingDef>
@@ -77,7 +84,10 @@
         <max>1</max>
       </countPer10kCellsRange>
       <clearSpaceSize>30</clearSpaceSize>
-      <neededTerrainAffordance>Heavy</neededTerrainAffordance>
+      <terrainValidationRadius>4</terrainValidationRadius>
+      <terrainValidationDisallowed>
+        <li>Road</li>
+      </terrainValidationDisallowed>
       <validators>
         <li Class="ScattererValidator_Buildable">
           <radius>4</radius>
@@ -92,37 +102,44 @@
   
   <GenStepDef>
     <defName>FindPlayerStartSpot</defName>
-    <mapGenerator>BasicMapGenerator</mapGenerator>
+    <linkWithMapGenerator>BasicMap</linkWithMapGenerator>
     <order>600</order>
     <genStep Class="GenStep_FindPlayerStartSpot"/>
   </GenStepDef>
 
   <GenStepDef>
     <defName>ScenParts</defName>
-    <mapGenerator>BasicMapGenerator</mapGenerator>
+    <linkWithMapGenerator>BasicMap</linkWithMapGenerator>
     <order>700</order>
     <genStep Class="GenStep_ScenParts"/>
   </GenStepDef>
 
   <GenStepDef>
     <defName>Plants</defName>
-    <mapGenerator>BasicMapGenerator</mapGenerator>
+    <linkWithMapGenerator>BasicMap</linkWithMapGenerator>
     <order>800</order>
     <genStep Class="GenStep_Plants"/>
   </GenStepDef>
     
   <GenStepDef>
     <defName>Snow</defName>
-    <mapGenerator>BasicMapGenerator</mapGenerator>
+    <linkWithMapGenerator>BasicMap</linkWithMapGenerator>
     <order>900</order>
     <genStep Class="GenStep_Snow"/>
   </GenStepDef>
     
   <GenStepDef>
     <defName>Animals</defName>
-    <mapGenerator>BasicMapGenerator</mapGenerator>
+    <linkWithMapGenerator>BasicMap</linkWithMapGenerator>
     <order>1000</order>
     <genStep Class="GenStep_Animals"/>
+  </GenStepDef>
+
+  <GenStepDef>
+    <defName>Fog</defName>
+    <linkWithMapGenerator>BasicMap</linkWithMapGenerator>
+    <order>1500</order>
+    <genStep Class="GenStep_Fog"/>
   </GenStepDef>
 
 </Defs>

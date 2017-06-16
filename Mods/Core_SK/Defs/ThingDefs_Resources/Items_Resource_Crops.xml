@@ -25,6 +25,10 @@
     <graphicData>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
+    <ingestible>
+      <preferability>DesperateOnly</preferability>
+      <nutrition>0.05</nutrition>
+    </ingestible>
     <socialPropernessMatters>true</socialPropernessMatters>
     <statBases>
       <MaxHitPoints>100</MaxHitPoints>
@@ -41,13 +45,16 @@
       <ingestEffect>EatVegetarian</ingestEffect>
       <ingestSound>RawVegetable_Eat</ingestSound>
     </ingestible>
+	<socialPropernessMatters>true</socialPropernessMatters>
 	<stuffProps>
 		<categories>
 			<li>Foods</li>
 		</categories>
 	</stuffProps>
     <comps>
-      <li Class="CompProperties_FoodPoisoningChance" />
+			<li Class="CompProperties_FoodPoisoningChance">
+				<humanlikeOnly>true</humanlikeOnly>
+			</li>
     </comps>
   </ThingDef>
   
@@ -89,7 +96,77 @@
     <tickerType>Rare</tickerType>
   </ThingDef>
   
-  <ThingDef ParentName="OrganicProductBase">
+  <!-- Plant matter (inedible by people) -->
+
+  <ThingDef ParentName="OrganicProductBase" Name="RoughPlantBase" Abstract="True">
+    <ingestible>
+      <foodType>Plant</foodType>
+      <preferability>DesperateOnly</preferability>
+      <nutrition>0.05</nutrition>
+    </ingestible>
+  </ThingDef>
+  
+  
+  <ThingDef ParentName="RoughPlantBase">
+		<defName>Hay</defName>
+		<label>Hay</label>
+		<description>Hay is nutrient-rich grasses and shoots, harvested and compacted for storage. Hay is for good animal feed, but is inedible for humans.</description>
+		<stackLimit>200</stackLimit>
+		<ingestible>
+			<foodType>Plant</foodType>
+			<preferability>RawBad</preferability>
+			<nutrition>0.05</nutrition>
+			<ingestEffect>EatVegetarian</ingestEffect>
+			<ingestSound>RawVegetable_Eat</ingestSound>
+		</ingestible>
+		<graphicData>
+			<texPath>Things/Item/Resource/PlantFoodRaw/Hay</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>0.6</MarketValue>
+			<DeteriorationRate>.5</DeteriorationRate>
+		</statBases>
+		<tickerType>Rare</tickerType>   
+		<comps>
+			<li Class="CompProperties_Rottable">
+				<daysToRotStart>90</daysToRotStart>
+			</li>
+		</comps>
+		<thingCategories>
+			<li>Animalfood</li>
+		</thingCategories>
+	</ThingDef>
+
+
+  <ThingDef ParentName="RoughPlantBase">
+		<defName>Silage</defName>
+		<label>Silage</label>
+		<description>Silage is nutrient-rich fermented hay and raw food product suitable for animal feed. The fermentation process preserves the silage and prevents it from rotting.</description>
+		<stackLimit>200</stackLimit>
+		<ingestible>
+			<ingestEffect>EatVegetarian</ingestEffect>
+			<preferability>RawTasty</preferability>
+			<foodType>Plant</foodType>
+			<nutrition>0.35</nutrition>
+			<ingestSound>RawVegetable_Eat</ingestSound>
+		</ingestible>
+		<graphicData>
+			<texPath>Things/Item/Resource/PlantFoodRaw/Hay</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<color>(107,142,35)</color>
+		</graphicData>
+		<statBases>
+			<MarketValue>5</MarketValue>
+			<DeteriorationRate>.1</DeteriorationRate>
+		</statBases>
+		<tickerType>Rare</tickerType>   
+		<thingCategories>
+			<li>Animalfood</li>
+		</thingCategories>
+	</ThingDef>
+  
+  <ThingDef ParentName="RoughPlantBase">
     <defName>RawHops</defName>
     <label>Hops</label>
     <description>Hops are flowers and seed cones of a Hops Plant. They are necessary as a flavoring and preserving agent for brewing Wort.</description>
@@ -162,7 +239,7 @@
     </comps>
   </ThingDef>
 
-  <ThingDef ParentName="OrganicProductBase">
+  <ThingDef ParentName="RoughPlantBase">
     <defName>aloe</defName>
     <label>Aloe Leaves</label>
     <description>A bundle of Aloe Leaves from an Aloe Plant. Aloe Leaves are used as a type of natural medicine.</description>
