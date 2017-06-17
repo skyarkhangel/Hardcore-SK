@@ -14,8 +14,8 @@
     <stackLimit>25</stackLimit>
     <statBases>
       <DeteriorationRate>0.5</DeteriorationRate>
-      <MarketValue>9</MarketValue>
-      <Mass>0.5</Mass>
+      <MarketValue>12</MarketValue>
+      <Mass>0.3</Mass>
       <MeleeWeapon_DamageAmount>7</MeleeWeapon_DamageAmount>
       <MeleeWeapon_Cooldown>1.8</MeleeWeapon_Cooldown>
     </statBases>
@@ -26,7 +26,11 @@
       <nurseable>true</nurseable>
       <drugCategory>Social</drugCategory>
       <ingestSound>Ingest_Beer</ingestSound>
-      <ingestHoldOffsetStanding>(0.18,0,0)</ingestHoldOffsetStanding>
+      <ingestHoldOffsetStanding>
+        <northDefault>
+          <offset>(0.18,0,0)</offset>
+        </northDefault>
+      </ingestHoldOffsetStanding>
       <ingestCommandString>Drink {0}</ingestCommandString>
       <ingestReportString>Drinking {0}.</ingestReportString>
       <chairSearchRadius>25</chairSearchRadius>
@@ -66,8 +70,40 @@
       </li>
     </verbs>
   </ThingDef>
-  
-  <ThingDef ParentName="ResourceBase">
+
+	<RecipeDef>
+		<defName>MakeWort</defName>
+		<label>make wort</label>
+		<description>Make wort from hops.</description>
+		<jobString>Making wort.</jobString>
+		<workSpeedStat>BrewingSpeed</workSpeedStat>
+		<workSkill>Cooking</workSkill>
+		<effectWorking>Cook</effectWorking>
+		<soundWorking>Recipe_Brewing</soundWorking>
+		<allowMixingIngredients>true</allowMixingIngredients>
+		<workAmount>1000</workAmount>
+		<targetCountAdjustment>1</targetCountAdjustment>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>RawHops</li>
+					</thingDefs>
+				</filter>
+				<count>25</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>RawHops</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Wort>5</Wort>
+		</products>
+	</RecipeDef>
+
+	<ThingDef ParentName="ResourceBase">
     <defName>Wort</defName>
     <label>wort</label>
     <description>Beer before fermentation. This substance needs to ferment in a fermenting barrel before it becomes drinkable beer.</description>
@@ -84,6 +120,7 @@
       <DeteriorationRate>1.0</DeteriorationRate>
       <MarketValue>2.5</MarketValue>
       <Mass>0.8</Mass>
+			<MaxHitPoints>60</MaxHitPoints>
     </statBases>
     <tickerType>Rare</tickerType>
     <comps>
@@ -193,7 +230,7 @@
           </capMods>
 					<hediffGivers>
 						<li Class="HediffGiver_Random">
-							<hediff>ChemicalDamageBrain</hediff>
+							<hediff>ChemicalDamageModerate</hediff>
 							<mtbDays>10</mtbDays>
 							<partsToAffect>
 								<li>Brain</li>
@@ -321,6 +358,16 @@
     <label>alcohol</label>
     <addictionHediff>AlcoholAddiction</addictionHediff>
     <toleranceHediff>AlcoholTolerance</toleranceHediff>
+    <onGeneratedAddictedToleranceChance>0.8</onGeneratedAddictedToleranceChance>
+    <onGeneratedAddictedEvents>
+      <li>
+        <hediff>Cirrhosis</hediff>
+        <chance>0.15</chance>
+        <partsToAffect>
+          <li>Liver</li>
+        </partsToAffect>
+      </li>
+    </onGeneratedAddictedEvents>
   </ChemicalDef>
   
   <NeedDef ParentName="DrugAddictionNeedBase">

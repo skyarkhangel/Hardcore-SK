@@ -29,16 +29,11 @@
           <targetAcquireRadius>65</targetAcquireRadius>
           <targetKeepRadius>72</targetKeepRadius>
         </li>
-        <li Class="ThinkNode_FilterFlagDistance">
+        <li Class="ThinkNode_ForbidOutsideFlagRadius">
           <maxDistToSquadFlag>16</maxDistToSquadFlag>
           <subNodes>
-            <li Class="ThinkNode_PrioritySorter">
-              <subNodes>
-                <li Class="JobGiver_GetFood"/>
-                <li Class="JobGiver_GetRest"/>
-                <li Class="JobGiver_SatisfyChemicalNeed"/>
-                <li Class="JobGiver_Work"/>
-              </subNodes>
+            <li Class="ThinkNode_Subtree">
+              <treeDef>SatisfyBasicNeedsAndWork</treeDef>
             </li>
           </subNodes>
         </li>
@@ -54,16 +49,11 @@
     <thinkNode Class="ThinkNode_Priority">
       <subNodes>
         <li Class="JobGiver_AIFollowEscortee" />
-        <li Class="ThinkNode_FilterFlagDistance">
+        <li Class="ThinkNode_ForbidOutsideFlagRadius">
           <maxDistToSquadFlag>16</maxDistToSquadFlag>
           <subNodes>
-            <li Class="ThinkNode_PrioritySorter">
-              <subNodes>
-                <li Class="JobGiver_GetFood"/>
-                <li Class="JobGiver_GetRest"/>
-                <li Class="JobGiver_SatisfyChemicalNeed"/>
-                <li Class="JobGiver_Work"/>
-              </subNodes>
+            <li Class="ThinkNode_Subtree">
+              <treeDef>SatisfyBasicNeedsAndWork</treeDef>
             </li>
           </subNodes>
         </li>
@@ -81,21 +71,21 @@
         <li Class="JobGiver_FightFiresNearPoint">
           <maxDistFromPoint>25</maxDistFromPoint>
         </li>
-        <li Class="JobGiver_Work" />
+        <li Class="ThinkNode_ForbidOutsideFlagRadius">
+          <maxDistToSquadFlag>16</maxDistToSquadFlag>
+          <subNodes>
+            <li Class="JobGiver_Work" />
+          </subNodes>
+        </li>
         <li Class="JobGiver_AIDefendPoint">
           <targetAcquireRadius>35</targetAcquireRadius>
           <targetKeepRadius>40</targetKeepRadius>
         </li>
-        <li Class="ThinkNode_FilterFlagDistance">
+        <li Class="ThinkNode_ForbidOutsideFlagRadius">
           <maxDistToSquadFlag>16</maxDistToSquadFlag>
           <subNodes>
-            <li Class="ThinkNode_PrioritySorter">
-              <subNodes>
-                <li Class="JobGiver_GetFood"/>
-                <li Class="JobGiver_GetRest"/>
-                <li Class="JobGiver_SatisfyChemicalNeed"/>
-                <li Class="JobGiver_Work"/>
-              </subNodes>
+            <li Class="ThinkNode_Subtree">
+              <treeDef>SatisfyBasicNeedsAndWork</treeDef>
             </li>
           </subNodes>
         </li>
@@ -230,7 +220,8 @@
   <DutyDef>
     <defName>PrisonerEscape</defName>
     <alwaysShowWeapon>true</alwaysShowWeapon>
-    <thinkNode Class="ThinkNode_Priority">
+    <thinkNode Class="ThinkNode_Tagger">
+      <tagToGive>Escaping</tagToGive>
       <subNodes>
         <!-- Take combat enhancing drugs -->
         <li Class="JobGiver_TakeCombatEnhancingDrug" />
@@ -269,7 +260,8 @@
         </li>
       </subNodes>
     </thinkNode>
-    <constantThinkNode Class="ThinkNode_Priority">
+    <constantThinkNode Class="ThinkNode_Tagger">
+      <tagToGive>Escaping</tagToGive>
       <subNodes>
         <!-- Try to pick up nearby weapons -->
         <li Class="JobGiver_PickUpOpportunisticWeapon" />
@@ -280,7 +272,8 @@
   <DutyDef>
     <defName>PrisonerEscapeSapper</defName>
     <alwaysShowWeapon>true</alwaysShowWeapon>
-    <thinkNode Class="ThinkNode_Priority">
+    <thinkNode Class="ThinkNode_Tagger">
+      <tagToGive>Escaping</tagToGive>
       <subNodes>
         <!-- Take combat enhancing drugs -->
         <li Class="JobGiver_TakeCombatEnhancingDrug" />
@@ -301,7 +294,8 @@
         </li>
       </subNodes>
     </thinkNode>
-    <constantThinkNode Class="ThinkNode_Priority">
+    <constantThinkNode Class="ThinkNode_Tagger">
+      <tagToGive>Escaping</tagToGive>
       <subNodes>
         <!-- Try to pick up nearby weapons -->
         <li Class="JobGiver_PickUpOpportunisticWeapon">
@@ -337,10 +331,15 @@
             </li>
           </subNodes>
         </li>
-        <li Class="ThinkNode_PrioritySorter">
+        <li Class="ThinkNode_Tagger">
+          <tagToGive>SatisfyingNeeds</tagToGive>
           <subNodes>
-            <li Class="JobGiver_GetFood" />
-            <li Class="JobGiver_GetRest" />
+            <li Class="ThinkNode_PrioritySorter">
+              <subNodes>
+                <li Class="JobGiver_GetFood" />
+                <li Class="JobGiver_GetRest" />
+              </subNodes>
+            </li>
           </subNodes>
         </li>
         <li Class="JobGiver_WanderHive">
@@ -365,11 +364,48 @@
   </DutyDef>
 
   <DutyDef>
+    <defName>ExitMapBestAndDefendSelf</defName>
+    <thinkNode Class="ThinkNode_Priority">
+      <subNodes>
+        <li Class="JobGiver_AIDefendSelf">
+          <targetAcquireRadius>35</targetAcquireRadius>
+          <targetKeepRadius>40</targetKeepRadius>
+        </li>
+        <li Class="JobGiver_ExitMapBest">
+          <defaultLocomotion>Walk</defaultLocomotion>
+          <jobMaxDuration>200</jobMaxDuration>
+        </li>
+      </subNodes>
+    </thinkNode>
+  </DutyDef>
+  
+  <DutyDef>
     <defName>LoadAndEnterTransporters</defName>
     <thinkNode Class="ThinkNode_Priority">
       <subNodes>
         <li Class="JobGiver_LoadTransporters" />
         <li Class="JobGiver_EnterTransporter" />
+      </subNodes>
+    </thinkNode>
+  </DutyDef>
+
+  <DutyDef>
+    <defName>ManClosestTurret</defName>
+    <thinkNode Class="ThinkNode_Priority">
+      <subNodes>
+        <li Class="ThinkNode_Subtree">
+          <treeDef>SatisfyBasicNeeds</treeDef>
+        </li> 
+        <li Class="JobGiver_ManTurretsNearSelf">
+          <maxDistFromPoint>50</maxDistFromPoint>
+        </li>
+        <li Class="JobGiver_AIDefendPoint">
+          <targetAcquireRadius>35</targetAcquireRadius>
+          <targetKeepRadius>40</targetKeepRadius>
+        </li>
+        <li Class="JobGiver_WanderNearDutyLocation">
+          <wanderRadius>12</wanderRadius>
+        </li>
       </subNodes>
     </thinkNode>
   </DutyDef>
