@@ -1,10 +1,40 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ThinkTrees>
 
+
+  <!--============= Main colonist behavior core ============-->
+  
+  <ThinkTreeDef>
+    <defName>MainColonistBehaviorCoreCR</defName>
+    <thinkRoot Class="ThinkNode_Tagger">
+      <tagToGive>SatisfyingNeeds</tagToGive> <!-- note that JobGiver_Work will assign its own tag -->
+      <subNodes>
+        <li Class="ThinkNode_PrioritySorter">
+          <subNodes>
+            <li Class="JobGiver_GetFood"/>
+            <li Class="JobGiver_GetRest"/>
+            <li Class="JobGiver_SatisfyChemicalNeed"/>
+            <li Class="JobGiver_TakeDrugsForDrugPolicy"/>
+            <li Class="ThinkNode_Priority_GetJoy">
+              <subNodes>
+                <li Class="JobGiver_GetJoyInBed"/>
+                <li Class="JobGiver_GetJoy"/>
+              </subNodes>
+            </li>
+								<li Class="JobGiver_Work"/>
+								<li Class="Combat_Realism.JobGiver_UpdateLoadout"/>
+          </subNodes>
+        </li>
+      </subNodes>
+    </thinkRoot>
+  </ThinkTreeDef>
+  
+
   <!--============= AI Duty ============-->
   <ThinkTreeDef>
     <defName>LordDuty</defName>
-    <thinkRoot Class="ThinkNode_Priority">
+    <thinkRoot Class="ThinkNode_Tagger">
+      <tagToGive>UnspecifiedLordDuty</tagToGive>
       <subNodes>
         <li Class="ThinkNode_ConditionalHasLord">
           <subNodes>
@@ -35,7 +65,8 @@
 
   <ThinkTreeDef>
     <defName>LordDutyConstant</defName>
-    <thinkRoot Class="ThinkNode_Priority">
+    <thinkRoot Class="ThinkNode_Tagger">
+      <tagToGive>UnspecifiedLordDuty</tagToGive>
       <subNodes>
         <li Class="ThinkNode_ConditionalHasLord">
           <subNodes>
