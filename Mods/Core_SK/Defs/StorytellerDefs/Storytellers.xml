@@ -1,16 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <StorytellerDefs>
   
-	<StorytellerDef>
+	<StorytellerDef Name="BaseStoryteller" Abstract="True">
+		<populationIntentFromTimeCurve>
+			<points>
+				<li>0, 0.15</li>
+				<li>3, 0.15</li>
+				<li>10, 1</li>
+			</points>
+		</populationIntentFromTimeCurve>
+	</StorytellerDef>
+  
+  <StorytellerDef ParentName="BaseStoryteller">
 		<defName>Hildegarde</defName>
     <label>Hildegarde Epic</label>
     <description>A Veteran of the grim Mechanoid war and a skald of Jotunheim assault infantry corps, Hildegarde's songs are full of flame and war. Just like Jotunheim Prime's people themselves. She will send more "big threats" while causing less incidents.</description>
     <portraitLarge>Things/Storytellers/Hildegarde</portraitLarge>
     <portraitTiny>Things/Storytellers/HildegardeTiny</portraitTiny>
     <listOrder>43</listOrder>
-    <desiredPopulationMin>4</desiredPopulationMin>
-    <desiredPopulationMax>13</desiredPopulationMax>
-    <desiredPopulationCritical>18</desiredPopulationCritical>
+		<populationIntentFromPopCurve>
+			<points>
+				<li>0, 8</li>
+				<li>1, 4</li>
+				<li>5, 1</li>
+				<li>9, 0.5</li>
+				<li>13, 0</li>
+				<li>18, -1</li>
+			</points>
+		</populationIntentFromPopCurve>
     <comps>
       <li Class="StorytellerCompProperties_ClassicIntro"/>
       <li Class="StorytellerCompProperties_ThreatCycle">
@@ -22,13 +39,18 @@
         <minDaysBetweenThreatBigs>1.7</minDaysBetweenThreatBigs>
       </li>
       <li Class="StorytellerCompProperties_CategoryMTB">
-        <minDaysPassed>5</minDaysPassed>
+        <minDaysPassed>8</minDaysPassed>
+		<allowedTargetTypes>MapPlayerHome</allowedTargetTypes>
         <category>Misc</category>
-        <mtbDays>1.60</mtbDays>
+        <mtbDays>5.0</mtbDays>
       </li>
       <li Class="StorytellerCompProperties_AllyInteraction">
         <minDaysPassed>6</minDaysPassed>
-        <baseMtb>6</baseMtb>
+        <baseMtb>5</baseMtb>
+        <allowedTargetTypes>MapPlayerHome</allowedTargetTypes>
+      </li>
+      <li Class="StorytellerCompProperties_AllyAssistance">
+        <baseMtb>10</baseMtb>
       </li>
       <li Class="StorytellerCompProperties_SingleMTB">
         <incident>OrbitalTraderArrival</incident>
@@ -36,7 +58,7 @@
       </li>
       <li Class="StorytellerCompProperties_ShipChunkDrop"/>
       <li Class="StorytellerCompProperties_Disease">
-        <minDaysPassed>5</minDaysPassed>
+        <minDaysPassed>7</minDaysPassed>
       </li>
       <li Class="StorytellerCompProperties_CategoryIndividualMTBByBiome">
         <category>CaravanTarget</category>
@@ -46,63 +68,101 @@
   </StorytellerDef>
 
   
-	<StorytellerDef>
+  <StorytellerDef ParentName="BaseStoryteller">
 	<defName>Rey</defName>
     <label>Rey Torturer</label>
 	<description>Rey is a tough and consistent torturer. She will taunt you until magma flows out of your ass.</description>
 	<portraitLarge>Things/Storytellers/Rey</portraitLarge>
 	<portraitTiny>Things/Storytellers/ReyTiny</portraitTiny>
     <listOrder>45</listOrder>
-    <desiredPopulationMin>4</desiredPopulationMin>
-    <desiredPopulationMax>13</desiredPopulationMax>
-    <desiredPopulationCritical>50</desiredPopulationCritical>
+		<populationIntentFromPopCurve>
+			<points>
+				<li>0, 8</li>
+				<li>1, 4</li>
+				<li>5, 1</li>
+				<li>9, 0.5</li>
+				<li>13, 0</li>
+				<li>50, -1</li>
+			</points>
+		</populationIntentFromPopCurve>
     <comps>
       <li Class="StorytellerCompProperties_RandomMain">
+		<allowedTargetTypes>MapPlayerHome</allowedTargetTypes>
         <minDaysPassed>0.7</minDaysPassed>
-        <incidentMtb>0.5</incidentMtb>
-        <maxThreatBigIntervalDays>6</maxThreatBigIntervalDays>
+        <mtbDays>0.9</mtbDays>
+        <maxThreatBigIntervalDays>8</maxThreatBigIntervalDays>
+		<minIncChancePopulationIntentFactor>0.25</minIncChancePopulationIntentFactor>
         <categoryWeights>
           <Misc>4.0</Misc>
           <OrbitalVisitor>1</OrbitalVisitor>
           <AllyArrival>1.1</AllyArrival>
+		  <AllyAssistance>0.5</AllyAssistance>
           <ShipChunkDrop>0.3</ShipChunkDrop>
           <ThreatSmall>1.4</ThreatSmall>
           <ThreatBig>1.5</ThreatBig>
         </categoryWeights>
       </li>
+			<li Class="StorytellerCompProperties_CategoryMTB">
+				<allowedTargetTypes>World</allowedTargetTypes>
+				<minDaysPassed>1</minDaysPassed>
+				<category>Misc</category>
+				<mtbDays>7</mtbDays>
+			</li>
       <li Class="StorytellerCompProperties_Disease">
         <minDaysPassed>0</minDaysPassed>
+      </li>
+      <li Class="StorytellerCompProperties_CategoryIndividualMTBByBiome">
+        <category>CaravanTarget</category>
       </li>
       <li Class="StorytellerCompProperties_JourneyOffer"/>
     </comps>
   </StorytellerDef>
   
-	<StorytellerDef>
+  <StorytellerDef ParentName="BaseStoryteller">
 	<defName>Haseo</defName>
     <label>Haseo Infiltrator</label>
 	<description>Haseo an experienced headhunter. He will tell you the story of despair and hopelessness.</description>
 	<portraitLarge>Things/Storytellers/Haseo</portraitLarge>
 	<portraitTiny>Things/Storytellers/HaseoTiny</portraitTiny>
     <listOrder>50</listOrder>
-    <desiredPopulationMin>4</desiredPopulationMin>
-    <desiredPopulationMax>13</desiredPopulationMax>
-    <desiredPopulationCritical>50</desiredPopulationCritical>
+		<populationIntentFromPopCurve>
+			<points>
+				<li>0, 8</li>
+				<li>1, 4</li>
+				<li>5, 1</li>
+				<li>9, 0.5</li>
+				<li>13, 0</li>
+				<li>50, -1</li>
+			</points>
+		</populationIntentFromPopCurve>
     <comps>
       <li Class="StorytellerCompProperties_RandomMain">
-        <minDaysPassed>0.75</minDaysPassed>
-        <incidentMtb>0.5</incidentMtb>
+		<allowedTargetTypes>MapPlayerHome</allowedTargetTypes>
+        <minDaysPassed>0.76</minDaysPassed>
+        <mtbDays>0.74</mtbDays>
         <maxThreatBigIntervalDays>7</maxThreatBigIntervalDays>
+		<minIncChancePopulationIntentFactor>0.3</minIncChancePopulationIntentFactor>
         <categoryWeights>
           <Misc>3.7</Misc>
           <OrbitalVisitor>1</OrbitalVisitor>
           <AllyArrival>0.9</AllyArrival>
+		  <AllyAssistance>0.4</AllyAssistance>
           <ShipChunkDrop>0.3</ShipChunkDrop>
           <ThreatSmall>1.4</ThreatSmall>
           <ThreatBig>2.0</ThreatBig>
         </categoryWeights>
       </li>
+			<li Class="StorytellerCompProperties_CategoryMTB">
+				<allowedTargetTypes>World</allowedTargetTypes>
+				<minDaysPassed>1</minDaysPassed>
+				<category>Misc</category>
+				<mtbDays>8</mtbDays>
+			</li>
       <li Class="StorytellerCompProperties_Disease">
         <minDaysPassed>0</minDaysPassed>
+      </li>
+      <li Class="StorytellerCompProperties_CategoryIndividualMTBByBiome">
+        <category>CaravanTarget</category>
       </li>
       <li Class="StorytellerCompProperties_JourneyOffer"/>
     </comps>

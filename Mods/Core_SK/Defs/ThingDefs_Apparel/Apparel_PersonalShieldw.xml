@@ -21,33 +21,31 @@
 		<alwaysHaulable>True</alwaysHaulable>
 		<tickerType>Never</tickerType>
 		<comps>
-<li Class="CompProperties_Forbiddable"/>
-      <li>
-        <compClass>CompColorable</compClass>
-      </li>
+			<li Class="CompProperties_Forbiddable"/>
+			  <li>
+				<compClass>CompColorable</compClass>
+			  </li>
 			<li>
 				<compClass>CompQuality</compClass>
 			</li>
 		</comps>
 	</ThingDef>
 
-
-
-
 	<ThingDef ParentName="ApparelShieldBase">
-		<thingClass>PersonalShield</thingClass>
-		<defName>Apparel_PersonalShield</defName>
+		<thingClass>ShieldBelt</thingClass>
+		<defName>Apparel_ShieldBelt</defName>
 		<label>Personal Shield</label>
-		<description>A single-person energy shield device. It will attempt to stop any rapidly-moving projectile or energy attack that comes from a distance. It does nothing against melee attacks or shots from point-blank range. It prevents firing out as well.</description>
-    <graphicData>
-      <texPath>Things/Pawn/Humanlike/Apparel/PersonalShield/PersonalShield</texPath>
+		<description>A single-person energy shield device. It will attempt to stop any rapidly-moving projectile or energy attack that comes from a distance. It does nothing against melee attacks or shots from point-blank range. It also prevents firing past touch range.</description>
+		<graphicData>
+      <texPath>Things/Pawn/Humanlike/Apparel/ShieldBelt/ShieldBelt</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <tickerType>Normal</tickerType>
-		<statBases>
-		<WorkToMake>10000</WorkToMake>
-      <PersonalShieldRechargeRate>0.2</PersonalShieldRechargeRate>
-      <PersonalShieldEnergyMax>1</PersonalShieldEnergyMax>
+	<statBases>
+	  <WorkToMake>15000</WorkToMake>
+      <EnergyShieldRechargeRate>0.15</EnergyShieldRechargeRate>
+      <EnergyShieldEnergyMax>1.1</EnergyShieldEnergyMax>
+	  <Mass>3</Mass>
     </statBases>
 		<stuffCategories>
 			<li>Metallic</li>
@@ -60,7 +58,7 @@
 			<skillRequirements>
 				<li>
 					<skill>Crafting</skill>
-					<minLevel>10</minLevel>
+					<minLevel>13</minLevel>
 				</li>
 			</skillRequirements>
 			<workSpeedStat>SmithingSpeed</workSpeedStat>
@@ -70,18 +68,20 @@
 			<recipeUsers>
 				<li>TableElectronics</li>
 			</recipeUsers>
-			<unfinishedThingDef>UnfinishedWeapon</unfinishedThingDef>
+			<unfinishedThingDef>UnfinishedBelt</unfinishedThingDef>
+			<researchPrerequisite>ShieldBelt</researchPrerequisite>
 		</recipeMaker>
+			<generateCommonality>1</generateCommonality>
 		<apparel>
-			<bodyPartGroups>
-				<li>Torso</li>
-			</bodyPartGroups>
+			<careIfWornByCorpse>false</careIfWornByCorpse>
+		  <bodyPartGroups>
+			<li>Waist</li>
+		  </bodyPartGroups>
 			<layers>
-				<li>Accessory</li>
+				<li>Belt</li>
 			</layers>
-			<commonality>1</commonality>
 			<tags>
-				<li>PersonalShield</li>
+				<li>BeltDefense</li>
 			</tags>
 		</apparel>
     <colorGenerator Class="ColorGenerator_Options">
@@ -110,7 +110,84 @@
 		</thingCategories>
 	</ThingDef>
 
-
-
+	<ThingDef ParentName="ApparelShieldBase">
+    <thingClass>SmokepopBelt</thingClass>
+    <defName>Apparel_SmokepopBelt</defName>
+    <label>smokepop belt</label>
+    <description>An automatic defensive smokescreen. It will release a thick cloud of smoke if the wearer is hit by a projectile, providing line-of-sight cover and preventing turrets from locking on. Single-use.</description>
+    <graphicData>
+      <texPath>Things/Pawn/Humanlike/Apparel/SmokepopBelt/SmokepopBelt</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <tickerType>Normal</tickerType>
+	<statBases>
+	  <WorkToMake>3500</WorkToMake>
+	  <Mass>3</Mass>
+	  <SmokepopBeltRadius>4</SmokepopBeltRadius>
+    </statBases>
+			<generateAllowChance>0.15</generateAllowChance>
+		<stuffCategories>
+			<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>30</costStuffCount>
+		<costList>
+			<Electronics>1</Electronics>
+			<Chemfuel>75</Chemfuel>
+		</costList>
+		<recipeMaker>
+			<skillRequirements>
+				<li>
+					<skill>Crafting</skill>
+					<minLevel>9</minLevel>
+				</li>
+			</skillRequirements>
+			<workSpeedStat>SmithingSpeed</workSpeedStat>
+			<workSkill>Crafting</workSkill>
+			<effectWorking>Smith</effectWorking>
+			<soundWorking>Recipe_Smith</soundWorking>
+			<recipeUsers>
+				<li>TableElectronics</li>
+			</recipeUsers>
+			<unfinishedThingDef>UnfinishedBelt</unfinishedThingDef>
+			<researchPrerequisite>SmokepopBelt</researchPrerequisite>
+		</recipeMaker>
+			<generateCommonality>1</generateCommonality>
+		<apparel>
+			<careIfWornByCorpse>false</careIfWornByCorpse>
+		  <bodyPartGroups>
+			<li>Waist</li>
+		  </bodyPartGroups>
+			<layers>
+				<li>Belt</li>
+			</layers>
+			<tags>
+				<li>BeltDefensePop</li>
+			</tags>
+		</apparel>
+    <colorGenerator Class="ColorGenerator_Options">
+      <options>
+        <li>
+          <weight>10</weight>
+          <only>RGBA(0.6,0.4,0.4,1)</only>
+        </li>
+        <li>
+          <weight>10</weight>
+          <only>RGBA(0.6,0.6,0.4,1)</only>
+        </li>
+        <li>
+          <weight>6</weight>
+          <min>RGBA(0.3,0.3,0.3,1)</min>
+          <max>RGBA(0.5,0.5,0.5,1)</max>
+        </li>
+        <li>
+          <weight>10</weight>
+          <only>RGBA(0.33,0.33,0.33,1)</only>
+        </li>
+      </options>
+    </colorGenerator>
+		<thingCategories>
+			<li>SpecialApparelCat</li>
+		</thingCategories>
+	</ThingDef>
 
 </Defs>

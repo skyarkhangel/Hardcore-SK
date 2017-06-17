@@ -1,7 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <RecipeDefs>
 
-  <RecipeDef Name="CookMealSimple">
+	<RecipeDef Name="CookMealBase" Abstract="True">
+		<fixedIngredientFilter>
+			<categories>
+				<li>FoodRaw</li>
+			</categories>
+			<disallowedSpecialFilters>
+				<li>AllowPlantFood</li>
+			</disallowedSpecialFilters>
+		</fixedIngredientFilter>
+		<defaultIngredientFilter>
+			<categories>
+				<li>FoodRaw</li>
+			</categories>
+			<exceptedCategories>
+				<li>EggsFertilized</li>
+			</exceptedCategories>
+			<exceptedThingDefs>
+				<li>Human_Meat</li>
+				<li>Megaspider_Meat</li>
+				<li>InsectJelly</li>
+			</exceptedThingDefs>
+		</defaultIngredientFilter>
+		<workSkill>Cooking</workSkill>
+	</RecipeDef>
+
+	<RecipeDef Name="CookMealSimple" ParentName="CookMealBase">
     <defName>CookMealSimple</defName>
     <label>cook simple meal</label>
     <description>Cooks a straightforward meal from one ingredient.</description>
@@ -22,26 +47,6 @@
         <count>0.5</count>
       </li>
     </ingredients>
-    <fixedIngredientFilter>
-      <categories>
-        <li>FoodRaw</li>
-      </categories>
-      <disallowedSpecialFilters>
-        <li>AllowPlantFood</li>
-      </disallowedSpecialFilters>
-    </fixedIngredientFilter>
-    <defaultIngredientFilter>
-      <categories>
-        <li>FoodRaw</li>
-      </categories>
-      <exceptedCategories>
-        <li>EggsFertilized</li>
-      </exceptedCategories>
-      <exceptedThingDefs>
-        <li>Human_Meat</li>
-        <li>Megaspider_Meat</li>
-      </exceptedThingDefs>
-    </defaultIngredientFilter>
 		<products>
 			<MealSimple>1</MealSimple>
 		</products>
@@ -53,7 +58,7 @@
     <workAmount>1000</workAmount> <!-- other meals use WorkToMake stat -->
 	</RecipeDef>
 
-  <RecipeDef>
+  <RecipeDef ParentName="CookMealBase">
 		<defName>CookMealFine</defName>
 		<label>cook fine meal</label>
 		<description>Cooks a somewhat complex meal from a combination of raw meat and raw plant ingredients.</description>
@@ -85,36 +90,15 @@
 		<products>
       <MealFine>1</MealFine>
     </products>
-		<fixedIngredientFilter>
-			<categories>
-				<li>FoodRaw</li>
-			</categories>
-      <disallowedSpecialFilters>
-        <li>AllowPlantFood</li>
-      </disallowedSpecialFilters>
-		</fixedIngredientFilter>
-		<defaultIngredientFilter>
-			<categories>
-				<li>FoodRaw</li>
-			</categories>
-      <exceptedCategories>
-        <li>EggsFertilized</li>
-      </exceptedCategories>
-      <exceptedThingDefs>
-				<li>Human_Meat</li>
-        <li>Megaspider_Meat</li>
-			</exceptedThingDefs>
-		</defaultIngredientFilter>
 		<skillRequirements>
 			<li>
 				<skill>Cooking</skill>
 				<minLevel>6</minLevel>
 			</li>
 		</skillRequirements>
-    <workSkill>Cooking</workSkill>
   </RecipeDef>
 
-	<RecipeDef>
+	<RecipeDef ParentName="CookMealBase">
 		<defName>CookMealLavish</defName>
 		<label>cook lavish meal</label>
 		<description>Cooks a very complex meal from a combination of raw meat and raw plant ingredients. Much of the ingredients are wasted.</description>
@@ -146,33 +130,53 @@
 		<products>
       <MealLavish>1</MealLavish>
     </products>
-		<fixedIngredientFilter>
-			<categories>
-				<li>FoodRaw</li>
-			</categories>
-      <disallowedSpecialFilters>
-        <li>AllowPlantFood</li>
-      </disallowedSpecialFilters>
-		</fixedIngredientFilter>
-		<defaultIngredientFilter>
-			<categories>
-				<li>FoodRaw</li>
-			</categories>
-      <exceptedCategories>
-        <li>EggsFertilized</li>
-      </exceptedCategories>
-      <exceptedThingDefs>
-				<li>Human_Meat</li>
-        <li>Megaspider_Meat</li>
-			</exceptedThingDefs>
-		</defaultIngredientFilter>
 		<skillRequirements>
 			<li>
 				<skill>Cooking</skill>
 				<minLevel>10</minLevel>
 			</li>
 		</skillRequirements>
-    <workSkill>Cooking</workSkill>
+  </RecipeDef>
+
+  <RecipeDef ParentName="CookMealBase">
+    <defName>CookMealSurvival</defName>
+    <label>cook packaged survival meal</label>
+    <description>Cooks a packaged survival meal from a combination of raw meat and raw plant ingredients. Much of the ingredients are wasted.</description>
+    <jobString>Cooking survival meal.</jobString>
+    <workSpeedStat>CookSpeed</workSpeedStat>
+    <effectWorking>Cook</effectWorking>
+    <soundWorking>Recipe_CookMeal</soundWorking>
+    <allowMixingIngredients>true</allowMixingIngredients>
+    <ingredientValueGetterClass>IngredientValueGetter_Nutrition</ingredientValueGetterClass>
+    <ingredients>
+      <li>
+        <filter>
+          <categories>
+            <li>MeatRaw</li>
+            <li>AnimalProductRaw</li>
+          </categories>
+        </filter>
+        <count>0.5</count>
+      </li>
+      <li>
+        <filter>
+          <categories>
+            <li>PlantFoodRaw</li>
+          </categories>
+        </filter>
+        <count>0.5</count>
+      </li>
+    </ingredients>
+    <products>
+      <MealSurvivalPack>1</MealSurvivalPack>
+    </products>
+    <skillRequirements>
+      <li>
+        <skill>Cooking</skill>
+        <minLevel>8</minLevel>
+      </li>
+    </skillRequirements>
+    <researchPrerequisite>PackagedSurvivalMeal</researchPrerequisite>
   </RecipeDef>
 
 </RecipeDefs>

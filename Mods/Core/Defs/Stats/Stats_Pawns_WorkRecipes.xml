@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <StatDefs>
 
-  <!-- Artistic recipes - speed not affected by skill.-->
+  <!-- Artistic recipes - speed not affected by skill because skill affects output quality-->
 
   <StatDef>
     <defName>SculptingSpeed</defName>
     <label>sculpting speed</label>
-    <description>Speed at which this person sculpts.</description>
+    <description>Speed at which this person sculpts. Note: Skill affects the quality of the sculptures created, but not the sculpting speed.</description>
     <category>PawnWork</category>
     <defaultBaseValue>1</defaultBaseValue>
     <toStringStyle>PercentZero</toStringStyle>
@@ -15,12 +15,8 @@
     </statFactors>
     <capacityFactors>
       <li>
-        <capacity>Consciousness</capacity>
-        <weight>1</weight>
-      </li>
-      <li>
         <capacity>Manipulation</capacity>
-        <weight>0.9</weight>
+        <weight>1</weight>
       </li>
       <li>
         <capacity>Sight</capacity>
@@ -33,7 +29,7 @@
   <StatDef>
     <defName>TailoringSpeed</defName>
     <label>tailoring speed</label>
-    <description>Speed at which this person makes clothes.</description>
+    <description>Speed at which this person makes clothes. Note: Skill affects the quality of the apparel created, but not the tailoring speed.</description>
     <category>PawnWork</category>
     <defaultBaseValue>1</defaultBaseValue>
     <toStringStyle>PercentZero</toStringStyle>
@@ -42,17 +38,13 @@
     </statFactors>
     <capacityFactors>
       <li>
-        <capacity>Consciousness</capacity>
-        <weight>1</weight>
-      </li>
-      <li>
         <capacity>Sight</capacity>
         <weight>0.6</weight>
 				<max>1</max>
 			</li>
       <li>
         <capacity>Manipulation</capacity>
-        <weight>0.9</weight>
+        <weight>1</weight>
       </li>
     </capacityFactors>
   </StatDef>
@@ -60,7 +52,7 @@
   <StatDef>
     <defName>SmithingSpeed</defName>
     <label>smithing speed</label>
-    <description>Speed at which this person smiths or crafts weapons, machines, ammunition, and tools.</description>
+    <description>Speed at which this person smiths or crafts weapons, machines, ammunition, and tools. Note: Skill affects the quality of the items created, but not the smithing speed.</description>
     <category>PawnWork</category>
     <defaultBaseValue>1</defaultBaseValue>
     <toStringStyle>PercentZero</toStringStyle>
@@ -69,22 +61,20 @@
     </statFactors>
     <capacityFactors>
       <li>
-        <capacity>Consciousness</capacity>
-        <weight>1</weight>
-      </li>
-      <li>
         <capacity>Sight</capacity>
         <weight>0.6</weight>
 				<max>1</max>
 			</li>
       <li>
         <capacity>Manipulation</capacity>
-        <weight>0.9</weight>
+        <weight>1</weight>
       </li>
     </capacityFactors>
   </StatDef>
 
-  <StatDef>
+	<!-- Production recipes - speed affected by skill because there is no output quality -->
+
+	<StatDef>
     <defName>DrugProductionSpeed</defName>
     <label>drug production speed</label>
     <description>How fast this character produces drugs.</description>
@@ -94,11 +84,14 @@
     <statFactors>
       <li>WorkSpeedGlobal</li>
     </statFactors>
+		<skillNeedFactors>
+			<li Class="SkillNeed_BaseBonus">
+				<skill>Intellectual</skill>
+				<baseFactor>0.3</baseFactor>
+				<bonusFactor>0.0875</bonusFactor>
+			</li>
+		</skillNeedFactors>
     <capacityFactors>
-      <li>
-        <capacity>Consciousness</capacity>
-        <weight>1</weight>
-      </li>
       <li>
         <capacity>Sight</capacity>
         <weight>0.6</weight>
@@ -106,7 +99,7 @@
 			</li>
       <li>
         <capacity>Manipulation</capacity>
-        <weight>0.9</weight>
+        <weight>1</weight>
       </li>
     </capacityFactors>
   </StatDef>
@@ -121,11 +114,14 @@
 		<statFactors>
 			<li>WorkSpeedGlobal</li>
 		</statFactors>
-		<capacityFactors>
-			<li>
-				<capacity>Consciousness</capacity>
-				<weight>1</weight>
+		<skillNeedFactors>
+			<li Class="SkillNeed_BaseBonus">
+				<skill>Construction</skill>
+				<baseFactor>0.6</baseFactor>
+				<bonusFactor>0.05</bonusFactor>
 			</li>
+		</skillNeedFactors>
+		<capacityFactors>
 			<li>
 				<capacity>Sight</capacity>
 				<weight>0.3</weight>
@@ -133,42 +129,11 @@
 			</li>
 			<li>
 				<capacity>Manipulation</capacity>
-				<weight>0.9</weight>
-			</li>
-		</capacityFactors>
-	</StatDef>
-
-	<StatDef>
-		<defName>SmeltingSpeed</defName>
-		<label>smelting speed</label>
-		<description>Speed at which this person smelts things.</description>
-		<category>PawnWork</category>
-		<defaultBaseValue>1</defaultBaseValue>
-		<toStringStyle>PercentZero</toStringStyle>
-		<statFactors>
-			<li>WorkSpeedGlobal</li>
-		</statFactors>
-		<capacityFactors>
-			<li>
-				<capacity>Consciousness</capacity>
 				<weight>1</weight>
 			</li>
-			<li>
-				<capacity>Sight</capacity>
-				<weight>0.3</weight>
-				<max>1</max>
-			</li>
-			<li>
-				<capacity>Manipulation</capacity>
-				<weight>0.9</weight>
-			</li>
 		</capacityFactors>
 	</StatDef>
 
-
-
-	<!-- Production recipes - speed affected by skill.-->
-  
   <StatDef>
     <defName>CookSpeed</defName>
     <label>cooking speed</label>
@@ -188,17 +153,13 @@
     </skillNeedFactors>
     <capacityFactors>
       <li>
-        <capacity>Consciousness</capacity>
-        <weight>1</weight>
-      </li>
-      <li>
         <capacity>Sight</capacity>
         <weight>0.3</weight>
 				<max>1</max>
 			</li>
       <li>
         <capacity>Manipulation</capacity>
-        <weight>0.9</weight>
+        <weight>1</weight>
       </li>
     </capacityFactors>
   </StatDef>
@@ -259,17 +220,13 @@
     </skillNeedFactors>
     <capacityFactors>
       <li>
-        <capacity>Consciousness</capacity>
-        <weight>1</weight>
-      </li>
-      <li>
         <capacity>Sight</capacity>
         <weight>0.3</weight>
 				<max>1</max>
 			</li>
       <li>
         <capacity>Manipulation</capacity>
-        <weight>0.9</weight>
+        <weight>1</weight>
       </li>
     </capacityFactors>
   </StatDef>
@@ -283,17 +240,13 @@
 		</statFactors>
 		<capacityFactors>
 			<li>
-				<capacity>Consciousness</capacity>
-				<weight>1</weight>
-			</li>
-			<li>
 				<capacity>Sight</capacity>
 				<weight>0.4</weight>
 				<max>1</max>
 			</li>
 			<li>
 				<capacity>Manipulation</capacity>
-				<weight>0.9</weight>
+				<weight>1</weight>
 			</li>
 		</capacityFactors>
 	</StatDef>
@@ -324,6 +277,54 @@
     </skillNeedFactors>
   </StatDef>
 
+  <StatDef>
+    <defName>MechanoidOperationSuccessChance</defName>
+    <label>mechanoid operation success chance</label>
+    <description>The likelihood that a character will succeed when attempting to perform an operation on a mechanoid. Failures can result in simple wasted time, or catastrophic damage to the subject.</description>
+    <category>PawnWork</category>
+    <defaultBaseValue>1.00</defaultBaseValue>
+    <toStringStyle>PercentZero</toStringStyle>
+    <skillNeedFactors>
+      <li Class="SkillNeed_Direct">
+        <skill>Crafting</skill>
+        <factorsPerLevel>
+          <li>0.05</li>
+          <li>0.25</li>
+          <li>0.40</li>
+          <li>0.50</li>
+          <li>0.60</li>
+          <li>0.70</li>
+          <li>0.80</li>
+          <li>0.85</li>
+          <li>0.90</li>
+          <li>0.92</li>
+          <li>0.93</li>
+          <li>0.94</li>
+          <li>0.95</li>
+          <li>0.955</li>
+          <li>0.96</li>
+          <li>0.965</li>
+          <li>0.97</li>
+          <li>0.975</li>
+          <li>0.98</li>
+          <li>0.985</li>
+          <li>0.99</li>
+        </factorsPerLevel>
+      </li>
+    </skillNeedFactors>
+    <capacityFactors>
+      <li>
+        <capacity>Sight</capacity>
+        <weight>0.4</weight>
+        <max>1</max>
+      </li>
+      <li>
+        <capacity>Manipulation</capacity>
+        <weight>1</weight>
+      </li>
+    </capacityFactors>
+  </StatDef>
+  
 	<StatDef Abstract="True" Name="ButcheryEfficiencyBase" >
 		<category>PawnWork</category>
 		<defaultBaseValue>1</defaultBaseValue>
@@ -345,6 +346,7 @@
 		<defName>ButcheryFleshEfficiency</defName>
 		<label>butchery efficiency</label>
 		<description>Multiplier on the amount of meat produced when butchering flesh creatures.</description>
+		<maxValue>1</maxValue>
 		<skillNeedFactors>
 			<li Class="SkillNeed_BaseBonus">
 				<skill>Cooking</skill>
@@ -358,7 +360,8 @@
     <defName>ButcheryMechanoidEfficiency</defName>
     <label>mechanoid disassembly efficiency</label>
     <description>Multiplier on the amount of materials yielded when this person disassembles a dead mechanoid.</description>
-    <skillNeedFactors>
+		<maxValue>1</maxValue>
+		<skillNeedFactors>
       <li Class="SkillNeed_BaseBonus">
         <skill>Crafting</skill>
         <baseFactor>0.75</baseFactor>
@@ -366,5 +369,30 @@
       </li>
     </skillNeedFactors>
   </StatDef>
+	
+	<!-- Dumb recipes - not affected by skill because there's no skill component -->
+
+	<StatDef>
+		<defName>SmeltingSpeed</defName>
+		<label>smelting speed</label>
+		<description>Speed at which this person smelts things. Note: Since this is dumb labor, its speed is not affected by any skill.</description>
+		<category>PawnWork</category>
+		<defaultBaseValue>1</defaultBaseValue>
+		<toStringStyle>PercentZero</toStringStyle>
+		<statFactors>
+			<li>WorkSpeedGlobal</li>
+		</statFactors>
+		<capacityFactors>
+			<li>
+				<capacity>Sight</capacity>
+				<weight>0.3</weight>
+				<max>1</max>
+			</li>
+			<li>
+				<capacity>Manipulation</capacity>
+				<weight>1</weight>
+			</li>
+		</capacityFactors>
+	</StatDef>
 
 </StatDefs>
