@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>Ammo38Special</defName>
+		<label>.38 Special</label>
+		<parent>AmmoPistols</parent>
+    <iconPath>UI/Icons/ThingCategories/CaliberPistol</iconPath>
+	</ThingCategoryDef>
+	
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_38Special</defName>
+		<label>.38 Special</label>
+		<ammoTypes>
+			<Ammo_38Special_FMJ>Bullet_38Special_FMJ</Ammo_38Special_FMJ>
+			<Ammo_38Special_AP>Bullet_38Special_AP</Ammo_38Special_AP>
+			<Ammo_38Special_HP>Bullet_38Special_HP</Ammo_38Special_HP>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+	
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Name="38SpecialBase" ParentName="SmallAmmoBase" Abstract="True">
+		<description>Ancient low-power revolver cartridge renowned for its manageability.</description>
+		<statBases>
+		<Mass>0.01</Mass>
+		<Bulk>0.02</Bulk>
+		</statBases>
+	<tradeTags>
+		<li>CE_AutoEnableTrade</li>
+		<li>CE_AutoEnableCrafting</li>
+	</tradeTags>
+		<thingCategories>
+			<li>Ammo38Special</li>
+		</thingCategories>
+	</ThingDef>
+
+	<ThingDef ParentName="38SpecialBase">
+		<defName>Ammo_38Special_FMJ</defName>
+		<label>.38 Special cartridge (FMJ)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Pistol/FMJ</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>0.05</MarketValue>
+		</statBases>
+		<ammoClass>FullMetalJacket</ammoClass>
+		<cookOffProjectile>Bullet_38Special_FMJ</cookOffProjectile>
+	</ThingDef>
+
+	<ThingDef ParentName="38SpecialBase">
+		<defName>Ammo_38Special_AP</defName>
+		<label>.38 Special cartridge (AP)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Pistol/AP</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>0.06</MarketValue>
+		</statBases>
+		<ammoClass>ArmorPiercing</ammoClass>
+		<cookOffProjectile>Bullet_38Special_AP</cookOffProjectile>
+	</ThingDef>
+
+	<ThingDef ParentName="38SpecialBase">
+		<defName>Ammo_38Special_HP</defName>
+		<label>.38 Special cartridge (HP)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Pistol/HP</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>0.06</MarketValue>
+		</statBases>
+		<ammoClass>HollowPoint</ammoClass>
+		<cookOffProjectile>Bullet_38Special_HP</cookOffProjectile>
+	</ThingDef>
+	
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef Name="Base38SpecialBullet" ParentName="BaseBullet" Abstract="true">
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_Small</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile>
+			<damageDef>Bullet</damageDef>
+			<speed>75</speed>
+			<dropsCasings>true</dropsCasings>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="Base38SpecialBullet">
+		<defName>Bullet_38Special_FMJ</defName>
+		<label>.38 Special bullet (FMJ)</label>
+		<projectile>
+			<damageAmountBase>9</damageAmountBase>
+			<armorPenetration>0.257</armorPenetration>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="Base38SpecialBullet">
+		<defName>Bullet_38Special_AP</defName>
+		<label>.38 Special bullet (AP)</label>
+		<projectile>
+			<damageAmountBase>5</damageAmountBase>
+			<armorPenetration>0.407</armorPenetration>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="Base38SpecialBullet">
+		<defName>Bullet_38Special_HP</defName>
+		<label>.38 Special bullet (HP)</label>
+		<projectile>
+			<damageAmountBase>13</damageAmountBase>
+			<armorPenetration>0.107</armorPenetration>
+		</projectile>
+	</ThingDef>
+  
+	<!-- ==================== Recipes ========================== -->
+
+  <!-- Standard manufacture -->
+  <RecipeDef ParentName="AmmoRecipeBase">
+    <defName>MakeAmmo_38Special_FMJ</defName>
+    <label>make .38 Special (FMJ) cartridge x500</label>
+    <description>Craft 500 .38 Special (FMJ) cartridges.</description>
+    <jobString>Making .38 Special (FMJ) cartridges.</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Steel</li>
+          </thingDefs>
+        </filter>
+        <count>9</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Steel</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_38Special_FMJ>500</Ammo_38Special_FMJ>
+    </products>
+    <workAmount>1500</workAmount>
+  </RecipeDef>
+
+  <!-- Crafting Spot -->
+  <!--
+  <RecipeDef ParentName="AmmoRecipeBase">
+    <defName>MakeAmmo_38Special_FMJ_Alt</defName>
+    <label>make .38 Special (FMJ) cartridge x50 (inefficient)</label>
+    <description>Craft 50 .38 Special (FMJ) cartridges.\n\nTakes longer, and is proportionally more expensive.</description>
+    <jobString>Making .38 Special (FMJ) cartridges.</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Steel</li>
+          </thingDefs>
+        </filter>
+        <count>3</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Steel</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_38Special_FMJ>50</Ammo_38Special_FMJ>
+    </products>
+    <researchPrerequisite>Smithing</researchPrerequisite>
+    <recipeUsers>
+    	<li>CraftingSpot</li>
+    </recipeUsers>
+    <workAmount>3000</workAmount>
+  </RecipeDef>
+-->
+
+  <RecipeDef ParentName="AmmoRecipeBase">
+    <defName>MakeAmmo_38Special_AP</defName>
+    <label>make .38 Special (AP) cartridge x500</label>
+    <description>Craft 500 .38 Special (AP) cartridges.</description>
+    <jobString>Making .38 Special (AP) cartridges.</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Steel</li>
+          </thingDefs>
+        </filter>
+        <count>11</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Steel</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_38Special_AP>500</Ammo_38Special_AP>
+    </products>
+    <workAmount>2000</workAmount>
+  </RecipeDef>
+
+  <RecipeDef ParentName="AmmoRecipeBase">
+    <defName>MakeAmmo_38Special_HP</defName>
+    <label>make .38 Special (HP) cartridge x500</label>
+    <description>Craft 500 .38 Special (HP) cartridges.</description>
+    <jobString>Making .38 Special (HP) cartridges.</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Steel</li>
+          </thingDefs>
+        </filter>
+        <count>9</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Steel</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_38Special_HP>500</Ammo_38Special_HP>
+    </products>
+    <workAmount>2750</workAmount>
+  </RecipeDef>
+	
+</Defs>
