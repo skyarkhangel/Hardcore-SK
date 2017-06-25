@@ -473,6 +473,8 @@
 			<li>MakePiePumpkin</li>
 			<li>MakeSweetBun</li>
 			<li>MakePizza</li>
+			<li>BakeCornbreadmuffin</li>
+			<li>BakeCornbread</li>
 		</recipes>
 		<comps>
 			<li Class="CompProperties_Flickable"/>
@@ -1606,6 +1608,9 @@
 		<inspectorTabs>
 			<li>ITab_Bills</li>
 		</inspectorTabs>
+		<recipes>
+			<li>ReclaimFabric</li>
+		</recipes>
 		<building>
 			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
 		</building>
@@ -1800,6 +1805,7 @@
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
 		<surfaceType>Item</surfaceType>
 		<recipes>
+			<li>ReclaimFabric</li>
 			<li>MakeCloth</li>
 			<li>MakeLinen</li>
 			<li>MakeSynthreadCloth</li>
@@ -1844,93 +1850,179 @@
 		</placeWorkers>
 	</ThingDef>
 
-    <ThingDef ParentName="BenchBase">
-      <DefName>TableMending</DefName>
-      <label>mending workbench</label>
-      <ThingClass>Building_WorkTable</ThingClass>
-      <Description>A workbench equipped with all the tools required to mend and repair damaged items. Requires power and consumes mending kits.</Description>
-      <graphicData>
-        <texPath>Things/Building/Production/TableMending</texPath>
-        <graphicClass>Graphic_Single</graphicClass>
-        <drawSize>(3,1)</drawSize>
-        <damageData>
-          <cornerTL>Damage/Corner</cornerTL>
-          <cornerTR>Damage/Corner</cornerTR>
-          <cornerBL>Damage/Corner</cornerBL>
-          <cornerBR>Damage/Corner</cornerBR>
-        </damageData>
-      </graphicData>
-      <CostList>
-        <SyntheticFibers>20</SyntheticFibers>
-        <Component>8</Component>
-        <ElectronicComponents>6</ElectronicComponents>
-        <Mechanism>5</Mechanism>
-      </CostList>
-      <stuffCategories>
-        <li>Metallic</li>
-      </stuffCategories>
-      <costStuffCount>115</costStuffCount>
-      <AltitudeLayer>Building</AltitudeLayer>
-      <fillPercent>0.5</fillPercent>
-      <useHitPoints>True</useHitPoints>
-      <statBases>
-        <WorkToBuild>6500</WorkToBuild>
-        <MaxHitPoints>220</MaxHitPoints>
-        <Flammability>1.0</Flammability>
-        <Cleanliness>-5</Cleanliness>
-      </statBases>
-      <Size>(3,1)</Size>
-      <DesignationCategory>Production</DesignationCategory>
-      <Passability>PassThroughOnly</Passability>
-      <pathCost>70</pathCost>
-      <hasInteractionCell>True</hasInteractionCell>
-      <interactionCellOffset>(0,0,-1)</interactionCellOffset>
-      <surfaceType>Item</surfaceType>
-      <inspectorTabs>
-        <li>ITab_Bills</li>
-      </inspectorTabs>
-      <building>
-        <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
-        <unpoweredWorkTableWorkSpeedFactor>0.3</unpoweredWorkTableWorkSpeedFactor>
-      </building>
-      <comps>
-        <li Class="CompProperties_Power">
-          <compClass>CompPowerTrader</compClass>
-          <startElectricalFires>true</startElectricalFires>
-          <basePowerConsumption>550</basePowerConsumption>
-        </li>
-        <li Class="CompProperties_Refuelable">
-          <fuelConsumptionRate>10.0</fuelConsumptionRate>
-          <fuelCapacity>5.0</fuelCapacity>
-          <fuelFilter>
-            <thingDefs>
-              <li>MendingKit</li>
-            </thingDefs>
-          </fuelFilter>
-          <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
-        </li>
-        <li Class="CompProperties_Flickable"/>
-        <li Class="CompProperties_AffectedByFacilities">
-          <linkableFacilities>
-            <li>Small_ToolCabinet</li>
-            <li>PodChair</li>
-            <li>Patterner</li>
-          </linkableFacilities>
-        </li>
-        <li Class="CompProperties_Breakdownable"/>
-        <li Class="SK.CompProperties_LowIdleDraw">
-          <compClass>SK.CompPowerLowIdleDraw</compClass>
-          <idlePowerFactor>0.1</idlePowerFactor>
-        </li>
-      </comps>
-      <designationHotKey>Misc2</designationHotKey>
-      <placeWorkers>
-        <li>PlaceWorker_ShowFacilitiesConnections</li>
-      </placeWorkers>
-      <researchPrerequisites>
-        <li>Machining</li>
-      </researchPrerequisites>
-    </ThingDef>
+
+	<ThingDef ParentName="BenchBase">
+		<DefName>BenchRecycle</DefName>
+		<Label>recycle textile bench</Label>
+		<ThingClass>Building_WorkTable</ThingClass>
+		<Description>A bench to recycle used apparel into useable textiles. Recovers 50% of the original material used for the item. Apparel made from more than one resource will return nothing. Requires power.
+		Normal speed.</Description>
+		<graphicData>
+			<texPath>Things/Building/Production/RecycleBench/RecycleBench</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(3.5,1.5)</drawSize>
+		</graphicData>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Woody</li>
+		</stuffCategories>
+		<costStuffCount>120</costStuffCount>
+		<CostList>
+			<Component>15</Component>
+			<ElectronicComponents>5</ElectronicComponents>
+			<Mechanism>5</Mechanism>
+		</CostList>
+		<altitudeLayer>Building</altitudeLayer>
+		<useHitPoints>True</useHitPoints>
+		<statBases>
+			<WorkToBuild>7750</WorkToBuild>
+			<MaxHitPoints>200</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<Cleanliness>-3</Cleanliness>
+		</statBases>
+		<Size>(3,1)</Size>
+		<DesignationCategory>Production</DesignationCategory>
+		<Passability>PassThroughOnly</Passability>
+		<hasInteractionCell>True</hasInteractionCell>
+		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
+		<surfaceType>Item</surfaceType>
+		<recipes>
+			<!--<li>RecycleApparel</li>-->
+			<li>ReclaimFabric</li>
+		</recipes>
+		<inspectorTabs>
+			<li>ITab_Bills</li>
+		</inspectorTabs>
+		<tickerType>Normal</tickerType>
+		<comps>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>400</basePowerConsumption>
+				<startElectricalFires>true</startElectricalFires>
+				<soundPowerOn>PowerOnSmall</soundPowerOn>
+				<soundPowerOff>PowerOffSmall</soundPowerOff>
+			</li>
+			<li Class="CompProperties_Glower">
+				<glowRadius>3</glowRadius>
+				<glowColor>(217,112,33,0)</glowColor>
+			</li>
+			<li Class="SK.CompProperties_LowIdleDraw">
+				<compClass>SK.CompPowerLowIdleDraw</compClass>
+				<idlePowerFactor>0.1</idlePowerFactor>
+			</li>
+			<li Class="CompProperties_AffectedByFacilities">
+				<linkableFacilities>
+					<li>Patterner</li>
+				</linkableFacilities>
+			</li>
+		</comps>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+		</placeWorkers>
+		<building>
+			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+		</building>
+		<researchPrerequisites>
+			<li>TailoringII</li>
+		</researchPrerequisites>
+	</ThingDef>
+
+
+	<ThingDef ParentName="BenchBase">
+		<DefName>ElectricTableRepair</DefName>
+		<label>mending workbench</label>
+		<ThingClass>Repair.Building_RepairTable</ThingClass>
+		<Description>Requires Repair kit for a work. A workbench equipped with all the tools required to mend and repair damaged items. Works at 40% speed when not powered. Requires power.</Description>
+		<graphicData>
+			<texPath>Things/Building/TableMending</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(3.5,1.5)</drawSize>
+			<damageData>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+			</damageData>
+		</graphicData>
+		<stuffCategories>
+			<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>115</costStuffCount>
+		<CostList>
+			<SyntheticFibers>20</SyntheticFibers>
+			<Component>8</Component>
+			<ElectronicComponents>6</ElectronicComponents>
+			<Mechanism>5</Mechanism>
+		</CostList>
+		<altitudeLayer>Building</altitudeLayer>
+		<fillPercent>0.5</fillPercent>
+		<statBases>
+			<WorkToBuild>6500</WorkToBuild>
+			<MaxHitPoints>220</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<Cleanliness>-5</Cleanliness>
+		</statBases>
+		<Size>(3,1)</Size>
+		<DesignationCategory>Production</DesignationCategory>
+		<Passability>PassThroughOnly</Passability>
+		<pathCost>70</pathCost>
+		<hasInteractionCell>True</hasInteractionCell>
+		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
+		<surfaceType>Item</surfaceType>
+		<inspectorTabs>
+			<li>Repair.ITab_RepairBench</li>
+		</inspectorTabs>
+		<building>
+			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+			<unpoweredWorkTableWorkSpeedFactor>0.3</unpoweredWorkTableWorkSpeedFactor>
+			<fixedStorageSettings>
+				<filter>
+					<categories>
+						<li>Weapons</li>
+						<li>Apparel</li>
+						<li>Ammo</li>
+					</categories>
+				</filter>
+			</fixedStorageSettings>
+			<defaultStorageSettings>
+				<priority>Important</priority>
+				<filter>
+					<categories>
+						<li>Weapons</li>
+					</categories>
+				</filter>
+			</defaultStorageSettings>
+		</building>
+		<tickerType>Normal</tickerType>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<startElectricalFires>true</startElectricalFires>
+				<basePowerConsumption>550</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_AffectedByFacilities">
+				<linkableFacilities>
+					<li>Small_ToolCabinet</li>
+					<li>PodChair</li>
+					<li>Patterner</li>
+				</linkableFacilities>
+			</li>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="SK.CompProperties_LowIdleDraw">
+				<compClass>SK.CompPowerLowIdleDraw</compClass>
+				<idlePowerFactor>0.1</idlePowerFactor>
+			</li>
+		</comps>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+		</placeWorkers>
+		<researchPrerequisites>
+			<li>Machining</li>
+		</researchPrerequisites>
+	</ThingDef>
 
 	<ThingDef ParentName="BenchBase">
 		<DefName>ComponentAssemblyBench</DefName>
@@ -2940,9 +3032,8 @@
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
 		</placeWorkers>
 	</ThingDef>
-	
-	
-<!--============================ Resource rocks ===============================-->
+
+	  <!--============================ Resource rocks ===============================-->
 
     <ThingDef ParentName="BuildingBase">
     <defName>VG_SaltMine</defName>
@@ -2975,5 +3066,6 @@
       <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
     </building>
   </ThingDef>
-
+	
+	
 </ThingDefs>
