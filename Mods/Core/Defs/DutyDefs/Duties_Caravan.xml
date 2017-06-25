@@ -5,21 +5,18 @@
     <defName>PrepareCaravan_GatherItems</defName>
     <thinkNode Class="ThinkNode_Priority">
       <subNodes>
+        <!-- Basic needs -->
+        <li Class="ThinkNode_Subtree">
+          <treeDef>SatisfyVeryUrgentNeeds</treeDef>
+        </li>
+      
         <!-- Gather items -->
         <li Class="JobGiver_PrepareCaravan_GatherItems"/>
         
         <!-- Wander -->
         <li Class="ThinkNode_Tagger">
-          <tagToGive>AllCaravanItemsGathered</tagToGive>
+          <tagToGive>WaitingForOthersToFinishGatheringItems</tagToGive>
           <subNodes>
-            <li Class="ThinkNode_PrioritySorter">
-              <subNodes>
-                <li Class="JobGiver_GetFood">
-                  <minCategory>UrgentlyHungry</minCategory>
-                </li>
-                <li Class="JobGiver_SatisfyChemicalNeed"/>
-              </subNodes>
-            </li>
             <li Class="JobGiver_WanderAnywhere"/>
           </subNodes>
         </li>
@@ -31,13 +28,9 @@
     <defName>PrepareCaravan_Wait</defName>
     <thinkNode Class="ThinkNode_Priority">
       <subNodes>
-        <li Class="ThinkNode_PrioritySorter">
-          <subNodes>
-            <li Class="JobGiver_GetFood">
-              <minCategory>Starving</minCategory>
-            </li>
-            <li Class="JobGiver_SatisfyChemicalNeed"/>
-          </subNodes>
+        <!-- Basic needs -->
+        <li Class="ThinkNode_Subtree">
+          <treeDef>SatisfyVeryUrgentNeeds</treeDef>
         </li>
         
         <!-- Wander near duty target -->
@@ -46,6 +39,13 @@
             <li Class="JobGiver_WanderNearDutyLocation">
               <wanderRadius>5</wanderRadius>
             </li>
+          </subNodes>
+        </li>
+        
+        <!-- Wander in prison cell if prisoner -->
+        <li Class="ThinkNode_ConditionalPrisonerInPrisonCell">
+          <subNodes>
+            <li Class="JobGiver_WanderCurrentRoom"/>
           </subNodes>
         </li>
         
@@ -60,6 +60,11 @@
     <defName>PrepareCaravan_GatherPawns</defName>
     <thinkNode Class="ThinkNode_Priority">
       <subNodes>
+        <!-- Basic needs -->
+        <li Class="ThinkNode_Subtree">
+          <treeDef>SatisfyVeryUrgentNeeds</treeDef>
+        </li>
+      
         <!-- Colonist -->
         <li Class="ThinkNode_ConditionalColonist">
           <subNodes>
@@ -84,27 +89,19 @@
           </subNodes>
         </li>
         
-        <!-- Eat -->
-        <li Class="ThinkNode_ConditionalPrisoner">
-          <invert>true</invert>
-          <subNodes>
-            <li Class="ThinkNode_PrioritySorter">
-              <subNodes>
-                <li Class="JobGiver_GetFood">
-                  <minCategory>Starving</minCategory>
-                </li>
-                <li Class="JobGiver_SatisfyChemicalNeed"/>
-              </subNodes>
-            </li>
-          </subNodes>
-        </li>
-        
         <!-- Wander near the colonist -->
         <li Class="ThinkNode_ConditionalHasDutyPawnTarget">
           <subNodes>
             <li Class="JobGiver_WanderNearDutyLocation">
               <wanderRadius>5</wanderRadius>
             </li>
+          </subNodes>
+        </li>
+        
+        <!-- Wander in prison cell if prisoner -->
+        <li Class="ThinkNode_ConditionalPrisonerInPrisonCell">
+          <subNodes>
+            <li Class="JobGiver_WanderCurrentRoom"/>
           </subNodes>
         </li>
         
@@ -132,18 +129,17 @@
         <li Class="ThinkNode_ConditionalColonist">
           <invert>true</invert>
           <subNodes>
-            <!-- Satisfy basic needs -->
-            <li Class="ThinkNode_PrioritySorter">
-              <subNodes>
-                <li Class="JobGiver_GetFood">
-                  <minCategory>Starving</minCategory>
-                </li>
-                <li Class="JobGiver_GetRest">
-					<minCategory>Exhausted</minCategory>
-				</li>
-                <li Class="JobGiver_SatisfyChemicalNeed"/>
-              </subNodes>
+            <!-- Basic needs -->
+            <li Class="ThinkNode_Subtree">
+              <treeDef>SatisfyVeryUrgentNeeds</treeDef>
             </li>
+          </subNodes>
+        </li>
+        
+        <!-- Wander in prison cell if prisoner -->
+        <li Class="ThinkNode_ConditionalPrisonerInPrisonCell">
+          <subNodes>
+            <li Class="JobGiver_WanderCurrentRoom"/>
           </subNodes>
         </li>
         

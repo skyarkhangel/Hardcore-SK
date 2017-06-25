@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ThingDefs>
 
-	<ThingDef Class="AIRobot.ThingDef_AIRobot" Name="BaseAIRobot" Abstract="True">
-		<thingClass>AIRobot.AIRobot</thingClass>
+	<ThingDef Class="AIRobot.X2_ThingDef_AIRobot" Name="Base_X2_AIRobot" Abstract="True">
+		<thingClass>AIRobot.X2_AIRobot</thingClass>
 		<category>Pawn</category>
 		<selectable>true</selectable>
 		<tickerType>Normal</tickerType>
 		<altitudeLayer>Pawn</altitudeLayer>
 		<useHitPoints>false</useHitPoints>
-		<hasTooltip>false</hasTooltip>
+		<hasTooltip>true</hasTooltip>
 		<soundImpactDefault>BulletImpactMetal</soundImpactDefault>
 		<statBases>
+			<Flammability>1.0</Flammability>
+			<LeatherAmount>0</LeatherAmount>
 			<PsychicSensitivity>0</PsychicSensitivity>
 			<ToxicSensitivity>0</ToxicSensitivity>
+			<Mass>15</Mass>
 		</statBases>
 		<inspectorTabs>
 			<li>ITab_Pawn_Health</li>
 			<li>ITab_Pawn_Needs</li>
+			<li>ITab_Pawn_Gear</li>
+			<!--
 			<li>ITab_Pawn_Character</li>
 			<li>ITab_Pawn_Training</li>
-			<li>ITab_Pawn_Gear</li>
 			<li>ITab_Pawn_Guest</li>
 			<li>ITab_Pawn_Prisoner</li>
-			<li>ITab_Pawn_Social</li>
+			<li>ITab_Pawn_Social</li> 
+			-->
 		</inspectorTabs>
 		<comps>
 			<li>
@@ -31,14 +36,21 @@
 		</comps>
 		<drawGUIOverlay>true</drawGUIOverlay>
 		<race>
+			<thinkTreeMain>X2_AIRobot</thinkTreeMain>
+			<thinkTreeConstant>X2_AIRobotConstant</thinkTreeConstant>
 			<fleshType>Mechanoid</fleshType>
-			<foodType>OmnivoreHuman</foodType>
-			<hasGenders>true</hasGenders>
+			<!-- <foodType>OmnivoreRoughAnimal</foodType> -->
+			<foodType>None</foodType>
+			<intelligence>Animal</intelligence>
+			<makesFootprints>false</makesFootprints>
+			<nameCategory>HumanStandard</nameCategory>
+			<wildness>0.1</wildness>
+			<mateMtbHours>0</mateMtbHours>
 			<ageGenerationCurve>
 				<points>
-					<li>(0,0)</li>
-					<li>(1,100)</li>
-					<li>(5,80)</li>
+					<li>(0,100)</li>
+					<li>(1,50)</li>
+					<li>(5,50)</li>
 					<li>(20,0)</li>
 				</points>
 			</ageGenerationCurve>
@@ -58,7 +70,7 @@
 
 	<!-- ============================ Robots ========================== -->
 
-	<ThingDef Class="AIRobot.ThingDef_AIRobot" ParentName="BaseAIRobot">
+	<ThingDef Class="AIRobot.X2_ThingDef_AIRobot" ParentName="Base_X2_AIRobot">
 		<defName>AIRobot_Hauler</defName>
 		<label>HaulingBot</label>
 		<description>A hauling robot.</description>
@@ -74,18 +86,13 @@
 		<verbs>
 			<li>
 				<verbClass>Verb_MeleeAttack</verbClass>
-				<defaultCooldownTime>1.25</defaultCooldownTime>
+				<defaultCooldownTime>1.45</defaultCooldownTime>
 				<meleeDamageBaseAmount>1</meleeDamageBaseAmount>
 				<meleeDamageDef>Blunt</meleeDamageDef>
 				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
 			</li>
 		</verbs>
 		<race>
-			<thinkTreeMain>AIRobot</thinkTreeMain>
-			<thinkTreeConstant>AIRobotConstant</thinkTreeConstant>
-			<intelligence>Humanlike</intelligence>
-			<makesFootprints>false</makesFootprints>
-			<nameCategory>HumanStandard</nameCategory>
 			<body>AIRobot</body>
 			<baseBodySize>0.6</baseBodySize>
 			<baseHungerRate>0.5</baseHungerRate>
@@ -93,25 +100,17 @@
 		</race>
 		<recipes>
 		</recipes>
-
-		<normalHeadGraphicPathMulti>Things/AIRobot/AIRobot_Head_Alpha</normalHeadGraphicPathMulti>
-		<refreshBaseInfosMax>2000</refreshBaseInfosMax>
-		<refreshQuickMax>25</refreshQuickMax>
-		<incapToExplosionCounter>200</incapToExplosionCounter>
-
-		<passionLevel>0</passionLevel>
-		<startingSkillLevel>1</startingSkillLevel>
-		<enhancedAI>false</enhancedAI>
-		<workTag>16388</workTag>
-		<workTypeDefs>
-			<li>Hauling</li>
-		</workTypeDefs>
-
-		<!-- Debugging  -->
-		<showAsColonist>False</showAsColonist>
+		<robotWorkTypes>
+			<li>
+				<workTypeDef>Hauling</workTypeDef>
+				<priority>1</priority>
+			</li>
+		</robotWorkTypes>
+		<destroyedDef>AIRobot_Hauler_disabled</destroyedDef>
+		<allowLearning>false</allowLearning>
 	</ThingDef>
 
-	<ThingDef Class="AIRobot.ThingDef_AIRobot" ParentName="BaseAIRobot">
+	<ThingDef Class="AIRobot.X2_ThingDef_AIRobot" ParentName="Base_X2_AIRobot">
 		<defName>AIRobot_Cleaner</defName>
 		<label>CleaningBot</label>
 		<description>A cleaning robot.</description>
@@ -128,18 +127,13 @@
 		<verbs>
 			<li>
 				<verbClass>Verb_MeleeAttack</verbClass>
-				<defaultCooldownTime>1.25</defaultCooldownTime>
+				<defaultCooldownTime>1.45</defaultCooldownTime>
 				<meleeDamageBaseAmount>1</meleeDamageBaseAmount>
 				<meleeDamageDef>Blunt</meleeDamageDef>
 				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
 			</li>
 		</verbs>
 		<race>
-			<thinkTreeMain>AIRobot</thinkTreeMain>
-			<thinkTreeConstant>AIRobotConstant</thinkTreeConstant>
-			<intelligence>Humanlike</intelligence>
-			<makesFootprints>false</makesFootprints>
-			<nameCategory>HumanStandard</nameCategory>
 			<body>AIRobot</body>
 			<baseBodySize>0.6</baseBodySize>
 			<baseHungerRate>0.5</baseHungerRate>
@@ -147,22 +141,39 @@
 		</race>
 		<recipes>
 		</recipes>
-
-		<normalHeadGraphicPathMulti>Things/AIRobot/AIRobot_Head_Alpha</normalHeadGraphicPathMulti>
-		<refreshBaseInfosMax>2000</refreshBaseInfosMax>
-		<refreshQuickMax>25</refreshQuickMax>
-		<incapToExplosionCounter>200</incapToExplosionCounter>
-
-		<passionLevel>0</passionLevel>
-		<startingSkillLevel>1</startingSkillLevel>
-		<enhancedAI>false</enhancedAI>
-		<workTag>8196</workTag>
-		<workTypeDefs>
-			<li>Cleaning</li>
-		</workTypeDefs>
-
-		<!-- Debugging  -->
-		<showAsColonist>False</showAsColonist>
+		<robotWorkTypes>
+			<li>
+				<workTypeDef>Cleaning</workTypeDef>
+				<priority>1</priority>
+			</li>
+		</robotWorkTypes>
+		<robotSkills>
+			<li>
+				<skillDef>Growing</skillDef>
+				<level>6</level>
+				<passion>Minor</passion>
+			</li>
+		</robotSkills>
+		<destroyedDef>AIRobot_Cleaner_disabled</destroyedDef>
+		<allowLearning>false</allowLearning>
 	</ThingDef>
 
+	
+	<!--
+			<robotWorkTypes>
+			<li>
+				<workTypeDef>Cleaning</workTypeDef>
+				<priority>1</priority>
+			</li>
+			<li>
+				<workTypeDef>PlantCutting</workTypeDef>
+				<priority>3</priority>
+			</li>
+			<li>
+				<workTypeDef>Growing</workTypeDef>
+				<priority>2</priority>
+			</li>
+		</robotWorkTypes>
+	-->
+	
 </ThingDefs>

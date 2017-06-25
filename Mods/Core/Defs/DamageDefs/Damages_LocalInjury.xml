@@ -5,7 +5,7 @@
     <workerClass>DamageWorker_AddInjury</workerClass>
   </DamageDef>
 
-  <DamageDef ParentName="LocalInjuryBase">
+  <DamageDef ParentName="LocalInjuryBase" Name="CutBase">
     <defName>Cut</defName>
     <label>cut</label>
     <externalViolence>true</externalViolence>
@@ -18,7 +18,34 @@
     <armorCategory>Sharp</armorCategory>
   </DamageDef>
 
-  <DamageDef ParentName="LocalInjuryBase">
+	<!-- Surgical cut: Makes it possible to remove inner organs without harming outer body parts -->
+	<DamageDef ParentName="CutBase">
+		<defName>SurgicalCut</defName>
+		<label>surgical cut</label>
+		<deathMessage>{0} has died during surgery.</deathMessage>
+		<hediff>SurgicalCut</hediff>
+		<harmAllLayersUntilOutside>false</harmAllLayersUntilOutside>
+		<hasForcefulImpact>false</hasForcefulImpact>
+		<canInterruptJobs>false</canInterruptJobs>
+		<impactSoundType />
+		<armorCategory />
+	</DamageDef>
+
+	<!-- Execution cut: Makes it possible to distinguish execution damage from others -->
+	<DamageDef ParentName="CutBase">
+		<defName>ExecutionCut</defName>
+		<label>execution cut</label>
+		<execution>true</execution>
+		<deathMessage>{0} has been executed by cutting.</deathMessage>
+		<hasForcefulImpact>false</hasForcefulImpact>
+		<canInterruptJobs>false</canInterruptJobs>
+    <impactSoundType />
+    <armorCategory />
+	</DamageDef>
+
+
+
+	<DamageDef ParentName="LocalInjuryBase">
     <defName>Crush</defName>
     <label>crush</label>
     <externalViolence>true</externalViolence>
@@ -35,7 +62,6 @@
     <defName>Blunt</defName>
     <label>blunt</label>
     <externalViolence>true</externalViolence>
-    <battleWound>true</battleWound>
     <deathMessage>{0} has been beaten to death.</deathMessage>
     <hediff>Crush</hediff>
     <hediffSkin>Bruise</hediffSkin>
@@ -50,7 +76,6 @@
     <defName>Stab</defName>
     <label>stab</label>
     <externalViolence>true</externalViolence>
-    <battleWound>true</battleWound>
     <deathMessage>{0} has been stabbed to death.</deathMessage>
     <hediff>Stab</hediff>
     <hediffSolid>Crack</hediffSolid>
@@ -63,7 +88,6 @@
     <defName>Bullet</defName>
     <label>bullet</label>
     <externalViolence>true</externalViolence>
-    <battleWound>true</battleWound>
     <deathMessage>{0} has been shot to death.</deathMessage>
     <hediff>Gunshot</hediff>
     <harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
@@ -75,7 +99,6 @@
     <defName>Arrow</defName>
     <label>arrow</label>
     <externalViolence>true</externalViolence>
-    <battleWound>true</battleWound>
     <deathMessage>{0} has been shot to death.</deathMessage>
     <hediff>Cut</hediff>
     <hediffSolid>Crack</hediffSolid>
@@ -88,7 +111,6 @@
     <defName>Scratch</defName>
     <label>scratch</label>
     <externalViolence>true</externalViolence>
-    <battleWound>true</battleWound>
     <deathMessage>{0} has been torn to death.</deathMessage>
     <hediff>Scratch</hediff>
     <hediffSolid>Crack</hediffSolid>
@@ -101,7 +123,6 @@
     <defName>Bite</defName>
     <label>bite</label>
     <externalViolence>true</externalViolence>
-    <battleWound>true</battleWound>
     <deathMessage>{0} has been bitten to death.</deathMessage>
     <hediff>Bite</hediff>
     <hediffSolid>Crack</hediffSolid>
@@ -126,7 +147,6 @@
     <label>bomb</label>
     <externalViolence>true</externalViolence>
     <isExplosive>true</isExplosive>
-    <battleWound>true</battleWound>
     <deathMessage>{0} has died in an explosion.</deathMessage>
     <hediff>Shredded</hediff>
     <hediffSolid>Crack</hediffSolid>
@@ -150,7 +170,6 @@
     <label>flame</label>
     <hasForcefulImpact>false</hasForcefulImpact>
     <makesBlood>false</makesBlood>
-    <incapChanceMultiplier>1.5</incapChanceMultiplier>
     <canInterruptJobs>false</canInterruptJobs>
     <externalViolence>true</externalViolence>
     <deathMessage>{0} has burned to death.</deathMessage>
@@ -176,35 +195,10 @@
     <defName>Frostbite</defName>
     <label>frostbite</label>
     <externalViolence>false</externalViolence>
-    <battleWound>false</battleWound>
     <deathMessage>{0} has succumbed to frostbite.</deathMessage>
     <hediff>Frostbite</hediff>
     <harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
     <armorCategory>Heat</armorCategory>
-  </DamageDef>
-
-  <!-- Surgical cut should not harm outer layers.
-       This makes it possible to remove inner organs without harming outer body parts -->
-  <DamageDef ParentName="LocalInjuryBase">
-    <defName>SurgicalCut</defName>
-    <label>surgical cut</label>
-    <externalViolence>true</externalViolence>
-    <deathMessage>{0} has died during surgery.</deathMessage>
-    <hasForcefulImpact>false</hasForcefulImpact>
-    <canInterruptJobs>false</canInterruptJobs>
-    <hediff>SurgicalCut</hediff>
-  </DamageDef>
-
-  <!-- Execution cut
-       This makes it possible to distinguish execution damage from others -->
-  <DamageDef ParentName="LocalInjuryBase">
-    <defName>ExecutionCut</defName>
-    <label>execution cut</label>
-    <externalViolence>true</externalViolence>
-    <deathMessage>{0} has been executed.</deathMessage>
-    <hasForcefulImpact>false</hasForcefulImpact>
-    <canInterruptJobs>false</canInterruptJobs>
-    <hediff>Cut</hediff>
   </DamageDef>
 
 </Defs>
