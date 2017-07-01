@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+	<!-- ========== Remove food packing ========== -->
+
+	<Operation Class="PatchOperationRemove">
+		<xpath>/ThinkTrees/ThinkTreeDef[defName="Humanlike"]/thinkRoot/subNodes/li[@Class="ThinkNode_ConditionalColonist"]/subNodes/li[subNodes/li[@Class="JobGiver_PackFood"]]</xpath>
+	</Operation>
+
+	<!-- ========== Add loadout update behavior ========== -->
+
+	<Operation Class="PatchOperationInsert">
+		<xpath>/ThinkTrees/ThinkTreeDef[defName="Humanlike"]/thinkRoot/subNodes/li[@Class="ThinkNode_ConditionalColonist"]/subNodes/li[@Class="JobGiver_Work"]</xpath>
+		<value>
+			<li Class="CombatExtended.JobGiver_UpdateLoadout"/>
+			<li Class="CombatExtended.JobGiver_CheckReload"/>
+		</value>
+	</Operation>
+
+	<!-- ========== Add additional inventory behavior ========== -->
+
+	<Operation Class="PatchOperationInsert">
+		<xpath>/ThinkTrees/ThinkTreeDef[defName="HumanlikeConstant"]/thinkRoot/subNodes/li[@Class="ThinkNode_ConditionalCanDoConstantThinkTreeJobNow"]/subNodes/li[@Class="JobGiver_FleeExplosion"]</xpath>
+		<value>
+			<li Class="CombatExtended.JobGiver_TakeAndEquip"/>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAttributeSet">
+		<xpath>/ThinkTrees/ThinkTreeDef[defName="HumanlikeConstant"]/thinkRoot/subNodes/li[@Class="ThinkNode_ConditionalCanDoConstantThinkTreeJobNow"]/subNodes/li[@Class="JobGiver_ConfigurableHostilityResponse"]</xpath>
+		<attribute>Class</attribute>
+		<value>CombatExtended.JobGiver_ConfigurableHostilityResponse</value>
+	</Operation>
+
+</Patch>
+

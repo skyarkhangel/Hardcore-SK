@@ -1,7 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
-
-  <ThingDef Abstract="True" ParentName="AnimalThingBase" Name="BaseInsectPest">
+  <Verse.ThingDef Abstract="True" ParentName="AnimalThingBase" Name="BaseInsectPest">
     <statBases>
       <ToxicSensitivity>0</ToxicSensitivity>
     </statBases>
@@ -13,40 +12,42 @@
       <manhunterOnDamageChance>0</manhunterOnDamageChance>
       <manhunterOnTameFailChance>0</manhunterOnTameFailChance>
     </race>
-  </ThingDef>
+  </Verse.ThingDef>
 
   <!-- ====================================================== -->
-
-  <ThingDef ParentName="BaseInsectPest">
+  <Verse.ThingDef ParentName="BaseInsectPest">
     <defName>CropEaterInsect</defName>
     <label>Cropeater</label>
-
     <description>A small beetle that enjoys devouring plants.</description>
     <statBases>
       <MoveSpeed>4</MoveSpeed>
-	  <EatingSpeed>0.5</EatingSpeed>
+      <EatingSpeed>0.5</EatingSpeed>
       <ArmorRating_Blunt>0.05</ArmorRating_Blunt>
       <ArmorRating_Sharp>0.1</ArmorRating_Sharp>
       <ComfyTemperatureMin>0</ComfyTemperatureMin>
       <MarketValue>50</MarketValue>
       <LeatherAmount>0</LeatherAmount>
+      <MeleeDodgeChance>0.3</MeleeDodgeChance>
+      <MeleeCritChance>0.01</MeleeCritChance>
     </statBases>
     <verbs>
-      <li>
-        <verbClass>Verb_MeleeAttack</verbClass>
+      <li Class="CombatExtended.VerbPropertiesCE">
+        <verbClass>CombatExtended.Verb_MeleeAttackCE</verbClass>
         <defaultCooldownTime>1.85</defaultCooldownTime>
         <meleeDamageBaseAmount>3</meleeDamageBaseAmount>
         <meleeDamageDef>Bite</meleeDamageDef>
         <linkedBodyPartsGroup>Mouth</linkedBodyPartsGroup>
+        <meleeArmorPenetration>0.01</meleeArmorPenetration>
       </li>
-		  <li>
-			<verbClass>Verb_MeleeAttack</verbClass>
-			<defaultCooldownTime>1.65</defaultCooldownTime>
-			<meleeDamageBaseAmount>1</meleeDamageBaseAmount>
-			<meleeDamageDef>Blunt</meleeDamageDef>
-			<commonality>0.01</commonality>
-			<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-		  </li>
+      <li Class="CombatExtended.VerbPropertiesCE">
+        <verbClass>CombatExtended.Verb_MeleeAttackCE</verbClass>
+        <defaultCooldownTime>1.65</defaultCooldownTime>
+        <meleeDamageBaseAmount>1</meleeDamageBaseAmount>
+        <meleeDamageDef>Blunt</meleeDamageDef>
+        <commonality>0.01</commonality>
+        <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+        <meleeArmorPenetration>0.01</meleeArmorPenetration>
+      </li>
     </verbs>
     <race>
       <body>BeetleLike</body>
@@ -81,14 +82,19 @@
     <tradeTags>
       <li>Insectoid</li>
     </tradeTags>
-  </ThingDef>
-  
+    <modExtensions>
+      <li Class="CombatExtended.RacePropertiesExtensionCE">
+        <bodyShape>Serpentine</bodyShape>
+      </li>
+    </modExtensions>
+  </Verse.ThingDef>
+
   <PawnKindDef ParentName="AnimalKindBase">
     <defName>CropEaterInsect</defName>
     <label>Cropeater</label>
     <race>CropEaterInsect</race>
     <combatPower>10</combatPower>
-	<canArriveManhunter>false</canArriveManhunter>
+    <canArriveManhunter>false</canArriveManhunter>
     <wildSpawn_EcoSystemWeight>0.25</wildSpawn_EcoSystemWeight>
     <wildSpawn_spawnWild>false</wildSpawn_spawnWild>
     <lifeStages>
@@ -119,7 +125,7 @@
           <texPath>Things/Pawn/Animal/GreenBug/GreenBug</texPath>
           <drawSize>0.8</drawSize>
           <color>(73, 91, 57)</color>
-          </bodyGraphicData>
+        </bodyGraphicData>
         <dessicatedBodyGraphicData>
           <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
           <drawSize>0.5</drawSize>
@@ -127,6 +133,4 @@
       </li>
     </lifeStages>
   </PawnKindDef>
-  
-
 </Defs>

@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <ThingCategoryDef>
+      <defName>Ammo90mmCannonShells</defName>
+      <label>90mm cannon shell</label>
+      <parent>AmmoShells</parent>
+      <iconPath>UI/Icons/ThingCategories/CaliberCannon</iconPath>
+    </ThingCategoryDef>
+	
+	<!-- ==================== AmmoSet ========================== -->
+
+  <CombatExtended.AmmoSetDef>
+    <defName>AmmoSet_90mmCannonShell</defName>
+    <label>90mm cannon shells</label>
+	<ammoTypes>
+	  <Ammo_90mmCannonShell_HEAT>Bullet_90mmCannonShell_HEAT</Ammo_90mmCannonShell_HEAT>
+	  <Ammo_90mmCannonShell_HE>Bullet_90mmCannonShell_HE</Ammo_90mmCannonShell_HE>
+	  <Ammo_90mmCannonShell_EMP>Bullet_90mmCannonShell_EMP</Ammo_90mmCannonShell_EMP>
+	</ammoTypes>
+  </CombatExtended.AmmoSetDef>
+	
+	<!-- ==================== Ammo ========================== -->
+
+  <ThingDef Name="90mmCannonShellBase" ParentName="AmmoBase" Abstract="True">
+    <description>Relatively small cannon shell.</description>
+    <thingCategories>
+      <li>Ammo90mmCannonShells</li>
+    </thingCategories>
+    <stackLimit>25</stackLimit>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting</li>
+		</tradeTags>
+    <statBases>
+      <MaxHitPoints>200</MaxHitPoints>
+			<Mass>10</Mass>
+			<Bulk>14</Bulk>
+    </statBases>
+    <cookOffFlashScale>30</cookOffFlashScale>
+    <cookOffSound>MortarBomb_Explode</cookOffSound>
+  </ThingDef>
+
+  <ThingDef ParentName="90mmCannonShellBase">
+    <defName>Ammo_90mmCannonShell_HEAT</defName>
+    <label>90mm cannon shell (HEAT)</label>
+    <graphicData>
+      <texPath>Things/Ammo/Cannon/HEAT</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>27.83</MarketValue>
+    </statBases>
+		<ammoClass>RocketHEAT</ammoClass>
+    <comps>
+      <li Class="CombatExtended.CompProperties_ExplosiveCE">
+        <explosionDamage>25</explosionDamage>
+        <explosionDamageDef>Bomb</explosionDamageDef>
+        <explosionRadius>1.5</explosionRadius>
+        <fragments>
+          <Fragment_Shell>100</Fragment_Shell>
+        </fragments>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="90mmCannonShellBase">
+    <defName>Ammo_90mmCannonShell_HE</defName>
+    <label>90mm cannon shell (HE)</label>
+    <graphicData>
+      <texPath>Things/Ammo/Cannon/HE</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>28.98</MarketValue>
+    </statBases>
+		<ammoClass>GrenadeHE</ammoClass>
+    <comps>
+      <li Class="CombatExtended.CompProperties_ExplosiveCE">
+        <explosionDamage>60</explosionDamage>
+        <explosionDamageDef>Bomb</explosionDamageDef>
+        <explosionRadius>4</explosionRadius>
+        <fragments>
+          <Fragment_Shell>300</Fragment_Shell>
+        </fragments>
+        <fragRange>10</fragRange>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="90mmCannonShellBase">
+    <defName>Ammo_90mmCannonShell_EMP</defName>
+    <label>90mm cannon shell (EMP)</label>
+    <graphicData>
+      <texPath>Things/Ammo/Cannon/EMP</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>34.73</MarketValue>
+    </statBases>
+		<ammoClass>GrenadeEMP</ammoClass>
+    <comps>
+      <li Class="CombatExtended.CompProperties_ExplosiveCE">
+        <explosionDamage>15</explosionDamage>
+        <explosionDamageDef>Bomb</explosionDamageDef>
+        <explosionRadius>1.5</explosionRadius>
+        <fragments>
+          <Fragment_Shell>30</Fragment_Shell>
+        </fragments>
+      </li>
+    </comps>
+  </ThingDef>
+	
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef Name="Base90mmCannonShell" ParentName="BaseBullet" Abstract="true">
+		<graphicData>
+      <shaderType>TransparentPostLight</shaderType>
+		</graphicData>
+		<projectile>
+			<speed>155</speed>
+			<soundExplode>MortarBomb_Explode</soundExplode>
+	  		<flyOverhead>false</flyOverhead>
+			<dropsCasings>true</dropsCasings>
+			<casingMoteDefName>Mote_BigShell</casingMoteDefName>
+		</projectile>
+	</ThingDef>
+
+  <ThingDef ParentName="Base90mmCannonShell">
+    <defName>Bullet_90mmCannonShell_HEAT</defName>
+    <label>90mm cannon shell (HEAT)</label>
+    <graphicData>
+			<texPath>Things/Projectile/Cannon/HEAT</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+    <projectile>
+      <damageDef>Bullet</damageDef>
+      <damageAmountBase>200</damageAmountBase>
+	  <soundExplode>MortarBomb_Explode</soundExplode>
+	  <armorPenetration>5.0</armorPenetration>
+    </projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<explosionDamage>50</explosionDamage>
+				<explosionDamageDef>Bomb</explosionDamageDef>
+				<explosionRadius>1.5</explosionRadius>
+				<fragments>
+          <Fragment_Shell>100</Fragment_Shell>
+				</fragments>
+				<fragRange>7.5</fragRange>
+			</li>
+		</comps>
+  </ThingDef>
+
+  <ThingDef ParentName="Base90mmCannonShell">
+    <defName>Bullet_90mmCannonShell_HE</defName>
+    <label>90mm cannon shell (HE)</label>
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+    <graphicData>
+      <texPath>Things/Projectile/Cannon/HE</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+    <projectile>
+      <damageDef>Bomb</damageDef>
+      <damageAmountBase>150</damageAmountBase>
+      <explosionRadius>1.7</explosionRadius>
+		<soundExplode>MortarBomb_Explode</soundExplode>
+    </projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<explosionDamage>100</explosionDamage>
+				<explosionDamageDef>Bomb</explosionDamageDef>
+				<explosionRadius>4</explosionRadius>
+				<fragments>
+          <Fragment_Shell>300</Fragment_Shell>
+				</fragments>
+				<fragRange>10</fragRange>
+			</li>
+		</comps>
+  </ThingDef>
+
+  <ThingDef ParentName="Base90mmCannonShell">
+    <defName>Bullet_90mmCannonShell_EMP</defName>
+    <label>90mm cannon shell (EMP)</label>
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+    <graphicData>
+			<texPath>Things/Projectile/Cannon/EMP</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+    <projectile>
+      <damageDef>EMP</damageDef>
+      <damageAmountBase>80</damageAmountBase>
+      <explosionRadius>6</explosionRadius>
+    </projectile>
+  </ThingDef>
+  
+	<!-- ==================== Recipes ========================== -->
+
+  <RecipeDef ParentName="GrenadeRecipeBase">
+    <defName>MakeAmmo_90mmCannonShell_HEAT</defName>
+    <label>make 90mm HEAT cannon shells x5</label>
+    <description>Craft 5 90mm HEAT cannon shells.</description>
+    <jobString>Making 90mm HEAT cannon shells.</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Steel</li>
+          </thingDefs>
+        </filter>
+        <count>23</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>FSX</li>
+          </thingDefs>
+        </filter>
+        <count>3</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Component</li>
+          </thingDefs>
+        </filter>
+        <count>3</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Steel</li>
+        <li>FSX</li>
+        <li>Component</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_90mmCannonShell_HEAT>5</Ammo_90mmCannonShell_HEAT>
+    </products>
+  </RecipeDef>
+
+  <RecipeDef ParentName="GrenadeRecipeBase">
+    <defName>MakeAmmo_90mmCannonShell_HE</defName>
+    <label>make 90mm HE cannon shells x5</label>
+    <description>Craft 5 90mm HE cannon shells.</description>
+    <jobString>Making 90mm HE cannon shells.</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Steel</li>
+          </thingDefs>
+        </filter>
+        <count>23</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>FSX</li>
+          </thingDefs>
+        </filter>
+        <count>5</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Component</li>
+          </thingDefs>
+        </filter>
+        <count>2</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Steel</li>
+        <li>FSX</li>
+        <li>Component</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_90mmCannonShell_HE>5</Ammo_90mmCannonShell_HE>
+    </products>
+  </RecipeDef>
+
+  <RecipeDef ParentName="GrenadeRecipeBase">
+    <defName>MakeAmmo_90mmCannonShell_EMP</defName>
+    <label>make 90mm EMP cannon shells x5</label>
+    <description>Craft 5 90mm EMP cannon shells.</description>
+    <jobString>Making 90mm EMP cannon shells.</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Steel</li>
+          </thingDefs>
+        </filter>
+        <count>23</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Component</li>
+          </thingDefs>
+        </filter>
+        <count>7</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Steel</li>
+        <li>Component</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_90mmCannonShell_EMP>5</Ammo_90mmCannonShell_EMP>
+    </products>
+  </RecipeDef>
+	
+</Defs>
