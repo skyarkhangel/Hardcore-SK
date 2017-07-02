@@ -1,18 +1,19 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<Defs> 
-  
-  <ThingDef ParentName="AnimalThingBase" Name="AnimalDomesticCatBase" Abstract="True">
-	<thingClass>Core_SK.PersonalShields.Animal.ShieldPawn</thingClass>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <Verse.ThingDef ParentName="AnimalThingBase" Name="AnimalDomesticCatBase" Abstract="True">
+    <thingClass>Core_SK.PersonalShields.Animal.ShieldPawn</thingClass>
     <statBases>
-	  <Mass>3</Mass>
+      <Mass>3</Mass>
       <MoveSpeed>4.5</MoveSpeed>
       <ComfyTemperatureMin>-14</ComfyTemperatureMin>
       <MarketValue>250</MarketValue>
-	  <ArmorPenetration>0.05</ArmorPenetration>
+      <MeleeWeapon_Penetration>0.05</MeleeWeapon_Penetration>
+      <MeleeDodgeChance>0.3</MeleeDodgeChance>
+      <MeleeCritChance>0.03</MeleeCritChance>
     </statBases>
     <verbs>
-      <li>
-        <verbClass>Verb_MeleeAttack</verbClass>
+      <li Class="CombatExtended.VerbPropertiesCE">
+        <verbClass>CombatExtended.Verb_MeleeAttackCE</verbClass>
         <defaultCooldownTime>1.55</defaultCooldownTime>
         <meleeDamageBaseAmount>2</meleeDamageBaseAmount>
         <meleeDamageDef>Scratch</meleeDamageDef>
@@ -25,9 +26,10 @@
             </li>
           </extraMeleeDamages>
         </surpriseAttack>
+        <meleeArmorPenetration>0.05</meleeArmorPenetration>
       </li>
-      <li>
-        <verbClass>Verb_MeleeAttack</verbClass>
+      <li Class="CombatExtended.VerbPropertiesCE">
+        <verbClass>CombatExtended.Verb_MeleeAttackCE</verbClass>
         <defaultCooldownTime>1.55</defaultCooldownTime>
         <meleeDamageBaseAmount>2</meleeDamageBaseAmount>
         <meleeDamageDef>Scratch</meleeDamageDef>
@@ -40,17 +42,10 @@
             </li>
           </extraMeleeDamages>
         </surpriseAttack>
+        <meleeArmorPenetration>0.05</meleeArmorPenetration>
       </li>
-		  <li>
-			<verbClass>Verb_MeleeAttack</verbClass>
-			<defaultCooldownTime>1.65</defaultCooldownTime>
-			<meleeDamageBaseAmount>1</meleeDamageBaseAmount>
-			<meleeDamageDef>Blunt</meleeDamageDef>
-			<commonality>0.01</commonality>
-			<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-		  </li>
-      <li>
-        <verbClass>Verb_MeleeAttack</verbClass>
+      <li Class="CombatExtended.VerbPropertiesCE">
+        <verbClass>CombatExtended.Verb_MeleeAttackCE</verbClass>
         <defaultCooldownTime>1.6</defaultCooldownTime>
         <meleeDamageBaseAmount>4</meleeDamageBaseAmount>
         <meleeDamageDef>Bite</meleeDamageDef>
@@ -63,6 +58,16 @@
             </li>
           </extraMeleeDamages>
         </surpriseAttack>
+        <meleeArmorPenetration>0.1</meleeArmorPenetration>
+      </li>
+      <li Class="CombatExtended.VerbPropertiesCE">
+        <verbClass>CombatExtended.Verb_MeleeAttackCE</verbClass>
+        <defaultCooldownTime>1.65</defaultCooldownTime>
+        <meleeDamageBaseAmount>1</meleeDamageBaseAmount>
+        <meleeDamageDef>Blunt</meleeDamageDef>
+        <commonality>0.01</commonality>
+        <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+        <meleeArmorPenetration>0.01</meleeArmorPenetration>
       </li>
     </verbs>
     <race>
@@ -113,48 +118,53 @@
       <soundMeleeHitBuilding>Pawn_Melee_SmallScratch_HitBuilding</soundMeleeHitBuilding>
       <soundMeleeMiss>Pawn_Melee_SmallScratch_Miss</soundMeleeMiss>
     </race>
-		<tradeTags>
-		  <li>StandardAnimal</li>
-		</tradeTags>
-  </ThingDef>
-  
-  <ThingDef ParentName="AnimalDomesticCatBase">
+    <tradeTags>
+      <li>StandardAnimal</li>
+    </tradeTags>
+    <modExtensions>
+      <li Class="CombatExtended.RacePropertiesExtensionCE">
+        <bodyShape>QuadrupedLow</bodyShape>
+      </li>
+    </modExtensions>
+  </Verse.ThingDef>
+
+  <Verse.ThingDef ParentName="AnimalDomesticCatBase">
     <defName>Cat</defName>
     <label>common cat</label>
     <description>Cats are small, furry, domesticated, and carnivorous mammals that come in a variety of breeds. With their small sharp claws, they are often referenced as "fluffy balls of DEATH!".</description>
     <race>
-		<thinkTreeMain>DomesticCat</thinkTreeMain>
-		<body>QuadrupedAnimalWithPawsAndTail</body>
-		<predator>true</predator>
-		<maxPreyBodySize>0.26</maxPreyBodySize>
-		<useMeatFrom>Elephant</useMeatFrom>
-		<leatherLabel>soft hide</leatherLabel>
-			<leatherColor>(90,80,50)</leatherColor>
-			<leatherMarketValueFactor>4.0</leatherMarketValueFactor>
-			<leatherStatFactors>
-				<MarketValue>2</MarketValue>
-				<ArmorRating_Blunt>1</ArmorRating_Blunt>
-				<ArmorRating_Sharp>0.9</ArmorRating_Sharp>
-				<ArmorRating_Electric>1</ArmorRating_Electric>
-				<ArmorRating_Heat>0.7</ArmorRating_Heat>
-				<Insulation_Cold>1.3</Insulation_Cold>
-				<Insulation_Heat>0.85</Insulation_Heat>
-				<BedRestEffectiveness>1.5</BedRestEffectiveness>
-				<ImmunityGainSpeedFactor>1.2</ImmunityGainSpeedFactor>
-				<WorkToMake>1.1</WorkToMake>
-				<MaxHitPoints>0.6</MaxHitPoints>
-				<MoveSpeed>1</MoveSpeed>
-				<Beauty>2</Beauty>			
-			</leatherStatFactors>
+      <thinkTreeMain>DomesticCat</thinkTreeMain>
+      <body>QuadrupedAnimalWithPawsAndTail</body>
+      <predator>true</predator>
+      <maxPreyBodySize>0.26</maxPreyBodySize>
+      <useMeatFrom>Elephant</useMeatFrom>
+      <leatherLabel>soft hide</leatherLabel>
+      <leatherColor>(90,80,50)</leatherColor>
+      <leatherMarketValueFactor>4.0</leatherMarketValueFactor>
+      <leatherStatFactors>
+        <MarketValue>2</MarketValue>
+        <ArmorRating_Blunt>1</ArmorRating_Blunt>
+        <ArmorRating_Sharp>0.9</ArmorRating_Sharp>
+        <ArmorRating_Electric>1</ArmorRating_Electric>
+        <ArmorRating_Heat>0.7</ArmorRating_Heat>
+        <Insulation_Cold>1.3</Insulation_Cold>
+        <Insulation_Heat>0.85</Insulation_Heat>
+        <BedRestEffectiveness>1.5</BedRestEffectiveness>
+        <ImmunityGainSpeedFactor>1.2</ImmunityGainSpeedFactor>
+        <WorkToMake>1.1</WorkToMake>
+        <MaxHitPoints>0.6</MaxHitPoints>
+        <MoveSpeed>1</MoveSpeed>
+        <Beauty>2</Beauty>
+      </leatherStatFactors>
     </race>
-  </ThingDef>
-  
+  </Verse.ThingDef>
+
   <PawnKindDef ParentName="AnimalKindBase">
     <defName>Cat</defName>
     <label>black cat</label>
     <race>Cat</race>
     <combatPower>35</combatPower>
-	<canArriveManhunter>false</canArriveManhunter>
+    <canArriveManhunter>false</canArriveManhunter>
     <wildSpawn_spawnWild>false</wildSpawn_spawnWild>
     <lifeStages>
       <li>
@@ -197,323 +207,322 @@
       </li>
     </lifeStages>
   </PawnKindDef>
-  
-	<PawnKindDef ParentName="AnimalKindBase">
-		<defName>MiniMaineCoon</defName>
-		<label>miniature maine coon</label>
-		<race>Cat</race>
-		<combatPower>35</combatPower>
-		<canArriveManhunter>false</canArriveManhunter>
-		<lifeStages>
-			<li>
-				<label>Miniature Maine Coon Kitten</label>
-				<bodyGraphicData>
-					<texPath>DomesticCat/MaineCoon</texPath>
-					<drawSize>.3</drawSize>
-					<color>(255,255,255)</color>
-				</bodyGraphicData>
-				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-					<drawSize>.3</drawSize>
-				</dessicatedBodyGraphicData>
-			</li>
-			<li>
-				<bodyGraphicData>
-					<texPath>DomesticCat/MaineCoon</texPath>
-					<drawSize>.6</drawSize>
-					<color>(255,255,255)</color>
-					<shadowData>
-						<volume>(0.25, 0.3, 0.25)</volume>
-						<offset>(0,0,-0.15)</offset>
-					</shadowData>
-				</bodyGraphicData>
-				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-					<drawSize>.4</drawSize>
-				</dessicatedBodyGraphicData>
-			</li>
-			<li>
-				<bodyGraphicData>
-					<texPath>DomesticCat/MaineCoon</texPath>
-					<drawSize>.75</drawSize>
-					<color>(255,255,255)</color>
-					<shadowData>
-						<volume>(0.3, 0.4, 0.3)</volume>
-						<offset>(0,0,-0.15)</offset>
-					</shadowData>
-				</bodyGraphicData>
-				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-					<drawSize>.4</drawSize>
-				</dessicatedBodyGraphicData>
-			</li>
-		</lifeStages>
-		<wildSpawn_spawnWild>false</wildSpawn_spawnWild>
-	</PawnKindDef>
 
-	<PawnKindDef ParentName="AnimalKindBase">
-		<defName>MaineCoon</defName>
-		<label>maine coon</label>
-		<race>Cat</race>
-		<combatPower>30</combatPower>
-		<canArriveManhunter>false</canArriveManhunter>
-		<lifeStages>
-			<li>
-				<label>Maine Coon Kitten</label>
-				<bodyGraphicData>
-					<texPath>DomesticCat/MaineCoon</texPath>
-					<drawSize>.4</drawSize>
-					<color>(255,255,255)</color>
-				</bodyGraphicData>
-				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-					<drawSize>.3</drawSize>
-				</dessicatedBodyGraphicData>
-			</li>
-			<li>
-				<bodyGraphicData>
-					<texPath>DomesticCat/MaineCoon</texPath>
-					<drawSize>.8</drawSize>
-					<color>(255,255,255)</color>
-					<shadowData>
-						<volume>(0.25, 0.3, 0.25)</volume>
-						<offset>(0,0,-0.15)</offset>
-					</shadowData>
-				</bodyGraphicData>
-				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-					<drawSize>.7</drawSize>
-				</dessicatedBodyGraphicData>
-			</li>
-			<li>
-				<bodyGraphicData>
-					<texPath>DomesticCat/MaineCoon</texPath>
-					<drawSize>1</drawSize>
-					<color>(255,255,255)</color>
-					<shadowData>
-						<volume>(0.3, 0.4, 0.3)</volume>
-						<offset>(0,0,-0.15)</offset>
-					</shadowData>
-				</bodyGraphicData>
-				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-					<drawSize>.9</drawSize>
-				</dessicatedBodyGraphicData>
-			</li>
-		</lifeStages>
-		<wildSpawn_spawnWild>false</wildSpawn_spawnWild>
-	</PawnKindDef>
+  <PawnKindDef ParentName="AnimalKindBase">
+    <defName>MiniMaineCoon</defName>
+    <label>miniature maine coon</label>
+    <race>Cat</race>
+    <combatPower>35</combatPower>
+    <canArriveManhunter>false</canArriveManhunter>
+    <lifeStages>
+      <li>
+        <label>Miniature Maine Coon Kitten</label>
+        <bodyGraphicData>
+          <texPath>DomesticCat/MaineCoon</texPath>
+          <drawSize>.3</drawSize>
+          <color>(255,255,255)</color>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <drawSize>.3</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>DomesticCat/MaineCoon</texPath>
+          <drawSize>.6</drawSize>
+          <color>(255,255,255)</color>
+          <shadowData>
+            <volume>(0.25, 0.3, 0.25)</volume>
+            <offset>(0,0,-0.15)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <drawSize>.4</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>DomesticCat/MaineCoon</texPath>
+          <drawSize>.75</drawSize>
+          <color>(255,255,255)</color>
+          <shadowData>
+            <volume>(0.3, 0.4, 0.3)</volume>
+            <offset>(0,0,-0.15)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <drawSize>.4</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+    </lifeStages>
+    <wildSpawn_spawnWild>false</wildSpawn_spawnWild>
+  </PawnKindDef>
 
-	<PawnKindDef ParentName="AnimalKindBase">
-		<defName>EuropeanShorthair</defName>
-		<label>European Shorthair</label>
-		<race>Cat</race>
-		<combatPower>30</combatPower>
-		<canArriveManhunter>false</canArriveManhunter>
-		<lifeStages>
-			<li>
-				<label>European Shorthair Kitten</label>
-				<bodyGraphicData>
-					<texPath>DomesticCat/EuropeanShorthair</texPath>
-					<drawSize>.4</drawSize>
-					<color>(255,255,255)</color>
-				</bodyGraphicData>
-				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-					<drawSize>.3</drawSize>
-				</dessicatedBodyGraphicData>
-			</li>
-			<li>
-				<bodyGraphicData>
-					<texPath>DomesticCat/EuropeanShorthair</texPath>
-					<drawSize>.7</drawSize>
-					<color>(255,255,255)</color>
-					<shadowData>
-						<volume>(0.25, 0.3, 0.25)</volume>
-						<offset>(0,0,-0.15)</offset>
-					</shadowData>
-				</bodyGraphicData>
-				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-					<drawSize>.75</drawSize>
-				</dessicatedBodyGraphicData>
-			</li>
-			<li>
-				<bodyGraphicData>
-					<texPath>DomesticCat/EuropeanShorthair</texPath>
-					<drawSize>.85</drawSize>
-					<color>(255,255,255)</color>
-					<shadowData>
-						<volume>(0.3, 0.4, 0.3)</volume>
-						<offset>(0,0,-0.15)</offset>
-					</shadowData>
-				</bodyGraphicData>
-				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-					<drawSize>.9</drawSize>
-				</dessicatedBodyGraphicData>
-			</li>
-		</lifeStages>
-		<wildSpawn_spawnWild>false</wildSpawn_spawnWild>
-	</PawnKindDef>
+  <PawnKindDef ParentName="AnimalKindBase">
+    <defName>MaineCoon</defName>
+    <label>maine coon</label>
+    <race>Cat</race>
+    <combatPower>30</combatPower>
+    <canArriveManhunter>false</canArriveManhunter>
+    <lifeStages>
+      <li>
+        <label>Maine Coon Kitten</label>
+        <bodyGraphicData>
+          <texPath>DomesticCat/MaineCoon</texPath>
+          <drawSize>.4</drawSize>
+          <color>(255,255,255)</color>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <drawSize>.3</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>DomesticCat/MaineCoon</texPath>
+          <drawSize>.8</drawSize>
+          <color>(255,255,255)</color>
+          <shadowData>
+            <volume>(0.25, 0.3, 0.25)</volume>
+            <offset>(0,0,-0.15)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <drawSize>.7</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>DomesticCat/MaineCoon</texPath>
+          <drawSize>1</drawSize>
+          <color>(255,255,255)</color>
+          <shadowData>
+            <volume>(0.3, 0.4, 0.3)</volume>
+            <offset>(0,0,-0.15)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <drawSize>.9</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+    </lifeStages>
+    <wildSpawn_spawnWild>false</wildSpawn_spawnWild>
+  </PawnKindDef>
 
-	<PawnKindDef ParentName="AnimalKindBase">
-		<defName>NorwegianForestCat</defName>
-		<label>Norwegian Forest Cat</label>
-		<race>Cat</race>
-		<combatPower>35</combatPower>
-		<canArriveManhunter>false</canArriveManhunter>
-		<lifeStages>
-			<li>
-				<label>Norwegian Forest Cat Kitten</label>
-				<bodyGraphicData>
-					<texPath>DomesticCat/NorwegianForestCat</texPath>
-					<drawSize>.4</drawSize>
-					<color>(255,255,255)</color>
-				</bodyGraphicData>
-				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-					<drawSize>.3</drawSize>
-				</dessicatedBodyGraphicData>
-			</li>
-			<li>
-				<bodyGraphicData>
-					<texPath>DomesticCat/NorwegianForestCat</texPath>
-					<drawSize>.8</drawSize>
-					<color>(255,255,255)</color>
-					<shadowData>
-						<volume>(0.25, 0.3, 0.25)</volume>
-						<offset>(0,0,-0.15)</offset>
-					</shadowData>
-				</bodyGraphicData>
-				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-					<drawSize>.75</drawSize>
-				</dessicatedBodyGraphicData>
-			</li>
-			<li>
-				<bodyGraphicData>
-					<texPath>DomesticCat/NorwegianForestCat</texPath>
-					<drawSize>1</drawSize>
-					<color>(255,255,255)</color>
-					<shadowData>
-						<volume>(0.3, 0.4, 0.3)</volume>
-						<offset>(0,0,-0.15)</offset>
-					</shadowData>
-				</bodyGraphicData>
-				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-					<drawSize>.9</drawSize>
-				</dessicatedBodyGraphicData>
-			</li>
-		</lifeStages>
-		<wildSpawn_spawnWild>false</wildSpawn_spawnWild>
-	</PawnKindDef>
+  <PawnKindDef ParentName="AnimalKindBase">
+    <defName>EuropeanShorthair</defName>
+    <label>European Shorthair</label>
+    <race>Cat</race>
+    <combatPower>30</combatPower>
+    <canArriveManhunter>false</canArriveManhunter>
+    <lifeStages>
+      <li>
+        <label>European Shorthair Kitten</label>
+        <bodyGraphicData>
+          <texPath>DomesticCat/EuropeanShorthair</texPath>
+          <drawSize>.4</drawSize>
+          <color>(255,255,255)</color>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <drawSize>.3</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>DomesticCat/EuropeanShorthair</texPath>
+          <drawSize>.7</drawSize>
+          <color>(255,255,255)</color>
+          <shadowData>
+            <volume>(0.25, 0.3, 0.25)</volume>
+            <offset>(0,0,-0.15)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <drawSize>.75</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>DomesticCat/EuropeanShorthair</texPath>
+          <drawSize>.85</drawSize>
+          <color>(255,255,255)</color>
+          <shadowData>
+            <volume>(0.3, 0.4, 0.3)</volume>
+            <offset>(0,0,-0.15)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <drawSize>.9</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+    </lifeStages>
+    <wildSpawn_spawnWild>false</wildSpawn_spawnWild>
+  </PawnKindDef>
 
-	<PawnKindDef ParentName="AnimalKindBase">
-		<defName>BritishShorthair</defName>
-		<label>British Shorthair</label>
-		<race>Cat</race>
-		<combatPower>35</combatPower>
-		<canArriveManhunter>false</canArriveManhunter>
-		<lifeStages>
-			<li>
-				<label>British Shorthair Kitten</label>
-				<bodyGraphicData>
-					<texPath>DomesticCat/BritishShorthair</texPath>
-					<drawSize>.35</drawSize>
-					<color>(255,255,255)</color>
-				</bodyGraphicData>
-				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-					<drawSize>.3</drawSize>
-				</dessicatedBodyGraphicData>
-			</li>
-			<li>
-				<bodyGraphicData>
-					<texPath>DomesticCat/BritishShorthair</texPath>
-					<drawSize>.7</drawSize>
-					<color>(255,255,255)</color>
-					<shadowData>
-						<volume>(0.25, 0.3, 0.25)</volume>
-						<offset>(0,0,-0.15)</offset>
-					</shadowData>
-				</bodyGraphicData>
-				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-					<drawSize>.75</drawSize>
-				</dessicatedBodyGraphicData>
-			</li>
-			<li>
-				<bodyGraphicData>
-					<texPath>DomesticCat/BritishShorthair</texPath>
-					<drawSize>.85</drawSize>
-					<color>(255,255,255)</color>
-					<shadowData>
-						<volume>(0.3, 0.4, 0.3)</volume>
-						<offset>(0,0,-0.15)</offset>
-					</shadowData>
-				</bodyGraphicData>
-				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-					<drawSize>.9</drawSize>
-				</dessicatedBodyGraphicData>
-			</li>
-		</lifeStages>
-		<wildSpawn_spawnWild>false</wildSpawn_spawnWild>
-	</PawnKindDef>
+  <PawnKindDef ParentName="AnimalKindBase">
+    <defName>NorwegianForestCat</defName>
+    <label>Norwegian Forest Cat</label>
+    <race>Cat</race>
+    <combatPower>35</combatPower>
+    <canArriveManhunter>false</canArriveManhunter>
+    <lifeStages>
+      <li>
+        <label>Norwegian Forest Cat Kitten</label>
+        <bodyGraphicData>
+          <texPath>DomesticCat/NorwegianForestCat</texPath>
+          <drawSize>.4</drawSize>
+          <color>(255,255,255)</color>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <drawSize>.3</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>DomesticCat/NorwegianForestCat</texPath>
+          <drawSize>.8</drawSize>
+          <color>(255,255,255)</color>
+          <shadowData>
+            <volume>(0.25, 0.3, 0.25)</volume>
+            <offset>(0,0,-0.15)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <drawSize>.75</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>DomesticCat/NorwegianForestCat</texPath>
+          <drawSize>1</drawSize>
+          <color>(255,255,255)</color>
+          <shadowData>
+            <volume>(0.3, 0.4, 0.3)</volume>
+            <offset>(0,0,-0.15)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <drawSize>.9</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+    </lifeStages>
+    <wildSpawn_spawnWild>false</wildSpawn_spawnWild>
+  </PawnKindDef>
 
-	<PawnKindDef ParentName="AnimalKindBase">
-		<defName>Siamese</defName>
-		<label>Siamese</label>
-		<race>Cat</race>
-		<combatPower>35</combatPower>
-		<canArriveManhunter>false</canArriveManhunter>
-		<lifeStages>
-			<li>
-				<label>Siamese Kitten</label>
-				<bodyGraphicData>
-					<texPath>DomesticCat/Siamese</texPath>
-					<drawSize>.35</drawSize>
-					<color>(255,255,255)</color>
-				</bodyGraphicData>
-				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-					<drawSize>.3</drawSize>
-				</dessicatedBodyGraphicData>
-			</li>
-			<li>
-				<bodyGraphicData>
-					<texPath>DomesticCat/Siamese</texPath>
-					<drawSize>.65</drawSize>
-					<color>(255,255,255)</color>
-					<shadowData>
-						<volume>(0.25, 0.3, 0.25)</volume>
-						<offset>(0,0,-0.15)</offset>
-					</shadowData>
-				</bodyGraphicData>
-				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-					<drawSize>.75</drawSize>
-				</dessicatedBodyGraphicData>
-			</li>
-			<li>
-				<bodyGraphicData>
-					<texPath>DomesticCat/Siamese</texPath>
-					<drawSize>.8</drawSize>
-					<color>(255,255,255)</color>
-					<shadowData>
-						<volume>(0.3, 0.4, 0.3)</volume>
-						<offset>(0,0,-0.15)</offset>
-					</shadowData>
-				</bodyGraphicData>
-				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-					<drawSize>.9</drawSize>
-				</dessicatedBodyGraphicData>
-			</li>
-		</lifeStages>
-		<wildSpawn_spawnWild>false</wildSpawn_spawnWild>
-	</PawnKindDef>
+  <PawnKindDef ParentName="AnimalKindBase">
+    <defName>BritishShorthair</defName>
+    <label>British Shorthair</label>
+    <race>Cat</race>
+    <combatPower>35</combatPower>
+    <canArriveManhunter>false</canArriveManhunter>
+    <lifeStages>
+      <li>
+        <label>British Shorthair Kitten</label>
+        <bodyGraphicData>
+          <texPath>DomesticCat/BritishShorthair</texPath>
+          <drawSize>.35</drawSize>
+          <color>(255,255,255)</color>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <drawSize>.3</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>DomesticCat/BritishShorthair</texPath>
+          <drawSize>.7</drawSize>
+          <color>(255,255,255)</color>
+          <shadowData>
+            <volume>(0.25, 0.3, 0.25)</volume>
+            <offset>(0,0,-0.15)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <drawSize>.75</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>DomesticCat/BritishShorthair</texPath>
+          <drawSize>.85</drawSize>
+          <color>(255,255,255)</color>
+          <shadowData>
+            <volume>(0.3, 0.4, 0.3)</volume>
+            <offset>(0,0,-0.15)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <drawSize>.9</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+    </lifeStages>
+    <wildSpawn_spawnWild>false</wildSpawn_spawnWild>
+  </PawnKindDef>
 
+  <PawnKindDef ParentName="AnimalKindBase">
+    <defName>Siamese</defName>
+    <label>Siamese</label>
+    <race>Cat</race>
+    <combatPower>35</combatPower>
+    <canArriveManhunter>false</canArriveManhunter>
+    <lifeStages>
+      <li>
+        <label>Siamese Kitten</label>
+        <bodyGraphicData>
+          <texPath>DomesticCat/Siamese</texPath>
+          <drawSize>.35</drawSize>
+          <color>(255,255,255)</color>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <drawSize>.3</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>DomesticCat/Siamese</texPath>
+          <drawSize>.65</drawSize>
+          <color>(255,255,255)</color>
+          <shadowData>
+            <volume>(0.25, 0.3, 0.25)</volume>
+            <offset>(0,0,-0.15)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <drawSize>.75</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>DomesticCat/Siamese</texPath>
+          <drawSize>.8</drawSize>
+          <color>(255,255,255)</color>
+          <shadowData>
+            <volume>(0.3, 0.4, 0.3)</volume>
+            <offset>(0,0,-0.15)</offset>
+          </shadowData>
+        </bodyGraphicData>
+        <dessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <drawSize>.9</drawSize>
+        </dessicatedBodyGraphicData>
+      </li>
+    </lifeStages>
+    <wildSpawn_spawnWild>false</wildSpawn_spawnWild>
+  </PawnKindDef>
 </Defs>
