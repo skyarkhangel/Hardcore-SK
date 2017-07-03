@@ -1,9 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ThingDefs>
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
   <!-- ============================ Mechanoids ========================== -->
-
-  <ThingDef ParentName="BasePawn" Name="BaseMechanoid" Abstract="True">
+  <Verse.ThingDef ParentName="BasePawn" Name="BaseMechanoid" Abstract="True">
     <soundImpactDefault>BulletImpactMetal</soundImpactDefault>
     <statBases>
       <PsychicSensitivity>0</PsychicSensitivity>
@@ -18,27 +16,29 @@
       <hasGenders>false</hasGenders>
       <foodType>None</foodType>
     </race>
-  </ThingDef>
-  
+  </Verse.ThingDef>
+
   <!-- Centipede -->
-  <ThingDef ParentName="BaseMechanoid">
+  <Verse.ThingDef ParentName="BaseMechanoid">
     <defName>Mechanoid_Centipede</defName>
     <label>Centipede</label>
     <description>Centipedes are heavy combat Mechanoids that crawl on dozens of tiny legs. They resemble a massive, fat grub in appearance. Their heavy armor and firepower makes them very effective against bunched-up static defenders. They are somewhat vulnerable to mobile hit-and-run tactics.</description>
     <statBases>
-	  <Mass>380</Mass>
+      <Mass>380</Mass>
       <MoveSpeed>1.7</MoveSpeed>
       <ArmorRating_Blunt>0.5</ArmorRating_Blunt>
       <ArmorRating_Sharp>0.55</ArmorRating_Sharp>
       <ArmorRating_Electric>5</ArmorRating_Electric>
       <MeatAmount>30</MeatAmount>
-	  <ArmorPenetration>1</ArmorPenetration>
+      <MeleeWeapon_Penetration>1</MeleeWeapon_Penetration>
       <CarryWeight>250</CarryWeight>
       <CarryBulk>120</CarryBulk>
+      <MeleeDodgeChance>0.1</MeleeDodgeChance>
+      <MeleeCritChance>0.15</MeleeCritChance>
     </statBases>
     <verbs>
-      <li>
-        <verbClass>Verb_MeleeAttack</verbClass>
+      <li Class="CombatExtended.VerbPropertiesCE">
+        <verbClass>CombatExtended.Verb_MeleeAttackCE</verbClass>
         <defaultCooldownTime>1.80</defaultCooldownTime>
         <meleeDamageBaseAmount>25</meleeDamageBaseAmount>
         <meleeDamageDef>MechCrush</meleeDamageDef>
@@ -51,15 +51,17 @@
             </li>
           </extraMeleeDamages>
         </surpriseAttack>
+        <meleeArmorPenetration>1</meleeArmorPenetration>
       </li>
-		  <li>
-			<verbClass>Verb_MeleeAttack</verbClass>
-			<defaultCooldownTime>185</defaultCooldownTime>
-			<meleeDamageBaseAmount>10</meleeDamageBaseAmount>
-			<meleeDamageDef>Blunt</meleeDamageDef>
-			<commonality>0.01</commonality>
-			<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-		  </li>	
+      <li Class="CombatExtended.VerbPropertiesCE">
+        <verbClass>CombatExtended.Verb_MeleeAttackCE</verbClass>
+        <defaultCooldownTime>185</defaultCooldownTime>
+        <meleeDamageBaseAmount>10</meleeDamageBaseAmount>
+        <meleeDamageDef>Blunt</meleeDamageDef>
+        <commonality>0.01</commonality>
+        <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+        <meleeArmorPenetration>1</meleeArmorPenetration>
+      </li>
     </verbs>
     <race>
       <intelligence>ToolUser</intelligence>
@@ -74,7 +76,6 @@
           <soundWounded>Pawn_Mech_Centipede_Wounded</soundWounded>
           <soundDeath>Pawn_Mech_Centipede_Death</soundDeath>
           <soundCall>Pawn_Mech_Centipede_Call</soundCall>
-          
         </li>
       </lifeStageAges>
       <soundCallIntervalRange>
@@ -89,32 +90,38 @@
       <li>ShutDownMechanoid</li>
     </recipes>
     <butcherProducts>
-		<TitaniumBar>8</TitaniumBar>
-		<DepletedUranium>9</DepletedUranium>
-		<CarbonAlloy>6</CarbonAlloy>
+      <TitaniumBar>8</TitaniumBar>
+      <DepletedUranium>9</DepletedUranium>
+      <CarbonAlloy>6</CarbonAlloy>
     </butcherProducts>
-  </ThingDef>
-
+    <modExtensions>
+      <li Class="CombatExtended.RacePropertiesExtensionCE">
+        <bodyShape>Quadruped</bodyShape>
+      </li>
+    </modExtensions>
+  </Verse.ThingDef>
 
   <!-- Scyther -->
-  <ThingDef ParentName="BaseMechanoid">
+  <Verse.ThingDef ParentName="BaseMechanoid">
     <defName>Mechanoid_Scyther</defName>
     <label>Scyther</label>
     <description>Scythers are fast, spindly, armored human-sized combat Mechanoids. They usually carry one primary ranged weapon, and their bodies are adorned with two articulated blades to make them deadly in melee combat. They don't use cover. They are best handled by concentrated, overwhelming force.</description>
     <statBases>
-	  <Mass>130</Mass>
+      <Mass>130</Mass>
       <MoveSpeed>3.9</MoveSpeed>
       <ArmorRating_Blunt>0.30</ArmorRating_Blunt>
       <ArmorRating_Sharp>0.35</ArmorRating_Sharp>
       <ArmorRating_Electric>5</ArmorRating_Electric>
       <MeatAmount>30</MeatAmount>
-	  <ArmorPenetration>0.6</ArmorPenetration>
+      <MeleeWeapon_Penetration>0.6</MeleeWeapon_Penetration>
       <CarryWeight>200</CarryWeight>
       <CarryBulk>80</CarryBulk>
+      <MeleeDodgeChance>0.2</MeleeDodgeChance>
+      <MeleeCritChance>0.25</MeleeCritChance>
     </statBases>
     <verbs>
-      <li>
-        <verbClass>Verb_MeleeAttack</verbClass>
+      <li Class="CombatExtended.VerbPropertiesCE">
+        <verbClass>CombatExtended.Verb_MeleeAttackCE</verbClass>
         <defaultCooldownTime>1.6</defaultCooldownTime>
         <meleeDamageBaseAmount>24</meleeDamageBaseAmount>
         <meleeDamageDef>Cut</meleeDamageDef>
@@ -127,9 +134,10 @@
             </li>
           </extraMeleeDamages>
         </surpriseAttack>
+        <meleeArmorPenetration>0.6</meleeArmorPenetration>
       </li>
-      <li>
-        <verbClass>Verb_MeleeAttack</verbClass>
+      <li Class="CombatExtended.VerbPropertiesCE">
+        <verbClass>CombatExtended.Verb_MeleeAttackCE</verbClass>
         <defaultCooldownTime>1.6</defaultCooldownTime>
         <meleeDamageBaseAmount>24</meleeDamageBaseAmount>
         <meleeDamageDef>Cut</meleeDamageDef>
@@ -142,15 +150,17 @@
             </li>
           </extraMeleeDamages>
         </surpriseAttack>
+        <meleeArmorPenetration>0.6</meleeArmorPenetration>
       </li>
-		  <li>
-			<verbClass>Verb_MeleeAttack</verbClass>
-			<defaultCooldownTime>1.65</defaultCooldownTime>
-			<meleeDamageBaseAmount>8</meleeDamageBaseAmount>
-			<meleeDamageDef>Blunt</meleeDamageDef>
-			<commonality>0.01</commonality>
-			<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-		  </li>	
+      <li Class="CombatExtended.VerbPropertiesCE">
+        <verbClass>CombatExtended.Verb_MeleeAttackCE</verbClass>
+        <defaultCooldownTime>1.65</defaultCooldownTime>
+        <meleeDamageBaseAmount>8</meleeDamageBaseAmount>
+        <meleeDamageDef>Blunt</meleeDamageDef>
+        <commonality>0.01</commonality>
+        <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+        <meleeArmorPenetration>0.3</meleeArmorPenetration>
+      </li>
     </verbs>
     <race>
       <intelligence>ToolUser</intelligence>
@@ -165,7 +175,6 @@
           <soundWounded>Pawn_Mech_Scyther_Wounded</soundWounded>
           <soundDeath>Pawn_Mech_Scyther_Death</soundDeath>
           <soundCall>Pawn_Mech_Scyther_Call</soundCall>
-          
         </li>
       </lifeStageAges>
       <soundCallIntervalRange>
@@ -181,32 +190,38 @@
       <li>ShutDownMechanoid</li>
     </recipes>
     <butcherProducts>
-		<TitaniumBar>4</TitaniumBar>
-		<DepletedUranium>5</DepletedUranium>
-		<CarbonAlloy>4</CarbonAlloy>
+      <TitaniumBar>4</TitaniumBar>
+      <DepletedUranium>5</DepletedUranium>
+      <CarbonAlloy>4</CarbonAlloy>
     </butcherProducts>
-  </ThingDef>
-
+    <modExtensions>
+      <li Class="CombatExtended.RacePropertiesExtensionCE">
+        <bodyShape>Humanoid</bodyShape>
+      </li>
+    </modExtensions>
+  </Verse.ThingDef>
 
   <!-- Stalker -->
-  <ThingDef ParentName="BaseMechanoid">
+  <Verse.ThingDef ParentName="BaseMechanoid">
     <defName>Mechanoid_Stalker</defName>
     <label>Stalker</label>
     <description>Stalkers are agile, lanky, human-sized combat Mechanoids. They usually carry one primary ranged weapon, and their bodies are adorned with two articulated blades to make them deadly in melee combat. They don't use cover. Best handled by concentrated, overwhelming force.</description>
     <statBases>
-	  <Mass>90</Mass>
+      <Mass>90</Mass>
       <MoveSpeed>6.6</MoveSpeed>
       <ArmorRating_Blunt>0.30</ArmorRating_Blunt>
       <ArmorRating_Sharp>0.35</ArmorRating_Sharp>
       <ArmorRating_Electric>5</ArmorRating_Electric>
       <MeatAmount>30</MeatAmount>
-	  <ArmorPenetration>0.5</ArmorPenetration>
+      <MeleeWeapon_Penetration>0.5</MeleeWeapon_Penetration>
       <CarryWeight>170</CarryWeight>
       <CarryBulk>70</CarryBulk>
+      <MeleeDodgeChance>0.3</MeleeDodgeChance>
+      <MeleeCritChance>0.3</MeleeCritChance>
     </statBases>
     <verbs>
-      <li>
-        <verbClass>Verb_MeleeAttack</verbClass>
+      <li Class="CombatExtended.VerbPropertiesCE">
+        <verbClass>CombatExtended.Verb_MeleeAttackCE</verbClass>
         <defaultCooldownTime>1.6</defaultCooldownTime>
         <meleeDamageBaseAmount>16</meleeDamageBaseAmount>
         <meleeDamageDef>Cut</meleeDamageDef>
@@ -219,9 +234,10 @@
             </li>
           </extraMeleeDamages>
         </surpriseAttack>
+        <meleeArmorPenetration>0.5</meleeArmorPenetration>
       </li>
-      <li>
-        <verbClass>Verb_MeleeAttack</verbClass>
+      <li Class="CombatExtended.VerbPropertiesCE">
+        <verbClass>CombatExtended.Verb_MeleeAttackCE</verbClass>
         <defaultCooldownTime>1.6</defaultCooldownTime>
         <meleeDamageBaseAmount>16</meleeDamageBaseAmount>
         <meleeDamageDef>Cut</meleeDamageDef>
@@ -234,15 +250,17 @@
             </li>
           </extraMeleeDamages>
         </surpriseAttack>
+        <meleeArmorPenetration>0.5</meleeArmorPenetration>
       </li>
-		  <li>
-			<verbClass>Verb_MeleeAttack</verbClass>
-			<defaultCooldownTime>1.65</defaultCooldownTime>
-			<meleeDamageBaseAmount>4</meleeDamageBaseAmount>
-			<meleeDamageDef>Blunt</meleeDamageDef>
-			<commonality>0.01</commonality>
-			<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-		  </li>	
+      <li Class="CombatExtended.VerbPropertiesCE">
+        <verbClass>CombatExtended.Verb_MeleeAttackCE</verbClass>
+        <defaultCooldownTime>1.65</defaultCooldownTime>
+        <meleeDamageBaseAmount>4</meleeDamageBaseAmount>
+        <meleeDamageDef>Blunt</meleeDamageDef>
+        <commonality>0.01</commonality>
+        <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+        <meleeArmorPenetration>0.2</meleeArmorPenetration>
+      </li>
     </verbs>
     <race>
       <intelligence>ToolUser</intelligence>
@@ -257,7 +275,6 @@
           <soundWounded>Pawn_Mech_Scyther_Wounded</soundWounded>
           <soundDeath>Pawn_Mech_Scyther_Death</soundDeath>
           <soundCall>Pawn_Mech_Scyther_Call</soundCall>
-          
         </li>
       </lifeStageAges>
       <soundCallIntervalRange>
@@ -268,34 +285,40 @@
       <soundMeleeHitBuilding>Pawn_Melee_MechanoidSlash_HitBuilding</soundMeleeHitBuilding>
       <soundMeleeMiss>Pawn_Melee_MechanoidSlash_Miss</soundMeleeMiss>
     </race>
-     <recipes>
+    <recipes>
       <li>RemoveMechanoidBodyPart</li>
       <li>ShutDownMechanoid</li>
     </recipes>
     <butcherProducts>
-		<TitaniumBar>4</TitaniumBar>
-		<DepletedUranium>5</DepletedUranium>
-		<CarbonAlloy>3</CarbonAlloy>
+      <TitaniumBar>4</TitaniumBar>
+      <DepletedUranium>5</DepletedUranium>
+      <CarbonAlloy>3</CarbonAlloy>
     </butcherProducts>
-  </ThingDef>
-
+    <modExtensions>
+      <li Class="CombatExtended.RacePropertiesExtensionCE">
+        <bodyShape>Humanoid</bodyShape>
+      </li>
+    </modExtensions>
+  </Verse.ThingDef>
 
   <!-- Crawler -->
-  <ThingDef ParentName="BaseMechanoid">
+  <Verse.ThingDef ParentName="BaseMechanoid">
     <defName>Mechanoid_Crawler</defName>
     <label>Crawler</label>
     <description>Crawlers are small spider-like Mechanoids. While not particularly sturdy, their speed, size and numbers more than make up for it. A tiny plasma cutter at their front allows them to cut through metal like butter. Their favorite passtime is open surgery.</description>
     <statBases>
-	  <Mass>20</Mass>
+      <Mass>20</Mass>
       <MoveSpeed>7.4</MoveSpeed>
-	  <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+      <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
       <ArmorRating_Sharp>0.12</ArmorRating_Sharp>
       <ArmorRating_Electric>5</ArmorRating_Electric>
-	  <ArmorPenetration>0.3</ArmorPenetration>
+      <MeleeWeapon_Penetration>0.3</MeleeWeapon_Penetration>
+      <MeleeDodgeChance>0.35</MeleeDodgeChance>
+      <MeleeCritChance>0.05</MeleeCritChance>
     </statBases>
     <verbs>
-      <li>
-        <verbClass>Verb_MeleeAttack</verbClass>
+      <li Class="CombatExtended.VerbPropertiesCE">
+        <verbClass>CombatExtended.Verb_MeleeAttackCE</verbClass>
         <defaultCooldownTime>1.2</defaultCooldownTime>
         <meleeDamageBaseAmount>14</meleeDamageBaseAmount>
         <meleeDamageDef>Cut</meleeDamageDef>
@@ -308,9 +331,10 @@
             </li>
           </extraMeleeDamages>
         </surpriseAttack>
+        <meleeArmorPenetration>0.3</meleeArmorPenetration>
       </li>
-      <li>
-        <verbClass>Verb_MeleeAttack</verbClass>
+      <li Class="CombatExtended.VerbPropertiesCE">
+        <verbClass>CombatExtended.Verb_MeleeAttackCE</verbClass>
         <defaultCooldownTime>1.2</defaultCooldownTime>
         <meleeDamageBaseAmount>14</meleeDamageBaseAmount>
         <meleeDamageDef>Cut</meleeDamageDef>
@@ -323,15 +347,17 @@
             </li>
           </extraMeleeDamages>
         </surpriseAttack>
+        <meleeArmorPenetration>0.3</meleeArmorPenetration>
       </li>
-		  <li>
-			<verbClass>Verb_MeleeAttack</verbClass>
-			<defaultCooldownTime>1.65</defaultCooldownTime>
-			<meleeDamageBaseAmount>3</meleeDamageBaseAmount>
-			<meleeDamageDef>Blunt</meleeDamageDef>
-			<commonality>0.01</commonality>
-			<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-		  </li>	
+      <li Class="CombatExtended.VerbPropertiesCE">
+        <verbClass>CombatExtended.Verb_MeleeAttackCE</verbClass>
+        <defaultCooldownTime>1.65</defaultCooldownTime>
+        <meleeDamageBaseAmount>3</meleeDamageBaseAmount>
+        <meleeDamageDef>Blunt</meleeDamageDef>
+        <commonality>0.01</commonality>
+        <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+        <meleeArmorPenetration>0.1</meleeArmorPenetration>
+      </li>
     </verbs>
     <race>
       <intelligence>ToolUser</intelligence>
@@ -346,7 +372,6 @@
           <soundWounded>Pawn_Mech_Centipede_Wounded</soundWounded>
           <soundDeath>Pawn_Mech_Centipede_Death</soundDeath>
           <soundCall>Pawn_Mech_Centipede_Call</soundCall>
-          
         </li>
       </lifeStageAges>
       <soundCallIntervalRange>
@@ -361,9 +386,14 @@
       <li>ShutDownMechanoid</li>
     </recipes>
     <butcherProducts>
-		<TitaniumBar>2</TitaniumBar>
-		<CarbonAlloy>2</CarbonAlloy>
+      <TitaniumBar>2</TitaniumBar>
+      <CarbonAlloy>2</CarbonAlloy>
     </butcherProducts>
-  </ThingDef>
+    <modExtensions>
+      <li Class="CombatExtended.RacePropertiesExtensionCE">
+        <bodyShape>Serpentine</bodyShape>
+      </li>
+    </modExtensions>
+  </Verse.ThingDef>
 
-</ThingDefs>
+</Defs>

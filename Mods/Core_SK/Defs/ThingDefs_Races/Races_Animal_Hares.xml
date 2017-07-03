@@ -1,32 +1,34 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
-
-    <!-- ========================== Hares ============================ -->
-  
-  <ThingDef Abstract="True" ParentName="AnimalThingBase" Name="BaseHare">
+  <!-- ========================== Hares ============================ -->
+  <Verse.ThingDef Abstract="True" ParentName="AnimalThingBase" Name="BaseHare">
     <statBases>
-	  <Mass>1.5</Mass>
+      <Mass>1.5</Mass>
       <MoveSpeed>5.5</MoveSpeed>
       <ComfyTemperatureMin>-30</ComfyTemperatureMin>
       <MarketValue>90</MarketValue>
-	  <ArmorPenetration>0.01</ArmorPenetration>
+      <MeleeWeapon_Penetration>0.01</MeleeWeapon_Penetration>
+      <MeleeDodgeChance>0.25</MeleeDodgeChance>
+      <MeleeCritChance>0.01</MeleeCritChance>
     </statBases>
     <verbs>
-      <li>
-        <verbClass>Verb_MeleeAttack</verbClass>
+      <li Class="CombatExtended.VerbPropertiesCE">
+        <verbClass>CombatExtended.Verb_MeleeAttackCE</verbClass>
         <defaultCooldownTime>1.6</defaultCooldownTime>
         <meleeDamageBaseAmount>2</meleeDamageBaseAmount>
         <meleeDamageDef>Bite</meleeDamageDef>
         <linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+        <meleeArmorPenetration>0.1</meleeArmorPenetration>
       </li>
-		  <li>
-			<verbClass>Verb_MeleeAttack</verbClass>
-			<defaultCooldownTime>1.65</defaultCooldownTime>
-			<meleeDamageBaseAmount>1</meleeDamageBaseAmount>
-			<meleeDamageDef>Blunt</meleeDamageDef>
-			<commonality>0.01</commonality>
-			<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-		  </li>	
+      <li Class="CombatExtended.VerbPropertiesCE">
+        <verbClass>CombatExtended.Verb_MeleeAttackCE</verbClass>
+        <defaultCooldownTime>1.65</defaultCooldownTime>
+        <meleeDamageBaseAmount>1</meleeDamageBaseAmount>
+        <meleeDamageDef>Blunt</meleeDamageDef>
+        <commonality>0.01</commonality>
+        <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+        <meleeArmorPenetration>0.05</meleeArmorPenetration>
+      </li>
     </verbs>
     <race>
       <body>QuadrupedAnimalWithPawsAndTail</body>
@@ -72,42 +74,47 @@
     <tradeTags>
       <li>StandardAnimal</li>
     </tradeTags>
-  </ThingDef>
+    <modExtensions>
+      <li Class="CombatExtended.RacePropertiesExtensionCE">
+        <bodyShape>QuadrupedLow</bodyShape>
+      </li>
+    </modExtensions>
+  </Verse.ThingDef>
 
   <PawnKindDef Abstract="True" ParentName="AnimalKindBase" Name="HareBase">
     <combatPower>15</combatPower>
-	<canArriveManhunter>false</canArriveManhunter>
+    <canArriveManhunter>false</canArriveManhunter>
     <wildSpawn_EcoSystemWeight>0.25</wildSpawn_EcoSystemWeight>
     <wildSpawn_spawnWild>true</wildSpawn_spawnWild>
   </PawnKindDef>
-  
-  <ThingDef ParentName="BaseHare">
+
+  <Verse.ThingDef ParentName="BaseHare">
     <defName>Hare</defName>
     <label>hare</label>
     <description>This small, solitary herbivore can swiftly hop away from danger.</description>
     <race>
-	  <useMeatFrom>Elephant</useMeatFrom>
-			<leatherLabel>rabbit hair</leatherLabel>
-			<leatherColor>(255,255,230)</leatherColor>
-			<leatherMarketValueFactor>4.0</leatherMarketValueFactor>
-			<leatherStatFactors>
-				<MarketValue>2</MarketValue>
-				<ArmorRating_Blunt>1.2</ArmorRating_Blunt>
-				<ArmorRating_Sharp>1.2</ArmorRating_Sharp>
-				<ArmorRating_Electric>0.9</ArmorRating_Electric>
-				<ArmorRating_Heat>0.9</ArmorRating_Heat>
-				<Insulation_Cold>1.2</Insulation_Cold>
-				<Insulation_Heat>1.2</Insulation_Heat>
-				<BedRestEffectiveness>1.2</BedRestEffectiveness>
-				<ImmunityGainSpeedFactor>1.2</ImmunityGainSpeedFactor>
-				<WorkToMake>0.9</WorkToMake>
-				<MaxHitPoints>0.9</MaxHitPoints>
-				<MoveSpeed>1.2</MoveSpeed>
-				<Beauty>1.2</Beauty>			
-			</leatherStatFactors>
+      <useMeatFrom>Elephant</useMeatFrom>
+      <leatherLabel>rabbit hair</leatherLabel>
+      <leatherColor>(255,255,230)</leatherColor>
+      <leatherMarketValueFactor>4.0</leatherMarketValueFactor>
+      <leatherStatFactors>
+        <MarketValue>2</MarketValue>
+        <ArmorRating_Blunt>1.2</ArmorRating_Blunt>
+        <ArmorRating_Sharp>1.2</ArmorRating_Sharp>
+        <ArmorRating_Electric>0.9</ArmorRating_Electric>
+        <ArmorRating_Heat>0.9</ArmorRating_Heat>
+        <Insulation_Cold>1.2</Insulation_Cold>
+        <Insulation_Heat>1.2</Insulation_Heat>
+        <BedRestEffectiveness>1.2</BedRestEffectiveness>
+        <ImmunityGainSpeedFactor>1.2</ImmunityGainSpeedFactor>
+        <WorkToMake>0.9</WorkToMake>
+        <MaxHitPoints>0.9</MaxHitPoints>
+        <MoveSpeed>1.2</MoveSpeed>
+        <Beauty>1.2</Beauty>
+      </leatherStatFactors>
     </race>
-  </ThingDef>
-  
+  </Verse.ThingDef>
+
   <PawnKindDef ParentName="HareBase">
     <defName>Hare</defName>
     <label>hare</label>
@@ -152,9 +159,8 @@
       </li>
     </lifeStages>
   </PawnKindDef>
-  
 
-  <ThingDef ParentName="BaseHare">
+  <Verse.ThingDef ParentName="BaseHare">
     <defName>Snowhare</defName>
     <label>snow hare</label>
     <description>This hardy, animal survives the brutal winters of the north by burrowing through snow and finding prey underneath, or hibernating the worst months away.</description>
@@ -162,11 +168,11 @@
       <ComfyTemperatureMin>-70</ComfyTemperatureMin>
     </statBases>
     <race>
-	  <useMeatFrom>Elephant</useMeatFrom>
-	  <useLeatherFrom>Hare</useLeatherFrom>
+      <useMeatFrom>Elephant</useMeatFrom>
+      <useLeatherFrom>Hare</useLeatherFrom>
     </race>
-  </ThingDef>
-  
+  </Verse.ThingDef>
+
   <PawnKindDef ParentName="HareBase">
     <defName>Snowhare</defName>
     <label>snow hare</label>
@@ -211,5 +217,4 @@
       </li>
     </lifeStages>
   </PawnKindDef>
-  
 </Defs>
