@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ThingDefs>
+  
+  <ThingDef Name="RFF_TerraformBase" Abstract="True">
+    <category>Building</category>
+    <thingClass>FertileFields.Building_Terraform</thingClass>
+    <placeWorkers>
+      <li>FertileFields.PlaceWorker_Dynamic</li>
+    </placeWorkers>
+    <graphicData>
+      <texPath>UI/Icons/Terraforming/RFF_Blueprint</texPath>
+      <shaderType>MetaOverlay</shaderType>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <useHitPoints>true</useHitPoints>
+    <altitudeLayer>Building</altitudeLayer>
+    <blockLight>false</blockLight>
+    <rotatable>false</rotatable>
+    <placingDraggableDimensions>2</placingDraggableDimensions>
+    <constructEffect>ConstructDirt</constructEffect>
+    <Size>(1,1)</Size>
+    <pathCost>60</pathCost>
+    <Passability>PassThroughOnly</Passability>
+    <tickerType>Rare</tickerType>
+    <soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+    <selectable>true</selectable>
+    <drawerType>MapMeshAndRealTime</drawerType>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+    <repairEffect>Repair</repairEffect>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <filthLeaving>BuildingRubble</filthLeaving>
+    <DesignationCategory>SK_category_terraform</DesignationCategory>
+  </ThingDef>
+  
+  <ThingDef Name="RFF_TerraformBasicBase" ParentName="RFF_TerraformBase" Abstract="True">
+    <researchPrerequisites><li>SK_Agriculture</li></researchPrerequisites>
+  </ThingDef>
+  
+  <ThingDef Name="RFF_TerraformIntermediateBase" ParentName="RFF_TerraformBase" Abstract="True">
+    <researchPrerequisites><li>SK_SoilFertillizationI</li></researchPrerequisites>
+  </ThingDef>
+  
+  <ThingDef Name="RFF_TerraformAdvancedBase" ParentName="RFF_TerraformBase" Abstract="True">
+    <researchPrerequisites><li>SK_SoilFertillizationII</li></researchPrerequisites>
+  </ThingDef>
+  
+  
+  <!-- Terraforming -->
+  
+  <ThingDef ParentName="RFF_TerraformAdvancedBase">
+    <defName>RockyDirt-Stone</defName>
+    <label>rough stone</label>
+    <description>PLACE ON: Rocky Dirt.\nRESULT: Rough Stone.</description>
+    <uiIconPath>UI/Icons/Terraforming/RockyDirt-Stone</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>RockySoil</li>
+        </above>
+        <resultSpecial>Natural</resultSpecial>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>5000</WorkToBuild>
+    </statBases>
+    <costList>
+      <CrushedStone>1</CrushedStone>
+    </costList>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformAdvancedBase">
+    <defName>Stone-RockyDirt</defName>
+    <label>rocky dirt</label>
+    <description>PLACE ON: Rough or Smooth Stone.\nRESULT: Rocky Dirt.\nGAIN: Rock Chunk (Sometimes).</description>
+    <uiIconPath>UI/Icons/Terraforming/Stone-RockyDirt</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>Sandstone_Smooth</li>
+          <li>Sandstone_Rough</li>
+          <li>Sandstone_RoughHewn</li>
+          <li>Granite_Smooth</li>
+          <li>Granite_Rough</li>
+          <li>Granite_RoughHewn</li>
+          <li>Limestone_Smooth</li>
+          <li>Limestone_Rough</li>
+          <li>Limestone_RoughHewn</li>
+          <li>Slate_Smooth</li>
+          <li>Slate_Rough</li>
+          <li>Slate_RoughHewn</li>
+          <li>Marble_Smooth</li>
+          <li>Marble_Rough</li>
+          <li>Marble_RoughHewn</li>
+        </above>
+        <result>RockySoil</result>
+        <productSpecial>Natural</productSpecial>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>5000</WorkToBuild>
+    </statBases>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformBasicBase">
+    <defName>Sand-RockyDirt</defName>
+    <label>rocky dirt</label>
+    <description>PLACE ON: Sand.\nRESULT: Rocky Dirt.\nGAIN: One Pile of Sand.</description>
+    <uiIconPath>UI/Icons/Terraforming/Sand-RockyDirt</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>Sand</li>
+        </above>
+        <result>RockySoil</result>
+        <products>
+          <Sand>1</Sand>
+        </products>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>750</WorkToBuild>
+    </statBases>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformBasicBase">
+    <defName>Gravel-RockyDirt</defName>
+    <label>rocky dirt</label>
+    <description>PLACE ON: Gravel.\nRESULT: Rocky Dirt.\nGAIN: Crushed Rocks and a Pile of Dirt.</description>
+    <uiIconPath>UI/Icons/Terraforming/Gravel-RockyDirt</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>Gravel</li>
+        </above>
+        <result>RockySoil</result>
+        <products>
+          <CrushedStone>1</CrushedStone>
+          <Dirt>1</Dirt>
+        </products>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>750</WorkToBuild>
+    </statBases>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformBasicBase">
+    <defName>SoilF-RockyDirt</defName>
+    <label>rocky dirt</label>
+    <description>PLACE ON: Fertile Soil.\nRESULT: Rocky Dirt.\nGAIN: Three Piles of Dirt.</description>
+    <uiIconPath>UI/Icons/Terraforming/SoilF-RockyDirt</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>Soil</li>
+          <li>SoilRich</li>
+          <li>MossyTerrain</li>
+        </above>
+        <result>RockySoil</result>
+        <products>
+          <Dirt>3</Dirt>
+        </products>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>1000</WorkToBuild>
+    </statBases>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformBasicBase">
+    <defName>SoilMarshy-RockyDirt</defName>
+    <label>rocky dirt</label>
+    <description>PLACE ON: Marshy Soil.\nRESULT: Rocky Dirt.\nGAIN: Two Piles of Dirt.</description>
+    <uiIconPath>UI/Icons/Terraforming/SoilMarshy-RockyDirt</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>MarshyTerrain</li>
+        </above>
+        <result>RockySoil</result>
+        <products>
+          <Dirt>2</Dirt>
+        </products>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>750</WorkToBuild>
+    </statBases>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformBasicBase">
+    <defName>RockyDirt-Sand</defName>
+    <label>sand</label>
+    <description>PLACE ON: Rocky Dirt.\nRESULT: Sand.</description>
+    <uiIconPath>UI/Icons/Terraforming/RockyDirt-Sand</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>RockySoil</li>
+        </above>
+        <result>Sand</result>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>1000</WorkToBuild>
+    </statBases>
+    <CostList>
+      <Sand>1</Sand>
+    </CostList>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformBasicBase">
+    <defName>Gravel-Sand</defName>
+    <label>sand</label>
+    <description>PLACE ON: Gravel.\nRESULT: Sand.\nGAIN: Crushed Rocks.</description>
+    <uiIconPath>UI/Icons/Terraforming/Gravel-Sand</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>Gravel</li>
+        </above>
+        <result>Sand</result>
+        <products>
+          <CrushedStone>1</CrushedStone>
+        </products>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>1250</WorkToBuild>
+    </statBases>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformBasicBase">
+    <defName>SoilF-Sand</defName>
+    <label>sand</label>
+    <description>PLACE ON: Fertile Soil.\nRESULT: Sand.\nGAIN: Two Piles of Dirt.</description>
+    <uiIconPath>UI/Icons/Terraforming/SoilF-Sand</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>Soil</li>
+          <li>SoilRich</li>
+          <li>MossyTerrain</li>
+        </above>
+        <result>Sand</result>
+        <products>
+          <Dirt>2</Dirt>
+        </products>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>1250</WorkToBuild>
+    </statBases>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformAdvancedBase">
+    <defName>WaterShallow-Sand</defName>
+    <label>sand</label>
+    <description>PLACE ON: Shallow Water.\nRESULT: Sand.</description>
+    <uiIconPath>UI/Icons/Terraforming/WaterShallow-Sand</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>WaterShallow</li>
+          <li>WaterMovingShallow</li>
+          <li>WaterOceanShallow</li>
+        </above>
+        <result>Sand</result>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>1250</WorkToBuild>
+    </statBases>
+    <CostList>
+      <Sand>5</Sand>
+    </CostList>
+    <terrainAffordanceNeeded>Undefined</terrainAffordanceNeeded>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformBasicBase">
+    <defName>RockyDirt-Gravel</defName>
+    <label>gravel</label>
+    <description>PLACE ON: Rocky Dirt.\nRESULT. Gravel.</description>
+    <uiIconPath>UI/Icons/Terraforming/RockyDirt-Gravel</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>RockySoil</li>
+        </above>
+        <result>Gravel</result>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>1000</WorkToBuild>
+    </statBases>
+    <CostList>
+      <Dirt>1</Dirt>
+      <CrushedStone>1</CrushedStone>
+    </CostList>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformBasicBase">
+    <defName>Sand-Gravel</defName>
+    <label>gravel</label>
+    <description>PLACE ON: Sand.\nRESULT: Gravel.</description>
+    <uiIconPath>UI/Icons/Terraforming/Sand-Gravel</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>Sand</li>
+        </above>
+        <result>Gravel</result>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>1000</WorkToBuild>
+    </statBases>
+    <CostList>
+      <CrushedStone>1</CrushedStone>
+      <Fertilizer>1</Fertilizer>
+    </CostList>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformBasicBase">
+    <defName>SoilF-Gravel</defName>
+    <label>gravel</label>
+    <description>PLACE ON: Fertile Soil.\nRESULT: Gravel.\nGAIN: One Pile of Dirt.</description>
+    <uiIconPath>UI/Icons/Terraforming/SoilF-Gravel</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>Soil</li>
+          <li>SoilRich</li>
+          <li>MossyTerrain</li>
+        </above>
+        <result>Gravel</result>
+        <products>
+          <Dirt>1</Dirt>
+        </products>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>500</WorkToBuild>
+    </statBases>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformBasicBase">
+    <defName>SoilF-PackedDirt</defName>
+    <label>packed dirt</label>
+    <description>PLACE ON: Soil.\nRESULT: Packed Dirt.</description>
+    <uiIconPath>UI/Icons/Terraforming/SoilF-PackedDirt</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>Soil</li>
+          <li>SoilRich</li>
+          <li>MossyTerrain</li>
+        </above>
+        <result>PackedDirt</result>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>750</WorkToBuild>
+    </statBases>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformBasicBase">
+    <defName>Sand-SoilF</defName>
+    <label>soil</label>
+    <description>PLACE ON: Sand.\nRESULT: Soil.</description>
+    <uiIconPath>UI/Icons/Terraforming/Sand-Soil</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>Sand</li>
+        </above>
+        <result>Soil</result>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>500</WorkToBuild>
+    </statBases>
+    <CostList>
+      <Fertilizer>1</Fertilizer>
+      <Dirt>2</Dirt>
+    </CostList>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformBasicBase">
+    <defName>Gravel-SoilF</defName>
+    <label>soil</label>
+    <description>PLACE ON: Gravel.\nRESULT: Soil.</description>
+    <uiIconPath>UI/Icons/Terraforming/Gravel-Soil</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>Gravel</li>
+        </above>
+        <result>Soil</result>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>500</WorkToBuild>
+    </statBases>
+    <CostList>
+      <Fertilizer>1</Fertilizer>
+      <Dirt>1</Dirt>
+    </CostList>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformBasicBase">
+    <defName>PackedDirt-SoilF</defName>
+    <label>soil</label>
+    <description>PLACE ON: Packed Dirt.\nRESULT: Soil.</description>
+    <uiIconPath>UI/Icons/Terraforming/PackedDirt-Soil</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>PackedDirt</li>
+        </above>
+        <result>Soil</result>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>750</WorkToBuild>
+    </statBases>
+    <CostList>
+      <Fertilizer>1</Fertilizer>
+    </CostList>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformBasicBase">
+    <defName>SoilMarshy-SoilF</defName>
+    <label>soil</label>
+    <description>PLACE ON: Marshy Soil.\nRESULT: Soil.</description>
+    <uiIconPath>UI/Icons/Terraforming/SoilMarshy-Soil</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>MarshyTerrain</li>
+        </above>
+        <result>Soil</result>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>500</WorkToBuild>
+    </statBases>
+    <CostList>
+      <Fertilizer>1</Fertilizer>
+      <Dirt>1</Dirt>
+    </CostList>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformBasicBase">
+    <defName>Marsh-SoilMarshy</defName>
+    <label>marshy soil</label>
+    <description>PLACE ON: Marsh or Mud.\nRESULT: Marshy Soil.</description>
+    <uiIconPath>UI/Icons/Terraforming/Marsh-SoilMarshy</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>Marsh</li>
+          <li>Mud</li>
+        </above>
+        <result>MarshyTerrain</result>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>1000</WorkToBuild>
+    </statBases>
+    <CostList>
+      <Dirt>1</Dirt>
+      <Fertilizer>1</Fertilizer>
+    </CostList>
+    <terrainAffordanceNeeded>Undefined</terrainAffordanceNeeded>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformAdvancedBase">
+    <defName>SoilF-Marsh</defName>
+    <label>marsh</label>
+    <description>PLACE ON: Soil.\nRESULT: Marsh.\nGAIN: Two Piles of Dirt.</description>
+    <uiIconPath>UI/Icons/Terraforming/SoilF-Marsh</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>Soil</li>
+          <li>SoilRich</li>
+          <li>MossyTerrain</li>
+        </above>
+        <result>MarshyTerrain</result>
+        <products>
+          <Dirt>2</Dirt>
+        </products>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>1250</WorkToBuild>
+    </statBases>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformAdvancedBase">
+    <defName>SoilMarshy-Marsh</defName>
+    <label>marsh</label>
+    <description>PLACE ON: Marshy Soil.\nRESULT: Marsh.\nGAIN: One Pile of Dirt.</description>
+    <uiIconPath>UI/Icons/Terraforming/SoilMarshy-Marsh</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>MarshyTerrain</li>
+        </above>
+        <result>Marsh</result>
+        <products>
+          <Dirt>1</Dirt>
+        </products>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>1250</WorkToBuild>
+    </statBases>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformAdvancedBase">
+    <defName>WaterShallow-Marsh</defName>
+    <label>marsh</label>
+    <description>PLACE ON: Shallow Water.\nRESULT: Marsh.</description>
+    <uiIconPath>UI/Icons/Terraforming/WaterShallow-Marsh</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>WaterShallow</li>
+          <li>WaterMovingShallow</li>
+          <li>WaterOceanShallow</li>
+        </above>
+        <result>Marsh</result>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>1250</WorkToBuild>
+    </statBases>
+    <CostList>
+      <Dirt>5</Dirt>
+    </CostList>
+    <terrainAffordanceNeeded>Undefined</terrainAffordanceNeeded>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformAdvancedBase">
+    <defName>Sand-WaterShallow</defName>
+    <label>shallow water</label>
+    <description>PLACE ON: Sand (near water).\nRESULT: Shallow Water.\nGAIN: Five Piles of Sand.</description>
+    <uiIconPath>UI/Icons/Terraforming/Sand-WaterShallow</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>Sand</li>
+        </above>
+        <near>
+          <li>WaterShallow</li>
+          <li>WaterMovingShallow</li>
+          <li>WaterOceanShallow</li>
+        </near>
+        <result>WaterShallow</result>
+        <products>
+          <Sand>5</Sand>
+        </products>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>1500</WorkToBuild>
+    </statBases>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformAdvancedBase">
+    <defName>WaterShallow-Marsh</defName>
+    <label>marsh</label>
+    <description>PLACE ON: Shallow Water.\nRESULT: Marsh.</description>
+    <uiIconPath>UI/Icons/Terraforming/Marsh-WaterShallow</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>WaterShallow</li>
+          <li>WaterMovingShallow</li>
+          <li>WaterOceanShallow</li>
+        </above>
+        <result>Marsh</result>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>1500</WorkToBuild>
+    </statBases>
+    <CostList>
+      <Dirt>5</Dirt>
+    </CostList>
+    <terrainAffordanceNeeded>Undefined</terrainAffordanceNeeded>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformAdvancedBase">
+    <defName>WaterDeep-WaterShallow</defName>
+    <label>shallow water</label>
+    <description>PLACE ON: Deep Water.\nRESULT: Shallow Water.</description>
+    <uiIconPath>UI/Icons/Terraforming/WaterDeep-WaterShallow</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>WaterDeep</li>
+          <li>WaterMovingDeep</li>
+          <li>WaterOceanDeep</li>
+        </above>
+        <result>WaterShallow</result>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>5000</WorkToBuild>
+    </statBases>
+    <CostList>
+      <Dirt>10</Dirt>
+    </CostList>
+    <terrainAffordanceNeeded>Undefined</terrainAffordanceNeeded>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformAdvancedBase">
+    <defName>WaterShallow-WaterDeep</defName>
+    <label>deep water</label>
+    <description>PLACE ON: Shallow Water.\nRESULT: Deep Water.\nGAIN: Ten Piles of Dirt.\n\nNOTE: Placing impassable terrain on the map is overpowered and potentially game-breaking. Use with caution!</description>
+    <uiIconPath>UI/Icons/Terraforming/WaterShallow-WaterDeep</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>WaterShallow</li>
+          <li>WaterMovingShallow</li>
+          <li>WaterOceanShallow</li>
+        </above>
+        <result>WaterDeep</result>
+        <products>
+          <Dirt>10</Dirt>
+        </products>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>10000</WorkToBuild>
+    </statBases>
+    <terrainAffordanceNeeded>Undefined</terrainAffordanceNeeded>
+  </ThingDef>
+  
+  <!-- Farming -->
+  
+  <ThingDef ParentName="RFF_TerraformIntermediateBase">
+    <defName>Stone-Topsoil</defName>
+    <label>topsoil</label>
+    <description>PLACE ON: Smooth Stone.\nRESULT: Topsoil.\n\nNOTE: Unlike most terrain types, topsoil can be removed with the "Remove Floor" tool.</description>
+    <uiIconPath>UI/Icons/Terraforming/Stone-Soil</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>Sandstone_Smooth</li>
+          <li>Granite_Smooth</li>
+          <li>Limestone_Smooth</li>
+          <li>Slate_Smooth</li>
+          <li>Marble_Smooth</li>
+        </above>
+        <result>Topsoil</result>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>750</WorkToBuild>
+    </statBases>
+    <CostList>
+      <Dirt>2</Dirt>
+      <Fertilizer>2</Fertilizer>
+    </CostList>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformIntermediateBase">
+    <defName>Topsoil-DirtFert</defName>
+    <label>fertilized topsoil</label>
+    <description>PLACE ON: Topsoil.\nRESULT: Fertilized Topsoil.\n\nNOTE: Like regular topsoil, fertilized topsoil can be removed with the "Remove Floor" tool.</description>
+    <uiIconPath>UI/Icons/Terraforming/SoilF-SoilRich</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>Topsoil</li>
+        </above>
+        <result>DirtFert</result>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>250</WorkToBuild>
+    </statBases>
+    <CostList>
+      <Fertilizer>2</Fertilizer>
+    </CostList>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformBasicBase">
+    <defName>SoilF-SoilRich</defName>
+    <label>rich soil</label>
+    <description>PLACE ON: Soil or Lichen-Covered Dirt.\nRESULT: Rich Soil.</description>
+    <uiIconPath>UI/Icons/Terraforming/SoilF-SoilRich</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>Soil</li>
+          <li>MossyTerrain</li>
+        </above>
+        <result>SoilRich</result>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>250</WorkToBuild>
+    </statBases>
+    <CostList>
+      <Fertilizer>2</Fertilizer>
+    </CostList>
+  </ThingDef>
+  
+  <ThingDef ParentName="RFF_TerraformIntermediateBase">
+    <defName>SoilRich-SoilTilled</defName>
+    <label>plowed soil</label>
+    <description>PLACE ON: Rich Soil.\nRESULT: Plowed Soil.\n\nNOTE: Plowed soil can be removed with the "Remove Floor" tool.</description>
+    <uiIconPath>UI/Icons/Terraforming/SoilRich-SoilTilled</uiIconPath>
+    <modExtensions>
+      <li Class="FertileFields.Terrain">
+        <above>
+          <li>SoilRich</li>
+          <li>DirtFert</li>
+        </above>
+        <result>SoilTilled</result>
+      </li>
+    </modExtensions>
+    <statBases>
+      <WorkToBuild>500</WorkToBuild>
+    </statBases>
+    <CostList>
+      <Fertilizer>3</Fertilizer>
+    </CostList>
+  </ThingDef>
+  
+</ThingDefs>
