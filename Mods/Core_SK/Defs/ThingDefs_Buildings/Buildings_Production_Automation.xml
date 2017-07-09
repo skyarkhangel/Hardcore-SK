@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ThingDefs>
+  <ThingDef Name="SALCrafterBase" Abstract="True">
+    <!--Def name, label, desc, comps, costlist, mod extension, research-->
+    <category>Building</category>
+    <thingClass>ProjectSAL.Building_Crafter</thingClass>
+    <soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+    <selectable>true</selectable>
+    <drawerType>MapMeshAndRealTime</drawerType>
+    <repairEffect>Repair</repairEffect>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <filthLeaving>BuildingRubble</filthLeaving>
+    <graphicData>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+      <shaderType>CutoutComplex</shaderType>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Standable</passability>
+    <blockWind>false</blockWind>
+    <castEdgeShadows>false</castEdgeShadows>
+    <scatterableOnMapGen>false</scatterableOnMapGen>
+    <fillPercent>1</fillPercent>
+    <blockLight>false</blockLight>
+    <statBases>
+      <MaxHitPoints>500</MaxHitPoints>
+      <WorkToBuild>200</WorkToBuild>
+      <Flammability>1.0</Flammability>
+    </statBases>
+    <stuffCategories>
+      <li>Metallic</li>
+      <li>Stony</li>
+    </stuffCategories>
+    <tickerType>Normal</tickerType>
+    <size>(1,1)</size>
+    <rotatable>true</rotatable>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+    <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+    <designationCategory>Production</designationCategory>
+    <building>
+      <ai_chillDestination>false</ai_chillDestination>
+      <ignoreNeedsPower>false</ignoreNeedsPower>
+    </building>
+  </ThingDef>
+  <ThingDef Name="SALAssemblerBase" ParentName="SALCrafterBase" Abstract="True">
+    <thingClass>ProjectSAL.Building_Assembler</thingClass>
+    <hasInteractionCell>false</hasInteractionCell>
+    <inspectorTabs>
+      <li>ITab_Bills</li>
+    </inspectorTabs>
+  </ThingDef>
+  
+  <ThingDef ParentName="SALAssemblerBase">
+    <defName>FertilizerProductionMachine</defName>
+    <label>fertilizer production machine</label>
+    <description>Use compost to produce fertilizer.</description>
+    <graphicData>
+      <texPath>Things/Building/FertilizerProductionMachine</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(3,2)</drawSize>
+      <damageData>
+        <rect>(0.02,0.25,2.96,2.85)</rect>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+      </damageData>
+    </graphicData>
+    <size>(3,2)</size>
+    <statBases>
+      <WorkToBuild>2200</WorkToBuild>
+      <MaxHitPoints>240</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+    </statBases>
+    <stuffCategories>
+      <li>Metallic</li>
+    </stuffCategories>
+    <costStuffCount>130</costStuffCount>
+    <costList>
+      <Component>10</Component>
+      <ElectronicComponents>6</ElectronicComponents>
+      <Mechanism>5</Mechanism>
+    </costList>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>600</basePowerConsumption>
+        <startElectricalFires>true</startElectricalFires>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Breakdownable"/>
+    </comps>
+    <recipes>
+      <li>MakeFertilizer</li>
+    </recipes>
+    <modExtensions>
+      <li Class="ProjectSAL.ModExtension_Assembler">
+        <powerUsageLowPower>60</powerUsageLowPower>
+        <globalFactor>2</globalFactor>
+        <skills>
+          <li>
+            <skillDef>Crafting</skillDef>
+            <level>5</level>
+          </li>
+        </skills>
+      </li>
+    </modExtensions>
+    <researchPrerequisites>
+      <li>FertilizerProduction</li>
+    </researchPrerequisites>
+  </ThingDef>
+  
+</ThingDefs>
