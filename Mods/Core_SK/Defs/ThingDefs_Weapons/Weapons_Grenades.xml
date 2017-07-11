@@ -6,7 +6,7 @@
   <ThingDef Name="BaseGrenadeEquipment" Abstract="True">
     <equipmentType>Primary</equipmentType>
     <label>equipment lacks label</label>
-    <thingClass>ThingWithComps</thingClass>
+    <thingClass>CombatExtended.AmmoThing</thingClass>
     <category>Item</category>
     <useHitPoints>true</useHitPoints>
     <selectable>true</selectable>
@@ -28,14 +28,15 @@
       </li>
     </comps>
     <alwaysHaulable>true</alwaysHaulable>
-    <tickerType>Never</tickerType>
+    <tickerType>Normal</tickerType>
     <stackLimit>75</stackLimit>
+    <resourceReadoutPriority>First</resourceReadoutPriority>
   </ThingDef>
 
   <ThingDef Name="BaseGrenadeProjectile" Abstract="True">
     <category>Projectile</category>
     <altitudeLayer>Projectile</altitudeLayer>
-    <thingClass>Combat_Realism.ProjectileCR_Explosive</thingClass>
+    <thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
     <label>projectile</label>
     <tickerType>Normal</tickerType>
     <useHitPoints>False</useHitPoints>
@@ -43,7 +44,7 @@
     <graphicData>
       <shaderType>Transparent</shaderType>
     </graphicData>
-    <projectile Class="Combat_Realism.ProjectilePropertiesCR">
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
       <speed>24</speed>
     </projectile>
   </ThingDef>
@@ -60,15 +61,15 @@
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <projectile>
-      <explosionRadius>2</explosionRadius>
+      <explosionRadius>1.5</explosionRadius>
       <damageDef>Bomb</damageDef>
-      <damageAmountBase>70</damageAmountBase>
-      <explosionDelay>190</explosionDelay>
+      <damageAmountBase>50</damageAmountBase>
+      <explosionDelay>60</explosionDelay>
 	  <dropsCasings>true</dropsCasings>
 	  <casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
     </projectile>
 	<comps>
-      <li Class="Combat_Realism.CompProperties_ExplosiveCR">
+      <li Class="CombatExtended.CompProperties_ExplosiveCE">
         <fragRange>4.0</fragRange>
 		<fragments>
 			<Fragment_GrenadeFragSmall>110</Fragment_GrenadeFragSmall>
@@ -92,7 +93,7 @@
     <techLevel>Industrial</techLevel>
     <statBases>
       <MarketValue>40.0</MarketValue>
-      <AimEfficiency>0.15</AimEfficiency>
+      <SightsEfficiency>0.15</SightsEfficiency>
       <RangedWeapon_Cooldown>0.5</RangedWeapon_Cooldown>
     </statBases>
 	<equippedStatOffsets>
@@ -102,14 +103,16 @@
     <weaponTags>
       <li>GrenadeDestructive</li>
       <li>GrenadeTierTwo</li>
+      <li>CE_AI_Grenade</li>
+      <li>CE_OneHandedWeapon</li>
     </weaponTags>
     <thingCategories>
       <li>Grenades</li>
     </thingCategories>
     <verbs>
-      <li Class="Combat_Realism.VerbPropertiesCR"> 
+      <li Class="CombatExtended.VerbPropertiesCE"> 
         <label>throw frag grenade</label>
-        <verbClass>Combat_Realism.Verb_ShootCROneUse</verbClass>
+        <verbClass>CombatExtended.Verb_ShootCEOneUse</verbClass>
         <hasStandardCommand>true</hasStandardCommand>
         <range>10</range>
 		<minRange>2</minRange>
@@ -122,6 +125,7 @@
         </targetParams>
         <projectileDef>Proj_GrenadeFrag</projectileDef>
         <onlyManualCast>true</onlyManualCast>
+        <ignorePartialLoSBlocker>true</ignorePartialLoSBlocker>
       </li>
     </verbs>
 	 <comps>
@@ -177,7 +181,7 @@
 	<tradeability>Sellable</tradeability>
     <statBases>
       <MarketValue>8</MarketValue>
-      <AimEfficiency>0.15</AimEfficiency>
+      <SightsEfficiency>0.15</SightsEfficiency>
       <RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
     </statBases>
 	<equippedStatOffsets>
@@ -186,15 +190,15 @@
 	</equippedStatOffsets>
     <weaponTags>
 			<li>GrenadeDestructive</li>
-			<li>CR_Norbhammar</li>
+			<li>Norbhammar</li>
     </weaponTags>
     <thingCategories>
 	    <li>Grenades</li>
     </thingCategories>	  
     <verbs>
-      <li Class="Combat_Realism.VerbPropertiesCR">
+      <li Class="CombatExtended.VerbPropertiesCE">
         <label>throw hammer</label>
-        <verbClass>Combat_Realism.Verb_ShootCROneUse</verbClass>
+        <verbClass>CombatExtended.Verb_ShootCEOneUse</verbClass>
         <hasStandardCommand>true</hasStandardCommand>
         <range>8</range>
 		<minRange>2</minRange>
@@ -208,6 +212,7 @@
         </targetParams>
         <projectileDef>Norbhammer_Thrown</projectileDef>
         <onlyManualCast>true</onlyManualCast>
+        <ignorePartialLoSBlocker>true</ignorePartialLoSBlocker>
       </li>
     </verbs>
 	 <comps>
@@ -236,15 +241,17 @@
   <ThingDef ParentName="BaseGrenadeProjectile">
     <defName>Proj_GrenadeMolotov</defName>
     <label>molotov cocktail</label>
+    <thingClass>CombatExtended.Projectile_FireTrail</thingClass>
     <graphicData>
       <texPath>Things/Projectile/Grenades/Molotov</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <projectile>
-      <explosionRadius>1</explosionRadius>
-      <damageDef>Flame</damageDef>
+      <explosionRadius>1.5</explosionRadius>
+      <damageDef>PrometheumFlame</damageDef>
       <damageAmountBase>20</damageAmountBase>
-      <preExplosionSpawnThingDef>Napalm_Fuel</preExplosionSpawnThingDef>
+      <preExplosionSpawnThingDef>FilthPrometheum</preExplosionSpawnThingDef>
+      <explosionSpawnChance>1</explosionSpawnChance>
     </projectile>
   </ThingDef>
 
@@ -261,7 +268,7 @@
     <techLevel>Industrial</techLevel>
     <statBases>
       <MarketValue>15</MarketValue>
-      <AimEfficiency>0.15</AimEfficiency>
+      <SightsEfficiency>0.15</SightsEfficiency>
       <RangedWeapon_Cooldown>0.5</RangedWeapon_Cooldown>
     </statBases>
 	<equippedStatOffsets>
@@ -271,14 +278,16 @@
     <weaponTags>
       <li>GrenadeDestructive</li>
       <li>GrenadeTierOne</li>
+      <li>CE_AI_Grenade</li>
+      <li>CE_OneHandedWeapon</li>
     </weaponTags>
     <thingCategories>
       <li>Grenades</li>
     </thingCategories>
     <verbs>
-      <li Class="Combat_Realism.VerbPropertiesCR">
+      <li Class="CombatExtended.VerbPropertiesCE">
         <label>throw molotov</label>
-        <verbClass>Combat_Realism.Verb_ShootCROneUse</verbClass>
+        <verbClass>CombatExtended.Verb_ShootCEOneUse</verbClass>
         <hasStandardCommand>true</hasStandardCommand>
         <range>10</range>
 		<minRange>2</minRange>
@@ -292,19 +301,17 @@
         </targetParams>
         <projectileDef>Proj_GrenadeMolotov</projectileDef>
         <onlyManualCast>true</onlyManualCast>
+        <ignorePartialLoSBlocker>true</ignorePartialLoSBlocker>
       </li>
     </verbs>
 	 <comps>
-			<li Class="CompProperties_Explosive">
-			<explosiveRadius>1</explosiveRadius>
-			<explosiveDamageType>Flame</explosiveDamageType>
-			<explosiveExpandPerStackcount>0.4</explosiveExpandPerStackcount>
-			<startWickHitPointsPercent>0.333</startWickHitPointsPercent>
-			<wickTicks>
-			  <min>10</min>
-			  <max>30</max>
-			</wickTicks>
-		  </li>
+       <li Class="CombatExtended.CompProperties_ExplosiveCE">
+         <explosionDamage>1</explosionDamage>
+         <explosionDamageDef>Flame</explosionDamageDef>
+         <explosionRadius>0.5</explosionRadius>
+         <preExplosionSpawnThingDef>FilthFuel</preExplosionSpawnThingDef>
+         <explosionSpawnChance>1</explosionSpawnChance>
+       </li>
 		  <li Class="WHands.WhandCompProps">
 			<MainHand>(-0.1,0.3,-0.2)</MainHand>
 		  </li>
@@ -348,7 +355,7 @@
     <techLevel>Industrial</techLevel>
     <statBases>
       <MarketValue>60</MarketValue>
-      <AimEfficiency>0.15</AimEfficiency>
+      <SightsEfficiency>0.15</SightsEfficiency>
       <RangedWeapon_Cooldown>0.5</RangedWeapon_Cooldown>
     </statBases>
 	<equippedStatOffsets>
@@ -357,14 +364,16 @@
 	</equippedStatOffsets>
     <weaponTags>
       <li>GrenadeEMP</li>
+      <li>CE_AI_Grenade</li>
+      <li>CE_OneHandedWeapon</li>
     </weaponTags>
     <thingCategories>
       <li>Grenades</li>
     </thingCategories>
     <verbs>
-      <li Class="Combat_Realism.VerbPropertiesCR">
+      <li Class="CombatExtended.VerbPropertiesCE">
         <label>throw EMP grenade</label>
-        <verbClass>Combat_Realism.Verb_ShootCROneUse</verbClass>
+        <verbClass>CombatExtended.Verb_ShootCEOneUse</verbClass>
         <hasStandardCommand>true</hasStandardCommand>
         <range>10</range>
 		<minRange>3.7</minRange>
@@ -377,6 +386,7 @@
         </targetParams>
         <projectileDef>Proj_GrenadeEMP</projectileDef>
         <onlyManualCast>true</onlyManualCast>
+        <ignorePartialLoSBlocker>true</ignorePartialLoSBlocker>
       </li>
     </verbs>
 	 <comps>
@@ -411,13 +421,13 @@
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <projectile>
-      <explosionRadius>4</explosionRadius>
+      <explosionRadius>3.5</explosionRadius>
       <damageDef>Stun</damageDef>
       <damageAmountBase>50</damageAmountBase>
-      <explosionDelay>180</explosionDelay>
+      <explosionDelay>30</explosionDelay>
       <soundExplode>Explosion_Stun</soundExplode>
-	  <dropsCasings>true</dropsCasings>
-	  <casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
+      <dropsCasings>true</dropsCasings>
+      <casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
     </projectile>
   </ThingDef>
   
@@ -435,12 +445,12 @@
     <techLevel>Industrial</techLevel>
     <statBases>
       <MarketValue>40</MarketValue>
-      <AimEfficiency>0.15</AimEfficiency>
+      <SightsEfficiency>0.15</SightsEfficiency>
       <RangedWeapon_Cooldown>0.5</RangedWeapon_Cooldown>
     </statBases>
     <weaponTags>
-      <li>GrenadeFlashbang</li>
-      <li>CR_GrenadeFlashbang</li>
+      <li>CE_GrenadeFlashbang</li>
+      <li>CE_AI_Nonlethal</li>
     </weaponTags>
 	<equippedStatOffsets>
 		<MoveSpeed>-0.12</MoveSpeed>
@@ -450,9 +460,9 @@
       <li>Grenades</li>
     </thingCategories>
     <verbs>
-      <li Class="Combat_Realism.VerbPropertiesCR">
+      <li Class="CombatExtended.VerbPropertiesCE">
         <label>throw flashbang grenade</label>
-        <verbClass>Combat_Realism.Verb_ShootCROneUse</verbClass>
+        <verbClass>CombatExtended.Verb_ShootCEOneUse</verbClass>
         <hasStandardCommand>true</hasStandardCommand>
         <range>10</range>
 		<minRange>3.7</minRange>
@@ -465,18 +475,15 @@
         </targetParams>
         <projectileDef>Proj_GrenadeFlashbang</projectileDef>
         <onlyManualCast>true</onlyManualCast>
+        <ignorePartialLoSBlocker>true</ignorePartialLoSBlocker>
       </li>
     </verbs>
 	 <comps>
-			<li Class="CompProperties_Explosive">
-			<explosiveRadius>1</explosiveRadius>
-			<explosiveDamageType>Flame</explosiveDamageType>
-			<explosiveExpandPerStackcount>0.4</explosiveExpandPerStackcount>
-			<startWickHitPointsPercent>0.333</startWickHitPointsPercent>
-			<wickTicks>
-			  <min>10</min>
-			  <max>30</max>
-			</wickTicks>
+		  <li Class="CombatExtended.CompProperties_ExplosiveCE">
+			<explosionDamage>25</explosionDamage>
+			<explosionDamageDef>Stun</explosionDamageDef>
+			<explosionRadius>3.5</explosionRadius>
+			<soundExplode>Explosion_Stun</soundExplode>
 		  </li>
 		  <li Class="WHands.WhandCompProps">
 			<MainHand>(-0.1,0.3,0)</MainHand>
@@ -520,7 +527,7 @@
     <techLevel>Industrial</techLevel>
     <statBases>
       <MarketValue>40</MarketValue>
-      <AimEfficiency>0.15</AimEfficiency>
+      <SightsEfficiency>0.15</SightsEfficiency>
       <RangedWeapon_Cooldown>0.5</RangedWeapon_Cooldown>
     </statBases>
 	<equippedStatOffsets>
@@ -535,9 +542,9 @@
       <li>Grenades</li>
     </thingCategories>
     <verbs>
-      <li Class="Combat_Realism.VerbPropertiesCR">
+      <li Class="CombatExtended.VerbPropertiesCE">
         <label>throw incendiary grenade</label>
-        <verbClass>Combat_Realism.Verb_ShootCROneUse</verbClass>
+        <verbClass>CombatExtended.Verb_ShootCEOneUse</verbClass>
         <hasStandardCommand>true</hasStandardCommand>
         <range>10</range>
 		<minRange>3.0</minRange>
@@ -551,6 +558,7 @@
         </targetParams>
         <projectileDef>Proj_GrenadeFlame</projectileDef>
         <onlyManualCast>true</onlyManualCast>
+        <ignorePartialLoSBlocker>true</ignorePartialLoSBlocker>
       </li>
     </verbs>
 	 <comps>
@@ -608,7 +616,7 @@
     <techLevel>Industrial</techLevel>
     <statBases>
       <MarketValue>60</MarketValue>
-      <AimEfficiency>0.13</AimEfficiency>
+      <SightsEfficiency>0.13</SightsEfficiency>
       <RangedWeapon_Cooldown>0.5</RangedWeapon_Cooldown>
     </statBases>
 	<equippedStatOffsets>
@@ -623,9 +631,9 @@
       <li>Grenades</li>
     </thingCategories>
     <verbs>
-      <li Class="Combat_Realism.VerbPropertiesCR">
+      <li Class="CombatExtended.VerbPropertiesCE">
         <label>throw plasma grenade</label>
-        <verbClass>Combat_Realism.Verb_ShootCROneUse</verbClass>
+        <verbClass>CombatExtended.Verb_ShootCEOneUse</verbClass>
         <hasStandardCommand>true</hasStandardCommand>
         <range>10</range>
         <forcedMissRadius>1.4</forcedMissRadius>
@@ -639,6 +647,7 @@
         </targetParams>
         <projectileDef>Proj_GrenadePlasma</projectileDef>
         <onlyManualCast>true</onlyManualCast>
+        <ignorePartialLoSBlocker>true</ignorePartialLoSBlocker>
       </li>
     </verbs>
 	 <comps>
@@ -678,7 +687,7 @@
 	  <casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
     </projectile>
 	<comps>
-      <li Class="Combat_Realism.CompProperties_ExplosiveCR">
+      <li Class="CombatExtended.CompProperties_ExplosiveCE">
         <fragRange>4.0</fragRange>
 		<fragments>
 			<Fragment_GrenadeFragSmall>135</Fragment_GrenadeFragSmall>
@@ -703,7 +712,7 @@
     <techLevel>Industrial</techLevel>
     <statBases>
       <MarketValue>70.0</MarketValue>
-      <AimEfficiency>0.12</AimEfficiency>
+      <SightsEfficiency>0.12</SightsEfficiency>
       <RangedWeapon_Cooldown>0.5</RangedWeapon_Cooldown>
     </statBases>
 	<equippedStatOffsets>
@@ -718,9 +727,9 @@
       <li>Grenades</li>
     </thingCategories>
     <verbs>
-      <li Class="Combat_Realism.VerbPropertiesCR"> 
+      <li Class="CombatExtended.VerbPropertiesCE"> 
         <label>throw fusion grenade</label>
-        <verbClass>Combat_Realism.Verb_ShootCROneUse</verbClass>
+        <verbClass>CombatExtended.Verb_ShootCEOneUse</verbClass>
         <hasStandardCommand>true</hasStandardCommand>
         <range>10</range>
 		<minRange>2.5</minRange>
@@ -734,6 +743,7 @@
         </targetParams>
         <projectileDef>Proj_GrenadeFusion</projectileDef>
         <onlyManualCast>true</onlyManualCast>
+        <ignorePartialLoSBlocker>true</ignorePartialLoSBlocker>
       </li>
     </verbs>
 	 <comps>

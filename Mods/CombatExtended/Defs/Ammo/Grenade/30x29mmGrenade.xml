@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	
+	<ThingCategoryDef>
+		<defName>Ammo30x29mmGrenades</defName>
+		<label>30x29mm Grenade</label>
+		<parent>AmmoGrenades</parent>
+    <iconPath>UI/Icons/ThingCategories/CaliberGrenade</iconPath>
+	</ThingCategoryDef>
+	
+	<!-- ==================== AmmoSet ========================== -->
+
+  <CombatExtended.AmmoSetDef>
+    <defName>AmmoSet_30x29mmGrenade</defName>
+    <label>30x29mm Grenades</label>
+    <ammoTypes>
+      <Ammo_30x29mmGrenade_HE>Bullet_30x29mmGrenade_HE</Ammo_30x29mmGrenade_HE>
+      <Ammo_30x29mmGrenade_EMP>Bullet_30x29mmGrenade_EMP</Ammo_30x29mmGrenade_EMP>
+    </ammoTypes>
+  </CombatExtended.AmmoSetDef>
+	
+	<!-- ==================== Ammo ========================== -->
+
+  <ThingDef Name="30x29mmGrenadeBase" ParentName="AmmoBase" Abstract="True">
+    <description>Relatively small, low velocity grenade for use in grenade launchers.</description>
+    <statBases>
+	  <Mass>0.2</Mass>
+	  <Bulk>0.3</Bulk>
+    </statBases>
+    <tradeTags>
+      <li>CE_AutoEnableTrade</li>
+      <li>CE_AutoEnableCrafting_TableMachining</li>
+    </tradeTags>
+    <thingCategories>
+      <li>Ammo30x29mmGrenades</li>
+    </thingCategories>
+    <stackLimit>75</stackLimit>
+    <cookOffFlashScale>20</cookOffFlashScale>
+  </ThingDef>
+
+  <ThingDef ParentName="30x29mmGrenadeBase">
+    <defName>Ammo_30x29mmGrenade_HE</defName>
+    <label>30x29mm grenade (HE)</label>
+    <graphicData>
+      <texPath>Things/Ammo/GrenadeLauncher/HE</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>1.73</MarketValue>
+    </statBases>
+    <ammoClass>GrenadeHE</ammoClass>
+    <comps>
+      <li Class="CombatExtended.CompProperties_ExplosiveCE">
+        <explosionDamage>20</explosionDamage>
+        <explosionDamageDef>Bomb</explosionDamageDef>
+        <explosionRadius>1.5</explosionRadius>
+        <fragments>
+          <Fragment_GrenadeFrag>90</Fragment_GrenadeFrag>
+        </fragments>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="30x29mmGrenadeBase">
+    <defName>Ammo_30x29mmGrenade_EMP</defName>
+    <label>30x29mm grenade (EMP)</label>
+    <graphicData>
+      <texPath>Things/Ammo/GrenadeLauncher/EMP</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>2.07</MarketValue>
+    </statBases>
+    <ammoClass>GrenadeEMP</ammoClass>
+    <comps>
+      <li Class="CombatExtended.CompProperties_ExplosiveCE">
+        <explosionDamage>5</explosionDamage>
+        <explosionDamageDef>Bomb</explosionDamageDef>
+        <explosionRadius>0.5</explosionRadius>
+        <fragments>
+          <Fragment_GrenadeFrag>15</Fragment_GrenadeFrag>
+        </fragments>
+      </li>
+    </comps>
+  </ThingDef>
+	
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef Name="Base30x29mmGrenadeBullet" ParentName="BaseBullet" Abstract="true">
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_Big</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile>
+			<speed>60</speed>
+			<flyOverhead>false</flyOverhead>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="Base30x29mmGrenadeBullet">
+		<defName>Bullet_30x29mmGrenade_HE</defName>
+		<label>30x29mm grenade (HE)</label>
+		<projectile>
+			<explosionRadius>1.5</explosionRadius >
+			<damageDef>Bomb</damageDef>
+			<damageAmountBase>40</damageAmountBase>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<fragments>
+          <Fragment_GrenadeFrag>90</Fragment_GrenadeFrag>
+				</fragments>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="Base30x29mmGrenadeBullet">
+		<defName>Bullet_30x29mmGrenade_EMP</defName>
+		<label>30x29mm grenade (EMP)</label>
+		<projectile>
+			<explosionRadius>2.5</explosionRadius>
+			<damageDef>EMP</damageDef>
+			<damageAmountBase>40</damageAmountBase>
+		</projectile>
+	</ThingDef>
+  
+	<!-- ==================== Recipes ========================== -->
+  
+  <RecipeDef ParentName="AmmoRecipeBase">
+    <defName>MakeAmmo_30x29mmGrenade_HE</defName>
+    <label>make 30x29mm HE grenades x50</label>
+    <description>Craft 50 30x29mm HE grenades.</description>
+    <jobString>Making 30x29mm HE grenades.</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Steel</li>
+          </thingDefs>
+        </filter>
+        <count>15</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>FSX</li>
+          </thingDefs>
+        </filter>
+        <count>3</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Component</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Steel</li>
+        <li>FSX</li>
+        <li>Component</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_30x29mmGrenade_HE>50</Ammo_30x29mmGrenade_HE>
+    </products>
+  </RecipeDef>
+
+  <RecipeDef ParentName="AmmoRecipeBase">
+    <defName>MakeAmmo_30x29mmGrenade_EMP</defName>
+    <label>make 30x29mm EMP grenades x50</label>
+    <description>Craft 50 30x29mm EMP grenades.</description>
+    <jobString>Making 30x29mm EMP grenades.</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Steel</li>
+          </thingDefs>
+        </filter>
+        <count>15</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Component</li>
+          </thingDefs>
+        </filter>
+        <count>4</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Steel</li>
+        <li>Component</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_30x29mmGrenade_EMP>50</Ammo_30x29mmGrenade_EMP>
+    </products>
+  </RecipeDef>
+	
+</Defs>
