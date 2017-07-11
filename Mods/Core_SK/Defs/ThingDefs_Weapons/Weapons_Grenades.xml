@@ -6,7 +6,7 @@
   <ThingDef Name="BaseGrenadeEquipment" Abstract="True">
     <equipmentType>Primary</equipmentType>
     <label>equipment lacks label</label>
-    <thingClass>ThingWithComps</thingClass>
+    <thingClass>CombatExtended.AmmoThing</thingClass>
     <category>Item</category>
     <useHitPoints>true</useHitPoints>
     <selectable>true</selectable>
@@ -28,8 +28,9 @@
       </li>
     </comps>
     <alwaysHaulable>true</alwaysHaulable>
-    <tickerType>Never</tickerType>
+    <tickerType>Normal</tickerType>
     <stackLimit>75</stackLimit>
+    <resourceReadoutPriority>First</resourceReadoutPriority>
   </ThingDef>
 
   <ThingDef Name="BaseGrenadeProjectile" Abstract="True">
@@ -60,10 +61,10 @@
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <projectile>
-      <explosionRadius>2</explosionRadius>
+      <explosionRadius>1.5</explosionRadius>
       <damageDef>Bomb</damageDef>
-      <damageAmountBase>70</damageAmountBase>
-      <explosionDelay>190</explosionDelay>
+      <damageAmountBase>50</damageAmountBase>
+      <explosionDelay>60</explosionDelay>
 	  <dropsCasings>true</dropsCasings>
 	  <casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
     </projectile>
@@ -102,6 +103,8 @@
     <weaponTags>
       <li>GrenadeDestructive</li>
       <li>GrenadeTierTwo</li>
+      <li>CE_AI_Grenade</li>
+      <li>CE_OneHandedWeapon</li>
     </weaponTags>
     <thingCategories>
       <li>Grenades</li>
@@ -238,15 +241,17 @@
   <ThingDef ParentName="BaseGrenadeProjectile">
     <defName>Proj_GrenadeMolotov</defName>
     <label>molotov cocktail</label>
+    <thingClass>CombatExtended.Projectile_FireTrail</thingClass>
     <graphicData>
       <texPath>Things/Projectile/Grenades/Molotov</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <projectile>
-      <explosionRadius>1</explosionRadius>
-      <damageDef>Flame</damageDef>
+      <explosionRadius>1.5</explosionRadius>
+      <damageDef>PrometheumFlame</damageDef>
       <damageAmountBase>20</damageAmountBase>
-      <preExplosionSpawnThingDef>Napalm_Fuel</preExplosionSpawnThingDef>
+      <preExplosionSpawnThingDef>FilthPrometheum</preExplosionSpawnThingDef>
+      <explosionSpawnChance>1</explosionSpawnChance>
     </projectile>
   </ThingDef>
 
@@ -273,6 +278,8 @@
     <weaponTags>
       <li>GrenadeDestructive</li>
       <li>GrenadeTierOne</li>
+      <li>CE_AI_Grenade</li>
+      <li>CE_OneHandedWeapon</li>
     </weaponTags>
     <thingCategories>
       <li>Grenades</li>
@@ -298,16 +305,13 @@
       </li>
     </verbs>
 	 <comps>
-			<li Class="CompProperties_Explosive">
-			<explosiveRadius>1</explosiveRadius>
-			<explosiveDamageType>Flame</explosiveDamageType>
-			<explosiveExpandPerStackcount>0.4</explosiveExpandPerStackcount>
-			<startWickHitPointsPercent>0.333</startWickHitPointsPercent>
-			<wickTicks>
-			  <min>10</min>
-			  <max>30</max>
-			</wickTicks>
-		  </li>
+       <li Class="CombatExtended.CompProperties_ExplosiveCE">
+         <explosionDamage>1</explosionDamage>
+         <explosionDamageDef>Flame</explosionDamageDef>
+         <explosionRadius>0.5</explosionRadius>
+         <preExplosionSpawnThingDef>FilthFuel</preExplosionSpawnThingDef>
+         <explosionSpawnChance>1</explosionSpawnChance>
+       </li>
 		  <li Class="WHands.WhandCompProps">
 			<MainHand>(-0.1,0.3,-0.2)</MainHand>
 		  </li>
@@ -360,6 +364,8 @@
 	</equippedStatOffsets>
     <weaponTags>
       <li>GrenadeEMP</li>
+      <li>CE_AI_Grenade</li>
+      <li>CE_OneHandedWeapon</li>
     </weaponTags>
     <thingCategories>
       <li>Grenades</li>
