@@ -1,16 +1,32 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Patch>
 
-	<!-- ========== Remove food packing ========== -->
+	<!-- ========== Remove food packing for pawns with loadouts ========== -->
 
-	<Operation Class="PatchOperationRemove">
+	<Operation Class="PatchOperationReplace">
 		<xpath>/ThinkTrees/ThinkTreeDef[defName="Humanlike"]/thinkRoot/subNodes/li[@Class="ThinkNode_ConditionalColonist"]/subNodes/li[subNodes/li[@Class="JobGiver_PackFood"]]</xpath>
+		<value>
+			<li Class="CombatExtended.ThinkNode_ConditionalHasLoadout">
+				<invert>true</invert>
+				<subNodes>
+					<li Class="ThinkNode_ConditionalNeedPercentageAbove">
+					  <need>Food</need>
+					  <threshold>0.6</threshold>
+					  <subNodes>
+					    <li Class="JobGiver_PackFood">
+					      <leaveJoinableLordIfIssuesJob>true</leaveJoinableLordIfIssuesJob>
+					    </li>
+					  </subNodes>
+					</li>
+				</subNodes>
+			</li>
+		</value>
 	</Operation>
 
 	<!-- ========== Add loadout update behavior ========== -->
 
-	<Operation Class="PatchOperationInsert">
-		<xpath>/ThinkTrees/ThinkTreeDef[defName="Humanlike"]/thinkRoot/subNodes/li[@Class="ThinkNode_ConditionalColonist"]/subNodes/li[@Class="JobGiver_Work"]</xpath>
+	<Operation Class="PatchOperationAdd">
+		<xpath>/ThinkTrees/ThinkTreeDef[defName="MainColonistBehaviorCore"]/thinkRoot/subNodes/li[@Class="ThinkNode_PrioritySorter"]/subNodes</xpath>
 		<value>
 			<li Class="CombatExtended.JobGiver_UpdateLoadout"/>
 			<li Class="CombatExtended.JobGiver_CheckReload"/>
