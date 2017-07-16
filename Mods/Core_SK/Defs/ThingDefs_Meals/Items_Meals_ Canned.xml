@@ -1,13 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ThingDefs>
 
-  <ThingDef Name="CannedBase" ParentName="MealBase" Abstract="True">
+  <ThingDef Name="CannedBase" Abstract="True">
+    <thingClass>ThingWithComps</thingClass>
+    <category>Item</category>
+    <useHitPoints>true</useHitPoints>
+    <selectable>true</selectable>
     <statBases>
       <MaxHitPoints>50</MaxHitPoints>
       <Flammability>1.0</Flammability>
 	  <Bulk>0.04</Bulk>
 	  <Mass>0.06</Mass>
-    </statBases>
+	</statBases>
+    <altitudeLayer>Item</altitudeLayer>
+    <tickerType>Rare</tickerType>
+    <socialPropernessMatters>true</socialPropernessMatters>
+    <alwaysHaulable>true</alwaysHaulable>
+    <comps>
+      <li Class="CompProperties_Forbiddable" />
+      <li Class="CompProperties_Ingredients" />
+      <li Class="CompProperties_FoodPoisonable" />
+    </comps>
+    <pathCost>15</pathCost>
+    <resourceReadoutPriority>Last</resourceReadoutPriority>
+    <drawGUIOverlay>true</drawGUIOverlay>
+    <ingestible>
+      <foodType>Meal</foodType>
+      <optimalityOffset>16</optimalityOffset>
+    </ingestible>
     <stackLimit>75</stackLimit>
   </ThingDef>
 
@@ -47,18 +67,22 @@
 		<graphicClass>Graphic_Single</graphicClass>
       <texPath>Things/Item/Meal/PickleVeg</texPath>
     </graphicData>
+	<thingCategories>
+      <li>BasicPlantFoodRaw</li>
+    </thingCategories>
     <statBases>
       <MarketValue>13</MarketValue>
     </statBases>
     <ingestible>
       <preferability>RawTasty</preferability>
       <tasteThought></tasteThought>
-      <nutrition>0.2</nutrition>
+      <nutrition>0.15</nutrition>
       <foodType>VegetableOrFruit</foodType>
+	  <maxNumToIngestAtOnce>2</maxNumToIngestAtOnce>
     </ingestible>
     <comps>
       <li Class="CompProperties_Rottable">
-        <daysToRotStart>80</daysToRotStart>
+        <daysToRotStart>100</daysToRotStart>
       </li>
     </comps>
   </ThingDef>
@@ -71,6 +95,9 @@
       <texPath>Things/Item/canveg</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
+	<thingCategories>
+      <li>ExtraPlantFoodRaw</li>
+    </thingCategories>
     <statBases>
       <DeteriorationRate>0.25</DeteriorationRate>
       <MarketValue>3.5</MarketValue>
@@ -86,13 +113,10 @@
     <comps>
       <li Class="CompProperties_Rottable">
          
-        <daysToRotStart>90</daysToRotStart>
+        <daysToRotStart>150</daysToRotStart>
         <rotDestroys>true</rotDestroys>
       </li>
     </comps>
-		<thingCategories>
-			<li>ExtraPlantFoodRaw</li>
-		</thingCategories>
   </ThingDef>
 
   <ThingDef ParentName="CannedBase">
@@ -107,6 +131,9 @@
       <DeteriorationRate>0.25</DeteriorationRate>
       <MarketValue>3.5</MarketValue>
     </statBases>
+	<thingCategories>
+      <li>BasicPlantFoodRaw</li>
+    </thingCategories>
     <ingestible>
 	<foodType>VegetableOrFruit</foodType>
 	<preferability>MealSimple</preferability>
@@ -118,24 +145,55 @@
 		<comps>
       <li Class="CompProperties_Rottable">
          
-        <daysToRotStart>90</daysToRotStart>
+        <daysToRotStart>150</daysToRotStart>
         <rotDestroys>true</rotDestroys>
       </li>
 		</comps>
-		<thingCategories>
-			<li>BasicPlantFoodRaw</li>
-		</thingCategories>
   </ThingDef>
   
 
   <ThingDef ParentName="CannedBase">
-    <defName>MetalCannedMeat</defName>
-    <label>Metal Canned Meat</label>
-    <description>A meal preserved in cans to prevent it from going bad.</description>
+    <defName>MetalCannedMeat_prime</defName>
+    <label>Canned prime meat</label>
+    <description>Prime meat preserved in cans to prevent it from going bad.</description>
     <graphicData>
-      <texPath>Things/Item/canmeat</texPath>
+      <texPath>Things/Item/canmeat_prime</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
+	<thingCategories>
+      <li>MeatRaw</li>
+    </thingCategories>
+    <statBases>
+      <DeteriorationRate>0.25</DeteriorationRate>
+      <MarketValue>7</MarketValue>
+    </statBases>
+    <ingestible>
+	<foodType>Meat</foodType>
+	<preferability>MealSimple</preferability>
+	<nutrition>0.05</nutrition>
+	<ingestEffect>EatMeat</ingestEffect>
+	<ingestSound>RawMeat_Eat</ingestSound>
+	<maxNumToIngestAtOnce>8</maxNumToIngestAtOnce>
+    </ingestible>
+		<comps>
+      <li Class="CompProperties_Rottable">
+        <daysToRotStart>150</daysToRotStart>
+        <rotDestroys>true</rotDestroys>
+      </li>
+		</comps>
+  </ThingDef>
+  
+  <ThingDef ParentName="CannedBase">
+    <defName>MetalCannedMeat_raw</defName>
+    <label>Canned raw meat</label>
+    <description>Meat preserved in cans to prevent it from going bad.</description>
+    <graphicData>
+      <texPath>Things/Item/canmeat_raw</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+	<thingCategories>
+      <li>MeatRaw</li>
+    </thingCategories>
     <statBases>
       <DeteriorationRate>0.25</DeteriorationRate>
       <MarketValue>3.5</MarketValue>
@@ -143,21 +201,17 @@
     <ingestible>
 	<foodType>Meat</foodType>
 	<preferability>MealSimple</preferability>
-	<nutrition>0.10</nutrition>
+	<nutrition>0.05</nutrition>
 	<ingestEffect>EatMeat</ingestEffect>
 	<ingestSound>RawMeat_Eat</ingestSound>
-	<maxNumToIngestAtOnce>10</maxNumToIngestAtOnce>
+	<maxNumToIngestAtOnce>8</maxNumToIngestAtOnce>
     </ingestible>
 		<comps>
       <li Class="CompProperties_Rottable">
-         
-        <daysToRotStart>90</daysToRotStart>
+        <daysToRotStart>150</daysToRotStart>
         <rotDestroys>true</rotDestroys>
       </li>
 		</comps>
-		<thingCategories>
-			<li>MeatRaw</li>
-		</thingCategories>
   </ThingDef>
   
    <ThingDef ParentName="CannedBase">
@@ -187,6 +241,9 @@
         <rotDestroys>true</rotDestroys>
       </li>
 		</comps>
+		<thingCategories>
+			<li>FruitFoodRaw</li>
+		</thingCategories>
    </ThingDef>
 
 </ThingDefs>

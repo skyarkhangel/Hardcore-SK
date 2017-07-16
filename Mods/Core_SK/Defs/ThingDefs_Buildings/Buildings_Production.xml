@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ThingDefs>
-
-	<!-- =========== REALISTIC PRODUCTION SK MOD =========== -->
-
+	<!-- Base Worktable -->
 	<ThingDef Name="WorkTable" ParentName="BuildingBase" Abstract="True">
 		<thingClass>SK.SK_Building_WorkTable</thingClass>
 		<graphicData>
@@ -30,36 +28,14 @@
 			<li>ITab_Bills</li>
 		</inspectorTabs>
 	</ThingDef>
-
-	<!-- buildingfix for kiln/furnace -->
-	
-	<ThingDef Name="BuildingBaseOutside" ParentName="BuildingBase" Abstract="True">
+	<!-- Outdoors Worktable Base -->
+	<ThingDef Name="BuildingBaseOutside" ParentName="WorkTable" Abstract="True">
 		<thingClass>SK.SK_Building_WorkTable</thingClass>
-		<graphicData>
-			<graphicClass>Graphic_Multi</graphicClass>
-			<shadowData>
-				<volume>(1, 0.5, 1)</volume>
-				<offset>(0,0,-0.1)</offset>
-			</shadowData>
-		</graphicData>
 		<building>
-			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
-			<workSpeedPenaltyTemperature>true</workSpeedPenaltyTemperature>
+			<workSpeedPenaltyOutdoors>false</workSpeedPenaltyOutdoors>
 		</building>
-		<altitudeLayer>Building</altitudeLayer>
-		<surfaceType>Item</surfaceType>
-		<Size>(1,1)</Size>
-		<fillPercent>0.5</fillPercent>
-		<canOverlapZones>false</canOverlapZones>
-		<passability>PassThroughOnly</passability>
-		<pathCost>70</pathCost>
-		<hasInteractionCell>True</hasInteractionCell>
-		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
-		<inspectorTabs>
-			<li>ITab_Bills</li>
-		</inspectorTabs>
 	</ThingDef>
-	
+
 	<ThingDef Name="BuildingFueled" ParentName="BuildingBaseOutside" Abstract="True">
 		<thingClass>SK.WorkTableFueled</thingClass>
 		<passability>PassThroughOnly</passability>
@@ -118,7 +94,6 @@
 		<minifiedDef>MinifiedFurniture</minifiedDef>
 		<DesignationCategory>Production</DesignationCategory>
 		<recipes>
-			<li>CookMealJerky</li>
 			<li>CookRoastedMeat</li>
 			<li>MakeVegetables</li>
 			<li>MakeRoastwMushrooms</li>
@@ -178,7 +153,7 @@
 		</graphicData>
 		<AltitudeLayer>FloorEmplacement</AltitudeLayer>
 		<statBases>
-			<WorkToBuild>0</WorkToBuild>
+			<WorkToBuild>400</WorkToBuild>
 			<WorkTableWorkSpeedFactor>0.4</WorkTableWorkSpeedFactor>
 			<Cleanliness>-20</Cleanliness>
 		</statBases>
@@ -376,7 +351,6 @@
 		<Size>(3,1)</Size>
 		<DesignationCategory>Production</DesignationCategory>
 		<recipes>
-			<li>CookMealJerky</li>
 			<li>CookRoastedMeat</li>
 			<li>MakeVegetables</li>
 			<li>MakeBurgerCheese</li>
@@ -670,7 +644,7 @@
 			</damageData>
 		</graphicData>
 		<altitudeLayer>Building</altitudeLayer>
-		<Passability>PassThroughOnly</Passability>
+		<Passability>Impassable</Passability>
 		<castEdgeShadows>true</castEdgeShadows>
 		<fillPercent>1</fillPercent>
 		<statBases>
@@ -789,8 +763,7 @@
 			<li>Electricity</li>
 		</researchPrerequisites>
 	</ThingDef>
-
-
+	<!-- Brewery -->
 	<ThingDef ParentName="WorkTableFueled">
 		<DefName>Brewery</DefName>
 		<label>brewery</label>
@@ -821,9 +794,6 @@
 		</statBases>
 		<Size>(3,1)</Size>
 		<DesignationCategory>Production</DesignationCategory>
-		<recipes>
-			<li>MakeWort</li>
-		</recipes>
 		<comps>
 			<li Class="CompProperties_Flickable"/>
 			<li Class="SK.CompProperties_HeatPusherExt">
@@ -856,7 +826,7 @@
 			</li>
 		</comps>
 	</ThingDef>
-
+	<!-- Electric Brewery -->
 	<ThingDef ParentName="BenchBase">
 		<DefName>ElectricBrewery</DefName>
 		<label>electric brewery</label>
@@ -897,10 +867,6 @@
 		<hasInteractionCell>True</hasInteractionCell>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
 		<surfaceType>Item</surfaceType>
-		<recipes>
-			<li>MakeWort</li>
-			<li>MakeChemfuel</li>
-		</recipes>
 		<inspectorTabs>
 			<li>ITab_Bills</li>
 		</inspectorTabs>
@@ -936,194 +902,330 @@
 			<li>SK_ProductionII</li>
 		</researchPrerequisites>
 	</ThingDef>
-
-
+	<!-- Alcohol Fermenting Barrel -->
 	<ThingDef ParentName="BuildingBase">
 		<defName>FermentingBarrel</defName>
-		<label>fermenting barrel</label>
-		<thingClass>Building_FermentingBarrel</thingClass>
+		<label>Alcohol Fermenting Barrel</label>
+		<Description>A barrel of fermenting alcohol.</Description>
+		<thingClass>Kubouch.Building_UniversalFermenter</thingClass>
 		<graphicData>
-			<texPath>Things/Building/Production/FermentingBarrel</texPath>
+			<texPath>Things/Building/Production/ABarrel</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(1.1,1.1)</drawSize>
+			<shaderType>CutoutComplex</shaderType>
 			<damageData>
 				<rect>(0.05,0.1,0.9,0.9)</rect>
 			</damageData>
 		</graphicData>
 		<minifiedDef>MinifiedFurniture</minifiedDef>
+		<CastEdgeShadows>false</CastEdgeShadows>
 		<altitudeLayer>Building</altitudeLayer>
 		<passability>PassThroughOnly</passability>
-		<canOverlapZones>false</canOverlapZones>
-		<fillPercent>0.45</fillPercent>
+		<fillPercent>0.65</fillPercent>
 		<pathCost>60</pathCost>
 		<statBases>
-			<WorkToBuild>600</WorkToBuild>
-			<Mass>10</Mass>
+			<WorkToBuild>2500</WorkToBuild>
+			<Mass>60</Mass>
 			<MaxHitPoints>100</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 		</statBases>
-		<description>A barrel for fermenting raw wort into beer.</description>
 		<stuffCategories>
 			<li>Woody</li>
 		</stuffCategories>
-		<costStuffCount>25</costStuffCount>
+		<costStuffCount>80</costStuffCount>
+		<costList>
+			<Component>4</Component>
+		</costList>
+		<Size>(1,1)</Size>
+		<rotatable>true</rotatable>
+		<DesignationCategory>Production</DesignationCategory>
+		<tickerType>Rare</tickerType>
 		<comps>
-			<li Class="CompProperties_TemperatureRuinable">
-				<minSafeTemperature>-1</minSafeTemperature>
-				<maxSafeTemperature>32</maxSafeTemperature>
-				<progressPerDegreePerTick>0.00001</progressPerDegreePerTick>
+			<li Class="CompProperties_Forbiddable"/>
+			<li Class="Kubouch.CompProperties_UniversalFermenter">
+				<products>
+					<!-- Beer -->
+					<li>
+						<thingDef>Beer</thingDef>
+						<ingredientFilter>
+							<thingDefs>
+								<li>Wort</li>
+							</thingDefs>
+						</ingredientFilter>
+						<temperatureSafe>
+							<min>15</min>
+							<max>30</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>20</min>
+							<max>22</max>
+						</temperatureIdeal>
+						<progressPerDegreePerTick>5</progressPerDegreePerTick>
+						<baseFermentationDuration>160000</baseFermentationDuration>
+						<maxCapacity>20</maxCapacity>
+						<speedLessThanSafe>0.5</speedLessThanSafe>
+						<speedMoreThanSafe>1</speedMoreThanSafe>
+						<efficiency>0.8</efficiency>
+					</li>
+					<!-- Whisky -->
+					<li>
+						<thingDef>whisky</thingDef>
+						<ingredientFilter>
+							<thingDefs>
+								<li>grainmash</li>
+							</thingDefs>
+						</ingredientFilter>
+						<temperatureSafe>
+							<min>18</min>
+							<max>35</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>22</min>
+							<max>24</max>
+						</temperatureIdeal>
+						<progressPerDegreePerTick>5</progressPerDegreePerTick>
+						<baseFermentationDuration>160000</baseFermentationDuration>
+						<maxCapacity>20</maxCapacity>
+						<speedLessThanSafe>0.5</speedLessThanSafe>
+						<speedMoreThanSafe>1</speedMoreThanSafe>
+						<efficiency>0.5</efficiency>
+					</li>
+					<!-- Saké -->
+					<li>
+						<thingDef>saki</thingDef>
+						<ingredientFilter>
+							<thingDefs>
+								<li>sakemash</li>
+							</thingDefs>
+						</ingredientFilter>
+						<temperatureSafe>
+							<min>5</min>
+							<max>15</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>9</min>
+							<max>10</max>
+						</temperatureIdeal>
+						<progressPerDegreePerTick>5</progressPerDegreePerTick>
+						<baseFermentationDuration>160000</baseFermentationDuration>
+						<maxCapacity>20</maxCapacity>
+						<speedLessThanSafe>0.5</speedLessThanSafe>
+						<speedMoreThanSafe>1</speedMoreThanSafe>
+						<efficiency>0.4</efficiency>
+					</li>
+					<!-- Cider -->
+					<li>
+						<thingDef>cider</thingDef>
+						<ingredientFilter>
+							<thingDefs>
+								<li>cidermash</li>
+							</thingDefs>
+						</ingredientFilter>
+						<temperatureSafe>
+							<min>10</min>
+							<max>18</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>12</min>
+							<max>15</max>
+						</temperatureIdeal>
+						<progressPerDegreePerTick>5</progressPerDegreePerTick>
+						<baseFermentationDuration>120000</baseFermentationDuration>
+						<maxCapacity>20</maxCapacity>
+						<speedLessThanSafe>0.5</speedLessThanSafe>
+						<speedMoreThanSafe>1</speedMoreThanSafe>
+						<efficiency>0.4</efficiency>
+					</li>
+					<!-- Rum -->
+					<li>
+						<thingDef>rum</thingDef>
+						<ingredientFilter>
+							<thingDefs>
+								<li>rummash</li>
+							</thingDefs>
+						</ingredientFilter>
+						<temperatureSafe>
+							<min>30</min>
+							<max>45</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>35</min>
+							<max>40</max>
+						</temperatureIdeal>
+						<progressPerDegreePerTick>5</progressPerDegreePerTick>
+						<baseFermentationDuration>130000</baseFermentationDuration>
+						<maxCapacity>20</maxCapacity>
+						<speedLessThanSafe>0.5</speedLessThanSafe>
+						<speedMoreThanSafe>1</speedMoreThanSafe>
+						<efficiency>0.6</efficiency>
+					</li>
+					<!-- Berrywine -->
+					<li>
+						<thingDef>strawberrywine</thingDef>
+						<ingredientFilter>
+							<thingDefs>
+								<li>berrymash</li>
+							</thingDefs>
+						</ingredientFilter>
+						<temperatureSafe>
+							<min>10</min>
+							<max>40</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>18</min>
+							<max>32</max>
+						</temperatureIdeal>
+						<progressPerDegreePerTick>5</progressPerDegreePerTick>
+						<baseFermentationDuration>100000</baseFermentationDuration>
+						<maxCapacity>20</maxCapacity>
+						<speedLessThanSafe>0.5</speedLessThanSafe>
+						<speedMoreThanSafe>1</speedMoreThanSafe>
+						<efficiency>0.7</efficiency>
+					</li>
+					<!-- Vodka -->
+					<li>
+						<thingDef>vodka</thingDef>
+						<ingredientFilter>
+							<thingDefs>
+								<li>vodkamash</li>
+							</thingDefs>
+						</ingredientFilter>
+						<temperatureSafe>
+							<min>40</min>
+							<max>65</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>45</min>
+							<max>55</max>
+						</temperatureIdeal>
+						<progressPerDegreePerTick>5</progressPerDegreePerTick>
+						<baseFermentationDuration>140000</baseFermentationDuration>
+						<maxCapacity>20</maxCapacity>
+						<speedLessThanSafe>0.5</speedLessThanSafe>
+						<speedMoreThanSafe>1</speedMoreThanSafe>
+						<efficiency>0.6</efficiency>
+					</li>
+					<!-- Tequila -->
+					<li>
+						<thingDef>tequila</thingDef>
+						<ingredientFilter>
+							<thingDefs>
+								<li>tequilamash</li>
+							</thingDefs>
+						</ingredientFilter>
+						<temperatureSafe>
+							<min>18</min>
+							<max>45</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>20</min>
+							<max>30</max>
+						</temperatureIdeal>
+						<progressPerDegreePerTick>5</progressPerDegreePerTick>
+						<baseFermentationDuration>180000</baseFermentationDuration>
+						<maxCapacity>20</maxCapacity>
+						<speedLessThanSafe>0.5</speedLessThanSafe>
+						<speedMoreThanSafe>1</speedMoreThanSafe>
+						<efficiency>0.5</efficiency>
+					</li>
+					<!-- Wine -->
+					<li>
+						<thingDef>Wine</thingDef>
+						<ingredientFilter>
+							<thingDefs>
+								<li>winemash</li>
+							</thingDefs>
+						</ingredientFilter>
+						<temperatureSafe>
+							<min>15</min>
+							<max>38</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>20</min>
+							<max>30</max>
+						</temperatureIdeal>
+						<progressPerDegreePerTick>5</progressPerDegreePerTick>
+						<baseFermentationDuration>180000</baseFermentationDuration>
+						<maxCapacity>20</maxCapacity>
+						<speedLessThanSafe>0.5</speedLessThanSafe>
+						<speedMoreThanSafe>1</speedMoreThanSafe>
+						<efficiency>0.6</efficiency>
+					</li>
+				</products>
 			</li>
 		</comps>
-		<tickerType>Rare</tickerType>
-		<rotatable>true</rotatable>
-		<designationCategory>Production</designationCategory>
-		<researchPrerequisites>
-			<li>Brewing</li>
-		</researchPrerequisites>
+		<researchPrerequisites><li>Brewing</li></researchPrerequisites>
 	</ThingDef>
-
-
-	<ThingDef Name="BarrelBase" ParentName="BuildingBase" Abstract="True">
-		<thingClass>SK.Building_AlcoholBarrel</thingClass>
-		<Description>A barrel of fermenting alcohol.</Description>
+	<!-- Jerky Drying Rack -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>JerkyRack</defName>
+		<label>Jerky Drying Rack</label>
+		<Description>A rack with meat prepared for drying into jerky.</Description>
+		<thingClass>Kubouch.Building_UniversalFermenter</thingClass>
 		<graphicData>
-			<texPath>Things/Building/Production/FermentingBarrel</texPath>
-			<graphicClass>Graphic_Multi</graphicClass>
+			<texPath>Things/Building/Production/JerkyRack</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(2,1)</drawSize>
+			<shaderType>CutoutComplex</shaderType>
+			<damageData>
+				<rect>(0.05,0.1,0.9,0.9)</rect>
+			</damageData>
 		</graphicData>
-		<blockLight>false</blockLight>
-		<placingDraggableDimensions>1</placingDraggableDimensions>
+		<minifiedDef>MinifiedFurniture</minifiedDef>
+		<CastEdgeShadows>false</CastEdgeShadows>
 		<altitudeLayer>Building</altitudeLayer>
-		<rotatable>false</rotatable>
-		<canOverlapZones>false</canOverlapZones>
+		<passability>PassThroughOnly</passability>
+		<fillPercent>0.4</fillPercent>
+		<pathCost>60</pathCost>
 		<statBases>
-			<Mass>10</Mass>
-			<WorkToBuild>250</WorkToBuild>
+			<WorkToBuild>2500</WorkToBuild>
+			<Mass>60</Mass>
+			<MaxHitPoints>100</MaxHitPoints>
+			<Flammability>1.0</Flammability>
 		</statBases>
 		<stuffCategories>
 			<li>Woody</li>
 		</stuffCategories>
-		<costStuffCount>25</costStuffCount>
-		<useHitPoints>true</useHitPoints>
-		<Size>(1,1)</Size>
-		<designationCategory>Production</designationCategory>
-		<Passability>PassThroughOnly</Passability>
+		<costStuffCount>50</costStuffCount>
+		<costList>
+			<Component>1</Component>
+		</costList>
+		<Size>(2,1)</Size>
+		<rotatable>false</rotatable>
+		<DesignationCategory>Production</DesignationCategory>
 		<tickerType>Rare</tickerType>
-		<researchPrerequisites>
-			<li>Brewing</li>
-		</researchPrerequisites>
-	</ThingDef>
-
-	<ThingDef ParentName="BarrelBase">
-		<defName>cider_Barrel</defName>
-		<label>barrel of apple cider</label>
-		<CostList>
-			<Rawapple>75</Rawapple>
-		</CostList>
 		<comps>
-			<li Class="SK.CompProperties_AlcoholBarrel">
-				<fermentTicks>1920</fermentTicks>
-				<product>cider_Crate</product>
+			<li Class="CompProperties_Forbiddable"/>
+			<li Class="Kubouch.CompProperties_UniversalFermenter">
+				<products>
+					<!-- Jerky -->
+					<li>
+						<thingDef>MealJerky</thingDef>
+						<ingredientFilter>
+							<thingDefs>
+								<li>SaltedMeat</li>
+							</thingDefs>
+						</ingredientFilter>
+						<temperatureSafe>
+							<min>15</min>
+							<max>55</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>35</min>
+							<max>40</max>
+						</temperatureIdeal>
+						<progressPerDegreePerTick>5.5</progressPerDegreePerTick>
+						<baseFermentationDuration>120000</baseFermentationDuration>
+						<maxCapacity>25</maxCapacity>
+						<speedLessThanSafe>0.6</speedLessThanSafe>
+						<speedMoreThanSafe>1</speedMoreThanSafe>
+						<efficiency>1</efficiency>
+					</li>
+				</products>
 			</li>
 		</comps>
 	</ThingDef>
-
-	<ThingDef ParentName="BarrelBase">
-		<defName>rum_Barrel</defName>
-		<label>barrel of rum</label>
-		<CostList>
-			<Rawsugarcane>75</Rawsugarcane>
-		</CostList>
-		<comps>
-			<li Class="SK.CompProperties_AlcoholBarrel">
-				<fermentTicks>1920</fermentTicks>
-				<product>rum_Crate</product>
-			</li>
-		</comps>
-	</ThingDef>
-
-	<ThingDef ParentName="BarrelBase">
-		<defName>Wine_Barrel</defName>
-		<label>barrel of wine</label>
-		<CostList>
-			<Rawgrape>75</Rawgrape>
-		</CostList>
-		<comps>
-			<li Class="SK.CompProperties_AlcoholBarrel">
-				<fermentTicks>1920</fermentTicks>
-				<product>Wine_Crate</product>
-			</li>
-		</comps>
-	</ThingDef>
-
-	<ThingDef ParentName="BarrelBase">
-		<defName>strawberrywine_Barrel</defName>
-		<label>barrel of berry wine</label>
-		<CostList>
-			<RawBerries>75</RawBerries>
-		</CostList>
-		<comps>
-			<li Class="SK.CompProperties_AlcoholBarrel">
-				<fermentTicks>1920</fermentTicks>
-				<product>strawberrywine_Crate</product>
-			</li>
-		</comps>
-	</ThingDef>
-
-	<ThingDef ParentName="BarrelBase">
-		<defName>saki_Barrel</defName>
-		<label>barrel of sake</label>
-		<CostList>
-			<RawRice>75</RawRice>
-		</CostList>
-		<comps>
-			<li Class="SK.CompProperties_AlcoholBarrel">
-				<fermentTicks>1920</fermentTicks>
-				<product>saki_Crate</product>
-			</li>
-		</comps>
-	</ThingDef>
-
-	<ThingDef ParentName="BarrelBase">
-		<defName>vodka_Barrel</defName>
-		<label>barrel of vodka</label>
-		<CostList>
-			<RawPotatoes>75</RawPotatoes>
-		</CostList>
-		<comps>
-			<li Class="SK.CompProperties_AlcoholBarrel">
-				<fermentTicks>1920</fermentTicks>
-				<product>vodka_Crate</product>
-			</li>
-		</comps>
-	</ThingDef>
-
-	<ThingDef ParentName="BarrelBase">
-		<defName>tequila_Barrel</defName>
-		<label>barrel of tequila</label>
-		<CostList>
-			<RawAgave>75</RawAgave>
-		</CostList>
-		<comps>
-			<li Class="SK.CompProperties_AlcoholBarrel">
-				<fermentTicks>1920</fermentTicks>
-				<product>tequila_Crate</product>
-			</li>
-		</comps>
-	</ThingDef>
-
-	<ThingDef ParentName="BarrelBase">
-		<defName>Whiskey_Barrel</defName>
-		<label>barrel of whiskey</label>
-		<CostList>
-			<RawCorn>75</RawCorn>
-		</CostList>
-		<comps>
-			<li Class="SK.CompProperties_AlcoholBarrel">
-				<fermentTicks>1920</fermentTicks>
-				<product>Whiskey_Crate</product>
-			</li>
-		</comps>
-	</ThingDef>
-
+	
 	<ThingDef ParentName="BenchBase">
 		<DefName>DrugLab</DefName>
 		<label>drug lab</label>
@@ -2891,35 +2993,35 @@
 <!--============================ Resource rocks ===============================-->
 
     <ThingDef ParentName="BuildingBase">
-    <defName>VG_SaltMine</defName>
-    <label>salt mine</label>
-    <Description>Place on rough stone for digging up salt.</Description>
-    <ThingClass>Building_WorkTable</ThingClass>
-    <graphicData>
-      <texPath>Things/Building/Production/CraftingSpot</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <drawSize>(1,1)</drawSize>
-    </graphicData>
-    <AltitudeLayer>FloorEmplacement</AltitudeLayer>
-    <statBases>
-      <WorkToBuild>0</WorkToBuild>
-    </statBases>
-		<scatterableOnMapGen>false</scatterableOnMapGen>
-		<useHitPoints>False</useHitPoints>
-    <Size>(1,1)</Size>
-    <DesignationCategory>Misc</DesignationCategory>
-    <terrainAffordanceNeeded>SmoothableStone</terrainAffordanceNeeded>
-    <Passability>Standable</Passability>
-    <hasInteractionCell>True</hasInteractionCell>
-    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
-    <surfaceType>Item</surfaceType>
-    <inspectorTabs>
-      <li>ITab_Bills</li>
-    </inspectorTabs>
-    <building>
-      <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
-      <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
-    </building>
-  </ThingDef>
+      <defName>VG_SaltMine</defName>
+      <label>salt mine</label>
+      <Description>Place on rough stone for digging up salt.</Description>
+      <ThingClass>Building_WorkTable</ThingClass>
+      <graphicData>
+        <texPath>Things/Building/Production/CraftingSpot</texPath>
+        <graphicClass>Graphic_Single</graphicClass>
+        <drawSize>(1,1)</drawSize>
+      </graphicData>
+      <AltitudeLayer>FloorEmplacement</AltitudeLayer>
+      <statBases>
+        <WorkToBuild>400</WorkToBuild>
+      </statBases>
+      <scatterableOnMapGen>false</scatterableOnMapGen>
+      <useHitPoints>False</useHitPoints>
+      <Size>(1,1)</Size>
+      <DesignationCategory>Production</DesignationCategory>
+      <terrainAffordanceNeeded>SmoothableStone</terrainAffordanceNeeded>
+      <Passability>Standable</Passability>
+      <hasInteractionCell>True</hasInteractionCell>
+      <interactionCellOffset>(0,0,-1)</interactionCellOffset>
+      <surfaceType>Item</surfaceType>
+      <inspectorTabs>
+        <li>ITab_Bills</li>
+      </inspectorTabs>
+      <building>
+        <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+        <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
+      </building>
+    </ThingDef>
 
 </ThingDefs>
