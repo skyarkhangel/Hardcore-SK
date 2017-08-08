@@ -1,35 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ThingDefs>
-    <!-- BASE -->
-    <ThingDef Name="BaseGrenadeEquipment" Abstract="True">
-        <equipmentType>Primary</equipmentType>
-        <label>equipment lacks label</label>
-        <thingClass>CombatExtended.AmmoThing</thingClass>
-        <category>Item</category>
-        <useHitPoints>true</useHitPoints>
-        <selectable>true</selectable>
-        <drawGUIOverlay>true</drawGUIOverlay>
-        <statBases>
-            <MaxHitPoints>100</MaxHitPoints>
-            <Flammability>1.0</Flammability>
-            <DeteriorationRate>2</DeteriorationRate>
-            <SellPriceFactor>0.5</SellPriceFactor>
-            <Bulk>0.40</Bulk>
-            <Mass>0.70</Mass>
-        </statBases>
-        <altitudeLayer>Item</altitudeLayer>
-        <description>Equipment lacks desc.</description>
-        <comps>
-            <li Class="CompProperties_Forbiddable" />
-            <li>
-                <compClass>CompEquippable</compClass>
-            </li>
-        </comps>
-        <alwaysHaulable>true</alwaysHaulable>
-        <tickerType>Normal</tickerType>
-        <stackLimit>75</stackLimit>
-        <resourceReadoutPriority>First</resourceReadoutPriority>
-    </ThingDef>
+  <!-- ==================== Bases ========================== -->
+
+  <ThingDef Name="BaseEquipment" Abstract="True">
+    <equipmentType>Primary</equipmentType>
+    <label>equipment lacks label</label>
+    <thingClass>ThingWithComps</thingClass>
+    <category>Item</category>
+    <useHitPoints>true</useHitPoints>
+    <selectable>true</selectable>
+    <drawGUIOverlay>true</drawGUIOverlay>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <DeteriorationRate>2</DeteriorationRate>
+      <SellPriceFactor>0.5</SellPriceFactor>
+      <Bulk>0.40</Bulk>
+      <Mass>0.70</Mass>
+    </statBases>
+    <altitudeLayer>Item</altitudeLayer>
+    <description>Equipment lacks desc.</description>
+    <comps>
+      <li Class="CompProperties_Forbiddable"/>
+      <li>
+        <compClass>CompEquippable</compClass>
+      </li>
+    </comps>
+    <alwaysHaulable>true</alwaysHaulable>
+    <tickerType>Never</tickerType>
+  </ThingDef>
+  
+  <ThingDef Class="CombatExtended.AmmoDef" Name="BaseGrenadeEquipment" ParentName="BaseEquipment" Abstract="True">
+    <thingClass>CombatExtended.AmmoThing</thingClass>
+    <stackLimit>75</stackLimit>
+    <tickerType>Normal</tickerType>
+    <resourceReadoutPriority>First</resourceReadoutPriority>
+  </ThingDef>
+	
     <!-- PROJECTILES -->
     <ThingDef Name="BaseGrenadeProjectile" Abstract="True">
         <category>Projectile</category>
@@ -42,10 +49,12 @@
         <graphicData>
             <shaderType>Transparent</shaderType>
         </graphicData>
-        <projectile Class="CombatExtended.ProjectilePropertiesCE">
-            <speed>24</speed>
-        </projectile>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+		  <speed>24</speed>
+		  <flyOverhead>false</flyOverhead>
+		</projectile>
     </ThingDef>
+	
     <!-- FRAG -->
     <ThingDef ParentName="BaseGrenadeProjectile">
         <defName>Proj_GrenadeFrag</defName>
@@ -122,16 +131,14 @@
             </li>
         </verbs>
         <comps>
-            <li Class="CompProperties_Explosive">
-                <explosiveRadius>2</explosiveRadius>
-                <explosiveDamageType>Bomb</explosiveDamageType>
-                <explosiveExpandPerStackcount>0.4</explosiveExpandPerStackcount>
-                <startWickHitPointsPercent>0.333</startWickHitPointsPercent>
-                <wickTicks>
-                    <min>10</min>
-                    <max>30</max>
-                </wickTicks>
-            </li>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+			  <explosionDamage>40</explosionDamage>
+			  <explosionDamageDef>Bomb</explosionDamageDef>
+			  <explosionRadius>1.5</explosionRadius>
+			  <fragments>
+			    <Fragment_GrenadeFrag>130</Fragment_GrenadeFrag>
+			  </fragments>
+			</li>
             <li Class="WHands.WhandCompProps">
                 <MainHand>(-0.1,0.3,0)</MainHand>
             </li>
@@ -140,6 +147,8 @@
             <Weapon_Parts>1</Weapon_Parts>
         </smeltProducts>
     </ThingDef>
+	
+	
     <!-- ODIN -->
     <ThingDef ParentName="BaseGrenadeProjectile">
         <defName>Norbhammer_Thrown</defName>
@@ -149,10 +158,11 @@
             <graphicClass>Graphic_Single</graphicClass>
         </graphicData>
         <projectile>
-            <explosionRadius>2</explosionRadius>
+            <explosionRadius>1.8</explosionRadius>
             <damageDef>Bomb</damageDef>
             <damageAmountBase>25</damageAmountBase>
-            <explosionDelay>170</explosionDelay>
+            <explosionDelay>120</explosionDelay>
+			<dropsCasings>false</dropsCasings>
         </projectile>
     </ThingDef>
     <ThingDef ParentName="BaseGrenadeEquipment">
@@ -204,16 +214,14 @@
             </li>
         </verbs>
         <comps>
-            <li Class="CompProperties_Explosive">
-                <explosiveRadius>1</explosiveRadius>
-                <explosiveDamageType>Bomb</explosiveDamageType>
-                <explosiveExpandPerStackcount>0.4</explosiveExpandPerStackcount>
-                <startWickHitPointsPercent>0.333</startWickHitPointsPercent>
-                <wickTicks>
-                    <min>10</min>
-                    <max>30</max>
-                </wickTicks>
-            </li>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+			  <explosionDamage>30</explosionDamage>
+			  <explosionDamageDef>Bomb</explosionDamageDef>
+			  <explosionRadius>1.4</explosionRadius>
+			  <fragments>
+			    <Fragment_GrenadeFrag>70</Fragment_GrenadeFrag>
+			  </fragments>
+			</li>
             <li Class="WHands.WhandCompProps">
                 <MainHand>(-0.1,0.3,0)</MainHand>
             </li>
@@ -247,6 +255,7 @@
         <graphicData>
             <texPath>Things/Ammo/HandGrenades/Molotov</texPath>
             <graphicClass>Graphic_StackCount</graphicClass>
+			<onGroundRandomRotateAngle>0</onGroundRandomRotateAngle>
         </graphicData>
         <soundInteract>InteractMolotovCocktail</soundInteract>
         <techLevel>Industrial</techLevel>
@@ -315,10 +324,10 @@
             <graphicClass>Graphic_Single</graphicClass>
         </graphicData>
         <projectile>
-            <explosionRadius>4</explosionRadius>
+            <explosionRadius>3</explosionRadius>
             <damageDef>EMP</damageDef>
             <damageAmountBase>80</damageAmountBase>
-            <explosionDelay>180</explosionDelay>
+            <explosionDelay>130</explosionDelay>
             <dropsCasings>true</dropsCasings>
             <casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
         </projectile>
@@ -331,6 +340,7 @@
         <graphicData>
             <texPath>Things/Ammo/HandGrenades/EMP</texPath>
             <graphicClass>Graphic_StackCount</graphicClass>
+			<onGroundRandomRotateAngle>0</onGroundRandomRotateAngle>
         </graphicData>
         <soundInteract>InteractGrenade</soundInteract>
         <techLevel>Industrial</techLevel>
@@ -357,7 +367,7 @@
                 <verbClass>CombatExtended.Verb_ShootCEOneUse</verbClass>
                 <hasStandardCommand>true</hasStandardCommand>
                 <range>10</range>
-                <minRange>3.7</minRange>
+                <minRange>3.5</minRange>
                 <warmupTime>0.60</warmupTime>
                 <noiseRadius>4</noiseRadius>
                 <ai_IsBuildingDestroyer>false</ai_IsBuildingDestroyer>
@@ -371,15 +381,11 @@
             </li>
         </verbs>
         <comps>
-            <li Class="CompProperties_Explosive">
-                <explosiveRadius>1</explosiveRadius>
-                <explosiveDamageType>Bomb</explosiveDamageType>
-                <explosiveExpandPerStackcount>0.4</explosiveExpandPerStackcount>
-                <startWickHitPointsPercent>0.333</startWickHitPointsPercent>
-                <wickTicks>
-                    <min>10</min>
-                    <max>30</max>
-                </wickTicks>
+            <li Class="CombatExtended.CompProperties_ExplosiveCE">
+                <explosionDamage>60</explosionDamage>
+                <explosionDamageDef>EMP</explosionDamageDef>
+                <explosionRadius>3</explosionRadius>
+                <soundExplode>Explosion_Stun</soundExplode>
             </li>
             <li Class="WHands.WhandCompProps">
                 <MainHand>(-0.1,0.3,0)</MainHand>
@@ -389,6 +395,7 @@
             <Weapon_Parts>1</Weapon_Parts>
         </smeltProducts>
     </ThingDef>
+	
     <!-- FLASHBANG -->
     <ThingDef ParentName="BaseGrenadeProjectile">
         <defName>Proj_GrenadeFlashbang</defName>
@@ -401,12 +408,13 @@
             <explosionRadius>3.5</explosionRadius>
             <damageDef>Stun</damageDef>
             <damageAmountBase>50</damageAmountBase>
-            <explosionDelay>30</explosionDelay>
+            <explosionDelay>50</explosionDelay>
             <soundExplode>Explosion_Stun</soundExplode>
             <dropsCasings>true</dropsCasings>
             <casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
         </projectile>
     </ThingDef>
+	
     <ThingDef ParentName="BaseGrenadeEquipment">
         <defName>Weapon_GrenadeFlashbang</defName>
         <equipmentType>Primary</equipmentType>
@@ -455,7 +463,7 @@
         </verbs>
         <comps>
             <li Class="CombatExtended.CompProperties_ExplosiveCE">
-                <explosionDamage>25</explosionDamage>
+                <explosionDamage>35</explosionDamage>
                 <explosionDamageDef>Stun</explosionDamageDef>
                 <explosionRadius>3.5</explosionRadius>
                 <soundExplode>Explosion_Stun</soundExplode>
@@ -468,6 +476,7 @@
             <Weapon_Parts>1</Weapon_Parts>
         </smeltProducts>
     </ThingDef>
+	
     <!-- INCENDIARY -->
     <ThingDef ParentName="BaseGrenadeProjectile">
         <defName>Proj_GrenadeFlame</defName>
@@ -533,16 +542,13 @@
             </li>
         </verbs>
         <comps>
-            <li Class="CompProperties_Explosive">
-                <explosiveRadius>3</explosiveRadius>
-                <explosiveDamageType>Flame</explosiveDamageType>
-                <explosiveExpandPerStackcount>0.4</explosiveExpandPerStackcount>
-                <startWickHitPointsPercent>0.333</startWickHitPointsPercent>
-                <wickTicks>
-                    <min>10</min>
-                    <max>30</max>
-                </wickTicks>
-            </li>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+			  <explosionDamage>1</explosionDamage>
+			  <explosionDamageDef>Flame</explosionDamageDef>
+			  <explosionRadius>0.6</explosionRadius>
+			  <preExplosionSpawnThingDef>FilthFuel</preExplosionSpawnThingDef>
+			  <explosionSpawnChance>1</explosionSpawnChance>
+			</li>
             <li Class="WHands.WhandCompProps">
                 <MainHand>(-0.1,0.3,0)</MainHand>
             </li>
@@ -552,6 +558,7 @@
             <Weapon_Parts>3</Weapon_Parts>
         </smeltProducts>
     </ThingDef>
+	
     <!-- PLASMA -->
     <ThingDef ParentName="BaseGrenadeProjectile">
         <defName>Proj_GrenadePlasma</defName>
@@ -564,7 +571,7 @@
             <explosionRadius>3.5</explosionRadius>
             <damageDef>Bomb</damageDef>
             <damageAmountBase>55</damageAmountBase>
-            <explosionDelay>210</explosionDelay>
+            <explosionDelay>170</explosionDelay>
             <dropsCasings>true</dropsCasings>
             <casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
         </projectile>
@@ -617,16 +624,11 @@
             </li>
         </verbs>
         <comps>
-            <li Class="CompProperties_Explosive">
-                <explosiveRadius>3</explosiveRadius>
-                <explosiveDamageType>Bomb</explosiveDamageType>
-                <explosiveExpandPerStackcount>0.4</explosiveExpandPerStackcount>
-                <startWickHitPointsPercent>0.333</startWickHitPointsPercent>
-                <wickTicks>
-                    <min>10</min>
-                    <max>30</max>
-                </wickTicks>
-            </li>
+		  <li Class="CombatExtended.CompProperties_ExplosiveCE">
+			<explosionDamage>55</explosionDamage>
+			<explosionDamageDef>Bomb</explosionDamageDef>
+			<explosionRadius>3.5</explosionRadius>
+		  </li>
             <li Class="WHands.WhandCompProps">
                 <MainHand>(-0.1,0.3,0)</MainHand>
             </li>
@@ -635,6 +637,7 @@
             <Weapon_Parts>1</Weapon_Parts>
         </smeltProducts>
     </ThingDef>
+	
     <!-- FUSION -->
     <ThingDef ParentName="BaseGrenadeProjectile">
         <defName>Proj_GrenadeFusion</defName>
@@ -647,7 +650,7 @@
             <explosionRadius>2</explosionRadius>
             <damageDef>Bomb</damageDef>
             <damageAmountBase>70</damageAmountBase>
-            <explosionDelay>200</explosionDelay>
+            <explosionDelay>160</explosionDelay>
             <dropsCasings>true</dropsCasings>
             <casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
         </projectile>
@@ -710,16 +713,16 @@
             </li>
         </verbs>
         <comps>
-            <li Class="CompProperties_Explosive">
-                <explosiveRadius>3</explosiveRadius>
-                <explosiveDamageType>Bomb</explosiveDamageType>
-                <explosiveExpandPerStackcount>0.4</explosiveExpandPerStackcount>
-                <startWickHitPointsPercent>0.333</startWickHitPointsPercent>
-                <wickTicks>
-                    <min>10</min>
-                    <max>30</max>
-                </wickTicks>
-            </li>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+			  <explosionDamage>60</explosionDamage>
+			  <explosionDamageDef>Bomb</explosionDamageDef>
+			  <explosionRadius>2</explosionRadius>
+                <fragments>
+                    <Fragment_GrenadeFragSmall>135</Fragment_GrenadeFragSmall>
+                    <Fragment_GrenadeFragMedium>80</Fragment_GrenadeFragMedium>
+                    <Fragment_GrenadeFragLarge>18</Fragment_GrenadeFragLarge>
+                </fragments>
+			</li>
             <li Class="WHands.WhandCompProps">
                 <MainHand>(-0.1,0.3,0)</MainHand>
             </li>
