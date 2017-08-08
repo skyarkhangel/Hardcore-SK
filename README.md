@@ -12,6 +12,11 @@ Main focus based on the growing complexity of the gameplay. Trying to achieve gr
 This project support English, Russian and Spanish language.   
 Using additional mods (not included in the project) is not recommended.
 
+Cheat Sheet
+https://goo.gl/ng4FWA
+Known Compatible Optional Mods
+https://goo.gl/yvjYDV
+
 Feel free to join us on our Discord Server!
 https://discord.gg/FMPRSKr
 (Validated Account Required)
