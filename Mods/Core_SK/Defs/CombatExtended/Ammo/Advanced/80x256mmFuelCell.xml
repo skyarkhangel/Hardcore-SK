@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <ThingCategoryDef>
+      <defName>Ammo80x256mmFuelCell</defName>
+      <label>80x256mm Fuel Cell</label>
+      <parent>AmmoAdvanced</parent>
+      <iconPath>UI/Icons/ThingCategories/CaliberFuelLarge</iconPath>
+    </ThingCategoryDef>
+	
+	<!-- ==================== AmmoSet ========================== -->
+
+  <CombatExtended.AmmoSetDef>
+    <defName>AmmoSet_80x256mmFuel</defName>
+    <label>80x256mm Fuel Cell</label>
+    <ammoTypes>
+      <Ammo_80x256mmFuel_Thermobaric>Bullet_80x256mmFuel_Thermobaric</Ammo_80x256mmFuel_Thermobaric>
+    </ammoTypes>
+  </CombatExtended.AmmoSetDef>
+	
+	<!-- ==================== Ammo ========================== -->
+
+  <ThingDef Name="80x256mmFuelBase" ParentName="AmmoBase" Abstract="True">
+    <description>Large fuel container for incendiary shot cannons.</description>
+    <statBases>
+	  <Mass>3.0</Mass>
+	  <Bulk>8</Bulk>
+    </statBases>
+	<menuHidden>True</menuHidden>
+	<destroyOnDrop>True</destroyOnDrop>
+    <thingCategories>
+      <li>Ammo80x256mmFuelCell</li>
+    </thingCategories>
+    <stackLimit>25</stackLimit>
+  </ThingDef>
+
+  <ThingDef ParentName="80x256mmFuelBase">
+    <defName>Ammo_80x256mmFuel_Thermobaric</defName>
+    <label>80x256mm fuel cell (Thermobaric)</label>
+    <graphicData>
+      <texPath>Things/Ammo/FuelCell/Large</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>28.98</MarketValue>
+    </statBases>
+    <ammoClass>ThermobaricFuel</ammoClass>
+    <comps>
+      <li Class="CombatExtended.CompProperties_ExplosiveCE">
+        <explosionDamage>160</explosionDamage>
+        <explosionDamageDef>Thermobaric</explosionDamageDef>
+        <explosionRadius>3</explosionRadius>
+        <preExplosionSpawnThingDef>FilthFuel</preExplosionSpawnThingDef>
+        <explosionSpawnChance>0.5</explosionSpawnChance>
+        <soundExplode>MortarIncendiary_Explode</soundExplode>
+      </li>
+    </comps>
+  </ThingDef>
+	
+	<!-- ================== Projectiles ================== -->
+
+  <ThingDef ParentName="BaseBullet">
+    <defName>Bullet_80x256mmFuel_Thermobaric</defName>
+    <thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+    <label>inferno cannon shell</label>
+    <graphicData>
+      <texPath>Things/Projectile/InfernoCannonShot</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>TransparentPostLight</shaderType>
+    </graphicData>
+    <projectile>
+      <damageDef>Flame</damageDef>
+      <damageAmountBase>60</damageAmountBase>
+      <speed>60</speed>
+      <flyOverhead>false</flyOverhead>
+      <explosionRadius>3</explosionRadius>
+      <preExplosionSpawnThingDef>FilthFuel</preExplosionSpawnThingDef>
+      <explosionSpawnChance>0.5</explosionSpawnChance>
+      <soundExplode>MortarIncendiary_Explode</soundExplode>
+      <soundHitThickRoof>ArtilleryHitThickRoof</soundHitThickRoof>
+      <soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
+      <soundAmbient>MortarRound_Ambient</soundAmbient>
+    </projectile>
+  </ThingDef>
+  
+	<!-- ==================== Recipes ========================== -->
+	
+</Defs>
