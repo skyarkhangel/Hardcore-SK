@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <ThingCategoryDef>
+      <defName>AmmoBolts</defName>
+      <label>Bolts</label>
+      <parent>AmmoNeolithic</parent>
+      <iconPath>UI/Icons/ThingCategories/CaliberArrow</iconPath>
+    </ThingCategoryDef>
+	
+	<!-- ==================== AmmoSet ========================== -->
+
+  <CombatExtended.AmmoSetDef>
+    <defName>AmmoSet_Bolt</defName>
+    <label>bolts</label>
+    <ammoTypes>
+      <Ammo_Bolt_Metallic>Projectile_MetallicBolt</Ammo_Bolt_Metallic>
+      <Ammo_Bolt_Poison>Projectile_PoisonBolt</Ammo_Bolt_Poison>
+      <Ammo_Bolt_Explosive>Projectile_ExplosiveBolt</Ammo_Bolt_Explosive>
+    </ammoTypes>
+  </CombatExtended.AmmoSetDef>
+  
+	<!-- ==================== Ammo ========================== -->
+
+  <ThingDef Name="AmmoBoltBase" ParentName="AmmoBase" Abstract="True">
+    <description>Simple arrow with metallic bolt.</description>
+    <statBases>
+	  <Mass>0.1</Mass>
+	  <Bulk>0.15</Bulk>
+      <Flammability>1</Flammability>
+    </statBases>
+    <thingCategories>
+      <li>AmmoBolts</li>
+    </thingCategories>
+    <stackLimit>200</stackLimit>
+    <tradeTags>
+      <li>CE_AutoEnableTrade</li>
+      <li>CE_AutoEnableCrafting_FueledSmithy</li>
+      <li>CE_AutoEnableCrafting_ElectricSmithy</li>
+    </tradeTags>
+  </ThingDef>
+
+  <ThingDef ParentName="AmmoBoltBase">
+    <defName>Ammo_Bolt_Metallic</defName>
+    <label>metallic bolt</label>
+	<description>Simple arrow with metallic bolt.</description>
+    <graphicData>
+      <texPath>Things/Ammo/Neolithic/Arrow/Steel</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>0.4</MarketValue>
+    </statBases>
+	<ammoClass>MetallicArrow</ammoClass>
+  </ThingDef>
+  
+  <ThingDef ParentName="AmmoBoltBase">
+    <defName>Ammo_Bolt_Poison</defName>
+    <label>poison bolt</label>
+	<description>Simple arrow with poison bolt.</description>
+    <graphicData>
+      <texPath>Things/Ammo/Neolithic/Arrow/Poison</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>0.6</MarketValue>
+    </statBases>
+	<ammoClass>Poison</ammoClass>
+  </ThingDef>
+  
+  <ThingDef ParentName="AmmoBoltBase">
+    <defName>Ammo_Bolt_Explosive</defName>
+    <label>explosive bolt</label>
+	<description>Simple arrow with explosive bolt.</description>
+    <graphicData>
+      <texPath>Things/Ammo/Neolithic/Arrow/Plasteel</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <statBases>
+		<MarketValue>2</MarketValue>
+    	<Flammability>1</Flammability>
+    </statBases>
+	<ammoClass>ExplosiveArrow</ammoClass>
+    <comps>
+      <li Class="CompProperties_Forbiddable"/>
+    </comps>
+  </ThingDef>
+	
+	<!-- ================== Projectiles ================== -->
+
+  <ThingDef Name="BaseBoltProjectile" ParentName="BaseBullet" Abstract="true">
+    <graphicData>
+      <texPath>Things/Projectile/Arrow_Small</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <projectile>
+      <damageDef>Arrow</damageDef>
+      <speed>90</speed>
+    </projectile>
+  </ThingDef>
+
+  <ThingDef ParentName="BaseBoltProjectile">
+    <defName>Projectile_MetallicBolt</defName>
+    <label>metallic bolt</label>
+    <projectile>
+      <damageAmountBase>22</damageAmountBase>
+	  <armorPenetration>0.25</armorPenetration>
+    </projectile>
+  </ThingDef>
+  
+  <ThingDef ParentName="BaseBoltProjectile">
+    <defName>Projectile_PoisonBolt</defName>
+    <label>poison bolt</label>
+    <projectile>
+      <damageDef>Poison</damageDef>
+      <damageAmountBase>1</damageAmountBase>
+	  <armorPenetration>0.23</armorPenetration>
+      <secondaryDamage>
+        <li>
+          <def>Arrow</def>
+          <amount>12</amount>
+        </li>
+      </secondaryDamage>
+    </projectile>
+  </ThingDef>
+
+  <ThingDef ParentName="BaseBoltProjectile">
+    <defName>Projectile_ExplosiveBolt</defName>
+    <label>explosive bolt</label>
+    <projectile>
+      <damageAmountBase>18</damageAmountBase>
+	  <armorPenetration>0.2</armorPenetration>
+      <secondaryDamage>
+        <li>
+          <def>Bomb_Secondary</def>
+          <amount>17</amount>
+        </li>
+      </secondaryDamage>
+    </projectile>
+  </ThingDef>
+  
+	<!-- ==================== Recipes ========================== -->
+
+  <RecipeDef ParentName="AmmoRecipeNeolithicBase">
+    <defName>MakeAmmo_Bolt_Metallic</defName>
+    <label>make metallic bolts x50</label>
+    <description>Craft 50 metallic bolts.</description>
+    <jobString>Making bolts.</jobString>
+    <workAmount>500</workAmount>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>WoodLog</li>
+          </thingDefs>
+        </filter>
+        <count>5</count>
+      </li>
+      <li>
+        <filter>
+          <categories>
+            <li>Metallic</li>
+          </categories>
+        </filter>
+        <count>10</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <categories>
+        <li>Metallic</li>
+      </categories>
+      <thingDefs>
+        <li>WoodLog</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_Bolt_Metallic>50</Ammo_Bolt_Metallic>
+    </products>
+  </RecipeDef>
+  
+  <RecipeDef ParentName="AmmoRecipeNeolithicBase">
+    <defName>MakeAmmo_Bolt_Poison</defName>
+    <label>make poison bolts x50</label>
+    <description>Craft 50 poison bolts.</description>
+    <jobString>Making bolts.</jobString>
+    <workAmount>850</workAmount>
+    <skillRequirements>
+      <li>
+        <skill>Medicine</skill>
+        <minLevel>7</minLevel>
+      </li>
+      <li>
+        <skill>Crafting</skill>
+        <minLevel>5</minLevel>
+      </li>
+    </skillRequirements>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>WoodLog</li>
+          </thingDefs>
+        </filter>
+        <count>7</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>HerbalMedicine</li>
+          </thingDefs>
+        </filter>
+        <count>2</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>WoodLog</li>
+        <li>HerbalMedicine</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_Bolt_Poison>50</Ammo_Bolt_Poison>
+    </products>
+  </RecipeDef>
+  
+  <RecipeDef ParentName="AmmoRecipeNeolithicBase">
+    <defName>MakeAmmo_Bolt_Explosive</defName>
+    <label>make explosive bolts x50</label>
+    <description>Craft 50 explosive bolts.</description>
+    <jobString>Making explosive bolts.</jobString>
+    <workAmount>1500</workAmount>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>WoodLog</li>
+          </thingDefs>
+        </filter>
+        <count>5</count>
+      </li>
+      <li>
+        <filter>
+          <categories>
+            <li>Metallic</li>
+          </categories>
+        </filter>
+        <count>10</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Powder</li>
+          </thingDefs>
+        </filter>
+        <count>2</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <categories>
+        <li>Metallic</li>
+      </categories>
+      <thingDefs>
+        <li>WoodLog</li>
+        <li>Powder</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_Bolt_Explosive>50</Ammo_Bolt_Explosive>
+    </products>
+  </RecipeDef>
+	
+</Defs>
