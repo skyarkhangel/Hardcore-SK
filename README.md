@@ -49,7 +49,7 @@ ____
 Mod Pack Developer:
 <br>Skyarkhangel
 ____
-A big thank you to the Patreons!
+A big thank you to the Patreons! ( https://www.patreon.com/skyarkhangel )
 <br>Andrew Hanlon
 ____
 <br>
