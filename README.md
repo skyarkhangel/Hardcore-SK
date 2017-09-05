@@ -49,6 +49,9 @@ ____
 Mod Pack Developer:
 <br>Skyarkhangel
 ____
+A big thank you to the Patreons!
+<br>Andrew Hanlon
+____
 <br>
 HCSK 5.0 Jewel Team:
 <br>
@@ -69,8 +72,8 @@ HCSK 5.0 Jewel Team:
 <br>Rey - Russian translations & site administrator
 <br>Ivanzyfer - Russian translations & site moderator
 <br>Dzeniba - site moderator
-
-
+<br>
+<br>
 Special Thanks to:
 <br>
 <br>NotFood
