@@ -9,7 +9,7 @@ The main idea of the Rimworld to overcome difficulties that you'll encounter whe
 
 Main focus based on the growing complexity of the gameplay. Trying to achieve greater..Maximally immerse the player into gameplay and stay there for a long time. More than 100 research are waiting. When you start playing, you immediately understand everything... Campfire welcomes you.
 
-This project support English, Russian and Spanish language.   
+This project support English, Russian Spanish and Korean language.
 Using additional mods (not included in the project) is not recommended.
 
 Cheat Sheet
