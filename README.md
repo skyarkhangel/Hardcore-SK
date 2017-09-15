@@ -9,7 +9,7 @@ The main idea of the Rimworld to overcome difficulties that you'll encounter whe
 
 Main focus based on the growing complexity of the gameplay. Trying to achieve greater..Maximally immerse the player into gameplay and stay there for a long time. More than 100 research are waiting. When you start playing, you immediately understand everything... Campfire welcomes you.
 
-This project support English, Russian and Spanish language.   
+This project support English, Russian Spanish and Korean language.
 Using additional mods (not included in the project) is not recommended.
 
 Cheat Sheet
@@ -49,6 +49,9 @@ ____
 Mod Pack Developer:
 <br>Skyarkhangel
 ____
+A big thank you to the Patreons! ( https://www.patreon.com/skyarkhangel )
+<br>Andrew Hanlon
+____
 <br>
 HCSK 5.0 Jewel Team:
 <br>
@@ -69,8 +72,8 @@ HCSK 5.0 Jewel Team:
 <br>Rey - Russian translations & site administrator
 <br>Ivanzyfer - Russian translations & site moderator
 <br>Dzeniba - site moderator
-
-
+<br>
+<br>
 Special Thanks to:
 <br>
 <br>NotFood
@@ -94,6 +97,5 @@ Special Thanks to:
 <br>
 <br>
 ____
-
 
 The content of all individual mods is licensed under their respective licenses.
