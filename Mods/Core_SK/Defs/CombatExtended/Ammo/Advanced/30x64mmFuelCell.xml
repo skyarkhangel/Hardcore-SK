@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <ThingCategoryDef>
+      <defName>Ammo30x64mmFuelCell</defName>
+      <label>30x64mm Fuel Cell</label>
+      <parent>AmmoAdvanced</parent>
+      <iconPath>UI/Icons/ThingCategories/CaliberFuel</iconPath>
+    </ThingCategoryDef>
+	
+	<!-- ==================== AmmoSet ========================== -->
+
+  <CombatExtended.AmmoSetDef>
+    <defName>AmmoSet_30x64mmFuel</defName>
+    <label>30x64mm Fuel Cell</label>
+    <ammoTypes>
+      <Ammo_30x64mmFuel_Incendiary>Bullet_30x64mmFuel_Incendiary</Ammo_30x64mmFuel_Incendiary>
+      <Ammo_30x64mmFuel_Thermobaric>Bullet_30x64mmFuel_Thermobaric</Ammo_30x64mmFuel_Thermobaric>
+      <Ammo_30x64mmFuel_Foam>Bullet_30x64mmFuel_Foam</Ammo_30x64mmFuel_Foam>
+    </ammoTypes>
+  </CombatExtended.AmmoSetDef>
+	
+	<!-- ==================== Ammo ========================== -->
+
+  <ThingDef Name="30x64mmFuelBase" ParentName="AmmoBase" Abstract="True">
+    <description>Container holding fuel for incendiary shot firearms.</description>
+    <statBases>
+	  <Mass>0.3</Mass>
+	  <Bulk>0.5</Bulk>
+    </statBases>
+	<tradeTags>
+	  <li>CE_AutoEnableTrade</li>
+	  <li>CE_AutoEnableCrafting</li>
+	</tradeTags>
+    <thingCategories>
+      <li>Ammo30x64mmFuelCell</li>
+    </thingCategories>
+    <stackLimit>75</stackLimit>
+  </ThingDef>
+
+  <ThingDef ParentName="30x64mmFuelBase">
+    <defName>Ammo_30x64mmFuel_Incendiary</defName>
+    <label>30x64mm fuel cell (Incendiary)</label>
+    <graphicData>
+      <texPath>Things/Ammo/FuelCell/Incendiary</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>1.52</MarketValue>
+    </statBases>
+    <ammoClass>IncendiaryFuel</ammoClass>
+  </ThingDef>
+
+  <ThingDef ParentName="30x64mmFuelBase">
+    <defName>Ammo_30x64mmFuel_Thermobaric</defName>
+    <label>30x64mm fuel cell (Thermobaric)</label>
+    <graphicData>
+      <texPath>Things/Ammo/FuelCell/Thermobaric</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>2.16</MarketValue>
+    </statBases>
+    <ammoClass>ThermobaricFuel</ammoClass>
+  </ThingDef>
+
+  <ThingDef ParentName="30x64mmFuelBase">
+    <defName>Ammo_30x64mmFuel_Foam</defName>
+    <label>30x64mm fuel cell (Foam)</label>
+    <graphicData>
+      <texPath>Things/Ammo/FuelCell/Foam</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>0.61</MarketValue>
+    </statBases>
+    <ammoClass>FoamFuel</ammoClass>
+    <canBeSpawningInventory>false</canBeSpawningInventory>
+  </ThingDef>
+	
+	<!-- ================== Projectiles ================== -->
+
+  <ThingDef Name="Base30x64mmFuelBullet" ParentName="BaseBullet" Abstract="true">
+    <graphicData>
+      <texPath>Things/Projectile/InfernoCannonShot</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>TransparentPostLight</shaderType>
+    </graphicData>
+    <projectile>
+      <speed>40</speed>
+      <flyOverhead>false</flyOverhead>
+    </projectile>
+  </ThingDef>
+
+  <ThingDef ParentName="Base30x64mmFuelBullet">
+    <defName>Bullet_30x64mmFuel_Incendiary</defName>
+    <thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+    <label>incendiary bolt</label>
+    <projectile>
+      <damageDef>PrometheumFlame</damageDef>
+      <damageAmountBase>15</damageAmountBase>
+      <explosionRadius>1.5</explosionRadius>
+      <preExplosionSpawnThingDef>FilthPrometheum</preExplosionSpawnThingDef>
+    </projectile>
+  </ThingDef>
+
+  <ThingDef ParentName="Base30x64mmFuelBullet">
+    <defName>Bullet_30x64mmFuel_Thermobaric</defName>
+    <label>thermobaric bolt</label>
+    <projectile>
+      <explosionRadius>1.5</explosionRadius>
+      <damageDef>Thermobaric</damageDef>
+      <damageAmountBase>25</damageAmountBase>
+      <soundExplode>MortarBomb_Explode</soundExplode>
+    </projectile>
+    <comps>
+      <li Class="CombatExtended.CompProperties_ExplosiveCE">
+        <explosionDamage>25</explosionDamage>
+        <explosionDamageDef>Thermobaric</explosionDamageDef>
+        <explosionRadius>2.5</explosionRadius>
+        <soundExplode>MortarBomb_Explode</soundExplode>
+        <applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="Base30x64mmFuelBullet">
+    <defName>Bullet_30x64mmFuel_Foam</defName>
+    <thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+    <label>foam bolt</label>
+    <projectile>
+      <damageDef>Extinguish</damageDef>
+      <damageAmountBase>50</damageAmountBase>
+      <explosionRadius>5.0</explosionRadius>
+      <postExplosionSpawnThingDef>FilthFireFoam</postExplosionSpawnThingDef>
+      <explosionSpawnChance>1</explosionSpawnChance>
+    </projectile>
+  </ThingDef>
+  
+	<!-- ==================== Recipes ========================== -->
+
+  <RecipeDef ParentName="AmmoRecipeBase">
+    <defName>MakeAmmo_30x64mmFuel_Incendiary</defName>
+    <label>make 30x64mm fuel cell (Incendiary) x20</label>
+    <description>Craft 20 30x64mm incendiary fuel cells.</description>
+    <jobString>Making incendiary fuel cells.</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <categories>
+            <li>Metallic</li>
+          </categories>
+        </filter>
+        <count>40</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Powder</li>
+          </thingDefs>
+        </filter>
+        <count>10</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Prometheum</li>
+            <li>Napalm</li>
+          </thingDefs>
+        </filter>
+        <count>15</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <categories>
+        <li>SLDBar</li>
+        <li>USLDBar</li>
+      </categories>
+      <thingDefs>
+        <li>Prometheum</li>
+        <li>Napalm</li>
+        <li>Powder</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_30x64mmFuel_Incendiary>20</Ammo_30x64mmFuel_Incendiary>
+    </products>
+  </RecipeDef>
+  
+  <RecipeDef ParentName="AmmoRecipeBase">
+    <defName>MakeAmmo_30x64mmFuel_Thermobaric</defName>
+    <label>make 30x64mm fuel cell (Thermobaric) x20</label>
+    <description>Craft 20 30x64mm thermobaric fuel cells.</description>
+    <jobString>Making thermobaric fuel cells.</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <categories>
+            <li>Metallic</li>
+          </categories>
+        </filter>
+        <count>40</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Powder</li>
+            <li>FSX</li>
+          </thingDefs>
+        </filter>
+        <count>10</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Napalm</li>
+          </thingDefs>
+        </filter>
+        <count>15</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <categories>
+        <li>SLDBar</li>
+        <li>USLDBar</li>
+      </categories>
+      <thingDefs>
+        <li>FSX</li>
+        <li>Napalm</li>
+        <li>Powder</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_30x64mmFuel_Thermobaric>20</Ammo_30x64mmFuel_Thermobaric>
+    </products>
+  </RecipeDef>
+  
+  <RecipeDef ParentName="AmmoRecipeBase">
+    <defName>MakeAmmo_30x64mmFuel_Foam</defName>
+    <label>make 30x64mm fuel cell (Foam) x20</label>
+    <description>Craft 20 30x64mm foam fuel cells.</description>
+    <jobString>Making foam fuel cells.</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <categories>
+            <li>Metallic</li>
+          </categories>
+        </filter>
+        <count>40</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Powder</li>
+          </thingDefs>
+        </filter>
+        <count>10</count>
+      </li>
+      <li>
+        <filter>
+          <categories>
+            <li>MeatRaw</li>
+          </categories>
+        </filter>
+        <count>15</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <categories>
+        <li>SLDBar</li>
+        <li>USLDBar</li>
+        <li>MeatRaw</li>
+      </categories>
+      <thingDefs>
+        <li>Powder</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_30x64mmFuel_Foam>20</Ammo_30x64mmFuel_Foam>
+    </products>
+  </RecipeDef>
+	
+</Defs>

@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <ThingCategoryDef>
+      <defName>AmmoArrows</defName>
+      <label>arrows</label>
+      <parent>AmmoNeolithic</parent>
+      <iconPath>UI/Icons/ThingCategories/CaliberArrow</iconPath>
+    </ThingCategoryDef>
+	
+	<!-- ==================== AmmoSet ========================== -->
+
+  <CombatExtended.AmmoSetDef>
+    <defName>AmmoSet_Arrow</defName>
+    <label>arrows</label>
+    <ammoTypes>
+      <Ammo_Arrow_Stone>Projectile_Arrow_Stone</Ammo_Arrow_Stone>
+      <Ammo_Arrow_Steel>Projectile_Arrow_Steel</Ammo_Arrow_Steel>
+      <Ammo_Arrow_Poison>Projectile_Arrow_Poison</Ammo_Arrow_Poison>
+      <Ammo_Arrow_Explosive>Projectile_Arrow_Explosive</Ammo_Arrow_Explosive>
+    </ammoTypes>
+  </CombatExtended.AmmoSetDef>
+  
+	<!-- ==================== Ammo ========================== -->
+
+  <ThingDef Name="AmmoArrowBase" ParentName="AmmoBase" Abstract="True">
+    <description>Simple arrow design with a cutting head attached to a wooden shaft.</description>
+    <statBases>
+      <Mass>0.11</Mass>
+      <Bulk>0.11</Bulk>
+      <Flammability>1</Flammability>
+    </statBases>
+    <thingCategories>
+      <li>AmmoArrows</li>
+    </thingCategories>
+    <stackLimit>200</stackLimit>
+    <tradeTags>
+      <li>CE_AutoEnableTrade</li>
+      <li>CE_AutoEnableCrafting_FueledSmithy</li>
+      <li>CE_AutoEnableCrafting_ElectricSmithy</li>
+    </tradeTags>
+  </ThingDef>
+
+  <ThingDef ParentName="AmmoArrowBase">
+    <defName>Ammo_Arrow_Stone</defName>
+    <label>arrow (stone)</label>
+    <graphicData>
+      <texPath>Things/Ammo/Neolithic/Arrow/Stone</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>0.17</MarketValue>
+    </statBases>
+		<ammoClass>StoneArrow</ammoClass>
+    <tradeTags>
+      <li>CE_AutoEnableCrafting_CraftingSpot</li>
+    </tradeTags>
+  </ThingDef>
+
+  <ThingDef ParentName="AmmoArrowBase">
+    <defName>Ammo_Arrow_Steel</defName>
+    <label>arrow (metallic)</label>
+    <graphicData>
+      <texPath>Things/Ammo/Neolithic/Arrow/Steel</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>0.4</MarketValue>
+    </statBases>
+		<ammoClass>MetallicArrow</ammoClass>
+  </ThingDef>
+
+  <ThingDef ParentName="AmmoArrowBase">
+    <defName>Ammo_Arrow_Poison</defName>
+    <label>arrow (poison)</label>
+    <graphicData>
+      <texPath>Things/Ammo/Neolithic/Arrow/Poison</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>0.6</MarketValue>
+    </statBases>
+		<ammoClass>Poison</ammoClass>
+  </ThingDef>
+  
+  <ThingDef ParentName="AmmoArrowBase">
+    <defName>Ammo_Arrow_Explosive</defName>
+    <label>arrow (explosive)</label>
+    <graphicData>
+      <texPath>Things/Ammo/Neolithic/Arrow/Plasteel</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>5</MarketValue>
+    </statBases>
+		<ammoClass>ExplosiveArrow</ammoClass>
+		<canBeSpawningInventory>false</canBeSpawningInventory>
+  </ThingDef>
+	
+	<!-- ================== Projectiles ================== -->
+
+  <ThingDef Name="BaseArrowProjectile" ParentName="BaseBullet" Abstract="true">
+    <graphicData>
+      <texPath>Things/Projectile/Arrow_Small</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <projectile>
+      <damageDef>Arrow</damageDef>
+      <speed>55</speed>
+    </projectile>
+  </ThingDef>
+
+  <ThingDef ParentName="BaseArrowProjectile">
+    <defName>Projectile_Arrow_Stone</defName>
+    <label>arrow (stone)</label>
+    <projectile>
+      <damageAmountBase>8</damageAmountBase>
+			<armorPenetration>0.11</armorPenetration>
+    </projectile>
+  </ThingDef>
+
+  <ThingDef ParentName="BaseArrowProjectile">
+    <defName>Projectile_Arrow_Steel</defName>
+    <label>arrow (metallic)</label>
+    <projectile>
+      <damageAmountBase>11</damageAmountBase>
+			<armorPenetration>0.16</armorPenetration>
+    </projectile>
+  </ThingDef>
+  
+  <ThingDef ParentName="BaseArrowProjectile">
+    <defName>Projectile_Arrow_Poison</defName>
+    <label>arrow (poison)</label>
+    <projectile>
+      <damageDef>Poison</damageDef>
+      <damageAmountBase>1</damageAmountBase>
+	  <armorPenetration>0.11</armorPenetration>
+      <secondaryDamage>
+        <li>
+          <def>Arrow</def>
+          <amount>7</amount>
+        </li>
+      </secondaryDamage>
+    </projectile>
+  </ThingDef>
+
+  <ThingDef ParentName="BaseArrowProjectile">
+    <defName>Projectile_Arrow_Explosive</defName>
+    <label>arrow (explosive)</label>
+    <projectile>
+      <damageAmountBase>12</damageAmountBase>
+		<armorPenetration>0.14</armorPenetration>
+      <secondaryDamage>
+        <li>
+          <def>Bomb_Secondary</def>
+          <amount>15</amount>
+        </li>
+      </secondaryDamage>
+    </projectile>
+  </ThingDef>
+  
+	<!-- ==================== Recipes ========================== -->
+
+  <RecipeDef ParentName="AmmoRecipeNeolithicBase">
+    <defName>MakeAmmo_Arrow_Stone</defName>
+    <label>make stone arrows x50</label>
+    <description>Craft 50 stone arrows.</description>
+    <jobString>Making stone arrows.</jobString>
+    <workAmount>500</workAmount>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>WoodLog</li>
+          </thingDefs>
+        </filter>
+        <count>5</count>
+      </li>
+      <li>
+        <filter>
+          <categories>
+            <li>StoneChunks</li>
+          </categories>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <categories>
+        <li>StoneChunks</li>
+      </categories>
+      <thingDefs>
+        <li>WoodLog</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_Arrow_Stone>50</Ammo_Arrow_Stone>
+    </products>
+    <recipeUsers>
+      <li>ElectricSmithy</li>
+      <li>FueledSmithy</li>
+      <li>CraftingSpot</li>
+    </recipeUsers>
+  </RecipeDef>
+  
+  <RecipeDef ParentName="AmmoRecipeNeolithicBase">
+    <defName>MakeAmmo_Arrow_Steel</defName>
+    <label>make metallic arrows x50</label>
+    <description>Craft 50 metallic arrows.</description>
+    <jobString>Making metallic arrows.</jobString>
+    <workAmount>700</workAmount>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>WoodLog</li>
+          </thingDefs>
+        </filter>
+        <count>5</count>
+      </li>
+      <li>
+        <filter>
+          <categories>
+            <li>Metallic</li>
+          </categories>
+        </filter>
+        <count>5</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <categories>
+        <li>Metallic</li>
+      </categories>
+      <thingDefs>
+        <li>WoodLog</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_Arrow_Steel>50</Ammo_Arrow_Steel>
+    </products>
+  </RecipeDef>
+  
+  <RecipeDef ParentName="AmmoRecipeNeolithicBase">
+    <defName>MakeAmmo_Arrow_Poison</defName>
+    <label>make poison arrows x50</label>
+    <description>Craft 50 poison arrows.</description>
+    <jobString>Making poison arrows.</jobString>
+    <workAmount>850</workAmount>
+    <skillRequirements>
+      <li>
+        <skill>Medicine</skill>
+        <minLevel>7</minLevel>
+      </li>
+      <li>
+        <skill>Crafting</skill>
+        <minLevel>5</minLevel>
+      </li>
+    </skillRequirements>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>WoodLog</li>
+          </thingDefs>
+        </filter>
+        <count>7</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>HerbalMedicine</li>
+          </thingDefs>
+        </filter>
+        <count>2</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>WoodLog</li>
+        <li>HerbalMedicine</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_Arrow_Poison>50</Ammo_Arrow_Poison>
+    </products>
+  </RecipeDef>
+  
+  <RecipeDef ParentName="AmmoRecipeNeolithicBase">
+    <defName>MakeAmmo_Arrow_Explosive</defName>
+    <label>make explosive arrows x50</label>
+    <description>Craft 50 explosive arrows.</description>
+    <jobString>Making explosive arrows.</jobString>
+    <workAmount>1500</workAmount>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>WoodLog</li>
+          </thingDefs>
+        </filter>
+        <count>5</count>
+      </li>
+      <li>
+        <filter>
+          <categories>
+            <li>Metallic</li>
+          </categories>
+        </filter>
+        <count>5</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Powder</li>
+          </thingDefs>
+        </filter>
+        <count>2</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <categories>
+        <li>Metallic</li>
+      </categories>
+      <thingDefs>
+        <li>WoodLog</li>
+        <li>Powder</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_Arrow_Explosive>50</Ammo_Arrow_Explosive>
+    </products>
+  </RecipeDef>
+	
+</Defs>
