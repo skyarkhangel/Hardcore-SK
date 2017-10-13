@@ -51,11 +51,9 @@ A big thank you to the Patreons! ( https://www.patreon.com/skyarkhangel )
 ____
 <br>
 HCSK 6.0 SK Team:
-<br>
 <br>Main dev. - Skyarkhangel
 <br>Co-ordinator - Rhyssia
 <br>Artists - Abhay, Qwe, EtherDreamer, Arai, Owlchemist
-<br>Owlchemist - Coding Lead (EN team) and Survival Add-on
 <br>Coders - NotFood, FelGoblin
 <br>XML modders - Sidfu, Owlchemist, Freijie
 <br>Guide Writers - Murdantiks, Adenia, Soyaman
@@ -63,8 +61,7 @@ HCSK 6.0 SK Team:
 <br>
 <br>
 Special Thanks to:
-<br>
-<br>SpoonShortage, Mrofa, Fluffy, Zhentar, Brrainz, Dubwise, Erdelf, Fotos, Greeny, Hunt3rKill3r, Lambert2191, Vursteen, Tuvia, Dunkhan, jnkyacc,  Jalordon, Varmonger, funs777, olizit, Quelling, pongvin, zachary-foster, funs777, lex1975, evgeny-k, Moon.
+<br>SpoonShortage, Mrofa, Fluffy, Zhentar, Brrainz, Dubwise, Erdelf, Fotos, Greeny, Hunt3rKill3r, Lambert2191, Vursteen, Tuvia, Dunkhan, jnkyacc,  Jalordon, Varmonger, funs777, olizit, Quelling, pongvin, zachary-foster, funs777, lex1975, evgeny-k, Moon, Leiarr.
 <br>And to anyone else we might have missed!
 <br>
 <br>
