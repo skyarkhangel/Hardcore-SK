@@ -1,0 +1,988 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HugsLib</name>
+    </assembly>
+    <members>
+        <member name="T:HugsLib.Source.Attrib.AttributeDetector">
+            <summary>
+            Detects types and members with specific attributes and calls handlers marked with 
+            DetectableAttributeHandler to do something with the marked type or member.
+            Detectable attributes must implement IDetectableAttribute.
+            New types and members are detected after a def reload and each type/member is processed only once.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Source.Attrib.DetectableAttributeHandler">
+            <summary>
+            Apply this to a static method with a MemberInfo and an Attribute parameter to make it a handler for types or members with a certain attribute.
+            At load time the method will be called as many times as there are types or members marked with the attribute specified as the argument.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Source.Attrib.IDetectableAttribute">
+            <summary>
+            This interface must be implemented by all attributes that should be detectable with AttributeDetector
+            </summary>
+        </member>
+        <member name="T:HugsLib.Core.HugsLibMod">
+            <summary>
+            Entry point for the library.
+            Instantiated by the game at the start of DoPlayLoad().
+            </summary>
+        </member>
+        <member name="T:HugsLib.Core.KeyBindingHandler">
+            <summary>
+            Handles the key presses for key bindings added by HugsLib
+            </summary>
+        </member>
+        <member name="M:HugsLib.Core.LoadOrderChecker.ValidateLoadOrder">
+            <summary>
+            Ensures that the library comes after Core in the load order and displays a warning dialog otherwise.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Core.QuickRestarter">
+            <summary>
+            Checks for Dev mode and bypasses the Restart message box.
+            Holding Shift will prevent the automatic restart.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Core.StaticInitializer">
+            <summary>
+            Provides an entry point for late controller setup during static constructor initialization.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.DebugWindowsOpener_Patch">
+            <summary>
+            Adds an entry point to draw and additional debug button on the toolbar.
+            The infix is necessary to catch the WidgetRow that the stock buttons are drawn to.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.Game_FillComponents_Patch">
+            <summary>
+            Adds a hook for the early initialization of a Game.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.LanguageDatabase_Patch">
+            <summary>
+            Forces a game restart after a language change.
+            This is necessary to avoid creating problems for running mods caused by reloaded graphics and defs.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.Game_DeinitAndRemoveMap_Patch">
+            <summary>
+            Adds a hook for discarding maps.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.Dialog_Options_Patch">
+            <summary>
+            Replaces the "Mod Settings" button in the Options dialog with our own.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.EditWindow_Log_Patch">
+            <summary>
+            Adds extra buttons to the Log window.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.Game_FinalizeInit_Patch">
+            <summary>
+            Adds a hook to produce the WorldLoaded callback for ModBase mods.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.MapComponentUtility_MapGenerated_Patch">
+            <summary>
+            Adds a hook to produce the MapGenerated callback for ModBase mods.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.Map_ConstructComponents_Patch">
+            <summary>
+            Adds a hook to produce the MapComponentsInitializing callback for ModBase mods.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.Map_FinalizeInit_Patch">
+            <summary>
+            Adds a hook to produce the MapLoaded callback for ModBase mods.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.ModsConfig_RestartFromChangedMods_Patch">
+            <summary>
+            Restarts the game automatically, bypassing the message dialog, if changes in the mod configuration have been made and dev mode is on.
+            Holding Shift will prevent the restart, while allowing the config changes to still be saved.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.PlayDataLoader_Patch">
+            <summary>
+            Adds a hook to produce the DefsLoaded callback for ModBase mods.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.RootPlay_TestPlay_Patch">
+            <summary>
+            Adds an entry point during map quickstart for the quickstarter system.
+            Will replace the standard scenario and map size if the quickstarter is enabled.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.Root_Patch">
+            <summary>
+            Hooks into the flow of the vanilla MonoBehavior.Update()
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.UIRoot_Patch">
+            <summary>
+            Hooks into the flow of the vanilla MonoBehavior.OnGUI()
+            This allows to take advantage of automatic UI scaling and prevents GUI updates during a loading screen.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Quickstart.Dialog_QuickstartSettings">
+            <summary>
+            Allows to change settings related to the custom quickstart functionality.
+            Strings are not translated, since this is a tool exclusively for modders.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Quickstart.QuickstartController">
+            <summary>
+            Manages the custom quickstart functionality.
+            Will trigger map loading and generation when the appropriate settings are present, and draws an additional dev toolbar button.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Quickstart.QuickstartSettings">
+            <summary>
+            Wraps settings related to the Quickstart system for storage in a SettingHandle.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Settings.SettingHandleConvertible">
+            <summary>
+            Base type for all custom SettingHandle types.
+            Allows complex data structures to be stored in setting values by converting them to and from their string representation.
+            </summary>
+        </member>
+        <member name="T:RimWorld.Dialog_VanillaModSettings">
+            <summary>
+            Displays custom settings controls for mods that use the vanilla mod settings system.
+            The dialog shows the controls for a single mod only and is opened through Dialog_ModSettings.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Source.Settings.SettingHandleConvertibleUtility">
+            <summary>
+            Utility methods for SettingHandleConvertible data objects.
+            These are useful for packing and unpacking your custom fields into a string without bothering with manual serialization.
+            </summary>
+        </member>
+        <member name="M:HugsLib.Source.Settings.SettingHandleConvertibleUtility.DeserializeValuesFromString(System.String,System.Object)">
+            <summary>
+            Deserializes an XML string into an existing object instance.
+            </summary>
+            <param name="serializedValues">The serialized values to fill the object with</param>
+            <param name="targetObject">The object to receive the deserialized values</param>
+        </member>
+        <member name="M:HugsLib.Source.Settings.SettingHandleConvertibleUtility.SerializeValuesToString(System.Object)">
+            <summary>
+            Serializes an object into a compact XML string.
+            Whitespace and namespace declarations are omitted.
+            Make sure the object is annotated with SerializableAttribute and the fields to serialize with XmlElementAttribute.
+            </summary>
+            <param name="targetObject">The object to serialize</param>
+        </member>
+        <member name="T:HugsLib.Shell.Shell">
+            <summary>
+            Commands start a new process on the target machine using platform specific commands and args to pass to the shell.
+            Refer to the Microsoft documentation for dotNet 3.5 for more info on a process.
+            https://msdn.microsoft.com/en-us/library/system.diagnostics.process(v=vs.90).aspx
+            </summary>
+        </member>
+        <member name="T:HugsLib.Shell.ShellOpenDirectory">
+            <summary>
+            A command to open a directory in the systems default file explorer.
+            Since Unity's OpenUrl() is broken on OS X, we can use a shell to do it correctly.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Shell.ShellOpenLog">
+            <summary>
+            A Command to open the log file in the systems default text editor.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Shell.ShellRestartRimWorld">
+            <summary>
+            A Command to cleanly restart RimWorld on the target machine.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Core.HugsTickProxy">
+            <summary>
+            Forwards ticks to the controller. Will not be saved and is never spawned.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Core.HugsLibKeyBindings">
+            <summary>
+            Holds references to key binding defs used by the library.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Core.PersistentDataManager">
+            <summary>
+            A base for managers that save data in xml format, to be stored in the save data folder
+            </summary>
+        </member>
+        <member name="T:HugsLib.Core.UnityProxyComponent">
+            <summary>
+            This is added as a component to the GameObject on scene to forward events to the controller.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Core.VersionFile">
+            <summary>
+            Represents the information stored in the About/Version.xml file. 
+            Since we cannot update the version of the library assembly, we have to store the version externally.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Core.VersionShort">
+            <summary>
+            A shorter, invariable alternative to System.Version in the format of major.minor.patch
+            System.Version can be implicitly cast to this type.
+            </summary>
+        </member>
+        <member name="T:HugsLib.HugsLibController">
+            <summary>
+            The hub of the library. Instantiates classes that extend ModBase and forwards some of the more useful events to them.
+            The minor version of the assembly should reflect the current major Rimworld version, just like CCL.
+            This gives us the ability to release updates to the library without breaking compatibility with the mods that implement it.
+            See Core.HugsLibMod for the entry point.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Logs.Dialog_PublishLogs">
+            <summary>
+            The front-end for LogPublisher.
+            Shows the status of the upload operation, provides controls and shows the produced URL.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Logs.LogPublisher">
+            <summary>
+            Collects the game logs and loaded mods and posts the information on GitHub as a gist.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Logs.LogWindowExtensions">
+            <summary>
+            Allows adding custom buttons to the EditWindow_Log window.
+            </summary>
+        </member>
+        <member name="M:HugsLib.Logs.LogWindowExtensions.AddLogWindowWidget(HugsLib.Logs.LogWindowExtensions.WidgetDrawer,HugsLib.Logs.LogWindowExtensions.WidgetAlignMode)">
+            <summary>
+            Adds a new drawing callback to the log window widget drawer.
+            </summary>
+            <param name="drawerDelegate">The delegate called each OnGUI to draw the widget.</param>
+            <param name="align">The side of the WidgetRow this widget should be drawn into.</param>
+        </member>
+        <member name="T:HugsLib.Logs.LogWindowExtensions.WidgetAlignMode">
+            <summary>
+            Alignment side for custom widgets.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Logs.LogWindowExtensions.WidgetDrawer">
+            <summary>
+            Callback to draw log window widgets in.
+            </summary>
+            <param name="logWindow">The log window being dawn.</param>
+            <param name="widgetArea">Window area for custom widgets.</param>
+            <param name="selectedLogMessage">The currently selected log message, or null.</param>
+            <param name="widgetRow">Draw your widget using this to automatically align it with the others.</param>
+        </member>
+        <member name="T:HugsLib.ModBase">
+            <summary>
+            The base class for all mods using HugsLib library. All classes extending ModBase will be instantiated automatically by HugsLibController at game initialization.
+            </summary>
+        </member>
+        <member name="M:HugsLib.ModBase.GetVersion">
+            <summary>
+            Return the override version from the Version.xml file if specified, or the assembly version otherwise
+            </summary>
+        </member>
+        <member name="M:HugsLib.ModBase.Initialize">
+            <summary>
+            Called after the static constructors for non-HugsLib mods have executed. Is not called again on def reload
+            </summary>
+        </member>
+        <member name="M:HugsLib.ModBase.Tick(System.Int32)">
+            <summary>
+            Called on each tick when in Play scene
+            </summary>
+            <param name="currentTick">The sequential number of the tick being processed</param>
+        </member>
+        <member name="M:HugsLib.ModBase.Update">
+            <summary>
+            Called each frame
+            </summary>
+        </member>
+        <member name="M:HugsLib.ModBase.FixedUpdate">
+            <summary>
+            Called each unity physics update
+            </summary>
+        </member>
+        <member name="M:HugsLib.ModBase.OnGUI">
+            <summary>
+            Called on each unity gui event, after UIRoot.UIRootOnGUI.
+            Respects UI scaling and screen fading. Will not be called during loading screens.
+            This is a good place to listen for hotkey events.
+            </summary>
+        </member>
+        <member name="M:HugsLib.ModBase.WorldLoaded">
+            <summary>
+            Called when GameState.Playing has been entered and the world is fully loaded in the Play scene.
+            Will not be called during world generation and landing site selection.
+            </summary>
+        </member>
+        <member name="M:HugsLib.ModBase.MapComponentsInitializing(Verse.Map)">
+            <summary>
+            Called right after Map.ConstructComponents() (before MapLoaded)
+            </summary>
+            <param name="map">The map being initialized</param>
+        </member>
+        <member name="M:HugsLib.ModBase.MapGenerated(Verse.Map)">
+            <summary>
+            Called right after a new map has been generated.
+            This is the equivalent of MapComponent.MapGenerated().
+            </summary>
+            <param name="map">The new map that has just finished generating</param>
+        </member>
+        <member name="M:HugsLib.ModBase.MapLoaded(Verse.Map)">
+            <summary>
+            Called when the map was fully loaded
+            </summary>
+            <param name="map">The map that has finished loading</param>
+        </member>
+        <member name="M:HugsLib.ModBase.MapDiscarded(Verse.Map)">
+            <summary>
+            Called after a map has been abandoned or otherwise made inaccessible.
+            Works on player bases, encounter maps, destroyed faction bases, etc.
+            </summary>
+            <param name="map">The map that has been discarded</param>
+        </member>
+        <member name="M:HugsLib.ModBase.SceneLoaded(UnityEngine.SceneManagement.Scene)">
+            <summary>
+            Called after each scene change
+            </summary>
+            <param name="scene">The scene that has been loaded</param>
+        </member>
+        <member name="M:HugsLib.ModBase.SettingsChanged">
+            <summary>
+            Called after settings menu changes have been confirmed.
+            This is called for all mods, regardless if their own settings have been modified, or not.
+            </summary>
+        </member>
+        <member name="M:HugsLib.ModBase.DefsLoaded">
+            <summary>
+            Called after Initialize and when defs have been reloaded. This is a good place to inject defs.
+            Get your settings handles here, so that the labels will properly update on language change.
+            If the mod is disabled after being loaded, this method will STILL execute. Use ModIsActive to check.
+            </summary>
+        </member>
+        <member name="P:HugsLib.ModBase.Logger">
+            <summary>
+            This can be used to log messages specific to your mod.
+            It will prefix everything with your ModIdentifier.
+            </summary>
+        </member>
+        <member name="P:HugsLib.ModBase.Settings">
+            <summary>
+            The ModSettingsPack specific to your mod.
+            Use this to create settings handles.
+            </summary>
+        </member>
+        <member name="P:HugsLib.ModBase.HarmonyAutoPatch">
+            <summary>
+            Override this and return false to prevent a HarmonyInstance from being automatically created and scanning your assembly for patches.
+            </summary>
+        </member>
+        <member name="P:HugsLib.ModBase.HarmonyInst">
+            <summary>
+            The reference to HarmonyInstance that applied the patches in your assembly.
+            </summary>
+        </member>
+        <member name="P:HugsLib.ModBase.ModIdentifier">
+            <summary>
+            A unique identifier fo your mod.
+            Valid characters are A-z, 0-9, -, no spaces.
+            </summary>
+        </member>
+        <member name="P:HugsLib.ModBase.ModContentPack">
+            <summary>
+            The content pack for the mod containing the assembly this class belongs to
+            </summary>
+        </member>
+        <member name="P:HugsLib.ModBase.ModIsActive">
+            <summary>
+            Can be false if the mod was enabled at game start and then disabled in the mods menu
+            </summary>
+        </member>
+        <member name="T:HugsLib.News.Dialog_UpdateFeatures">
+            <summary>
+            Displays a list to update feature defs with basic image and formatting support. See UpdateFeatureDef for proper syntax.
+            </summary>
+        </member>
+        <member name="T:HugsLib.UpdateFeatureDef">
+            <summary>
+            Describes a single update news item. A mod must have a class extending ModBase and keep its assembly version up to date to make use of this.
+            </summary>
+        </member>
+        <member name="F:HugsLib.UpdateFeatureDef.content">
+            The text of the news item. Can contain text and images, supports Unity html markup (only recommended for highlighting).
+            The text can contain the following formatting markers:
+            |               -> (pipe) splits the content into segments. A segment can be a paragraph or image sequence
+            img:name1,name2 -> Displays a horizontal image sequence. Image names are file names without the extension.
+            caption:text    -> Attaches a text paragraph on the right side of the preceding image
+            Everything else is treated as plain text and creates a paragraph.
+            Example:
+            Paragraph1|Paragraph2|img:singleImage|caption:caption\ntext|img:sequence1,sequence2|More text
+        </member>
+        <member name="T:HugsLib.News.UpdateFeatureManager">
+            <summary>
+            Stores the last displayed update news item for all mods. Shows the news dialog window when there are not yet displayed news items available.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Settings.Dialog_ModSettings">
+            <summary>
+            An options window for all configurable settings exposed by mods using the library
+            </summary>
+        </member>
+        <member name="T:HugsLib.Settings.OptionsDialogInjection">
+            <summary>
+            Injects the "Mod Settings" button into the Options dialog.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Settings.Validators">
+            <summary>
+            A set of useful value constraints for use with SettingHandle
+            </summary>
+        </member>
+        <member name="T:HugsLib.Settings.ModSettingsPack">
+            <summary>
+            A group of settings values added by a mod. Each mod has their own ModSettingsPack.
+            Loaded values are stored until they are "claimed" by their mod by requesting a handle for a setting with the same name.
+            </summary>
+        </member>
+        <member name="M:HugsLib.Settings.ModSettingsPack.GetHandle``1(System.String,System.String,System.String,``0,HugsLib.Settings.SettingHandle.ValueIsValid,System.String)">
+            <summary>
+            Retrieves an existing SettingHandle from the pack, or creates a new one.
+            Loaded settings will only display in the Mod Settings dialog after they have been claimed using this method.
+            </summary>
+            <typeparam name="T">The type of setting value you are creating.</typeparam>
+            <param name="settingName">Unique identifier for the setting. Must be unique for this specific pack only.</param>
+            <param name="title">A display name for the setting that will show up next to it in the Mod Settings dialog. Recommended to keep this short.</param>
+            <param name="description">A description for the setting that will appear in a tooltip when the player hovers over the setting in the Mod Settings dialog.</param>
+            <param name="defaultValue">The value the setting will assume when newly created and when the player resets the setting to its default.</param>
+            <param name="validator">An optional delegate that will be called when a new value is about to be assigned to the handle. Receives a string argument and must return a bool to indicate if the passed value is valid for the setting.</param>
+            <param name="enumPrefix">Used only for Enum settings. Enum values are displayed in a readable format by the following method: Translate(prefix+EnumValueName)</param>
+        </member>
+        <member name="M:HugsLib.Settings.ModSettingsPack.GetHandle``1(System.String)">
+            <summary>
+            Returns a handle that was already created.
+            Will return null if the handle does not exist yet.
+            </summary>
+            <exception cref="T:System.InvalidCastException">Throws an exception if the referenced handle does not match the provided type</exception>
+            <param name="settingName">The name of the handle to retrieve</param>
+        </member>
+        <member name="M:HugsLib.Settings.ModSettingsPack.PeekValue(System.String)">
+            <summary>
+            Attempts to retrieve a setting value by name.
+            If a handle for that value has already been created, returns that handle's StringValue.
+            Otherwise will return the unclaimed value that was loaded from the XML file.
+            Will return null if the value does not exist.
+            </summary>
+            <param name="settingName">The name of the setting the value of which should be retrieved</param>
+        </member>
+        <member name="M:HugsLib.Settings.ModSettingsPack.ValueExists(System.String)">
+            <summary>
+            Returns true, if there is a setting value that can be retrieved with PeekValue.
+            This includes already created handles and unclaimed values.
+            </summary>
+            <param name="settingName">The name of the setting to check</param>
+        </member>
+        <member name="M:HugsLib.Settings.ModSettingsPack.TryRemoveUnclaimedValue(System.String)">
+            <summary>
+            Deletes a setting loaded from the xml file before it is claimed using GetHandle.
+            Useful for cleaning up settings that are no longer in use.
+            </summary>
+            <param name="name">The identifier of the setting (handle identifier)</param>
+        </member>
+        <member name="P:HugsLib.Settings.ModSettingsPack.ModId">
+            <summary>
+            Identifier of the mod that owns this pack
+            </summary>
+        </member>
+        <member name="P:HugsLib.Settings.ModSettingsPack.EntryName">
+            <summary>
+            The name of the owning mod that will display is the Mod Settings dialog
+            </summary>
+        </member>
+        <member name="P:HugsLib.Settings.ModSettingsPack.DisplayPriority">
+            <summary>
+            Special display order for the mod in the Mod Settings dialog.
+            Mods are generally ordered by name. Please leave this at Normal unless you have a good reason to change it.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Settings.ModSettingsManager">
+            <summary>
+            A central place for mods to store persistent settings. Individual settings are grouped by mod using ModSettingsPack
+            </summary>
+        </member>
+        <member name="M:HugsLib.Settings.ModSettingsManager.GetModSettings(System.String,System.String)">
+            <summary>
+            Retrieves the ModSettingsPack for a given mod identifier.
+            </summary>
+            <param name="modId">The unique identifier of the mod that owns the pack</param>
+            <param name="displayModName">A display name of the mod owning the pack. This will be displayed in the Mod Settings dialog.</param>
+        </member>
+        <member name="M:HugsLib.Settings.ModSettingsManager.SaveChanges">
+            <summary>
+            Saves all settings to disk and notifies all ModBase mods by calling SettingsChanged() 
+            </summary>
+        </member>
+        <member name="M:HugsLib.Settings.ModSettingsManager.TryRemoveModSettings(System.String)">
+            <summary>
+            Removes a settings pack for a mod if it exists. Use SaveChanges to apply the change afterward.
+            </summary>
+            <param name="modId">The identifier of the mod owning the pack</param>
+        </member>
+        <member name="T:HugsLib.Settings.SettingHandle">
+            <summary>
+            An individual persistent setting owned by a mod.
+            The extra layer of inheritance allows for type abstraction and storing SettingHandles in lists.
+            </summary>
+        </member>
+        <member name="P:HugsLib.Settings.SettingHandle.Name">
+            <summary>
+            Unique identifier of the setting.
+            </summary>
+        </member>
+        <member name="P:HugsLib.Settings.SettingHandle.Title">
+            <summary>
+            Name displayed in the settings menu.
+            </summary>
+        </member>
+        <member name="P:HugsLib.Settings.SettingHandle.Description">
+            <summary>
+            Displayed as a tooltip in the settings menu.
+            </summary>
+        </member>
+        <member name="P:HugsLib.Settings.SettingHandle.Validator">
+            <summary>
+            Should return true if the passed value is valid for this setting. Optional.
+            </summary>
+        </member>
+        <member name="P:HugsLib.Settings.SettingHandle.EnumStringPrefix">
+            <summary>
+            The string identifier prefix used to display enum values in the settings menu (e.g. "prefix_" for "prefix_EnumValue")
+            </summary>
+        </member>
+        <member name="P:HugsLib.Settings.SettingHandle.VisibilityPredicate">
+            <summary>
+            Return true to make this setting visible in the menu. Optional.
+            An invisible setting can still be reset to default using the Reset All button.
+            </summary>
+        </member>
+        <member name="P:HugsLib.Settings.SettingHandle.CustomDrawer">
+            <summary>
+            Draw a custom control for the settings menu entry. Entry name is already drawn when this is called. Optional. Return value indicates if the control changed the setting.
+            </summary>
+        </member>
+        <member name="P:HugsLib.Settings.SettingHandle.NeverVisible">
+            <summary>
+            When true, setting will never appear in the menu and can not be reset to default by the player. For serialized data.
+            </summary>
+        </member>
+        <member name="P:HugsLib.Settings.SettingHandle.Unsaved">
+            <summary>
+            When true, will not save this setting to the xml file. Useful in conjunction with CustomDrawer for placing buttons in the settings menu.
+            </summary>
+        </member>
+        <member name="P:HugsLib.Settings.SettingHandle.SpinnerIncrement">
+            <summary>
+            Specifies by how much the + and - buttons should change a numeric setting.
+            </summary>
+        </member>
+        <member name="P:HugsLib.Settings.SettingHandle.CustomDrawerHeight">
+            <summary>
+            When CustomDrawer is used, specifies the height of the row for the handle. Leave at 0 for default height.
+            </summary>
+        </member>
+        <member name="P:HugsLib.Settings.SettingHandle.DisplayOrder">
+            <summary>
+            Affects the order in which handles appear in the settings menu. Lower comes first, default is 0.
+            </summary>
+        </member>
+        <member name="M:HugsLib.Settings.SettingHandle`1.op_Implicit(HugsLib.Settings.SettingHandle{`0})~`0">
+            <summary>
+            Implicitly cast handles to the Value they carry.
+            </summary>
+        </member>
+        <member name="M:HugsLib.Settings.SettingHandle`1.ResetToDefault">
+            <summary>
+            Assigns the default value to the Value property.
+            </summary>
+        </member>
+        <member name="M:HugsLib.Settings.SettingHandle`1.HasDefaultValue">
+            <summary>
+            Returns true if the handle is set to its default value.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:HugsLib.Settings.SettingHandle`1.OnValueChanged">
+            <summary>
+            Called when the Value of the handle changes. Optional.
+            </summary>
+        </member>
+        <member name="P:HugsLib.Settings.SettingHandle`1.Value">
+            <summary>
+            The actual value of the setting. 
+            This is converted to its string representation when settings are saved.
+            Assigning a new value will trigger the OnValueChanged delegate.
+            </summary>
+        </member>
+        <member name="P:HugsLib.Settings.SettingHandle`1.DefaultValue">
+            <summary>
+            The value the setting assumes when initially created or reset.
+            </summary>
+        </member>
+        <member name="P:HugsLib.Settings.SettingHandle`1.StringValue">
+            <summary>
+            Retrieves the string representation of the setting or assigns a new setting value using a string.
+            Will trigger the Validator delegate if assigned and change the Value property if the validation passes.
+            </summary>
+        </member>
+        <member name="P:HugsLib.Settings.SettingHandle`1.ValueType">
+            <summary>
+            Returns the type of the handle Value property.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:HugsLib.Utils.TickDelayScheduler" -->
+        <member name="M:HugsLib.Utils.TickDelayScheduler.ScheduleCallback(System.Action,System.Int32,Verse.Thing,System.Boolean)">
+            <summary>
+            Registers a delegate to be called in a given number of ticks.
+            </summary>
+            <param name="callback">The delegate to be called</param>
+            <param name="dueInTicks">The delay in ticks before the delegate is called</param>
+            <param name="owner">Optional owner of the delegate. Callback will not fire if the Thing is not spawned at call time.</param>
+            <param name="repeat">If true, the callback will be rescheduled after each call until manually unscheduled</param>
+        </member>
+        <member name="M:HugsLib.Utils.TickDelayScheduler.TryUnscheduleCallback(System.Action)">
+            <summary>
+            Manually remove a callback to abort a delay or clear a recurring callback.
+            Silently fails if the callback is not found.
+            </summary>
+            <param name="callback">The scheduled callback</param>
+        </member>
+        <member name="M:HugsLib.Utils.TickDelayScheduler.GetAllPendingCallbacks">
+            <summary>
+            Only for debug purposes
+            </summary>
+        </member>
+        <member name="T:HugsLib.Utils.Dialog_Confirm">
+            <summary>
+            A classic A15-style confirm dialog with Esc and Enter key support.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Utils.Dialog_Message">
+            <summary>
+            A compact message dialog with a title and a custom close button label.
+            </summary>
+        </member>
+        <member name="M:HugsLib.Utils.Dialog_Message.#ctor(System.String,System.String,System.String,System.Action)">
+            <param name="title">A title to display in the dialog</param>
+            <param name="message">A message to display in the dialog</param>
+            <param name="closeButtonText">A custom label to the close button. Optional- when null, the default label will be used instead.</param>
+        </member>
+        <member name="T:HugsLib.Utils.DistributedTickScheduler">
+            <summary>
+            A ticking scheduler for things that require a tick only every so often.
+            Distributes tick calls uniformly over multiple frames to reduce the workload.
+            Optimized for many tick recipients with the same tick interval.
+            </summary>
+        </member>
+        <member name="M:HugsLib.Utils.DistributedTickScheduler.RegisterTickability(System.Action,System.Int32,Verse.Thing)">
+            <summary>
+            Registers a delegate to be called every tickInterval ticks.
+            </summary>
+            <param name="callback">The delegate that will be called</param>
+            <param name="tickInterval">The interval between the calls (for example 30 to have the delegate be called 2 times a second)</param>
+            <param name="owner">The Thing the delegate is attached to. The callback will be automatically unregistered if the owner is found to be despawned at call time.</param>
+        </member>
+        <member name="M:HugsLib.Utils.DistributedTickScheduler.UnregisterTickability(Verse.Thing)">
+            <summary>
+            Manually removes a delegate to prevent further calls.
+            </summary>
+            <exception cref="T:System.ArgumentException">Throws if the provided owner is not registered. Use IsRegistered() to check.</exception>
+            <param name="owner">The Thing the delegate was registered with</param>
+        </member>
+        <member name="M:HugsLib.Utils.DistributedTickScheduler.IsRegistered(Verse.Thing)">
+            <summary>
+            Returns true if the passed Thing is registered as the owner of a delegate.
+            </summary>
+            <param name="owner"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HugsLib.Utils.DistributedTickScheduler.DebugGetAllEntries">
+            <summary>
+            Returns all registered tick recipients
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HugsLib.Utils.DistributedTickScheduler.DebugCountLastTickCalls">
+            <summary>
+            Returns the number of calls issued across all intervals during the last tick
+            </summary>
+        </member>
+        <member name="M:HugsLib.Utils.DistributedTickScheduler.DebugGetNumTickers">
+            <summary>
+            Returns the number of active tickers (intervals)
+            </summary>
+        </member>
+        <member name="T:HugsLib.Utils.HarmonyUtility">
+            <summary>
+            Tools for working with the Harmony library.
+            </summary>
+        </member>
+        <member name="M:HugsLib.Utils.HarmonyUtility.DescribePatchedMethods(Harmony.HarmonyInstance)">
+            <summary>
+            Produces a human-readable list of all patched methods and their respective patches.
+            </summary>
+            <param name="instance">A HarmonyInstance that can be queried for patch information.</param>
+        </member>
+        <member name="M:HugsLib.Utils.HarmonyUtility.DescribeHarmonyVersions(Harmony.HarmonyInstance)">
+            <summary>
+            Produces a human-readable list of all Harmony versions present and their respective owners.
+            </summary>
+            <param name="instance">A HarmonyInstance that can be queried for version information.</param>
+            <returns></returns>
+        </member>
+        <member name="T:HugsLib.Utils.HugsLibUtility">
+            <summary>
+            A catch-all place for extension methods and other useful stuff
+            </summary>
+        </member>
+        <member name="M:HugsLib.Utils.HugsLibUtility.ListElements(System.Collections.IEnumerable)">
+            <summary>
+            Returns an enumerable as a comma-separated string.
+            </summary>
+            <param name="list">A list of elements to string together</param>
+        </member>
+        <member name="M:HugsLib.Utils.HugsLibUtility.Join(System.Collections.IEnumerable,System.String,System.Boolean)">
+            <summary>
+            Returns an enumerable as a string, joined by a separator string. By default null values appear as an empty string.
+            </summary>
+            <param name="list">A list of elements to string together</param>
+            <param name="separator">A string to inset between elements</param>
+            <param name="explicitNullValues">If true, null elements will appear as "[null]"</param>
+        </member>
+        <member name="M:HugsLib.Utils.HugsLibUtility.ToShortString(System.Version)">
+            <summary>
+            Returns a version as major.minor.patch formatted string.
+            </summary>
+        </member>
+        <member name="M:HugsLib.Utils.HugsLibUtility.HasDesignation(Verse.Thing,Verse.DesignationDef)">
+            <summary>
+            Checks if a Thing has a designation of a given def.
+            </summary>
+            <param name="thing"></param>
+            <param name="def">The designation def to check for</param>
+        </member>
+        <member name="M:HugsLib.Utils.HugsLibUtility.ToggleDesignation(Verse.Thing,Verse.DesignationDef,System.Boolean)">
+            <summary>
+            Adds or removes a designation of a given def on a Thing. Fails silently if designation is already in the desired state.
+            </summary>
+            <param name="thing">The thing to designate</param>
+            <param name="def">The DesignationDef to apply or remove</param>
+            <param name="enable">True to add the designation, false to remove</param>
+        </member>
+        <member name="M:HugsLib.Utils.HugsLibUtility.HasDesignation(Verse.IntVec3,Verse.DesignationDef,Verse.Map)">
+            <summary>
+            Checks if a cell has a designation of a given def
+            </summary>
+            <param name="pos">The map position to check</param>
+            <param name="def">The DesignationDef to detect</param>
+            <param name="map">The map to look on. When null, defaults to VisibleMap.</param>
+        </member>
+        <member name="M:HugsLib.Utils.HugsLibUtility.ToggleDesignation(Verse.IntVec3,Verse.DesignationDef,System.Boolean,Verse.Map)">
+            <summary>
+            Adds or removes a designation of a given def on a cell. Fails silently if designation is already in the desired state.
+            </summary>
+            <param name="pos">The position to designate</param>
+            <param name="def">The DesignationDef to apply or remove</param>
+            <param name="enable">True to add the designation, false to remove</param>
+            <param name="map">The map to operate on. When null, defaults to VisibleMap.</param>
+        </member>
+        <member name="M:HugsLib.Utils.HugsLibUtility.MethodMatchesSignature(System.Reflection.MethodInfo,System.Type,System.Type[])">
+            <summary>
+            Returns true, if a MethodInfo matches the provided signature.
+            </summary>
+            <remarks>Note: instance methods always take their parent type as the first parameter.</remarks>
+            <param name="method">The method to check</param>
+            <param name="expectedReturnType">Expected return type of the checked method</param>
+            <param name="expectedParameters">Expected parameter types of the checked method</param>
+        </member>
+        <member name="M:HugsLib.Utils.HugsLibUtility.TryGetAttributeSafely``1(System.Reflection.MemberInfo)">
+            <summary>
+            Returns an attribute from a member, if it exists.
+            Mods could include attributes from libraries that are not loaded, which would throw an exception, so error checking is included.
+            </summary>
+            <typeparam name="T">The type of the attribute to fetch</typeparam>
+            <param name="member">The member to fetch the attribute from</param>
+        </member>
+        <member name="M:HugsLib.Utils.HugsLibUtility.GetAllActiveAssemblies">
+            <summary>
+            Enumerates all loaded assemblies, including stock and enabled mods.
+            </summary>
+        </member>
+        <member name="M:HugsLib.Utils.HugsLibUtility.IsModActive(System.String)">
+            <summary>
+            Returns true if the mod with a matching name is currently loaded in the mod configuration.
+            </summary>
+            <param name="modName">The ModMetaData.Name to match</param>
+        </member>
+        <member name="M:HugsLib.Utils.HugsLibUtility.CopyToClipboard(System.String)">
+            <summary>
+            Copies a string to the system copy buffer and displays a confirmation message.
+            </summary>
+        </member>
+        <member name="M:HugsLib.Utils.HugsLibUtility.TryReplaceUserDirectory(System.String)">
+            <summary>
+            Expands a shorthand unix user directory path with its full system path.
+            </summary>
+        </member>
+        <member name="M:HugsLib.Utils.HugsLibUtility.SurroundWithDoubleQuotes(System.String)">
+            <summary>
+            Adds double quotes to the start and end of a string.
+            </summary>
+        </member>
+        <member name="M:HugsLib.Utils.HugsLibUtility.TryGetLogFilePath">
+            <summary>
+            Attempts to return the patch of the log file Unity is writing to.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:HugsLib.Utils.HugsLibUtility.ShiftIsHeld">
+            <summary>
+            Returns true if the left or right Shift keys are currently pressed.
+            </summary>
+        </member>
+        <member name="P:HugsLib.Utils.HugsLibUtility.AltIsHeld">
+            <summary>
+            Returns true if the left or right Alt keys are currently pressed.
+            </summary>
+        </member>
+        <member name="P:HugsLib.Utils.HugsLibUtility.ControlIsHeld">
+            <summary>
+            Returns true if the left or right Control keys are currently pressed.
+            Mac command keys are supported, as well.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Utils.InjectedDefHasher">
+            <summary>
+            Adds a hash to a manually instantiated def to avoid def collisions.
+            </summary>
+        </member>
+        <member name="M:HugsLib.Utils.InjectedDefHasher.GiveShortHashToDef(Verse.Def,System.Type)">
+            <summary>
+            Give a short hash to a def created at runtime.
+            Short hashes are used for proper saving of defs in compressed maps within a save file.
+            </summary>
+            <param name="newDef"></param>
+            <param name="defType">The type of defs your def will be saved with. For example, use typeof(ThingDef) if your def extends ThingDef.</param>
+        </member>
+        <member name="M:HugsLib.Utils.MapComponentUtility.EnsureIsActive(Verse.MapComponent)">
+            <summary>
+            Injects a map component into the current map if it does not already exist. 
+            Required for new MapComponents that were not active at map creation.
+            The injection is performed at ExecuteWhenFinished to allow calling this method in MapComponent constructors.
+            </summary>
+            <param name="mapComponent">The MapComponent that is expected to be present is the map's component list</param>
+        </member>
+        <member name="M:HugsLib.Utils.MapComponentUtility.GetMapComponent``1(Verse.Map)">
+            <summary>
+            Gets the map component of the given type from a map.
+            Will throw an exception if a component of the requested type is not found.
+            </summary>
+            <typeparam name="T">The type of your MapComponent</typeparam>
+            <param name="map">The map to get the component from</param>
+        </member>
+        <member name="T:HugsLib.Utils.ModLogger">
+            <summary>
+            A logger that prefixes all messages with the identifier of the issuing mod.
+            </summary>
+        </member>
+        <member name="M:HugsLib.Utils.ModLogger.Message(System.String,System.Object[])">
+            <summary>
+            Writes a message to the log, prefixing it with the issuing mod identifier.
+            </summary>
+            <param name="message">The message to write</param>
+            <param name="substitutions">Optional substitution values for the message</param>
+        </member>
+        <member name="M:HugsLib.Utils.ModLogger.Warning(System.String,System.Object[])">
+            <summary>
+            Same as Message(), but the console will display the message as a warning.
+            </summary>
+        </member>
+        <member name="M:HugsLib.Utils.ModLogger.Error(System.String,System.Object[])">
+            <summary>
+            Same as Message(), but the console will display the message as an error.
+            This will open the Log window in in Dev mode.
+            </summary>
+        </member>
+        <member name="M:HugsLib.Utils.ModLogger.Trace(System.Object[])">
+            <summary>
+            Writes a message only if Dev mode is enabled.
+            Message is written using Tracer.Trace with the addition of the ModIdentifier as the first value.
+            </summary>
+            <param name="strings">The strings to display</param>
+        </member>
+        <member name="M:HugsLib.Utils.ModLogger.TraceFormat(System.String,System.Object[])">
+            <summary>
+            Same as Trace(), but formats the message and replaces substitution variables.
+            </summary>
+        </member>
+        <member name="M:HugsLib.Utils.ModLogger.ReportException(System.Exception,System.String,System.Boolean,System.String)">
+            <summary>
+            Writes an error to the log to report an exception.
+            The message will contain the name of the method that caused the exception if a location is not provided.
+            </summary>
+            <param name="e">The exception that occurred</param>
+            <param name="modIdentifier">Optional identifier of the mod that caused the exception</param>
+            <param name="reportOnceOnly">True, if the exception should only be reported once for that specific location. Useful for errors that will trigger each frame or tick.</param>
+            <param name="location">Optional name of the location where the exception occurred. Will display as "exception during (location)"</param>
+        </member>
+        <member name="T:HugsLib.Utils.PlatformUtility">
+            <summary>
+            A tool to identify the platform the game is running on.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Utils.Tracer">
+            <summary>
+            Utility methods for displaying debug messages during development.
+            </summary>
+        </member>
+        <member name="M:HugsLib.Utils.Tracer.Trace(System.Object[])">
+            <summary>
+            Writes comma-separated log messages if the game is in Dev mode.
+            Any non-strings will be converted to strings, and null values will appear explicitly.
+            </summary>
+            <param name="messages">Messages to output</param>
+        </member>
+        <member name="M:HugsLib.Utils.Tracer.TraceFormat(System.String,System.Object[])">
+            <summary>
+            Similar to Trace, but feeds the messages through String.Format first.
+            </summary>
+            <param name="format">The string to interpolate</param>
+            <param name="formatArgs">Interpolation arguments</param>
+        </member>
+        <member name="T:HugsLib.Utils.UtilityWorldObject">
+            <summary>
+            Base type for utility WorldObjects repurposed to store data. See UtilityWorldObjectManager for more info.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Utils.UtilityWorldObjectManager">
+            <summary>
+            Handles utility WorldObjects of custom types.
+            Utility WorldObjects are a map-independent storage method for custom data.
+            All UWOs share the same def and aren't visible on the world, but are saved and loaded with it.
+            </summary>
+        </member>
+        <member name="M:HugsLib.Utils.UtilityWorldObjectManager.GetUtilityWorldObject``1">
+            <summary>
+            Returns an existing UWO or creates a new one, adding it to the world.
+            </summary>
+            <typeparam name="T">Your custom type that extends UtilityWorldObject</typeparam>
+        </member>
+    </members>
+</doc>

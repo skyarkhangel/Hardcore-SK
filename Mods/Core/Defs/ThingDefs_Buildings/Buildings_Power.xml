@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Buildings>
+<Defs>
 
   <ThingDef ParentName="BuildingBase">
     <defName>PowerConduit</defName>
@@ -24,7 +24,6 @@
     <building>
 			<ai_chillDestination>false</ai_chillDestination>
 			<isInert>true</isInert>
-      <ignoreNeedsPower>true</ignoreNeedsPower>
       <isEdifice>false</isEdifice>
     </building>
     <altitudeLayer>FloorEmplacement</altitudeLayer>
@@ -57,6 +56,7 @@
     <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
     <designationCategory>Power</designationCategory>
     <constructEffect>ConstructMetal</constructEffect>
+    <clearBuildingArea>false</clearBuildingArea>
     <designationHotKey>Misc1</designationHotKey>
     <researchPrerequisites>
       <li>Electricity</li>
@@ -79,7 +79,6 @@
     </graphicData>
     <building>
 			<ai_chillDestination>false</ai_chillDestination>
-			<ignoreNeedsPower>true</ignoreNeedsPower>
       <allowWireConnection>false</allowWireConnection>
     </building>
     <altitudeLayer>Building</altitudeLayer>
@@ -117,11 +116,11 @@
 
 
   <ThingDef ParentName="BuildingBase">
-    <defName>FueledGenerator</defName>
-    <label>fueled generator</label>
+    <defName>WoodFiredGenerator</defName>
+    <label>wood-fired generator</label>
     <thingClass>Building</thingClass>
     <graphicData>
-      <texPath>Things/Building/Power/FueledGenerator</texPath>
+      <texPath>Things/Building/Power/WoodFiredGenerator</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>(2,2)</drawSize>
     </graphicData>
@@ -141,9 +140,6 @@
     <description>Produces power by consuming wood fuel. Must be fueled by hand.</description>
     <canOverlapZones>false</canOverlapZones>
     <size>(2,2)</size>
-    <building>
-      <ignoreNeedsPower>true</ignoreNeedsPower>
-    </building>
     <costList>
       <Steel>100</Steel>
       <Component>2</Component>
@@ -177,11 +173,91 @@
     <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
     <designationCategory>Power</designationCategory>
     <staticSunShadowHeight>0.5</staticSunShadowHeight>
-    <designationHotkey>Misc3</designationHotkey>
+    <designationHotKey>Misc3</designationHotKey>
     <constructEffect>ConstructMetal</constructEffect>
     <researchPrerequisites>
       <li>Electricity</li>
     </researchPrerequisites>
+    <constructionSkillPrerequisite>4</constructionSkillPrerequisite>
+  </ThingDef>
+
+  <ThingDef ParentName="BuildingBase">
+    <defName>ChemfuelPoweredGenerator</defName>
+    <label>chemfuel powered generator</label>
+    <thingClass>Building</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Power/ChemfuelPoweredGenerator</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(2,2)</drawSize>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>150</pathCost>
+    <blockWind>true</blockWind>
+    <fillPercent>1.0</fillPercent>
+    <castEdgeShadows>false</castEdgeShadows>
+    <rotatable>false</rotatable>
+    <statBases>
+      <MaxHitPoints>300</MaxHitPoints>
+      <WorkToBuild>2500</WorkToBuild>
+      <Flammability>1.0</Flammability>
+    </statBases>
+    <tickerType>Normal</tickerType>
+    <description>Produces power by consuming chemfuel. Must be fueled by hand.</description>
+    <canOverlapZones>false</canOverlapZones>
+    <size>(2,2)</size>
+    <costList>
+      <Steel>100</Steel>
+      <Component>3</Component>
+    </costList>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerPlant</compClass>
+        <basePowerConsumption>-1000</basePowerConsumption>
+        <transmitsPower>true</transmitsPower>
+      </li>
+      <li Class="CompProperties_Flickable" />
+      <li Class="CompProperties_Refuelable">
+        <fuelConsumptionRate>4.0</fuelConsumptionRate>
+        <fuelCapacity>25.0</fuelCapacity>
+        <fuelFilter>
+          <thingDefs>
+            <li>Chemfuel</li>
+          </thingDefs>
+        </fuelFilter>
+      </li>
+      <li Class="CompProperties_Glower">
+        <glowRadius>6</glowRadius>
+        <glowColor>(80,112,180,0)</glowColor>
+      </li>
+      <li Class="CompProperties_HeatPusher">
+        <compClass>CompHeatPusherPowered</compClass>
+        <heatPerSecond>3</heatPerSecond>
+      </li>
+      <li Class="CompProperties_Breakdownable"/>
+      <li Class="CompProperties_Explosive">
+        <explosiveRadius>0</explosiveRadius>
+        <explosiveExpandPerFuel>0.95</explosiveExpandPerFuel>
+        <explosiveDamageType>Flame</explosiveDamageType>
+        <destroyThingOnExplosionSize>2</destroyThingOnExplosionSize>
+        <startWickHitPointsPercent>0.333</startWickHitPointsPercent>
+        <preExplosionSpawnThingDef>FilthFuel</preExplosionSpawnThingDef>
+        <preExplosionSpawnChance>1</preExplosionSpawnChance>
+        <wickTicks>
+          <min>70</min>
+          <max>150</max>
+        </wickTicks>
+      </li>
+    </comps>
+    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+    <designationCategory>Power</designationCategory>
+    <staticSunShadowHeight>0.5</staticSunShadowHeight>
+    <designationHotKey>Misc4</designationHotKey>
+    <constructEffect>ConstructMetal</constructEffect>
+    <researchPrerequisites>
+      <li>Electricity</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>6</constructionSkillPrerequisite>
   </ThingDef>
 
   <ThingDef ParentName="BuildingBase">
@@ -216,9 +292,6 @@
     </statBases>
     <description>Stores electricity when there is excess power and yields it when there is not. Warning - charged batteries tend to explode when exposed to rain or fire.</description>
     <size>(1,2)</size>
-    <building>
-      <ignoreNeedsPower>true</ignoreNeedsPower>
-    </building>
     <costList>
       <Steel>50</Steel>
       <Component>2</Component>
@@ -236,7 +309,7 @@
     <designationCategory>Power</designationCategory>
     <staticSunShadowHeight>0.5</staticSunShadowHeight>
     <constructEffect>ConstructMetal</constructEffect>
-    <designationHotkey>Misc4</designationHotkey>
+    <designationHotKey>Misc4</designationHotKey>
     <canOverlapZones>false</canOverlapZones>
     <researchPrerequisites>
       <li>Batteries</li>
@@ -270,9 +343,6 @@
     <tickerType>Normal</tickerType>
     <description>Produces electricity from sunlight. Does not work in the dark.</description>
     <size>(4,4)</size>
-    <building>
-      <ignoreNeedsPower>true</ignoreNeedsPower>
-    </building>
     <costList>
       <Steel>100</Steel>
       <Component>3</Component>
@@ -288,12 +358,13 @@
     <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
     <designationCategory>Power</designationCategory>
     <staticSunShadowHeight>0.20</staticSunShadowHeight>
-    <designationHotkey>Misc5</designationHotkey>
+    <designationHotKey>Misc5</designationHotKey>
     <constructEffect>ConstructMetal</constructEffect>
     <researchPrerequisites>
       <li>Electricity</li>
       <li>SolarPanels</li>
     </researchPrerequisites>
+    <constructionSkillPrerequisite>6</constructionSkillPrerequisite>
   </ThingDef>
 
 
@@ -348,11 +419,11 @@
     <building>
 			<ai_chillDestination>false</ai_chillDestination>
 			<soundAmbient>GeothermalPlant_Ambience</soundAmbient>
-      <ignoreNeedsPower>true</ignoreNeedsPower>
     </building>
     <constructEffect>ConstructMetal</constructEffect>
-    <designationHotkey>Misc6</designationHotkey>
+    <designationHotKey>Misc6</designationHotKey>
     <researchPrerequisites><li>GeothermalPower</li></researchPrerequisites>
+    <constructionSkillPrerequisite>8</constructionSkillPrerequisite>
   </ThingDef>
   
-</Buildings>
+</Defs>

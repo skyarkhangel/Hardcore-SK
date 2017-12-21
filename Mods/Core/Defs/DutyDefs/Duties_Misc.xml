@@ -2,7 +2,7 @@
 <Defs>
 
   <DutyDef>
-    <defName>Travel</defName>
+    <defName>TravelOrLeave</defName>
     <thinkNode Class="ThinkNode_Priority">
       <subNodes>
         <li Class="JobGiver_GotoTravelDestination" />
@@ -11,6 +11,24 @@
         <li Class="JobGiver_ExitMapRandom">
           <defaultLocomotion>Walk</defaultLocomotion>
         </li>
+      </subNodes>
+    </thinkNode>
+  </DutyDef>
+
+  <DutyDef>
+    <defName>TravelOrWait</defName>
+    <thinkNode Class="ThinkNode_Priority">
+      <subNodes>
+        <!-- Goto travel destination if reachable -->
+        <li Class="JobGiver_GotoTravelDestination" />
+
+        <!-- Basic needs -->
+        <li Class="ThinkNode_Subtree">
+          <treeDef>SatisfyVeryUrgentNeeds</treeDef>
+        </li>
+
+        <!-- Wander -->
+        <li Class="JobGiver_WanderAnywhere" />
       </subNodes>
     </thinkNode>
   </DutyDef>
@@ -112,6 +130,9 @@
         <li Class="JobGiver_AITrashColonyClose" />
         <li Class="JobGiver_AITrashBuildingsDistant" />
         <li Class="JobGiver_AIGotoNearestHostile" />
+        <li Class="JobGiver_AITrashBuildingsDistant">
+          <attackAllInert>true</attackAllInert>
+        </li>
         <li Class="JobGiver_AISapper">
           <canMineNonMineables>false</canMineNonMineables>
         </li>
@@ -151,6 +172,9 @@
           <targetAcquireRadius>65</targetAcquireRadius>
           <targetKeepRadius>72</targetKeepRadius>
         </li>
+        <li Class="ThinkNode_Subtree">
+          <treeDef>SatisfyVeryUrgentNeeds</treeDef>
+        </li> 
         <li Class="JobGiver_WanderNearDutyLocation">
           <wanderRadius>8</wanderRadius>
         </li>
@@ -197,7 +221,8 @@
         <li Class="JobGiver_ExitMapBest">
           <defaultLocomotion>Jog</defaultLocomotion>
           <jobMaxDuration>500</jobMaxDuration>
-          <forceCanDig>true</forceCanDig>
+          <forceCanDigIfAnyHostileActiveThreat>true</forceCanDigIfAnyHostileActiveThreat>
+          <forceCanDigIfCantReachMapEdge>true</forceCanDigIfCantReachMapEdge>
         </li>
       </subNodes>
     </thinkNode>
@@ -323,10 +348,14 @@
         <li Class="ThinkNode_ConditionalBodySize">
           <min>0.7</min>
           <subNodes>
-            <li Class="ThinkNode_ChancePerHour_Constant">
-              <mtbHours>18</mtbHours>
+            <li Class="ThinkNode_ConditionalHiveCanReproduce">
               <subNodes>
-                <li Class="JobGiver_MineRandom" />
+                <li Class="ThinkNode_ChancePerHour_Constant">
+                  <mtbHours>18</mtbHours>
+                  <subNodes>
+                    <li Class="JobGiver_MineRandom" />
+                  </subNodes>
+                </li>
               </subNodes>
             </li>
           </subNodes>
@@ -373,17 +402,38 @@
         </li>
         <li Class="JobGiver_ExitMapBest">
           <defaultLocomotion>Walk</defaultLocomotion>
-          <jobMaxDuration>200</jobMaxDuration>
+          <jobMaxDuration>120</jobMaxDuration>
         </li>
       </subNodes>
     </thinkNode>
   </DutyDef>
   
   <DutyDef>
+    <defName>ExitMapNearDutyTarget</defName>
+    <thinkNode Class="ThinkNode_Priority">
+      <subNodes>
+        <li Class="JobGiver_ExitMapNearDutyTarget">
+          <defaultLocomotion>Walk</defaultLocomotion>
+        </li>
+        <li Class="JobGiver_ExitMapBest">
+          <defaultLocomotion>Walk</defaultLocomotion>
+        </li>
+      </subNodes>
+    </thinkNode>
+  </DutyDef>
+
+  <DutyDef>
     <defName>LoadAndEnterTransporters</defName>
     <thinkNode Class="ThinkNode_Priority">
       <subNodes>
+        <!-- Load transport pods -->
         <li Class="JobGiver_LoadTransporters" />
+
+        <!-- Drop items if you're assigned to unload everything -->
+        <!-- (before entering the transporter!) -->
+        <li Class="JobGiver_UnloadYourInventory" />
+
+        <!-- Enter -->
         <li Class="JobGiver_EnterTransporter" />
       </subNodes>
     </thinkNode>
@@ -406,6 +456,22 @@
         <li Class="JobGiver_WanderNearDutyLocation">
           <wanderRadius>12</wanderRadius>
         </li>
+      </subNodes>
+    </thinkNode>
+  </DutyDef>
+
+  <DutyDef>
+    <defName>SleepForever</defName>
+    <thinkNode Class="ThinkNode_Priority">
+      <subNodes>
+        <li Class="ThinkNode_PrioritySorter">
+          <subNodes>
+            <li Class="JobGiver_GetFood">
+              <minCategory>Starving</minCategory>
+            </li>
+          </subNodes>
+        </li>
+        <li Class="JobGiver_ForceSleepNow" />
       </subNodes>
     </thinkNode>
   </DutyDef>

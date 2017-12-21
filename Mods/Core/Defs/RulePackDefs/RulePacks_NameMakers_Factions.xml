@@ -1,22 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<NameMakerDefs>
+<Defs>
 
-  <!-- Player -->
-
-  <RulePackDef>
-    <defName>NamerFactionPlayerRandomized</defName>
-    <rulePack>
-      <rulesStrings>
-        <li>name->[colonyname]</li>
-      </rulesStrings>
-      <rulesRaw>
-        <li Class="Rule_File">
-          <keyword>colonyname</keyword>
-          <path>Names/ColonyNames</path>
-        </li>
-      </rulesRaw>
-    </rulePack>
-  </RulePackDef>
+  <!-- Player initial namers - used initially -->
 
   <RulePackDef>
     <defName>NamerFactionBasePlayerColony</defName>
@@ -36,8 +21,25 @@
     </rulePack>
   </RulePackDef>
 
-  <RulePackDef>
-    <defName>NamerFactionBasePlayerRandomized</defName>
+	<!-- Player suggestion namers - used for default name in the 'name faction and/or base' dialogs -->
+	
+	<RulePackDef>
+		<defName>NamerFactionPlayerColonyRandomized</defName>
+		<rulePack>
+			<rulesStrings>
+				<li>name->[colonyname]</li>
+			</rulesStrings>
+			<rulesRaw>
+				<li Class="Rule_File">
+					<keyword>colonyname</keyword>
+					<path>Names/ColonyNames</path>
+				</li>
+			</rulesRaw>
+		</rulePack>
+	</RulePackDef>
+
+	<RulePackDef>
+    <defName>NamerFactionBasePlayerColonyRandomized</defName>
     <include>
       <li>NamerFactionBaseOutlander</li>
     </include>
@@ -148,7 +150,34 @@
   <!-- Outlander -->
 
   <RulePackDef>
+    <defName>OutlanderWord</defName>
+    <rulePack>
+      <rulesStrings>
+        <li>outlanderword->[olsyl][olendsyl]</li>
+        <li>outlanderword->[olsyl][olendsyl]</li>
+        <li>outlanderword->[olsyl][olendsyl]</li>
+        <li>outlanderword->[olsyl][olsyl][olendsyl]</li>
+        <li>outlanderword->[olsyl][olsyl][olendsyl]</li>
+        <li>outlanderword->[olsyl][olsyl][olsyl][olendsyl]</li>
+      </rulesStrings>
+      <rulesRaw>
+        <li Class="Rule_File">
+          <keyword>olsyl</keyword>
+          <path>WordParts/Syllables_English</path>
+        </li>
+        <li Class="Rule_File">
+          <keyword>olendsyl</keyword>
+          <path>WordParts/PlaceEndings</path>
+        </li>
+      </rulesRaw>
+    </rulePack>
+  </RulePackDef>
+
+  <RulePackDef>
     <defName>NamerFactionOutlander</defName>
+    <include>
+      <li>OutlanderWord</li>
+    </include>
     <rulePack>
       <rulesStrings>
         <li>name->[subname]</li>
@@ -158,30 +187,12 @@
         <li>name->[subname] [politicaladjective] [politicalunion]</li>
         <li>name->[politicalunion] of [subname]</li>
         <li>name->[politicaladjective] [politicalunion] of [subname]</li>
-        <li>subname->[wordname]</li>
-        <li>subname->[wordname]</li>
-        <li>subname->[wordname]</li>
-        <li>subname->[direction] [wordname]</li>
-        <li>wordname->[syl][endsyl]</li>
-				<li>wordname->[syl][endsyl]</li>
-				<li>wordname->[syl][endsyl]</li>
-				<li>wordname->[syl][syl][endsyl]</li>
-				<li>wordname->[syl][syl][endsyl]</li>
-				<li>wordname->[syl][syl][syl][endsyl]</li>
+        <li>subname->[outlanderword]</li>
+        <li>subname->[outlanderword]</li>
+        <li>subname->[outlanderword]</li>
+        <li>subname->[direction] [outlanderword]</li>
       </rulesStrings>
       <rulesRaw>
-        <li Class="Rule_File">
-          <keyword>syl</keyword>
-          <path>WordParts/Syllables_English</path>
-        </li>
-        <li Class="Rule_File">
-          <keyword>endsyl</keyword>
-          <path>WordParts/PlaceEndings</path>
-        </li>
-        <li Class="Rule_File">
-          <keyword>direction</keyword>
-          <path>Words/Adjectives/CompassDirections</path>
-        </li>
         <li Class="Rule_File">
           <keyword>politicalunion</keyword>
           <path>Words/Nouns/PoliticalUnions_Outlander</path>
@@ -256,7 +267,35 @@
   <!-- Tribe -->
 
   <RulePackDef>
+    <defName>TribalWord</defName>
+    <rulePack>
+      <rulesStrings>
+        <li>tribalword->[tribalwordfile]</li>
+        <li>tribalword->[trsyl][trsyl]</li>
+        <li>tribalword->[trsyl][trsyl]</li>
+        <li>tribalword->[trsyl][trsyl]</li>
+        <li>tribalword->[trsyl][trsyl][trsyl]</li>
+        <li>tribalword->[trsyl][trsyl][trsyl]</li>
+        <li>tribalword->[trsyl][trsyl][trsyl][trsyl]</li>
+      </rulesStrings>
+      <rulesRaw>
+        <li Class="Rule_File">
+          <keyword>tribalwordfile</keyword>
+          <path>Words/Foreign/Tribal</path>
+        </li>
+        <li Class="Rule_File">
+          <keyword>trsyl</keyword>
+          <path>WordParts/Syllables_Tribal</path>
+        </li>
+      </rulesRaw>
+    </rulePack>
+  </RulePackDef>
+  
+  <RulePackDef>
     <defName>NamerFactionTribal</defName>
+    <include>
+      <li>TribalWord</li>
+    </include>
     <rulePack>
       <rulesStrings>
         <li>name->[tribalworld] [politicalunion]</li>
@@ -331,4 +370,4 @@
     </rulePack>
   </RulePackDef>
 
-</NameMakerDefs>
+</Defs>
