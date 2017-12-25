@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- ================ Mortars ==================-->
+
+  <ThingDef Name="BaseVanillaMortarBuilding" ParentName="BuildingBase" Abstract="True">
+    <thingClass>Building_TurretGun</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Security/MortarBase</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(3,3)</drawSize>
+      <damageData>
+        <rect>(0.38,0.2,0.56375,0.8)</rect>
+        <cornerTL>Damage/Corner</cornerTL>
+      </damageData>
+	<shadowData>
+    	<volume>(0.3, 0.6, 0.3)</volume>
+	</shadowData>
+    </graphicData>
+    <castEdgeShadows>false</castEdgeShadows>
+    <staticSunShadowHeight>0</staticSunShadowHeight>
+    <uiIconPath>Things/Building/Security/Mortar_ico</uiIconPath>
+    <minifiedDef>MinifiedFurniture</minifiedDef>
+    <altitudeLayer>Building</altitudeLayer>
+    <hasInteractionCell>True</hasInteractionCell>
+    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
+    <stealable>false</stealable>
+    <size>(2,2)</size>
+    <passability>PassThroughOnly</passability>
+    <pathCost>50</pathCost>
+    <fillPercent>0.4</fillPercent>
+    <tickerType>Normal</tickerType>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+    <designationCategory>Security</designationCategory>
+	<stuffCategories>
+		<li>Metallic</li>
+	</stuffCategories>
+	<costStuffCount>120</costStuffCount>
+	<costList>
+    	<Mortar_Crate>1</Mortar_Crate>
+	</costList>
+    <inspectorTabs>
+      <li>ITab_Shells</li>
+    </inspectorTabs>
+    <comps>
+      <li Class="CompProperties_Forbiddable"/>
+      <li Class="CompProperties_Mannable">
+        <manWorkType>Violent</manWorkType>
+      </li>
+    </comps>
+    <statBases>
+      <MaxHitPoints>180</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <WorkToBuild>2700</WorkToBuild>
+      <Beauty>-60</Beauty>
+      <Mass>250</Mass>
+	  <Bulk>400</Bulk>
+    </statBases>
+    <building>
+      <turretBurstWarmupTime>4.0</turretBurstWarmupTime>
+			<turretBurstCooldownTime>16.0</turretBurstCooldownTime>
+			<buildingTags>
+				<li>Artillery</li>
+			</buildingTags>
+		</building>
+    <placeWorkers>
+      <li>PlaceWorker_NotUnderRoof</li>
+    </placeWorkers>
+    <researchPrerequisites><li>Mortars</li></researchPrerequisites>
+  </ThingDef>
+
+  <ThingDef Name="BaseArtilleryWeapon" Abstract="True">
+    <category>Item</category>
+    <thingClass>ThingWithComps</thingClass>
+    <label>artillery error</label>
+    <useHitPoints>false</useHitPoints>
+    <equipmentType>Primary</equipmentType>
+    <tickerType>Never</tickerType>
+    <techLevel>Industrial</techLevel>
+    <destroyOnDrop>True</destroyOnDrop>
+	<canBeSpawningInventory>false</canBeSpawningInventory>
+    <menuHidden>True</menuHidden>
+    <tradeability>Never</tradeability>
+    <weaponTags>
+      <li>Artillery</li>
+    </weaponTags>
+    <comps>
+      <li>
+        <compClass>CompEquippable</compClass>
+      </li>
+      <li Class="CompProperties_ChangeableProjectile" />
+    </comps>
+    <building>
+      <fixedStorageSettings>
+        <filter>
+          <categories>
+            <li>MortarShells</li>
+          </categories>
+        </filter>
+      </fixedStorageSettings>
+      <defaultStorageSettings>
+        <filter>
+          <categories>
+            <li>MortarShells</li>
+          </categories>
+          <exceptedThingDefs>
+            <li>Shell_Firefoam</li>
+            <li>Shell_AntigrainWarhead</li>
+          </exceptedThingDefs>
+        </filter>
+      </defaultStorageSettings>
+    </building>
+  </ThingDef>
+
+  <!--=============== Mortar turret ===============-->
+
+  <ThingDef ParentName="BaseVanillaMortarBuilding">
+    <defName>Turret_Mortar</defName>
+    <label>81mm artillery mortar</label>
+    <description>A mortar that launches all kinds of shells. Must be manned. Explodes when damaged.</description>
+    <comps>
+      <li Class="CompProperties_Explosive">
+        <explosiveRadius>4.9</explosiveRadius>
+        <explosiveDamageType>Bomb</explosiveDamageType>
+      </li>
+    </comps>
+    <designationHotKey>Misc3</designationHotKey>
+    <building>
+      <turretGunDef>Artillery_Mortar</turretGunDef>
+      <turretTopGraphicPath>Things/Building/Security/Mortar</turretTopGraphicPath>
+      <buildingTags>
+        <li>Artillery_BaseDestroyer</li>
+      </buildingTags>
+    </building>
+  </ThingDef>
+  
+  <ThingDef ParentName="BaseArtilleryWeapon">
+    <defName>Artillery_Mortar</defName>
+    <label>81mm mortar</label>
+    <description>Mortar launcher. Lobs bombs over walls. Very inaccurate but long-ranged.</description>
+    <weaponTags>
+      <li>Artillery_BaseDestroyer</li>
+    </weaponTags>
+        <statBases>
+            <MarketValue>3200</MarketValue>
+        </statBases>
+    <verbs>
+      <li>
+        <verbClass>Verb_Shoot</verbClass>
+        <forceNormalTimeSpeed>false</forceNormalTimeSpeed>
+        <hasStandardCommand>true</hasStandardCommand>
+        <warmupTime>5.8</warmupTime>
+        <forcedMissRadius>9</forcedMissRadius>
+        <requireLineOfSight>false</requireLineOfSight>
+        <minRange>32</minRange>
+        <range>500</range>
+        <burstShotCount>1</burstShotCount>
+        <soundCast>Mortar_LaunchA</soundCast>
+        <muzzleFlashScale>16</muzzleFlashScale>
+        <targetParams>
+          <canTargetLocations>true</canTargetLocations>
+        </targetParams>
+      </li>
+    </verbs>
+  </ThingDef>
+
+</Defs>
