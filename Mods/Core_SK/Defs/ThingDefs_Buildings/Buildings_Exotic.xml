@@ -2,7 +2,8 @@
 <Defs>
 
   <ThingDef ParentName="BuildingBase" Name="MechShipPart" Abstract="True">
-    <altitudeLayer>Building</altitudeLayer>
+	<thingClass>Building_CrashedShipPart</thingClass>
+	<altitudeLayer>Building</altitudeLayer>
 	<pathCost>75</pathCost>
     <blockWind>true</blockWind>
 	<passability>PassThroughOnly</passability>
@@ -25,13 +26,16 @@
 		<soundAmbient>CrashedShipPart_Ambience</soundAmbient>
 		<roofCollapseDamageMultiplier>0.2</roofCollapseDamageMultiplier>
     </building>
+    <comps>
+      <li Class="CompProperties_SnowExpand" />
+      <li Class="CompProperties_SpawnerMechanoidsOnDamaged" />
+    </comps>
   </ThingDef>
 
   <ThingDef ParentName="MechShipPart">
     <defName>CrashedPsychicEmanatorShipPart</defName>
-    <label>crashed ship part</label>
-    <description>A mysterious crashed piece of a spaceship. It may contain exotic materials, computers, even AI personas. This kind of technology can be dangerous.</description>
-    <thingClass>Building_PsychicEmanator</thingClass>
+    <label>ancient ship part (psychic)</label>
+    <description>A mysterious crashed piece of a spaceship. It may contain exotic materials and computers. This one seems to be emanating psychic waves.</description>
     <graphicData>
 		<texPath>Things/Building/Genstep/MechanoidShipIncoming</texPath>
         <graphicClass>Graphic_Single</graphicClass>
@@ -44,18 +48,20 @@
 	<size>(6,6)</size>
     <rotatable>false</rotatable>
     <killedLeavings>
-      <AIPersonaCore>1</AIPersonaCore>
       <SteelBar>280</SteelBar>
       <SilverBar>140</SilverBar>
       <ChunkSlagSteel>2</ChunkSlagSteel>
     </killedLeavings>
+    <comps>
+      <li Class="CompProperties_PsychicDrone" />
+      <li Class="CompProperties_AnimalInsanityPulser" />
+    </comps>
   </ThingDef>
 
   <ThingDef ParentName="MechShipPart">
     <defName>CrashedPoisonShipPart</defName>
-    <label>crashed poison ship part</label>
-    <description>A mysterious crashed piece of a spaceship. It may contain exotic materials, computers, even AI personas. This one seems to be poisoning the ground around it.</description>
-    <thingClass>Building_PoisonShipPart</thingClass>
+    <label>ancient ship part (poison)</label>
+    <description>A mysterious crashed piece of a spaceship. It may contain exotic materials and computers. This one seems to be poisoning the ground around it.</description>
     <graphicData>
 		<texPath>Things/Building/Genstep/MechanoidShipIncoming</texPath>
         <graphicClass>Graphic_Single</graphicClass>
@@ -72,6 +78,19 @@
       <SilverBar>120</SilverBar>
       <ChunkSlagSteel>2</ChunkSlagSteel>
     </killedLeavings>
+		<comps>
+			<li Class="CompProperties_PlantHarmRadius">
+				<radiusPerDayCurve>
+					<points>
+						<li>0,5</li>
+						<li>1,40</li>
+						<li>3,110</li>
+						<li>7,200</li>
+					</points>
+				</radiusPerDayCurve>
+				<harmFrequencyPerArea>0.015</harmFrequencyPerArea>
+			</li>
+		</comps>
   </ThingDef>
 
   
@@ -126,7 +145,7 @@
   <ThingDef ParentName="ShipParts" Name="ShipPartsSmoke" Abstract="True">
 		<thingClass>SK.Shippart</thingClass>
 		<tickerType>Normal</tickerType>
-		<Passability>Impassable</Passability>
+		<passability>Impassable</passability>
 		<fillPercent>0.99</fillPercent>
 		<statBases>
 			  <MaxHitPoints>300</MaxHitPoints>

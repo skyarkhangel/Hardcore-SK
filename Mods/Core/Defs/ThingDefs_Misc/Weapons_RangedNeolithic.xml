@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ThingDefs>
+<Defs>
 
   <ThingDef Name="BaseWeaponNeolithic" Abstract="True" ParentName="BaseWeapon">
     <techLevel>Neolithic</techLevel>
@@ -51,14 +51,14 @@
     <projectile>
       <flyOverhead>false</flyOverhead>
       <damageDef>Arrow</damageDef>
-      <DamageAmountBase>10</DamageAmountBase>
-      <Speed>44</Speed>
+      <damageAmountBase>11</damageAmountBase>
+      <speed>44</speed>
     </projectile>
   </ThingDef>
   <ThingDef ParentName="BaseWeaponNeolithic">
     <defName>Bow_Short</defName>
     <label>short bow</label>
-    <description>A simple short bow, made with skill, but using only the most primitive technologies.</description>
+    <description>A simple short selfbow made from a single piece of wood.</description>
     <graphicData>
       <texPath>Things/Item/Equipment/WeaponRanged/BowShort</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -75,9 +75,11 @@
       <AccuracyMedium>0.41</AccuracyMedium>
       <AccuracyLong>0.22</AccuracyLong>
       <RangedWeapon_Cooldown>1.66</RangedWeapon_Cooldown>
+      <Weapon_Bulk>1.0</Weapon_Bulk>
     </statBases>
     <weaponTags>
       <li>NeolithicRanged</li>
+      <li>NeolithicRangedBasic</li>
     </weaponTags>
     <recipeMaker>
       <recipeUsers>
@@ -90,32 +92,42 @@
       <li>
         <verbClass>Verb_Shoot</verbClass>
         <hasStandardCommand>true</hasStandardCommand>
-        <projectileDef>Arrow_Short</projectileDef>
+        <defaultProjectile>Arrow_Short</defaultProjectile>
         <warmupTime>1.35</warmupTime>
         <range>29</range>
         <soundCast>BowSmall</soundCast>
       </li>
     </verbs>
+    <tools>
+      <li>
+        <capacities>
+          <li>Blunt</li>
+          <li>Poke</li>
+        </capacities>
+        <power>8</power>
+        <cooldownTime>1.6</cooldownTime>
+      </li>
+    </tools>
   </ThingDef>
 
   <ThingDef ParentName="BaseProjectileNeolithic">
     <defName>Pilum_Thrown</defName>
-    <label>pilum (thrown)</label>
+    <label>pilum</label>
     <graphicData>
       <texPath>Things/Projectile/Pilum</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <projectile>
       <flyOverhead>false</flyOverhead>
-      <damageDef>Stab</damageDef>
-      <DamageAmountBase>30</DamageAmountBase>
-      <Speed>26</Speed>
+      <damageDef>RangedStab</damageDef>
+      <damageAmountBase>30</damageAmountBase>
+      <speed>26</speed>
     </projectile>
   </ThingDef>
   <ThingDef ParentName="BaseWeaponNeolithic">
     <defName>Pila</defName>
     <label>pila</label>
-    <description>A bundle of pila, non-reusable throwing spears.</description>
+    <description>Pila are spears for throwing. They take a long time to throw, and move slowly, but one hit can do heavy damage. The singular of pila is pilum.</description>
     <graphicData>
       <texPath>Things/Item/Equipment/WeaponRanged/Pilum</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -132,20 +144,110 @@
       <AccuracyMedium>0.50</AccuracyMedium>
       <AccuracyLong>0.32</AccuracyLong>
       <RangedWeapon_Cooldown>4</RangedWeapon_Cooldown>
+      <Weapon_Bulk>1.0</Weapon_Bulk>
     </statBases>
     <weaponTags>
       <li>NeolithicRanged</li>
+      <li>NeolithicRangedHeavy</li>
     </weaponTags>
     <verbs>
       <li>
         <verbClass>Verb_Shoot</verbClass>
         <hasStandardCommand>true</hasStandardCommand>
-        <projectileDef>Pilum_Thrown</projectileDef>
+        <defaultProjectile>Pilum_Thrown</defaultProjectile>
         <warmupTime>4.0</warmupTime>
         <range>20</range>
         <soundCast>Interact_BeatFire</soundCast>
       </li>
     </verbs>
+    <tools>
+      <li>
+        <label>shaft</label>
+        <capacities>
+          <li>Blunt</li>
+        </capacities>
+        <power>8</power>
+        <cooldownTime>1.6</cooldownTime>
+      </li>
+      <li>
+        <label>point</label>
+        <capacities>
+          <li>Blunt</li>
+        </capacities>
+        <power>10</power>
+        <cooldownTime>1.6</cooldownTime>
+      </li>
+    </tools>
+  </ThingDef>
+
+  <ThingDef ParentName="BaseProjectileNeolithic">
+    <defName>Arrow_Recurve</defName>
+    <label>recurve bow arrow</label>
+    <graphicData>
+      <texPath>Things/Projectile/Arrow_Small</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <projectile>
+      <flyOverhead>false</flyOverhead>
+      <damageDef>ArrowHighVelocity</damageDef>
+      <damageAmountBase>14</damageAmountBase>
+      <speed>56</speed>
+    </projectile>
+  </ThingDef>
+  <ThingDef ParentName="BaseWeaponNeolithic">
+    <defName>Bow_Recurve</defName>
+    <label>recurve bow</label>
+    <description>An advanced recurve bow. Its construction behaves like a tuned spring, storing energy more efficiently and delivering a faster shot.</description>
+    <graphicData>
+      <texPath>Things/Item/Equipment/WeaponRanged/BowRecurve</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>BowRecurve</soundInteract>
+    <costList>
+      <WoodLog>40</WoodLog>
+    </costList>
+    <statBases>
+      <WorkToMake>12000</WorkToMake>
+      <Mass>0.85</Mass>
+      <AccuracyTouch>0.90</AccuracyTouch>
+      <AccuracyShort>0.78</AccuracyShort>
+      <AccuracyMedium>0.65</AccuracyMedium>
+      <AccuracyLong>0.35</AccuracyLong>
+      <RangedWeapon_Cooldown>1.66</RangedWeapon_Cooldown>
+      <Weapon_Bulk>1.0</Weapon_Bulk>
+    </statBases>
+    <weaponTags>
+      <li>NeolithicRanged</li>
+      <li>NeolithicRangedHunter</li>
+    </weaponTags>
+    <recipeMaker>
+      <recipeUsers>
+        <li>ElectricSmithy</li>
+        <li>FueledSmithy</li>
+        <li>CraftingSpot</li>
+      </recipeUsers>
+      <researchPrerequisite>RecurveBow</researchPrerequisite>
+    </recipeMaker>
+    <verbs>
+      <li>
+        <verbClass>Verb_Shoot</verbClass>
+        <hasStandardCommand>true</hasStandardCommand>
+        <defaultProjectile>Arrow_Recurve</defaultProjectile>
+        <warmupTime>1.45</warmupTime>
+        <range>32</range>
+        <soundCast>BowRecurve</soundCast>
+      </li>
+    </verbs>
+    <tools>
+      <li>
+        <capacities>
+          <li>Blunt</li>
+          <li>Poke</li>
+        </capacities>
+        <power>8</power>
+        <cooldownTime>1.6</cooldownTime>
+      </li>
+    </tools>
   </ThingDef>
 
   <ThingDef ParentName="BaseProjectileNeolithic">
@@ -158,13 +260,13 @@
     <projectile>
       <flyOverhead>false</flyOverhead>
       <damageDef>Arrow</damageDef>
-      <DamageAmountBase>18</DamageAmountBase>
-      <Speed>49</Speed>
+      <damageAmountBase>18</damageAmountBase>
+      <speed>49</speed>
     </projectile>
   </ThingDef>
   <ThingDef ParentName="BaseWeaponNeolithic">
     <defName>Bow_Great</defName>
-    <label>great bow</label>
+    <label>greatbow</label>
     <description>A powerful greatbow. Fires a heavy arrow long distances.</description>
     <graphicData>
       <texPath>Things/Item/Equipment/WeaponRanged/BowGreat</texPath>
@@ -181,23 +283,39 @@
       <AccuracyShort>0.85</AccuracyShort>
       <AccuracyMedium>0.75</AccuracyMedium>
       <AccuracyLong>0.50</AccuracyLong>
-      <RangedWeapon_Cooldown>1.5</RangedWeapon_Cooldown>
+      <RangedWeapon_Cooldown>1.4</RangedWeapon_Cooldown>
+      <Weapon_Bulk>1.0</Weapon_Bulk>
     </statBases>
     <weaponTags>
       <li>NeolithicRanged</li>
+      <li>NeolithicRangedHeavy</li>
+      <li>NeolithicRangedChief</li>
     </weaponTags>
     <verbs>
       <li>
         <verbClass>Verb_Shoot</verbClass>
         <hasStandardCommand>true</hasStandardCommand>
-        <projectileDef>Arrow_Great</projectileDef>
-        <warmupTime>1.8</warmupTime>
+        <defaultProjectile>Arrow_Great</defaultProjectile>
+        <warmupTime>1.5</warmupTime>
         <range>32</range>
         <soundCast>BowLarge</soundCast>
       </li>
     </verbs>
+    <tools>
+      <li>
+        <capacities>
+          <li>Blunt</li>
+          <li>Poke</li>
+        </capacities>
+        <power>8</power>
+        <cooldownTime>1.6</cooldownTime>
+      </li>
+    </tools>
+    <recipeMaker>
+      <researchPrerequisite>Greatbows</researchPrerequisite>
+    </recipeMaker>
   </ThingDef>
 
-</ThingDefs>
+</Defs>
 
 

@@ -36,11 +36,30 @@
   </InstructionDef>
 
   <InstructionDef>
-    <defName>RandomizeCharacter</defName>
-    <text>Now you'll generate characters!\n\nTry randomizing a character with the RANDOMIZE button.</text>
+    <defName>ReorderCharacters</defName>
+    <text>Now you can choose characters!\n\nClick in the left area to select from available characters. If you find a character you like, drag them into the top section with the SELECTED label.</text>
     <eventTagInitiate>PageStart-ConfigureStartingPawns</eventTagInitiate>
     <actionTagsAllowed>
       <li>GotoPrevPage</li>
+      <li>ReorderPawn</li>
+    </actionTagsAllowed>
+    <eventTagsEnd>
+      <li>ReorderPawn</li>
+    </eventTagsEnd>
+    <highlightTags>
+      <li>ReorderPawn</li>
+    </highlightTags>
+    <rejectInputMessage>Please try choosing a character first.</rejectInputMessage>
+  </InstructionDef>
+  
+  <InstructionDef>
+    <defName>RandomizeCharacter</defName>
+    <text>If you don't like a character, you can regenerate it!\n\nTry randomizing a character with the RANDOMIZE button.</text>
+    <eventTagInitiate>ReorderPawn</eventTagInitiate>
+    <eventTagInitiateSource>ReorderCharacters</eventTagInitiateSource>
+    <actionTagsAllowed>
+      <li>GotoPrevPage</li>
+      <li>ReorderPawn</li>
       <li>RandomizePawn</li>
     </actionTagsAllowed>
     <eventTagsEnd>
@@ -54,10 +73,11 @@
 
   <InstructionDef>
     <defName>AcceptStartingPawns</defName>
-    <text>Great!\n\nRandomize more if you want - but don't try to get the perfect character. Everyone has flaws, and it makes the story more interesting!\n\nYou can also re-name the characters by clicking on their names.\n\nClick START when you're ready.</text>
+    <text>Great!\n\nReorder and randomize more if you want - but don't try to get the perfect characters. Everyone has flaws, and it makes the story more interesting!\n\nYou can also re-name the characters by clicking on their names.\n\nClick START when you're ready.</text>
     <eventTagInitiate>RandomizePawn</eventTagInitiate>
     <actionTagsAllowed>
       <li>GotoPrevPage</li>
+      <li>ReorderPawn</li>
       <li>RandomizePawn</li>
       <li>GotoNextPage</li>
     </actionTagsAllowed>
@@ -199,7 +219,7 @@
 
   <InstructionDef>
     <defName>BuildBeds</defName>
-    <text>Your colonists will now build the room!\n\nNow they need somewhere to sleep. Place three BEDS inside the room.\n\nFind them in the FURNITURE category.</text>
+    <text>Your colonists will now build the room!\n\nNow they need somewhere to sleep. Place three BEDS inside the room.\n\nFind them in the FURNITURE category.\n\nYou can use the {Key:DesignatorRotateLeft} and {Key:DesignatorRotateRight} keys to rotate the building.</text>
     <instructionClass>Instruction_BuildInRoom</instructionClass>
     <eventTagInitiate>InstructionDeactivated-BuildRoomDoor</eventTagInitiate>
     <actionTagsAllowed>

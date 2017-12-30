@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <RecipeDef Abstract="True" Name="SurgeryFlesh">
+    <effectWorking>Surgery</effectWorking>
+    <soundWorking>Recipe_Surgery</soundWorking>
+    <workSpeedStat>MedicalOperationSpeed</workSpeedStat>
+    <workSkill>Medicine</workSkill>
+    <workSkillLearnFactor>16</workSkillLearnFactor>
+  </RecipeDef>
+	
+  <!-- Anesthetize -->
+  
+  <RecipeDef ParentName="SurgeryFlesh">
+		<defName>Anesthetize</defName>
+		<label>anesthetize</label>
+		<description>Makes a creature unconscious by administering an anesthetic.</description>
+		<workerClass>Recipe_Surgery</workerClass>
+		<jobString>Anesthetizing.</jobString>
+		<workAmount>0</workAmount>
+		<hideBodyPartNames>true</hideBodyPartNames>
+		<targetsBodyPart>false</targetsBodyPart>
+		<surgerySuccessChanceFactor>2</surgerySuccessChanceFactor>
+		<ingredients>
+			<li>
+				<filter>
+          <categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+      <categories>
+				<li>Medicine</li>
+			</categories>
+		</fixedIngredientFilter>
+	</RecipeDef>
+	
+	<!-- Euthanasia -->
+
+  <RecipeDef ParentName="SurgeryFlesh">
+		<defName>Euthanize</defName>
+		<label>euthanize by cut</label>
+		<description>Euthanizes a creature by cutting.</description>
+		<workerClass>Recipe_ExecuteByCut</workerClass>
+		<jobString>Euthanizing by cutting.</jobString>
+		<workAmount>500</workAmount>
+		<hideBodyPartNames>true</hideBodyPartNames>
+    <isViolation>true</isViolation>
+		<targetsBodyPart>false</targetsBodyPart>
+		<surgerySuccessChanceFactor>5</surgerySuccessChanceFactor>
+		<ingredients>
+			<li>
+				<filter>
+          <categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+      <categories>
+				<li>Medicine</li>
+			</categories>
+		</fixedIngredientFilter>
+	</RecipeDef>
+
+  <RecipeDef>
+		<defName>ShutDownMechanoid</defName>
+		<label>shut down</label>
+		<description>Shuts down a mechanoid.</description>
+		<workerClass>Recipe_ShutDown</workerClass>
+		<jobString>Shutting down mechanoid.</jobString>
+		<workAmount>500</workAmount>
+		<hideBodyPartNames>true</hideBodyPartNames>
+		<addsHediff>ShutDown</addsHediff>
+    <effectWorking>Repair</effectWorking>
+    <isViolation>true</isViolation>
+		<surgerySuccessChanceFactor>99999</surgerySuccessChanceFactor>
+    <requireBed>false</requireBed>
+	</RecipeDef>
+  
+  <!-- removing hediffs (e.g. diseases) -->
+	
+  <RecipeDef ParentName="SurgeryFlesh">
+		<defName>ExciseCarcinoma</defName>
+		<label>excise carcinoma</label>
+		<description>Excises carcinoma.</description>
+		<workerClass>Recipe_RemoveHediff</workerClass>
+		<jobString>Excising carcinoma.</jobString>
+		<workAmount>4500</workAmount>
+		<removesHediff>Carcinoma</removesHediff>
+    <successfullyRemovedHediffMessage>{0} has successfully excised {1}'s carcinoma.</successfullyRemovedHediffMessage>
+    <surgerySuccessChanceFactor>0.7</surgerySuccessChanceFactor>
+    <deathOnFailedSurgeryChance>0.25</deathOnFailedSurgeryChance>
+		<skillRequirements>
+			<Medicine>10</Medicine>
+		</skillRequirements>
+		<ingredients>
+			<li>
+				<filter>
+          <categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>6</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+      <categories>
+        <li>Medicine</li>
+      </categories>
+      <exceptedThingDefs>
+        <li>HerbalMedicine</li>
+      </exceptedThingDefs>
+		</fixedIngredientFilter>
+  </RecipeDef>
+
+	<!-- removing body parts -->
+
+	<RecipeDef ParentName="SurgeryFlesh">
+		<defName>RemoveBodyPart</defName>
+		<label>remove part</label>
+		<description>Removes body part.</description>
+		<workerClass>Recipe_RemoveBodyPart</workerClass>
+		<jobString>Removing body part.</jobString>
+		<workAmount>2000</workAmount>
+		<surgerySuccessChanceFactor>1.2</surgerySuccessChanceFactor>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+		</fixedIngredientFilter>
+	</RecipeDef>
+
+	<RecipeDef>
+		<defName>RemoveMechanoidBodyPart</defName>
+		<label>remove part</label>
+		<description>Removes body part.</description>
+		<workerClass>Recipe_RemoveBodyPart</workerClass>
+		<jobString>Removing body part.</jobString>
+		<workAmount>2000</workAmount>
+		<workSpeedStat>ButcheryMechanoidSpeed</workSpeedStat>
+		<workSkill>Crafting</workSkill>
+		<effectWorking>Repair</effectWorking>
+    <surgerySuccessChanceFactor>99999</surgerySuccessChanceFactor>
+    <requireBed>false</requireBed>
+	</RecipeDef>
+
+	<!-- special administer -->
+	
+	<RecipeDef>
+		<defName>AdministerMechSerumHealer</defName>
+		<label>administer healer mech serum</label>
+		<description>Administers healer mech serum.</description>
+		<workerClass>Recipe_AdministerUsableItem</workerClass>
+		<jobString>Administering healer mech serum.</jobString>
+		<targetsBodyPart>false</targetsBodyPart>
+		<anesthetize>false</anesthetize>
+		<workAmount>600</workAmount>
+		<dontShowIfAnyIngredientMissing>true</dontShowIfAnyIngredientMissing>
+		<surgerySuccessChanceFactor>99999</surgerySuccessChanceFactor>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>MechSerumHealer</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>MechSerumHealer</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+	</RecipeDef>
+  	
+</Defs>

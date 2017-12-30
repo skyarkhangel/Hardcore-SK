@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <ThingDef ParentName="MakeableDrugBase">
+    <defName>PsychoidPekoe</defName>
+    <label>psychoid pekoe</label>
+    <description>A fragrant tea which can be drank to induce a weak euphoric effect. Very easy to produce, but be wary of addiction.</description>
+    <graphicData>
+      <texPath>Things/Item/Drug/Pekoe</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <rotatable>false</rotatable>
+    <statBases>
+      <WorkToMake>400</WorkToMake>
+      <MarketValue>14</MarketValue>
+      <Mass>0.05</Mass>
+      <DeteriorationRate>6</DeteriorationRate>
+    </statBases>
+    <techLevel>Neolithic</techLevel>
+    <ingestible>
+      <foodType>Fluid, Processed</foodType>
+      <joy>0.40</joy>
+      <baseIngestTicks>240</baseIngestTicks>
+      <nurseable>true</nurseable>
+      <drugCategory>Social</drugCategory>
+      <ingestSound>Ingest_Drink</ingestSound>
+      <ingestHoldOffsetStanding>
+        <northDefault>
+          <offset>(0.18,0,0)</offset>
+        </northDefault>
+      </ingestHoldOffsetStanding>
+      <ingestHoldUsesTable>false</ingestHoldUsesTable>
+      <ingestCommandString>Drink {0}</ingestCommandString>
+      <ingestReportString>Drinking {0}.</ingestReportString>
+      <outcomeDoers>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>PekoeHigh</hediffDef>
+          <severity>0.75</severity>
+          <toleranceChemical>Psychite</toleranceChemical>
+        </li>
+        <li Class="IngestionOutcomeDoer_OffsetNeed">
+          <need>Rest</need>
+          <offset>0.1</offset>
+          <toleranceChemical>Psychite</toleranceChemical>
+        </li>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>PsychiteTolerance</hediffDef>
+          <severity>0.02</severity>
+					<divideByBodySize>true</divideByBodySize>
+				</li>
+      </outcomeDoers>
+    </ingestible>
+    <recipeMaker>
+			<researchPrerequisite>PsychoidBrewing</researchPrerequisite>
+      <recipeUsers>
+        <li>CraftingSpot</li>
+      </recipeUsers>
+    </recipeMaker>
+    <costList>
+      <PsychoidLeaves>4</PsychoidLeaves>
+    </costList>
+    <comps>
+      <li Class="CompProperties_Drug">
+        <chemical>Psychite</chemical>
+        <addictiveness>0.02</addictiveness>
+        <minToleranceToAddict>0.10</minToleranceToAddict>
+        <existingAddictionSeverityOffset>0.15</existingAddictionSeverityOffset>
+        <needLevelOffset>1</needLevelOffset>
+        <listOrder>110</listOrder>
+			</li>
+    </comps>
+  </ThingDef>
+  
+  <HediffDef>
+    <defName>PekoeHigh</defName>
+    <hediffClass>HediffWithComps</hediffClass>
+    <label>high on psychite pekoe</label>
+    <labelNoun>a psychite pekoe high</labelNoun>
+    <defaultLabelColor>(1,0,0.5)</defaultLabelColor>
+    <scenarioCanAdd>true</scenarioCanAdd>
+    <maxSeverity>1.0</maxSeverity>
+    <isBad>false</isBad>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-3.0</severityPerDay>
+      </li>
+    </comps>
+      <stages>
+        <li>
+          <painFactor>0.9</painFactor>
+          <restFallFactor>0.9</restFallFactor>
+        </li>
+      </stages>
+  </HediffDef>
+  
+  <ThoughtDef>
+    <defName>PekoeHigh</defName>
+    <workerClass>ThoughtWorker_Hediff</workerClass>
+    <hediff>PekoeHigh</hediff>
+    <validWhileDespawned>true</validWhileDespawned>
+    <stages>
+      <li>
+        <label>high on psychite pekoe</label>
+        <description>Everything just feels good right now.</description>
+        <baseMoodEffect>12</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+</Defs>
