@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ThinkTrees>
+<Defs>
 
 	<ThinkTreeDef>
 		<defName>X2_AIRobot</defName>
 		<thinkRoot Class="ThinkNode_Priority">
 			<subNodes>
-            
-        <!-- If we HAVE to keep lying down... -->
+				<!-- Keep lying down if we have to -->
 				<li Class="ThinkNode_ConditionalMustKeepLyingDown">
 					<subNodes>
-            
-            <!-- Keep lying down -->
+						<!-- Keep lying down -->
 						<li Class="JobGiver_KeepLyingDown" />
 					</subNodes>
 				</li>
@@ -27,18 +25,20 @@
 				<!-- React to close melee threat -->
 				<li Class="JobGiver_ReactToCloseMeleeThreat" />
 
+				<!-- Do a queued job -->
+				<li Class="ThinkNode_QueuedJob" />
 
-				<!-- If on colonist team, do forced and emergency work -->
-        <li Class="ThinkNode_ConditionalColonist">
+				<!-- Wait if drafted -->
+				<li Class="ThinkNode_ConditionalColonist">
 					<subNodes>
-            <li Class="ThinkNode_Tagger">
-              <tagToGive>DraftedOrder</tagToGive>
-              <subNodes>
-                <li Class="JobGiver_Orders" />
-              </subNodes>
-            </li>
-          </subNodes>
-        </li>
+						<li Class="ThinkNode_Tagger">
+							<tagToGive>DraftedOrder</tagToGive>
+							<subNodes>
+								<li Class="JobGiver_Orders" />
+							</subNodes>
+						</li>
+					</subNodes>
+				</li>
 
 				<!-- Lord directives (high priority) -->
 				<li Class="ThinkNode_JoinVoluntarilyJoinableLord">
@@ -50,7 +50,7 @@
 					</subNodes>
 				</li>
 
-				<li Class="ThinkNode_ConditionalHasFaction">
+				<li Class="ThinkNode_ConditionalOfPlayerFaction">
 					<subNodes>
 						<!-- Seek allowed area -->
 						<li Class="JobGiver_SeekAllowedArea" />
@@ -58,6 +58,11 @@
 						<li Class="JobGiver_SeekSafeTemperature" />
 						<!-- Drop unused inventory -->
 						<li Class="JobGiver_DropUnusedInventory" />
+						<!-- Emergency work 
+						<li Class="JobGiver_Work">
+							<leaveJoinableLordIfIssuesJob>true</leaveJoinableLordIfIssuesJob>
+							<emergency>true</emergency>
+						</li>  -->
 					</subNodes>
 				</li>
 
@@ -72,21 +77,13 @@
 				</li>
 
 				<!-- Main behavior core-->
-				<li Class="ThinkNode_ConditionalColonyFaction">
+				<li Class="ThinkNode_ConditionalOfPlayerFaction">
 					<subNodes>		
 						<li Class="ThinkNode_PrioritySorter">
 							<subNodes>
 								<!-- AIPawn - satisfy basic needs -->
 								<li Class="AIRobot.X2_JobGiver_RechargeEnergy" />
 								
-								<!-- AIPawn - taken from animal handling - disabled!
-								<li Class="AIRobot.X2_ThinkNode_Conditional_DoWork" >
-									<workType>Hauling</workType>
-									<subNodes>
-										<li Class="JobGiver_Haul" />
-									</subNodes>
-								</li> 
-								-->
 								<li Class="AIRobot.X2_JobGiver_Work" />
 							</subNodes>
 						</li>
@@ -94,13 +91,15 @@
 				</li>
 
 				<!-- Idle wander for colonists -->
-				<li Class="ThinkNode_ConditionalColonyFaction">
+				<li Class="ThinkNode_ConditionalOfPlayerFaction">
 					<subNodes>
+						<li Class="AIRobot.X2_JobGiver_Return2BaseRoom" />
 						<li Class="ThinkNode_Tagger">
 							<tagToGive>Idle</tagToGive>
 							<subNodes>
-								<li Class="JobGiver_WanderCurrentRoom">
-									<maxDanger>Deadly</maxDanger>
+								<!-- Wander -->
+								<li Class="JobGiver_WanderColony">
+									<maxDanger>None</maxDanger>
 								</li>
 							</subNodes>
 						</li>
@@ -140,7 +139,7 @@
 					<subNodes>
 
 						<!-- Flee explosion -->
-						<li Class="JobGiver_FleeExplosion" />
+						<li Class="JobGiver_FleePotentialExplosion" />
 
 						<!-- Hostility response -->
 						<li Class="JobGiver_ConfigurableHostilityResponse" />
@@ -155,4 +154,4 @@
 		</thinkRoot>
 	</ThinkTreeDef>
 
-</ThinkTrees>
+</Defs>

@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ThinkTrees>
+<Defs>
 
 	<ThinkTreeDef>
 		<defName>Humanlike</defName>
 		<thinkRoot Class="ThinkNode_Priority">
 			<subNodes>
         <!-- Do lovin' -->
-				<li Class="ThinkNode_ConditionalLyingDown">
+        <li Class="ThinkNode_ConditionalLyingDown">
           <subNodes>
             <li Class="ThinkNode_ChancePerHour_Lovin">
               <subNodes>
@@ -22,8 +22,13 @@
         </li>
             
         <!-- If we HAVE to keep lying down... -->
-				<li Class="ThinkNode_ConditionalMustKeepLyingDown">
-					<subNodes>
+        <li Class="ThinkNode_ConditionalMustKeepLyingDown">
+          <subNodes>
+            <!-- Do a queued job if possible (e.g. watch tv in bed) -->
+            <li Class="ThinkNode_QueuedJob">
+              <inBedOnly>true</inBedOnly>
+            </li>
+
             <!-- Get joy -->
             <li Class="ThinkNode_Tagger">
               <tagToGive>SatisfyingNeeds</tagToGive>
@@ -40,15 +45,15 @@
         <li Class="ThinkNode_Subtree">
           <treeDef>Downed</treeDef>
         </li>
-				<li Class="ThinkNode_Subtree">
-					<treeDef>BurningResponse</treeDef>
-				</li>
-				<li Class="ThinkNode_Subtree">
-					<treeDef>MentalStateCritical</treeDef>
-				</li>
+        <li Class="ThinkNode_Subtree">
+          <treeDef>BurningResponse</treeDef>
+        </li>
+        <li Class="ThinkNode_Subtree">
+          <treeDef>MentalStateCritical</treeDef>
+        </li>
         
         <!-- React to close melee threat -->
-				<li Class="JobGiver_ReactToCloseMeleeThreat" />
+        <li Class="JobGiver_ReactToCloseMeleeThreat" />
             
         <!-- Mental state non critical -->
         <li Class="ThinkNode_Subtree">
@@ -60,9 +65,12 @@
           <insertTag>Humanlike_PostMentalState</insertTag>
         </li>
         
-				<!-- Take direct orders when drafted -->
+        <!-- Do a queued job -->
+        <li Class="ThinkNode_QueuedJob" />
+
+        <!-- Wait if drafted -->
         <li Class="ThinkNode_ConditionalColonist">
-					<subNodes>
+          <subNodes>
             <li Class="ThinkNode_Tagger">
               <tagToGive>DraftedOrder</tagToGive>
               <subNodes>
@@ -72,7 +80,7 @@
           </subNodes>
         </li>
         
-				<!-- Lord directives (high priority) -->
+        <!-- Lord directives (high priority) -->
         <li Class="ThinkNode_JoinVoluntarilyJoinableLord">
           <dutyHook>HighPriority</dutyHook>
           <subNodes>
@@ -87,10 +95,10 @@
           <insertTag>Humanlike_PostDuty</insertTag>
         </li>
         
-				<!-- Prisoner -->
-				<li Class="ThinkNode_ConditionalPrisoner">
+        <!-- Prisoner -->
+        <li Class="ThinkNode_ConditionalPrisoner">
           <leaveJoinableLordIfIssuesJob>true</leaveJoinableLordIfIssuesJob>
-					<subNodes>
+          <subNodes>
             <!-- If it's the player home map... -->
             <li Class="ThinkNode_ConditionalInNonPlayerHomeMap">
               <invert>true</invert>
@@ -115,6 +123,20 @@
               </subNodes>
             </li>
             
+            <!-- Exit map if released -->
+            <li Class="ThinkNode_ConditionalReleased">
+              <subNodes>
+                <li Class="ThinkNode_Tagger">
+                  <tagToGive>Misc</tagToGive>
+                  <subNodes>
+                    <li Class="JobGiver_ExitMapBest">
+                      <defaultLocomotion>Walk</defaultLocomotion>
+                    </li>
+                  </subNodes>
+                </li>
+              </subNodes>
+            </li>
+
             <li Class="ThinkNode_Tagger">
               <tagToGive>RestingForMedicalReasons</tagToGive>
               <subNodes>
@@ -141,19 +163,6 @@
                       <subNodes>
                         <li Class="JobGiver_GetJoy"/>
                       </subNodes>
-                    </li>
-                  </subNodes>
-                </li>
-              </subNodes>
-            </li>
-            
-            <li Class="ThinkNode_ConditionalReleased">
-              <subNodes>
-                <li Class="ThinkNode_Tagger">
-                  <tagToGive>Misc</tagToGive>
-                  <subNodes>
-                    <li Class="JobGiver_ExitMapBest">
-                      <defaultLocomotion>Walk</defaultLocomotion>
                     </li>
                   </subNodes>
                 </li>
@@ -201,13 +210,13 @@
               </subNodes>
             </li>
             
-						<li Class="JobGiver_IdleError" />
-					</subNodes>
-				</li>
+            <li Class="JobGiver_IdleError" />
+          </subNodes>
+        </li>
 
         <!-- If on colonist team, do forced and emergency work -->
-				<li Class="ThinkNode_ConditionalColonist">
-					<subNodes>
+        <li Class="ThinkNode_ConditionalColonist">
+          <subNodes>
             <!-- Seek allowed area -->
             <li Class="JobGiver_SeekAllowedArea" />
 
@@ -217,7 +226,7 @@
             <!-- Drop unnused inventory -->
             <li Class="JobGiver_DropUnusedInventory" />
             
-						<!-- Get food (only if starving) -->
+            <!-- Get food (only if starving) -->
             <li Class="ThinkNode_ConditionalStarving">
               <subNodes>
                 <li Class="ThinkNode_Tagger">
@@ -275,8 +284,8 @@
                 </li>
               </subNodes>
             </li>
-					</subNodes>
-				</li>
+          </subNodes>
+        </li>
 
         <!-- Behavior from traits -->
         <li Class="ThinkNode_TraitBehaviors" />
@@ -295,6 +304,16 @@
             </li>
 					</subNodes>
 				</li>
+        <!-- Main wild man behavior core -->
+        <li Class="ThinkNode_ConditionalPawnKind">
+          <pawnKind>WildMan</pawnKind>
+          <subNodes>
+            <li Class="ThinkNode_Subtree">
+              <treeDef>MainWildManBehaviorCore</treeDef>
+              <leaveJoinableLordIfIssuesJob>true</leaveJoinableLordIfIssuesJob>
+            </li>
+          </subNodes>
+        </li>
 
         <!-- Insertion hook for modders -->
         <li Class="ThinkNode_SubtreesByTag">
@@ -325,7 +344,27 @@
             </li>
           </subNodes>
         </li>
-        
+
+        <!-- Idle wild man -->
+        <li Class="ThinkNode_ConditionalPawnKind">
+          <pawnKind>WildMan</pawnKind>
+          <subNodes>
+            <li Class="ThinkNode_Tagger">
+              <tagToGive>Idle</tagToGive>
+              <subNodes>
+                <!-- Wander -->
+                <li Class="JobGiver_WanderAnywhere">
+                  <maxDanger>Deadly</maxDanger>
+                  <ticksBetweenWandersRange>
+                    <min>120</min>
+                    <max>240</max>
+                  </ticksBetweenWandersRange>
+                </li>
+              </subNodes>
+            </li>
+          </subNodes>
+        </li>
+
         <!-- If you're a neutral guest, if you're not hurt exit the map, otherwise use a medical bed -->
         <li Class="ThinkNode_ConditionalGuest">
           <subNodes>
@@ -389,7 +428,7 @@
 				<li Class="ThinkNode_ConditionalCanDoConstantThinkTreeJobNow">
 					<subNodes>
             <!-- Flee explosion -->
-            <li Class="JobGiver_FleeExplosion" />
+            <li Class="JobGiver_FleePotentialExplosion" />
         
             <!-- Hostility response -->
             <li Class="JobGiver_ConfigurableHostilityResponse" />
@@ -404,4 +443,4 @@
 		</thinkRoot>
 	</ThinkTreeDef>
   
-</ThinkTrees>
+</Defs>
