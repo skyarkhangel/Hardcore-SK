@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+<ThingDef ParentName="MakeableDrugPillBase">
+	<defName>JTFieldSurgeryAnanogel</defName>
+	<label>ananogel</label>
+	<description>Pill capsules containing a viscous analgesic infused with nanophageous mechanites intended to seek out and consume mechanite infestations in the cerebral and skeletomuscular pathways. Numerous treatments may be required to treat prolonged infestations.</description>
+	<graphicData>
+		<texPath>JT/Ananogel</texPath>
+		<graphicClass>Graphic_StackCount</graphicClass>
+	</graphicData>
+	<rotatable>false</rotatable>
+	<statBases>
+		<WorkToMake>2500</WorkToMake>
+		<MarketValue>269.5</MarketValue>
+		<Mass>0.002</Mass>
+	</statBases>
+	<techLevel>Ultra</techLevel>
+	<ingestible>
+		<drugCategory>Medical</drugCategory>
+		<outcomeDoers>
+			<li Class="JTFieldSurgery.IngestionOutcomeDoer_TreatHediff">
+				<hediffDefs>
+					<li>FibrousMechanites</li>
+					<li>SensoryMechanites</li>
+					</hediffDefs>
+				</li>
+			<li Class="IngestionOutcomeDoer_GiveHediff">
+				<hediffDef>JTFieldSurgeryAnanogelHediff</hediffDef>
+				<severity>1.0</severity>
+				</li>
+		</outcomeDoers>
+	</ingestible>
+	<recipeMaker>
+		<researchPrerequisite>JTFieldSurgeryAnanogelResearch</researchPrerequisite>
+		<recipeUsers>
+			<li>DrugLab</li>
+			</recipeUsers>
+	</recipeMaker>
+	<costList>
+		<Neutroamine>3</Neutroamine>
+		<GlitterworldMedicine>2</GlitterworldMedicine>
+		</costList>
+	<comps>
+		<li Class="CompProperties_Drug">
+			<listOrder>1000</listOrder>
+			<overdoseSeverityOffset>
+				<min>0.14</min>
+				<max>0.37</max>
+			</overdoseSeverityOffset>
+		</li>
+	</comps>
+</ThingDef>
+
+<HediffDef>
+	<defName>JTFieldSurgeryAnanogelHediff</defName>
+	<hediffClass>HediffWithComps</hediffClass>
+	<label>ananogel</label>
+	<defaultLabelColor>(1,0,0.5)</defaultLabelColor>
+	<scenarioCanAdd>true</scenarioCanAdd>
+	<maxSeverity>1.0</maxSeverity>
+	<comps>
+		<li Class="HediffCompProperties_SeverityPerDay">
+			<severityPerDay>-0.88</severityPerDay>
+			</li>
+		<li Class="JTFieldSurgery.HediffCompProperties_ModifyHediff">
+			<hediffModifiers>
+				<li>
+					<hediffDef>FibrousMechanites</hediffDef>
+					<severityPerDay>-0.125</severityPerDay>
+					<removeBelowSeverity>0.0021</removeBelowSeverity>
+					</li>
+				<li>
+					<hediffDef>SensoryMechanites</hediffDef>
+					<severityPerDay>-0.125</severityPerDay>
+					<removeBelowSeverity>0.0021</removeBelowSeverity>
+					</li>
+				<li>
+					<hediffDef>LuciferiumHigh</hediffDef> <!-- removes the good side effects of luciferium without removing the bad... -->
+					<severityPerDay>-0.125</severityPerDay>
+					<removeBelowSeverity>0.0021</removeBelowSeverity>
+					</li>
+			</hediffModifiers>
+		</li>
+	</comps>
+	<stages>
+		<li>
+			<painOffset>-0.2</painOffset>
+			<capMods>
+				<li>
+					<capacity>Moving</capacity>
+					<offset>-0.15</offset>
+					</li>
+				<li>
+					<capacity>Consciousness</capacity>
+					<offset>-0.1</offset>
+					</li>
+			</capMods>
+			</li>
+	</stages>
+</HediffDef>
+
+</Defs>

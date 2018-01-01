@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+<RecipeDef ParentName="SurgeryFlesh" Name="FieldSurgeryFlesh" Abstract="True">
+	<recipeUsers>
+		<li>Human</li>
+		<li>Norbal</li>
+		<li>Alien_Orassan</li>
+		<li>Alien_Asari</li>
+        <li>Alien_Nova</li>
+	</recipeUsers>
+</RecipeDef>
+
+<RecipeDef ParentName="FieldSurgeryFlesh">
+	<defName>JTFieldSurgeryFieldAmputate</defName>
+	<label>dismember</label>
+	<description>Removes a natural body part without the use of anaesthetics, for use if no medicine is available. This does not "harvest" the part, merely discards it as waste. Part is still removed even on failure, but additional harm will be caused.</description>
+	<workerClass>JTFieldSurgery.Recipe_FieldAmputate</workerClass>
+	<jobString>Amputating without anaesthetic.</jobString>
+	<anesthetize>false</anesthetize>
+	<workAmount>400</workAmount>
+	<surgerySuccessChanceFactor>0.45</surgerySuccessChanceFactor>
+	<deathOnFailedSurgeryChance>0.15</deathOnFailedSurgeryChance>
+</RecipeDef>
+
+<RecipeDef ParentName="FieldSurgeryFlesh">
+	<defName>JTFieldSurgeryDrawBlood</defName>
+	<label>draw blood</label>
+	<description>Extracts red blood cells, eliminates incompatible genotype and Rhesus factor to allow universal donation, and produces a blood pack.</description>
+	<workerClass>JTFieldSurgery.Recipe_DrawBlood</workerClass>
+	<jobString>Extracting blood pack.</jobString>
+	<targetsBodyPart>false</targetsBodyPart>
+	<anesthetize>false</anesthetize>
+	<workAmount>400</workAmount>
+	<researchPrerequisite>JTFieldSurgeryTransfusion</researchPrerequisite>
+	<surgerySuccessChanceFactor>1.5</surgerySuccessChanceFactor>
+	<deathOnFailedSurgeryChance>0.0012</deathOnFailedSurgeryChance>
+</RecipeDef>
+
+<RecipeDef ParentName="FieldSurgeryFlesh">
+	<defName>JTFieldSurgeryDrawPlasma</defName>
+	<label>draw plasma</label>
+	<description>Extracts plasma while returning remaining blood components, eliminates incompatible proteins and markers, and produces a plasma pack. Less harmful to patient than whole blood extraction.</description>
+	<workerClass>JTFieldSurgery.Recipe_DrawPlasma</workerClass>
+	<jobString>Extracting blood pack.</jobString>
+	<targetsBodyPart>false</targetsBodyPart>
+	<anesthetize>false</anesthetize>
+	<workAmount>400</workAmount>
+	<researchPrerequisite>JTFieldSurgeryTransfusion</researchPrerequisite>
+	<surgerySuccessChanceFactor>1.5</surgerySuccessChanceFactor>
+	<deathOnFailedSurgeryChance>0.0006</deathOnFailedSurgeryChance>
+</RecipeDef>
+
+<RecipeDef>
+	<defName>JTFieldSurgeryGlyceroliseBlood</defName>
+	<label>make freezable blood</label>
+	<description>Prepares a freezable blood pack by neutroamine glycerolisation.</description>
+	<jobString>Preparing blood for freezing.</jobString>
+	<workAmount>1600</workAmount>
+	<researchPrerequisite>JTFieldSurgeryTransfusion</researchPrerequisite>
+	<ingredients>
+		<li>
+			<filter>
+				<categories>
+					<li>JTFieldSurgeryBloodPackCategory</li>
+					</categories>
+			</filter>
+			<count>1</count>
+		</li>
+		<li>
+			<filter>
+				<categories>
+					<li>Manufactured</li>
+					</categories>
+			</filter>
+			<count>1</count>
+		</li>
+	</ingredients>
+	<fixedIngredientFilter>
+		<thingDefs>
+			<li>JTFieldSurgeryBloodPack</li>
+			<li>Neutroamine</li>
+		</thingDefs>
+	</fixedIngredientFilter>
+		<products>
+			<JTFieldSurgeryBloodPackFreezable>1</JTFieldSurgeryBloodPackFreezable>
+		</products>
+	<recipeUsers>
+		<li>DrugLab</li>
+		</recipeUsers>
+</RecipeDef>
+
+<RecipeDef>
+	<defName>JTFieldSurgeryMakeSaline</defName>
+	<label>make saline pack</label>
+	<description>Prepares a saline pack for emergency medicine.</description>
+	<jobString>Making saline.</jobString>
+	<workAmount>800</workAmount>
+	<researchPrerequisite>JTFieldSurgeryTransfusion</researchPrerequisite>
+	<ingredients>
+		<li>
+			<filter>
+				<categories>
+					<li>Manufactured</li>
+					</categories>
+			</filter>
+			<count>1</count>
+		</li>
+	</ingredients>
+	<fixedIngredientFilter>
+		<thingDefs>
+			<li>Neutroamine</li>
+		</thingDefs>
+	</fixedIngredientFilter>
+		<products>
+			<JTFieldSurgerySalinePack>1</JTFieldSurgerySalinePack>
+		</products>
+	<recipeUsers>
+		<li>DrugLab</li>
+		</recipeUsers>
+</RecipeDef>
+
+<RecipeDef ParentName="FieldSurgeryFlesh">
+	<defName>JTFieldSurgeryTransfuseBlood</defName>
+	<label>transfuse blood</label>
+	<description>Administers a conventional blood pack intravenously to counteract blood loss. Patient will receive blood gradually through IV drip attached to their person. Multiple applications will increase duration but not rate.</description>
+	<workerClass>JTFieldSurgery.Recipe_TransfuseBlood</workerClass>
+	<jobString>Providing blood transfusion.</jobString>
+	<targetsBodyPart>false</targetsBodyPart>
+	<anesthetize>false</anesthetize>
+	<workAmount>600</workAmount>
+	<researchPrerequisite>JTFieldSurgeryTransfusion</researchPrerequisite>
+	<surgerySuccessChanceFactor>10.00</surgerySuccessChanceFactor>
+	<deathOnFailedSurgeryChance>0.0012</deathOnFailedSurgeryChance>
+	<ingredients>
+		<li>
+			<filter>
+				<categories>
+					<li>JTFieldSurgeryBloodPackCategory</li>
+					</categories>
+			</filter>
+			<count>1</count>
+		</li>
+	</ingredients>
+	<fixedIngredientFilter>
+		<thingDefs>
+			<li>JTFieldSurgeryBloodPack</li>
+			<li>JTFieldSurgeryBloodPackFreezable</li>
+		</thingDefs>
+	</fixedIngredientFilter>
+</RecipeDef>
+
+<RecipeDef ParentName="FieldSurgeryFlesh">
+	<defName>JTFieldSurgeryTransfusePlasma</defName>
+	<label>transfuse plasma</label>
+	<description>Administers a plasma pack intravenously to counteract lost blood volume. Patient will receive plasma gradually through IV drip attached to their person.</description>
+	<workerClass>JTFieldSurgery.Recipe_TransfusePlasma</workerClass>
+	<jobString>Providing plasma transfusion.</jobString>
+	<targetsBodyPart>false</targetsBodyPart>
+	<anesthetize>false</anesthetize>
+	<workAmount>600</workAmount>
+	<researchPrerequisite>JTFieldSurgeryTransfusion</researchPrerequisite>
+	<surgerySuccessChanceFactor>10.00</surgerySuccessChanceFactor>
+	<deathOnFailedSurgeryChance>0.00</deathOnFailedSurgeryChance>
+	<ingredients>
+		<li>
+			<filter>
+				<categories>
+					<li>JTFieldSurgeryBloodPackCategory</li>
+					</categories>
+			</filter>
+			<count>1</count>
+		</li>
+	</ingredients>
+	<fixedIngredientFilter>
+		<thingDefs>
+			<li>JTFieldSurgeryPlasmaPack</li>
+		</thingDefs>
+	</fixedIngredientFilter>
+</RecipeDef>
+
+<RecipeDef ParentName="FieldSurgeryFlesh">
+	<defName>JTFieldSurgeryTransfuseSaline</defName>
+	<label>transfuse saline</label>
+	<description>Administers a saline pack intravenously to counteract lost blood volume. Patient will receive saline gradually through IV drip attached to their person.</description>
+	<workerClass>JTFieldSurgery.Recipe_TransfusePlasma</workerClass>
+	<jobString>Providing saline transfusion.</jobString>
+	<targetsBodyPart>false</targetsBodyPart>
+	<anesthetize>false</anesthetize>
+	<workAmount>600</workAmount>
+	<researchPrerequisite>JTFieldSurgeryTransfusion</researchPrerequisite>
+	<surgerySuccessChanceFactor>10.00</surgerySuccessChanceFactor>
+	<deathOnFailedSurgeryChance>0.00</deathOnFailedSurgeryChance>
+	<ingredients>
+		<li>
+			<filter>
+				<categories>
+					<li>JTFieldSurgeryBloodPackCategory</li>
+					</categories>
+			</filter>
+			<count>1</count>
+		</li>
+	</ingredients>
+	<fixedIngredientFilter>
+		<thingDefs>
+			<li>JTFieldSurgerySalinePack</li>
+		</thingDefs>
+	</fixedIngredientFilter>
+</RecipeDef>
+
+</Defs>
