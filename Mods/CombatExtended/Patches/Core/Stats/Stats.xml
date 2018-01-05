@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Patch>
 
+
+	<!-- ========== Apparel ========== -->
+
+	<!-- Armor Rating : Not needed already in core sk
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>*/StatDef[@Name = "ArmorRatingBase"]/parts/li[@Class = "StatPart_Quality"]</xpath>
+		<value>
+			<li Class="StatPart_Quality">
+			  <factorAwful>0.7</factorAwful>
+			  <factorShoddy>0.8</factorShoddy>
+			  <factorPoor>0.9</factorPoor>
+			  <factorNormal>1</factorNormal>
+			  <factorGood>1.06</factorGood>
+			  <factorSuperior>1.12</factorSuperior>
+			  <factorExcellent>1.18</factorExcellent>
+			  <factorMasterwork>1.24</factorMasterwork>
+			  <factorLegendary>1.3</factorLegendary>
+			</li>
+		</value>
+	</Operation>
+	-->
+	
+	<Operation Class="PatchOperationAdd">
+		<xpath>*/StatDef[defName="ArmorRating_Blunt" or defName="ArmorRating_Sharp"]</xpath>
+		<value>
+			<toStringStyle>FloatTwo</toStringStyle>
+		</value>
+	</Operation>
+
 	<!-- ========== Pawn stats ========== -->
 
 	<!-- Shooting Accuracy -->
@@ -19,28 +49,28 @@
 		</value>
 	</Operation>
 
-	<Operation Class="PatchOperationReplace">
-		<xpath>*/StatDef[defName="ShootingAccuracy"]/minValue</xpath>
+	<Operation Class="PatchOperationAdd">
+		<xpath>*/StatDef[defName="ShootingAccuracy"]</xpath>
 		<value>
 			<minValue>0</minValue>
 		</value>
 	</Operation>
 
-	<Operation Class="PatchOperationReplace">
-		<xpath>*/StatDef[defName="ShootingAccuracy"]/maxValue</xpath>
+	<Operation Class="PatchOperationAdd">
+		<xpath>*/StatDef[defName="ShootingAccuracy"]</xpath>
 		<value>
 			<maxValue>13</maxValue>
 		</value>
 	</Operation>
-
+	
 	<Operation Class="PatchOperationSequence"> <!-- compatibility with any mod that redefines ShootingAccuracy and changes SkillNeed back to the traditional pre-A17 values per skill level (e.g. Shooting Skill Rebalanced) -->
 		<success>Always</success>
 		<operations>
 			<li Class="PatchOperationTest">
-				<xpath>*/StatDef[defName="ShootingAccuracy"]/skillNeedFactors/li[@Class = "SkillNeed_Direct"]</xpath>
+				<xpath>*/StatDef[defName="ShootingAccuracy"]/skillNeedOffsets/li[@Class = "SkillNeed_Direct"]</xpath>
 			</li>
 			<li Class="PatchOperationReplace">
-				<xpath>*/StatDef[defName="ShootingAccuracy"]/skillNeedFactors/li[@Class = "SkillNeed_Direct"]</xpath>
+				<xpath>*/StatDef[defName="ShootingAccuracy"]/skillNeedOffsets/li[@Class = "SkillNeed_Direct"]</xpath>
 				<value>
 					<li Class="SkillNeed_BaseBonus" />
 				</value>
@@ -49,25 +79,25 @@
 	</Operation>
 
 	<Operation Class="PatchOperationReplace">
-		<xpath>*/StatDef[defName="ShootingAccuracy"]/skillNeedFactors/li[@Class = "SkillNeed_BaseBonus"]</xpath>
+		<xpath>*/StatDef[defName="ShootingAccuracy"]/skillNeedOffsets/li[@Class = "SkillNeed_BaseBonus"]</xpath>
 		<value>
 			<li Class="SkillNeed_BaseBonus">
 			  <skill>Shooting</skill>
-			  <baseFactor>1</baseFactor>
-			  <bonusFactor>0.2</bonusFactor>
+			  <baseValue>1</baseValue>
+			  <bonusPerLevel>0.2</bonusPerLevel>
 			</li>
 		</value>
 	</Operation>
 
 	<Operation Class="PatchOperationReplace">
-		<xpath>*/StatDef[defName="ShootingAccuracy"]/capacityFactors</xpath>
+		<xpath>*/StatDef[defName="ShootingAccuracy"]/capacityOffsets</xpath>
 		<value>
-			<capacityFactors>
+			<capacityOffsets>
 				<li>
 					<capacity>Manipulation</capacity>
-					<weight>1</weight>
+					<scale>1</scale>
 				</li>
-			</capacityFactors>
+			</capacityOffsets>
 		</value>
 	</Operation>
 
@@ -88,7 +118,7 @@
 	</Operation>
 
 	<Operation Class="PatchOperationReplace">
-		<xpath>*/StatDef[defName="ShootingAccuracy"]/noSkillFactor</xpath>
+		<xpath>*/StatDef[defName="ShootingAccuracy"]/noSkillOffset</xpath>
 		<value>
 			<noSkillFactor>2.6</noSkillFactor>
 		</value>
@@ -97,7 +127,7 @@
 	<!-- Move speed -->
 
 	<Operation Class="PatchOperationAdd">
-		<xpath>/StatDefs/StatDef[defName="MoveSpeed"]</xpath>
+		<xpath>*/StatDef[defName="MoveSpeed"]</xpath>
 		<value>
 			<workerClass>CombatExtended.StatWorker_MoveSpeed</workerClass>
 		</value>
@@ -111,6 +141,6 @@
 			<workerClass>CombatExtended.StatWorker_WorkSpeedGlobal</workerClass>
 		</value>
 	</Operation>
-
+	
 </Patch>
 

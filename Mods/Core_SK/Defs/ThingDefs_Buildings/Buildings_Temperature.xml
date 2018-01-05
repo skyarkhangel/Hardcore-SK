@@ -37,7 +37,7 @@
 			<Flammability>0</Flammability>
 			<WorkTableWorkSpeedFactor>0.7</WorkTableWorkSpeedFactor>
 		</statBases>
-		<Size>(1,1)</Size>
+		<size>(1,1)</size>
 		<stuffCategories>
 			<li>Stony</li>
 		</stuffCategories>
@@ -128,9 +128,6 @@
 		<tickerType>Normal</tickerType>
 		<description>A stove that produces heat by burning basic fuel sources. Can be fueled by kindling, coal, charcoal, peat and wooden stuff.</description>
 		<size>(1,1)</size>
-		<building>
-			<ignoreNeedsPower>true</ignoreNeedsPower>
-		</building>
 		<stuffCategories>
 			<li>Stony</li>
 			<li>Metallic</li>
@@ -236,6 +233,277 @@
 	</ThingDef>
 
 	<ThingDef ParentName="BuildingBase">
+		<defName>Heater</defName>
+		<label>heater</label>
+		<thingClass>Building_Heater</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Misc/TempControl/Heater</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shadowData>
+				<volume>(0.25,0.4,0.7)</volume>
+				<offset>(0,0,-0.1)</offset>
+			</shadowData>
+			<damageData>
+				<rect>(0.234375,0,0.515625,0.984375)</rect>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>40</pathCost>
+		<rotatable>false</rotatable>
+		<fillPercent>0.4</fillPercent>
+		<canOverlapZones>false</canOverlapZones>
+		<statBases>
+			<WorkToBuild>1000</WorkToBuild>
+			<MaxHitPoints>100</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+		</statBases>
+		<tickerType>Rare</tickerType>
+		<description>An electrical device that converts electricity into heat. It can automatically turn itself on or off to reach a specific target temperature.</description>
+		<stuffCategories>
+			<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>50</costStuffCount>
+		<costList>
+			<Component>5</Component>
+			<ElectronicComponents>3</ElectronicComponents>
+			<Mechanism>3</Mechanism>
+		</costList>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<placeWorkers>
+			<li>PlaceWorker_Heater</li>
+		</placeWorkers>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<startElectricalFires>true</startElectricalFires>
+				<soundPowerOn>PowerOnSmall</soundPowerOn>
+				<soundPowerOff>PowerOffSmall</soundPowerOff>
+				<basePowerConsumption>170</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_TempControl">
+				<energyPerSecond>22</energyPerSecond>
+			</li>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_Glower">
+				<glowRadius>3</glowRadius>
+				<glowColor>(255,150,100,0)</glowColor>
+			</li>
+		</comps>
+		<designationCategory>Temperature</designationCategory>
+		<researchPrerequisites>
+			<li>AirConditioning</li>
+		</researchPrerequisites>
+	</ThingDef>
+
+	<ThingDef ParentName="BuildingBase">
+		<defName>RH_MediumHeater</defName>
+		<thingClass>Building_Heater</thingClass>
+		<label>Medium heater</label>
+		<description>A wall mounted heater which is more efficient at heating large rooms and bases. It can automatically turn itself on or off to reach a specific target temperature.</description>
+		<graphicData>
+			<texPath>Things/Building/Temperature/Heater/MediumHeater</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+		</graphicData>
+		<stuffCategories>
+			<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>75</costStuffCount>
+		<costList>
+			<Component>7</Component>
+			<ElectronicComponents>5</ElectronicComponents>
+			<Mechanism>3</Mechanism>
+		</costList>
+		<building>
+			<isEdifice>false</isEdifice>
+			<canPlaceOverWall>true</canPlaceOverWall>
+		</building>
+		<statBases>
+			<WorkToBuild>1800</WorkToBuild>
+			<MaxHitPoints>100</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<Beauty>-6</Beauty>
+		</statBases>
+		<comps>
+			<li Class="SK.CompProperties_RestrictedPlacement">
+				<compClass>SK.CompRestrictedPlacement</compClass>
+				<thingDefs>
+					<li>Wall</li>
+					<li>ClutterSilverWall</li>
+					<li>ClutterUWallLight</li>
+				</thingDefs>
+			</li>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<startElectricalFires>true</startElectricalFires>
+				<soundPowerOn>PowerOnSmall</soundPowerOn>
+				<soundPowerOff>PowerOffSmall</soundPowerOff>
+				<basePowerConsumption>250</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_TempControl">
+				<energyPerSecond>36</energyPerSecond>
+			</li>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_Glower">
+				<glowRadius>3</glowRadius>
+				<glowColor>(255,150,100,0)</glowColor>
+			</li>
+		</comps>
+		<placeWorkers>
+			<li>PlaceWorker_Heater</li>
+			<li>SK.PlaceWorker_OnlyOnThing</li>
+			<li>SK.PlaceWorker_OnWall</li>
+		</placeWorkers>
+		<altitudeLayer>PawnUnused</altitudeLayer>
+		<castEdgeShadows>false</castEdgeShadows>
+		<designationCategory>Temperature</designationCategory>
+		<coversFloor>true</coversFloor>
+		<blockLight>true</blockLight>
+		<fillPercent>0.99</fillPercent>
+		<canOverlapZones>false</canOverlapZones>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<tickerType>Rare</tickerType>
+		<researchPrerequisites>
+			<li>Batteries</li>
+		</researchPrerequisites>
+	</ThingDef>	
+
+	<ThingDef ParentName="BuildingBase">
+		<defName>RedistHeat_IndustrialHeater</defName>
+		<thingClass>Building_Heater</thingClass>
+		<label>Industrial heater</label>
+		<description>A massive industrial heater. It can efficiently heat large rooms and bases. It can automatically turn itself on or off to reach a specific target temperature.</description>
+		<graphicData>
+			<texPath>Things/Building/Temperature/Heater/SuperHeater</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shadowData>
+				<volume>
+					<x>1.8</x>
+					<y>0.9</y>
+					<z>1.8</z>
+				</volume>
+			</shadowData>
+			<drawSize>(2,2)</drawSize>
+		</graphicData>
+		<statBases>
+			<WorkToBuild>5000</WorkToBuild>
+			<MaxHitPoints>250</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<Beauty>-20</Beauty>
+		</statBases>
+		<stuffCategories>
+			<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>150</costStuffCount>
+		<costList>
+			<Plastic>55</Plastic>
+			<Component>8</Component>
+			<Electronics>7</Electronics>
+			<Mechanism>4</Mechanism>
+		</costList>
+		<placeWorkers>
+			<li>PlaceWorker_Heater</li>
+		</placeWorkers>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<startElectricalFires>true</startElectricalFires>
+				<soundPowerOn>PowerOnSmall</soundPowerOn>
+				<soundPowerOff>PowerOffSmall</soundPowerOff>
+				<basePowerConsumption>800</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_TempControl">
+				<energyPerSecond>85</energyPerSecond>
+			</li>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_Glower">
+				<glowRadius>3</glowRadius>
+				<glowColor>(255,150,100,0)</glowColor>
+			</li>
+		</comps>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>40</pathCost>
+		<castEdgeShadows>false</castEdgeShadows>
+		<rotatable>false</rotatable>
+		<fillPercent>0.7</fillPercent>
+		<designationCategory>Temperature</designationCategory>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<size>(2,2)</size>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<tickerType>Rare</tickerType>
+		<researchPrerequisites>
+			<li>SK_InfrastructureIV</li>
+		</researchPrerequisites>
+	</ThingDef>
+
+	<ThingDef ParentName="BuildingBase">
+		<defName>GH</defName>
+		<label>geothermal heater</label>
+		<thingClass>SK.Building_GeothermalHeater</thingClass>
+		<graphicData>
+			<texPath>Things/Building/GH</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(2,2)</drawSize>
+			<shadowData>
+				<volume>(1.5, 1, 1.5)</volume>
+				<offset>(0,0,-0.1)</offset>
+			</shadowData>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>70</pathCost>
+		<rotatable>false</rotatable>
+		<canOverlapZones>false</canOverlapZones>
+		<fillPercent>0.4</fillPercent>
+		<size>(2,2)</size>
+		<statBases>
+			<WorkToBuild>5000</WorkToBuild>
+			<MaxHitPoints>150</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<description>A industrial geothermal heater that collects and controls the heat from a steam geyser. It is self-balanced and can heat up a large indoor area to a comfortable temperature.</description>
+		<stuffCategories>
+			<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>200</costStuffCount>
+		<costList>
+			<ReinforcedConcrete>40</ReinforcedConcrete>
+			<Component>6</Component>
+			<Electronics>5</Electronics>
+			<Mechanism>4</Mechanism>
+		</costList>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<comps>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="SK.CompProperties_HeatPusherAdvanced">
+				<compClass>SK.CompHeatPusherAdvanced</compClass>
+				<heatPerSecond>40</heatPerSecond>
+				<heatPushMaxTemperature>25</heatPushMaxTemperature>
+			</li>		      
+			<li Class="CompProperties_Breakdownable"/>
+		</comps>
+		<designationCategory>Temperature</designationCategory>
+		<placeWorkers>
+			<li>PlaceWorker_Heater</li>
+			<li>PlaceWorker_OnSteamGeyser</li>
+		</placeWorkers>
+		<researchPrerequisites>
+			<li>SK_InfrastructureIV</li>
+		</researchPrerequisites>
+	</ThingDef>
+
+	<ThingDef ParentName="BuildingBase">
 		<defName>PassiveCooler</defName>
 		<label>passive cooler</label>
 		<description>A traditional unpowered cooler that works by water evaporation. While it's not strong enough to refridgerate food, it can help survive a heat wave. It will run out and self-destruct after several days.</description>
@@ -275,11 +543,11 @@
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
 		<comps>
 			<li Class="CompProperties_HeatPusher">
-				<heatPerSecond>-10</heatPerSecond>
+				<heatPerSecond>-13</heatPerSecond>
 				<heatPushMinTemperature>15</heatPushMinTemperature>
 			</li>
 			<li Class="CompProperties_Lifespan">
-				<lifeSpanTicks>300000</lifeSpanTicks>
+				<lifespanTicks>300000</lifespanTicks>
 			</li>
 		</comps>
 		<designationCategory>Temperature</designationCategory>	
@@ -287,77 +555,6 @@
 			<li>PassiveCooler</li>
 		</researchPrerequisites>
 	</ThingDef>
-
-	<ThingDef ParentName="BuildingBase">
-		<defName>Heater</defName>
-		<label>heater</label>
-		<thingClass>Building_Heater</thingClass>
-		<graphicData>
-			<texPath>Things/Building/Misc/TempControl/Heater</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
-			<shadowData>
-				<volume>(0.25,0.4,0.7)</volume>
-				<offset>(0,0,-0.1)</offset>
-			</shadowData>
-			<damageData>
-				<rect>(0.234375,0,0.515625,0.984375)</rect>
-				<cornerTL>Damage/Corner</cornerTL>
-				<cornerTR>Damage/Corner</cornerTR>
-				<cornerBL>Damage/Corner</cornerBL>
-				<cornerBR>Damage/Corner</cornerBR>
-			</damageData>
-		</graphicData>
-		<altitudeLayer>Building</altitudeLayer>
-		<passability>PassThroughOnly</passability>
-		<pathCost>40</pathCost>
-		<rotatable>false</rotatable>
-		<fillPercent>0.4</fillPercent>
-		<canOverlapZones>false</canOverlapZones>
-		<statBases>
-			<WorkToBuild>1000</WorkToBuild>
-			<MaxHitPoints>100</MaxHitPoints>
-			<Flammability>1.0</Flammability>
-		</statBases>
-		<tickerType>Rare</tickerType>
-		<description>An electrical device that converts electricity into heat. It can automatically turn itself on or off to reach a specific target temperature.</description>
-		<stuffCategories>
-			<li>Metallic</li>
-		</stuffCategories>
-		<costStuffCount>75</costStuffCount>
-		<costList>
-			<Component>6</Component>
-			<ElectronicComponents>4</ElectronicComponents>
-			<Mechanism>3</Mechanism>
-		</costList>
-		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
-		<placeWorkers>
-			<li>PlaceWorker_Heater</li>
-		</placeWorkers>
-		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
-		<comps>
-			<li Class="CompProperties_Power">
-				<compClass>CompPowerTrader</compClass>
-				<startElectricalFires>true</startElectricalFires>
-				<soundPowerOn>PowerOnSmall</soundPowerOn>
-				<soundPowerOff>PowerOffSmall</soundPowerOff>
-				<basePowerConsumption>100</basePowerConsumption>
-			</li>
-			<li Class="CompProperties_Flickable"/>
-			<li Class="CompProperties_TempControl">
-				<energyPerSecond>5</energyPerSecond>
-			</li>
-			<li Class="CompProperties_Breakdownable"/>
-			<li Class="CompProperties_Glower">
-				<glowRadius>3</glowRadius>
-				<glowColor>(255,150,100,0)</glowColor>
-			</li>
-		</comps>
-		<designationCategory>Temperature</designationCategory>
-		<researchPrerequisites>
-			<li>AirConditioning</li>
-		</researchPrerequisites>
-	</ThingDef>
-
 
 	<ThingDef ParentName="BuildingBase">
 		<defName>ColdstoneBattery</defName>
@@ -372,7 +569,7 @@
 		<size>(1,1)</size>
 		<rotatable>false</rotatable>
 		<altitudeLayer>Building</altitudeLayer>
-		<Passability>PassThroughOnly</Passability>
+		<passability>PassThroughOnly</passability>
 		<pathCost>80</pathCost>
 		<canOverlapZones>false</canOverlapZones>
 		<holdsRoof>true</holdsRoof>
@@ -410,8 +607,8 @@
 				<destroyOnNoFuel>false</destroyOnNoFuel>
 			</li>
 			<li Class="SK.CompProperties_ColdPusher">
-				<coldPerSecond>-30</coldPerSecond>
-				<coldPushMinTemperature>-4</coldPushMinTemperature>
+				<ColdPerSecond>-20</ColdPerSecond>
+				<ColdPushMinTemperature>-5</ColdPushMinTemperature>
 			</li>
 			<li Class="CompProperties_Breakdownable"/>
 		</comps>
@@ -423,6 +620,285 @@
 			<li>EnthalpicCooling</li>
 		</researchPrerequisites>
 		<designationCategory>Temperature</designationCategory>
+	</ThingDef>
+
+	<ThingDef ParentName="BuildingBase">
+		<defName>RH_SmallCooler</defName>
+		<label>Small cooler</label>
+		<description>An electrical device that fits into a wall and pushes cold air into a room. Its exhaust port generates a lot of heat. Can be used to cool down rooms or to create a walk-in freezer.</description>
+		<thingClass>Building_Cooler</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Temperature/Cooler/SmallCooler</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+		</graphicData>
+		<altitudeLayer>PawnUnused</altitudeLayer>
+		<passability>Impassable</passability>
+		<castEdgeShadows>true</castEdgeShadows>
+		<fillPercent>0.99</fillPercent>
+		<coversFloor>true</coversFloor>
+		<blockLight>true</blockLight>
+		<canOverlapZones>false</canOverlapZones>
+		<statBases>
+			<WorkToBuild>1600</WorkToBuild>
+			<MaxHitPoints>100</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<Beauty>-3</Beauty>
+		</statBases>
+		<tickerType>Rare</tickerType>
+		<stuffCategories>
+			<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>40</costStuffCount>
+		<costList>
+			<Component>4</Component>
+			<ElectronicComponents>2</ElectronicComponents>
+			<Mechanism>2</Mechanism>
+		</costList>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<placeWorkers>
+			<li>PlaceWorker_Cooler</li>
+			<li>SK.PlaceWorker_OnlyOnThing</li>
+			<li>SK.PlaceWorker_OnWall</li>
+		</placeWorkers>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<building>
+			<canPlaceOverWall>true</canPlaceOverWall>
+			<isEdifice>false</isEdifice>
+		</building>
+		<comps>
+			<li Class="SK.CompProperties_RestrictedPlacement">
+				<compClass>SK.CompRestrictedPlacement</compClass>
+				<thingDefs>
+					<li>Wall</li>
+					<li>ClutterSilverWall</li>
+					<li>ClutterUWallLight</li>
+				</thingDefs>
+			</li>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<soundPowerOn>PowerOnSmall</soundPowerOn>
+				<soundPowerOff>PowerOffSmall</soundPowerOff>
+				<basePowerConsumption>220</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_TempControl">
+				<compClass>CompTempControl</compClass>
+				<energyPerSecond>-23</energyPerSecond>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+		</comps>
+		<designationCategory>Temperature</designationCategory>
+		<researchPrerequisites>
+			<li>Batteries</li>
+		</researchPrerequisites>
+	</ThingDef>
+
+	<ThingDef ParentName="BuildingBase">
+		<defName>Cooler</defName>
+		<label>cooler</label>
+		<thingClass>Building_Cooler</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Temperature/Cooler/CoolerB</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<damageData>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>Impassable</passability>
+		<fillPercent>0.7</fillPercent>
+		<coversFloor>true</coversFloor>
+		<blockLight>true</blockLight>
+		<castEdgeShadows>true</castEdgeShadows>
+		<staticSunShadowHeight>1.0</staticSunShadowHeight>
+		<statBases>
+			<WorkToBuild>2800</WorkToBuild>
+			<MaxHitPoints>100</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<Beauty>-6</Beauty>
+		</statBases>
+		<tickerType>Rare</tickerType>
+		<description>An electrical device that fits into a wall and pushes cold air into a room. Its exhaust port generates a lot of heat. Can be used to cool down rooms during the summer months, or to create a walk-in freezer.</description>
+		<stuffCategories>
+			<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>70</costStuffCount>
+		<costList>
+			<Component>7</Component>
+			<ElectronicComponents>3</ElectronicComponents>
+			<Mechanism>3</Mechanism>
+		</costList>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<placeWorkers>
+			<li>PlaceWorker_Cooler</li>
+			<li>SK.PlaceWorker_OnlyOnThing</li>
+			<li>SK.PlaceWorker_OnWall</li>
+		</placeWorkers>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<building>
+			<canPlaceOverWall>true</canPlaceOverWall>
+			<isEdifice>false</isEdifice>
+		</building>
+		<comps>
+			<li Class="SK.CompProperties_RestrictedPlacement">
+				<compClass>SK.CompRestrictedPlacement</compClass>
+				<thingDefs>
+					<li>Wall</li>
+					<li>ClutterSilverWall</li>
+					<li>ClutterUWallLight</li>
+				</thingDefs>
+			</li>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<soundPowerOn>PowerOnSmall</soundPowerOn>
+				<soundPowerOff>PowerOffSmall</soundPowerOff>
+				<basePowerConsumption>350</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_TempControl">
+				<compClass>CompTempControl</compClass>
+				<energyPerSecond>-36</energyPerSecond>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+		</comps>
+		<designationCategory>Temperature</designationCategory>
+		<researchPrerequisites>
+			<li>AirConditioning</li>
+		</researchPrerequisites>
+	</ThingDef>
+
+	<ThingDef ParentName="BuildingBase">
+		<defName>RedistHeat_IndustrialCooler</defName>
+		<thingClass>Building_Cooler</thingClass>
+		<label>Industrial cooler</label>
+		<description>A massive electrical device that pushes cold air into a room. It needs at least one external exhaust port.</description>
+		<graphicData>
+			<texPath>Things/Building/Temperature/Cooler/IndustrialCooler</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(3,1)</drawSize>
+		</graphicData>
+		<statBases>
+			<WorkToBuild>7000</WorkToBuild>
+			<MaxHitPoints>250</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<Beauty>-12</Beauty>
+		</statBases>
+		<costStuffCount>145</costStuffCount>
+		<costList>
+			<Plastic>75</Plastic>
+			<Rubber>50</Rubber>
+			<Component>8</Component>
+			<Electronics>7</Electronics>
+			<Mechanism>6</Mechanism>
+		</costList>
+		<building>
+			<canPlaceOverWall>true</canPlaceOverWall>
+		</building>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<soundPowerOn>PowerOnSmall</soundPowerOn>
+				<soundPowerOff>PowerOffSmall</soundPowerOff>
+				<basePowerConsumption>850</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_TempControl">
+				<compClass>CompTempControl</compClass>
+				<energyPerSecond>-95</energyPerSecond>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+		</comps>
+		<placeWorkers>
+			<li>PlaceWorker_Cooler</li>
+		</placeWorkers>
+		<altitudeLayer>Building</altitudeLayer>
+		<blockLight>true</blockLight>
+		<coversFloor>true</coversFloor>
+		<castEdgeShadows>true</castEdgeShadows>
+		<staticSunShadowHeight>1.0</staticSunShadowHeight>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<fillPercent>1</fillPercent>
+		<holdsRoof>true</holdsRoof>
+		<passability>Impassable</passability>
+		<size>(3,1)</size>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<tickerType>Rare</tickerType>
+		<designationCategory>Temperature</designationCategory>
+		<researchPrerequisites>
+			<li>SK_InfrastructureIV</li>
+		</researchPrerequisites>
+	</ThingDef>
+
+	<ThingDef ParentName="BuildingBase">
+		<defName>Vent</defName>
+		<label>closable vent</label>
+		<thingClass>Enhanced_Development.Temperature.Building_ClosableVent</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Temperature/Vent/ActiveVent</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<damageData>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>PawnUnused</altitudeLayer>
+		<passability>Impassable</passability>
+		<fillPercent>0.99</fillPercent>
+		<coversFloor>true</coversFloor>
+		<blockLight>true</blockLight>
+		<canOverlapZones>false</canOverlapZones>
+		<castEdgeShadows>true</castEdgeShadows>
+		<staticSunShadowHeight>1.0</staticSunShadowHeight>
+		<statBases>
+			<WorkToBuild>1700</WorkToBuild>
+			<MaxHitPoints>100</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+		</statBases>
+		<tickerType>Rare</tickerType>
+		<description>A simple vent for equalizing the temperature between two rooms without allowing people to walk between them.</description>
+		<size>(1,1)</size>
+		<stuffCategories>
+			<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>35</costStuffCount>
+		<costList>
+			<Component>3</Component>
+			<Mechanism>1</Mechanism>
+		</costList>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<placeWorkers>
+			<li>PlaceWorker_Vent</li>
+			<li>SK.PlaceWorker_OnlyOnThing</li>
+		</placeWorkers>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<building>
+			<canPlaceOverWall>true</canPlaceOverWall>
+			<isEdifice>false</isEdifice>
+		</building>
+		<comps>
+			<li Class="CompProperties_Flickable">
+				<commandTexture>UI/Commands/Vent</commandTexture>
+				<commandLabelKey>CommandDesignateOpenCloseVentLabel</commandLabelKey>
+				<commandDescKey>CommandDesignateOpenCloseVentDesc</commandDescKey>
+			</li>
+			<li Class="SK.CompProperties_RestrictedPlacement">
+				<compClass>SK.CompRestrictedPlacement</compClass>
+				<thingDefs>
+					<li>Wall</li>
+					<li>ClutterSilverWall</li>
+					<li>ClutterUWallLight</li>
+				</thingDefs>
+			</li>
+		</comps>
+		<designationCategory>Temperature</designationCategory>
+		<researchPrerequisites>
+			<li>AirConditioning</li>
+		</researchPrerequisites>
 	</ThingDef>
 
 	<ThingDef ParentName="BuildingBase">
@@ -475,9 +951,6 @@
 				<energyPerSecond>0</energyPerSecond>
 			</li>
 		</comps>
-		<building>
-			<ignoreNeedsPower>true</ignoreNeedsPower>
-		</building>
 		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
 		<designationCategory>Temperature</designationCategory>
 		<researchPrerequisites>
@@ -486,220 +959,14 @@
 	</ThingDef>
 
 	<ThingDef ParentName="BuildingBase">
-		<defName>Cooler</defName>
-		<label>cooler</label>
-		<thingClass>Building_Cooler</thingClass>
-		<graphicData>
-			<texPath>Things/Building/Misc/TempControl/CoolerB</texPath>
-			<graphicClass>Graphic_Multi</graphicClass>
-			<damageData>
-				<cornerTL>Damage/Corner</cornerTL>
-				<cornerTR>Damage/Corner</cornerTR>
-				<cornerBL>Damage/Corner</cornerBL>
-				<cornerBR>Damage/Corner</cornerBR>
-			</damageData>
-		</graphicData>
-		<altitudeLayer>PawnUnused</altitudeLayer>
-		<passability>Impassable</passability>
-		<castEdgeShadows>true</castEdgeShadows>
-		<fillPercent>0.99</fillPercent>
-		<coversFloor>true</coversFloor>
-		<blockLight>true</blockLight>
-		<canOverlapZones>false</canOverlapZones>
-		<statBases>
-			<WorkToBuild>1600</WorkToBuild>
-			<MaxHitPoints>100</MaxHitPoints>
-			<Flammability>1.0</Flammability>
-		</statBases>
-		<tickerType>Rare</tickerType>
-		<description>An electrical device that fits into a wall and pushes cold air into a room. Its exhaust port generates a lot of heat. Can be used to cool down rooms during the summer months, or to create a walk-in freezer.</description>
-		<stuffCategories>
-			<li>Metallic</li>
-		</stuffCategories>
-		<costStuffCount>75</costStuffCount>
-		<costList>
-			<Component>6</Component>
-			<ElectronicComponents>4</ElectronicComponents>
-			<Mechanism>3</Mechanism>
-		</costList>
-		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
-		<placeWorkers>
-			<li>PlaceWorker_Cooler</li>
-			<li>SK.PlaceWorker_OnlyOnThing</li>
-			<li>SK.PlaceWorker_OnWall</li>
-		</placeWorkers>
-		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
-		<building>
-			<canPlaceOverWall>true</canPlaceOverWall>
-			<isEdifice>false</isEdifice>
-		</building>
-		<comps>
-			<li Class="SK.CompProperties_RestrictedPlacement">
-				<compClass>SK.CompRestrictedPlacement</compClass>
-				<thingDefs>
-					<li>Wall</li>
-					<li>ClutterSilverWall</li>
-					<li>ClutterUWallLight</li>
-				</thingDefs>
-			</li>
-			<li Class="CompProperties_Power">
-				<compClass>CompPowerTrader</compClass>
-				<soundPowerOn>PowerOnSmall</soundPowerOn>
-				<soundPowerOff>PowerOffSmall</soundPowerOff>
-				<basePowerConsumption>220</basePowerConsumption>
-			</li>
-			<li Class="CompProperties_TempControl">
-				<compClass>CompTempControl</compClass>
-				<energyPerSecond>-14</energyPerSecond>
-			</li>
-			<li Class="CompProperties_Flickable"/>
-			<li Class="CompProperties_Breakdownable"/>
-		</comps>
-		<designationCategory>Temperature</designationCategory>
-		<researchPrerequisites>
-			<li>AirConditioning</li>
-		</researchPrerequisites>
-	</ThingDef>
-
-
-	<ThingDef ParentName="BuildingBase">
-		<defName>GH</defName>
-		<label>geothermal heater</label>
-		<thingClass>SK.Building_GeothermalHeater</thingClass>
-		<graphicData>
-			<texPath>Things/Building/GH</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
-			<drawSize>(2,2)</drawSize>
-			<shadowData>
-				<volume>(1.5, 1, 1.5)</volume>
-				<offset>(0,0,-0.1)</offset>
-			</shadowData>
-		</graphicData>
-		<altitudeLayer>Building</altitudeLayer>
-		<passability>PassThroughOnly</passability>
-		<pathCost>70</pathCost>
-		<rotatable>false</rotatable>
-		<canOverlapZones>false</canOverlapZones>
-		<fillPercent>0.4</fillPercent>
-		<Size>(2,2)</Size>
-		<statBases>
-			<WorkToBuild>5000</WorkToBuild>
-			<MaxHitPoints>150</MaxHitPoints>
-			<Flammability>1.0</Flammability>
-		</statBases>
-		<tickerType>Normal</tickerType>
-		<description>A industrial geothermal heater that collects and controls the heat from a steam geyser. It is self-balanced and can heat up a large indoor area to a comfortable temperature.</description>
-		<stuffCategories>
-			<li>Metallic</li>
-		</stuffCategories>
-		<costStuffCount>200</costStuffCount>
-		<costList>
-			<ReinforcedConcrete>40</ReinforcedConcrete>
-			<Component>6</Component>
-			<Electronics>5</Electronics>
-			<Mechanism>4</Mechanism>
-		</costList>
-		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
-		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
-		<comps>
-			<li Class="CompProperties_Flickable"/>
-			<li Class="SK.CompProperties_HeatPusherAdvanced">
-				<compClass>SK.CompHeatPusherAdvanced</compClass>
-				<heatPerSecond>50</heatPerSecond>
-				<heatPushMaxTemperature>25</heatPushMaxTemperature>
-			</li>		      
-			<li Class="CompProperties_Breakdownable"/>
-		</comps>
-		<designationCategory>Temperature</designationCategory>
-		<placeWorkers>
-			<li>PlaceWorker_Heater</li>
-			<li>PlaceWorker_OnSteamGeyser</li>
-		</placeWorkers>
-		<researchPrerequisites>
-			<li>SK_InfrastructureIV</li>
-		</researchPrerequisites>
-	</ThingDef>
-
-
-
-	<ThingDef ParentName="BuildingBase">
-		<defName>Vent</defName>
-		<label>closable vent</label>
-		<thingClass>Enhanced_Development.Temperature.Building_ClosableVent</thingClass>
-		<graphicData>
-			<texPath>Things/Building/Misc/TempControl/Vent</texPath>
-			<graphicClass>Graphic_Multi</graphicClass>
-			<damageData>
-				<cornerTL>Damage/Corner</cornerTL>
-				<cornerTR>Damage/Corner</cornerTR>
-				<cornerBL>Damage/Corner</cornerBL>
-				<cornerBR>Damage/Corner</cornerBR>
-			</damageData>
-		</graphicData>
-		<altitudeLayer>PawnUnused</altitudeLayer>
-		<passability>Impassable</passability>
-		<fillPercent>0.99</fillPercent>
-		<coversFloor>true</coversFloor>
-		<blockLight>true</blockLight>
-		<canOverlapZones>false</canOverlapZones>
-		<castEdgeShadows>true</castEdgeShadows>
-		<staticSunShadowHeight>1.0</staticSunShadowHeight>
-		<statBases>
-			<WorkToBuild>1700</WorkToBuild>
-			<MaxHitPoints>100</MaxHitPoints>
-			<Flammability>1.0</Flammability>
-		</statBases>
-		<tickerType>Rare</tickerType>
-		<description>A simple vent for equalizing the temperature between two rooms without allowing people to walk between them.</description>
-		<size>(1,1)</size>
-		<stuffCategories>
-			<li>Metallic</li>
-		</stuffCategories>
-		<costStuffCount>35</costStuffCount>
-		<costList>
-			<Component>3</Component>
-			<Mechanism>1</Mechanism>
-		</costList>
-		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
-		<placeWorkers>
-			<li>PlaceWorker_Vent</li>
-			<li>SK.PlaceWorker_OnlyOnThing</li>
-		</placeWorkers>
-		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
-		<building>
-			<canPlaceOverWall>true</canPlaceOverWall>
-			<isEdifice>false</isEdifice>
-		</building>
-		<comps>
-		  <li Class="CompProperties_Flickable">
-			<commandTexture>UI/Commands/Vent</commandTexture>
-			<commandLabelKey>CommandDesignateOpenCloseVentLabel</commandLabelKey>
-			<commandDescKey>CommandDesignateOpenCloseVentDesc</commandDescKey>
-		  </li>
-			<li Class="SK.CompProperties_RestrictedPlacement">
-				<compClass>SK.CompRestrictedPlacement</compClass>
-				<thingDefs>
-					<li>Wall</li>
-					<li>ClutterSilverWall</li>
-					<li>ClutterUWallLight</li>
-				</thingDefs>
-			</li>
-		</comps>
-		<designationCategory>Temperature</designationCategory>
-		<researchPrerequisites>
-			<li>AirConditioning</li>
-		</researchPrerequisites>
-	</ThingDef>
-
-	<ThingDef ParentName="BuildingBase">
 		<defName>MiningHelmetGlower</defName>
 		<label>mining helmet light</label>
-		<Description>Mining helmet light.</Description>
+		<description>Mining helmet light.</description>
 		<graphicData>
 			<texPath>Things/Building/DummyTexture</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
-		<TickerType>Normal</TickerType>
+		<tickerType>Normal</tickerType>
 		<selectable>false</selectable>
 		<building>
 			<isInert>true</isInert>
