@@ -46,8 +46,8 @@ And copy "ColonistBar_KF.xml, ColonistBar_PSIKF.xml, and ModsConfig.xml", which 
 5. Have fun <i class="fa fa-smile-o"></i>   
 
 ____
-A big thank you to the Patreons! ( https://www.patreon.com/skyarkhangel )
-<br>Andrew Hanlon, ismeal, GuiltyHollow
+A big thank you to the Patreons! ( https://www.patreon.com/skyarkhangel , in no particular order.)
+<br>Szara Kryik, Makzilla, Schio, GuiltyHollow, ErdTod, Matthew G, Sol, Tie, Yck, Zachary F
 ____
 <br>
 HCSK 6.0 SK Team:
