@@ -39,7 +39,7 @@ For Linux users:
 For Mac users: 
 /Users/your user name/Library/Application Support/RimWorld/Config
 Delete all the files that exist in that folder.
-And copy "ColonistBar_KF.xml, ColonistBar_PSIKF.xml, and ModsConfig.xml", which at the root of the archive modpack.
+And copy "ModsConfig.xml", which is at the root of the archive modpack.
 
 4. Check mods in the game. Switch Language if needed. Play!
 
