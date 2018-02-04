@@ -39,15 +39,15 @@ For Linux users:
 For Mac users: 
 /Users/your user name/Library/Application Support/RimWorld/Config
 Delete all the files that exist in that folder.
-And copy "ColonistBar_KF.xml, ColonistBar_PSIKF.xml, and ModsConfig.xml", which at the root of the archive modpack.
+And copy "ModsConfig.xml", which is at the root of the archive modpack.
 
 4. Check mods in the game. Switch Language if needed. Play!
 
 5. Have fun <i class="fa fa-smile-o"></i>   
 
 ____
-A big thank you to the Patreons! ( https://www.patreon.com/skyarkhangel )
-<br>Andrew Hanlon, ismeal, GuiltyHollow
+A big thank you to the Patreons! ( https://www.patreon.com/skyarkhangel , in no particular order.)
+<br>Szara Kryik, Makzilla, Schio, GuiltyHollow, ErdTod, Matthew G, Sol, Tie, Yck, Zachary F
 ____
 <br>
 HCSK 6.0 SK Team:
