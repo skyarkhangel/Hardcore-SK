@@ -84,11 +84,125 @@
 		<staticSunShadowHeight>0.20</staticSunShadowHeight>
 	</ThingDef>
 	
-	<ThingDef Name="FurnitureBase" ParentName="BuildingBase" Abstract="True">
+	<ThingDef Name="StandartBuilding" ParentName="BuildingBase" Abstract="True">
 		<altitudeLayer>Building</altitudeLayer>
-		<pathCost>50</pathCost>
-		<fillPercent>0.6</fillPercent>
 		<passability>PassThroughOnly</passability>
+		<pathCost>70</pathCost>
+		<fillPercent>0.5</fillPercent>
+		<useHitPoints>True</useHitPoints>
+		<rotatable>true</rotatable>
+		<comps>
+			<li>
+				<compClass>SK.CompFadingShadowThrower</compClass>
+			</li>
+		</comps>
+	</ThingDef>
+	
+	<!-- Base Worktable -->
+	<ThingDef Name="WorkTable" ParentName="StandartBuilding" Abstract="True">
+		<thingClass>SK.SK_Building_WorkTable</thingClass>
+		<graphicData>
+			<graphicClass>Graphic_Multi</graphicClass>
+		</graphicData>
+		<building>
+			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+			<workSpeedPenaltyOutdoors>true</workSpeedPenaltyOutdoors>
+			<workSpeedPenaltyTemperature>true</workSpeedPenaltyTemperature>
+		</building>
+		<surfaceType>Item</surfaceType>
+		<size>(1,1)</size>
+		<canOverlapZones>false</canOverlapZones>
+		<hasInteractionCell>True</hasInteractionCell>
+		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
+		<inspectorTabs>
+			<li>ITab_Bills</li>
+		</inspectorTabs>
+	</ThingDef>
+	
+	<!-- Outdoors Worktable Base -->
+	<ThingDef Name="BuildingBaseOutside" ParentName="WorkTable" Abstract="True">
+		<building>
+			<workSpeedPenaltyOutdoors>false</workSpeedPenaltyOutdoors>
+		</building>
+	</ThingDef>
+
+	<ThingDef Name="BuildingFueled" ParentName="BuildingBaseOutside" Abstract="True">
+		<thingClass>SK.WorkTableFueled</thingClass>
+		<tickerType>Normal</tickerType>
+		<graphicData>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<!-- 		<comps>
+			<li Class="CompProperties_Flickable"/>
+		</comps> -->
+		<inspectorTabs>
+			<li>SK.ITab_Fuel</li>
+		</inspectorTabs>
+	</ThingDef>
+
+	<ThingDef Name="WorkTableFueled" ParentName="WorkTable" Abstract="True">
+		<thingClass>SK.WorkTableFueled</thingClass>
+		<tickerType>Normal</tickerType>
+		<graphicData>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<!-- 		<comps>
+			<li Class="CompProperties_Flickable"/>
+		</comps> -->
+		<inspectorTabs>
+			<li>SK.ITab_Fuel</li>
+		</inspectorTabs>
+	</ThingDef>
+	
+	<!-- Base Hopper -->
+	<ThingDef Name="HopperBase" ParentName="StandartBuilding" Abstract="True">
+		<thingClass>Building_Storage</thingClass>
+		<graphicData>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shadowData>
+				<volume>(0.7, 0.5, 0.7)</volume>
+				<offset>(0,0,0)</offset>
+			</shadowData>
+			<damageData>
+				<rect>(0.05,0.1,0.9,0.9)</rect>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+			</damageData>
+		</graphicData>
+		<tickerType>Never</tickerType>
+		<neverMultiSelect>true</neverMultiSelect>
+		<surfaceType>Item</surfaceType>
+		<size>(1,1)</size>
+		<canOverlapZones>false</canOverlapZones>
+		<minifiedDef>MinifiedFurniture</minifiedDef>
+		<inspectorTabs>
+			<li>ITab_Storage</li>
+		</inspectorTabs>
+		<placeWorkers>
+			<li>PlaceWorker_NextToHopperAccepter</li>
+		</placeWorkers>
+	</ThingDef>
+	
+	<ThingDef Name="ResearchBase" ParentName="StandartBuilding" Abstract="True">
+		<building>
+			<workSpeedPenaltyOutdoors>true</workSpeedPenaltyOutdoors>
+			<workSpeedPenaltyTemperature>true</workSpeedPenaltyTemperature>
+		</building>
+		<canOverlapZones>false</canOverlapZones>
+		<surfaceType>Item</surfaceType>
+		<hasInteractionCell>true</hasInteractionCell>
+		<comps>
+			<li>
+				<compClass>CompReportWorkSpeed</compClass>
+			</li>
+		</comps>
+		<placeWorkers>
+			<li>PlaceWorker_ReportWorkSpeedPenalties</li>
+		</placeWorkers>
+	</ThingDef>
+	
+	<ThingDef Name="FurnitureBase" ParentName="StandartBuilding" Abstract="True">
+		<fillPercent>0.6</fillPercent>
 		<tradeTags>
 		  <li>Furniture</li>
 		</tradeTags>
