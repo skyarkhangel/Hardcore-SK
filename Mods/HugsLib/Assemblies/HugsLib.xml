@@ -647,6 +647,34 @@
             Returns the type of the handle Value property.
             </summary>
         </member>
+        <member name="T:HugsLib.Utils.DoLaterScheduler">
+            <summary>
+            A way to schedule single-use callbacks for an upcoming event.
+            Useful to break the stack and ensure code is run in the main thread.
+            Access via HugsLibController.Instance.DoLater
+            </summary>
+        </member>
+        <member name="M:HugsLib.Utils.DoLaterScheduler.DoNextTick(System.Action)">
+            <summary>
+            Schedule a callback to be executed at the start of the next tick
+            </summary>
+        </member>
+        <member name="M:HugsLib.Utils.DoLaterScheduler.DoNextUpdate(System.Action)">
+            <summary>
+            Schedule a callback to be executed at the start of the next frame
+            </summary>
+        </member>
+        <member name="M:HugsLib.Utils.DoLaterScheduler.DoNextOnGUI(System.Action)">
+            <summary>
+            Schedule a callback to be executed at the start of the next OnGUI
+            </summary>
+        </member>
+        <member name="M:HugsLib.Utils.DoLaterScheduler.DoNextMapLoaded(System.Action{Verse.Map})">
+            <summary>
+            Schedule a callback to be executed the next time a map has finished loading
+            </summary>
+            <param name="action">The callback receives the map that has finished loading</param>
+        </member>
         <!-- Badly formed XML comment ignored for member "T:HugsLib.Utils.TickDelayScheduler" -->
         <member name="M:HugsLib.Utils.TickDelayScheduler.ScheduleCallback(System.Action,System.Int32,Verse.Thing,System.Boolean)">
             <summary>
@@ -851,6 +879,16 @@
             Attempts to return the patch of the log file Unity is writing to.
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:HugsLib.Utils.HugsLibUtility.AwaitUnityWebResponse(UnityEngine.Networking.UnityWebRequest,System.Action{System.String},System.Action{System.Exception},System.Net.HttpStatusCode,System.Single)">
+            <summary>
+            Sends a constructed UnityWebRequest, waits for the result, and returns the data via callbacks.
+            </summary>
+            <param name="request">Use UnityWebRequest or WWW to construct a request. Do not call Send().</param>
+            <param name="onSuccess">Called with the response body if server replied with status 200.</param>
+            <param name="onFailure">Called with the error message in case of a network error or if server replied with status other than 200.</param>
+            <param name="timeout">How long to wait before timing out the request</param>
+            <returns>Returns the thread created to poll for results.</returns>
         </member>
         <member name="P:HugsLib.Utils.HugsLibUtility.ShiftIsHeld">
             <summary>
