@@ -39,6 +39,8 @@
 		<stackLimit>25</stackLimit>
 		<cookOffFlashScale>30</cookOffFlashScale>
 		<cookOffSound>MortarBomb_Explode</cookOffSound>
+		<cookOffSpeed>0.2</cookOffSpeed>
+		<cookOffTailSound>ShellCookOff_Ambient</cookOffTailSound>
 	</ThingDef>
 
 
@@ -50,6 +52,7 @@
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<ammoClass>GrenadeHE</ammoClass>
+		<cookOffProjectile>Bullet_81mmMortarShell_HE</cookOffProjectile>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
 				<explosionDamage>50</explosionDamage>
@@ -70,6 +73,7 @@
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<ammoClass>GrenadeIncendiary</ammoClass>
+		<cookOffProjectile>Bullet_81mmMortarShell_Incendiary</cookOffProjectile>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
 				<explosionDamageDef>PrometheumFlame</explosionDamageDef>
@@ -79,7 +83,7 @@
 				<preExplosionSpawnChance>0.5</preExplosionSpawnChance>
 				<soundExplode>MortarIncendiary_Explode</soundExplode>
 				<fragments>
-					<Fragment_Shell>20</Fragment_Shell>
+					<Fragment_Shell>40</Fragment_Shell>
 				</fragments>
 			</li>
 		</comps>
@@ -93,6 +97,7 @@
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<ammoClass>GrenadeEMP</ammoClass>
+		<cookOffProjectile>Bullet_81mmMortarShell_EMP</cookOffProjectile>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
 				<explosionDamage>10</explosionDamage>
@@ -114,21 +119,20 @@
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<ammoClass>FoamFuel</ammoClass>
+		<cookOffProjectile>Bullet_81mmMortarShell_FireFoam</cookOffProjectile>
 		<comps>
-			<li Class="CompProperties_Explosive">
-				<explosiveRadius>5</explosiveRadius>
-				<explosiveDamageType>Extinguish</explosiveDamageType>
-				<explosiveExpandPerStackcount>0.4</explosiveExpandPerStackcount>
-				<startWickHitPointsPercent>0.333</startWickHitPointsPercent>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<explosionDamage>5</explosionDamage>
+				<explosionDamageDef>Extinguish</explosionDamageDef>
+				<explosionRadius>5</explosionRadius>
 				<postExplosionSpawnThingDef>FilthFireFoam</postExplosionSpawnThingDef>
 				<postExplosionSpawnChance>1</postExplosionSpawnChance>
 				<postExplosionSpawnThingCount>3</postExplosionSpawnThingCount>
 				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
-				<explosionEffect>ExtinguisherExplosion</explosionEffect>
-				<wickTicks>
-					<min>10</min>
-					<max>30</max>
-				</wickTicks>
+				<!--<explosionEffect>ExtinguisherExplosion</explosionEffect>-->
+				<fragments>
+					<Fragment_Shell>20</Fragment_Shell>
+				</fragments>
 			</li>
 		</comps>
 	</ThingDef>
@@ -183,14 +187,24 @@
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<projectile>
-			<damageDef>Flame</damageDef>
-			<damageAmountBase>50</damageAmountBase>
-			<explosionRadius>3.5</explosionRadius>
-			<preExplosionSpawnThingDef>FilthFuel</preExplosionSpawnThingDef>
+			<damageDef>Bomb</damageDef>
+			<damageAmountBase>140</damageAmountBase>
+			<explosionRadius>1</explosionRadius>
+			<armorPenetration>1.4</armorPenetration>
+			<postExplosionSpawnThingDef>FilthFuel</postExplosionSpawnThingDef>
 			<preExplosionSpawnChance>0.5</preExplosionSpawnChance>
 			<soundExplode>MortarIncendiary_Explode</soundExplode>
-			<armorPenetration>1.4</armorPenetration>
 		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<explosionRadius>3.5</explosionRadius>
+				<explosionDamageDef>Flame</explosionDamageDef>
+				<explosionDamage>50</explosionDamage>
+				<fragments>
+				  <Fragment_Shell>40</Fragment_Shell>
+				</fragments>
+			</li>
+		</comps>
 	</ThingDef>
 
 	<ThingDef ParentName="Base81mmMortarShell">
@@ -201,11 +215,22 @@
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<projectile>
-			<damageDef>EMP</damageDef>
-			<damageAmountBase>80</damageAmountBase>
-			<explosionRadius>5</explosionRadius>
-			<armorPenetration>1.6</armorPenetration>
+			<damageDef>Bomb</damageDef>
+			<damageAmountBase>130</damageAmountBase>
+			<explosionRadius>1</explosionRadius>
+			<armorPenetration>1.4</armorPenetration>
+			<soundExplode>Explosion_EMP</soundExplode>
 		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<explosionRadius>5</explosionRadius>
+				<explosionDamageDef>EMP</explosionDamageDef>
+				<explosionDamage>80</explosionDamage>
+				<fragments>
+				  <Fragment_Shell>20</Fragment_Shell>
+				</fragments>
+			</li>
+		</comps>
 	</ThingDef>
 
 	<ThingDef ParentName="Base81mmMortarShell">
@@ -216,10 +241,10 @@
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<projectile>
-			<damageDef>Extinguish</damageDef>
-			<damageAmountBase>10</damageAmountBase>
-			<explosionRadius>5</explosionRadius>
-			<armorPenetration>0.05</armorPenetration>
+			<damageDef>Bomb</damageDef>
+			<damageAmountBase>120</damageAmountBase>
+			<explosionRadius>1</explosionRadius>
+			<armorPenetration>1.1</armorPenetration>
 			<soundExplode>Explosion_EMP</soundExplode>
 			<postExplosionSpawnThingDef>FilthFireFoam</postExplosionSpawnThingDef>
 			<postExplosionSpawnChance>1</postExplosionSpawnChance>
@@ -227,6 +252,16 @@
 			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
 			<explosionEffect>ExtinguisherExplosion</explosionEffect>
 		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<explosionRadius>5</explosionRadius>
+				<explosionDamageDef>Extinguish</explosionDamageDef>
+				<explosionDamage>1</explosionDamage>
+				<fragments>
+				  <Fragment_Shell>20</Fragment_Shell>
+				</fragments>
+			</li>
+		</comps>
 	</ThingDef>
 
 
