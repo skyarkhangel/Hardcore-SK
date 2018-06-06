@@ -12,7 +12,6 @@
 			<graphicClass>Graphic_Random</graphicClass>
 		</graphicData>
 		<altitudeLayer>LowPlant</altitudeLayer>
-		<passability>Standable</passability>
 		<castEdgeShadows>false</castEdgeShadows>
 		<fillPercent>0.5</fillPercent>
 		<coversFloor>false</coversFloor>
@@ -25,6 +24,8 @@
 		<neverMultiSelect>true</neverMultiSelect>
 		<pathCost>40</pathCost>
 		<building>
+            <isInert>true</isInert>
+            <canBuildNonEdificesUnder>false</canBuildNonEdificesUnder>
 		    <isNaturalRock>true</isNaturalRock>
 			<isResourceRock>true</isResourceRock>
 			<mineableThing>CrushedStone</mineableThing>
@@ -76,6 +77,12 @@
 		</neededNearbyTerrains>
 		-->
 
+		<!-- Controls how extra clusters are added near assocaited ore-->
+		<associatedOres>
+			<li>Limestone</li>
+		</associatedOres>
+		<nearAssociatedOreBonus>3</nearAssociatedOreBonus>
+
 		<!-- how far away it can be from needed nearby terrains-->
 		<neededNearbyTerrainRadius>3</neededNearbyTerrainRadius>
 
@@ -101,7 +108,141 @@
 		<!-- The amount of resource returned if the mineral is its maximum size -->
 		<maxMinedYeild>20</maxMinedYeild>
 
+		<!-- Other resources it might drop -->
+		<roughGemDropChance>0.0</roughGemDropChance>
 	</ThingDef>
+
+	<ThingDef Name="GoldPyriteCrystal" ParentName="StaticMineralBase">
+		<defName>GoldPyriteCrystal</defName>
+		<label>Pyrite Crystal</label>
+		<description>Crystals of iron(II) disulfide. A common mineral found underground and often mistaken for gold or silver by the foolish. Interesting, but not otherwise very useful. Yeilds rubble if mined.</description>
+		<graphicData>
+			<texPath>Things/Mineral/PyriteCrystal</texPath>
+			<graphicClass>Graphic_Random</graphicClass>
+			<drawSize>(1,1)</drawSize>
+			<color>(255,227,187)</color>
+		</graphicData>
+		<altitudeLayer>LowPlant</altitudeLayer>
+		<castEdgeShadows>false</castEdgeShadows>
+		<fillPercent>0.5</fillPercent>
+		<coversFloor>false</coversFloor>
+		<statBases>
+			<MaxHitPoints>500</MaxHitPoints>
+			<Flammability>0</Flammability>
+			<Beauty>8</Beauty>
+		</statBases>
+		<selectable>true</selectable>
+		<neverMultiSelect>true</neverMultiSelect>
+		<pathCost>10</pathCost>
+		<building>
+            <isInert>true</isInert>
+            <canBuildNonEdificesUnder>false</canBuildNonEdificesUnder>
+		    <isNaturalRock>true</isNaturalRock>
+			<isResourceRock>true</isResourceRock>
+			<mineableThing>CrushedStone</mineableThing>
+			<mineableYield>10</mineableYield>
+			<mineableNonMinedEfficiency>0.8</mineableNonMinedEfficiency>
+			<claimable>false</claimable>
+			<deconstructible>false</deconstructible>
+		</building>
+		<filthLeaving>RockRubble</filthLeaving>
+		<mineable>true</mineable>
+
+		<!--How far away it can spawn from an existing location-->
+		<!-- Even though it is a static crystal, the map initialization uses "reproduction" to make clusters-->
+		<spawnRadius>1</spawnRadius>
+
+		<!--For a given map, the minimum/maximum probablility a cluster will spawn for every possible location -->
+		<minClusterProbability>-0.01</minClusterProbability>
+		<maxClusterProbability>0.005</maxClusterProbability>
+
+		<!-- How  many squares each cluster will be -->
+		<minClusterSize>1</minClusterSize>
+		<maxClusterSize>15</maxClusterSize>
+
+		<!-- The range of starting sizes of individuals in clusters -->
+		<initialSizeMin>.3</initialSizeMin>
+		<initialSizeMax>.95</initialSizeMax>
+
+		<!-- How much initial sizes of individuals randomly vary -->
+		<initialSizeVariation>.2</initialSizeVariation>
+
+		<!-- The biomes this can appear in. The default is all ones known to mod-->
+		<!--
+		<allowedBiomes>
+			<li>add_biomes_here</li>
+		</allowedBiomes>
+		-->
+
+		<!-- The terrains this can appear on. The default is rocky terrains-->
+		<allowedTerrains>
+			<li>Granite_Rough</li>
+			<li>Marble_Rough</li>
+			<li>Limestone_Rough</li>
+			<li>Sandstone_Rough</li>
+			<li>Slate_Rough</li>
+		</allowedTerrains>
+
+		<!-- The terrains this must be near to, but not necessarily on -->
+		<neededNearbyTerrains>
+			<li>Granite_Rough</li>
+			<li>Marble_Rough</li>
+			<li>Limestone_Rough</li>
+			<li>Sandstone_Rough</li>
+			<li>Slate_Rough</li>
+		</neededNearbyTerrains>
+
+		<!-- Controls how extra clusters are added near assocaited ore-->
+		<associatedOres>
+			<li>QuartzCrystal</li>
+			<li>AmethystCrystal</li>
+			<li>CitrineCrystal</li>
+			<li>PrasioliteCrystal</li>
+		</associatedOres>
+		<nearAssociatedOreBonus>10</nearAssociatedOreBonus>
+
+		<!-- how far away it can be from needed nearby terrains-->
+		<neededNearbyTerrainRadius>1</neededNearbyTerrainRadius>
+
+		<!-- If true, growth rate and initial size depends on distance from needed terrains -->
+		<neededNearbyTerrainSizeEffect>true</neededNearbyTerrainSizeEffect>
+
+		<!-- Roof requirements -->
+		<mustBeUnderRoof>true</mustBeUnderRoof>
+		<mustBeUnderThickRoof>false</mustBeUnderThickRoof>
+		<mustBeUnroofed>false</mustBeUnroofed>
+
+		<!-- The maximum number of images that will be printed per square -->
+    	<maxMeshCount>30</maxMeshCount>
+
+		<!-- The size range -->
+        <visualSizeRange>
+        	<min>0.1</min>
+        	<max>0.5</max>
+      	</visualSizeRange>
+		<visualSpread>0.48</visualSpread>
+		<visualSizeVariation>0.35</visualSizeVariation>
+
+		<!-- The amount of resource returned if the mineral is its maximum size -->
+		<maxMinedYeild>10</maxMinedYeild>
+
+		<!-- Other resources it might drop -->
+		<roughGemDropChance>0.0</roughGemDropChance>
+	</ThingDef>
+
+
+
+	<ThingDef ParentName="GoldPyriteCrystal">
+		<defName>SilverPyriteCrystal</defName>
+		<graphicData>
+			<texPath>Things/Mineral/PyriteCrystal</texPath>
+			<graphicClass>Graphic_Random</graphicClass>
+			<drawSize>(1,1)</drawSize>
+			<color>(244,237,228)</color>
+		</graphicData>
+	</ThingDef>
+
+
 
 	<ThingDef Name="QuartzCrystal" ParentName="StaticMineralBase">
 		<defName>QuartzCrystal</defName>
@@ -114,7 +255,6 @@
 			<color>(220,220,220)</color>
 		</graphicData>
 		<altitudeLayer>LowPlant</altitudeLayer>
-		<passability>Standable</passability>
 		<castEdgeShadows>false</castEdgeShadows>
 		<fillPercent>0.5</fillPercent>
 		<coversFloor>false</coversFloor>
@@ -127,6 +267,8 @@
 		<neverMultiSelect>true</neverMultiSelect>
 		<pathCost>40</pathCost>
 		<building>
+            <isInert>true</isInert>
+            <canBuildNonEdificesUnder>false</canBuildNonEdificesUnder>
 		    <isNaturalRock>true</isNaturalRock>
 			<isResourceRock>true</isResourceRock>
 			<mineableThing>GlassBatch</mineableThing>
@@ -178,6 +320,13 @@
 		</neededNearbyTerrains>
 		-->
 
+		<!-- Controls how extra clusters are added near assocaited ore-->
+		<associatedOres>
+			<li>GoldPyriteCrystal</li>
+			<li>SilverPyriteCrystal</li>
+		</associatedOres>
+		<nearAssociatedOreBonus>10</nearAssociatedOreBonus>
+
 		<!-- how far away it can be from needed nearby terrains-->
 		<neededNearbyTerrainRadius>3</neededNearbyTerrainRadius>
 
@@ -226,7 +375,7 @@
 
 		<!-- For a given map, the minimum/maximum probablility a cluster will spawn for every possible location -->
 		<minClusterProbability>-0.01</minClusterProbability>
-		<maxClusterProbability>0.005</maxClusterProbability>
+		<maxClusterProbability>0.004</maxClusterProbability>
 
 		<!-- Other resources it might drop -->
 		<roughGemDropChance>0.2</roughGemDropChance>
@@ -251,7 +400,7 @@
 
 		<!--For a given map, the minimum/maximum probablility a cluster will spawn for every possible location -->
 		<minClusterProbability>-0.03</minClusterProbability>
-		<maxClusterProbability>0.005</maxClusterProbability>
+		<maxClusterProbability>0.003</maxClusterProbability>
 
 		<!-- Other resources it might drop -->
 		<roughGemDropChance>0.4</roughGemDropChance>
@@ -276,7 +425,7 @@
 
 		<!--For a given map, the minimum/maximum probablility a cluster will spawn for every possible location -->
 		<minClusterProbability>-0.05</minClusterProbability>
-		<maxClusterProbability>0.005</maxClusterProbability>
+		<maxClusterProbability>0.002</maxClusterProbability>
 
 		<!-- Other resources it might drop -->
 		<roughGemDropChance>0.7</roughGemDropChance>
@@ -293,7 +442,6 @@
 			<drawSize>(1,1)</drawSize>
 		</graphicData>
 		<altitudeLayer>LowPlant</altitudeLayer>
-		<passability>Standable</passability>
 		<castEdgeShadows>false</castEdgeShadows>
 		<fillPercent>0.5</fillPercent>
 		<coversFloor>false</coversFloor>
@@ -306,6 +454,8 @@
 		<neverMultiSelect>true</neverMultiSelect>
 		<pathCost>50</pathCost>
 		<building>
+            <isInert>true</isInert>
+            <canBuildNonEdificesUnder>false</canBuildNonEdificesUnder>
 		    <isNaturalRock>true</isNaturalRock>
 			<isResourceRock>true</isResourceRock>
 			<mineableThing>ObsidianShard</mineableThing>
@@ -393,7 +543,6 @@
 			<drawSize>(1,1)</drawSize>
 		</graphicData>
 		<altitudeLayer>LowPlant</altitudeLayer>
-		<passability>Standable</passability>
 		<castEdgeShadows>false</castEdgeShadows>
 		<fillPercent>0.5</fillPercent>
 		<coversFloor>false</coversFloor>
@@ -406,6 +555,8 @@
 		<neverMultiSelect>true</neverMultiSelect>
 		<pathCost>05</pathCost>
 		<building>
+            <isInert>true</isInert>
+            <canBuildNonEdificesUnder>false</canBuildNonEdificesUnder>
 		    <isNaturalRock>true</isNaturalRock>
 			<isResourceRock>true</isResourceRock>
 			<mineableThing>FlintShard</mineableThing>
@@ -419,15 +570,15 @@
 
 		<!--How far away it can spawn from an existing location-->
 		<!-- Even though it is a static crystal, the map initialization uses "reproduction" to make clusters-->
-		<spawnRadius>4</spawnRadius>
+		<spawnRadius>5</spawnRadius>
 
 		<!--For a given map, the minimum/maximum probablility a cluster will spawn for every possible location -->
 		<minClusterProbability>0.001</minClusterProbability>
-		<maxClusterProbability>0.005</maxClusterProbability>
+		<maxClusterProbability>0.004</maxClusterProbability>
 
 		<!-- How  many squares each cluster will be -->
 		<minClusterSize>1</minClusterSize>
-		<maxClusterSize>5</maxClusterSize>
+		<maxClusterSize>8</maxClusterSize>
 
 		<!-- The range of starting sizes of individuals in clusters -->
 		<initialSizeMin>.4</initialSizeMin>
