@@ -1,4 +1,10 @@
-## Current version
+## v0.3.1
+
+### Bug fixes:
+
+* Large minerals no longer block pawns
+
+## v0.3.0
 
 ### Bug fixes:
 
