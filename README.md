@@ -48,7 +48,7 @@ And copy "ModsConfig.xml", which is at the root of the archive modpack.
 ____
 A big thank you to the Patreons! ( https://www.patreon.com/skyarkhangel , in no particular order.)
 <br>Szara Kryik, Makzilla, Schio, GuiltyHollow, ErdTod, Soi, Tie, Zachary F, Fsempri, Andrey, Dudok22, Hoouin K, PuffMagicDragon,
-PatchDotExe, Cawi, XLegionX007, НечтоХрустящее, Kristijan
+PatchDotExe, Cawi, XLegionX007, НечтоХрустящее, Kristijan, sKeptr
 ____
 <br>
 HCSK 6.0 SK Team:
