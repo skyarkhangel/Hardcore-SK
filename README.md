@@ -20,8 +20,23 @@ https://goo.gl/yvjYDV
 Feel free to join us on our Discord Server!
 https://discord.gg/FMPRSKr
 (Validated Account Required)
-     
-## Installation:
+
+## Project launcher:
+
+Features:
+- Update hardcore sk project in some clicks!
+- Optional update Modconfig if needed.
+- Ability to select to launch game via Steam or from a direct path.
+- Ability to check for new updates at startup.
+- Ability to update hardcore sk project with using downloaded github master tree archive (if launcher for some reason couldn't download itself).
+
+Requirements:
+- If the game was installed for the first time, you need to start before updating HSK. (The game at startup generates configuration files).
+- .Net Framework 4.5 (goes by default since Windows 8. There is no support for Windows XP and previously released OS).
+
+Download installer: http://hardcore-sk.ru/hardcore/installer/HSK-Launcher-1.1-Setup.exe
+
+## Manual installation:
 
 1. Go to the folder you installed the game in. (*gamefolder*)    
 Delete all mods inside your Rimworld\Mods\ folder except "Core".
