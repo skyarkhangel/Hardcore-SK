@@ -61,7 +61,7 @@ And copy "ModsConfig.xml", which is at the root of the archive modpack.
 5. Have fun <i class="fa fa-smile-o"></i>   
 
 ## RimWorld ReShade Guide:
-A lot of people hear of ReShade there first thought often comes to games in 3D space, such as PUBG and Skyrim. However, ReShade is versatile enough to work with games even like Rimworld and have stunning results.
+When a lot of people hear of ReShade, first thought often comes to games in 3D space, such as PUBG and Skyrim. However, ReShade is versatile enough to work with games even like Rimworld and have stunning results.
 Learn more: https://imgur.com/a/DrYqGaY
 
 ____
