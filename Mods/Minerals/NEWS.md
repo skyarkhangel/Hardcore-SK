@@ -1,3 +1,24 @@
+## v0.5.0
+
+This version splits the mod into a few different mods:
+
+* Minerals Core: Minerals with unique appearance and unique uses and all the C# code.
+* Minerals Extra: Lots of other minerals to add variety, but usually similar in use/appearance to some other mineral. Many are rare minerals that drop lots of gemstones.
+* Minerals Frozen: Did you know ice is a mineral? This mod adds snow and ice formations, which can be "mined" for blocks that can be used to build things. However, anything built with snow or ice will take damage when it is above freezing. 
+
+** It might be save-game compatible if you update and use all three mods on the old save, otherwise it will not be save-game compatible. **
+ 
+* Less mineral abundance overall
+* Generally increased drop amounts
+* Lots of other adjustments
+
+## v0.4.3
+
+### Bug fixes:
+
+* Save/load no longer makes all minerals go to 100%
+
+
 ## v0.4.2 
 
 ### Aditions:
