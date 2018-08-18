@@ -60,6 +60,10 @@ And copy "ModsConfig.xml", which is at the root of the archive modpack.
 
 5. Have fun <i class="fa fa-smile-o"></i>   
 
+## RimWorld ReShade Guide:
+When a lot of people hear of ReShade, first thought often comes to games in 3D space, such as PUBG and Skyrim. However, ReShade is versatile enough to work with games even like Rimworld and have stunning results.
+Learn more: https://imgur.com/a/DrYqGaY
+
 ____
 A big thank you to the Patreons! ( https://www.patreon.com/skyarkhangel , in no particular order.)
 <br>Szara Kryik, Makzilla, Schio, GuiltyHollow, ErdTod, Soi, Tie, Zachary F, Fsempri, Andrey, Dudok22, Hoouin K, PuffMagicDragon,
@@ -72,7 +76,7 @@ HCSK 6.0 SK Team:
 <br>Artists - Abhay, Qwe, EtherDreamer, Arai, Owlchemist
 <br>Coders - NotFood, FelGoblin
 <br>XML modders - Sidfu, Owlchemist, Freijie
-<br>Guide Writers - Murdantiks, Adenia, Soyaman
+<br>Guide Writers - Murdantiks, Adenia, Soyaman, Tombomcbombo.
 <br>Translators - Rey, Ivanzyfer, FaHT1k, mora145, totobrother
 <br>
 <br>
