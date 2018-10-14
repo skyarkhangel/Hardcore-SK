@@ -1,38 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-  <ThingDef Name="BuildingNaturalBase" Abstract="True">
-    <category>Building</category>
-    <selectable>true</selectable>
+  <ThingDef Name="BuildingNaturalBase" ParentName="BuildingBase" Abstract="True">
     <drawerType>MapMeshOnly</drawerType>
     <filthLeaving>RockRubble</filthLeaving>
     <scatterableOnMapGen>false</scatterableOnMapGen>
-    <damageMultipliers>
-      <li>
-        <damageDef>Bomb</damageDef>
-        <multiplier>2</multiplier>
-      </li>
-      <li>
-        <damageDef>Thermobaric</damageDef>
-        <multiplier>2.5</multiplier>
-      </li>
-      <li>
-        <damageDef>Bullet</damageDef>
-        <multiplier>0.05</multiplier>
-      </li>
-      <li>
-        <damageDef>Fragment</damageDef>
-        <multiplier>0.025</multiplier>
-      </li>
-      <li>
-        <damageDef>Arrow</damageDef>
-        <multiplier>0.0</multiplier>
-      </li>
-      <li>
-        <damageDef>Electrical</damageDef>
-        <multiplier>0.0</multiplier>
-      </li>
-    </damageMultipliers>
   </ThingDef>
 
   <ThingDef Name="RockBase" ParentName="BuildingNaturalBase" Abstract="True" >
@@ -67,6 +39,7 @@
       <isNaturalRock>true</isNaturalRock>
       <canBuildNonEdificesUnder>false</canBuildNonEdificesUnder>
       <deconstructible>false</deconstructible>
+	  <repairable>false</repairable>
     </building>
   </ThingDef>
 
@@ -84,7 +57,6 @@
     <altitudeLayer>Floor</altitudeLayer>
     <destroyable>true</destroyable>
     <useHitPoints>false</useHitPoints>
-    <selectable>true</selectable>
     <description>Underground deposits of minerals. A Mine Extractor can be placed here to extract ores.</description>
     <size>(3,3)</size>
     <neverOverlapFloors>true</neverOverlapFloors>
@@ -109,7 +81,6 @@
     <altitudeLayer>Floor</altitudeLayer>
     <destroyable>true</destroyable>
     <useHitPoints>false</useHitPoints>
-    <selectable>true</selectable>
     <description>Underground deposits of rare minerals. An Advanced Mine Extractor can be placed here to extract rare ores.</description>
     <size>(3,3)</size>
     <neverOverlapFloors>true</neverOverlapFloors>
@@ -135,7 +106,6 @@
     <destroyable>true</destroyable>
     <useHitPoints>false</useHitPoints>
 	<tickerType>Normal</tickerType>
-    <selectable>true</selectable>
     <description>Rich underground deposits of Crude Oil. A Drilling Rig can drill an oil fissure here. An Oil Extractor can then be placed to extract Crude Oil.</description>
     <size>(3,3)</size>
     <neverOverlapFloors>true</neverOverlapFloors>
@@ -169,7 +139,7 @@
       <isResourceRock>true</isResourceRock>
       <mineableThing>Steel</mineableThing>
       <mineableYield>35</mineableYield>
-      <mineableScatterCommonality>1</mineableScatterCommonality>
+      <mineableScatterCommonality>1.1</mineableScatterCommonality>
       <mineableScatterLumpSizeRange>
         <min>20</min>
         <max>40</max>
@@ -221,10 +191,10 @@
     <building>
       <isResourceRock>true</isResourceRock>
       <mineableThing>Gold</mineableThing>
-      <mineableYield>35</mineableYield>
+      <mineableYield>50</mineableYield>
       <mineableScatterCommonality>0.15</mineableScatterCommonality>
       <mineableScatterLumpSizeRange>
-        <min>4</min>
+        <min>3</min>
         <max>9</max>
       </mineableScatterLumpSizeRange>
     </building>
@@ -247,15 +217,40 @@
     <building>
       <isResourceRock>true</isResourceRock>
       <mineableThing>Nitre</mineableThing>
-      <mineableYield>30</mineableYield>
+      <mineableYield>75</mineableYield>
       <mineableScatterCommonality>1.05</mineableScatterCommonality>
       <mineableScatterLumpSizeRange>
-        <min>17</min>
-        <max>29</max>
+        <min>8</min>
+        <max>16</max>
       </mineableScatterLumpSizeRange>
     </building>
   </ThingDef>
-
+  
+  <ThingDef ParentName="RockBase">
+    <defName>MineableLead</defName>
+    <label>Anglesite Deposits</label>
+    <graphicData>
+      <texPath>Things/Building/Linked/RockFlecked_Atlas</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <color>(114,92,83)</color>
+      <colorTwo>(155,133,107)</colorTwo>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>6000</MaxHitPoints>
+    </statBases>
+    <description>Deposits of Anglesite. Anglesite is the ore form of Lead. It is a heavy metal that is denser than most common materials. Lead is soft and malleable, and has a relatively low melting point.</description>
+    <building>
+      <isResourceRock>true</isResourceRock>
+      <mineableThing>Anglesite</mineableThing>
+      <mineableYield>75</mineableYield>
+      <mineableScatterCommonality>0.8</mineableScatterCommonality>
+      <mineableScatterLumpSizeRange>
+        <min>6</min>
+        <max>13</max>
+      </mineableScatterLumpSizeRange>
+    </building>
+  </ThingDef>
 
   <ThingDef ParentName="RockBase">
     <defName>MineableCoal</defName>
@@ -274,11 +269,11 @@
     <building>
       <isResourceRock>true</isResourceRock>
       <mineableThing>Coal</mineableThing>
-      <mineableYield>45</mineableYield>
+      <mineableYield>75</mineableYield>
       <mineableScatterCommonality>1.2</mineableScatterCommonality>
       <mineableScatterLumpSizeRange>
-        <min>22</min>
-        <max>38</max>
+        <min>11</min>
+        <max>18</max>
       </mineableScatterLumpSizeRange>
     </building>
   </ThingDef>
@@ -300,11 +295,11 @@
     <building>
       <isResourceRock>true</isResourceRock>
       <mineableThing>Nickel</mineableThing>
-      <mineableYield>30</mineableYield>
+      <mineableYield>50</mineableYield>
       <mineableScatterCommonality>0.4</mineableScatterCommonality>
       <mineableScatterLumpSizeRange>
-        <min>11</min>
-        <max>21</max>
+        <min>6</min>
+        <max>13</max>
       </mineableScatterLumpSizeRange>
     </building>
   </ThingDef>
@@ -326,11 +321,11 @@
     <building>
       <isResourceRock>true</isResourceRock>
       <mineableThing>Tin</mineableThing>
-      <mineableYield>40</mineableYield>
+      <mineableYield>75</mineableYield>
       <mineableScatterCommonality>1.1</mineableScatterCommonality>
       <mineableScatterLumpSizeRange>
-        <min>18</min>
-        <max>29</max>
+        <min>9</min>
+        <max>17</max>
       </mineableScatterLumpSizeRange>
     </building>
   </ThingDef>
@@ -353,11 +348,11 @@
     <building>
       <isResourceRock>true</isResourceRock>
       <mineableThing>Copper</mineableThing>
-      <mineableYield>40</mineableYield>
-      <mineableScatterCommonality>1.1</mineableScatterCommonality>
+      <mineableYield>75</mineableYield>
+      <mineableScatterCommonality>0.95</mineableScatterCommonality>
       <mineableScatterLumpSizeRange>
-        <min>21</min>
-        <max>30</max>
+        <min>15</min>
+        <max>25</max>
       </mineableScatterLumpSizeRange>
     </building>
   </ThingDef>
@@ -379,11 +374,11 @@
     <building>
       <isResourceRock>true</isResourceRock>
       <mineableThing>Aluminium</mineableThing>
-      <mineableYield>30</mineableYield>
-      <mineableScatterCommonality>0.6</mineableScatterCommonality>
+      <mineableYield>75</mineableYield>
+      <mineableScatterCommonality>0.65</mineableScatterCommonality>
       <mineableScatterLumpSizeRange>
-        <min>17</min>
-        <max>28</max>
+        <min>11</min>
+        <max>19</max>
       </mineableScatterLumpSizeRange>
     </building>
   </ThingDef>
@@ -406,11 +401,11 @@
     <building>
       <isResourceRock>true</isResourceRock>
       <mineableThing>Jade</mineableThing>
-      <mineableYield>70</mineableYield>
+      <mineableYield>75</mineableYield>
       <mineableScatterCommonality>0.25</mineableScatterCommonality>
       <mineableScatterLumpSizeRange>
-        <min>9</min>
-        <max>13</max>
+        <min>7</min>
+        <max>12</max>
       </mineableScatterLumpSizeRange>
     </building>
   </ThingDef>
@@ -432,11 +427,11 @@
     <building>
       <isResourceRock>true</isResourceRock>
       <mineableThing>Ilmenite</mineableThing>
-      <mineableYield>20</mineableYield>
-      <mineableScatterCommonality>0.15</mineableScatterCommonality>
+      <mineableYield>75</mineableYield>
+      <mineableScatterCommonality>0.25</mineableScatterCommonality>
       <mineableScatterLumpSizeRange>
-        <min>10</min>
-        <max>19</max>
+        <min>7</min>
+        <max>14</max>
       </mineableScatterLumpSizeRange>
     </building>
   </ThingDef>
@@ -458,11 +453,11 @@
     <building>
       <isResourceRock>true</isResourceRock>
       <mineableThing>Pyrolusite</mineableThing>
-      <mineableYield>20</mineableYield>
-      <mineableScatterCommonality>0.37</mineableScatterCommonality>
+      <mineableYield>50</mineableYield>
+      <mineableScatterCommonality>0.40</mineableScatterCommonality>
       <mineableScatterLumpSizeRange>
-        <min>12</min>
-        <max>19</max>
+        <min>8</min>
+        <max>14</max>
       </mineableScatterLumpSizeRange>
     </building>
   </ThingDef>
@@ -478,17 +473,17 @@
     <color>(88,115,175)</color>
     </graphicData>
     <statBases>
-      <MaxHitPoints>15000</MaxHitPoints>
+      <MaxHitPoints>20000</MaxHitPoints>
     </statBases>
     <description>Wolframite is the ore of Tungsten. Tungsten is a strong and quite dense material with a high melting temperature used for electric filaments and armor-piercing ammunition, as well as hard tungsten carbide machine tools.</description>
     <building>
       <isResourceRock>true</isResourceRock>
       <mineableThing>Wolframite</mineableThing>
-      <mineableYield>10</mineableYield>
-      <mineableScatterCommonality>0.12</mineableScatterCommonality>
+      <mineableYield>50</mineableYield>
+      <mineableScatterCommonality>0.15</mineableScatterCommonality>
       <mineableScatterLumpSizeRange>
-        <min>8</min>
-        <max>15</max>
+        <min>3</min>
+        <max>9</max>
       </mineableScatterLumpSizeRange>
     </building>
   </ThingDef>
@@ -561,11 +556,11 @@
     <building>
       <isResourceRock>true</isResourceRock>
       <mineableThing>Glowstone</mineableThing>
-      <mineableYield>20</mineableYield>
+      <mineableYield>50</mineableYield>
       <mineableScatterCommonality>0.35</mineableScatterCommonality>
       <mineableScatterLumpSizeRange>
-        <min>12</min>
-        <max>18</max>
+        <min>6</min>
+        <max>13</max>
       </mineableScatterLumpSizeRange>
     </building>
 	 <comps>
@@ -593,8 +588,8 @@
     <building>
       <isResourceRock>true</isResourceRock>
       <mineableThing>Salt</mineableThing>
-      <mineableYield>50</mineableYield>
-      <mineableScatterCommonality>1</mineableScatterCommonality>
+      <mineableYield>75</mineableYield>
+      <mineableScatterCommonality>0.9</mineableScatterCommonality>
       <mineableScatterLumpSizeRange>
         <min>5</min>
         <max>10</max>
@@ -620,11 +615,11 @@
     <building>
       <isResourceRock>true</isResourceRock>
       <mineableThing>Coldstone</mineableThing>
-      <mineableYield>25</mineableYield>
+      <mineableYield>50</mineableYield>
       <mineableScatterCommonality>0.3</mineableScatterCommonality>
       <mineableScatterLumpSizeRange>
-        <min>12</min>
-        <max>22</max>
+        <min>6</min>
+        <max>14</max>
       </mineableScatterLumpSizeRange>
     </building>
 	 <comps>
