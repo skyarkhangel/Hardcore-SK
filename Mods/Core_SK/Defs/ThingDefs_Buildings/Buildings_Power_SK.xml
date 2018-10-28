@@ -18,6 +18,7 @@
 	<ThingDef ParentName="BuildingBase">
 		<defName>PowerConduit</defName>
 		<label>power conduit</label>
+		<description>A bundle of electrical cables for moving power around. Can be placed under walls and other buildings.</description>
 		<graphicData>
 			<texPath>Things/Building/Linked/PowerConduit_Atlas</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
@@ -29,14 +30,14 @@
 				<rect>(0,0.35,1,0.3)</rect>
 			</damageData>
 		</graphicData>
-		<blueprintGraphicData>
-			<texPath>Things/Building/Linked/PowerConduit_Blueprint_Atlas</texPath>
-		</blueprintGraphicData>
 		<uiIconPath>Things/Building/Linked/PowerConduit_MenuIcon</uiIconPath>
 		<building>
 			<ai_chillDestination>false</ai_chillDestination>
 			<isInert>true</isInert>
 			<isEdifice>false</isEdifice>
+			<blueprintGraphicData>
+				<texPath>Things/Building/Linked/PowerConduit_Blueprint_Atlas</texPath>
+			</blueprintGraphicData>
 		</building>
 		<altitudeLayer>FloorEmplacement</altitudeLayer>
 		<passability>Standable</passability>
@@ -47,7 +48,6 @@
 			<Flammability>1.0</Flammability>
 			<Beauty>-2</Beauty>
 		</statBases>
-		<description>A set of electrical cables for moving power around. Can be placed under walls and other buildings.</description>
 		<placingDraggableDimensions>1</placingDraggableDimensions>
 		<costList>
 			<Wire>1</Wire>
@@ -74,6 +74,64 @@
 		</researchPrerequisites>
 	</ThingDef>
 
+	<ThingDef ParentName="BuildingBase">
+		<defName>WaterproofConduit</defName>
+		<label>waterproof conduit</label>
+		<description>Insulated electrical cables for transmitting power under shallow water.</description>
+		<graphicData>
+			<texPath>Things/Building/Linked/WaterproofConduit_Atlas</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<linkType>Transmitter</linkType>
+			<linkFlags>
+				<li>PowerConduit</li>
+			</linkFlags>
+			<damageData>
+				<rect>(0,0.35,1,0.3)</rect>
+			</damageData>
+		</graphicData>
+		<uiIconPath>Things/Building/Linked/WaterproofConduit_MenuIcon</uiIconPath>
+		<terrainAffordanceNeeded>ShallowWater</terrainAffordanceNeeded>
+		<building>
+			<ai_chillDestination>false</ai_chillDestination>
+			<isInert>true</isInert>
+			<isEdifice>false</isEdifice>
+			<blueprintGraphicData>
+				<texPath>Things/Building/Linked/PowerConduit_Blueprint_Atlas</texPath>
+			</blueprintGraphicData>
+		</building>
+		<altitudeLayer>FloorEmplacement</altitudeLayer>
+		<passability>Standable</passability>
+		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+		<statBases>
+			<MaxHitPoints>80</MaxHitPoints>
+			<WorkToBuild>25</WorkToBuild>
+			<Flammability>1.0</Flammability>
+			<Beauty>-2</Beauty>
+		</statBases>
+		<placingDraggableDimensions>1</placingDraggableDimensions>
+		<costList>
+			<Wire>2</Wire>
+		</costList>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTransmitter</compClass>
+				<transmitsPower>true</transmitsPower>
+			</li>
+		</comps>
+		<placeWorkers>
+			<li>PlaceWorker_Conduit</li>
+		</placeWorkers>
+		<rotatable>false</rotatable>
+		<blockWind>false</blockWind>
+		<neverMultiSelect>true</neverMultiSelect>
+		<designationCategory>Power</designationCategory>
+		<constructEffect>ConstructMetal</constructEffect>
+		<clearBuildingArea>false</clearBuildingArea>
+		<designationHotKey>Misc1</designationHotKey>
+		<researchPrerequisites>
+			<li>SK_Power</li>
+		</researchPrerequisites>
+	</ThingDef>
 
 	<ThingDef ParentName="BuildingBase">
 		<defName>HeavyPowerConduit</defName>
@@ -89,14 +147,14 @@
 				<rect>(0,0.35,1,0.3)</rect>
 			</damageData>
 		</graphicData>
-		<blueprintGraphicData>
-			<texPath>Things/Building/Linked/PowerConduit_Blueprint_Atlas</texPath>
-		</blueprintGraphicData>
 		<uiIconPath>Things/Building/Linked/PowerConduit_MenuIcon</uiIconPath>
 		<building>
 			<ai_chillDestination>false</ai_chillDestination>
 			<isInert>true</isInert>
 			<isEdifice>false</isEdifice>
+			<blueprintGraphicData>
+				<texPath>Things/Building/Linked/PowerConduit_Blueprint_Atlas</texPath>
+			</blueprintGraphicData>
 		</building>
 		<altitudeLayer>FloorEmplacement</altitudeLayer>
 		<passability>Standable</passability>
@@ -148,13 +206,13 @@
 				<rect>(0,0.35,1,0.3)</rect>
 			</damageData>
 		</graphicData>
-		<blueprintGraphicData>
-			<texPath>Things/Building/Linked/PowerConduit_Invisible_Blueprint_Atlas</texPath>
-		</blueprintGraphicData>
 		<uiIconPath>Things/Building/Linked/PowerConduit_Invisible_MenuIcon</uiIconPath>
 		<building>
 			<isInert>true</isInert>
 			<isEdifice>false</isEdifice>
+			<blueprintGraphicData>
+				<texPath>Things/Building/Linked/PowerConduit_Invisible_Blueprint_Atlas</texPath>
+			</blueprintGraphicData>
 		</building>
 		<altitudeLayer>FloorEmplacement</altitudeLayer>
 		<passability>Standable</passability>
@@ -211,7 +269,10 @@
 		<passability>Standable</passability>
 		<canOverlapZones>false</canOverlapZones>
 		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
-		<minifiedDef>MinifiedFurniture</minifiedDef>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<thingCategories>
+			<li>BuildingsPower</li>
+		</thingCategories>
 		<statBases>
 			<MaxHitPoints>120</MaxHitPoints>
 			<WorkToBuild>200</WorkToBuild>
@@ -222,7 +283,7 @@
 		<placingDraggableDimensions>0</placingDraggableDimensions>
 		<costList>
 			<Wire>3</Wire>
-			<Component>2</Component>
+			<ComponentIndustrial>2</ComponentIndustrial>
 			<ElectronicComponents>1</ElectronicComponents>
 		</costList>
 		<comps>
@@ -264,7 +325,10 @@
 		<altitudeLayer>Building</altitudeLayer>
 		<passability>Standable</passability>
 		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
-		<minifiedDef>MinifiedFurniture</minifiedDef>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<thingCategories>
+			<li>BuildingsPower</li>
+		</thingCategories>
 		<statBases>
 			<MaxHitPoints>120</MaxHitPoints>
 			<WorkToBuild>625</WorkToBuild>
@@ -274,7 +338,7 @@
 		</statBases>
 		<placingDraggableDimensions>0</placingDraggableDimensions>
 		<costList>
-			<Component>3</Component>
+			<ComponentIndustrial>3</ComponentIndustrial>
 			<ElectronicComponents>1</ElectronicComponents>
 		</costList>
 		<comps>
@@ -315,7 +379,10 @@
 		</building>
 		<altitudeLayer>Building</altitudeLayer>
 		<passability>Standable</passability>
-		<minifiedDef>MinifiedFurniture</minifiedDef>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<thingCategories>
+			<li>BuildingsPower</li>
+		</thingCategories>
 		<statBases>
 			<MaxHitPoints>150</MaxHitPoints>
 			<WorkToBuild>210</WorkToBuild>
@@ -327,7 +394,7 @@
 		<placingDraggableDimensions>0</placingDraggableDimensions>
 		<costList>
 			<Plastic>10</Plastic>
-			<Component>5</Component>
+			<ComponentIndustrial>5</ComponentIndustrial>
 			<ElectronicComponents>2</ElectronicComponents>
 		</costList>
 		<comps>
@@ -366,7 +433,10 @@
 				<cornerBR>Damage/Corner</cornerBR>
 			</damageData>
 		</graphicData>
-		<minifiedDef>MinifiedFurniture</minifiedDef>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<thingCategories>
+			<li>BuildingsPower</li>
+		</thingCategories>
 		<canOverlapZones>false</canOverlapZones>
 		<fillPercent>0.7</fillPercent>
 		<tickerType>Normal</tickerType>
@@ -384,14 +454,14 @@
 		</stuffCategories>
 		<costStuffCount>35</costStuffCount>
 		<costList>
-			<Component>5</Component>
+			<ComponentIndustrial>5</ComponentIndustrial>
 			<ElectronicComponents>3</ElectronicComponents>
 		</costList>
 		<comps>
 			<li Class="CompProperties_Battery">
 				<storedEnergyMax>1000</storedEnergyMax>
 				<efficiency>0.5</efficiency>
-				<startElectricalFires>true</startElectricalFires>
+				<shortCircuitInRain>true</shortCircuitInRain>
 				<transmitsPower>true</transmitsPower>
 			</li>
 			<li Class="CompProperties_Breakdownable"/>
@@ -418,7 +488,10 @@
 				<offset>(0,0,0)</offset>
 			</shadowData>
 		</graphicData>
-		<minifiedDef>MinifiedFurniture</minifiedDef>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<thingCategories>
+			<li>BuildingsPower</li>
+		</thingCategories>
 		<fillPercent>0.7</fillPercent>
 		<tickerType>Normal</tickerType>
 		<statBases>
@@ -436,7 +509,7 @@
 		<costStuffCount>75</costStuffCount>
 		<costList>
 			<BiosyntheticMaterial>5</BiosyntheticMaterial>
-			<Component>5</Component>
+			<ComponentIndustrial>5</ComponentIndustrial>
 			<MagneticMaterial>3</MagneticMaterial>
 			<Microchips>1</Microchips>
 		</costList>
@@ -444,7 +517,7 @@
 			<li Class="CompProperties_Battery">
 				<storedEnergyMax>4000</storedEnergyMax>
 				<efficiency>0.7</efficiency>
-				<startElectricalFires>true</startElectricalFires>
+				<shortCircuitInRain>true</shortCircuitInRain>
 				<transmitsPower>true</transmitsPower>
 			</li>
 			<li Class="CompProperties_Glower">
@@ -474,7 +547,7 @@
 			<texPath>Things/Building/Power/SolarCollector/SolarCollector</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<drawSize>(4,4)</drawSize>
-				<shadowData>
+			<shadowData>
 				<volume>(3.8, 0.7, 3.8)</volume>
 				<offset>(0,0,0)</offset>
 			</shadowData>
@@ -495,7 +568,7 @@
 		<costList>
 			<Glass>85</Glass>
 			<ReinforcedConcrete>8</ReinforcedConcrete>
-			<Component>6</Component>
+			<ComponentIndustrial>6</ComponentIndustrial>
 			<ElectronicComponents>8</ElectronicComponents>
 		</costList>
 		<placeWorkers>
@@ -621,7 +694,7 @@
 		</stuffCategories>
 		<costStuffCount>95</costStuffCount>
 		<costList>
-			<Component>8</Component>
+			<ComponentIndustrial>8</ComponentIndustrial>
 			<ElectronicComponents>4</ElectronicComponents>
 			<Mechanism>3</Mechanism>
 		</costList>
@@ -735,7 +808,7 @@
 		<costList>
 		<ReinforcedConcrete>80</ReinforcedConcrete>
 		<Rubber>60</Rubber>
-		<Component>10</Component>
+		<ComponentIndustrial>10</ComponentIndustrial>
 		<Mechanism>10</Mechanism>
 		</costList>
     <placeWorkers>
@@ -780,7 +853,7 @@ Power output: around 750 W.</description>
 		</stuffCategories>
 		<costStuffCount>110</costStuffCount>
 		<costList>
-			<Component>10</Component>
+			<ComponentIndustrial>10</ComponentIndustrial>
 			<Mechanism>2</Mechanism>
 		</costList>
 		<comps>
@@ -819,13 +892,12 @@ Power output: around 750 W.</description>
 				</fuelFilter>
 			</li>
 		</comps>
-		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
 		<designationCategory>Power</designationCategory>
 		<researchPrerequisites>
 			<li>SK_ConvectionalI</li>
 		</researchPrerequisites>
 	</ThingDef>
-
 
 	<ThingDef ParentName="PowerFueled">
 		<defName>BioGenerator</defName>
@@ -842,7 +914,10 @@ Power output: around 750 W.</description>
 		</graphicData>
 		<passability>Impassable</passability>
 		<fillPercent>0.85</fillPercent>
-		<minifiedDef>MinifiedFurniture</minifiedDef>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<thingCategories>
+			<li>BuildingsPower</li>
+		</thingCategories>
 		<statBases>
 			<MaxHitPoints>330</MaxHitPoints>
 			<WorkToBuild>6500</WorkToBuild>
@@ -859,7 +934,7 @@ Power output: 1200 W.</description>
 		<costStuffCount>80</costStuffCount>
 		<costList>
 			<Glass>40</Glass>
-			<Component>8</Component>
+			<ComponentIndustrial>8</ComponentIndustrial>
 			<Mechanism>3</Mechanism>
 		</costList>
 		<comps>
@@ -931,7 +1006,7 @@ Power output: 2,000 W.</description>
 		<costStuffCount>200</costStuffCount>
 		<costList>
 			<ReinforcedConcrete>25</ReinforcedConcrete>
-			<Component>10</Component>
+			<ComponentIndustrial>10</ComponentIndustrial>
 			<Mechanism>4</Mechanism>
 		</costList>
 		<comps>
@@ -959,7 +1034,7 @@ Power output: 2,000 W.</description>
 				<smoketype>black</smoketype>
 				<fuelCapacity>60</fuelCapacity>
 				<fuelFilter>
-				    <categories>
+					<categories>
 						<li>Coal</li>
 					</categories>
 					<thingDefs>
@@ -1007,7 +1082,7 @@ Power output: 3,500 W.</description>
 		<costList>
 			<Rubber>50</Rubber>
 			<ReinforcedConcrete>30</ReinforcedConcrete>
-			<Component>10</Component>
+			<ComponentIndustrial>10</ComponentIndustrial>
 			<Mechanism>6</Mechanism>
 		</costList>
 		<comps>
@@ -1114,6 +1189,68 @@ Power output: 2,500 W.</description>
 		</researchPrerequisites>
 	</ThingDef>
 
+	<ThingDef ParentName="BuildingBase">
+		<defName>WatermillGenerator</defName>
+		<label>watermill generator</label>
+		<description>Produces electricity from a river. Must be placed with its wheel in moving water. If watermills are placed too close together, the turbulence they generate will interfere and reduce power generation.</description>
+		<thingClass>Building</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Power/WatermillGenerator/WatermillGeneratorBody</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(5,6)</drawSize>
+			<shadowData>
+				<volume>(2.6,1,2.16)</volume>
+				<offset>(-0.20,0,0)</offset>
+			</shadowData>
+		</graphicData>
+		<castEdgeShadows>false</castEdgeShadows>
+		<staticSunShadowHeight>0</staticSunShadowHeight>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>Impassable</passability>
+		<blockWind>true</blockWind>
+		<scatterableOnMapGen>false</scatterableOnMapGen>
+		<fillPercent>1</fillPercent>
+		<blockLight>true</blockLight>
+		<canOverlapZones>false</canOverlapZones>
+		<statBases>
+			<MaxHitPoints>400</MaxHitPoints>
+			<WorkToBuild>4000</WorkToBuild>
+			<Flammability>1.0</Flammability>
+			<Beauty>-20</Beauty>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<size>(5,6)</size>
+		<stuffCategories>
+			<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>150</costStuffCount>
+		<costList>
+			<ComponentIndustrial>8</ComponentIndustrial>
+			<Mechanism>4</Mechanism>
+		</costList>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerPlantWater</compClass>
+				<basePowerConsumption>-1000</basePowerConsumption>
+				<transmitsPower>true</transmitsPower>
+			</li>
+			<li Class="CompProperties_Breakdownable"/>
+		</comps>
+		<rotatable>true</rotatable>
+		<terrainAffordanceNeeded/>
+		<!-- handled by the placeworker -->
+		<designationCategory>Power</designationCategory>
+		<placeWorkers>
+			<li>PlaceWorker_WatermillGenerator</li>
+		</placeWorkers>
+		<building>
+			<ai_chillDestination>false</ai_chillDestination>
+		</building>
+		<researchPrerequisites>
+			<li>WatermillGenerator</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+	</ThingDef>
 
 	<ThingDef ParentName="StandartBuilding">
 		<defName>ThermoelectricGenerator</defName>
@@ -1147,7 +1284,7 @@ Power output: 2,500 W.</description>
 		<costList>
 			<Plastic>100</Plastic>
 			<Rubber>90</Rubber>
-			<Component>10</Component>
+			<ComponentIndustrial>10</ComponentIndustrial>
 			<Microchips>4</Microchips>
 		</costList>
 		<comps>
@@ -1203,7 +1340,7 @@ Power output: 2,500 W.</description>
 		<costList>
 			<ReinforcedConcrete>600</ReinforcedConcrete>
 			<Rubber>150</Rubber>
-			<Component>60</Component>
+			<ComponentIndustrial>60</ComponentIndustrial>
 			<Microchips>8</Microchips>
 		</costList>
 		<comps>
@@ -1552,7 +1689,7 @@ Power output: 2,500 W.</description>
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerTrader</compClass>
 				<basePowerConsumption>1</basePowerConsumption>
-				<startElectricalFires>true</startElectricalFires>
+				<shortCircuitInRain>true</shortCircuitInRain>
 			</li>
 			<li Class="CompProperties_Glower">
 				<glowRadius>3</glowRadius>
@@ -1724,6 +1861,6 @@ Power output: 2,500 W.</description>
 		<researchPrerequisites>
 			<li>SK_Antimatter</li>
 		</researchPrerequisites>
-	</ThingDef>   
+	</ThingDef>
 
 </Defs>

@@ -4,10 +4,6 @@
 	<ThingDef ParentName="BuildingBase" Name="DoorBase" Abstract="True">
 		<!-- <thingClass>SK.LockableDoors</thingClass> -->
 		<thingClass>Building_Door</thingClass>
-		<blueprintClass>Blueprint_Door</blueprintClass>
-		<blueprintGraphicData>
-			<texPath>Things/Building/Door/Door_Blueprint</texPath>
-		</blueprintGraphicData>
 		<altitudeLayer>DoorMoveable</altitudeLayer>
 		<fillPercent>1</fillPercent>
 		<useHitPoints>true</useHitPoints>
@@ -18,19 +14,25 @@
 		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
 		<tickerType>Normal</tickerType>
 		<rotatable>false</rotatable>
-		<affectsRegions>true</affectsRegions>
+		<soundImpactDefault>BulletImpact_Metal</soundImpactDefault>
+		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
 		<designationCategory>Structure</designationCategory>
 		<holdsRoof>true</holdsRoof>
 		<staticSunShadowHeight>1.0</staticSunShadowHeight>
 		<blockLight>true</blockLight>
 		<drawerType>RealtimeOnly</drawerType>
 		<building>
-			<soundDoorOpenPowered>DoorOpenPowered</soundDoorOpenPowered>
-			<soundDoorClosePowered>DoorClosePowered</soundDoorClosePowered>
-			<soundDoorOpenManual>DoorOpenManual</soundDoorOpenManual>
-			<soundDoorCloseManual>DoorCloseManual</soundDoorCloseManual>
 			<isInert>true</isInert>
 			<canPlaceOverWall>true</canPlaceOverWall>
+			<soundDoorOpenPowered>Door_OpenPowered</soundDoorOpenPowered>
+			<soundDoorClosePowered>Door_ClosePowered</soundDoorClosePowered>
+			<soundDoorOpenManual>Door_OpenManual</soundDoorOpenManual>
+			<soundDoorCloseManual>Door_CloseManual</soundDoorCloseManual>
+			<blueprintClass>Blueprint_Door</blueprintClass>
+			<blueprintGraphicData>
+				<texPath>Things/Building/Door/Door_Blueprint</texPath>
+			</blueprintGraphicData>
+			<ai_chillDestination>false</ai_chillDestination>
 		</building>
 		<comps>
 			<li Class="CompProperties_Forbiddable"/>
@@ -43,16 +45,18 @@
 	<ThingDef ParentName="DoorBase">
 		<defName>Door</defName>
 		<label>rustic door</label>
-		<description>Divides rooms. Must be manually opened and closed, which slows people down.</description>
+		<description>Divides rooms. Simple doors must be manually opened, which slows people down. The amount of slowdown depends on what the door is made of.</description>
 		<statBases>
 			<MaxHitPoints>180</MaxHitPoints>
 			<WorkToBuild>600</WorkToBuild>
 		</statBases>
 		<graphicData>
-			<texPath>Things/Building/Doors/DoorSimple_Mover</texPath>
+			<texPath>Things/Building/Door/DoorSimple_Mover</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<damageData>
-				<rect>(0,0.1,1,0.8)</rect>
+				<!--  no damage marks because they don't move with the door
+        <rect>(0,0.12,1,0.76)</rect>-->
+				<enabled>false</enabled>
 			</damageData>
 		</graphicData>
 		<uiIconPath>Things/Building/Doors/DoorSimple_MenuIcon</uiIconPath>
@@ -61,20 +65,22 @@
 		</stuffCategories>
 		<costStuffCount>10</costStuffCount>
 	</ThingDef>
-	
+
 	<ThingDef ParentName="DoorBase">
 		<defName>MDoor</defName>
 		<label>metal door</label>
-		<description>Divides rooms. Must be manually opened and closed, which slows people down.</description>
+		<description>Divides rooms. Simple doors must be manually opened, which slows people down. The amount of slowdown depends on what the door is made of.</description>
 		<statBases>
 			<MaxHitPoints>280</MaxHitPoints>
 			<WorkToBuild>1200</WorkToBuild>
 		</statBases>
 		<graphicData>
-			<texPath>Things/Building/Doors/DoorSimple_Mover</texPath>
+			<texPath>Things/Building/Door/DoorSimple_Mover</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<damageData>
-				<rect>(0,0.1,1,0.8)</rect>
+				<!--  no damage marks because they don't move with the door
+        <rect>(0,0.12,1,0.76)</rect>-->
+				<enabled>false</enabled>
 			</damageData>
 		</graphicData>
 		<uiIconPath>Things/Building/Doors/DoorSimple_MenuIcon</uiIconPath>
@@ -83,17 +89,19 @@
 		</stuffCategories>
 		<costStuffCount>15</costStuffCount>
 		<costList>
-			<Component>1</Component>
+			<ComponentIndustrial>1</ComponentIndustrial>
 		</costList>
 		<designationHotKey>Misc2</designationHotKey>
-		<researchPrerequisites><li>SK_ConstructionI</li></researchPrerequisites>
+		<researchPrerequisites>
+			<li>SK_ConstructionI</li>
+		</researchPrerequisites>
 	</ThingDef>
 
 	<ThingDef ParentName="DoorBase">
 		<defName>CellDoor</defName>
 		<label>cell door</label>
 		<thingClass>SK.Building_CellDoor</thingClass>
-		<description>Door which prisoners as well as colonists can open. It divides rooms.</description>
+		<description>Divides rooms. Simple doors must be manually opened, which slows people down. The amount of slowdown depends on what the door is made of.</description>
 		<statBases>
 			<MaxHitPoints>200</MaxHitPoints>
 			<WorkToBuild>850</WorkToBuild>
@@ -103,11 +111,16 @@
 		</stuffCategories>
 		<costStuffCount>7</costStuffCount>
 		<costList>
-			<Component>2</Component>
+			<ComponentIndustrial>2</ComponentIndustrial>
 		</costList>
 		<graphicData>
 			<texPath>Things/Building/Doors/CellDoor_Mover</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
+			<damageData>
+				<!--  no damage marks because they don't move with the door
+        <rect>(0,0.12,1,0.76)</rect>-->
+				<enabled>false</enabled>
+			</damageData>
 		</graphicData>
 		<uiIconPath>Things/Building/Doors/CellDoor_MenuIcon</uiIconPath>
 		<comps>
@@ -117,8 +130,11 @@
 			</li>
 			<li Class="CompProperties_Breakdownable"/>
 		</comps>
-		<researchPrerequisites><li>Autodoors</li></researchPrerequisites>
-		<designationCategory></designationCategory><!-- temp disabled celldoor -->
+		<researchPrerequisites>
+			<li>Autodoors</li>
+		</researchPrerequisites>
+		<designationCategory/>
+		<!-- temp disabled celldoor -->
 	</ThingDef>
 
 	<ThingDef ParentName="DoorBase">
@@ -133,7 +149,9 @@
 			<texPath>Things/Building/Door/Autodoor_Mover</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<damageData>
-				<rect>(0,0.1,1,0.8)</rect>
+				<!--  no damage marks because they don't move with the door
+        <rect>(0,0.12,1,0.76)</rect>-->
+				<enabled>false</enabled>
 			</damageData>
 		</graphicData>
 		<uiIconPath>Things/Building/Doors/Autodoor_MenuIcon</uiIconPath>
@@ -143,7 +161,7 @@
 		</stuffCategories>
 		<costStuffCount>50</costStuffCount>
 		<costList>
-			<Component>2</Component>
+			<ComponentIndustrial>2</ComponentIndustrial>
 			<ElectronicComponents>2</ElectronicComponents>
 		</costList>
 		<tickerType>Normal</tickerType>
@@ -160,7 +178,9 @@
 			</li>
 		</comps>
 		<designationHotKey>Misc3</designationHotKey>
-		<researchPrerequisites><li>Autodoors</li></researchPrerequisites>
+		<researchPrerequisites>
+			<li>Autodoors</li>
+		</researchPrerequisites>
 	</ThingDef>
 
 	<ThingDef ParentName="DoorBase">
@@ -177,12 +197,17 @@
 		<costStuffCount>90</costStuffCount>
 		<costList>
 			<ReinforcedConcrete>6</ReinforcedConcrete>
-			<Component>3</Component>
+			<ComponentIndustrial>3</ComponentIndustrial>
 			<ElectronicComponents>1</ElectronicComponents>
 		</costList>
 		<graphicData>
 			<texPath>Things/Building/Doors/DoorBlast_Mover</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
+			<damageData>
+				<!--  no damage marks because they don't move with the door
+        <rect>(0,0.12,1,0.76)</rect>-->
+				<enabled>false</enabled>
+			</damageData>
 		</graphicData>
 		<uiIconPath>Things/Building/Doors/DoorBlast_MenuIcon</uiIconPath>
 		<tickerType>Normal</tickerType>
@@ -199,7 +224,9 @@
 			</li>
 			<li Class="CompProperties_Breakdownable"/>
 		</comps>
-		<researchPrerequisites><li>SK_ConstructionIII</li></researchPrerequisites>
+		<researchPrerequisites>
+			<li>SK_ConstructionIII</li>
+		</researchPrerequisites>
 	</ThingDef>
 
 	<ThingDef ParentName="BuildingBase">
@@ -211,6 +238,9 @@
 			<texPath>Things/Building/ArmorGate/ArmorGateOpen</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
 			<drawSize>(3,1)</drawSize>
+			<damageData>
+				<enabled>false</enabled>
+			</damageData>
 		</graphicData>
 		<altitudeLayer>DoorMoveable</altitudeLayer>
 		<neverMultiSelect>true</neverMultiSelect>
@@ -235,7 +265,9 @@
 			<li Class="CompProperties_Breakdownable"/>
 		</comps>
 		<blockLight>false</blockLight>
-		<researchPrerequisites><li>SK_ConstructionIII</li></researchPrerequisites>
+		<researchPrerequisites>
+			<li>SK_ConstructionIII</li>
+		</researchPrerequisites>
 	</ThingDef>
 
 
@@ -248,6 +280,9 @@
 			<texPath>Things/Building/ArmorGate/ArmorGateClose</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
 			<drawSize>(3,1)</drawSize>
+			<damageData>
+				<enabled>false</enabled>
+			</damageData>
 		</graphicData>
 		<altitudeLayer>DoorMoveable</altitudeLayer>
 		<neverMultiSelect>true</neverMultiSelect>
@@ -267,7 +302,7 @@
 		<constructEffect>ConstructMetal</constructEffect>
 		<costList>
 			<ReinforcedConcrete>70</ReinforcedConcrete>
-			<Component>10</Component>
+			<ComponentIndustrial>10</ComponentIndustrial>
 			<Electronics>6</Electronics>
 			<Mechanism>5</Mechanism>
 		</costList>
@@ -283,7 +318,9 @@
 			<canPlaceOverWall>true</canPlaceOverWall>
 		</building>
 		<blockLight>true</blockLight>
-		<researchPrerequisites><li>SK_ConstructionIII</li></researchPrerequisites>
+		<researchPrerequisites>
+			<li>SK_ConstructionIII</li>
+		</researchPrerequisites>
 	</ThingDef>
 
 
@@ -296,6 +333,9 @@
 			<texPath>Things/Building/ArmorGate/ArmorGateClose</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
 			<drawSize>(3,1)</drawSize>
+			<damageData>
+				<enabled>false</enabled>
+			</damageData>
 		</graphicData>
 		<altitudeLayer>DoorMoveable</altitudeLayer>
 		<neverMultiSelect>true</neverMultiSelect>
@@ -313,15 +353,12 @@
 		<tickerType>Rare</tickerType>
 		<blockLight>false</blockLight>
 	</ThingDef>
-	
+
 	<!--SK new doors
 	<ThingDef ParentName="BuildingBase" Name="DoorBase" Abstract="True">
 		<thingClass>SK.LinkedDoor</thingClass>
 		<blueprintClass>Blueprint_Door</blueprintClass>
 		<category>Building</category>
-		<blueprintGraphicData>
-			<texPath>Things/Building/Door/Door_Blueprint</texPath>
-		</blueprintGraphicData>
 		<altitudeLayer>DoorMoveable</altitudeLayer>
 		<fillPercent>1</fillPercent>
 		<useHitPoints>true</useHitPoints>
@@ -333,7 +370,7 @@
 		<tickerType>Normal</tickerType>
 		<rotatable>false</rotatable>
 		<affectsRegions>true</affectsRegions>
-		<soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+		<soundImpactDefault>BulletImpact_Metal</soundImpactDefault>
 		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
 		<designationCategory>Structure</designationCategory>
 		<holdsRoof>true</holdsRoof>
@@ -341,12 +378,15 @@
 		<blockLight>true</blockLight>
 		<drawerType>RealtimeOnly</drawerType>
 		<building>
-			<soundDoorOpenPowered>DoorOpenPowered</soundDoorOpenPowered>
-			<soundDoorClosePowered>DoorClosePowered</soundDoorClosePowered>
-			<soundDoorOpenManual>DoorOpenManual</soundDoorOpenManual>
-			<soundDoorCloseManual>DoorCloseManual</soundDoorCloseManual>
+			<soundDoorOpenPowered>Door_OpenPowered</soundDoorOpenPowered>
+			<soundDoorClosePowered>Door_ClosePowered</soundDoorClosePowered>
+			<soundDoorOpenManual>Door_OpenManual</soundDoorOpenManual>
+			<soundDoorCloseManual>Door_CloseManual</soundDoorCloseManual>
 			<isInert>true</isInert>
 			<canPlaceOverWall>true</canPlaceOverWall>
+		<blueprintGraphicData>
+			<texPath>Things/Building/Door/Door_Blueprint</texPath>
+		</blueprintGraphicData>
 		</building>
 		<comps>
 			<li Class="CompProperties_Forbiddable"/>
@@ -452,7 +492,7 @@
 		</stuffCategories>
 		<costStuffCount>15</costStuffCount>
 		<costList>
-			<Component>1</Component>
+			<ComponentIndustrial>1</ComponentIndustrial>
 		</costList>
 	 <comps>
       <li Class="SK.StructureCompProps">
@@ -534,7 +574,7 @@
 		</stuffCategories>
 		<costStuffCount>7</costStuffCount>
 		<costList>
-			<Component>2</Component>
+			<ComponentIndustrial>2</ComponentIndustrial>
 		</costList>
 		<comps>
 			<li Class="CompProperties_Power">
@@ -619,7 +659,7 @@
 		</stuffCategories>
 		<costStuffCount>50</costStuffCount>
 		<costList>
-			<Component>2</Component>
+			<ComponentIndustrial>2</ComponentIndustrial>
 			<ElectronicComponents>2</ElectronicComponents>
 		</costList>
 		<tickerType>Normal</tickerType>
@@ -713,7 +753,7 @@
 		</stuffCategories>
 		<costStuffCount>8</costStuffCount>
 		<costList>
-			<Component>5</Component>
+			<ComponentIndustrial>5</ComponentIndustrial>
 			<ElectronicComponents>1</ElectronicComponents>
 		</costList>
 		<tickerType>Normal</tickerType>
@@ -783,7 +823,7 @@
     </placeWorkers>
 		<blockLight>false</blockLight>
 		<designationHotKey>Misc2</designationHotKey>
-		<filthLeaving>BrokenGlass</filthLeaving>
+		<filthLeaving>Filth_BrokenGlass</filthLeaving>
 		<researchPrerequisites><li>SK_GlassworkingI</li></researchPrerequisites>
 	</ThingDef>
 
@@ -801,7 +841,7 @@
 		<costStuffCount>90</costStuffCount>
 		<costList>
 			<ReinforcedConcrete>6</ReinforcedConcrete>
-			<Component>3</Component>
+			<ComponentIndustrial>3</ComponentIndustrial>
 			<ElectronicComponents>1</ElectronicComponents>
 		</costList>
 		<graphicData>
@@ -945,7 +985,7 @@
 		<constructEffect>ConstructMetal</constructEffect>
 		<costList>
 			<ReinforcedConcrete>70</ReinforcedConcrete>
-			<Component>10</Component>
+			<ComponentIndustrial>10</ComponentIndustrial>
 			<Electronics>6</Electronics>
 			<Mechanism>5</Mechanism>
 		</costList>

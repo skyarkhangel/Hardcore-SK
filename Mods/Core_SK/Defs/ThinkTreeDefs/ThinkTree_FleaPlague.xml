@@ -104,6 +104,21 @@
             <li Class="ThinkNode_Subtree">
               <treeDef>LeaveIfStarving</treeDef>
             </li>
+
+            <!-- Wild animals randomly leave map -->
+            <li Class="ThinkNode_ChancePerHour_Constant">
+              <mtbDays>60</mtbDays>
+              <subNodes>
+                <li Class="ThinkNode_Tagger">
+                  <tagToGive>Misc</tagToGive>
+                  <subNodes>
+                    <li Class="JobGiver_ExitMapRandom">
+                      <defaultLocomotion>Walk</defaultLocomotion>
+                    </li>
+                  </subNodes>
+                </li>
+              </subNodes>
+            </li>
           </subNodes>
         </li>
 
@@ -161,7 +176,7 @@
         
 				<!-- Eat random things out of curiosity -->
 				<li Class="ThinkNode_ChancePerHour_Constant">
-					<mtbHours>600</mtbHours>
+					<mtbDays>60</mtbDays>
 					<subNodes>
             <li Class="ThinkNode_Tagger">
               <tagToGive>SatisfyingNeeds</tagToGive>
@@ -222,11 +237,6 @@
                 </li>
               </subNodes>
             </li>
-
-            <!-- Join auto joinable caravan -->
-            <li Class="ThinkNode_Subtree">
-              <treeDef>JoinAutoJoinableCaravan</treeDef>
-            </li>
           </subNodes>
         </li>
 
@@ -235,12 +245,26 @@
           <insertTag>Animal_PreWander</insertTag>
         </li>
         
-        <!-- Tame animal: wander colony -->
+        <!-- Tame animal: wander near colony if possible -->
         <li Class="ThinkNode_ConditionalOfPlayerFaction">
           <subNodes>
             <li Class="ThinkNode_Tagger">
               <tagToGive>Idle</tagToGive>
               <subNodes>
+                <!-- Wander near your current position if in hostile map -->
+                <li Class="ThinkNode_ConditionalAnyEnemyInHostileMap">
+                  <subNodes>
+                    <li Class="JobGiver_WanderAnywhere">
+                      <maxDanger>None</maxDanger>
+                      <ticksBetweenWandersRange>
+                        <min>120</min>
+                        <max>240</max>
+                      </ticksBetweenWandersRange>
+                    </li>
+                  </subNodes>
+                </li>
+
+                <!-- Wander near colony -->
                 <li Class="JobGiver_WanderColony">
                   <maxDanger>None</maxDanger>
                   <ticksBetweenWandersRange>
@@ -254,7 +278,7 @@
         </li>
         
         <!-- Of neutral faction: rest and then exit the map -->
-        <li Class="ThinkNode_ConditionalNeutralFaction">
+        <li Class="ThinkNode_ConditionalNonPlayerNonHostileFaction">
           <subNodes>
             <li Class="ThinkNode_Tagger">
               <tagToGive>RestingForMedicalReasons</tagToGive>
@@ -304,6 +328,5 @@
       </subNodes>
 		</thinkRoot>
 	</ThinkTreeDef>
-
 
 </Defs>

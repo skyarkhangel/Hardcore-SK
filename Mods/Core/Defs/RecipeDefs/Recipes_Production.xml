@@ -4,6 +4,7 @@
 	<RecipeDef Name="MakeStoneBlocksBase" Abstract="True">
 		<jobString>Cutting stone blocks from chunk.</jobString>
 		<workAmount>1600</workAmount>
+    <workSpeedStat>UnskilledLaborSpeed</workSpeedStat>
 		<effectWorking>CutStone</effectWorking>
 		<soundWorking>Recipe_MakeStoneBlocks</soundWorking>
 		<targetCountAdjustment>20</targetCountAdjustment>
@@ -13,9 +14,9 @@
 	</RecipeDef>
 
 	<RecipeDef ParentName="MakeStoneBlocksBase">
-		<defName>MakeStoneBlocksAny</defName>
+		<defName>Make_StoneBlocksAny</defName>
 		<label>make any stone blocks</label>
-		<description>Cuts rock chunks into usable stone blocks.</description>
+		<description>Cut rock chunks into usable stone blocks.</description>
 		<workerCounterClass>RecipeWorkerCounter_MakeStoneBlocks</workerCounterClass>
 		<ingredients>
 			<li>
@@ -40,7 +41,7 @@
   <RecipeDef>
     <defName>ExtractMetalFromSlag</defName>
     <label>smelt metal from slag</label>
-    <description>Use heat and strong electromagnets to separate useful metal from slag chunks.</description>
+    <description>Use heat and strong electromagnets to extract useful metal from slag chunks.</description>
     <jobString>Smelting metal from slag.</jobString>
     <workAmount>1600</workAmount>
     <workSpeedStat>SmeltingSpeed</workSpeedStat>
@@ -61,7 +62,7 @@
       <li>Smelted</li>
     </specialProducts>-->
     <products>
-      <Steel>10</Steel>
+      <Steel>20</Steel>
     </products>
     <fixedIngredientFilter>
       <thingDefs>
@@ -108,7 +109,7 @@
 	<RecipeDef>
 		<defName>DestroyWeapon</defName>
 		<label>destroy weapon</label>
-		<description>Use heat to destroy unwanted weapons. Faster than smelting, and works on non-smeltable items, but yields no resources.</description>
+		<description>Use heat to destroy unwanted weapons. This process is faster than smelting, and works on non-smeltable items, but yields no resources.</description>
 		<jobString>Destroying weapon.</jobString>
 		<workAmount>400</workAmount>
 		<workSpeedStat>SmeltingSpeed</workSpeedStat>
@@ -129,17 +130,29 @@
 				<li>Weapons</li>
 			</categories>
 		</fixedIngredientFilter>
+    <defaultIngredientFilter>
+      <categories>
+        <li>Weapons</li>
+      </categories>
+      <disallowedThingDefs>
+        <li>Gun_DoomsdayRocket</li>
+        <li>Gun_TripleRocket</li>
+        <li>OrbitalTargeterPowerBeam</li>
+        <li>OrbitalTargeterBombardment</li>
+        <li>TornadoGenerator</li>
+      </disallowedThingDefs>
+    </defaultIngredientFilter>
 	</RecipeDef>
 	
 	<RecipeDef>
-		<defName>MakeChemfuelFromWood</defName>
+		<defName>Make_ChemfuelFromWood</defName>
 		<label>make chemfuel from wood</label>
-		<description>Make a batch of chemfuel by gasifying wood logs.</description>
+		<description>Make a batch of chemfuel by extracting and condensing wood gas from logs.</description>
 		<jobString>Refining chemfuel from wood.</jobString>
 		<effectWorking>Cremate</effectWorking>
 		<soundWorking>Recipe_Cremate</soundWorking>
-		<workAmount>2500</workAmount>
-		<workSkill>Intellectual</workSkill>
+		<workAmount>2000</workAmount>
+    <workSpeedStat>UnskilledLaborSpeed</workSpeedStat>
 		<ingredients>
 			<li>
 				<filter>
@@ -161,14 +174,14 @@
 	</RecipeDef>
 
 	<RecipeDef>
-		<defName>MakeChemfuelFromOrganics</defName>
+		<defName>Make_ChemfuelFromOrganics</defName>
 		<label>make chemfuel from organics</label>
 		<description>Make a batch of chemfuel by extracting biofuel from organic feedstocks.</description>
 		<jobString>Refining chemfuel from organics.</jobString>
 		<effectWorking>Cremate</effectWorking>
 		<soundWorking>Recipe_Cremate</soundWorking>
 		<workAmount>2500</workAmount>
-		<workSkill>Intellectual</workSkill>
+    <workSpeedStat>UnskilledLaborSpeed</workSpeedStat>
 		<allowMixingIngredients>true</allowMixingIngredients>
 		<ingredientValueGetterClass>IngredientValueGetter_Nutrition</ingredientValueGetterClass>
 		<ingredients>
@@ -178,9 +191,12 @@
 						<li>Foods</li>
 						<li>PlantMatter</li>
 					</categories>
-					<exceptedThingDefs>
+					<disallowedThingDefs>
 						<li>Hay</li>
-					</exceptedThingDefs>
+					</disallowedThingDefs>
+          <disallowedCategories>
+            <li>FoodMeals</li>
+          </disallowedCategories>
 				</filter>
 				<count>3.5</count>
 			</li>
@@ -190,18 +206,21 @@
 				<li>Foods</li>
 				<li>PlantMatter</li>
 			</categories>
-			<exceptedThingDefs>
+			<disallowedThingDefs>
 				<li>Hay</li>
-			</exceptedThingDefs>
+			</disallowedThingDefs>
+      <disallowedCategories>
+        <li>FoodMeals</li>
+      </disallowedCategories>
 		</fixedIngredientFilter>
 		<defaultIngredientFilter>
 			<categories>
 				<li>FoodRaw</li>
 			</categories>
-			<exceptedCategories>
+			<disallowedCategories>
 				<li>MeatRaw</li>
 				<li>AnimalProductRaw</li>
-			</exceptedCategories>
+			</disallowedCategories>
 		</defaultIngredientFilter>
 		<products>
 			<Chemfuel>35</Chemfuel>
@@ -209,14 +228,14 @@
 	</RecipeDef>
 	
 	<RecipeDef>
-    <defName>MakeComponent</defName>
+    <defName>Make_ComponentIndustrial</defName>
     <label>make component</label>
     <description>Make a component.</description>
     <jobString>Making component.</jobString>
     <workSpeedStat>SmithingSpeed</workSpeedStat>
     <effectWorking>Cook</effectWorking>
     <soundWorking>Recipe_Machining</soundWorking>
-    <workAmount>9000</workAmount>
+    <workAmount>5000</workAmount>
     <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
     <ingredients>
       <li>
@@ -225,7 +244,7 @@
             <li>Steel</li>
           </thingDefs>
         </filter>
-        <count>25</count>
+        <count>12</count>
       </li>
     </ingredients>
     <fixedIngredientFilter>
@@ -234,7 +253,7 @@
       </thingDefs>
     </fixedIngredientFilter>
     <products>
-      <Component>1</Component>
+      <ComponentIndustrial>1</ComponentIndustrial>
     </products>
 		<skillRequirements>
 			<Crafting>8</Crafting>
@@ -243,20 +262,20 @@
   </RecipeDef>
 
   <RecipeDef>
-    <defName>MakeAdvancedComponent</defName>
+    <defName>Make_ComponentSpacer</defName>
     <label>make advanced component</label>
     <description>Make an advanced component.</description>
     <jobString>Making advanced component.</jobString>
     <workSpeedStat>SmithingSpeed</workSpeedStat>
     <effectWorking>Cook</effectWorking>
     <soundWorking>Recipe_Machining</soundWorking>
-    <workAmount>9000</workAmount>
+    <workAmount>10000</workAmount>
     <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
     <ingredients>
       <li>
         <filter>
           <thingDefs>
-            <li>Component</li>
+            <li>ComponentIndustrial</li>
           </thingDefs>
         </filter>
         <count>1</count>
@@ -265,6 +284,14 @@
         <filter>
           <thingDefs>
             <li>Steel</li>
+          </thingDefs>
+        </filter>
+        <count>20</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Plasteel</li>
           </thingDefs>
         </filter>
         <count>10</count>
@@ -277,29 +304,65 @@
         </filter>
         <count>0.3</count>
       </li>
-      <li>
-        <filter>
-          <thingDefs>
-            <li>Uranium</li>
-          </thingDefs>
-        </filter>
-        <count>0.3</count>
-      </li>
     </ingredients>
     <fixedIngredientFilter>
       <thingDefs>
+        <li>ComponentIndustrial</li>
         <li>Steel</li>
-        <li>Component</li>
+        <li>Plasteel</li>
         <li>Gold</li>
-        <li>Uranium</li>
       </thingDefs>
     </fixedIngredientFilter>
     <products>
-      <AdvancedComponent>1</AdvancedComponent>
+      <ComponentSpacer>1</ComponentSpacer>
     </products>
+    <researchPrerequisite>AdvancedFabrication</researchPrerequisite>
     <skillRequirements>
       <Crafting>8</Crafting>
     </skillRequirements>
+    <workSkill>Crafting</workSkill>
+  </RecipeDef>
+
+  <RecipeDef>
+    <defName>Make_Patchleather</defName>
+    <label>make patchleather</label>
+    <description>Combine various types of leather to create weak patchleather.</description>
+    <jobString>Making patchleather.</jobString>
+    <workSpeedStat>TailoringSpeed</workSpeedStat>
+    <effectWorking>Tailor</effectWorking>
+    <soundWorking>Recipe_Tailor</soundWorking>
+    <workAmount>900</workAmount>
+    <allowMixingIngredients>true</allowMixingIngredients>
+    <targetCountAdjustment>50</targetCountAdjustment>
+    <recipeUsers>
+      <li>ElectricTailoringBench</li>
+      <li>HandTailoringBench</li>
+    </recipeUsers>
+    <ingredients>
+      <li>
+        <filter>
+          <categories>
+            <li>Leathers</li>
+          </categories>
+          <disallowedThingDefs>
+            <li>Leather_Thrumbo</li>
+          </disallowedThingDefs>
+        </filter>
+        <count>50</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <categories>
+        <li>Leathers</li>
+      </categories>
+      <disallowedThingDefs>
+        <li>Leather_Patch</li>
+        <li>Leather_Human</li>
+      </disallowedThingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Leather_Patch>50</Leather_Patch>
+    </products>
     <workSkill>Crafting</workSkill>
   </RecipeDef>
 

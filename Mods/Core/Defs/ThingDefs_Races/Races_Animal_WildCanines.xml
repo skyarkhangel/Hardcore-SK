@@ -3,15 +3,14 @@
 
   <!-- ========================== Warg ================================= -->
 
-
   <ThingDef ParentName="AnimalThingBase">
     <defName>Warg</defName>
     <label>warg</label>
-    <description>Heavily-muscled wolf-like creatures. Scientists say wargs are the descendants of weaponized military animals created for population suppression. The superstitious see them as the tools of an angry god. They will only eat meat or corpses.</description>
+    <description>Heavily-muscled wolf-like creatures with vicious unnatural claws and an absurdly powerful bite. They will only eat meat or corpses. If disturbed in the wild, they are very likely to attack.\n\nScientists say wargs are the descendants of weaponized military animals created for population suppression. The superstitious see them as the tools of an angry god.</description>
     <statBases>
-      <MoveSpeed>5.00</MoveSpeed>
-      <ComfyTemperatureMin>-65</ComfyTemperatureMin>
+      <MoveSpeed>5.0</MoveSpeed>
       <MarketValue>450</MarketValue>
+      <ComfyTemperatureMin>-40</ComfyTemperatureMin>
     </statBases>
     <tools>
       <li>
@@ -19,14 +18,14 @@
         <capacities>
           <li>Scratch</li>
         </capacities>
-        <power>11</power>
+        <power>13</power>
         <cooldownTime>1.5</cooldownTime>
         <linkedBodyPartsGroup>FrontLeftPaw</linkedBodyPartsGroup>
         <surpriseAttack>
           <extraMeleeDamages>
             <li>
               <def>Stun</def>
-              <amount>20</amount>
+              <amount>14</amount>
             </li>
           </extraMeleeDamages>
         </surpriseAttack>
@@ -36,30 +35,32 @@
         <capacities>
           <li>Scratch</li>
         </capacities>
-        <power>11</power>
+        <power>13</power>
         <cooldownTime>1.5</cooldownTime>
         <linkedBodyPartsGroup>FrontRightPaw</linkedBodyPartsGroup>
         <surpriseAttack>
           <extraMeleeDamages>
             <li>
               <def>Stun</def>
-              <amount>20</amount>
+              <amount>14</amount>
             </li>
           </extraMeleeDamages>
         </surpriseAttack>
       </li>
       <li>
+        <label>razorfangs</label>
         <capacities>
           <li>Bite</li>
         </capacities>
-        <power>13</power>
-        <cooldownTime>2.0</cooldownTime>
+        <power>15</power>
+        <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+        <chanceFactor>0.9</chanceFactor>
         <surpriseAttack>
           <extraMeleeDamages>
             <li>
               <def>Stun</def>
-              <amount>20</amount>
+              <amount>14</amount>
             </li>
           </extraMeleeDamages>
         </surpriseAttack>
@@ -69,37 +70,36 @@
         <capacities>
           <li>Blunt</li>
         </capacities>
-        <power>3</power>
-        <cooldownTime>1.65</cooldownTime>
+        <power>5</power>
+        <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-        <commonality>0.2</commonality>
+        <ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+        <chanceFactor>0.2</chanceFactor>
       </li>
     </tools>
     <race>
       <body>QuadrupedAnimalWithPawsAndTail</body>
       <predator>true</predator>
+      <maxPreyBodySize>2.3</maxPreyBodySize>
       <petness>0.5</petness>
       <baseBodySize>1.0</baseBodySize>
       <baseHungerRate>0.25</baseHungerRate>
-      <baseHealthScale>1.15</baseHealthScale>
+      <baseHealthScale>1.4</baseHealthScale>
       <foodType>CarnivoreAnimalStrict</foodType>
-      <leatherColor>(123,104,89)</leatherColor>
-      <leatherLabel>warg fur</leatherLabel>
-      <leatherInsulation>1.1</leatherInsulation>
-      <gestationPeriodDays>22.5</gestationPeriodDays>
+      <leatherDef>Leather_Wolf</leatherDef>
+      <gestationPeriodDays>26</gestationPeriodDays>
       <nameOnTameChance>1</nameOnTameChance>
-      <trainableIntelligence>Advanced</trainableIntelligence>
-      <wildness>0.80</wildness>
-      <manhunterOnDamageChance>1</manhunterOnDamageChance>
-      <manhunterOnTameFailChance>0.018</manhunterOnTameFailChance>
-      <nuzzleMtbHours>120</nuzzleMtbHours>
+      <trainability>Advanced</trainability>
+      <wildness>0.60</wildness>
+      <manhunterOnTameFailChance>0.35</manhunterOnTameFailChance>
+      <manhunterOnDamageChance>0.35</manhunterOnDamageChance>
       <litterSizeCurve>
         <points>
           <li>(0.5, 0)</li>
           <li>(1, 1)</li>
           <li>(2, 1.7)</li>
-          <li>(3, 0.7)</li>
-          <li>(3.5, 0)</li>
+          <li>(2.5, 0.7)</li>
+          <li>(3, 0)</li>
         </points>
       </litterSizeCurve>
       <lifeExpectancy>15</lifeExpectancy>
@@ -126,15 +126,17 @@
       <soundMeleeMiss>Pawn_Melee_SmallScratch_Miss</soundMeleeMiss>
     </race>
     <tradeTags>
-      <li>StandardAnimal</li>
-      <li>BadassAnimal</li>
+      <li>AnimalUncommon</li>
+      <li>AnimalFighter</li>
     </tradeTags>
   </ThingDef>
+  
   <PawnKindDef ParentName="AnimalKindBase">
     <defName>Warg</defName>
     <label>warg</label>
     <race>Warg</race>
-    <combatPower>90</combatPower>
+    <combatPower>160</combatPower>
+    <ecoSystemWeight>0.5</ecoSystemWeight>
     <lifeStages>
       <li>
         <label>warg puppy</label>
@@ -145,8 +147,8 @@
           <color>(123,104,89)</color>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-          <drawSize>1</drawSize>
+          <texPath>Things/Pawn/Animal/Warg/Dessicated_Warg</texPath>
+          <drawSize>1.05</drawSize>
         </dessicatedBodyGraphicData>
       </li>
       <li>
@@ -160,8 +162,8 @@
           </shadowData>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-          <drawSize>1.4</drawSize>
+          <texPath>Things/Pawn/Animal/Warg/Dessicated_Warg</texPath>
+          <drawSize>1.7</drawSize>
         </dessicatedBodyGraphicData>
       </li>
       <li>
@@ -175,17 +177,11 @@
           </shadowData>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-          <drawSize>1.7</drawSize>
+          <texPath>Things/Pawn/Animal/Warg/Dessicated_Warg</texPath>
+          <drawSize>2.05</drawSize>
         </dessicatedBodyGraphicData>
       </li>
     </lifeStages>
-    <wildSpawn_spawnWild>true</wildSpawn_spawnWild>
-    <wildSpawn_EcoSystemWeight>0.9</wildSpawn_EcoSystemWeight>
-    <wildSpawn_GroupSizeRange>
-      <min>2</min>
-      <max>5</max>
-    </wildSpawn_GroupSizeRange>
   </PawnKindDef>
 
 
@@ -193,9 +189,9 @@
 
   <ThingDef Name="ThingBaseWolf" ParentName="AnimalThingBase" Abstract="True">
     <statBases>
-      <MoveSpeed>5.25</MoveSpeed>
-      <ComfyTemperatureMin>-50</ComfyTemperatureMin>
-      <MarketValue>370</MarketValue>
+      <MoveSpeed>5.0</MoveSpeed>
+      <MarketValue>350</MarketValue>
+      <ComfyTemperatureMin>-40</ComfyTemperatureMin>
     </statBases>
     <tools>
       <li>
@@ -203,47 +199,50 @@
         <capacities>
           <li>Scratch</li>
         </capacities>
-        <power>9</power>
-        <cooldownTime>1.65</cooldownTime>
+        <power>10.9</power>
+        <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>FrontLeftPaw</linkedBodyPartsGroup>
         <surpriseAttack>
           <extraMeleeDamages>
             <li>
               <def>Stun</def>
-              <amount>20</amount>
+              <amount>14</amount>
             </li>
           </extraMeleeDamages>
         </surpriseAttack>
+        <chanceFactor>0.5</chanceFactor>
       </li>
       <li>
         <label>right claw</label>
         <capacities>
           <li>Scratch</li>
         </capacities>
-        <power>9</power>
-        <cooldownTime>1.65</cooldownTime>
+        <power>10.9</power>
+        <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>FrontRightPaw</linkedBodyPartsGroup>
         <surpriseAttack>
           <extraMeleeDamages>
             <li>
               <def>Stun</def>
-              <amount>20</amount>
+              <amount>14</amount>
             </li>
           </extraMeleeDamages>
         </surpriseAttack>
+        <chanceFactor>0.5</chanceFactor>
       </li>
       <li>
         <capacities>
           <li>Bite</li>
         </capacities>
-        <power>11</power>
-        <cooldownTime>2.1</cooldownTime>
+        <power>12</power>
+        <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+        <chanceFactor>0.9</chanceFactor>
         <surpriseAttack>
           <extraMeleeDamages>
             <li>
               <def>Stun</def>
-              <amount>20</amount>
+              <amount>14</amount>
             </li>
           </extraMeleeDamages>
         </surpriseAttack>
@@ -253,35 +252,37 @@
         <capacities>
           <li>Blunt</li>
         </capacities>
-        <power>3</power>
-        <cooldownTime>1.65</cooldownTime>
+        <power>6</power>
+        <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-        <commonality>0.2</commonality>
+        <ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+        <chanceFactor>0.2</chanceFactor>
       </li>
     </tools>
     <race>
       <body>QuadrupedAnimalWithPawsAndTail</body>
       <predator>true</predator>
+      <maxPreyBodySize>2.3</maxPreyBodySize>
       <petness>0.1</petness>
       <baseBodySize>0.85</baseBodySize>
       <baseHungerRate>0.18</baseHungerRate>
       <baseHealthScale>0.99</baseHealthScale>
       <foodType>CarnivoreAnimal</foodType>
-      <leatherInsulation>1.0</leatherInsulation>
-      <gestationPeriodDays>22.5</gestationPeriodDays>
+      <leatherDef>Leather_Wolf</leatherDef>
       <nameOnTameChance>1</nameOnTameChance>
-      <trainableIntelligence>Advanced</trainableIntelligence>
-      <wildness>0.75</wildness>
-      <nuzzleMtbHours>120</nuzzleMtbHours>
-      <manhunterOnDamageChance>1</manhunterOnDamageChance>
-      <manhunterOnTameFailChance>0.018</manhunterOnTameFailChance>
+      <trainability>Advanced</trainability>
+      <wildness>0.85</wildness>
+      <nuzzleMtbHours>240</nuzzleMtbHours>
+      <manhunterOnTameFailChance>0.10</manhunterOnTameFailChance>
+      <manhunterOnDamageChance>0.10</manhunterOnDamageChance>
+      <gestationPeriodDays>26</gestationPeriodDays>
       <litterSizeCurve>
         <points>
           <li>(0.5, 0)</li>
           <li>(1, 1)</li>
           <li>(2, 1.7)</li>
-          <li>(3, 0.7)</li>
-          <li>(3.5, 0)</li>
+          <li>(2.5, 0.7)</li>
+          <li>(3, 0)</li>
         </points>
       </litterSizeCurve>
       <lifeExpectancy>12</lifeExpectancy>
@@ -308,52 +309,48 @@
       <soundMeleeMiss>Pawn_Melee_SmallScratch_Miss</soundMeleeMiss>
     </race>
     <tradeTags>
-      <li>StandardAnimal</li>
-      <li>BadassAnimal</li>
+      <li>AnimalUncommon</li>
+      <li>AnimalFighter</li>
     </tradeTags>
   </ThingDef>
 
   <PawnKindDef ParentName="AnimalKindBase" Name="AnimalKindBaseWolf" Abstract="True">
     <combatPower>75</combatPower>
-    <wildSpawn_spawnWild>true</wildSpawn_spawnWild>
-    <wildSpawn_EcoSystemWeight>0.9</wildSpawn_EcoSystemWeight>
+    <ecoSystemWeight>0.5</ecoSystemWeight>
   </PawnKindDef>
 
 
 
   <ThingDef ParentName="ThingBaseWolf">
-    <defName>WolfTimber</defName>
+    <defName>Wolf_Timber</defName>
     <label>timber wolf</label>
-    <description>A rugged predator long feared by many ancient Earth cultures. As pack hunters, wolves have a complex social life and are fiercely intelligent.</description>
+    <description>A rugged predator long feared by many ancient Earth cultures. As pack hunters, wolves have complex social lives and are fiercely intelligent.</description>
     <race>
-      <leatherColor>(115,110,100)</leatherColor>
       <meatLabel>wolfmeat</meatLabel>
-      <leatherLabel>timber wolfskin</leatherLabel>
-      <leatherInsulation>1.0</leatherInsulation>
     </race>
   </ThingDef>
 
   <PawnKindDef ParentName="AnimalKindBaseWolf">
-    <defName>WolfTimber</defName>
+    <defName>Wolf_Timber</defName>
     <label>timber wolf</label>
     <labelPlural>timber wolves</labelPlural>
-    <race>WolfTimber</race>
+    <race>Wolf_Timber</race>
     <lifeStages>
       <li>
         <label>timber wolf puppy</label>
         <labelPlural>timber wolf puppies</labelPlural>
         <bodyGraphicData>
-          <texPath>Things/Pawn/Animal/WolfTimber/WolfTimber</texPath>
+          <texPath>Things/Pawn/Animal/Wolf_Timber/Wolf_Timber</texPath>
           <drawSize>1.05</drawSize>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-          <drawSize>1</drawSize>
+          <texPath>Things/Pawn/Animal/Wolf_Timber/Dessicated_Wolf_Timber</texPath>
+          <drawSize>1.05</drawSize>
         </dessicatedBodyGraphicData>
       </li>
       <li>
         <bodyGraphicData>
-          <texPath>Things/Pawn/Animal/WolfTimber/WolfTimber</texPath>
+          <texPath>Things/Pawn/Animal/Wolf_Timber/Wolf_Timber</texPath>
           <drawSize>1.5</drawSize>
           <shadowData>
             <volume>(0.25, 0.3, 0.25)</volume>
@@ -361,13 +358,13 @@
           </shadowData>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
+          <texPath>Things/Pawn/Animal/Wolf_Timber/Dessicated_Wolf_Timber</texPath>
           <drawSize>1.5</drawSize>
         </dessicatedBodyGraphicData>
       </li>
       <li>
         <bodyGraphicData>
-          <texPath>Things/Pawn/Animal/WolfTimber/WolfTimber</texPath>
+          <texPath>Things/Pawn/Animal/Wolf_Timber/Wolf_Timber</texPath>
           <drawSize>1.95</drawSize>
           <shadowData>
             <volume>(0.3, 0.4, 0.3)</volume>
@@ -375,7 +372,7 @@
           </shadowData>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
+          <texPath>Things/Pawn/Animal/Wolf_Timber/Dessicated_Wolf_Timber</texPath>
           <drawSize>1.95</drawSize>
         </dessicatedBodyGraphicData>
       </li>
@@ -385,38 +382,38 @@
 
 
   <ThingDef ParentName="ThingBaseWolf">
-    <defName>WolfArctic</defName>
+    <defName>Wolf_Arctic</defName>
     <label>arctic wolf</label>
     <description>An arctic variant of the old Earth wolf. As pack hunters, wolves have a complex social life and are fiercely intelligent.</description>
     <race>
-      <leatherColor>(200,200,200)</leatherColor>
-      <leatherLabel>arctic wolfskin</leatherLabel>
-      <leatherInsulation>1.25</leatherInsulation>
-      <useMeatFrom>WolfTimber</useMeatFrom>
+      <useMeatFrom>Wolf_Timber</useMeatFrom>
     </race>
+    <statBases>
+      <ComfyTemperatureMin>-55</ComfyTemperatureMin>
+    </statBases>
   </ThingDef>
 
   <PawnKindDef ParentName="AnimalKindBaseWolf">
-    <defName>WolfArctic</defName>
+    <defName>Wolf_Arctic</defName>
     <label>arctic wolf</label>
     <labelPlural>arctic wolves</labelPlural>
-    <race>WolfArctic</race>
+    <race>Wolf_Arctic</race>
     <lifeStages>
       <li>
         <label>arctic wolf puppy</label>
         <labelPlural>arctic wolf puppies</labelPlural>
         <bodyGraphicData>
-          <texPath>Things/Pawn/Animal/WolfArctic/WolfArctic</texPath>
+          <texPath>Things/Pawn/Animal/Wolf_Arctic/Wolf_Arctic</texPath>
           <drawSize>1.05</drawSize>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
+          <texPath>Things/Pawn/Animal/Wolf_Arctic/Dessicated_Wolf_Arctic</texPath>
           <drawSize>1.05</drawSize>
         </dessicatedBodyGraphicData>
       </li>
       <li>
         <bodyGraphicData>
-          <texPath>Things/Pawn/Animal/WolfArctic/WolfArctic</texPath>
+          <texPath>Things/Pawn/Animal/Wolf_Arctic/Wolf_Arctic</texPath>
           <drawSize>1.5</drawSize>
           <shadowData>
             <volume>(0.25, 0.3, 0.25)</volume>
@@ -424,13 +421,13 @@
           </shadowData>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
+          <texPath>Things/Pawn/Animal/Wolf_Arctic/Dessicated_Wolf_Arctic</texPath>
           <drawSize>1.5</drawSize>
         </dessicatedBodyGraphicData>
       </li>
       <li>
         <bodyGraphicData>
-          <texPath>Things/Pawn/Animal/WolfArctic/WolfArctic</texPath>
+          <texPath>Things/Pawn/Animal/Wolf_Arctic/Wolf_Arctic</texPath>
           <drawSize>1.95</drawSize>
           <shadowData>
             <volume>(0.3, 0.4, 0.3)</volume>
@@ -438,7 +435,7 @@
           </shadowData>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
+          <texPath>Things/Pawn/Animal/Wolf_Arctic/Dessicated_Wolf_Arctic</texPath>
           <drawSize>1.95</drawSize>
         </dessicatedBodyGraphicData>
       </li>
@@ -449,9 +446,9 @@
 
   <ThingDef Name="ThingBaseFox" ParentName="AnimalThingBase" Abstract="True">
     <statBases>
-      <MoveSpeed>5.00</MoveSpeed>
-      <ComfyTemperatureMin>-50</ComfyTemperatureMin>
-      <MarketValue>210</MarketValue>
+      <MoveSpeed>4.6</MoveSpeed>
+      <ComfyTemperatureMin>-35</ComfyTemperatureMin>
+      <MarketValue>200</MarketValue>
     </statBases>
     <tools>
       <li>
@@ -459,14 +456,14 @@
         <capacities>
           <li>Scratch</li>
         </capacities>
-        <power>7</power>
-        <cooldownTime>1.65</cooldownTime>
+        <power>8</power>
+        <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>FrontLeftPaw</linkedBodyPartsGroup>
         <surpriseAttack>
           <extraMeleeDamages>
             <li>
               <def>Stun</def>
-              <amount>20</amount>
+              <amount>14</amount>
             </li>
           </extraMeleeDamages>
         </surpriseAttack>
@@ -476,14 +473,14 @@
         <capacities>
           <li>Scratch</li>
         </capacities>
-        <power>7</power>
-        <cooldownTime>1.65</cooldownTime>
+        <power>8</power>
+        <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>FrontRightPaw</linkedBodyPartsGroup>
         <surpriseAttack>
           <extraMeleeDamages>
             <li>
               <def>Stun</def>
-              <amount>20</amount>
+              <amount>14</amount>
             </li>
           </extraMeleeDamages>
         </surpriseAttack>
@@ -492,14 +489,15 @@
         <capacities>
           <li>Bite</li>
         </capacities>
-        <power>8</power>
-        <cooldownTime>2.1</cooldownTime>
+        <power>9</power>
+        <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+        <chanceFactor>0.9</chanceFactor>
         <surpriseAttack>
           <extraMeleeDamages>
             <li>
               <def>Stun</def>
-              <amount>20</amount>
+              <amount>14</amount>
             </li>
           </extraMeleeDamages>
         </surpriseAttack>
@@ -509,35 +507,35 @@
         <capacities>
           <li>Blunt</li>
         </capacities>
-        <power>2</power>
-        <cooldownTime>1.65</cooldownTime>
+        <power>4</power>
+        <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-        <commonality>0.2</commonality>
+        <ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+        <chanceFactor>0.2</chanceFactor>
       </li>
     </tools>
     <race>
       <body>QuadrupedAnimalWithPawsAndTail</body>
       <predator>true</predator>
+      <maxPreyBodySize>0.80</maxPreyBodySize>
       <petness>0.1</petness>
       <baseBodySize>0.55</baseBodySize>
       <baseHungerRate>0.12</baseHungerRate>
       <baseHealthScale>0.70</baseHealthScale>
       <foodType>CarnivoreAnimal</foodType>
-      <leatherInsulation>1.0</leatherInsulation>
-      <gestationPeriodDays>18</gestationPeriodDays>
+      <leatherDef>Leather_Fox</leatherDef>
       <nameOnTameChance>1</nameOnTameChance>
-      <trainableIntelligence>Advanced</trainableIntelligence>
+      <trainability>Advanced</trainability>
       <wildness>0.75</wildness>
       <nuzzleMtbHours>120</nuzzleMtbHours>
-      <manhunterOnDamageChance>0.20</manhunterOnDamageChance>
-      <manhunterOnTameFailChance>0.018</manhunterOnTameFailChance>
+      <gestationPeriodDays>21</gestationPeriodDays>
       <litterSizeCurve>
         <points>
           <li>(0.5, 0)</li>
           <li>(1, 1)</li>
           <li>(2, 1.7)</li>
-          <li>(3, 0.7)</li>
-          <li>(3.5, 0)</li>
+          <li>(2.5, 0.7)</li>
+          <li>(3, 0)</li>
         </points>
       </litterSizeCurve>
       <lifeExpectancy>9</lifeExpectancy>
@@ -561,51 +559,50 @@
       <soundMeleeMiss>Pawn_Melee_SmallScratch_Miss</soundMeleeMiss>
     </race>
     <tradeTags>
-      <li>StandardAnimal</li>
-      <li>BadassAnimal</li>
+      <li>AnimalCommon</li>
     </tradeTags>
   </ThingDef>
 
   <PawnKindDef ParentName="AnimalKindBase" Name="AnimalKindBaseFox" Abstract="True">
     <combatPower>45</combatPower>
-    <wildSpawn_spawnWild>true</wildSpawn_spawnWild>
-    <wildSpawn_EcoSystemWeight>0.5</wildSpawn_EcoSystemWeight>
+    <ecoSystemWeight>0.25</ecoSystemWeight>
   </PawnKindDef>
 
   <!--========================== Fox fennec ========================-->
 
   <ThingDef ParentName="ThingBaseFox">
-    <defName>FoxFennec</defName>
+    <defName>Fox_Fennec</defName>
     <label>fennec fox</label>
-    <description>A small fox originally from the northern part of Earth's Africa continent. It hunts small creatures and has very large ears.</description>
+    <description>A small fox originally from the northern part of Earth's Africa continent. It hunts small creatures and has very large ears for cooling itself in the heat.</description>
     <race>
-      <leatherColor>(197,161,103)</leatherColor>
-      <leatherLabel>fennec foxskin</leatherLabel>
       <meatLabel>foxmeat</meatLabel>
     </race>
+    <statBases>
+      <ComfyTemperatureMin>-30</ComfyTemperatureMin>
+    </statBases>
   </ThingDef>
 
   <PawnKindDef ParentName="AnimalKindBaseFox">
-    <defName>FoxFennec</defName>
+    <defName>Fox_Fennec</defName>
     <label>fennec fox</label>
     <labelPlural>fennec foxes</labelPlural>
-    <race>FoxFennec</race>
+    <race>Fox_Fennec</race>
     <lifeStages>
       <li>
         <label>fennec fox puppy</label>
         <labelPlural>fennec fox puppies</labelPlural>
         <bodyGraphicData>
-          <texPath>Things/Pawn/Animal/FoxFennec/FoxFennec</texPath>
+          <texPath>Things/Pawn/Animal/Fox_Fennec/Fox_Fennec</texPath>
           <drawSize>0.9</drawSize>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-          <drawSize>1</drawSize>
+          <texPath>Things/Pawn/Animal/Fox_Fennec/Dessicated_Fox_Fennec</texPath>
+          <drawSize>0.9</drawSize>
         </dessicatedBodyGraphicData>
       </li>
       <li>
         <bodyGraphicData>
-          <texPath>Things/Pawn/Animal/FoxFennec/FoxFennec</texPath>
+          <texPath>Things/Pawn/Animal/Fox_Fennec/Fox_Fennec</texPath>
           <drawSize>1.2</drawSize>
           <shadowData>
             <volume>(0.25, 0.3, 0.25)</volume>
@@ -613,18 +610,18 @@
           </shadowData>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
+          <texPath>Things/Pawn/Animal/Fox_Fennec/Dessicated_Fox_Fennec</texPath>
           <drawSize>1.2</drawSize>
         </dessicatedBodyGraphicData>
       </li>
       <li>
         <bodyGraphicData>
-          <texPath>Things/Pawn/Animal/FoxFennec/FoxFennec</texPath>
+          <texPath>Things/Pawn/Animal/Fox_Fennec/Fox_Fennec</texPath>
           <drawSize>1.45</drawSize>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-          <drawSize>1.75</drawSize>
+          <texPath>Things/Pawn/Animal/Fox_Fennec/Dessicated_Fox_Fennec</texPath>
+          <drawSize>1.45</drawSize>
         </dessicatedBodyGraphicData>
       </li>
     </lifeStages>
@@ -633,37 +630,35 @@
   <!--========================== Fox red ========================-->
 
   <ThingDef ParentName="ThingBaseFox">
-    <defName>FoxRed</defName>
+    <defName>Fox_Red</defName>
     <label>red fox</label>
-    <description>A small solitary canine evolved for hunting small prey in temperate climates.</description>
+    <description>A small solitary canine evolved for hunting small prey in temperate climates. Chicken farmers hate foxes because of their ability to destroy a whole coop in minutes.</description>
     <race>
-      <leatherColor>(178,100,34)</leatherColor>
-      <leatherLabel>red foxskin</leatherLabel>
-      <useMeatFrom>FoxFennec</useMeatFrom>
+      <useMeatFrom>Fox_Fennec</useMeatFrom>
     </race>
   </ThingDef>
 
   <PawnKindDef ParentName="AnimalKindBaseFox">
-    <defName>FoxRed</defName>
+    <defName>Fox_Red</defName>
     <label>red fox</label>
     <labelPlural>red foxes</labelPlural>
-    <race>FoxRed</race>
+    <race>Fox_Red</race>
     <lifeStages>
       <li>
         <label>red fox puppy</label>
         <labelPlural>red fox puppies</labelPlural>
         <bodyGraphicData>
-          <texPath>Things/Pawn/Animal/FoxRed/FoxRed</texPath>
+          <texPath>Things/Pawn/Animal/Fox_Red/Fox_Red</texPath>
           <drawSize>1.0</drawSize>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-          <drawSize>1</drawSize>
+          <texPath>Things/Pawn/Animal/Fox_Red/Dessicated_Fox_Red</texPath>
+          <drawSize>1.0</drawSize>
         </dessicatedBodyGraphicData>
       </li>
       <li>
         <bodyGraphicData>
-          <texPath>Things/Pawn/Animal/FoxRed/FoxRed</texPath>
+          <texPath>Things/Pawn/Animal/Fox_Red/Fox_Red</texPath>
           <drawSize>1.2</drawSize>
           <shadowData>
             <volume>(0.25, 0.3, 0.25)</volume>
@@ -671,17 +666,17 @@
           </shadowData>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
+          <texPath>Things/Pawn/Animal/Fox_Red/Dessicated_Fox_Red</texPath>
           <drawSize>1.2</drawSize>
         </dessicatedBodyGraphicData>
       </li>
       <li>
         <bodyGraphicData>
-          <texPath>Things/Pawn/Animal/FoxRed/FoxRed</texPath>
+          <texPath>Things/Pawn/Animal/Fox_Red/Fox_Red</texPath>
           <drawSize>1.68</drawSize>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
+          <texPath>Things/Pawn/Animal/Fox_Red/Dessicated_Fox_Red</texPath>
           <drawSize>1.68</drawSize>
         </dessicatedBodyGraphicData>
       </li>
@@ -691,37 +686,38 @@
   <!--========================== Fox arctic ========================-->
   
   <ThingDef ParentName="ThingBaseFox">
-    <defName>FoxArctic</defName>
+    <defName>Fox_Arctic</defName>
     <label>arctic fox</label>
-    <description>A small predator adapted for the far north. It usually hunts small game like mice and voles, sometimes burrowing through a meter of snow to reach its prey.</description>
+    <description>A small predator adapted for cold climates. It usually hunts small game like mice and voles, sometimes burrowing through a meter of snow to reach its prey.</description>
     <race>
-      <leatherColor>(200,200,200)</leatherColor>
-      <leatherLabel>arctic foxskin</leatherLabel>
-      <useMeatFrom>FoxFennec</useMeatFrom>
+      <useMeatFrom>Fox_Fennec</useMeatFrom>
     </race>
+    <statBases>
+      <ComfyTemperatureMin>-50</ComfyTemperatureMin>
+    </statBases>
   </ThingDef>
 
   <PawnKindDef ParentName="AnimalKindBaseFox">
-    <defName>FoxArctic</defName>
+    <defName>Fox_Arctic</defName>
     <label>arctic fox</label>
     <labelPlural>arctic foxes</labelPlural>
-    <race>FoxArctic</race>
+    <race>Fox_Arctic</race>
     <lifeStages>
       <li>
         <label>arctic fox puppy</label>
         <labelPlural>arctic fox puppies</labelPlural>
         <bodyGraphicData>
-          <texPath>Things/Pawn/Animal/FoxArctic/FoxArctic</texPath>
+          <texPath>Things/Pawn/Animal/Fox_Arctic/Fox_Arctic</texPath>
           <drawSize>1.0</drawSize>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-          <drawSize>1</drawSize>
+          <texPath>Things/Pawn/Animal/Fox_Arctic/Dessicated_Fox_Arctic</texPath>
+          <drawSize>1.0</drawSize>
         </dessicatedBodyGraphicData>
       </li>
       <li>
         <bodyGraphicData>
-          <texPath>Things/Pawn/Animal/FoxArctic/FoxArctic</texPath>
+          <texPath>Things/Pawn/Animal/Fox_Arctic/Fox_Arctic</texPath>
           <drawSize>1.2</drawSize>
           <shadowData>
             <volume>(0.25, 0.3, 0.25)</volume>
@@ -729,17 +725,17 @@
           </shadowData>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
+          <texPath>Things/Pawn/Animal/Fox_Arctic/Dessicated_Fox_Arctic</texPath>
           <drawSize>1.2</drawSize>
         </dessicatedBodyGraphicData>
       </li>
       <li>
         <bodyGraphicData>
-          <texPath>Things/Pawn/Animal/FoxArctic/FoxArctic</texPath>
+          <texPath>Things/Pawn/Animal/Fox_Arctic/Fox_Arctic</texPath>
           <drawSize>1.75</drawSize>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
+          <texPath>Things/Pawn/Animal/Fox_Arctic/Dessicated_Fox_Arctic</texPath>
           <drawSize>1.75</drawSize>
         </dessicatedBodyGraphicData>
       </li>

@@ -1,56 +1,97 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-  <TerrainDef>
-    <defName>FishingPierFloorDeepWater</defName>
-    <label>Fishing pier floor</label>
-    <texturePath>Terrain/Surfaces/WaterDeepRamp</texturePath>
-    <waterDepthShader>Map/WaterDepth</waterDepthShader>
+  <TerrainDef Abstract="True" Name="WaterBase">
     <edgeType>Water</edgeType>
-    <renderPrecedence>393</renderPrecedence>
-    <pathCost>0</pathCost>
     <acceptFilth>false</acceptFilth>
     <fertility>0</fertility>
-    <avoidWander>false</avoidWander>
+    <avoidWander>true</avoidWander>
+    <holdSnow>false</holdSnow>
+    <takeSplashes>true</takeSplashes>
+    <extinguishesFire>true</extinguishesFire>
+    <extraDeteriorationFactor>3</extraDeteriorationFactor>
+    <traversedThought>SoakingWet</traversedThought>
+    <extraNonDraftedPerceivedPathCost>180</extraNonDraftedPerceivedPathCost>
+    <extraDraftedPerceivedPathCost>18</extraDraftedPerceivedPathCost>
+    <tags>
+      <li>Water</li>
+    </tags>
+    <tools>
+      <li>
+        <label>water</label>
+        <capacities>
+          <li>KickMaterialInEyes</li>
+        </capacities>
+        <hediff>WaterInEyes</hediff>
+        <cooldownTime>1.5</cooldownTime>
+      </li>
+    </tools>
+  </TerrainDef>
+  
+  <!-- Deep -->
+
+  <TerrainDef Abstract="True" Name="WaterDeepBase" ParentName="WaterBase">
+    <texturePath>Terrain/Surfaces/WaterDeepRamp</texturePath>
+    <waterDepthShader>Map/WaterDepth</waterDepthShader>
+    <passability>Impassable</passability>
+    <pathCost>300</pathCost>
     <changeable>false</changeable>
+  </TerrainDef>
+
+  <TerrainDef ParentName="WaterDeepBase">
+    <defName>FishingPierFloorDeepWater</defName>
+    <label>Fishing pier floor</label>
+    <renderPrecedence>393</renderPrecedence>
     <holdSnow>true</holdSnow>
     <takeSplashes>false</takeSplashes>
     <tags>
       <li>Water</li>
     </tags>
   </TerrainDef>
+  
+  <TerrainDef Abstract="True" Name="WaterShallowBase" ParentName="WaterBase">
+    <pathCost>30</pathCost>
+    <affordances>
+      <li>ShallowWater</li>
+      <li>Bridgeable</li>
+    </affordances>
+  </TerrainDef>
 
-  <TerrainDef>
+  <TerrainDef ParentName="WaterShallowBase">
     <defName>FishingPierFloorShallowWater</defName>
     <label>Fishing pier floor</label>
     <texturePath>Terrain/Surfaces/WaterShallowRamp</texturePath>
     <waterDepthShader>Map/WaterDepth</waterDepthShader>
-    <edgeType>Water</edgeType>
     <renderPrecedence>392</renderPrecedence>
-    <pathCost>0</pathCost>
-    <acceptFilth>false</acceptFilth>
-    <fertility>0</fertility>
-    <avoidWander>false</avoidWander>
     <changeable>false</changeable>
     <holdSnow>true</holdSnow>
     <takeSplashes>false</takeSplashes>
-    <tags>
-      <li>Water</li>
-    </tags>
   </TerrainDef>
 
-  <TerrainDef>
+  <TerrainDef ParentName="WaterShallowBase">
     <defName>FishingPierFloorMarsh</defName>
     <label>Fishing pier floor</label>
     <texturePath>Terrain/Surfaces/Marsh</texturePath>
     <edgeType>FadeRough</edgeType>
     <renderPrecedence>326</renderPrecedence>
-    <pathCost>0</pathCost>
-    <fertility>0</fertility>
-    <acceptFilth>false</acceptFilth>
-    <avoidWander>false</avoidWander>
+    <statBases>
+      <Beauty>-2</Beauty>
+      <Cleanliness>-2</Cleanliness>
+    </statBases>
     <changeable>false</changeable>
     <holdSnow>true</holdSnow>
+	<avoidWander>true</avoidWander>
+	<extinguishesFire>true</extinguishesFire>
+    <tools>
+      <li>
+        <label>mud</label>
+        <capacities>
+          <li>KickMaterialInEyes</li>
+        </capacities>
+        <hediff>MudInEyes</hediff>
+        <cooldownTime>1.5</cooldownTime>
+      </li>
+    </tools>
   </TerrainDef>
 
 </Defs>

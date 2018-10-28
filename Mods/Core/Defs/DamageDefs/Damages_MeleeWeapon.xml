@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-  <DamageDef ParentName="LocalInjuryBase" Name="CutBase">
+  <DamageDef Name="CutBase">
     <defName>Cut</defName>
     <label>cut</label>
     <workerClass>DamageWorker_Cut</workerClass>
@@ -13,6 +13,7 @@
     <harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
     <impactSoundType>Slice</impactSoundType>
     <armorCategory>Sharp</armorCategory>
+    <overkillPctToDestroyPart>0~0.1</overkillPctToDestroyPart>
     <cutExtraTargetsCurve>
       <points>
         <li>0, 0</li>
@@ -24,9 +25,10 @@
     <cutCleaveBonus>1.4</cutCleaveBonus>
   </DamageDef>
 
-  <DamageDef ParentName="LocalInjuryBase">
+  <DamageDef>
     <defName>Crush</defName>
     <label>crush</label>
+    <workerClass>DamageWorker_AddInjury</workerClass>
     <externalViolence>true</externalViolence>
     <deathMessage>{0} has been crushed to death.</deathMessage>
     <hediff>Crush</hediff>
@@ -35,9 +37,10 @@
     <harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
     <impactSoundType>Blunt</impactSoundType>
     <armorCategory>Blunt</armorCategory>
+    <overkillPctToDestroyPart>0.4~1.0</overkillPctToDestroyPart>
   </DamageDef>
 
-  <DamageDef ParentName="LocalInjuryBase" Name="BluntBase">
+  <DamageDef Name="BluntBase">
     <defName>Blunt</defName>
     <label>blunt</label>
     <workerClass>DamageWorker_Blunt</workerClass>
@@ -49,15 +52,30 @@
     <harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
     <impactSoundType>Blunt</impactSoundType>
     <armorCategory>Blunt</armorCategory>
-    <bluntInnerHitFrequency>0.4</bluntInnerHitFrequency>
-    <bluntInnerHitConverted>
+    <overkillPctToDestroyPart>0.4~1.0</overkillPctToDestroyPart>
+    <buildingDamageFactor>1.5</buildingDamageFactor>
+    <bluntStunDuration>2.0</bluntStunDuration>
+    <bluntInnerHitChance>0.4</bluntInnerHitChance>
+    <bluntInnerHitDamageFractionToConvert>
       <min>0.1</min>
       <max>0.2</max>
-    </bluntInnerHitConverted>
-    <bluntInnerHitAdded>
+    </bluntInnerHitDamageFractionToConvert>
+    <bluntInnerHitDamageFractionToAdd>
       <min>0.2</min>
       <max>0.35</max>
-    </bluntInnerHitAdded>
+    </bluntInnerHitDamageFractionToAdd>
+    <bluntStunChancePerDamagePctOfCorePartToHeadCurve>
+      <points>
+        <li>(0.04, 0.20)</li>
+        <li>(0.5, 1)</li>
+      </points>
+    </bluntStunChancePerDamagePctOfCorePartToHeadCurve>
+    <bluntStunChancePerDamagePctOfCorePartToBodyCurve>
+      <points>
+        <li>(0.4, 0)</li>
+        <li>(0.9, 0.15)</li>
+      </points>
+    </bluntStunChancePerDamagePctOfCorePartToBodyCurve>
   </DamageDef>
 
   <!-- Damage types are the same as Blunt, but behaves like stabbing; intended for things like rifle barrels -->
@@ -65,10 +83,9 @@
     <defName>Poke</defName>
     <workerClass>DamageWorker_Stab</workerClass>
     <stabChanceOfForcedInternal>0.4</stabChanceOfForcedInternal>
-    <stabPierceBonus>1.0</stabPierceBonus>
   </DamageDef>
 
-  <DamageDef ParentName="LocalInjuryBase">
+  <DamageDef>
     <defName>Stab</defName>
     <label>stab</label>
     <workerClass>DamageWorker_Stab</workerClass>
@@ -79,10 +96,10 @@
     <impactSoundType>Slice</impactSoundType>
     <armorCategory>Sharp</armorCategory>
     <stabChanceOfForcedInternal>0.6</stabChanceOfForcedInternal>
-    <stabPierceBonus>2.5</stabPierceBonus>
+    <overkillPctToDestroyPart>0.4~1.0</overkillPctToDestroyPart>
   </DamageDef>
 
-  <DamageDef ParentName="LocalInjuryBase">
+  <DamageDef>
     <defName>Scratch</defName>
     <label>scratch</label>
     <workerClass>DamageWorker_Scratch</workerClass>
@@ -93,10 +110,11 @@
     <harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
     <impactSoundType>Slice</impactSoundType>
     <armorCategory>Sharp</armorCategory>
+    <overkillPctToDestroyPart>0~0.7</overkillPctToDestroyPart>
     <scratchSplitPercentage>0.67</scratchSplitPercentage>
   </DamageDef>
 
-  <DamageDef Name="Bite" ParentName="LocalInjuryBase">
+  <DamageDef Name="Bite">
     <defName>Bite</defName>
     <label>bite</label>
     <workerClass>DamageWorker_Bite</workerClass>
@@ -107,7 +125,7 @@
     <harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
     <impactSoundType>Slice</impactSoundType>
     <armorCategory>Sharp</armorCategory>
-    <biteDamageMultiplier>1.25</biteDamageMultiplier>
+    <overkillPctToDestroyPart>0~0.1</overkillPctToDestroyPart>
   </DamageDef>
 
   <DamageDef ParentName="Bite">
@@ -117,6 +135,7 @@
       <li>
         <hediff>ToxicBuildup</hediff>
         <severityPerDamageDealt>0.001</severityPerDamageDealt>
+        <victimSeverityScaling>ToxicSensitivity</victimSeverityScaling>
       </li>
     </additionalHediffs>
   </DamageDef>

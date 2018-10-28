@@ -15,6 +15,10 @@
 		<comps>
 			<li Class="CompProperties_Forbiddable"/>
 		</comps>
+		<statBases>
+			<Mass>0.1</Mass>
+			<Bulk>0.1</Bulk>
+		</statBases>
 		<alwaysHaulable>true</alwaysHaulable>
 		<drawGUIOverlay>true</drawGUIOverlay>
 		<rotatable>false</rotatable>
@@ -27,15 +31,16 @@
 		</graphicData>
 		<ingestible>
 			<preferability>DesperateOnly</preferability>
-			<nutrition>0.05</nutrition>
 			<chairSearchRadius>60</chairSearchRadius>
 		</ingestible>
 		<socialPropernessMatters>true</socialPropernessMatters>
 		<statBases>
+			<Nutrition>0.05</Nutrition>
 			<MaxHitPoints>100</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<DeteriorationRate>10</DeteriorationRate>
 			<Mass>0.3</Mass>
+			<Bulk>0.3</Bulk>
 		</statBases>
 		<tickerType>Rare</tickerType>
 	</ThingDef>
@@ -44,7 +49,6 @@
 		<ingestible>
 			<preferability>RawBad</preferability>
 			<tasteThought>AteRawFood</tasteThought>
-			<nutrition>0.05</nutrition>
 			<ingestEffect>EatVegetarian</ingestEffect>
 			<ingestSound>RawVegetable_Eat</ingestSound>
 			<chairSearchRadius>60</chairSearchRadius>
@@ -55,11 +59,9 @@
 				<li>Foods</li>
 			</categories>
 		</stuffProps>
-		<comps>
-			<li Class="CompProperties_FoodPoisoningChance">
-				<humanlikeOnly>true</humanlikeOnly>
-			</li>
-		</comps>
+		<statBases>
+			<FoodPoisonChanceFixedHuman>0.02</FoodPoisonChanceFixedHuman>
+		</statBases>
 	</ThingDef>
 
 	<ThingDef Abstract="True" ParentName="ResourceBase" Name="CookingProductBase">
@@ -71,7 +73,8 @@
 			<MaxHitPoints>100</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<DeteriorationRate>5</DeteriorationRate>
-			<Mass>0.05</Mass>
+			<Mass>0.15</Mass>
+			<Bulk>0.15</Bulk>
 		</statBases>
 		<ingestible>
 			<foodType>Plant</foodType>
@@ -91,7 +94,8 @@
 			<MaxHitPoints>100</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<DeteriorationRate>5</DeteriorationRate>
-			<Mass>0.03</Mass>
+			<Mass>0.08</Mass>
+			<Bulk>0.08</Bulk>
 		</statBases>
 		<ingestible>
 			<foodType>Plant</foodType>
@@ -105,10 +109,12 @@
 	<!-- Plant matter (inedible by people) -->
 
 	<ThingDef ParentName="OrganicProductBase" Name="RoughPlantBase" Abstract="True">
+		<statBases>
+			<Nutrition>0.05</Nutrition>
+		</statBases>
 		<ingestible>
 			<foodType>Plant</foodType>
 			<preferability>DesperateOnlyForHumanlikes</preferability>
-			<nutrition>0.05</nutrition>
 		</ingestible>
 	</ThingDef>
 
@@ -129,6 +135,8 @@
 			<Mass>0.02</Mass>
 			<Bulk>0.05</Bulk>
 			<DeteriorationRate>2</DeteriorationRate>
+			<Nutrition>0.05</Nutrition>
+			<FoodPoisonChanceFixedHuman>0.02</FoodPoisonChanceFixedHuman>
 		</statBases>
 		<ingestible>
 			<foodType>Kibble</foodType>
@@ -136,14 +144,10 @@
 			<tasteThought>AteKibble</tasteThought>
 			<optimalityOffsetHumanlikes>-30</optimalityOffsetHumanlikes>
 			<optimalityOffsetFeedingAnimals>15</optimalityOffsetFeedingAnimals>
-			<nutrition>0.05</nutrition>
 			<ingestEffect>EatVegetarian</ingestEffect>
 			<ingestSound>RawVegetable_Eat</ingestSound>
 		</ingestible>
 		<comps>
-			<li Class="CompProperties_FoodPoisoningChance">
-				<humanlikeOnly>true</humanlikeOnly>
-			</li>
 			<li Class="CompProperties_Ingredients" />
 		</comps>
 		<stackLimit>150</stackLimit>
@@ -152,38 +156,38 @@
 	<ThingDef ParentName="OrganicProductBase">
 		<defName>Pemmican</defName>
 		<label>Pemmican</label>
+		<description>A preserved mashed mixture of fat and plant food. Tastes bland, but not offensive. It lasts a very long time without refrigeration. Great for traveling.</description>
 		<thingClass>ThingWithComps</thingClass>
-		<thingCategories>
-			<li>FoodMeals</li>
-		</thingCategories>
-		<description>A preserved mashed mixture of fat and plant food. Tastes bland, but not offensive. It lasts a very long time without refrigeration.</description>
-		<graphicData>
-			<texPath>Things/Item/Resource/Pemmican</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
-		</graphicData>
+    <graphicData>
+      <texPath>Things/Item/Resource/Pemmican</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+	 <socialPropernessMatters>true</socialPropernessMatters>
 		<statBases>
 			<MarketValue>3.1</MarketValue>
 			<WorkToMake>600</WorkToMake>
 			<Mass>0.03</Mass>
 			<Bulk>0.08</Bulk>
+			<Nutrition>0.05</Nutrition>
+			<FoodPoisonChanceFixedHuman>0.02</FoodPoisonChanceFixedHuman>
 		</statBases>
 		<ingestible>
 			<foodType>Meal</foodType>
 			<preferability>MealSimple</preferability>
-			<nutrition>0.05</nutrition>
 			<ingestEffect>EatVegetarian</ingestEffect>
 			<ingestSound>Meal_Eat</ingestSound>
 			<optimalityOffsetHumanlikes>6</optimalityOffsetHumanlikes>
 		</ingestible>
+		<thingCategories>
+			<li>FoodMeals</li>
+		</thingCategories>
 		<comps>
 			<li Class="CompProperties_Rottable">
 				<daysToRotStart>80</daysToRotStart>
 				<rotDestroys>true</rotDestroys>
 			</li>
-			<li Class="CompProperties_FoodPoisoningChance">
-				<humanlikeOnly>true</humanlikeOnly>
-			</li>
 			<li Class="CompProperties_Ingredients" />
+			<li Class="CompProperties_FoodPoisonable" />
 		</comps>
 		<stackLimit>150</stackLimit>
 	</ThingDef>
@@ -197,9 +201,9 @@
 			<Mass>0.03</Mass>
 			<MarketValue>0.6</MarketValue>
 			<DeteriorationRate>.5</DeteriorationRate>
+			<Nutrition>0.05</Nutrition>
 		</statBases>
 		<ingestible>
-			<nutrition>0.05</nutrition>
 			<optimalityOffsetFeedingAnimals>7</optimalityOffsetFeedingAnimals>
 		</ingestible>
 		<graphicData>
@@ -226,9 +230,9 @@
 			<Mass>0.15</Mass>
 			<MarketValue>5</MarketValue>
 			<DeteriorationRate>.1</DeteriorationRate>
+			<Nutrition>0.35</Nutrition>
 		</statBases>
 		<ingestible>
-			<nutrition>0.35</nutrition>
 			<optimalityOffsetFeedingAnimals>7</optimalityOffsetFeedingAnimals>
 		</ingestible>
 		<graphicData>
@@ -322,7 +326,12 @@
 		</graphicData>
 		<statBases>
 			<MarketValue>1.0</MarketValue>
+			<Bulk>0.1</Bulk>
+			<Mass>0.1</Mass>
 		</statBases>
+		<ingestible>
+			<joy>0.3</joy>
+		</ingestible>
 		<thingCategories>
 			<li>PlantMatter</li>
 		</thingCategories>

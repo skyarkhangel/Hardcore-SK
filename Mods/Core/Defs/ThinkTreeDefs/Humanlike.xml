@@ -74,12 +74,20 @@
             <li Class="ThinkNode_Tagger">
               <tagToGive>DraftedOrder</tagToGive>
               <subNodes>
+                <li Class="JobGiver_MoveToStandable" />
                 <li Class="JobGiver_Orders" />
               </subNodes>
             </li>
           </subNodes>
         </li>
-        
+
+        <!-- Self-tend if you're an NPC -->
+        <li Class="ThinkNode_ConditionalNPCCanSelfTendNow">
+          <subNodes>
+            <li Class="JobGiver_SelfTend" />
+          </subNodes>
+        </li>
+
         <!-- Lord directives (high priority) -->
         <li Class="ThinkNode_JoinVoluntarilyJoinableLord">
           <dutyHook>HighPriority</dutyHook>
@@ -162,16 +170,12 @@
                     <li Class="ThinkNode_Priority_GetJoy">
                       <subNodes>
                         <li Class="JobGiver_GetJoy"/>
+                        <li Class="JobGiver_GetJoyInBed"/>
                       </subNodes>
                     </li>
                   </subNodes>
                 </li>
               </subNodes>
-            </li>
-            
-            <!-- Join auto joinable caravan -->
-            <li Class="ThinkNode_Subtree">
-              <treeDef>JoinAutoJoinableCaravan</treeDef>
             </li>
             
             <!-- If in non-PlayerHomeMap -->
@@ -225,6 +229,12 @@
             
             <!-- Drop unnused inventory -->
             <li Class="JobGiver_DropUnusedInventory" />
+
+            <!-- Emergency work -->
+            <li Class="JobGiver_Work">
+              <leaveJoinableLordIfIssuesJob>true</leaveJoinableLordIfIssuesJob>
+              <emergency>true</emergency>
+            </li>
             
             <!-- Get food (only if starving) -->
             <li Class="ThinkNode_ConditionalStarving">
@@ -238,12 +248,6 @@
                   </subNodes>
                 </li>
               </subNodes>
-            </li>
-
-            <!-- Emergency work -->
-            <li Class="JobGiver_Work">
-              <leaveJoinableLordIfIssuesJob>true</leaveJoinableLordIfIssuesJob>
-              <emergency>true</emergency>
             </li>
             
             <!-- Lord directives (medium priority) -->
@@ -368,7 +372,7 @@
         <!-- If you're a neutral guest, if you're not hurt exit the map, otherwise use a medical bed -->
         <li Class="ThinkNode_ConditionalGuest">
           <subNodes>
-            <li Class="ThinkNode_ConditionalNeutralFaction">
+            <li Class="ThinkNode_ConditionalNonPlayerNonHostileFactionOrFactionless">
               <subNodes>
                 <li Class="ThinkNode_Tagger">
                   <tagToGive>RestingForMedicalReasons</tagToGive>
@@ -430,6 +434,11 @@
             <!-- Flee explosion -->
             <li Class="JobGiver_FleePotentialExplosion" />
         
+            <!-- Join auto joinable caravan -->
+            <li Class="ThinkNode_Subtree">
+              <treeDef>JoinAutoJoinableCaravan</treeDef>
+            </li>
+            
             <!-- Hostility response -->
             <li Class="JobGiver_ConfigurableHostilityResponse" />
             

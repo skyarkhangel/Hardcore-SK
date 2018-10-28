@@ -3,17 +3,17 @@
 
   <ThingDef Abstract="True" ParentName="AnimalThingBase" Name="BaseHare">
     <statBases>
-      <MoveSpeed>5.5</MoveSpeed>
+      <MoveSpeed>6.0</MoveSpeed>
+      <MarketValue>50</MarketValue>
       <ComfyTemperatureMin>-30</ComfyTemperatureMin>
-      <MarketValue>40</MarketValue>
     </statBases>
     <tools>
       <li>
         <capacities>
           <li>Bite</li>
         </capacities>
-        <power>3</power>
-        <cooldownTime>1.65</cooldownTime>
+        <power>3.4</power>
+        <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
       </li>
       <li>
@@ -21,10 +21,11 @@
         <capacities>
           <li>Blunt</li>
         </capacities>
-        <power>1</power>
-        <cooldownTime>1.65</cooldownTime>
+        <power>1.5</power>
+        <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-        <commonality>0.2</commonality>
+        <ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+        <chanceFactor>0.2</chanceFactor>
       </li>
     </tools>
     <race>
@@ -33,16 +34,21 @@
       <baseHungerRate>0.23</baseHungerRate>
       <baseHealthScale>0.4</baseHealthScale>
       <foodType>VegetarianRoughAnimal</foodType>
+      <leatherDef>Leather_Light</leatherDef>
       <wildness>0.75</wildness>
+      <trainability>Simple</trainability>
+      <petness>0.08</petness>
       <mateMtbHours>8</mateMtbHours>
-      <nuzzleMtbHours>120</nuzzleMtbHours>
-      <gestationPeriodDays>8.5</gestationPeriodDays>
+      <nuzzleMtbHours>72</nuzzleMtbHours>
+      <gestationPeriodDays>13</gestationPeriodDays>
+      <manhunterOnTameFailChance>0</manhunterOnTameFailChance>
+      <manhunterOnDamageChance>0</manhunterOnDamageChance>
       <litterSizeCurve>
         <points>
+          <li>(1.0, 0)</li>
+          <li>(1.5, 1)</li>
+          <li>(2.0, 1)</li>
           <li>(2.5, 0)</li>
-          <li>(3, 1)</li>
-          <li>(4, 1)</li>
-          <li>(4.5, 0)</li>
         </points>
       </litterSizeCurve>
       <lifeExpectancy>8</lifeExpectancy>
@@ -69,14 +75,13 @@
       <soundMeleeMiss>Pawn_Melee_SmallScratch_Miss</soundMeleeMiss>
     </race>
     <tradeTags>
-      <li>StandardAnimal</li>
+      <li>AnimalCommon</li>
     </tradeTags>
   </ThingDef>
 
   <PawnKindDef Abstract="True" ParentName="AnimalKindBase" Name="HareBase">
     <combatPower>33</combatPower>
-    <wildSpawn_EcoSystemWeight>0.25</wildSpawn_EcoSystemWeight>
-    <wildSpawn_spawnWild>true</wildSpawn_spawnWild>
+    <ecoSystemWeight>0.25</ecoSystemWeight>
   </PawnKindDef>
 
   <!--================================================ -->
@@ -85,10 +90,6 @@
     <defName>Hare</defName>
     <label>hare</label>
     <description>This small, solitary herbivore can swiftly hop away from danger.</description>
-    <race>
-      <leatherColor>(131,128,108)</leatherColor>
-      <leatherInsulation>0.95</leatherInsulation>
-    </race>
   </ThingDef>
 
   <PawnKindDef ParentName="HareBase">
@@ -103,8 +104,8 @@
           <color>(130,127,106)</color>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-          <drawSize>1</drawSize>
+          <texPath>Things/Pawn/Animal/Hare/Dessicated_Hare</texPath>
+          <drawSize>1.0</drawSize>
         </dessicatedBodyGraphicData>
       </li>
       <li>
@@ -114,7 +115,7 @@
           <color>(130,127,106)</color>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <texPath>Things/Pawn/Animal/Hare/Dessicated_Hare</texPath>
           <drawSize>1.25</drawSize>
         </dessicatedBodyGraphicData>
       </li>
@@ -129,8 +130,8 @@
           </shadowData>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-          <drawSize>1.15</drawSize>
+          <texPath>Things/Pawn/Animal/Hare/Dessicated_Hare</texPath>
+          <drawSize>1.5</drawSize>
         </dessicatedBodyGraphicData>
       </li>
     </lifeStages>
@@ -141,14 +142,12 @@
   <ThingDef ParentName="BaseHare">
     <defName>Snowhare</defName>
     <label>snowhare</label>
-    <description>This hardy animal survives the brutal winters of the north by burrowing through snow and finding prey underneath, or hibernating the worst days away.</description>
+    <description>This hardy animal survives the brutal winters of its homelands by burrowing through snow to find edible plants.</description>
     <statBases>
-      <ComfyTemperatureMin>-70</ComfyTemperatureMin>
+      <ComfyTemperatureMin>-55</ComfyTemperatureMin>
     </statBases>
     <race>
       <useMeatFrom>Hare</useMeatFrom>
-      <leatherColor>(180,180,180)</leatherColor>
-      <leatherInsulation>1.1</leatherInsulation>
     </race>
   </ThingDef>
 
@@ -164,8 +163,8 @@
           <color>(180,180,180)</color>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-          <drawSize>1</drawSize>
+          <texPath>Things/Pawn/Animal/Hare/Dessicated_Hare</texPath>
+          <drawSize>1.0</drawSize>
         </dessicatedBodyGraphicData>
       </li>
       <li>
@@ -175,7 +174,7 @@
           <color>(180,180,180)</color>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <texPath>Things/Pawn/Animal/Hare/Dessicated_Hare</texPath>
           <drawSize>1.25</drawSize>
         </dessicatedBodyGraphicData>
       </li>
@@ -190,8 +189,8 @@
           </shadowData>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-          <drawSize>1.35</drawSize>
+          <texPath>Things/Pawn/Animal/Hare/Dessicated_Hare</texPath>
+          <drawSize>1.5</drawSize>
         </dessicatedBodyGraphicData>
       </li>
     </lifeStages>

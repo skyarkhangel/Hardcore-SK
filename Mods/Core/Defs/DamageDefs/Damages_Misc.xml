@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-  <DamageDef Name="LocalInjuryBase" Abstract="True">
-    <workerClass>DamageWorker_AddInjury</workerClass>
-  </DamageDef>
-
   <DamageDef>
     <defName>Deterioration</defName>
     <label>deterioration</label>
@@ -32,7 +28,7 @@
     <workerClass>DamageWorker_Extinguish</workerClass>
     <canInterruptJobs>false</canInterruptJobs>
     <makesBlood>false</makesBlood>
-    <explosionDamage>999999</explosionDamage>
+    <defaultDamage>999999</defaultDamage>
     <explosionCellMote>Mote_BlastExtinguisher</explosionCellMote>
     <explosionColorEdge>(1, 1, 1, 0.05)</explosionColorEdge>
     <soundExplosion>Explosion_Stun</soundExplosion>
@@ -40,9 +36,10 @@
     <combatLogRules>Damage_Extinguish</combatLogRules>
   </DamageDef>
 
-  <DamageDef ParentName="LocalInjuryBase">
+  <DamageDef Name="Bomb">
     <defName>Bomb</defName>
     <label>bomb</label>
+    <workerClass>DamageWorker_AddInjury</workerClass>
     <externalViolence>true</externalViolence>
     <isExplosive>true</isExplosive>
     <deathMessage>{0} has died in an explosion.</deathMessage>
@@ -50,10 +47,13 @@
     <hediffSolid>Crack</hediffSolid>
     <harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
     <impactSoundType>Blunt</impactSoundType>
-    <armorCategory>Blunt</armorCategory>
-    <spreadOut>true</spreadOut>
-    <explosionDamage>50</explosionDamage>
-    <explosionBuildingDamageFactor>2</explosionBuildingDamageFactor>
+    <armorCategory>Sharp</armorCategory>
+    <minDamageToFragment>15</minDamageToFragment>
+    <defaultDamage>50</defaultDamage>
+    <defaultStoppingPower>0.5</defaultStoppingPower>
+    <defaultArmorPenetration>0.10</defaultArmorPenetration>
+    <buildingDamageFactor>4</buildingDamageFactor>
+    <plantDamageFactor>4</plantDamageFactor>
     <explosionAffectOutsidePartsOnly>false</explosionAffectOutsidePartsOnly>
     <explosionHeatEnergyPerCell>5</explosionHeatEnergyPerCell>
     <explosionCellMote>Mote_BlastDry</explosionCellMote>
@@ -63,12 +63,19 @@
     <combatLogRules>Damage_Bomb</combatLogRules>
   </DamageDef>
 
+    <DamageDef ParentName="Bomb">
+    <defName>BombSuper</defName>
+    <defaultDamage>550</defaultDamage>
+    <defaultStoppingPower>2.0</defaultStoppingPower>
+    <defaultArmorPenetration>1.30</defaultArmorPenetration>
+  </DamageDef>
+
   <DamageDef>
     <defName>Smoke</defName>
     <label>smoke</label>
     <canInterruptJobs>false</canInterruptJobs>
     <makesBlood>false</makesBlood>
-    <explosionDamage>0</explosionDamage>
+    <defaultDamage>0</defaultDamage>
     <explosionCellMote>Mote_BlastExtinguisher</explosionCellMote>
     <explosionColorEdge>(1, 1, 1, 0.05)</explosionColorEdge>
     <harmsHealth>false</harmsHealth>

@@ -4,78 +4,47 @@
     <defName>Combat_MeleeIncludes</defName>
     <rulePack>
       <rulesStrings>
-        <li>logentry->[action], [result].</li>
-        <li>logentry(p=0.2)->[action].</li>
+        <li>r_logentry->[action], [result].</li>
+        <li>r_logentry(p=0.2)->[action].</li>
 
-        <li>implement(implementOwnerType==weapon,p=2)->[initiator_possessive] [weapon_label]'s [tool_label]</li>
-        <li>implement(implementOwnerType==weapon,p=1)->[initiator_possessive] [weapon_label]</li>
-        <li>implement(implementOwnerType==weapon,p=1)->a [weapon_label]'s [tool_label]</li>
-        <li>implement(implementOwnerType==weapon,p=0.5)->a [weapon_label]</li>
+        <li>implement(IMPLEMENTOWNER_type==weapon,p=2)->[INITIATOR_possessive] [WEAPON_label]'s [TOOL_label]</li>
+        <li>implement(IMPLEMENTOWNER_type==weapon,p=1)->[INITIATOR_possessive] [WEAPON_label]</li>
+        <li>implement(IMPLEMENTOWNER_type==weapon,p=1)->a [WEAPON_label]'s [TOOL_label]</li>
+        <li>implement(IMPLEMENTOWNER_type==weapon,p=0.5)->a [WEAPON_label]</li>
 
-        <li>implement(implementOwnerType==bodypart,p=2)->[initiator_possessive] [tool_label]</li>
-        <li>implement(implementOwnerType==bodypart,p=1)->[initiator_possessive] [bodypart_adjective] [tool_label]</li>
+        <li>implement(IMPLEMENTOWNER_type==bodypart,p=2)->[INITIATOR_possessive] [TOOL_label]</li>
+        <li>implement(IMPLEMENTOWNER_type==bodypart,p=1)->[INITIATOR_possessive] [adjective_bodypart] [TOOL_label]</li>
 
-        <li>implement(implementOwnerType==hediff,p=2)->[initiator_possessive] [weapon_label]'s [tool_label]</li>
-        <li>implement(implementOwnerType==hediff,p=1)->[initiator_possessive] [weapon_label]</li>
-        <li>implement(implementOwnerType==hediff,p=1)->[initiator_possessive] [tool_label]</li>
-        
-        <li>bodypart_adjective->hard</li>
-        <li>bodypart_adjective->strong</li>
-        <li>bodypart_adjective->powerful</li>
-        <li>bodypart_adjective->forceful</li>
-        <li>bodypart_adjective->mighty</li>
-        <li>bodypart_adjective->rugged</li>
-        <li>bodypart_adjective->stout</li>
-        <li>bodypart_adjective->sturdy</li>
-        <li>bodypart_adjective->solid</li>
-        <li>bodypart_adjective->tough</li>
-        <li>bodypart_adjective(initiator_flesh==True)->calloused</li>
-        <li>bodypart_adjective->firm</li>
+        <li>implement(IMPLEMENTOWNER_type==hediff,p=2)->[INITIATOR_possessive] [WEAPON_label]'s [TOOL_label]</li>
+        <li>implement(IMPLEMENTOWNER_type==hediff,p=1)->[INITIATOR_possessive] [WEAPON_label]</li>
+        <li>implement(IMPLEMENTOWNER_type==hediff,p=1)->[INITIATOR_possessive] [TOOL_label]</li>
+
+        <li>adjective_bodypart->hard</li>
+        <li>adjective_bodypart->strong</li>
+        <li>adjective_bodypart->powerful</li>
+        <li>adjective_bodypart->forceful</li>
+        <li>adjective_bodypart->mighty</li>
+        <li>adjective_bodypart->rugged</li>
+        <li>adjective_bodypart->stout</li>
+        <li>adjective_bodypart->sturdy</li>
+        <li>adjective_bodypart->solid</li>
+        <li>adjective_bodypart->tough</li>
+        <li>adjective_bodypart(initiator_flesh==True)->calloused</li>
+        <li>adjective_bodypart->firm</li>
 
         <li>targetlist(recipient_part_count==1)->[recipient_part0_label]</li>
         <li>targetlist(recipient_part_count==2)->[recipient_part0_label] and [recipient_part1_label]</li>
         <li>targetlist(recipient_part_count==3)->[recipient_part0_label], [recipient_part1_label], and [recipient_part2_label]</li>
-        <li>targetlist->[recipient_part0_label], [recipient_part1_label], [recipient_part2_label], and [recipient_part3_label]</li> <!-- don't include constraint; this acts as a fallback for >=4-->
+        <li>targetlist->[recipient_part0_label], [recipient_part1_label], [recipient_part2_label], and [recipient_part3_label]</li>
+        <!-- don't include constraint; this acts as a fallback for >=4-->
 
-        <li>damaged_present->wounding</li>
-        <li>damaged_present->injuring</li>
+        <li>damaged_present(deflected!=True)->wounding</li>
+        <li>damaged_present(deflected!=True)->injuring</li>
 
         <li>destroyed(p=0.5)->destroyed</li>
         <li>destroyed(p=0.5)->demolished</li>
         <li>destroyed(p=0.5)->ruined</li>
         <li>destroyed(p=0.5)->wrecked</li>
-
-        <li>result(p=0.5)->[damaged_present] [recipient_possessive] [targetlist]</li>
-        <li>result(p=0.2)->[damaged_present] [recipient_possessive] [targetlist] [flavortextadverb]</li>
-        <li>result(p=10000)->[damaged_present] [recipient_possessive] [targetlist] [flavortextsituation]</li>
-        <li>result(p=0.2)->[damaged_present] [recipient_possessive] [targetlist] and [flavortextconsequence]</li>
-        
-        <li>flavortextadverb->painfully</li>
-        <li>flavortextadverb->brutally</li>
-        <li>flavortextadverb->horribly</li>
-        <li>flavortextadverb->agonizingly</li>
-        <li>flavortextadverb->fiercely</li>
-        <li>flavortextadverb->ruthlessly</li>
-        <li>flavortextadverb->savagely</li>
-        <li>flavortextadverb->viciously</li>
-        <li>flavortextadverb->mercilessly</li>
-        <li>flavortextadverb->heartlessly</li>
-
-        <li>flavortextsituation(recipient_flesh!=Mechanoid)->in an explosion of gore</li>
-        <li>flavortextsituation(recipient_flesh==Mechanoid)->in an explosion of scrap</li>
-        <li>flavortextsituation->without emotion</li>
-        <li>flavortextsituation->while wearing a blank look</li>
-        <li>flavortextsituation(initiator_flesh==Normal)->while wearing a savage look</li>
-        <li>flavortextsituation(initiator_flesh==Normal)->while wearing a [badassadjective] look</li>
-        <li>flavortextsituation(initiator_flesh==Normal)->while grimacing</li>
-        <li>flavortextsituation(initiator_flesh==Normal)->while laughing</li>
-        <li>flavortextsituation(initiator_flesh==Normal)->while smirking</li>
-
-        <li>flavortextconsequence(recipient_flesh!=Mechanoid)->leaving a disgusting wound</li>
-        <li>flavortextconsequence->leaving a horrific wound</li>
-        
-        <li>flavortextconsequence(recipient_flesh!=Mechanoid)->making [recipient_objective] [wince] [painevent]</li>
-        <li>flavortextconsequence(p=0.2)->throwing [recipient_objective] off balance</li>
 
         <li>wince(recipient_flesh==Normal)->wince</li>
         <li>wince(recipient_flesh==Normal)->grimace</li>
@@ -85,34 +54,58 @@
         <li>wince(recipient_flesh!=Mechanoid)->shout</li>
         <li>wince->recoil</li>
         <li>wince->stumble</li>
-        
+
         <li>painstate->in</li>
         <li>painstate->with</li>
         <li>painstate->from the</li>
-        
+
         <li>painevent(recipient_flesh!=Mechanoid)->[painstate] pain</li>
         <li>painevent(recipient_flesh!=Mechanoid)->[painstate] agony</li>
         <li>painevent(recipient_flesh==Normal)->with misery</li>
         <li>painevent->from the injury</li>
         <li>painevent->from the wound</li>
 
-        <li>mortarshell->shell</li>
-        <li>mortarshell->shot</li>
-        <li>mortarshell->projectile</li>
-        <li>mortarshell->explosive</li>
-        <li>mortarshell->bomb</li>
-        <li>mortarshell(p=0.3)->ballistic shell</li>
-        <li>mortarshell(p=0.3)->ballistic shot</li>
-        <li>mortarshell(p=0.3)->ballistic projectile</li>
-
         <li>to->to</li>
         <li>to->into</li>
+      </rulesStrings>
+    </rulePack>
+  </RulePackDef>
+  
+  <RulePackDef>
+    <defName>Combat_MeleeDamageIncludes</defName>
+    <rulePack>
+      <rulesStrings>
+        <li>result(p=0.5)->[damaged_present] [RECIPIENT_possessive] [targetlist]</li>
+        <li>result(p=0.1)->[damaged_present] [RECIPIENT_possessive] [targetlist] [adverb_flavortext]</li>
+        <li>result(p=0.1)->[damaged_present] [RECIPIENT_possessive] [targetlist] [flavortext_situation]</li>
+        <li>result(p=0.1)->[damaged_present] [RECIPIENT_possessive] [targetlist] and [flavortext_consequence]</li>
+        
+        <li>adverb_flavortext->painfully</li>
+        <li>adverb_flavortext->brutally</li>
+        <li>adverb_flavortext->horribly</li>
+        <li>adverb_flavortext->agonizingly</li>
+        <li>adverb_flavortext->fiercely</li>
+        <li>adverb_flavortext->ruthlessly</li>
+        <li>adverb_flavortext->savagely</li>
+        <li>adverb_flavortext->viciously</li>
+        <li>adverb_flavortext->mercilessly</li>
+        <li>adverb_flavortext->heartlessly</li>
 
-        <li>initiator_definite->[initiator_labelDefinite]</li>
-        <li>initiator_definite->[initiator_nameShortDef]</li>
+        <li>flavortext_situation(recipient_flesh!=Mechanoid)->in an explosion of gore</li>
+        <li>flavortext_situation(recipient_flesh==Mechanoid)->in an explosion of scrap</li>
+        <li>flavortext_situation->without emotion</li>
+        <li>flavortext_situation(p=0.4)->while wearing a blank look</li>
+        <li>flavortext_situation(p=0.2,initiator_flesh==Normal)->while wearing a savage look</li>
+        <li>flavortext_situation(p=0.2,initiator_flesh==Normal)->while wearing a [AdjectiveBadass] look</li>
+        <li>flavortext_situation(p=0.2,initiator_flesh==Normal)->while grimacing</li>
+        <li>flavortext_situation(p=0.2,initiator_flesh==Normal)->while laughing</li>
+        <li>flavortext_situation(p=0.2,initiator_flesh==Normal)->while smirking</li>
 
-        <li>recipient_definite->[recipient_labelDefinite]</li>
-        <li>recipient_definite->[recipient_nameShortDef]</li>
+        <li>flavortext_consequence(recipient_flesh!=Mechanoid)->leaving a disgusting wound</li>
+        <li>flavortext_consequence->leaving a horrific wound</li>
+        
+        <li>flavortext_consequence(recipient_flesh!=Mechanoid)->making [RECIPIENT_objective] [wince] [painevent]</li>
+        <li>flavortext_consequence(p=0.2)->throwing [RECIPIENT_objective] off balance</li>
       </rulesStrings>
     </rulePack>
   </RulePackDef>
@@ -175,35 +168,98 @@
       </rulesStrings>
     </rulePack>
   </RulePackDef>
+
+  <RulePackDef>
+    <defName>Combat_DeflectIncludes</defName>
+    <rulePack>
+      <rulesStrings>
+        <li>scraped_present->glancing</li>
+        <li>scraped_present->bouncing</li>
+        <li>scraped_present->grazing</li>
+        <li>scraped_present->caroming</li>
+        <li>scraped_present->skipping</li>
+        <li>scraped_present->skating</li>
+
+        <li>scraped_past->glanced</li>
+        <li>scraped_past->bounced</li>
+        <li>scraped_past->grazed</li>
+        <li>scraped_past->caromed</li>
+        <li>scraped_past->skipped</li>
+        <li>scraped_past->skated</li>
+      </rulesStrings>
+    </rulePack>
+  </RulePackDef>
   
   <RulePackDef>
     <defName>Combat_Hit</defName>
     <include>
       <li>Combat_MeleeIncludes</li>
+      <li>Combat_MeleeDamageIncludes</li>
       <li>Combat_WoundIncludes</li>
     </include>
     <rulePack>
       <rulesStrings>
-        <li>logentry(p=0.3)->[initiator_definite] [damaged_past] [recipient_definite] in the [recipient_part0_label].</li>
-        <li>logentry(p=0.1)->[initiator_definite] [damaged_past] [recipient_definite] in the [recipient_part0_label] [flavortextadverb].</li>
-        <li>logentry(p=0.1)->[initiator_definite] [damaged_past] [recipient_definite] in the [recipient_part0_label] [flavortextsituation].</li>
-        <li>logentry(p=0.1)->[initiator_definite] [damaged_past] [recipient_definite] in the [recipient_part0_label], [flavortextconsequence].</li>
-        <li>logentry(p=0.4)->[initiator_definite], wielding [initiator_possessive] [weapon_label] [expertly], [flavortextadverb] [damaged_past] [recipient_definite] in the [recipient_part0_label].</li>
+        <li>r_logentry(p=0.3)->[INITIATOR_definite] [damaged_past] [RECIPIENT_definite] in the [recipient_part0_label].</li>
+        <li>r_logentry(p=0.1)->[INITIATOR_definite] [damaged_past] [RECIPIENT_definite] in the [recipient_part0_label] [adverb_flavortext].</li>
+        <li>r_logentry(p=0.1)->[INITIATOR_definite] [damaged_past] [RECIPIENT_definite] in the [recipient_part0_label] [flavortext_situation].</li>
+        <li>r_logentry(p=0.1)->[INITIATOR_definite] [damaged_past] [RECIPIENT_definite] in the [recipient_part0_label], [flavortext_consequence].</li>
+        <li>r_logentry(p=0.07)->[INITIATOR_definite], wielding [INITIATOR_possessive] [WEAPON_label] [expertly], [damaged_past] [RECIPIENT_definite] in the [recipient_part0_label].</li>
+        <li>r_logentry(p=0.03)->[INITIATOR_definite], wielding [INITIATOR_possessive] [WEAPON_label] [expertly], [adverb_flavortext] [damaged_past] [RECIPIENT_definite] in the [recipient_part0_label].</li>
 
         <!-- combined high priority, if we destroyed something -->
-        <li>logentry(p=0.3)->[initiator_definite] [destroyed_past] [recipient_definite]'s [destroyed_targets].</li>
-        <li>logentry(p=0.3)->[initiator_definite] [destroyed_past] [recipient_definite]'s [destroyed_targets] [destroyed_suffix].</li>
-        <li>logentry(p=0.3)->[initiator_definite] [destroyed_past] [recipient_definite]'s [destroyed_targets] [expertly].</li>
-        <li>logentry(p=0.3)->[initiator_definite] [destroyed_past] [recipient_definite]'s [destroyed_targets] with [implement].</li>
+        <li>r_logentry(p=0.3)->[INITIATOR_definite] [destroyed_past] [RECIPIENT_definite]'s [destroyed_targets].</li>
+        <li>r_logentry(p=0.3)->[INITIATOR_definite] [destroyed_past] [RECIPIENT_definite]'s [destroyed_targets] [destroyed_suffix].</li>
+        <li>r_logentry(p=0.3)->[INITIATOR_definite] [destroyed_past] [RECIPIENT_definite]'s [destroyed_targets] [expertly].</li>
+        <li>r_logentry(p=0.3)->[INITIATOR_definite] [destroyed_past] [RECIPIENT_definite]'s [destroyed_targets] with [implement].</li>
 
-        <li>result(p=1,recipient_part_damaged_count==0)->[destroyed_present] [recipient_possessive] [destroyed_targets]</li>
-        <li>result(p=1,recipient_part_destroyed_count==0)->[damaged_present] [recipient_possessive] [damaged_targets]</li>
-        <li>result(p=1)->[destroyed_present] [recipient_possessive] [destroyed_targets] and [damaged_present] [recipient_possessive] [damaged_targets]</li>
+        <li>result(p=1,recipient_part_damaged_count==0)->[destroyed_present] [RECIPIENT_possessive] [destroyed_targets]</li>
+        <li>result(p=1,recipient_part_destroyed_count==0)->[damaged_present] [RECIPIENT_possessive] [damaged_targets]</li>
+        <li>result(p=1)->[destroyed_present] [RECIPIENT_possessive] [destroyed_targets] and [damaged_present] [RECIPIENT_possessive] [damaged_targets]</li>
         
-        <li>action(p=0.3)->[initiator_definite] hit [recipient_definite] with a [damaged_inf] from [implement]</li>
-        <li>action(p=0.3)->[initiator_definite] used [implement] to [damaged_inf] [recipient_definite]</li>
-        <li>action->[initiator_definite] [damaged_past] [recipient_definite] with [implement]</li>
-        <li>action(p=0.6)->[initiator_definite] [damaged_past] [recipient_definite]</li>
+        <li>action(p=0.3)->[INITIATOR_definite] hit [RECIPIENT_definite] with a [damaged_inf] from [implement]</li>
+        <li>action(p=0.3)->[INITIATOR_definite] used [implement] to [damaged_inf] [RECIPIENT_definite]</li>
+        <li>action->[INITIATOR_definite] [damaged_past] [RECIPIENT_definite] with [implement]</li>
+        <li>action(p=0.6)->[INITIATOR_definite] [damaged_past] [RECIPIENT_definite]</li>
+      </rulesStrings>
+    </rulePack>
+  </RulePackDef>
+
+  <RulePackDef>
+    <defName>Combat_Deflect</defName>
+    <include>
+      <li>Combat_MeleeIncludes</li>
+      <li>Combat_DeflectIncludes</li>
+    </include>
+    <rulePack>
+      <rulesStrings>
+        <li>r_logentry(p=1)->[INITIATOR_definite] [damaged_past] [at] [RECIPIENT_definite] in the [recipient_part0_label] [deflected_result].</li>
+        <li>r_logentry(p=0.3)->[INITIATOR_definite], wielding [INITIATOR_possessive] [WEAPON_label] [expertly], [damaged_past] [RECIPIENT_definite] in the [recipient_part0_label] [deflected_result].</li>
+
+        <li>r_logentry(p=0.3)->[INITIATOR_definite] hit [RECIPIENT_definite] with a [damaged_inf] from [implement] [deflected_result].</li>
+        <li>r_logentry(p=0.3)->[INITIATOR_definite] used [implement] to [damaged_inf] [RECIPIENT_definite] [deflected_result].</li>
+        <li>r_logentry(p=0.6)->[INITIATOR_definite] [damaged_past] [at] [RECIPIENT_definite] with [implement] [deflected_result].</li>
+        <li>r_logentry(p=0.6)->[INITIATOR_definite] [damaged_past] [at] [RECIPIENT_definite] [deflected_result].</li>
+
+        <li>at-></li>
+        <li>at->at</li>
+        
+        <li>deflected_result-> [adverb_deflected]</li>
+        <li>deflected_result->, [deflected_consequence]</li>
+
+        <li>adverb_deflected_opt(p=4)-></li>
+        <li>adverb_deflected_opt->[adverb_deflected]</li>
+        
+        <li>adverb_deflected->harmlessly</li>
+        <li>adverb_deflected->uselessly</li>
+        
+        <li>deflected_consequence->but the [TOOL_label] [scraped_past] off [adverb_deflected_opt]</li>
+        <li>deflected_consequence->[scraped_present] off [RECIPIENT_possessive] armor [adverb_deflected_opt]</li>
+
+        <li>scraped_present->scraping</li>
+        <li>scraped_present->sliding</li>
+
+        <li>scraped_past->scraped</li>
+        <li>scraped_past->slid</li>
       </rulesStrings>
     </rulePack>
   </RulePackDef>
@@ -212,20 +268,20 @@
     <defName>Combat_FailIncludes</defName>
     <rulePack>
       <rulesStrings>
-        <li>action->[initiator_definite] [tried] to [damaged_inf] [recipient_definite]</li>
-        <li>action->[initiator_definite] [tried] to [damaged_inf] [recipient_definite] with [implement]</li>
-        <li>action->[initiator_definite] [tried] to use [implement] to [damaged_inf] [recipient_definite]</li>
-        <li>action->[initiator_definite] swung [initiator_possessive] [weapon_label] at [recipient_definite]</li>
-        <li>action(p=0.3)->[initiator_definite] [genericattackverb] [towardsat] [recipient_definite] with [implement]</li>
-        <li>action(p=0.3)->[initiator_definite] [genericattackverb] [towardsat] [recipient_definite]</li>
-        <li>action(p=0.3)->[initiator_definite] [genericattackverb] with [implement]</li>
+        <li>action->[INITIATOR_definite] [tried] to [damaged_inf] [RECIPIENT_definite]</li>
+        <li>action->[INITIATOR_definite] [tried] to [damaged_inf] [RECIPIENT_definite] with [implement]</li>
+        <li>action->[INITIATOR_definite] [tried] to use [implement] to [damaged_inf] [RECIPIENT_definite]</li>
+        <li>action->[INITIATOR_definite] swung [INITIATOR_possessive] [WEAPON_label] at [RECIPIENT_definite]</li>
+        <li>action(p=0.3)->[INITIATOR_definite] [verb_genericattack] [towardsat] [RECIPIENT_definite] with [implement]</li>
+        <li>action(p=0.3)->[INITIATOR_definite] [verb_genericattack] [towardsat] [RECIPIENT_definite]</li>
+        <li>action(p=0.3)->[INITIATOR_definite] [verb_genericattack] with [implement]</li>
 
         <li>towardsat->towards</li>
         <li>towardsat->at</li>
         
-        <li>genericattackverb->swung</li>
-        <li>genericattackverb->flailed</li>
-        <li>genericattackverb->thrashed</li>
+        <li>verb_genericattack->swung</li>
+        <li>verb_genericattack->flailed</li>
+        <li>verb_genericattack->thrashed</li>
 
         <li>tried->tried</li>
         <li>tried->attempted</li>
@@ -241,12 +297,12 @@
     </include>
     <rulePack>
       <rulesStrings>
-        <li>logentry(p=0.2)->[recipient_definite] avoided [initiator_definite]'s [weapon_label] [damaged_inf].</li>
-        <li>logentry(p=0.2)->[initiator_definite] missed [recipient_definite] with a [damaged_inf] from [implement].</li>
+        <li>r_logentry(p=0.2)->[RECIPIENT_definite] avoided [INITIATOR_definite]'s [WEAPON_label] [damaged_inf].</li>
+        <li>r_logentry(p=0.2)->[INITIATOR_definite] missed [RECIPIENT_definite] with a [damaged_inf] from [implement].</li>
         
-        <li>logentry(p=0.2)->[initiator_definite] [failtype] while trying to [damaged_inf] [recipient_definite] with [implement].</li>
-        <li>logentry(p=0.2)->[initiator_definite] [failtype] while trying to [damaged_inf] [recipient_definite].</li>
-        <li>logentry(p=0.2)->[initiator_definite] [failtype].</li>
+        <li>r_logentry(p=0.2)->[INITIATOR_definite] [failtype] while trying to [damaged_inf] [RECIPIENT_definite] with [implement].</li>
+        <li>r_logentry(p=0.2)->[INITIATOR_definite] [failtype] while trying to [damaged_inf] [RECIPIENT_definite].</li>
+        <li>r_logentry(p=0.2)->[INITIATOR_definite] [failtype].</li>
         
         <li>failtype->stumbled</li>
         <li>failtype->tripped</li>
@@ -271,85 +327,102 @@
     </include>
     <rulePack>
       <rulesStrings>
-        <li>logentry(p=0.2)->[recipient_definite] dodged [initiator_definite]'s [damaged_inf] from [implement].</li>
-        <li>logentry(p=0.2)->[recipient_definite] dodged [initiator_definite]'s [damaged_inf].</li>
+        <li>r_logentry(p=0.2)->[RECIPIENT_definite] dodged [INITIATOR_definite]'s [damaged_inf] from [implement].</li>
+        <li>r_logentry(p=0.2)->[RECIPIENT_definite] dodged [INITIATOR_definite]'s [damaged_inf].</li>
 
-        <li>result->but [recipient_definite] leapt out of the way</li>
-        <li>result->but was deceived by [recipient_definite]'s feint</li>
+        <li>result->but [RECIPIENT_definite] leapt out of the way</li>
+        <li>result->but was deceived by [RECIPIENT_definite]'s feint</li>
         <li>result->but the attack was cleverly avoided</li>
-      </rulesStrings>
-    </rulePack>
-  </RulePackDef>
-
-  <RulePackDef>
-    <defName>Combat_RangedIncludes</defName>
-    <rulePack>
-      <rulesStrings>
-        <li>initiator_definite->[initiator_labelDefinite]</li>
-        <li>initiator_definite->[initiator_nameShortDef]</li>
-
-        <li>recipient_definite->[recipient_labelDefinite]</li>
-        <li>recipient_definite->[recipient_nameShortDef]</li>
-
-        <li>originalTarget_definite->[originalTarget_labelDefinite]</li>
-        <li>originalTarget_definite->[originalTarget_nameShortDef]</li>
       </rulesStrings>
     </rulePack>
   </RulePackDef>
   
   <RulePackDef>
     <defName>Combat_RangedFire</defName>
-    <include>
-      <li>Combat_RangedIncludes</li>
-    </include>
     <rulePack>
       <rulesStrings>
-        <li>logentry->[initiator_definite] [shotat] [recipient_definite] with [initiator_possessive] [weapon_label].</li>
-        <li>logentry->[initiator_definite] [shot] [initiator_possessive] [weapon_label] at [recipient_definite].</li>
-        <li>logentry->[initiator_definite] [shotat] [recipient_definite].</li>
-        <li>logentry->[initiator_definite] [shot_a] [weapon_projectile_label] [burst] at [recipient_definite].</li>
-        <li>logentry(recipient_missing==True)->[initiator_definite] [shot_a] [weapon_projectile_label].</li>
-        <li>logentry(recipient_missing==True)->[initiator_definite] [shot] [initiator_possessive] [weapon_label].</li>
+        <li>r_logentry->[INITIATOR_definite] [shotat] [RECIPIENT_definite] with [INITIATOR_possessive] [WEAPON_label].</li>
+        <li>r_logentry->[INITIATOR_definite] [shot] [INITIATOR_possessive] [WEAPON_label] at [RECIPIENT_definite].</li>
+        <li>r_logentry->[INITIATOR_definite] [shotat] [RECIPIENT_definite].</li>
+        <li>r_logentry->[INITIATOR_definite] [shot_a] [WEAPON_projectile_label] [burst] at [RECIPIENT_definite].</li>
+        <li>r_logentry(RECIPIENT_missing==True)->[INITIATOR_definite] [shot_a] [WEAPON_projectile_label].</li>
+        <li>r_logentry(RECIPIENT_missing==True)->[INITIATOR_definite] [shot] [INITIATOR_possessive] [WEAPON_label].</li>
 
-        <li>shot_a->[shotadverb] [shotverb] a</li>
-        <li>shot_a(p=2)->[shotverb] a</li>
+        <li>shot_a->[adverb_shot] [verb_shot] a</li>
+        <li>shot_a(p=2)->[verb_shot] a</li>
 
-        <li>shot(p=2)->[shotverb]</li>
-        <li>shot->[shotadverb] [shotverb]</li>
+        <li>shot(p=2)->[verb_shot]</li>
+        <li>shot->[adverb_shot] [verb_shot]</li>
 
         <li>shotat->shot [aburst] at</li>
-        <li>shotat->[shotadverb] shot [aburst] at</li>
+        <li>shotat->[adverb_shot] shot [aburst] at</li>
         <li>shotat(p=0.5)->tried to shoot [aburst] at</li>
         <li>shotat(p=0.3)->took a shot at</li>
-        <li>shotat(p=0.2)->took a [shotadjective] shot at</li>
+        <li>shotat(p=0.2)->took a [adjective_shot] shot at</li>
         <li>shotat->fired [aburst] at</li>
-        <li>shotat->fired [aburst] [shotadverb] at</li>
+        <li>shotat->fired [aburst] [adverb_shot] at</li>
         <li>shotat(p=0.5)->aimed and fired [aburst] at</li>
         <li>shotat(p=0.3)->opened fire at</li>
 
         <li>aburst-></li>
-        <li>aburst(burst==True,p=3)->a burst</li>
+        <li>aburst(BURST==True,p=3)->a burst</li>
 
         <li>burst-></li>
-        <li>burst(burst==True,p=3)->burst</li>
+        <li>burst(BURST==True,p=3)->burst</li>
 
-        <li>shotverb->shot</li>
-        <li>shotverb->fired</li>
-        <li>shotverb->discharged</li>
+        <li>verb_shot->shot</li>
+        <li>verb_shot->fired</li>
+        <li>verb_shot->discharged</li>
         
-        <li>shotadverb->carefully</li>
-        <li>shotadverb->quickly</li>
-        <li>shotadverb->precisely</li>
-        <li>shotadverb->deliberately</li>
-        <li>shotadverb(initiator_flesh!=Mechanoid)->gingerly</li>
-        <li>shotadverb->precisely</li>
-        <li>shotadverb(initiator_flesh!=Mechanoid)->warily</li>
+        <li>adverb_shot->carefully</li>
+        <li>adverb_shot->quickly</li>
+        <li>adverb_shot->precisely</li>
+        <li>adverb_shot->deliberately</li>
+        <li>adverb_shot(initiator_flesh!=Mechanoid)->gingerly</li>
+        <li>adverb_shot->precisely</li>
+        <li>adverb_shot(initiator_flesh!=Mechanoid)->warily</li>
 
-        <li>shotadjective->careful</li>
-        <li>shotadjective->quick</li>
-        <li>shotadjective->deliberate</li>
-        <li>shotadjective->precise</li>
-        <li>shotadjective(initiator_flesh!=Mechanoid)->wary</li>
+        <li>adjective_shot->careful</li>
+        <li>adjective_shot->quick</li>
+        <li>adjective_shot->deliberate</li>
+        <li>adjective_shot->precise</li>
+        <li>adjective_shot(initiator_flesh!=Mechanoid)->wary</li>
+      </rulesStrings>
+    </rulePack>
+  </RulePackDef>
+
+  <RulePackDef>
+    <defName>Combat_RangedFire_Thrown</defName>
+    <rulePack>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_definite] [threw] [INITIATOR_possessive] [WEAPON_projectile_label] at [RECIPIENT_definite].</li>
+        <li>r_logentry->[INITIATOR_definite] [threw_a] [WEAPON_projectile_label] at [RECIPIENT_definite].</li>
+        <li>r_logentry(RECIPIENT_missing==True)->[INITIATOR_definite] [threw] [INITIATOR_possessive] [WEAPON_projectile_label].</li>
+        <li>r_logentry(RECIPIENT_missing==True)->[INITIATOR_definite] [threw_a] [WEAPON_projectile_label].</li>
+
+        <li>threw_a->[adverb_threw] [verb_threw] a</li>
+        <li>threw_a(p=2)->[verb_threw] a</li>
+
+        <li>threw(p=2)->[verb_threw]</li>
+        <li>threw->[adverb_threw] [verb_threw]</li>
+        
+        <li>verb_threw->threw</li>
+        <li>verb_threw->flung</li>
+        <li>verb_threw->launched</li>
+
+        <li>adverb_threw->carefully</li>
+        <li>adverb_threw->quickly</li>
+        <li>adverb_threw->precisely</li>
+        <li>adverb_threw->deliberately</li>
+        <li>adverb_threw(initiator_flesh!=Mechanoid)->gingerly</li>
+        <li>adverb_threw->precisely</li>
+        <li>adverb_threw(initiator_flesh!=Mechanoid)->warily</li>
+
+        <li>adjective_threw->careful</li>
+        <li>adjective_threw->quick</li>
+        <li>adjective_threw->deliberate</li>
+        <li>adjective_threw->precise</li>
+        <li>adjective_threw(initiator_flesh!=Mechanoid)->wary</li>
       </rulesStrings>
     </rulePack>
   </RulePackDef>
@@ -357,39 +430,38 @@
   <RulePackDef>
     <defName>Combat_RangedDamage</defName>
     <include>
-      <li>Combat_RangedIncludes</li>
       <li>Combat_WoundIncludes</li>
     </include>
     <rulePack>
       <rulesStrings>
         <!-- various destroyed options; we allow these even if we could use hybrid, to cut down a bit on clutter -->
-        <li>logentry->[initiator_definite]'s [weapon_projectile_label] [destroyed_past] [recipient_definite]'s [destroyed_targets].</li>
-        <li>logentry->[initiator_definite]'s [weapon_projectile_label] [destroyed_past] [recipient_definite]'s [destroyed_targets] [to] [destroyed_suffix].</li>
-        <li>logentry->[initiator_definite]'s [weapon_projectile_label] [destroyed_past] [recipient_definite]'s [destroyed_targets] [expertly].</li>
-        <li>logentry(p=2)->[initiator_definite]'s [weapon_projectile_label] [missed] [originalTarget_definite] and [destroyed_past] [recipient_definite]'s [destroyed_targets].</li>
-        <li>logentry(p=2)->[initiator_definite]'s [weapon_projectile_label] [missed] [originalTarget_definite], [destroyed_present] [recipient_definite]'s [destroyed_targets].</li>
-        <li>logentry->[recipient_definite]'s [destroyed_targets] was [destroyed_past] by [initiator_definite]'s [weapon_projectile_label].</li>
-        <li>logentry->[recipient_definite]'s [destroyed_targets] was [destroyed_past] by [initiator_definite]'s [expert] [weapon_projectile_label].</li>
-        <li>logentry->[recipient_definite]'s [destroyed_targets] was [destroyed_past] into [destroyed_suffix] by [initiator_definite]'s [weapon_projectile_label].</li>
+        <li>r_logentry->[INITIATOR_definite]'s [WEAPON_projectile_label] [destroyed_past] [RECIPIENT_definite]'s [destroyed_targets].</li>
+        <li>r_logentry->[INITIATOR_definite]'s [WEAPON_projectile_label] [destroyed_past] [RECIPIENT_definite]'s [destroyed_targets] [to] [destroyed_suffix].</li>
+        <li>r_logentry->[INITIATOR_definite]'s [WEAPON_projectile_label] [destroyed_past] [RECIPIENT_definite]'s [destroyed_targets] [expertly].</li>
+        <li>r_logentry(p=2)->[INITIATOR_definite]'s [WEAPON_projectile_label] [missed] [ORIGINALTARGET_definite] and [destroyed_past] [RECIPIENT_definite]'s [destroyed_targets].</li>
+        <li>r_logentry(p=2)->[INITIATOR_definite]'s [WEAPON_projectile_label] [missed] [ORIGINALTARGET_definite], [destroyed_present] [RECIPIENT_definite]'s [destroyed_targets].</li>
+        <li>r_logentry->[RECIPIENT_definite]'s [destroyed_targets] was [destroyed_past] by [INITIATOR_definite]'s [WEAPON_projectile_label].</li>
+        <li>r_logentry->[RECIPIENT_definite]'s [destroyed_targets] was [destroyed_past] by [INITIATOR_definite]'s [expert] [WEAPON_projectile_label].</li>
+        <li>r_logentry->[RECIPIENT_definite]'s [destroyed_targets] was [destroyed_past] into [destroyed_suffix] by [INITIATOR_definite]'s [WEAPON_projectile_label].</li>
         
         <!-- various damaged options; don't show if something was destroyed -->
-        <li>logentry(recipient_partDestroyed_count==0)->[initiator_definite]'s [weapon_projectile_label] [damaged_past] [recipient_definite]'s [damaged_targets].</li>
-        <li>logentry(recipient_partDestroyed_count==0)->[initiator_definite]'s [weapon_projectile_label] [damaged_past] [recipient_definite]'s [damaged_targets] [expertly].</li>
-        <li>logentry(recipient_partDestroyed_count==0,p=2)->[initiator_definite]'s [weapon_projectile_label] [missed] [originalTarget_definite] and [damaged_past] [recipient_definite]'s [damaged_targets].</li>
-        <li>logentry(recipient_partDestroyed_count==0,p=2)->[initiator_definite]'s [weapon_projectile_label] [missed] [originalTarget_definite], [damaged_present] [recipient_definite]'s [damaged_targets].</li>
-        <li>logentry(recipient_partDestroyed_count==0)->[recipient_definite]'s [damaged_targets] was [damagedverb_past] by [initiator_definite]'s [weapon_projectile_label].</li>
-        <li>logentry(recipient_partDestroyed_count==0)->[recipient_definite]'s [damaged_targets] was [damagedverb_past] by [initiator_definite]'s [expert] [weapon_projectile_label].</li>
+        <li>r_logentry(recipient_part_destroyed_count==0)->[INITIATOR_definite]'s [WEAPON_projectile_label] [damaged_past] [RECIPIENT_definite]'s [damaged_targets].</li>
+        <li>r_logentry(recipient_part_destroyed_count==0)->[INITIATOR_definite]'s [WEAPON_projectile_label] [damaged_past] [RECIPIENT_definite]'s [damaged_targets] [expertly].</li>
+        <li>r_logentry(recipient_part_destroyed_count==0,p=2)->[INITIATOR_definite]'s [WEAPON_projectile_label] [missed] [ORIGINALTARGET_definite] and [damaged_past] [RECIPIENT_definite]'s [damaged_targets].</li>
+        <li>r_logentry(recipient_part_destroyed_count==0,p=2)->[INITIATOR_definite]'s [WEAPON_projectile_label] [missed] [ORIGINALTARGET_definite], [damaged_present] [RECIPIENT_definite]'s [damaged_targets].</li>
+        <li>r_logentry(recipient_part_destroyed_count==0)->[RECIPIENT_definite]'s [damaged_targets] was [damaged_past] by [INITIATOR_definite]'s [WEAPON_projectile_label].</li>
+        <li>r_logentry(recipient_part_destroyed_count==0)->[RECIPIENT_definite]'s [damaged_targets] was [damaged_past] by [INITIATOR_definite]'s [expert] [WEAPON_projectile_label].</li>
         
         <!-- damaged/destroyed hybrid -->
-        <li>logentry(p=3)->[initiator_definite]'s [weapon_projectile_label] [destroyed_past] [recipient_definite]'s [destroyed_targets] and [damaged_past] [recipient_possessive] [damaged_targets].</li>
-        <li>logentry(p=6)->[initiator_definite]'s [weapon_projectile_label] [missed] [originalTarget_definite], [destroyed_present] [recipient_definite]'s [destroyed_targets] and [damaged_present] [recipient_possessive] [damaged_targets].</li>
+        <li>r_logentry(p=3)->[INITIATOR_definite]'s [WEAPON_projectile_label] [destroyed_past] [RECIPIENT_definite]'s [destroyed_targets] and [damaged_past] [RECIPIENT_possessive] [damaged_targets].</li>
+        <li>r_logentry(p=6)->[INITIATOR_definite]'s [WEAPON_projectile_label] [missed] [ORIGINALTARGET_definite], [destroyed_present] [RECIPIENT_definite]'s [destroyed_targets] and [damaged_present] [RECIPIENT_possessive] [damaged_targets].</li>
         
         <!-- don't mention damage or destruction; uncommon, but intended as a fallback -->
-        <li>logentry(p=0.2)->[initiator_definite] hit [recipient_definite] with a [weapon_projectile_label].</li>
-        <li>logentry(p=0.2)->[initiator_definite]'s [weapon_projectile_label] hit [recipient_definite].</li>
-        <li>logentry(p=0.4)->[initiator_definite] [missed] [originalTarget_definite] and hit [recipient_definite] with a [weapon_projectile_label].</li>
-        <li>logentry(p=0.4)->[initiator_definite]'s [weapon_projectile_label] [missed] [originalTarget_definite] and hit [recipient_definite].</li>
-        <li>logentry(p=0.2)->[initiator_definite] hit [recipient_definite] with a [weapon_projectile_label] intended for [originalTarget_definite].</li>
+        <li>r_logentry(p=0.2)->[INITIATOR_definite] hit [RECIPIENT_definite] with a [WEAPON_projectile_label].</li>
+        <li>r_logentry(p=0.2)->[INITIATOR_definite]'s [WEAPON_projectile_label] hit [RECIPIENT_definite].</li>
+        <li>r_logentry(p=0.4)->[INITIATOR_definite] [missed] [ORIGINALTARGET_definite] and hit [RECIPIENT_definite] with a [WEAPON_projectile_label].</li>
+        <li>r_logentry(p=0.4)->[INITIATOR_definite]'s [WEAPON_projectile_label] [missed] [ORIGINALTARGET_definite] and hit [RECIPIENT_definite].</li>
+        <li>r_logentry(p=0.2)->[INITIATOR_definite] hit [RECIPIENT_definite] with a [WEAPON_projectile_label] intended for [ORIGINALTARGET_definite].</li>
         
         <!-- fallback, also a little variety -->
         <li>weapon_projectile_label(p=0.05)->shot</li>
@@ -441,18 +513,60 @@
       </rulesStrings>
     </rulePack>
   </RulePackDef>
-  
+
   <RulePackDef>
-    <defName>Combat_RangedMiss</defName>
+    <defName>Combat_RangedDeflect</defName>
     <include>
-      <li>Combat_RangedIncludes</li>
+      <li>Combat_DeflectIncludes</li>
     </include>
     <rulePack>
       <rulesStrings>
-        <li>logentry->[initiator_definite]'s [weapon_projectile_label] [missed].</li>
+        <li>r_logentry->[INITIATOR_definite]'s [WEAPON_projectile_label] [damaged_past] [RECIPIENT_definite][damaged_target] [deflected_result].</li>
+        <li>r_logentry(p=2)->[INITIATOR_definite]'s [WEAPON_projectile_label] [missed] [ORIGINALTARGET_definite] and [damaged_past] [RECIPIENT_definite][damaged_target_possessive_opt] [deflected_result].</li>
+        <li>r_logentry->[RECIPIENT_definite][damaged_target_possessive_opt] was [damaged_past] by [INITIATOR_definite]'s [WEAPON_projectile_label] [deflected_result].</li>
+
+        <li>r_logentry(p=0.2)->[INITIATOR_definite] hit [RECIPIENT_definite][damaged_target_possessive_opt] with a [WEAPON_projectile_label] [deflected_result].</li>
+        <li>r_logentry(p=0.2)->[INITIATOR_definite]'s [WEAPON_projectile_label] hit [RECIPIENT_definite][damaged_target_possessive_opt] [deflected_result].</li>
+        <li>r_logentry(p=0.4)->[INITIATOR_definite] [missed] [ORIGINALTARGET_definite] and hit [RECIPIENT_definite][damaged_target_possessive_opt] with a [WEAPON_projectile_label] [deflected_result].</li>
+        <li>r_logentry(p=0.4)->[INITIATOR_definite]'s [WEAPON_projectile_label] [missed] [ORIGINALTARGET_definite] and hit [RECIPIENT_definite][damaged_target_possessive_opt] [deflected_result].</li>
+        <li>r_logentry(p=0.2)->[INITIATOR_definite] hit [RECIPIENT_definite][damaged_target_possessive_opt] with a [WEAPON_projectile_label] intended for [ORIGINALTARGET_definite] [deflected_result].</li>
+
+        <!-- fallback, also a little variety -->
+        <li>weapon_projectile_label(p=0.05)->shot</li>
+
+        <li>damaged_target_possessive_opt-></li>
+        <li>damaged_target_possessive_opt(recipient_part_damaged0_outside==True)->'s [recipient_part_damaged0_label]</li>
+
+        <li>deflected_result-> [adverb_deflected]</li>
+        <li>deflected_result->, [deflected_consequence]</li>
+
+        <li>adverb_deflected_opt(p=4)-></li>
+        <li>adverb_deflected_opt->[adverb_deflected]</li>
+
+        <li>adverb_deflected->harmlessly</li>
+        <li>adverb_deflected->uselessly</li>
+
+        <li>deflected_consequence->but it [scraped_past] off [adverb_deflected_opt]</li>
+        <li>deflected_consequence->[scraped_present] off [RECIPIENT_possessive] armor [adverb_deflected_opt]</li>
+
+        <li>scraped_past->ricocheted</li>
+
+        <li>scraped_present->ricocheting</li>
       
-        <li>logentry->[initiator_definite] missed [originalTarget_definite].</li>
-        <li>logentry->[originalTarget_definite] [avoidance], [initiator_definite]'s [weapon_projectile_label] [missing].</li>
+        <li>missed->missed</li>
+        <li>missed->narrowly missed</li>
+      </rulesStrings>
+    </rulePack>
+  </RulePackDef>
+  
+  <RulePackDef>
+    <defName>Combat_RangedMiss</defName>
+    <rulePack>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_definite]'s [WEAPON_projectile_label] [missed].</li>
+      
+        <li>r_logentry->[INITIATOR_definite] missed [ORIGINALTARGET_definite].</li>
+        <li>r_logentry->[ORIGINALTARGET_definite] [avoidance], [INITIATOR_definite]'s [WEAPON_projectile_label] [missing].</li>
 
         <li>missed(p=4)->missed</li>
         <li>missed(p=2)->missed by a small margin</li>
@@ -461,12 +575,11 @@
         <li>missed->flew into the air</li>
         <li>missed->flew high into the air</li>
         <li>missed->dug into the ground</li>
-        <li>missed->caromed off [originalTarget_definite]'s cover</li>
         <li>missed->skipped off the ground and was lost</li>
         <li>missed->dug a divot out of the ground</li>
-        <li>missed(p=0.2)->passed within millimeters of [originalTarget_definite]</li>
-        <li>missed->passed within centimeters of [originalTarget_definite]</li>
-        <li>missed->passed within a meter of [originalTarget_definite]</li>
+        <li>missed(p=0.2)->passed within millimeters of [ORIGINALTARGET_definite]</li>
+        <li>missed->passed within centimeters of [ORIGINALTARGET_definite]</li>
+        <li>missed->passed within a meter of [ORIGINALTARGET_definite]</li>
         <li>missed->was blown offcourse</li>
       
         <li>missing->missing</li>
@@ -478,16 +591,16 @@
         <li>missing->digging into the ground</li>
         <li>missing->skipping off the ground and becoming lost</li>
         <li>missing->digging a divot out of the ground</li>
-        <li>missing(p=0.2)->passing within millimeters of [originalTarget_definite]</li>
-        <li>missing->passing within centimeters of [originalTarget_definite]</li>
-        <li>missing->passing within a meter of [originalTarget_definite]</li>
+        <li>missing(p=0.2)->passing within millimeters of [ORIGINALTARGET_definite]</li>
+        <li>missing->passing within centimeters of [ORIGINALTARGET_definite]</li>
+        <li>missing->passing within a meter of [ORIGINALTARGET_definite]</li>
         <li>missing->blowing offcourse</li>
 
-        <li>avoidance(originalTarget_mobile==True)->jerked aside at the last second</li>
-        <li>avoidance(originalTarget_mobile==True)->stumbled in an attempt to escape</li>
-        <li>avoidance(originalTarget_mobile==True)->threw [originalTarget_objective]self to the ground</li>
-        <li>avoidance(originalTarget_mobile==True,p=0.3)->ducked behind the nearest piece of cover</li>
-        <li>avoidance(originalTarget_mobile==True,p=0.3)->leaped behind the nearest piece of cover</li>
+        <li>avoidance(ORIGINALTARGET_mobile==True)->jerked aside at the last second</li>
+        <li>avoidance(ORIGINALTARGET_mobile==True)->stumbled in an attempt to escape</li>
+        <li>avoidance(ORIGINALTARGET_mobile==True)->threw [ORIGINALTARGET_objective]self to the ground</li>
+        <li>avoidance(ORIGINALTARGET_mobile==True,p=0.3)->ducked behind [COVER_definite]</li>
+        <li>avoidance(ORIGINALTARGET_mobile==True,p=0.3)->leaped behind [COVER_definite]</li>
       </rulesStrings>
     </rulePack>
   </RulePackDef>
@@ -495,43 +608,39 @@
   <RulePackDef>
     <defName>Combat_ExplosionImpact</defName>
     <include>
-      <li>Combat_RangedIncludes</li>
       <li>Combat_WoundIncludes</li>
       <li>Combat_MeleeIncludes</li>
+      <li>Combat_MeleeDamageIncludes</li>
     </include>
     <rulePack>
       <rulesStrings>
-        <li>prefix->The [blast] [fromof] [initiator_definite]'s [weapon_projectile_label]</li>
-        <li>prefix->The [blast] [fromof] [initiator_definite]'s [weapon_label]</li>
-        <li>prefix->The [blast] [fromof] [initiator_definite]'s [mortarshell]</li>
-        <li>prefix->The [blast] [fromof] [initiator_definite]'s [weapon_projectile_label]</li>
-        <li>prefix->The [blast] [fromof] [initiator_definite]'s [weapon_label]</li>
-        <li>prefix->The [blast] [fromof] [initiator_definite]'s [mortarshell]</li>
-        <li>prefix->[initiator_definite]'s [blast]</li>
-        <li>prefix->[initiator_definite]'s [weapon_projectile_label] [blast]</li>
-        <li>prefix->[initiator_definite]'s [mortarshell] [blast]</li>
-        <li>prefix->[initiator_definite]'s [weapon_label] [blast]</li>
-        <li>prefix->[initiator_definite]'s [weapon_projectile_label]</li>
-        <li>prefix->[initiator_definite]'s [mortarshell]</li>
-        <li>prefix->[initiator_definite]'s [weapon_label]</li>
+        <li>prefix->The [blast] [fromof] [INITIATOR_definite]'s [WEAPON_projectile_label]</li>
+        <li>prefix->The [blast] [fromof] [INITIATOR_definite]'s [WEAPON_label]</li>
+        <li>prefix->The [blast] [fromof] [INITIATOR_definite]'s [WEAPON_projectile_label]</li>
+        <li>prefix->The [blast] [fromof] [INITIATOR_definite]'s [WEAPON_label]</li>
+        <li>prefix->[INITIATOR_definite]'s [blast]</li>
+        <li>prefix->[INITIATOR_definite]'s [WEAPON_projectile_label] [blast]</li>
+        <li>prefix->[INITIATOR_definite]'s [WEAPON_label] [blast]</li>
+        <li>prefix->[INITIATOR_definite]'s [WEAPON_projectile_label]</li>
+        <li>prefix->[INITIATOR_definite]'s [WEAPON_label]</li>
         
-        <li>logentry->[prefix] [injured] [recipient_definite].</li>
+        <li>r_logentry->[prefix] [injured] [RECIPIENT_definite].</li>
 
-        <li>logentry->[prefix] [destroyed_past] [recipient_definite]'s [destroyed_targets].</li>
-        <li>logentry->[prefix] [destroyed_past] [recipient_definite]'s [destroyed_targets] [flavortextadverb].</li>
-        <li>logentry->[prefix] [flavortextadverb] [destroyed_past] [recipient_definite]'s [destroyed_targets].</li>
-        <li>logentry->[prefix] [destroyed_past] [recipient_definite]'s [destroyed_targets] and [damaged_past] [recipient_possessive] [damaged_targets].</li>
-        <li>logentry(recipient_part_destroyed_count==0)->[prefix] [damaged_past] [recipient_definite]'s [damaged_targets].</li>
-        <li>logentry(recipient_part_destroyed_count==0)->[prefix] [damaged_past] [recipient_definite]'s [damaged_targets] [flavortextadverb].</li>
-        <li>logentry(recipient_part_destroyed_count==0)->[prefix] [flavortextadverb] [damaged_past] [recipient_definite]'s [damaged_targets].</li>
+        <li>r_logentry->[prefix] [destroyed_past] [RECIPIENT_definite]'s [destroyed_targets].</li>
+        <li>r_logentry->[prefix] [destroyed_past] [RECIPIENT_definite]'s [destroyed_targets] [adverb_flavortext].</li>
+        <li>r_logentry->[prefix] [adverb_flavortext] [destroyed_past] [RECIPIENT_definite]'s [destroyed_targets].</li>
+        <li>r_logentry->[prefix] [destroyed_past] [RECIPIENT_definite]'s [destroyed_targets] and [damaged_past] [RECIPIENT_possessive] [damaged_targets].</li>
+        <li>r_logentry(recipient_part_destroyed_count==0)->[prefix] [damaged_past] [RECIPIENT_definite]'s [damaged_targets].</li>
+        <li>r_logentry(recipient_part_destroyed_count==0)->[prefix] [damaged_past] [RECIPIENT_definite]'s [damaged_targets] [adverb_flavortext].</li>
+        <li>r_logentry(recipient_part_destroyed_count==0)->[prefix] [adverb_flavortext] [damaged_past] [RECIPIENT_definite]'s [damaged_targets].</li>
 
-        <li>logentry->[recipient_definite] was [damaged_past] by [initiator_definite].</li>
-        <li>logentry->[recipient_definite] was [damaged_past] [flavortextadverb] by [initiator_definite].</li>
-        <li>logentry->[recipient_definite] was [damaged_past].</li>
+        <li>r_logentry->[RECIPIENT_definite] was [damaged_past] by [INITIATOR_definite].</li>
+        <li>r_logentry->[RECIPIENT_definite] was [damaged_past] [adverb_flavortext] by [INITIATOR_definite].</li>
+        <li>r_logentry->[RECIPIENT_definite] was [damaged_past].</li>
 
         <!-- final fallbacks -->
-        <li>logentry(p=0.001)->[recipient_definite] was caught in an explosion.</li>
-        <li>logentry(p=0.001)->[recipient_definite] was hit by an explosion.</li>
+        <li>r_logentry(p=0.001)->[RECIPIENT_definite] was caught in an explosion.</li>
+        <li>r_logentry(p=0.001)->[RECIPIENT_definite] was hit by an explosion.</li>
 
         <li>blast->explosion</li>
         <li>blast->blast</li>

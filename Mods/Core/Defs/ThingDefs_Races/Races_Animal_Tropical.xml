@@ -4,25 +4,27 @@
   <ThingDef ParentName="AnimalThingBase">
     <defName>Cobra</defName>
     <label>cobra</label>
-    <description>A large snake. Cobras can be highly aggressive if provoked - it's better to stay away from these creatures.</description>
+    <description>A large predatory snake. Cobras can be highly aggressive if provoked, and their bite injects toxic venom into the victim.</description>
     <statBases>
-      <MoveSpeed>4.84</MoveSpeed>
-      <ComfyTemperatureMin>-5</ComfyTemperatureMin>
-      <MarketValue>400</MarketValue>
+      <MoveSpeed>3.5</MoveSpeed>
+      <MarketValue>150</MarketValue>
+      <ComfyTemperatureMin>0</ComfyTemperatureMin>
+      <ComfyTemperatureMax>60</ComfyTemperatureMax>
     </statBases>
     <tools>
       <li>
+        <label>venom-fangs</label>
         <capacities>
           <li>ToxicBite</li>
         </capacities>
-        <power>10</power>
-        <cooldownTime>1.65</cooldownTime>
+        <power>12</power>
+        <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>Mouth</linkedBodyPartsGroup>
         <surpriseAttack>
           <extraMeleeDamages>
             <li>
               <def>Stun</def>
-              <amount>20</amount>
+              <amount>14</amount>
             </li>
           </extraMeleeDamages>
         </surpriseAttack>
@@ -32,21 +34,22 @@
         <capacities>
           <li>Blunt</li>
         </capacities>
-        <power>1</power>
-        <cooldownTime>1.65</cooldownTime>
+        <power>3</power>
+        <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-        <commonality>0.2</commonality>
+        <ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+        <chanceFactor>0.2</chanceFactor>
       </li>
     </tools>
     <comps>
       <li Class="CompProperties_EggLayer">
         <eggFertilizedDef>EggCobraFertilized</eggFertilizedDef>
         <eggFertilizationCountMax>1</eggFertilizationCountMax>
-        <eggLayIntervalDays>14.0</eggLayIntervalDays>
+        <eggLayIntervalDays>20.0</eggLayIntervalDays>
         <eggProgressUnfertilizedMax>0.5</eggProgressUnfertilizedMax>
         <eggCountRange>
           <min>1</min>
-          <max>3</max>
+          <max>2</max>
         </eggCountRange>
       </li>
     </comps>
@@ -58,23 +61,13 @@
       <baseHungerRate>0.07</baseHungerRate>
       <baseHealthScale>0.5</baseHealthScale>
       <foodType>CarnivoreAnimal, OvivoreAnimal</foodType>
-      <leatherColor>(113,98,87)</leatherColor>
-      <leatherLabel>cobraskin</leatherLabel>
-      <leatherInsulation>0.5</leatherInsulation>
+      <leatherDef>Leather_Lizard</leatherDef>
       <meatLabel>cobraflesh</meatLabel>
       <wildness>0.75</wildness>
-      <manhunterOnTameFailChance>0.018</manhunterOnTameFailChance>
-      <manhunterOnDamageChance>1</manhunterOnDamageChance>
-      <gestationPeriodDays>17.5</gestationPeriodDays>
+      <petness>0.05</petness>
+      <manhunterOnTameFailChance>0.10</manhunterOnTameFailChance>
+      <manhunterOnDamageChance>0.10</manhunterOnDamageChance>
       <nameOnTameChance>1</nameOnTameChance>
-      <litterSizeCurve>
-        <points>
-          <li>(0.5, 0)</li>
-          <li>(1, 1)</li>
-          <li>(3, 1)</li>
-          <li>(3.5, 0)</li>
-        </points>
-      </litterSizeCurve>
       <lifeExpectancy>20</lifeExpectancy>
       <lifeStageAges>
         <li>
@@ -99,8 +92,8 @@
       <soundMeleeMiss>Pawn_Melee_SmallScratch_Miss</soundMeleeMiss>
     </race>
     <tradeTags>
-      <li>StandardAnimal</li>
-      <li>BadassAnimal</li>
+      <li>AnimalUncommon</li>
+      <li>AnimalFighter</li>
     </tradeTags>
   </ThingDef>
 
@@ -109,8 +102,7 @@
     <label>cobra</label>
     <race>Cobra</race>
     <combatPower>65</combatPower>
-    <wildSpawn_spawnWild>true</wildSpawn_spawnWild>
-    <wildSpawn_EcoSystemWeight>0.6</wildSpawn_EcoSystemWeight>
+    <ecoSystemWeight>0.25</ecoSystemWeight>
     <lifeStages>
       <li>
         <bodyGraphicData>
@@ -118,7 +110,7 @@
           <drawSize>1</drawSize>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSnake</texPath>
+          <texPath>Things/Pawn/Animal/Cobra/Dessicated_Cobra</texPath>
           <drawSize>1</drawSize>
         </dessicatedBodyGraphicData>
       </li>
@@ -128,7 +120,7 @@
           <drawSize>1.25</drawSize>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSnake</texPath>
+          <texPath>Things/Pawn/Animal/Cobra/Dessicated_Cobra</texPath>
           <drawSize>1.25</drawSize>
         </dessicatedBodyGraphicData>
       </li>
@@ -138,7 +130,7 @@
           <drawSize>1.5</drawSize>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSnake</texPath>
+          <texPath>Things/Pawn/Animal/Cobra/Dessicated_Cobra</texPath>
           <drawSize>1.5</drawSize>
         </dessicatedBodyGraphicData>
       </li>
@@ -150,11 +142,12 @@
   <ThingDef ParentName="AnimalThingBase">
     <defName>Monkey</defName>
     <label>monkey</label>
-    <description>This monkey can use its curly tail to grab on to branches, leaving its hands free to do other things.</description>
+    <description>A small primate, the monkey can use its curly tail to grab on to branches, leaving its hands free to do other things. Monkeys are selfish but clever, and can be trained to carry out fairly complex tasks.</description>
     <statBases>
-      <MoveSpeed>4.84</MoveSpeed>
+      <MoveSpeed>4.3</MoveSpeed>
+      <MarketValue>100</MarketValue>
       <ComfyTemperatureMin>-5</ComfyTemperatureMin>
-      <MarketValue>300</MarketValue>
+      <ComfyTemperatureMax>50</ComfyTemperatureMax>
     </statBases>
     <tools>
       <li>
@@ -162,8 +155,8 @@
         <capacities>
           <li>Blunt</li>
         </capacities>
-        <power>4</power>
-        <cooldownTime>1.3</cooldownTime>
+        <power>3.6</power>
+        <cooldownTime>1.5</cooldownTime>
         <linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
       </li>
       <li>
@@ -171,42 +164,43 @@
         <capacities>
           <li>Blunt</li>
         </capacities>
-        <power>4</power>
-        <cooldownTime>1.3</cooldownTime>
+        <power>3.6</power>
+        <cooldownTime>1.5</cooldownTime>
         <linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
       </li>
       <li>
         <capacities>
           <li>Bite</li>
         </capacities>
-        <power>3</power>
-        <cooldownTime>1.65</cooldownTime>
+        <power>4</power>
+        <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+        <chanceFactor>0.7</chanceFactor>
       </li>
       <li>
         <label>head</label>
         <capacities>
           <li>Blunt</li>
         </capacities>
-        <power>1</power>
-        <cooldownTime>1.65</cooldownTime>
+        <power>2</power>
+        <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-        <commonality>0.2</commonality>
+        <ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+        <chanceFactor>0.2</chanceFactor>
       </li>
     </tools>
     <race>
       <body>Monkey</body>
-      <petness>0.25</petness>
+      <petness>0.50</petness>
+      <herdAnimal>true</herdAnimal>
       <baseBodySize>0.35</baseBodySize>
       <baseHungerRate>0.25</baseHungerRate>
       <baseHealthScale>0.45</baseHealthScale>
       <foodType>OmnivoreRoughAnimal</foodType>
-      <leatherLabel>monkeyhide</leatherLabel>
-      <leatherColor>(124,53,29)</leatherColor>
-      <leatherInsulation>0.75</leatherInsulation>
-      <trainableIntelligence>Advanced</trainableIntelligence>
+      <leatherDef>Leather_Light</leatherDef>
+      <trainability>Advanced</trainability>
       <wildness>0.60</wildness>
-      <nuzzleMtbHours>72</nuzzleMtbHours>
+      <nuzzleMtbHours>48</nuzzleMtbHours>
       <gestationPeriodDays>16</gestationPeriodDays>
       <lifeExpectancy>30</lifeExpectancy>
       <lifeStageAges>
@@ -232,8 +226,7 @@
       <soundMeleeMiss>Pawn_Melee_SmallScratch_Miss</soundMeleeMiss>
     </race>
     <tradeTags>
-      <li>StandardAnimal</li>
-      <li>BadassAnimal</li>
+      <li>AnimalUncommon</li>
     </tradeTags>
   </ThingDef>
 
@@ -242,12 +235,11 @@
     <label>monkey</label>
     <race>Monkey</race>
     <combatPower>35</combatPower>
-    <wildSpawn_spawnWild>true</wildSpawn_spawnWild>
-    <wildSpawn_EcoSystemWeight>0.9</wildSpawn_EcoSystemWeight>
-    <wildSpawn_GroupSizeRange>
+    <ecoSystemWeight>0.30</ecoSystemWeight>
+    <wildGroupSize>
       <min>3</min>
       <max>7</max>
-    </wildSpawn_GroupSizeRange>
+    </wildGroupSize>
     <lifeStages>
       <li>
         <bodyGraphicData>
@@ -255,7 +247,7 @@
           <drawSize>1</drawSize>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
+          <texPath>Things/Pawn/Animal/Monkey/Dessicated_Monkey</texPath>
           <drawSize>1</drawSize>
         </dessicatedBodyGraphicData>
       </li>
@@ -269,7 +261,7 @@
           </shadowData>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
+          <texPath>Things/Pawn/Animal/Monkey/Dessicated_Monkey</texPath>
           <drawSize>1.25</drawSize>
         </dessicatedBodyGraphicData>
       </li>
@@ -283,7 +275,7 @@
           </shadowData>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
+          <texPath>Things/Pawn/Animal/Monkey/Dessicated_Monkey</texPath>
           <drawSize>1.5</drawSize>
         </dessicatedBodyGraphicData>
       </li>
@@ -295,17 +287,17 @@
   <ThingDef ParentName="AnimalThingBase">
     <defName>Boomalope</defName>
     <label>boomalope</label>
-    <description>Engineered for chemicals production, the boomalope grows a large sac of volatile chemicals on its back. Though it is weak and fragile for its size, other animals have learned to avoid it because of the huge explosion it produces when it dies.</description>
+    <description>Engineered for chemicals production, the boomalope grows a large sac of volatile chemicals on its back. Though it is weak and fragile for its size, other animals have learned to avoid it because of the huge explosion it produces when it dies. It can be milked to produce chemfuel - very carefully.</description>
     <statBases>
-      <MoveSpeed>2.15</MoveSpeed>
+      <MoveSpeed>3.4</MoveSpeed>
+      <MarketValue>350</MarketValue>
       <ComfyTemperatureMin>-15</ComfyTemperatureMin>
-      <MarketValue>290</MarketValue>
     </statBases>
     <comps>
       <li Class="CompProperties_Milkable">
         <milkDef>Chemfuel</milkDef>
         <milkIntervalDays>2</milkIntervalDays>
-        <milkAmount>20</milkAmount>
+        <milkAmount>12</milkAmount>
         <milkFemaleOnly>false</milkFemaleOnly>
       </li>
     </comps>
@@ -315,10 +307,40 @@
         <capacities>
           <li>Blunt</li>
         </capacities>
-        <power>9</power>
-        <cooldownTime>1.65</cooldownTime>
+        <power>7</power>
+        <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-        <commonality>0.2</commonality>
+        <ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+        <chanceFactor>0.2</chanceFactor>
+      </li>
+      <li>
+        <label>left hoof</label>
+        <capacities>
+          <li>Blunt</li>
+          <li>Poke</li>
+        </capacities>
+        <power>9</power>
+        <cooldownTime>2</cooldownTime>
+        <linkedBodyPartsGroup>FrontLeftLeg</linkedBodyPartsGroup>
+      </li>
+      <li>
+        <label>right hoof</label>
+        <capacities>
+          <li>Blunt</li>
+          <li>Poke</li>
+        </capacities>
+        <power>9</power>
+        <cooldownTime>2</cooldownTime>
+        <linkedBodyPartsGroup>FrontRightLeg</linkedBodyPartsGroup>
+      </li>
+      <li>
+        <capacities>
+          <li>Bite</li>
+        </capacities>
+        <power>10</power>
+        <cooldownTime>2</cooldownTime>
+        <linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+        <chanceFactor>0.5</chanceFactor>
       </li>
     </tools>
     <race>
@@ -327,14 +349,13 @@
       <executionRange>6</executionRange>
       <herdAnimal>true</herdAnimal>
       <baseBodySize>1.5</baseBodySize>
-      <baseHungerRate>1</baseHungerRate>
+      <baseHungerRate>1.3</baseHungerRate>
       <baseHealthScale>0.65</baseHealthScale>
       <foodType>VegetarianRoughAnimal</foodType>
-      <leatherColor>(176,150,106)</leatherColor>
-      <leatherInsulation>0.9</leatherInsulation>
+      <leatherDef>Leather_Plain</leatherDef>
       <wildness>0.6</wildness>
       <canBePredatorPrey>false</canBePredatorPrey>
-      <gestationPeriodDays>30</gestationPeriodDays>
+      <gestationPeriodDays>28</gestationPeriodDays>
       <lifeExpectancy>15</lifeExpectancy>
       <lifeStageAges>
         <li>
@@ -359,8 +380,8 @@
       <soundMeleeMiss>Pawn_Melee_BigBash_Miss</soundMeleeMiss>
     </race>
     <tradeTags>
-      <li>StandardAnimal</li>
-      <li>BadassAnimal</li>
+      <li>AnimalUncommon</li>
+      <li>AnimalFighter</li>
     </tradeTags>
   </ThingDef>
   
@@ -368,13 +389,12 @@
     <defName>Boomalope</defName>
     <label>boomalope</label>
     <race>Boomalope</race>
-    <combatPower>95</combatPower>
-    <wildSpawn_spawnWild>true</wildSpawn_spawnWild>
-    <wildSpawn_EcoSystemWeight>0.75</wildSpawn_EcoSystemWeight>
-    <wildSpawn_GroupSizeRange>
+    <combatPower>80</combatPower>
+    <ecoSystemWeight>1.1</ecoSystemWeight>
+    <wildGroupSize>
       <min>3</min>
       <max>6</max>
-    </wildSpawn_GroupSizeRange>
+    </wildGroupSize>
     <lifeStages>
       <li>
         <label>boomalope calf</label>
@@ -390,8 +410,8 @@
           </shadowData>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-          <drawSize>1.3</drawSize>
+          <texPath>Things/Pawn/Animal/Boomalope/Dessicated_Boomalope</texPath>
+          <drawSize>1.0</drawSize>
         </dessicatedBodyGraphicData>
       </li>
       <li>
@@ -406,8 +426,8 @@
           </shadowData>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-          <drawSize>2</drawSize>
+          <texPath>Things/Pawn/Animal/Boomalope/Dessicated_Boomalope</texPath>
+          <drawSize>1.5</drawSize>
         </dessicatedBodyGraphicData>
       </li>
       <li>
@@ -422,8 +442,8 @@
           </shadowData>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-          <drawSize>2.5</drawSize>
+          <texPath>Things/Pawn/Animal/Boomalope/Dessicated_Boomalope</texPath>
+          <drawSize>2.0</drawSize>
         </dessicatedBodyGraphicData>
       </li>
     </lifeStages>

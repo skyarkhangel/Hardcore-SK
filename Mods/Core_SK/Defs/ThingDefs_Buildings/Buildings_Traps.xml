@@ -2,66 +2,87 @@
 <Defs>
 
 	<!--==================== Traps ======================== -->
-  
-  <ThingDef Name="TrapMechanicBase" ParentName="BuildingBase" Abstract="True">
-	<thingClass>Building_TrapRearmable</thingClass>
-    <graphicData>
-      <graphicClass>Graphic_Single</graphicClass>
-      <damageData>
-        <rect>(0,0,1,0.15)</rect>
-      </damageData>
-    </graphicData>
-    <altitudeLayer>Building</altitudeLayer>
-    <drawerType>RealtimeOnly</drawerType>
-    <rotatable>false</rotatable>
-    <tickerType>Normal</tickerType>
-    <stealable>false</stealable>
-	<holdsRoof>false</holdsRoof>
-    <statBases>
-      <MaxHitPoints>40</MaxHitPoints>
-      <WorkToBuild>2000</WorkToBuild>
-      <Beauty>-4</Beauty>
-      <TrapSpringChance>0.8</TrapSpringChance>
-      <Mass>13</Mass>
-    </statBases>
-    <designationCategory>Security</designationCategory>
-    <building>
-      <isTrap>true</isTrap>
-    </building>
-    <constructionSkillPrerequisite>3</constructionSkillPrerequisite>
-    <minifiedDef>MinifiedFurniture</minifiedDef>
-  </ThingDef>
-  
-  
-  <ThingDef Name="TrapIEDBase" ParentName="BuildingBase" Abstract="True">
-    <thingClass>Building_TrapExplosive</thingClass>
-    <graphicData>
-      <graphicClass>Graphic_Single</graphicClass>
-      <damageData>
-        <rect>(0.1,0,0.8,0.3)</rect>
-      </damageData>
-    </graphicData>
-    <altitudeLayer>Building</altitudeLayer>
-    <drawerType>RealtimeOnly</drawerType>
-    <rotatable>false</rotatable>
-    <tickerType>Normal</tickerType>
-    <stealable>false</stealable>
-    <statBases>
-      <MaxHitPoints>40</MaxHitPoints>
-      <WorkToBuild>2000</WorkToBuild>
-      <Beauty>-4</Beauty>
-      <TrapSpringChance>0.8</TrapSpringChance>
-      <Mass>15</Mass>
-    </statBases>
-    <designationCategory>Security</designationCategory>
-    <building>
-      <isTrap>true</isTrap>
-    </building>
-    <constructionSkillPrerequisite>3</constructionSkillPrerequisite>
-    <minifiedDef>MinifiedFurniture</minifiedDef>
-  </ThingDef>
-  
-  <ThingDef ParentName="TrapMechanicBase">
+
+	<ThingDef Name="TrapMechanicBase" ParentName="BuildingBase" Abstract="True">
+		<thingClass>Building_TrapDamager</thingClass>
+		<graphicData>
+			<graphicClass>Graphic_Single</graphicClass>
+			<damageData>
+				<rect>(0,0,1,0.15)</rect>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<drawerType>RealtimeOnly</drawerType>
+		<rotatable>false</rotatable>
+		<tickerType>Normal</tickerType>
+		<stealable>false</stealable>
+		<holdsRoof>false</holdsRoof>
+		<statBases>
+			<MaxHitPoints>40</MaxHitPoints>
+			<Flammability>1</Flammability>
+			<Cleanliness>-5</Cleanliness>
+			<WorkToBuild>2000</WorkToBuild>
+			<Beauty>-4</Beauty>
+			<TrapSpringChance>0.8</TrapSpringChance>
+			<Mass>13</Mass>
+		</statBases>
+		<designationCategory>Security</designationCategory>
+		<building>
+			<isTrap>true</isTrap>
+			<trapDestroyOnSpring>true</trapDestroyOnSpring>
+			<expandHomeArea>false</expandHomeArea>
+			<ai_chillDestination>false</ai_chillDestination>
+		</building>
+		<constructionSkillPrerequisite>3</constructionSkillPrerequisite>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<thingCategories>
+			<li>BuildingsSecurity</li>
+		</thingCategories>
+		<placeWorkers>
+			<li>PlaceWorker_NeverAdjacentTrap</li>
+		</placeWorkers>
+	</ThingDef>
+
+
+	<ThingDef Name="TrapIEDBase" ParentName="BuildingBase" Abstract="True">
+		<thingClass>Building_TrapExplosive</thingClass>
+		<graphicData>
+			<graphicClass>Graphic_Single</graphicClass>
+			<damageData>
+				<rect>(0.1,0,0.8,0.3)</rect>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<drawerType>RealtimeOnly</drawerType>
+		<rotatable>false</rotatable>
+		<tickerType>Normal</tickerType>
+		<stealable>false</stealable>
+		<statBases>
+			<MaxHitPoints>40</MaxHitPoints>
+			<WorkToBuild>2000</WorkToBuild>
+			<Beauty>-4</Beauty>
+			<Flammability>1</Flammability>
+			<TrapSpringChance>0.8</TrapSpringChance>
+			<Mass>10</Mass>
+		</statBases>
+		<designationCategory>Security</designationCategory>
+		<building>
+			<isTrap>true</isTrap>
+			<trapPeacefulWildAnimalsSpringChanceFactor>0.25</trapPeacefulWildAnimalsSpringChanceFactor>
+			<expandHomeArea>false</expandHomeArea>
+			<ai_chillDestination>false</ai_chillDestination>
+		</building>
+		<constructionSkillPrerequisite>3</constructionSkillPrerequisite>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<thingCategories>
+			<li>BuildingsSecurity</li>
+		</thingCategories>
+		<placeWorkers>
+			<li>PlaceWorker_NeverAdjacentTrap</li>
+		</placeWorkers>
+	</ThingDef>
+
+	<ThingDef ParentName="TrapMechanicBase">
 		<defName>Razor_Wire_Trap</defName>
 		<label>razor wire trap</label>
 		<description>Very dangerous trap.</description>
@@ -72,9 +93,6 @@
 				<li>Rock</li>
 			</linkFlags>
 		</graphicData>
-		<blueprintGraphicData>
-			<texPath>Things/Building/Security/Wire/Razor_Wire_Trap_Blueprint_Atlas</texPath>
-		</blueprintGraphicData>
 		<uiIconPath>Things/Building/Security/Wire/Razor_Wire_Trap_MenuIcon</uiIconPath>
 		<statBases>
 			<MaxHitPoints>280</MaxHitPoints>
@@ -85,7 +103,7 @@
 			<Mass>6</Mass>
 		</statBases>
 		<costList>
-			<Component>2</Component>
+			<ComponentIndustrial>2</ComponentIndustrial>
 			<Wire>4</Wire>
 		</costList>
 		<pathCost>240</pathCost>
@@ -107,181 +125,205 @@
 				<graphicClass>Graphic_Single</graphicClass>
 				<shaderType>Cutout</shaderType>
 			</trapUnarmedGraphicData>
+			<blueprintGraphicData>
+				<texPath>Things/Building/Security/Wire/Razor_Wire_Trap_Blueprint_Atlas</texPath>
+			</blueprintGraphicData>
 		</building>
 	</ThingDef>
 
-  <ThingDef ParentName="TrapMechanicBase">
-    <defName>TrapDeadfall</defName>
-    <label>deadfall trap</label>
-    <thingClass>Building_TrapRearmable</thingClass>
-    <graphicData>
-      <texPath>Things/Building/Traps/DeadfallArmed</texPath>
-    </graphicData>
-    <statBases>
-      <TrapMeleeDamage>60</TrapMeleeDamage>
-    </statBases>
-    <description>A suspended spiked weight held up by a delicate trigger. When the victim disturbs the trigger, the weight is released and falls on his head or torso.</description>
-	<costList>
-		<Component>4</Component>
-		<Wire>2</Wire>
-	</costList>
-    <building>
-      <trapDamageCategory>Sharp</trapDamageCategory>
-      <trapUnarmedGraphicData>
-        <texPath>Things/Building/Traps/DeadfallUnarmed</texPath>
-        <graphicClass>Graphic_Single</graphicClass>
-        <shaderType>Cutout</shaderType>
-      </trapUnarmedGraphicData>
-    </building>
-  </ThingDef>
-
-  
-  <ThingDef ParentName="TrapIEDBase">
-    <defName>TrapIED_HighExplosive</defName>
-    <label>IED trap</label>
-    <graphicData>
-      <texPath>Things/Building/Traps/IEDBomb</texPath>
-    </graphicData>
-    <description>An artillery shell connected to a homemade trigger. When someone disturbs the trigger, the shell explodes. The improvised trigger has a random delay that might allow a nimble enemy to escape.</description>
-	<costList>
-		<FSX>3</FSX>
-		<Component>2</Component>
-		<Wire>2</Wire>
-		<Mechanism>1</Mechanism>
-	</costList>
-    <comps>
-      <li Class="CompProperties_Explosive">
-        <explosiveRadius>3.9</explosiveRadius>
-        <explosiveDamageType>Bomb</explosiveDamageType>
-				<wickTicks>
-				  <min>5</min>
-				  <max>30</max>
-				</wickTicks>
-      </li>
-    </comps>
-    <researchPrerequisites><li>IEDIncendiary</li></researchPrerequisites>
-  </ThingDef>
-
-  
-  <ThingDef ParentName="TrapIEDBase">
-    <defName>TrapIED_Incendiary</defName>
-    <label>IED incendiary trap</label>
-    <thingClass>Building_TrapExplosive</thingClass>
-    <graphicData>
-      <texPath>Things/Building/Traps/IEDIncendiary</texPath>
-    </graphicData>
-    <description>Explosives mixed into an incendiary paste with a chemical trigger for dispersal. Its chemical trigger is simple and reliable.</description>
+	<ThingDef ParentName="TrapMechanicBase">
+		<defName>TrapSpike</defName>
+		<label>spike trap</label>
+		<description>Five spikes under tension, connected to a touch-activated trigger. When the victim disturbs the trigger, the spikes spring forthm and strike the victim. Since it is hidden in the surrounding terrain, it cannot be placed adjacent to other traps. Animals can sense these when calm.</description>
+		<thingClass>Building_TrapDamager</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Traps/DeadfallArmed</texPath>
+			<damageData>
+				<rect>(0,0,1,0.15)</rect>
+			</damageData>
+		</graphicData>
+		<statBases>
+			<Mass>2.5</Mass>
+			<Beauty>-18</Beauty>
+			<TrapMeleeDamage>60</TrapMeleeDamage>
+			<TrapSpringChance>1.0</TrapSpringChance>
+		</statBases>
 		<costList>
-			<Napalm>10</Napalm>
-			<Component>2</Component>
+			<ComponentIndustrial>4</ComponentIndustrial>
+			<Wire>2</Wire>
+		</costList>
+		<building>
+			<trapDestroyOnSpring>true</trapDestroyOnSpring>
+			<trapDamageCategory>Sharp</trapDamageCategory>
+			<trapUnarmedGraphicData>
+				<texPath>Things/Building/Traps/DeadfallUnarmed</texPath>
+				<graphicClass>Graphic_Single</graphicClass>
+				<shaderType>Cutout</shaderType>
+			</trapUnarmedGraphicData>
+		</building>
+	</ThingDef>
+
+
+	<ThingDef ParentName="TrapIEDBase">
+		<defName>TrapIED_HighExplosive</defName>
+		<label>IED trap</label>
+		<graphicData>
+			<texPath>Things/Building/Traps/IEDBomb</texPath>
+		</graphicData>
+		<description>An artillery shell connected to a homemade trigger. When someone disturbs the trigger, the shell explodes. The improvised trigger has a random delay that might allow a nimble enemy to escape.</description>
+		<costList>
+			<FSX>3</FSX>
+			<ComponentIndustrial>2</ComponentIndustrial>
 			<Wire>2</Wire>
 			<Mechanism>1</Mechanism>
 		</costList>
-    <comps>
-      <li Class="CompProperties_Explosive">
-        <explosiveRadius>3.9</explosiveRadius>
-        <explosiveDamageType>Flame</explosiveDamageType>
-		<preExplosionSpawnThingDef>FilthFuel</preExplosionSpawnThingDef>
-				<preExplosionSpawnChance>0.75</preExplosionSpawnChance>
+		<comps>
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>3.9</explosiveRadius>
+				<explosiveDamageType>Bomb</explosiveDamageType>
+				<startWickHitPointsPercent>0.2</startWickHitPointsPercent>
 				<wickTicks>
-				  <min>5</min>
-				  <max>20</max>
+					<min>15</min>
+					<max>30</max>
 				</wickTicks>
-      </li>
-    </comps>
-    <researchPrerequisites><li>IEDIncendiary</li></researchPrerequisites>
-  </ThingDef>
-  
-  <ThingDef ParentName="TrapIEDBase">
-    <defName>TrapIED_EMP</defName>
-    <label>IED EMP trap</label>
-    <description>A simple trap consisting of an EMP shell and a homemade trigger. The explosion can paralyze mechanical creatures for a few seconds. Can be triggered even by those who are unaffacted by EMP explosions.</description>
-    <graphicData>
-      <texPath>Things/Building/Traps/IEDEMP</texPath>
-    </graphicData>
-	<costList>
-		<ElectronicComponents>2</ElectronicComponents>
-		<Wire>2</Wire>
-		<Mechanism>1</Mechanism>
-	</costList>
-    <designationHotKey>Misc9</designationHotKey>
-    <comps>
-      <li Class="CompProperties_Explosive">
-        <explosiveRadius>8.5</explosiveRadius>
-        <explosiveDamageType>EMP</explosiveDamageType>
-        <startWickHitPointsPercent>0.2</startWickHitPointsPercent>
-        <wickTicks>
-          <min>15</min>
-          <max>70</max>
-        </wickTicks>
-      </li>
-    </comps>
-    <researchPrerequisites><li>IEDIncendiary</li></researchPrerequisites>
-  </ThingDef>
+			</li>
+		</comps>
+		<specialDisplayRadius>3.9</specialDisplayRadius>
+		<researchPrerequisites>
+			<li>IEDIncendiary</li>
+		</researchPrerequisites>
+	</ThingDef>
 
-  <ThingDef ParentName="TrapIEDBase">
-    <defName>TrapIED_Firefoam</defName>
-    <label>IED firefoam trap</label>
-    <description>When someone touches the trigger, the trap explodes and sprays a fire-extinguishing foam around itself.</description>
-    <graphicData>
-      <texPath>Things/Building/Traps/IEDFireFoam</texPath>
-    </graphicData>
-	<costList>
-		<ElectronicComponents>1</ElectronicComponents>
-		<Component>2</Component>
-		<Mechanism>2</Mechanism>
-	</costList>
-    <designationHotKey>Misc10</designationHotKey>
-    <comps>
-      <li Class="CompProperties_Explosive">
-        <explosiveRadius>5</explosiveRadius>
-        <explosiveDamageType>Extinguish</explosiveDamageType>
-        <startWickHitPointsPercent>0.2</startWickHitPointsPercent>
-        <postExplosionSpawnThingDef>FilthFireFoam</postExplosionSpawnThingDef>
-        <postExplosionSpawnChance>1</postExplosionSpawnChance>
-        <postExplosionSpawnThingCount>3</postExplosionSpawnThingCount>
-        <applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
-        <explosionEffect>ExtinguisherExplosion</explosionEffect>
-        <wickTicks>
-          <min>10</min>
-          <max>35</max>
-        </wickTicks>
-      </li>
-    </comps>
-    <researchPrerequisites><li>IEDIncendiary</li></researchPrerequisites>
-  </ThingDef>
 
-  <ThingDef ParentName="TrapIEDBase">
-    <defName>TrapIED_AntigrainWarhead</defName>
-    <label>IED antigrain warhead trap</label>
-    <description>A tiny warhead connected to a homemade trigger. Creates a huge explosion and starts fires around itself when disturbed.</description>
-    <graphicData>
-      <texPath>Things/Building/Traps/IEDAGW</texPath>
-    </graphicData>
-	<costList>
-		<FSX>5</FSX>
-		<Prometheum>5</Prometheum>
-		<Component>3</Component>
-		<Mechanism>2</Mechanism>
-	</costList>
-    <designationHotKey>Misc11</designationHotKey>
-    <comps>
-      <li Class="CompProperties_Explosive">
-        <explosiveRadius>8</explosiveRadius>
-        <explosiveDamageType>Bomb</explosiveDamageType>
-        <damageAmountBase>200</damageAmountBase>
-        <startWickHitPointsPercent>0.2</startWickHitPointsPercent>
-        <chanceToStartFire>0.22</chanceToStartFire>
-        <dealMoreDamageAtCenter>true</dealMoreDamageAtCenter>
-        <explosionEffect>GiantExplosion</explosionEffect>
-        <explosionSound>Explosion_GiantBomb</explosionSound>
-        <wickTicks>
-          <min>15</min>
-          <max>70</max>
-        </wickTicks>
-      </li>
-    </comps>
-    <researchPrerequisites><li>IEDIncendiary</li></researchPrerequisites>
-  </ThingDef>
+	<ThingDef ParentName="TrapIEDBase">
+		<defName>TrapIED_Incendiary</defName>
+		<label>IED incendiary trap</label>
+		<thingClass>Building_TrapExplosive</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Traps/IEDIncendiary</texPath>
+		</graphicData>
+		<description>Explosives mixed into an incendiary paste with a chemical trigger for dispersal. Its chemical trigger is simple and reliable.</description>
+		<costList>
+			<Napalm>10</Napalm>
+			<ComponentIndustrial>2</ComponentIndustrial>
+			<Wire>2</Wire>
+			<Mechanism>1</Mechanism>
+		</costList>
+		<comps>
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>3.9</explosiveRadius>
+				<explosiveDamageType>Flame</explosiveDamageType>
+				<startWickHitPointsPercent>0.2</startWickHitPointsPercent>
+				<wickTicks>
+					<min>15</min>
+					<max>15</max>
+				</wickTicks>
+			</li>
+		</comps>
+		<specialDisplayRadius>3.9</specialDisplayRadius>
+		<researchPrerequisites>
+			<li>IEDIncendiary</li>
+		</researchPrerequisites>
+	</ThingDef>
+
+	<ThingDef ParentName="TrapIEDBase">
+		<defName>TrapIED_EMP</defName>
+		<label>IED EMP trap</label>
+		<description>A simple trap consisting of an EMP shell and a homemade trigger. The explosion can paralyze mechanical creatures for a few seconds. Can be triggered even by those who are unaffacted by EMP explosions.</description>
+		<graphicData>
+			<texPath>Things/Building/Traps/IEDEMP</texPath>
+		</graphicData>
+		<costList>
+			<ElectronicComponents>2</ElectronicComponents>
+			<Wire>2</Wire>
+			<Mechanism>1</Mechanism>
+		</costList>
+		<designationHotKey>Misc9</designationHotKey>
+		<comps>
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>10.9</explosiveRadius>
+				<explosiveDamageType>EMP</explosiveDamageType>
+				<startWickHitPointsPercent>0.2</startWickHitPointsPercent>
+				<wickTicks>
+					<min>15</min>
+					<max>15</max>
+				</wickTicks>
+			</li>
+		</comps>
+		<specialDisplayRadius>10.9</specialDisplayRadius>
+		<researchPrerequisites>
+			<li>IEDIncendiary</li>
+		</researchPrerequisites>
+	</ThingDef>
+
+	<ThingDef ParentName="TrapIEDBase">
+		<defName>TrapIED_Firefoam</defName>
+		<label>IED firefoam trap</label>
+		<description>When someone touches the trigger, the trap explodes and sprays a fire-extinguishing foam around itself.</description>
+		<graphicData>
+			<texPath>Things/Building/Traps/IEDFireFoam</texPath>
+		</graphicData>
+		<costList>
+			<ElectronicComponents>1</ElectronicComponents>
+			<ComponentIndustrial>2</ComponentIndustrial>
+			<Mechanism>2</Mechanism>
+		</costList>
+		<designationHotKey>Misc10</designationHotKey>
+		<comps>
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>8.9</explosiveRadius>
+				<explosiveDamageType>Extinguish</explosiveDamageType>
+				<startWickHitPointsPercent>0.2</startWickHitPointsPercent>
+				<postExplosionSpawnThingDef>Filth_FireFoam</postExplosionSpawnThingDef>
+				<postExplosionSpawnChance>1</postExplosionSpawnChance>
+				<postExplosionSpawnThingCount>3</postExplosionSpawnThingCount>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+				<explosionEffect>ExtinguisherExplosion</explosionEffect>
+				<wickTicks>
+					<min>15</min>
+					<max>15</max>
+				</wickTicks>
+			</li>
+		</comps>
+		<specialDisplayRadius>8.9</specialDisplayRadius>
+		<researchPrerequisites>
+			<li>IEDIncendiary</li>
+		</researchPrerequisites>
+	</ThingDef>
+
+	<ThingDef ParentName="TrapIEDBase">
+		<defName>TrapIED_AntigrainWarhead</defName>
+		<label>IED antigrain warhead trap</label>
+		<description>A tiny warhead connected to a homemade trigger. Creates a huge explosion and starts fires around itself when disturbed.</description>
+		<graphicData>
+			<texPath>Things/Building/Traps/IEDAGW</texPath>
+		</graphicData>
+		<costList>
+			<FSX>5</FSX>
+			<Prometheum>5</Prometheum>
+			<ComponentIndustrial>3</ComponentIndustrial>
+			<Mechanism>2</Mechanism>
+		</costList>
+		<designationHotKey>Misc11</designationHotKey>
+		<comps>
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>7.9</explosiveRadius>
+				<explosiveDamageType>BombSuper</explosiveDamageType>
+				<startWickHitPointsPercent>0.2</startWickHitPointsPercent>
+				<chanceToStartFire>0.22</chanceToStartFire>
+				<damageFalloff>true</damageFalloff>
+				<explosionEffect>GiantExplosion</explosionEffect>
+				<explosionSound>Explosion_GiantBomb</explosionSound>
+				<wickTicks>
+					<min>15</min>
+					<max>70</max>
+				</wickTicks>
+			</li>
+		</comps>
+		<specialDisplayRadius>7.9</specialDisplayRadius>
+		<researchPrerequisites>
+			<li>IEDIncendiary</li>
+		</researchPrerequisites>
+	</ThingDef>
 
 </Defs>
