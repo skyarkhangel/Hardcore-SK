@@ -3,10 +3,10 @@
   
   <ThingDef Name="FurnitureBase" ParentName="BuildingBase" Abstract="True">
     <designationCategory>Furniture</designationCategory>
-    <minifiedDef>MinifiedFurniture</minifiedDef>
-    <tradeTags>
-      <li>Furniture</li>
-    </tradeTags>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsFurniture</li>
+    </thingCategories>
   </ThingDef>
   
   <ThingDef Name="FurnitureWithQualityBase" ParentName="FurnitureBase" Abstract="True">
@@ -20,7 +20,7 @@
   <ThingDef Name="ArtableFurnitureBase" ParentName="FurnitureWithQualityBase" Abstract="True">
     <comps>
       <li Class="CompProperties_Art">
-        <nameMaker>ArtName_Furniture</nameMaker>
+        <nameMaker>NamerArtFurniture</nameMaker>
         <descriptionMaker>ArtDescription_Furniture</descriptionMaker>
         <minQualityForArtistic>Excellent</minQualityForArtistic>
 			</li>
@@ -70,6 +70,42 @@
 		</comps>
   </ThingDef>
 
+  <ThingDef ParentName="BuildingBase">
+    <defName>DoubleSleepingSpot</defName>
+    <label>double sleeping spot</label>
+    <description>Designates a spot on the ground where two people should sleep together. Not comfortable.</description>
+    <thingClass>Building_Bed</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Furniture/Bed/DoubleSleepSpot</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(4,4)</drawSize>
+    </graphicData>
+    <altitudeLayer>FloorEmplacement</altitudeLayer>
+    <statBases>
+      <WorkToBuild>0</WorkToBuild>
+      <Comfort>0.4</Comfort>
+      <SurgerySuccessChanceFactor>0.7</SurgerySuccessChanceFactor>
+    </statBases>
+    <scatterableOnMapGen>false</scatterableOnMapGen>
+    <useHitPoints>False</useHitPoints>
+    <size>(2,2)</size>
+    <designationCategory>Furniture</designationCategory>
+    <passability>Standable</passability>
+    <drawGUIOverlay>True</drawGUIOverlay>
+    <defaultPlacingRot>South</defaultPlacingRot>
+    <building>
+      <bed_showSleeperBody>True</bed_showSleeperBody>
+      <sowTag>SupportPlantsOnly</sowTag>
+      <canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
+      <ai_chillDestination>false</ai_chillDestination>
+    </building>
+    <comps>
+      <li Class="CompProperties_RoomIdentifier">
+        <roomStat>Impressiveness</roomStat>
+      </li>
+    </comps>
+  </ThingDef>
+
   <ThingDef ParentName="FurnitureBase" Name="BedBase" Abstract="True">
     <thingClass>Building_Bed</thingClass>
     <altitudeLayer>Building</altitudeLayer>
@@ -98,7 +134,7 @@
   <ThingDef Name="ArtableBedBase" ParentName="BedWithQualityBase" Abstract="True">
     <comps>
       <li Class="CompProperties_Art">
-        <nameMaker>ArtName_Furniture</nameMaker>
+        <nameMaker>NamerArtFurniture</nameMaker>
         <descriptionMaker>ArtDescription_Furniture</descriptionMaker>
         <minQualityForArtistic>Excellent</minQualityForArtistic>
       </li>
@@ -116,7 +152,7 @@
       <texPath>Things/Building/Furniture/Bed/Bed</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
       <shaderType>CutoutComplex</shaderType>
-      <drawSize>(3,4)</drawSize>
+      <drawSize>(2,2)</drawSize>
       <damageData>
         <rect>(0,0.05,1,1.95)</rect>
       </damageData>
@@ -133,11 +169,11 @@
       <MaxHitPoints>140</MaxHitPoints>
       <Flammability>1.0</Flammability>
       <Beauty>1</Beauty>
-      <WorkToBuild>870</WorkToBuild>
+      <WorkToBuild>800</WorkToBuild>
       <Mass>50</Mass>
       <BedRestEffectiveness>1</BedRestEffectiveness>
       <Comfort>0.75</Comfort>
-      <ImmunityGainSpeedFactor>1.1</ImmunityGainSpeedFactor>
+      <ImmunityGainSpeedFactor>1.07</ImmunityGainSpeedFactor>
 			<SurgerySuccessChanceFactor>1</SurgerySuccessChanceFactor>
     </statBases>
     <size>(1,2)</size>
@@ -146,10 +182,10 @@
       <li>Woody</li>
       <li>Stony</li>
     </stuffCategories>
-    <costStuffCount>35</costStuffCount>
+    <costStuffCount>45</costStuffCount>
     <building>
       <bed_showSleeperBody>False</bed_showSleeperBody>
-      <bed_healPerDay>3</bed_healPerDay>
+      <bed_healPerDay>4</bed_healPerDay>
     </building>
     <fillPercent>0.4</fillPercent>
     <pathCost>60</pathCost>
@@ -157,7 +193,10 @@
     <castEdgeShadows>True</castEdgeShadows>
     <designationHotKey>Misc2</designationHotKey>
     <techLevel>Medieval</techLevel>
-    <researchPrerequisites><li>Beds</li></researchPrerequisites>
+    <researchPrerequisites>
+      <li>ComplexFurniture</li>
+    </researchPrerequisites>
+    <uiIconScale>0.90</uiIconScale>
   </ThingDef>
 
   <ThingDef ParentName="ArtableBedBase">
@@ -168,7 +207,7 @@
       <texPath>Things/Building/Furniture/Bed/DoubleBed</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
       <shaderType>CutoutComplex</shaderType>
-      <drawSize>(4,4)</drawSize>
+      <drawSize>(2.05,2.05)</drawSize>
       <damageData>
         <rect>(0,0.05,2,1.95)</rect>
       </damageData>
@@ -184,12 +223,12 @@
     <statBases>
       <MaxHitPoints>200</MaxHitPoints>
       <Flammability>1.0</Flammability>
-      <WorkToBuild>1740</WorkToBuild>
+      <WorkToBuild>1500</WorkToBuild>
       <Mass>85</Mass>
       <Comfort>0.75</Comfort>
       <Beauty>2</Beauty>
       <BedRestEffectiveness>1</BedRestEffectiveness>
-      <ImmunityGainSpeedFactor>1.1</ImmunityGainSpeedFactor>
+      <ImmunityGainSpeedFactor>1.07</ImmunityGainSpeedFactor>
 			<SurgerySuccessChanceFactor>1</SurgerySuccessChanceFactor>
     </statBases>
     <size>(2,2)</size>
@@ -198,10 +237,10 @@
       <li>Woody</li>
       <li>Stony</li>
     </stuffCategories>
-    <costStuffCount>70</costStuffCount>
+    <costStuffCount>85</costStuffCount>
     <building>
       <bed_showSleeperBody>False</bed_showSleeperBody>
-      <bed_healPerDay>3</bed_healPerDay>
+      <bed_healPerDay>4</bed_healPerDay>
     </building>
     <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
     <fillPercent>0.4</fillPercent>
@@ -211,18 +250,21 @@
     <castEdgeShadows>True</castEdgeShadows>
     <designationHotKey>Misc3</designationHotKey>
     <techLevel>Medieval</techLevel>
-    <researchPrerequisites><li>Beds</li></researchPrerequisites>
+    <researchPrerequisites>
+      <li>ComplexFurniture</li>
+    </researchPrerequisites>
+    <uiIconScale>0.90</uiIconScale>
   </ThingDef>
 
   <ThingDef ParentName="ArtableBedBase">
     <defName>RoyalBed</defName>
     <label>royal bed</label>
-    <description>A luxurious gold-inlaid bed fit for the highborn. Very comfy and beautiful. Fits two.</description>
+    <description>A luxurious gold-inlaid bed fit for the highborn. Very comfy and beautiful, it is a work of art in itself. Fits two.</description>
     <graphicData>
       <texPath>Things/Building/Furniture/Bed/RoyalBed</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
       <shaderType>CutoutComplex</shaderType>
-      <drawSize>(4,4)</drawSize>
+      <drawSize>(2.05,2.05)</drawSize>
       <damageData>
         <rect>(0,0.05,2,1.95)</rect>
       </damageData>
@@ -238,12 +280,12 @@
     <statBases>
       <MaxHitPoints>200</MaxHitPoints>
       <Flammability>1.0</Flammability>
-      <WorkToBuild>4500</WorkToBuild>
+      <WorkToBuild>50000</WorkToBuild>
       <Mass>90</Mass>
-      <Beauty>25</Beauty>
+      <Beauty>75</Beauty>
       <BedRestEffectiveness>1.05</BedRestEffectiveness>
       <Comfort>0.90</Comfort>
-      <ImmunityGainSpeedFactor>1.1</ImmunityGainSpeedFactor>
+      <ImmunityGainSpeedFactor>1.07</ImmunityGainSpeedFactor>
 			<SurgerySuccessChanceFactor>1</SurgerySuccessChanceFactor>
 		</statBases>
     <size>(2,2)</size>
@@ -252,13 +294,13 @@
       <li>Woody</li>
       <li>Stony</li>
     </stuffCategories>
-    <costStuffCount>110</costStuffCount>
+    <costStuffCount>100</costStuffCount>
     <costList>
       <Gold>50</Gold>
     </costList>
     <building>
       <bed_showSleeperBody>False</bed_showSleeperBody>
-      <bed_healPerDay>3</bed_healPerDay>
+      <bed_healPerDay>4</bed_healPerDay>
     </building>
     <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
     <fillPercent>0.4</fillPercent>
@@ -268,27 +310,32 @@
     <castEdgeShadows>True</castEdgeShadows>
     <designationHotKey>Misc4</designationHotKey>
     <techLevel>Medieval</techLevel>
-    <researchPrerequisites><li>Beds</li></researchPrerequisites>
+    <constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+    <researchPrerequisites>
+      <li>ComplexFurniture</li>
+    </researchPrerequisites>
+    <uiIconScale>0.90</uiIconScale>
   </ThingDef>
 
   <ThingDef ParentName="BedWithQualityBase">
     <defName>HospitalBed</defName>
     <label>hospital bed</label>
-    <description>A bed specially designed for injured people. Improves chance of successful medical work.</description>
+    <description>A bed specially designed for use in hospitals. Adjustable for a patient and festooned with built-in equipment, it improves medical outcomes over normal beds.</description>
     <graphicData>
       <texPath>Things/Building/Furniture/Bed/HospitalBed</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
       <shaderType>CutoutComplex</shaderType>
-      <drawSize>(3,4)</drawSize>
+      <drawSize>(2,2)</drawSize>
     </graphicData>
+    <castEdgeShadows>True</castEdgeShadows>
     <statBases>
       <MaxHitPoints>150</MaxHitPoints>
-      <WorkToBuild>2850</WorkToBuild>
+      <WorkToBuild>2800</WorkToBuild>
       <Mass>45</Mass>
       <Flammability>1.0</Flammability>
       <BedRestEffectiveness>1</BedRestEffectiveness>
       <Comfort>0.80</Comfort>
-      <ImmunityGainSpeedFactor>1.144</ImmunityGainSpeedFactor>
+      <ImmunityGainSpeedFactor>1.11</ImmunityGainSpeedFactor>
       <MedicalTendQualityOffset>0.10</MedicalTendQualityOffset>
 			<SurgerySuccessChanceFactor>1.1</SurgerySuccessChanceFactor>
 		</statBases>
@@ -308,41 +355,45 @@
     <costStuffCount>40</costStuffCount>
     <costList>
       <Steel>80</Steel>
-      <Medicine>10</Medicine>
+      <ComponentIndustrial>5</ComponentIndustrial>
     </costList>
     <building>
       <bed_showSleeperBody>False</bed_showSleeperBody>
-      <bed_healPerDay>9</bed_healPerDay>
+      <bed_healPerDay>10</bed_healPerDay>
       <bed_defaultMedical>true</bed_defaultMedical>
     </building>
     <fillPercent>0.4</fillPercent>
     <pathCost>60</pathCost>
     <leaveResourcesWhenKilled>True</leaveResourcesWhenKilled>
     <staticSunShadowHeight>0.17</staticSunShadowHeight>
-    <castEdgeShadows>True</castEdgeShadows>
     <designationHotKey>Misc5</designationHotKey>
-    <researchPrerequisites><li>HospitalBed</li></researchPrerequisites>
+    <researchPrerequisites>
+      <li>HospitalBed</li>
+    </researchPrerequisites>
     <constructionSkillPrerequisite>8</constructionSkillPrerequisite>
-    <techLevel>Medieval</techLevel>
+    <techLevel>Industrial</techLevel>
+    <uiIconScale>0.90</uiIconScale>
   </ThingDef>
 
-  <ThingDef ParentName="BedBase">
+  <ThingDef ParentName="BedWithQualityBase">
     <defName>Bedroll</defName>
     <label>bedroll</label>
-    <description>A simple bed that sits on the floor, usually made of cloth or leather, often lined with fur. It is lightweight and can be rolled up for easy transport, but it is not quite as comfortable as a typical bed.</description>
+    <description>A simple bed that lays on the floor, usually made of cloth or leather, often lined with fur. It is lightweight and can be rolled up for easy transport, but it is not quite as comfortable as a typical bed. Caravans can use bedrolls while traveling for better sleep.</description>
     <graphicData>
       <texPath>Things/Building/Furniture/Bed/Bedroll</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
+      <graphicClass>Graphic_Multi</graphicClass>
       <shaderType>CutoutComplex</shaderType>
       <drawSize>(1,2)</drawSize>
     </graphicData>
+    <castEdgeShadows>True</castEdgeShadows>
     <statBases>
       <MaxHitPoints>75</MaxHitPoints>
       <Flammability>1.0</Flammability>
       <Mass>2.5</Mass>
-      <BedRestEffectiveness>0.93</BedRestEffectiveness>
-      <Comfort>0.6</Comfort>
-      <WorkToBuild>350</WorkToBuild>
+      <BedRestEffectiveness>0.95</BedRestEffectiveness>
+      <ImmunityGainSpeedFactor>1.05</ImmunityGainSpeedFactor>
+      <Comfort>0.68</Comfort>
+      <WorkToBuild>600</WorkToBuild>
     </statBases>
     <comps>
       <li Class="CompProperties_AffectedByFacilities">
@@ -357,33 +408,35 @@
       <li>Fabric</li>
       <li>Leathery</li>
     </stuffCategories>
-    <costStuffCount>50</costStuffCount>
+    <costStuffCount>40</costStuffCount>
     <building>
       <bed_showSleeperBody>false</bed_showSleeperBody>
-      <bed_healPerDay>1</bed_healPerDay>
+      <bed_healPerDay>4</bed_healPerDay>
+      <bed_caravansCanUse>true</bed_caravansCanUse>
     </building>
     <pathCost>5</pathCost>
     <passability>Standable</passability>
     <designationHotKey>Misc2</designationHotKey>
-    <researchPrerequisites><li>Bedrolls</li></researchPrerequisites>
   </ThingDef>
 
-  <ThingDef ParentName="BedBase">
+  <ThingDef ParentName="BedWithQualityBase">
     <defName>BedrollDouble</defName>
     <label>double bedroll</label>
-    <description>A simple double-wide bed that sits on the floor, usually made of cloth or leather, often lined with fur. It is lightweight and can be rolled up for easy transport, but it is not quite as comfortable as a typical bed.</description>
+    <description>A simple double-wide bed that lays on the floor, usually made of cloth or leather, often lined with fur. It is lightweight and can be rolled up for easy transport, but it is not quite as comfortable as a typical bed. Caravans can use bedrolls while traveling for better sleep.</description>
     <graphicData>
       <texPath>Things/Building/Furniture/Bed/BedrollDouble</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
+      <graphicClass>Graphic_Multi</graphicClass>
       <shaderType>CutoutComplex</shaderType>
       <drawSize>(2,2)</drawSize>
     </graphicData>
+    <castEdgeShadows>True</castEdgeShadows>
     <statBases>
       <Flammability>1.0</Flammability>
       <Mass>4.5</Mass>
-      <BedRestEffectiveness>0.93</BedRestEffectiveness>
-      <Comfort>0.6</Comfort>
-      <WorkToBuild>600</WorkToBuild>
+      <BedRestEffectiveness>0.95</BedRestEffectiveness>
+      <ImmunityGainSpeedFactor>1.05</ImmunityGainSpeedFactor>
+      <Comfort>0.68</Comfort>
+      <WorkToBuild>1100</WorkToBuild>
     </statBases>
     <comps>
       <li Class="CompProperties_AffectedByFacilities">
@@ -398,15 +451,15 @@
       <li>Fabric</li>
       <li>Leathery</li>
     </stuffCategories>
-    <costStuffCount>90</costStuffCount>
+    <costStuffCount>85</costStuffCount>
     <building>
       <bed_showSleeperBody>false</bed_showSleeperBody>
-      <bed_healPerDay>1</bed_healPerDay>
+      <bed_healPerDay>4</bed_healPerDay>
+      <bed_caravansCanUse>true</bed_caravansCanUse>
     </building>
     <pathCost>5</pathCost>
     <passability>Standable</passability>
     <designationHotKey>Misc3</designationHotKey>
-    <researchPrerequisites><li>Bedrolls</li></researchPrerequisites>
   </ThingDef>
 
 
@@ -425,10 +478,12 @@
 		<scatterableOnMapGen>false</scatterableOnMapGen>
 		<useHitPoints>False</useHitPoints>
 		<altitudeLayer>FloorEmplacement</altitudeLayer>
-		<graphicData>
+    <rotatable>false</rotatable>
+    <graphicData>
 			<texPath>Things/Building/Misc/AnimalBed/AnimalSleepSpot</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
+    <uiIconScale>0.80</uiIconScale>
 		<statBases>
 			<WorkToBuild>0</WorkToBuild>
 			<SurgerySuccessChanceFactor>0.7</SurgerySuccessChanceFactor>
@@ -445,7 +500,7 @@
 				<roomStat>Impressiveness</roomStat>
 			</li>
 		</comps>
-	</ThingDef>
+  </ThingDef>
 
 	<ThingDef ParentName="FurnitureWithQualityBase">
 		<defName>AnimalSleepingBox</defName>
@@ -455,7 +510,6 @@
 		<rotatable>false</rotatable>
 		<fillPercent>0.15</fillPercent>
 		<pathCost>40</pathCost>
-		<castEdgeShadows>true</castEdgeShadows>
 		<passability>PassThroughOnly</passability>
     <canOverlapZones>false</canOverlapZones>
 		<graphicData>
@@ -469,23 +523,24 @@
         <cornerBR>Damage/Corner</cornerBR>
       </damageData>
 		</graphicData>
+		<castEdgeShadows>true</castEdgeShadows>
 		<stuffCategories>
 			<li>Metallic</li>
 			<li>Woody</li>
 			<li>Stony</li>
 		</stuffCategories>
-		<costStuffCount>35</costStuffCount>
+		<costStuffCount>25</costStuffCount>
 		<building>
       <bed_humanlike>false</bed_humanlike>
 			<bed_maxBodySize>0.55</bed_maxBodySize>
 			<bed_showSleeperBody>true</bed_showSleeperBody>
-      <bed_healPerDay>3</bed_healPerDay>
+      <bed_healPerDay>4</bed_healPerDay>
 		</building>
 		<altitudeLayer>Building</altitudeLayer>
 		<statBases>
 			<MaxHitPoints>75</MaxHitPoints>
 			<Flammability>1.0</Flammability>
-			<WorkToBuild>120</WorkToBuild>
+			<WorkToBuild>180</WorkToBuild>
       <Mass>3</Mass>
 			<BedRestEffectiveness>0.93</BedRestEffectiveness>
 			<Comfort>0.60</Comfort>
@@ -497,7 +552,8 @@
 				<roomStat>Impressiveness</roomStat>
 			</li>
 		</comps>
-	</ThingDef>
+    <uiIconScale>0.75</uiIconScale>
+  </ThingDef>
 
 	<ThingDef ParentName="FurnitureWithQualityBase">
 		<defName>AnimalBed</defName>
@@ -507,7 +563,6 @@
 		<rotatable>false</rotatable>
 		<fillPercent>0.15</fillPercent>
 		<pathCost>40</pathCost>
-		<castEdgeShadows>true</castEdgeShadows>
 		<passability>PassThroughOnly</passability>
     <canOverlapZones>false</canOverlapZones>
 		<graphicData>
@@ -515,25 +570,27 @@
 			<graphicClass>Graphic_Single</graphicClass>
 			<drawSize>1.2</drawSize>
 		</graphicData>
+		<castEdgeShadows>true</castEdgeShadows>
+    <uiIconScale>0.80</uiIconScale>
 		<stuffCategories>
 			<li>Fabric</li>
 			<li>Leathery</li>
 		</stuffCategories>
-		<costStuffCount>45</costStuffCount>
+		<costStuffCount>40</costStuffCount>
 		<building>
       <bed_humanlike>false</bed_humanlike>
 			<bed_showSleeperBody>true</bed_showSleeperBody>
-      <bed_healPerDay>3</bed_healPerDay>
+      <bed_healPerDay>4</bed_healPerDay>
 		</building>
 		<altitudeLayer>Building</altitudeLayer>
 		<statBases>
 			<MaxHitPoints>140</MaxHitPoints>
 			<Flammability>1.0</Flammability>
-			<WorkToBuild>600</WorkToBuild>
+			<WorkToBuild>400</WorkToBuild>
       <Mass>10</Mass>
 			<BedRestEffectiveness>1</BedRestEffectiveness>
 			<Comfort>0.75</Comfort>
-			<ImmunityGainSpeedFactor>1.1</ImmunityGainSpeedFactor>
+			<ImmunityGainSpeedFactor>1.07</ImmunityGainSpeedFactor>
 			<SurgerySuccessChanceFactor>1</SurgerySuccessChanceFactor>
 		</statBases>
 		<comps>
@@ -550,12 +607,10 @@
   <ThingDef ParentName="FurnitureWithQualityBase">
     <defName>Stool</defName>
     <label>stool</label>
+    <description>A simple platform on which to sit. Not very comfortable, but much better than nothing. Can be used at tables, work stations, and elsewhere.</description>
     <graphicData>
       <texPath>Things/Building/Furniture/Stool</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
-      <shadowData>
-        <volume>(0.3, 0.6, 0.3)</volume>
-      </shadowData>
       <damageData>
         <rectN>(0.125,0.296875,0.734375,0.421875)</rectN>
         <rectS>(0.125,0.296875,0.734375,0.421875)</rectS>
@@ -566,66 +621,69 @@
         <cornerBL>Damage/Corner</cornerBL>
         <cornerBR>Damage/Corner</cornerBR>
       </damageData>
+      <shadowData>
+        <volume>(0.18, 0.23, 0.18)</volume>
+      </shadowData>
     </graphicData>
     <altitudeLayer>Building</altitudeLayer>
     <statBases>
       <MaxHitPoints>75</MaxHitPoints>
-      <WorkToBuild>750</WorkToBuild>
+      <WorkToBuild>450</WorkToBuild>
       <Mass>3</Mass>
       <Flammability>1.0</Flammability>
-      <Beauty>1</Beauty>
+      <Beauty>0</Beauty>
       <Comfort>0.5</Comfort>
     </statBases>
-    <description>A simple platform on which to sit.</description>
     <socialPropernessMatters>true</socialPropernessMatters>
     <stuffCategories>
       <li>Metallic</li>
       <li>Woody</li>
       <li>Stony</li>
     </stuffCategories>
-    <costStuffCount>15</costStuffCount>
+    <costStuffCount>25</costStuffCount>
     <pathCost>30</pathCost>
     <designationHotKey>Misc6</designationHotKey>
     <fillPercent>0.20</fillPercent>
     <building>
       <isSittable>true</isSittable>
     </building>
+    <uiIconOffset>(0, -0.05)</uiIconOffset>
   </ThingDef>
 
 
   <ThingDef ParentName="ArtableFurnitureBase">
     <defName>DiningChair</defName>
     <label>dining chair</label>
+    <description>A comfortable and attractive chair. Can be used at tables, work stations, and elsewhere.</description>
     <graphicData>
       <texPath>Things/Building/Furniture/DiningChair</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
-      <drawSize>(3,3)</drawSize>
-      <shadowData>
-        <volume>(0.3, 0.6, 0.3)</volume>
-      </shadowData>
+      <drawSize>(1,1)</drawSize>
       <damageData>
         <rectN>(0.25,0.234375,0.5,0.28125)</rectN>
         <rectS>(0.25,0.234375,0.5,0.28125)</rectS>
         <rectE>(0.28125,0.25,0.453125,0.25)</rectE>
         <rectW>(0.28125,0.25,0.453125,0.25)</rectW>
       </damageData>
+      <shadowData>
+        <volume>(0.23, 0.26, 0.23)</volume>
+      </shadowData>
     </graphicData>
     <altitudeLayer>Building</altitudeLayer>
     <statBases>
       <MaxHitPoints>170</MaxHitPoints>
-      <WorkToBuild>6000</WorkToBuild>
+      <WorkToBuild>8000</WorkToBuild>
       <Mass>5</Mass>
       <Flammability>1.0</Flammability>
-      <Beauty>4</Beauty>
+      <Beauty>8</Beauty>
       <Comfort>0.70</Comfort>
     </statBases>
-    <description>A comfortable and attractive chair for sitting at a table.</description>
     <socialPropernessMatters>true</socialPropernessMatters>
     <stuffCategories>
       <li>Metallic</li>
       <li>Woody</li>
     </stuffCategories>
-    <costStuffCount>60</costStuffCount>
+    <costStuffCount>45</costStuffCount>
     <pathCost>30</pathCost>
     <designationHotKey>Misc7</designationHotKey>
     <fillPercent>0.35</fillPercent>
@@ -633,46 +691,55 @@
     <building>
       <isSittable>true</isSittable>
     </building>
+    <constructionSkillPrerequisite>4</constructionSkillPrerequisite>
+    <researchPrerequisites>
+      <li>ComplexFurniture</li>
+    </researchPrerequisites>
   </ThingDef>
 
 
   <ThingDef ParentName="FurnitureWithQualityBase">
     <defName>Armchair</defName>
     <label>armchair</label>
+    <description>A large, soft, comfy seat. Great for relaxation. Can be used at tables, work stations, and elsewhere.</description>
     <graphicData>
       <texPath>Things/Building/Furniture/Armchair</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
       <drawSize>(3,3)</drawSize>
-      <shadowData>
-        <volume>(0.6, 0.6, 0.6)</volume>
-      </shadowData>
       <damageData>
         <rectN>(0,0,1,0.703125)</rectN>
         <rectS>(0.09375,0,0.84375,1)</rectS>
         <rectE>(0,0,0.84375,0.625)</rectE>
         <rectW>(0.15625,0,0.84375,0.625)</rectW>
       </damageData>
+      <shadowData>
+        <volume>(0.3, 0.33, 0.3)</volume>
+      </shadowData>
     </graphicData>
+    <uiIconScale>0.9</uiIconScale>
     <altitudeLayer>Building</altitudeLayer>
     <statBases>
       <MaxHitPoints>220</MaxHitPoints>
-      <WorkToBuild>7500</WorkToBuild>
+      <WorkToBuild>14000</WorkToBuild>
       <Mass>18</Mass>
       <Flammability>1.0</Flammability>
-      <Beauty>1</Beauty>
+      <Beauty>4</Beauty>
       <Comfort>0.8</Comfort>
     </statBases>
-    <description>A large, soft, comfy seat. Great for relaxation.</description>
     <socialPropernessMatters>true</socialPropernessMatters>
     <stuffCategories>
       <li>Fabric</li>
       <li>Leathery</li>
     </stuffCategories>
-    <costStuffCount>100</costStuffCount>
+    <researchPrerequisites>
+      <li>ComplexFurniture</li>
+    </researchPrerequisites>
+    <costStuffCount>110</costStuffCount>
     <pathCost>30</pathCost>
     <fillPercent>0.40</fillPercent>
     <designationHotKey>Misc8</designationHotKey>
     <defaultPlacingRot>South</defaultPlacingRot>
+    <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
     <building>
       <isSittable>true</isSittable>
     </building>
@@ -683,9 +750,9 @@
 
   <!-- Table base -->
   <ThingDef Abstract="True" ParentName="FurnitureWithQualityBase" Name="TableBase">
+    <description>People eat off tables when chairs are placed facing them.</description>
     <thingClass>Building</thingClass>
     <altitudeLayer>Building</altitudeLayer>
-    <description>People eat off tables when chairs are placed facing them.</description>
     <passability>PassThroughOnly</passability>
     <castEdgeShadows>true</castEdgeShadows>
     <pathCost>60</pathCost>
@@ -718,7 +785,7 @@
   <ThingDef ParentName="TableBase">
     <defName>EndTable</defName>
     <label>end table</label>
-    <description>A small bedside table. Makes the nearby beds a little bit more comfortable. Must be placed directly adjacent to their head. Placing more than one end table near the same bed will have no effect.</description>
+    <description>A small bedside table which makes nearby beds a little bit more comfortable. Must be placed directly adjacent to the head of the bed. Placing more than one end table near the same bed has no effect.</description>
     <surfaceType>Item</surfaceType>
     <graphicData>
       <texPath>Things/Building/Furniture/EndTable</texPath>
@@ -732,13 +799,17 @@
       <WorkToBuild>1000</WorkToBuild>
       <Mass>5</Mass>
       <Flammability>1.0</Flammability>
-      <Beauty>4</Beauty>
+      <Beauty>3</Beauty>
     </statBases>
+    <pathCost>60</pathCost>
     <defaultPlacingRot>South</defaultPlacingRot>
     <costStuffCount>30</costStuffCount>
     <placeWorkers>
       <li>PlaceWorker_ShowFacilitiesConnections</li>
     </placeWorkers>
+    <researchPrerequisites>
+      <li>ComplexFurniture</li>
+    </researchPrerequisites>
     <comps>
       <li Class="CompProperties_Facility">
         <statOffsets>
@@ -760,16 +831,13 @@
       <graphicClass>Graphic_Multi</graphicClass>
       <drawSize>(3,4)</drawSize>
       <damageData>
-        <rectN>(0,0.27,1,1.73)</rectN>
-        <rectS>(0,0.27,1,1.73)</rectS>
-        <rectE>(0.125,0.27,1.75,0.73)</rectE>
-        <rectW>(0.125,0.27,1.75,0.73)</rectW>
         <cornerTL>Damage/Corner</cornerTL>
         <cornerTR>Damage/Corner</cornerTR>
         <cornerBL>Damage/Corner</cornerBL>
         <cornerBR>Damage/Corner</cornerBR>
       </damageData>
     </graphicData>
+    <uiIconScale>0.8</uiIconScale>
     <statBases>
       <MaxHitPoints>75</MaxHitPoints>
       <WorkToBuild>750</WorkToBuild>
@@ -789,13 +857,13 @@
       <graphicClass>Graphic_Multi</graphicClass>
       <drawSize>(4,4)</drawSize>
       <damageData>
-        <rect>(0.05,0.27,1.9,1.73)</rect>
         <cornerTL>Damage/Corner</cornerTL>
         <cornerTR>Damage/Corner</cornerTR>
         <cornerBL>Damage/Corner</cornerBL>
         <cornerBR>Damage/Corner</cornerBR>
       </damageData>
     </graphicData>
+    <uiIconScale>0.8</uiIconScale>
     <statBases>
       <MaxHitPoints>100</MaxHitPoints>
       <WorkToBuild>1500</WorkToBuild>
@@ -810,16 +878,12 @@
 
   <ThingDef ParentName="TableGatherSpotBase">
     <defName>Table2x4c</defName>
-    <label>table (2x3)</label>
+    <label>table (2x4)</label>
     <graphicData>
       <texPath>Things/Building/Furniture/Table2x4</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
       <drawSize>(4,6)</drawSize>
       <damageData>
-        <rectN>(0,0.27,2,3.73)</rectN>
-        <rectS>(0,0.27,2,3.73)</rectS>
-        <rectE>(0.125,0.27,3.75,1.73)</rectE>
-        <rectW>(0.125,0.27,3.75,1.73)</rectW>
         <cornerTL>Damage/Corner</cornerTL>
         <cornerTR>Damage/Corner</cornerTR>
         <cornerBL>Damage/Corner</cornerBL>
@@ -845,13 +909,13 @@
       <graphicClass>Graphic_Multi</graphicClass>
       <drawSize>(5, 5)</drawSize>
       <damageData>
-        <rect>(0.05,0.27,2.9,2.73)</rect>
         <cornerTL>Damage/Corner</cornerTL>
         <cornerTR>Damage/Corner</cornerTR>
         <cornerBL>Damage/Corner</cornerBL>
         <cornerBR>Damage/Corner</cornerBR>
       </damageData>
     </graphicData>
+    <uiIconScale>0.9</uiIconScale>
     <statBases>
       <MaxHitPoints>175</MaxHitPoints>
       <WorkToBuild>3300</WorkToBuild>
@@ -864,16 +928,17 @@
     <rotatable>false</rotatable>
   </ThingDef>
 
-  
-    <ThingDef ParentName="FurnitureWithQualityBase">
+  <ThingDef ParentName="FurnitureWithQualityBase">
     <defName>PlantPot</defName>
     <label>plant pot</label>
+    <description>Plant decorative flowers here to improve the mood of people nearby.</description>
     <thingClass>Building_PlantGrower</thingClass>
     <graphicData>
       <texPath>Things/Building/Furniture/PlantPot</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <shadowData>
-        <volume>(0.3, 0.6, 0.3)</volume>
+        <volume>(0.55, 0.35, 0.3)</volume>
+        <offset>(0, 0, -0.28)</offset>
       </shadowData>
       <damageData>
         <rect>(0.2,0.2,0.6,0.6)</rect>
@@ -884,7 +949,7 @@
     <fillPercent>0.20</fillPercent>
     <statBases>
       <MaxHitPoints>100</MaxHitPoints>
-      <WorkToBuild>495</WorkToBuild>
+      <WorkToBuild>250</WorkToBuild>
       <Mass>2</Mass>
       <Flammability>1.0</Flammability>
     </statBases>
@@ -893,8 +958,7 @@
       <li>Woody</li>
       <li>Stony</li>
     </stuffCategories>
-    <costStuffCount>15</costStuffCount>
-    <description>Plant decorative flowers here to improve the mood of people nearby.</description>
+    <costStuffCount>20</costStuffCount>
     <comps>
       <li Class="CompProperties_Forbiddable"/>
     </comps>
@@ -902,12 +966,12 @@
     <designationHotKey>Misc9</designationHotKey>
     <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
     <building>
-      <defaultPlantToGrow>PlantDaylily</defaultPlantToGrow>
+      <defaultPlantToGrow>Plant_Daylily</defaultPlantToGrow>
       <sowTag>Decorative</sowTag>
     </building>
     <rotatable>false</rotatable>
+    <uiIconOffset>(0, -0.05)</uiIconOffset>
   </ThingDef>
-
 
   <!-- ======================== Lighting ======================= -->
 
@@ -924,6 +988,8 @@
         <rect>(0.35,0.35,0.3,0.3)</rect>
       </damageData>
     </graphicData>
+    <uiIconPath>Things/Building/Misc/TorchLamp_MenuIcon</uiIconPath>
+    <uiIconScale>0.85</uiIconScale>
     <rotatable>false</rotatable>
     <altitudeLayer>Building</altitudeLayer>
     <passability>PassThroughOnly</passability>
@@ -934,14 +1000,14 @@
     <fillPercent>0.15</fillPercent>
     <statBases>
       <MaxHitPoints>80</MaxHitPoints>
-      <WorkToBuild>200</WorkToBuild>
+      <WorkToBuild>100</WorkToBuild>
       <Flammability>0</Flammability>
     </statBases>
     <selectable>true</selectable>
     <costList>
       <WoodLog>20</WoodLog>
     </costList>
-    <soundImpactDefault>BulletImpactGround</soundImpactDefault>
+    <soundImpactDefault>BulletImpact_Ground</soundImpactDefault>
     <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
     <resourcesFractionWhenDeconstructed>0</resourcesFractionWhenDeconstructed>
     <placeWorkers>
@@ -958,13 +1024,14 @@
             <li>WoodLog</li>
           </thingDefs>
         </fuelFilter>
-        <destroyOnNoFuel>true</destroyOnNoFuel>
+        <initialFuelPercent>1</initialFuelPercent>
       </li>
       <li Class="CompProperties_Glower">
         <glowRadius>10</glowRadius>
         <glowColor>(252,187,113,0)</glowColor>
       </li>
       <li Class="CompProperties_HeatPusher">
+        <compClass>CompHeatPusherPowered</compClass>
         <heatPerSecond>3.5</heatPerSecond>
         <heatPushMaxTemperature>23</heatPushMaxTemperature>
       </li>
@@ -981,16 +1048,20 @@
   <ThingDef Abstract="True" Name="LampBase" ParentName="BuildingBase">
     <thingClass>Building</thingClass>
     <category>Building</category>
-    <minifiedDef>MinifiedFurniture</minifiedDef>
+    <minifiedDef>MinifiedThing</minifiedDef>
     <altitudeLayer>Building</altitudeLayer>
     <passability>PassThroughOnly</passability>
     <selectable>true</selectable>
     <fillPercent>0.20</fillPercent>
     <pathCost>8</pathCost>
     <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
-    <soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+    <soundImpactDefault>BulletImpact_Metal</soundImpactDefault>
     <designationCategory>Furniture</designationCategory>
     <rotatable>false</rotatable>
+    <uiIconOffset>(0, 0.03)</uiIconOffset>
+    <thingCategories>
+      <li>BuildingsFurniture</li>
+    </thingCategories>
     <graphicData>
       <graphicClass>Graphic_Single</graphicClass>
       <shadowData>
@@ -1006,7 +1077,7 @@
     </comps>
     <statBases>
       <MaxHitPoints>50</MaxHitPoints>
-      <WorkToBuild>170</WorkToBuild>
+      <WorkToBuild>300</WorkToBuild>
       <Flammability>1.0</Flammability>
     </statBases>
     <researchPrerequisites>
@@ -1019,7 +1090,7 @@
       <texPath>Things/Building/Furniture/LampStanding</texPath>
     </graphicData>
     <costList>
-      <Steel>15</Steel>
+      <Steel>20</Steel>
     </costList>
     <statBases>
       <Mass>4</Mass>
@@ -1027,8 +1098,7 @@
     <comps>
       <li Class="CompProperties_Power">
         <compClass>CompPowerTrader</compClass>
-        <basePowerConsumption>75</basePowerConsumption>
-        <shortCircuitInRain>false</shortCircuitInRain>
+        <basePowerConsumption>30</basePowerConsumption>
       </li>
     </comps>
   </ThingDef>
@@ -1036,7 +1106,7 @@
   <ThingDef ParentName="StandingLampBase" >
     <defName>StandingLamp</defName>
     <label>standing lamp</label>
-    <description>Standing lamp that lights an area. People need light to move and work at full speed.</description>
+    <description>An electrical standing lamp that lights an area. People need light to move and work at full speed.</description>
     <designationHotKey>Misc11</designationHotKey>
     <comps>
       <li Class="CompProperties_Glower">
@@ -1049,47 +1119,55 @@
   <ThingDef ParentName="StandingLampBase">
     <defName>StandingLamp_Red</defName>
     <label>standing lamp (red)</label>
-    <description>Standing lamp that lights an area in red.</description>
+    <description>A standing lamp that lights an area in red.</description>
+    <designatorDropdown>StandingLampColored</designatorDropdown>
     <comps>
       <li Class="CompProperties_Glower">
         <glowRadius>12</glowRadius>
-        <glowColor>(217,0,0,0)</glowColor>
+        <glowColor>(217,80,80,0)</glowColor>
       </li>
     </comps>
-    <researchPrerequisites><li>ColoredLights</li></researchPrerequisites>
+    <researchPrerequisites>
+      <li>ColoredLights</li>
+    </researchPrerequisites>
   </ThingDef>
 
   <ThingDef ParentName="StandingLampBase">
     <defName>StandingLamp_Green</defName>
     <label>standing lamp (green)</label>
-    <description>Standing lamp that lights an area in green.</description>
+    <description>A standing lamp that lights an area in green.</description>
+    <designatorDropdown>StandingLampColored</designatorDropdown>
     <comps>   
       <li Class="CompProperties_Glower">
         <glowRadius>12</glowRadius>
-        <glowColor>(0,217,0,0)</glowColor>
+        <glowColor>(80,217,80,0)</glowColor>
       </li>
     </comps>
-    <researchPrerequisites><li>ColoredLights</li></researchPrerequisites>
+    <researchPrerequisites>
+      <li>ColoredLights</li>
+    </researchPrerequisites>
   </ThingDef>
 
   <ThingDef ParentName="StandingLampBase">
     <defName>StandingLamp_Blue</defName>
     <label>standing lamp (blue)</label>
-    <description>Standing lamp that lights an area in blue.</description>
+    <description>A standing lamp that lights an area in blue.</description>
+    <designatorDropdown>StandingLampColored</designatorDropdown>
     <comps>
       <li Class="CompProperties_Glower">
         <glowRadius>12</glowRadius>
-        <glowColor>(0,0,217,0)</glowColor>
+        <glowColor>(80,80,217,0)</glowColor>
       </li>
     </comps>
-    <researchPrerequisites><li>ColoredLights</li></researchPrerequisites>
+    <researchPrerequisites>
+      <li>ColoredLights</li>
+    </researchPrerequisites>
   </ThingDef>
-
 
   <ThingDef ParentName="LampBase">
     <defName>SunLamp</defName>
     <label>sun lamp</label>
-    <description>Lights an area brightly enough to grow crops, but consumes a huge amount of power. Automatically turns itself off at night.</description>
+    <description>An industrial lamp which lights an area brightly enough to grow crops, but consumes a huge amount of power. Automatically turns itself off at night.</description>
     <thingClass>Building_SunLamp</thingClass>
     <graphicData>
       <texPath>Things/Building/Production/LampSun</texPath>
@@ -1101,7 +1179,7 @@
       <Mass>4.5</Mass>
     </statBases>
     <costList>
-      <Steel>25</Steel>
+      <Steel>40</Steel>
     </costList>
     <comps>
       <li Class="CompProperties_Glower">
@@ -1111,7 +1189,7 @@
       </li>
       <li Class="CompProperties_Power">
         <compClass>CompPowerTrader</compClass>
-        <startElectricalFires>true</startElectricalFires>
+        <shortCircuitInRain>true</shortCircuitInRain>
         <basePowerConsumption>2900</basePowerConsumption>
       </li>
       <li Class="CompProperties_Schedule">
@@ -1119,6 +1197,10 @@
         <startTime>0.25</startTime>
         <endTime>0.8</endTime>
         <offMessage>Off for plant resting period</offMessage>
+      </li>
+      <li Class="CompProperties_HeatPusher">
+        <compClass>CompHeatPusherPowered</compClass>
+        <heatPerSecond>3</heatPerSecond>
       </li>
     </comps>
     <!-- Determined by trial and error
@@ -1134,6 +1216,7 @@
   <ThingDef ParentName="FurnitureWithQualityBase">
     <defName>Shelf</defName>
     <label>shelf</label>
+    <description>A shelf for storing miscellaneous items. Items stored in this will not deteriorate, even if outside.</description>
     <thingClass>Building_Storage</thingClass>
     <graphicData>
       <texPath>Things/Building/Furniture/Shelf</texPath>
@@ -1153,10 +1236,9 @@
     <statBases>
       <MaxHitPoints>100</MaxHitPoints>
       <Mass>8</Mass>
-      <WorkToBuild>1050</WorkToBuild>
+      <WorkToBuild>600</WorkToBuild>
       <Flammability>1.0</Flammability>
     </statBases>
-    <description>Items stored in this will not deteriorate, even if outside.</description>
     <size>(2,1)</size>
     <defaultPlacingRot>South</defaultPlacingRot>
     <building>
@@ -1178,6 +1260,9 @@
     <staticSunShadowHeight>0.5</staticSunShadowHeight>
     <surfaceType>Item</surfaceType>
     <canOverlapZones>false</canOverlapZones>
+    <researchPrerequisites>
+      <li>ComplexFurniture</li>
+    </researchPrerequisites>
   </ThingDef>
 
   <!--============================== Dressers ==============================-->
@@ -1185,7 +1270,7 @@
   <ThingDef ParentName="ArtableFurnitureBase">
     <defName>Dresser</defName>
     <label>dresser</label>
-    <description>Gives a small comfort bonus to all nearby beds. Placing more than one dresser near the same bed will have no effect.</description>
+    <description>A dresser. Gives a small comfort bonus to all nearby beds. Placing more than one dresser near the same bed has no effect.</description>
     <graphicData>
       <texPath>Things/Building/Furniture/Dresser</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
@@ -1201,6 +1286,7 @@
     <passability>PassThroughOnly</passability>
     <fillPercent>0.4</fillPercent>
     <castEdgeShadows>true</castEdgeShadows>
+    <pathCost>60</pathCost>
     <stuffCategories>
       <li>Metallic</li>
       <li>Woody</li>
@@ -1223,6 +1309,9 @@
     <placeWorkers>
       <li>PlaceWorker_ShowFacilitiesConnections</li>
     </placeWorkers>
+    <researchPrerequisites>
+      <li>ComplexFurniture</li>
+    </researchPrerequisites>
     <comps>
       <li Class="CompProperties_Facility">
         <statOffsets>

@@ -4,7 +4,7 @@
   <ThingDef ParentName="DrugBase">
     <defName>Beer</defName>
     <label>beer</label>
-    <description>The first beverage besides water ever consumed by mankind. Beer can taste good, but its main effect is intoxication. Excessive consumption can lead to alcohol addiction.</description>
+    <description>The first beverage besides water ever consumed by mankind. Beer can taste good, but its main effect is intoxication. Excessive consumption can lead to alcohol blackouts and, over time, addiction.</description>
     <graphicData>
       <texPath>Things/Item/Drug/Beer</texPath>
       <graphicClass>Graphic_StackCount</graphicClass>
@@ -16,10 +16,12 @@
       <DeteriorationRate>0.5</DeteriorationRate>
       <MarketValue>12</MarketValue>
       <Mass>0.3</Mass>
+      <Flammability>0.5</Flammability>
+      <Nutrition>0.08</Nutrition>
     </statBases>
     <ingestible>
       <foodType>Fluid, Processed, Liquor</foodType>
-      <nutrition>0.08</nutrition>
+      <joyKind>Chemical</joyKind>
       <joy>0.17</joy>
       <nurseable>true</nurseable>
       <drugCategory>Social</drugCategory>
@@ -40,7 +42,7 @@
         </li>
         <li Class="IngestionOutcomeDoer_GiveHediff">
           <hediffDef>AlcoholTolerance</hediffDef>
-          <severity>0.032</severity>
+          <severity>0.016</severity>
 					<divideByBodySize>true</divideByBodySize>
 				</li>
       </outcomeDoers>
@@ -62,29 +64,30 @@
     </comps>
     <tools>
       <li>
+        <label>bottle</label>
         <capacities>
           <li>Blunt</li>
         </capacities>
-        <power>8</power>
-        <cooldownTime>1.8</cooldownTime>
+        <power>9</power>
+        <cooldownTime>2</cooldownTime>
       </li>
       <li>
         <label>neck</label>
         <capacities>
           <li>Poke</li>
         </capacities>
-        <power>5</power>
-        <cooldownTime>1.8</cooldownTime>
+        <power>9</power>
+        <cooldownTime>2</cooldownTime>
       </li>
     </tools>
   </ThingDef>
 
 	<RecipeDef>
-		<defName>MakeWort</defName>
+		<defName>Make_Wort</defName>
 		<label>make wort</label>
 		<description>Make wort from hops.</description>
 		<jobString>Making wort.</jobString>
-		<workSpeedStat>BrewingSpeed</workSpeedStat>
+		<workSpeedStat>DrugCookingSpeed</workSpeedStat>
 		<workSkill>Cooking</workSkill>
 		<effectWorking>Cook</effectWorking>
 		<soundWorking>Recipe_Brewing</soundWorking>
@@ -114,7 +117,7 @@
 	<ThingDef ParentName="ResourceBase">
     <defName>Wort</defName>
     <label>wort</label>
-    <description>Beer before fermentation. This substance needs to ferment in a fermenting barrel before it becomes drinkable beer.</description>
+    <description>Un-fermented beer. This substance needs to ferment in a fermenting barrel before it becomes drinkable beer.</description>
     <graphicData>
       <texPath>Things/Item/Resource/Wort</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -128,6 +131,7 @@
       <DeteriorationRate>1.0</DeteriorationRate>
       <MarketValue>2.5</MarketValue>
       <Mass>0.8</Mass>
+      <Flammability>0.2</Flammability>
 			<MaxHitPoints>60</MaxHitPoints>
     </statBases>
     <tickerType>Rare</tickerType>
@@ -156,16 +160,11 @@
         </severityIndices>
       </li>
       <li Class="HediffCompProperties_SeverityPerDay">
-        <severityPerDay>-1.0</severityPerDay>
+        <severityPerDay>-0.75</severityPerDay>
       </li>
     </comps>
       <stages>
         <li>
-          <label>buzzed</label>
-          <becomeVisible>false</becomeVisible>
-        </li>
-        <li>
-          <minSeverity>0.1</minSeverity>
           <label>warm</label>
           <painFactor>0.9</painFactor>
           <socialFightChanceFactor>1.5</socialFightChanceFactor>
@@ -306,30 +305,24 @@
     <validWhileDespawned>true</validWhileDespawned>
     <stages>
       <li>
-        <label>buzzed-hidden</label>
-        <description>Should not appear.</description>
-        <baseMoodEffect>0</baseMoodEffect>
-        <visible>false</visible>
-      </li>
-      <li>
-        <label>Inebriated (warm)</label>
+        <label>alcohol warmth</label>
         <description>I just feel a bit more relaxed after that drink. That's good.</description>
-        <baseMoodEffect>8</baseMoodEffect>
+        <baseMoodEffect>10</baseMoodEffect>
       </li>
       <li>
-        <label>Inebriated (tipsy)</label>
+        <label>quite inebriated</label>
         <description>I'm a bit wobbly! And this is quite enjoyable.</description>
-        <baseMoodEffect>12</baseMoodEffect>
+        <baseMoodEffect>14</baseMoodEffect>
       </li>     
       <li>
-        <label>Inebriated (drunk)</label>
+        <label>drunk</label>
         <description>I feel so uninhibited and unafraid! This is a great time!</description>
-        <baseMoodEffect>18</baseMoodEffect>
+        <baseMoodEffect>20</baseMoodEffect>
       </li>
       <li>
-        <label>Inebriated (hammered)</label>
-        <description>Wooo! What is going on?</description>
-        <baseMoodEffect>24</baseMoodEffect>
+        <label>hammered</label>
+        <description>Wooo! What's going on?</description>
+        <baseMoodEffect>26</baseMoodEffect>
       </li>   
     </stages>
   </ThoughtDef>
@@ -341,22 +334,22 @@
     <validWhileDespawned>true</validWhileDespawned>
     <stages>
       <li>
-        <label>Hungover (slight)</label>
+        <label>mild hangover</label>
         <description>The headache is almost gone.</description>
-        <baseMoodEffect>-2</baseMoodEffect>
+        <baseMoodEffect>-3</baseMoodEffect>
       </li>
       <li>
-        <label>Hungover (strong)</label>
+        <label>serious hangover</label>
         <description>My head hurts from all that liquor.</description>
-        <baseMoodEffect>-5</baseMoodEffect>
+        <baseMoodEffect>-6</baseMoodEffect>
       </li>
       <li>
-        <label>Hungover (pounding)</label>
+        <label>pounding hangover</label>
         <description>It feels like a gaggle of geese are pecking at my skull.</description>
-        <baseMoodEffect>-10</baseMoodEffect>
+        <baseMoodEffect>-12</baseMoodEffect>
       </li>
       <li>
-        <label>hungover-hidden</label>
+        <label>hung over (hidden)</label>
         <visible>false</visible>
       </li>
     </stages>
@@ -385,7 +378,7 @@
     <defName>Chemical_Alcohol</defName>
     <needClass>Need_Chemical</needClass>
     <label>alcohol</label>
-    <description>Because of an alcohol addiction, this person needs to regularly consume the drug to avoid withdrawal symptoms.</description>
+    <description>Because of an alcohol addiction, this person needs to regularly consume alcohol to avoid withdrawal symptoms.</description>
     <listPriority>35</listPriority>
   </NeedDef>
 
@@ -394,7 +387,7 @@
     <label>alcohol tolerance</label>
     <comps>
       <li Class="HediffCompProperties_SeverityPerDay">
-        <severityPerDay>-0.015</severityPerDay>
+        <severityPerDay>-0.016</severityPerDay>
       </li>
       <li Class="HediffCompProperties_DrugEffectFactor">
         <chemical>Alcohol</chemical>
@@ -452,7 +445,7 @@
         </capMods>
 				<mentalStateGivers>
 					<li>
-						<mentalState>BingingDrugMajor</mentalState>
+						<mentalState>Binging_DrugMajor</mentalState>
 						<mtbDays>40</mtbDays>
 					</li>
 				</mentalStateGivers>

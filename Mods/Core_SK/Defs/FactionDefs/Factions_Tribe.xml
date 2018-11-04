@@ -1,12 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-	<FactionDef>
-		<defName>Tribe</defName>
-		<label>tribe</label>
-		<description>These people have been here a very long time. Maybe their ancestors crashed here a thousand years ago. Maybe they survived some cataclysm that destroyed a technological civilization here. In any case, the tribals are mostly nomadic people who live off the land using primitive tools and weapons.\n\nSome tribes are more aggressive than others; many are open to trade and alliances, even with strange peoples like yourselves. Close cooperation or recruitment will be very difficult because of the vast sociotechnological and linguistic gap between the tribals and yourselves.\n\nDespite their apparent technological weakness, the tribals can be dangerous enemies and valuable friends because of their skill with low-tech warfare, their numbers, and their hardiness.</description>
+	<FactionDef ParentName="HumanFactionBase" Name="TribeBase" Abstract="True">
+		<pawnSingular>tribesman</pawnSingular>
 		<pawnsPlural>tribespeople</pawnsPlural>
-		<baseSelectionWeight>2</baseSelectionWeight>
+		<listOrderPriority>20</listOrderPriority>
+		<settlementGenerationWeight>1.5</settlementGenerationWeight>
 		<requiredCountAtGameStart>1</requiredCountAtGameStart>
 		<canMakeRandomly>true</canMakeRandomly>
 		<autoFlee>true</autoFlee>
@@ -16,35 +15,26 @@
 		<raidCommonalityFromPointsCurve>
 			<points>
 				<li>(100, 3)</li>
-				<li>(800, 1)</li>
-				<li>(1500, 0.5)</li>
-				<li>(2500, 0.1)</li>
+				<li>(900, 1.3)</li>
+				<li>(1400, 1.0)</li>
+				<li>(2000, 0.7)</li>
+				<li>(2600, 0.45)</li>
+				<li>(3200, 0.25)</li>
 			</points>
 		</raidCommonalityFromPointsCurve>
 		<geneticVariance>0.1</geneticVariance>
-		<colorSpectrum>
-			<li>(0.4, 0.92, 0.35)</li>
-			<li>(0.89, 0.89, 0.7)</li>
-			<li>(1, 1, 0.1)</li>
-		</colorSpectrum>
-		<startingGoodwill>
-			<min>10</min>
-			<max>30</max>
-		</startingGoodwill>
 		<mustStartOneEnemy>true</mustStartOneEnemy>
 		<factionNameMaker>NamerFactionTribal</factionNameMaker>
-		<baseNameMaker>NamerFactionBaseTribal</baseNameMaker>
+		<settlementNameMaker>NamerSettlementTribal</settlementNameMaker>
 		<pawnNameMaker>NamerPersonTribal</pawnNameMaker>
 		<techLevel>Industrial</techLevel>
-		<backstoryCategory>Tribal</backstoryCategory>
+		<backstoryCategories>
+			<li>Tribal</li>
+		</backstoryCategories>
 		<leaderTitle>chief</leaderTitle>
 		<hairTags>
 			<li>Tribal</li>
 		</hairTags>
-		<naturalColonyGoodwill>
-			<min>-100</min>
-			<max>10</max>
-		</naturalColonyGoodwill>
 		<caravanTraderKinds>
 			<li>Caravan_Neolithic_BulkGoods</li>
 			<li>Caravan_Neolithic_WarMerchant</li>
@@ -58,9 +48,18 @@
 			<li>Base_Neolithic_Standard</li>
 		</baseTraderKinds>
 		<allowedArrivalTemperatureRange>
-			<min>-35</min>
+			<min>-40</min>
 			<max>45</max>
 		</allowedArrivalTemperatureRange>
+		<maxPawnCostPerTotalPointsCurve>
+			<points>
+				<li>(0,35)</li>
+				<li>(70, 50)</li>
+				<li>(800, 100)</li>
+				<li>(1300, 150)</li>
+				<li>(100000, 10000)</li>
+			</points>
+		</maxPawnCostPerTotalPointsCurve>
 		<apparelStuffFilter>
 			<categories>
 				<li>Leathers</li>
@@ -79,20 +78,59 @@
 		</apparelStuffFilter>
 		<pawnGroupMakers>
 			<li>
-				<kindDef>Normal</kindDef>
+				<!-- Normal fights, ranged with melee mix-ins -->
+				<kindDef>Combat</kindDef>
+				<commonality>100</commonality>
 				<options>
-					<TribalWarrior>60</TribalWarrior>
-					<TribalArcher>100</TribalArcher>
-					<TribalHunter>70</TribalHunter>
-					<TribalHeavyArcher>70</TribalHeavyArcher>
-					<TribalBerserker>60</TribalBerserker>
-					<TribalChief>70</TribalChief>
+					<Tribal_Penitent>5</Tribal_Penitent>
+					<Tribal_Warrior>5</Tribal_Warrior>
+					<Tribal_Archer>10</Tribal_Archer>
+					<Tribal_Hunter>10</Tribal_Hunter>
+					<Tribal_HeavyArcher>10</Tribal_HeavyArcher>
+					<Tribal_Berserker>5</Tribal_Berserker>
+					<Tribal_ChiefRanged>3</Tribal_ChiefRanged>
+					<Tribal_ChiefMelee>1.5</Tribal_ChiefMelee>
+				</options>
+			</li>
+			<li>
+				<!-- Normal fights, ranged only -->
+				<kindDef>Combat</kindDef>
+				<commonality>60</commonality>
+				<options>
+					<Tribal_Archer>10</Tribal_Archer>
+					<Tribal_Hunter>10</Tribal_Hunter>
+					<Tribal_HeavyArcher>10</Tribal_HeavyArcher>
+					<Tribal_ChiefRanged>5</Tribal_ChiefRanged>
+				</options>
+			</li>
+			<li>
+				<!-- Normal fights, melee only -->
+				<kindDef>Combat</kindDef>
+				<commonality>60</commonality>
+				<options>
+					<Tribal_Penitent>10</Tribal_Penitent>
+					<Tribal_Warrior>10</Tribal_Warrior>
+					<Tribal_Berserker>10</Tribal_Berserker>
+					<Tribal_ChiefMelee>5</Tribal_ChiefMelee>
+				</options>
+			</li>
+			<li>
+				<!-- Peaceful -->
+				<kindDef>Peaceful</kindDef>
+				<options>
+					<Tribal_Warrior>20</Tribal_Warrior>
+					<Tribal_Archer>10</Tribal_Archer>
+					<Tribal_Hunter>10</Tribal_Hunter>
+					<Tribal_HeavyArcher>10</Tribal_HeavyArcher>
+					<Tribal_Berserker>5</Tribal_Berserker>
+					<Tribal_ChiefRanged>3</Tribal_ChiefRanged>
+					<Tribal_ChiefMelee>1.5</Tribal_ChiefMelee>
 				</options>
 			</li>
 			<li>
 				<kindDef>Trader</kindDef>
 				<traders>
-					<TribalTrader>1</TribalTrader>
+					<Tribal_Trader>1</Tribal_Trader>
 				</traders>
 				<carriers>
 					<Muffalo>6</Muffalo>
@@ -100,36 +138,72 @@
 					<Rhinoceros>2</Rhinoceros>
 					<Elephant>2</Elephant>
 					<Megabadger>1</Megabadger>
-					<WoolyHorse>5</WoolyHorse>
-					<WoolyRhino>2</WoolyRhino>
+					<Horse_Wooly>5</Horse_Wooly>
+					<Rhino_Wooly>2</Rhino_Wooly>
 					<Horse>7</Horse>
-					<Blackbear>1</Blackbear>
+					<Bear_Black>1</Bear_Black>
 					<Buffalo>4</Buffalo>
-					<GrizzlyBear>2</GrizzlyBear>
-					<PolarBear>1</PolarBear>
+					<Bear_Grizzly>2</Bear_Grizzly>
+					<Bear_Polar>1</Bear_Polar>
 					<Mammoth>2</Mammoth>
 				</carriers>
 				<guards>
-					<TribalWarrior>60</TribalWarrior>
-					<TribalArcher>100</TribalArcher>
-					<TribalHunter>70</TribalHunter>
-					<TribalHeavyArcher>70</TribalHeavyArcher>
-					<TribalBerserker>60</TribalBerserker>
+					<Tribal_Warrior>7</Tribal_Warrior>
+					<Tribal_Archer>10</Tribal_Archer>
+					<Tribal_Hunter>10</Tribal_Hunter>
+					<Tribal_HeavyArcher>10</Tribal_HeavyArcher>
+					<Tribal_Berserker>7</Tribal_Berserker>
 				</guards>
 			</li>
 			<li>
-				<kindDef>FactionBase</kindDef>
+				<kindDef>Settlement</kindDef>
 				<options>
-					<TribalWarrior>60</TribalWarrior>
-					<TribalArcher>100</TribalArcher>
-					<TribalHunter>70</TribalHunter>
-					<TribalHeavyArcher>70</TribalHeavyArcher>
-					<TribalBerserker>60</TribalBerserker>
-					<TribalChief>70</TribalChief>
+					<Tribal_Warrior>7</Tribal_Warrior>
+					<Tribal_Archer>10</Tribal_Archer>
+					<Tribal_Hunter>10</Tribal_Hunter>
+					<Tribal_HeavyArcher>10</Tribal_HeavyArcher>
+					<Tribal_Berserker>7</Tribal_Berserker>
+					<Tribal_ChiefRanged>10</Tribal_ChiefRanged>
 				</options>
 			</li>
 		</pawnGroupMakers>
-		<homeIconPath>World/WorldObjects/TribalFactionBase</homeIconPath>
+		<homeIconPath>World/WorldObjects/TribalSettlement</homeIconPath>
+	</FactionDef>
+
+	<FactionDef ParentName="TribeBase">
+		<defName>TribeCivil</defName>
+		<label>gentle tribe</label>
+		<description>These people have been here a very long time. Maybe their ancestors crashed here a thousand years ago. Maybe they survived some cataclysm that destroyed a technological civilization here. In any case, the tribals are mostly nomadic people who live off the land using primitive tools and weapons.\n\nDespite their apparent technological weakness, the tribals can be dangerous enemies and valuable friends because of their skill with low-tech warfare, their numbers, and their hardiness.\n\nThis particular tribe pursues a gentle way of life where they can. They are quite open to trade and alliances, even with strange peoples.</description>
+		<colorSpectrum>
+			<li>(0.85, 0.75, 0.37)</li>
+			<li>(0.95, 0.95, 0.37)</li>
+		</colorSpectrum>
+		<startingGoodwill>
+			<min>-0</min>
+			<max>0</max>
+		</startingGoodwill>
+		<naturalColonyGoodwill>
+			<min>-50</min>
+			<max>50</max>
+		</naturalColonyGoodwill>
+	</FactionDef>
+
+	<FactionDef ParentName="TribeBase">
+		<defName>TribeRough</defName>
+		<label>savage tribe</label>
+		<description>These people have been here a very long time. Maybe their ancestors crashed here a thousand years ago. Maybe they survived some cataclysm that destroyed a technological civilization here. In any case, the tribals are mostly nomadic people who live off the land using primitive tools and weapons.\n\nDespite their apparent technological weakness, the tribals can be dangerous enemies and valuable friends because of their skill with low-tech warfare, their numbers, and their hardiness.\n\nThis particular tribe values warlike dominance; it may be difficult to turn them into an ally.</description>
+		<colorSpectrum>
+			<li>(0.25, 0.65, 0.05)</li>
+			<li>(0.25, 0.75, 0.05)</li>
+		</colorSpectrum>
+		<startingGoodwill>
+			<min>-20</min>
+			<max>-20</max>
+		</startingGoodwill>
+		<naturalColonyGoodwill>
+			<min>-100</min>
+			<max>-80</max>
+		</naturalColonyGoodwill>
 	</FactionDef>
 
 </Defs>

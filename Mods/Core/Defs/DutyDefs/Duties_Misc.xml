@@ -167,11 +167,11 @@
         <li Class="JobGiver_TakeCombatEnhancingDrug">
           <onlyIfInDanger>true</onlyIfInDanger>
         </li>
-        <li Class="JobGiver_AIFollowEscortee"/>
         <li Class="JobGiver_AIDefendEscortee">
           <targetAcquireRadius>65</targetAcquireRadius>
           <targetKeepRadius>72</targetKeepRadius>
         </li>
+        <li Class="JobGiver_AIFollowEscortee"/>
         <li Class="ThinkNode_Subtree">
           <treeDef>SatisfyVeryUrgentNeeds</treeDef>
         </li> 
@@ -254,12 +254,12 @@
         <li Class="ThinkNode_ConditionalHasDutyPawnTarget">
           <subNodes>
             <!-- Follow and defend leader -->
-            <li Class="JobGiver_AIFollowEscortee"/>
             <li Class="JobGiver_AIDefendEscortee">
               <targetAcquireRadius>15</targetAcquireRadius>
               <targetKeepRadius>18</targetKeepRadius>
               <needLOSToAcquireNonPawnTargets>true</needLOSToAcquireNonPawnTargets>
             </li>
+            <li Class="JobGiver_AIFollowEscortee"/>
             <li Class="JobGiver_WanderNearDutyLocation">
               <wanderRadius>3</wanderRadius>
             </li>
@@ -345,13 +345,15 @@
             <li Class="JobGiver_MaintainHives" />
           </subNodes>
         </li>
+        <li Class="JobGiver_MaintainHives">
+          <onlyIfDamagingState>true</onlyIfDamagingState>
+        </li>
         <li Class="ThinkNode_ConditionalBodySize">
           <min>0.7</min>
           <subNodes>
             <li Class="ThinkNode_ConditionalHiveCanReproduce">
               <subNodes>
-                <li Class="ThinkNode_ChancePerHour_Constant">
-                  <mtbHours>18</mtbHours>
+                <li Class="ThinkNode_ChancePerHour_InsectDigChance">
                   <subNodes>
                     <li Class="JobGiver_MineRandom" />
                   </subNodes>
@@ -370,6 +372,22 @@
               </subNodes>
             </li>
           </subNodes>
+        </li>
+        <li Class="JobGiver_WanderHive">
+          <maxDanger>Deadly</maxDanger>
+        </li>
+      </subNodes>
+    </thinkNode>
+  </DutyDef>
+
+  <DutyDef>
+    <defName>DefendHiveAggressively</defName>
+    <thinkNode Class="ThinkNode_Priority">
+      <subNodes>
+        <li Class="JobGiver_HiveDefense">
+          <needLOSToAcquireNonPawnTargets>true</needLOSToAcquireNonPawnTargets>
+          <targetAcquireRadius>50</targetAcquireRadius>
+          <chaseTarget>false</chaseTarget>
         </li>
         <li Class="JobGiver_WanderHive">
           <maxDanger>Deadly</maxDanger>
@@ -426,6 +444,11 @@
     <defName>LoadAndEnterTransporters</defName>
     <thinkNode Class="ThinkNode_Priority">
       <subNodes>
+        <!-- Basic needs -->
+        <li Class="ThinkNode_Subtree">
+          <treeDef>SatisfyVeryUrgentNeeds</treeDef>
+        </li>
+        
         <!-- Load transport pods -->
         <li Class="JobGiver_LoadTransporters" />
 

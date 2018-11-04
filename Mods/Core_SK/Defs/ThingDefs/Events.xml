@@ -21,7 +21,7 @@
 		<statBases>
 			<Flammability>0</Flammability>
 			<Beauty>0</Beauty>
-		</statBases>	
+		</statBases>
 	</ThingDef>
 
 	<ThingDef ParentName="EventBase">
@@ -99,7 +99,7 @@
 		<defName>CosmicRAD</defName>
 		<label>radiation filth</label>
 		<thingClass>SK.BuildingRAD</thingClass>
-		<filthLeaving>BuildingRubble</filthLeaving>
+		<filthLeaving>Filth_RubbleBuilding</filthLeaving>
 		<comps>
 			<li Class="CompProperties_Glower">
 				<glowRadius>6</glowRadius>
@@ -140,36 +140,36 @@
 		<radiationRadius>7</radiationRadius>
 	</ThingDef>
 
-	<ThingDef>
-		<defName>NuclearStrikeIncoming</defName>
-		<category>Skyfaller</category>
-		<label>Razor Rain (Incoming!)</label>
-		<thingClass>SK.Events.NuclearStrikeIncoming</thingClass>
+
+	<ThingDef Name="StrikeIncomingBase" Abstract="True">
+		<category>Ethereal</category>
+		<altitudeLayer>Skyfaller</altitudeLayer>
+		<drawerType>RealtimeOnly</drawerType>
+		<menuHidden>true</menuHidden>
 		<tickerType>Normal</tickerType>
+		<useHitPoints>false</useHitPoints>
+	</ThingDef>
+
+	<ThingDef ParentName="StrikeIncomingBase">
+		<defName>NuclearStrikeIncoming</defName>
+		<label>Nuclear strike (Incoming!)</label>
+		<thingClass>SK.Events.NuclearStrikeIncoming</thingClass>
 		<graphicData>
 			<texPath>Things/Building/Exotic/ShipChunk</texPath>
 			<graphicClass>Graphic_Random</graphicClass>
 			<shaderType>Transparent</shaderType>
 		</graphicData>
-		<menuHidden>true</menuHidden>
-		<altitudeLayer>Filth</altitudeLayer>
-		<useHitPoints>false</useHitPoints>
 	</ThingDef>
 
-	<ThingDef>
+	<ThingDef ParentName="StrikeIncomingBase">
 		<defName>RazorRainIncoming</defName>
-		<category>Skyfaller</category>
 		<label>Razor Rain (Incoming!)</label>
 		<thingClass>SK.Events.RazorRainIncoming</thingClass>
-		<tickerType>Normal</tickerType>
 		<graphicData>
-			<texPath>Things/Item/Resource/Metal</texPath>
+			<texPath>Things/Item/Resource/Steel</texPath>
 			<graphicClass>Graphic_Random</graphicClass>
 			<shaderType>CutoutFlying</shaderType>
 		</graphicData>
-		<menuHidden>true</menuHidden>
-		<altitudeLayer>MetaOverlays</altitudeLayer>
-		<useHitPoints>false</useHitPoints>
 	</ThingDef>
 
 
@@ -191,7 +191,7 @@
 	<ThingDef ParentName="BuildingBase">
 		<defName>VGlower</defName>
 		<label>light</label>
-		<description/>
+		
 		<graphicData>
 			<texPath>Inv</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
@@ -215,14 +215,43 @@
 		</statBases>
 	</ThingDef>
 
-	<ThingDef>
-		<category>Skyfaller</category>
+	<ThingDef Name="SkyfallerBase" Abstract="True">
+		<category>Ethereal</category>
+		<thingClass>Skyfaller</thingClass>
+		<useHitPoints>false</useHitPoints>
+		<drawOffscreen>true</drawOffscreen>
+		<tickerType>Normal</tickerType>
+		<altitudeLayer>Skyfaller</altitudeLayer>
+		<drawerType>RealtimeOnly</drawerType>
+		<skyfaller />
+	</ThingDef>
+
+	<ThingDef ParentName="SkyfallerBase">
+		<defName>ShipChunkIncomingFlame</defName>
+		<label>ship chunk (incoming)</label>
+		<size>(2,2)</size>
+		<skyfaller>
+			<shadowSize>(2.5,2.5)</shadowSize>
+			<explosionRadius>2</explosionRadius>
+			<explosionDamage>Flame</explosionDamage>
+			<explosionDamageFactor>0.5</explosionDamageFactor>
+		</skyfaller>
+	</ThingDef>
+
+
+
+	<ThingDef Name="SkyfallerSKBase" Abstract="True">
+		<category>Ethereal</category>
 		<thingClass>SK.Skyfaller</thingClass>
 		<useHitPoints>false</useHitPoints>
 		<drawOffscreen>true</drawOffscreen>
 		<tickerType>Normal</tickerType>
 		<altitudeLayer>Skyfaller</altitudeLayer>
 		<drawerType>RealtimeOnly</drawerType>
+		<skyfaller />
+	</ThingDef>
+
+	<ThingDef ParentName="SkyfallerSKBase">
 		<defName>FixedMeteoriteIncoming</defName>
 		<label>meteorite (incoming)</label>
 		<size>(2,2)</size>
@@ -241,26 +270,7 @@
 		</skyfaller>
 	</ThingDef>
 
-	<ThingDef ParentName="SkyfallerBase">
-		<defName>ShipChunkIncomingFlame</defName>
-		<label>ship chunk (incoming)</label>
-		<size>(2,2)</size>
-		<skyfaller>
-			<shadowSize>(2.5,2.5)</shadowSize>
-			<explosionRadius>2</explosionRadius>
-			<explosionDamage>Flame</explosionDamage>
-			<explosionDamageFactor>0.5</explosionDamageFactor>
-		</skyfaller>
-	</ThingDef>
-
-	<ThingDef>
-		<category>Skyfaller</category>
-		<thingClass>SK.Skyfaller</thingClass>
-		<useHitPoints>false</useHitPoints>
-		<drawOffscreen>true</drawOffscreen>
-		<tickerType>Normal</tickerType>
-		<altitudeLayer>Skyfaller</altitudeLayer>
-		<drawerType>RealtimeOnly</drawerType>
+	<ThingDef ParentName="SkyfallerSKBase">
 		<defName>FixedMeteoriteIncomingFlame</defName>
 		<label>meteorite (incoming)</label>
 		<size>(2,2)</size>
@@ -290,7 +300,8 @@
 			<shaderType>CutoutFlying</shaderType>
 		</graphicData>
 		<size>(6,6)</size>
-		<altitudeLayer>MetaOverlays</altitudeLayer>
+		<altitudeLayer>Skyfaller</altitudeLayer>
+		<drawerType>RealtimeOnly</drawerType>
 		<useHitPoints>false</useHitPoints>
 	</ThingDef>
 

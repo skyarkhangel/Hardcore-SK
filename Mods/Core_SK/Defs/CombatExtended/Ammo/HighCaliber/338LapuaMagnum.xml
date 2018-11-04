@@ -22,7 +22,7 @@
   
   <!-- ==================== Ammo ========================== -->
 
-  <ThingDef Name="Ammo338LapuaBase" ParentName="SmallAmmoBase" Abstract="True">
+  <ThingDef Class="CombatExtended.AmmoDef" Name="Ammo338LapuaBase" ParentName="SmallAmmoBase" Abstract="True">
     <description>The .338 Lapua Magnum (8.6×70mm or 8.58×70mm) is a rimless, bottlenecked, centerfire cartridge developed for military long-range sniper rifles.</description>
     <statBases>
       <Mass>0.045</Mass>
@@ -37,7 +37,7 @@
     </thingCategories>
   </ThingDef>
 
-  <ThingDef ParentName="Ammo338LapuaBase">
+  <ThingDef Class="CombatExtended.AmmoDef" ParentName="Ammo338LapuaBase">
     <defName>Ammo_338Lapua_FMJ</defName>
     <label>.338 Lapua Magnum cartridge (FMJ)</label>
     <graphicData>
@@ -51,7 +51,7 @@
     <cookOffProjectile>Bullet_338Lapua_FMJ</cookOffProjectile>
   </ThingDef>
 
-  <ThingDef ParentName="Ammo338LapuaBase">
+  <ThingDef Class="CombatExtended.AmmoDef" ParentName="Ammo338LapuaBase">
     <defName>Ammo_338Lapua_HE</defName>
     <label>.338 Lapua Magnum cartridge (HE)</label>
     <graphicData>
@@ -65,7 +65,7 @@
     <cookOffProjectile>Bullet_338Lapua_HE</cookOffProjectile>
   </ThingDef>
 
-  <ThingDef ParentName="Ammo338LapuaBase">
+  <ThingDef Class="CombatExtended.AmmoDef" ParentName="Ammo338LapuaBase">
     <defName>Ammo_338Lapua_Incendiary</defName>
     <label>.338 Lapua Magnum cartridge (AP-I)</label>
     <graphicData>
@@ -86,7 +86,7 @@
       <texPath>Things/Projectile/Bullet_Big</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
-    <projectile>
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
       <damageDef>Bullet</damageDef>
       <speed>167</speed>
 	  <dropsCasings>true</dropsCasings>
@@ -96,7 +96,7 @@
   <ThingDef ParentName="Base338LapuaBullet">
     <defName>Bullet_338Lapua_FMJ</defName>
     <label>.338 Lapua Magnum bullet (FMJ)</label>
-    <projectile>
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
       <damageAmountBase>27</damageAmountBase>
 	  <armorPenetration>0.70</armorPenetration>
     </projectile>
@@ -105,9 +105,9 @@
   <ThingDef ParentName="Base338LapuaBullet">
     <defName>Bullet_338Lapua_HE</defName>
     <label>.338 Lapua Magnum bullet (HE)</label>
-    <projectile>
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
       <damageAmountBase>23</damageAmountBase>
-			<armorPenetration>0.68</armorPenetration>
+			<armorPenetration>0.84</armorPenetration>
 			<secondaryDamage>
 				<li>
 					<def>Bomb_Secondary</def>
@@ -120,9 +120,9 @@
   <ThingDef ParentName="Base338LapuaBullet">
     <defName>Bullet_338Lapua_Incendiary</defName>
     <label>.338 Lapua Magnum bullet (AP-I)</label>
-    <projectile>
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
       <damageAmountBase>23</damageAmountBase>
-			<armorPenetration>0.68</armorPenetration>
+			<armorPenetration>0.70</armorPenetration>
       <secondaryDamage>
         <li>
           <def>Flame_Secondary</def>
@@ -143,10 +143,19 @@
       <li>
         <filter>
           <categories>
-            <li>Metallic</li>
+			<li>SLDBar</li>
+			<li>USLDBar</li>
           </categories>
         </filter>
         <count>14</count>
+      </li>
+      <li>
+        <filter>
+          <categories>
+			<li>HeavyBar</li>
+          </categories>
+        </filter>
+        <count>6</count>
       </li>
       <li>
         <filter>
@@ -161,6 +170,7 @@
       <categories>
         <li>SLDBar</li>
         <li>USLDBar</li>
+		<li>HeavyBar</li>
       </categories>
       <thingDefs>
         <li>Powder</li>
@@ -185,18 +195,27 @@
       <li>
         <filter>
           <categories>
-            <li>Metallic</li>
+			<li>SLDBar</li>
+			<li>USLDBar</li>
           </categories>
         </filter>
-        <count>12</count>
+        <count>14</count>
+      </li>
+      <li>
+        <filter>
+          <categories>
+			<li>USLDHBar</li>
+          </categories>
+        </filter>
+        <count>5</count>
       </li>
       <li>
         <filter>
           <thingDefs>
-            <li>Carbon</li>
+            <li>FSX</li>
           </thingDefs>
         </filter>
-        <count>2</count>
+        <count>6</count>
       </li>
       <li>
         <filter>
@@ -211,10 +230,11 @@
       <categories>
         <li>SLDBar</li>
         <li>USLDBar</li>
+		<li>USLDHBar</li>
       </categories>
       <thingDefs>
-        <li>Carbon</li>
         <li>Powder</li>
+		<li>FSX</li>
       </thingDefs>
     </fixedIngredientFilter>
     <products>
@@ -236,18 +256,19 @@
       <li>
         <filter>
           <categories>
-            <li>SLDBar</li>
+			<li>SLDBar</li>
+			<li>USLDBar</li>
           </categories>
         </filter>
-        <count>40</count>
+        <count>14</count>
       </li>
       <li>
         <filter>
           <categories>
-            <li>USLDBar</li>
+			<li>HeavyBar</li>
           </categories>
         </filter>
-        <count>12</count>
+        <count>5</count>
       </li>
       <li>
         <filter>
@@ -255,34 +276,27 @@
             <li>Prometheum</li>
           </thingDefs>
         </filter>
-        <count>9</count>
+        <count>6</count>
       </li>
-      <li>
-        <filter>
-          <thingDefs>
-            <li>DepletedUranium</li>
-          </thingDefs>
-        </filter>
-        <count>3</count>
-      </li>
+
       <li>
         <filter>
           <thingDefs>
             <li>Powder</li>
           </thingDefs>
         </filter>
-        <count>6</count>
+        <count>4</count>
       </li>
     </ingredients>
     <fixedIngredientFilter>
       <categories>
         <li>SLDBar</li>
         <li>USLDBar</li>
+		<li>HeavyBar</li>
       </categories>
       <thingDefs>
         <li>Powder</li>
         <li>Prometheum</li>
-        <li>DepletedUranium</li>
       </thingDefs>
     </fixedIngredientFilter>
     <products>
