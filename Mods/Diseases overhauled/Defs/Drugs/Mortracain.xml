@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<ThingDef ParentName="MakeableDrugPillBase">
+		<defName>Mortracain</defName>
+		<label>Mortracain</label>
+		<description>A relatively strong painkiller. Used to treat moderate to serious pain. Take every two days. (May be addictive.)</description>
+		<graphicData>
+			<texPath>Things/Mortracain</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<socialPropernessMatters>false</socialPropernessMatters>
+		<rotatable>false</rotatable>
+		<statBases>
+			<WorkToMake>200</WorkToMake>
+			<MarketValue>29</MarketValue>
+			<Mass>0.04</Mass>
+		</statBases>
+		<techLevel>Industrial</techLevel>
+		<ingestible>
+			<drugCategory>Medical</drugCategory>
+			<baseIngestTicks>90</baseIngestTicks>
+			<chairSearchRadius>0</chairSearchRadius>
+			<outcomeDoers>
+				<li Class="IngestionOutcomeDoer_GiveHediff">
+					<hediffDef>MortracainHigh</hediffDef>
+					<severity>0.75</severity>
+					<toleranceChemical>Mortracain</toleranceChemical>
+				</li>
+				<li Class="IngestionOutcomeDoer_OffsetNeed">
+					<need>Rest</need>
+					<offset>0.2</offset>
+					<toleranceChemical>Mortracain</toleranceChemical>
+				</li>
+				<li Class="IngestionOutcomeDoer_GiveHediff">
+					<hediffDef>MortracainTolerance</hediffDef>
+					<severity>0.04</severity>
+					<divideByBodySize>true</divideByBodySize>
+				</li>
+			</outcomeDoers>
+		</ingestible>
+		<recipeMaker>
+			<researchPrerequisite>TranquAnalgetProduction</researchPrerequisite>
+			<recipeUsers>
+				<li>DrugLab</li>
+			</recipeUsers>
+		</recipeMaker>
+		<costList>
+			<Neutroamine>1</Neutroamine>
+			<SmokeleafLeaves>2</SmokeleafLeaves>
+			<Flake>2</Flake>
+		</costList>
+		<comps>
+			<li Class="CompProperties_Drug">
+				<chemical>Mortracain</chemical>
+				<addictiveness>0.06</addictiveness>
+				<minToleranceToAddict>0.165</minToleranceToAddict>
+				<existingAddictionSeverityOffset>0.20</existingAddictionSeverityOffset>
+				<needLevelOffset>1</needLevelOffset>
+				<listOrder>300</listOrder>
+				<overdoseSeverityOffset>
+					<min>0.18</min>
+					<max>0.35</max>
+				</overdoseSeverityOffset>
+				<largeOverdoseChance>0.0</largeOverdoseChance>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<HediffDef>
+		<defName>MortracainHigh</defName>
+		<hediffClass>HediffWithComps</hediffClass>
+		<label>Mortracain</label>
+		<defaultLabelColor>(1,0,0.5)</defaultLabelColor>
+		<scenarioCanAdd>true</scenarioCanAdd>
+		<maxSeverity>1.0</maxSeverity>
+		<comps>
+			<li Class="HediffCompProperties_SeverityPerDay">
+				<severityPerDay>-0.485</severityPerDay>
+			</li>
+		</comps>
+		<stages>
+			<li>
+				<painFactor>0.85</painFactor>
+				<painOffset>-0.1</painOffset>
+			</li>
+			<li>
+				<minSeverity>0.5</minSeverity>
+				<painFactor>0.65</painFactor>
+				<painOffset>-0.2</painOffset>
+			</li>
+		</stages>
+	</HediffDef>
+
+	<ThoughtDef>
+		<defName>MortracainHigh</defName>
+		<workerClass>ThoughtWorker_Hediff</workerClass>
+		<hediff>MortracainHigh</hediff>
+		<validWhileDespawned>true</validWhileDespawned>
+		<stages>
+			<li>
+				<label>Mortracain</label>
+				<description>Wohoo! Just like a breeze of napalm in the morning!</description>
+				<baseMoodEffect>5</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<!-- Mortracain addiction -->
+
+	<ChemicalDef>
+		<defName>Mortracain</defName>
+		<label>Mortracain</label>
+		<addictionHediff>MortracainAddiction</addictionHediff>
+		<toleranceHediff>MortracainTolerance</toleranceHediff>
+		<onGeneratedAddictedToleranceChance>0.5</onGeneratedAddictedToleranceChance>
+		<onGeneratedAddictedEvents>
+			<li>
+				<hediff>ChemicalDamageSevere</hediff>
+				<chance>0.2</chance>
+				<partsToAffect>
+					<li>Stomach</li>
+					<li>Kidney</li>
+					<li>Liver</li>
+				</partsToAffect>
+			</li>
+		</onGeneratedAddictedEvents>
+	</ChemicalDef>
+
+	<NeedDef ParentName="DrugAddictionNeedBase">
+		<defName>Chemical_Mortracain</defName>
+		<needClass>Need_Chemical</needClass>
+		<label>Mortracain</label>
+		<description>Because of a Mortracain addiction, this person needs to regularly consume the drug to avoid withdrawal symptoms.</description>
+		<listPriority>30</listPriority>
+	</NeedDef>
+
+	<HediffDef ParentName="DrugToleranceBase">
+		<defName>MortracainTolerance</defName>
+		<label>Mortracain tolerance</label>
+		<comps>
+			<li Class="HediffCompProperties_SeverityPerDay">
+				<severityPerDay>-0.0135</severityPerDay>
+			</li>
+			<li Class="HediffCompProperties_DrugEffectFactor">
+				<chemical>Mortracain</chemical>
+			</li>
+		</comps>
+		<hediffGivers>
+			<li Class="HediffGiver_RandomDrugEffect">
+				<hediff>ChemicalDamageSevere</hediff>
+				<minSeverity>0.35</minSeverity>
+				<baseMtbDays>120</baseMtbDays>
+				<partsToAffect>
+					<li>Stomach</li>
+					<li>Kidney</li>
+					<li>Liver</li>
+				</partsToAffect>
+			</li>
+		</hediffGivers>
+	</HediffDef>
+
+	<HediffDef ParentName="AddictionBase">
+		<defName>MortracainAddiction</defName>
+		<hediffClass>Hediff_Addiction</hediffClass>
+		<label>Mortracain addiction</label>
+		<causesNeed>Chemical_Mortracain</causesNeed>
+		<comps>
+			<li Class="HediffCompProperties_SeverityPerDay">
+				<severityPerDay>-0.05</severityPerDay>
+			</li>
+		</comps>
+		<stages>
+			<li>
+			</li>
+			<li>
+				<label>withdrawal</label>
+				<painFactor>2.0</painFactor>
+				<restFallFactor>1.5</restFallFactor>
+				<hungerRateFactorOffset>1.25</hungerRateFactorOffset>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<offset>-0.10</offset>
+					</li>
+				</capMods>
+				<mentalStateGivers>
+					<li>
+						<mentalState>Binging_DrugExtreme</mentalState>
+						<mtbDays>40</mtbDays>
+					</li>
+				</mentalStateGivers>
+			</li>
+		</stages>
+	</HediffDef>
+
+	<ThoughtDef>
+		<defName>MortracainWithdrawal</defName>
+		<workerClass>ThoughtWorker_Hediff</workerClass>
+		<hediff>MortracainAddiction</hediff>
+		<validWhileDespawned>true</validWhileDespawned>
+		<stages>
+			<li>
+				<visible>false</visible>
+			</li>
+			<li>
+				<label>Mortracain withdrawal</label>
+				<description>My whole body hurts: I just can't catch a clear thought.</description>
+				<baseMoodEffect>-20</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+</Defs>
