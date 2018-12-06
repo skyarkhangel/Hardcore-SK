@@ -1,8 +1,8 @@
 # ZiTools
-[![RimWorld Beta 19](https://img.shields.io/badge/RimWorld-Beta%20v0.19-green.svg?longCache=true&style=plastic)](http://rimworldgame.com/) 
+[![RimWorld 1,0](https://img.shields.io/badge/RimWorld-1.0-green.svg?longCache=true&style=plastic)](http://rimworldgame.com/) 
 [![MIT License](https://img.shields.io/badge/license-MIT-lightgray.svg?style=flat)](./LICENSE) 
 
-Contains various tools for better gameplay experience.
+Contains useful tools for better gameplay experience.
 
 [Ludeon forum page](https://ludeon.com/forums/index.php?topic=45972.0)
 

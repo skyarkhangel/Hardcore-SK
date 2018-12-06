@@ -1,30 +1,30 @@
 # Numbers!
 
-Mod for RimWorld.
+Adds a customizable general overview tab, allowing you to see any stats on all your colonists or prisoners in a single window. Quickly compare colonists to see who your best doctor is, or to assign gear optimally.
 
-Ever wanted to compare multiple colonists? Quickly see who is on the verge of a mental break?
-Now it's possible!
 
 ![Main Image](./.github/assets/images/img1.png)
 
 ### Features
 
-- Customizable overview tab, displays as many columns as you can fit on your screen
-- Displays Stats, Skills, Needs
-- Prisoner and medical controls, equipment overview, current job
-- Works with colonists, prisoners, enemies, animals, wild animals, and even corpses
+- Customizable overview tab, displays as many columns as you can fit on your screen.
+- Displays Stats, Skills, Needs, Gear, Queued jobs, Pawn Records, etc etc.
+- Prisoner and medical controls, equipment overview, current job.
+- A Medical Tab that's better than Fluffy's Medical Tab.
+- Works with colonists, prisoners, enemies, animals, wild animals, and even corpses.
+- Presets! Save, load, move and share your custom layouts. Store them as default.
 
 ### Usability
 
-- Slide and reorganise columns as you see fit.
+- Slide and reorganise columns as you see fit. Reorderable headers!
 - Click headers to sort by stat and compare.
 - Click to jump to colonist.
-- Shift + Click to select colonists without closing the tab.
-- Alt + Click to select without jumping.
+- Right-click headers to close.
+- Draggable options for things like: prisoner interaction, all checkmarks. Try it on outfits, medical care, hostility response mode and be pleasantly surprised.
 
-[RimWorld forum](https://ludeon.com/forums/index.php?topic=35832.0)
+It can be added to existing saves without problems.
 
-### Download
+### Links
 
 - [Latest release](https://github.com/Mehni/kNumbers/releases/latest)
 - [Steam](https://steamcommunity.com/sharedfiles/filedetails/?id=1414302321)
@@ -32,10 +32,6 @@ Now it's possible!
 - [GitHub](https://github.com/Mehni/kNumbers)
 - [All the releases](https://github.com/Mehni/kNumbers/releases)
 
-### Inspired by
+## License
 
-Inspired by MedicalInfo by Fluffy (l2032)
-
-### License
-
-This mod can be used by anyone for any purpose as long as it's free and there's proper attribution - mod name, author's name and a link to this page.
+Original idea by koisama: https://github.com/koisama/kNumbers, whose original license I respect by the preceding link. For the license since 2018/11/21, see LICENSE.
