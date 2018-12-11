@@ -140,7 +140,6 @@
 		<radiationRadius>7</radiationRadius>
 	</ThingDef>
 
-
 	<ThingDef Name="StrikeIncomingBase" Abstract="True">
 		<category>Ethereal</category>
 		<altitudeLayer>Skyfaller</altitudeLayer>
@@ -315,6 +314,85 @@
 			<rotateGraphicTowardsDirection>false</rotateGraphicTowardsDirection>
 			<speed>1.2</speed>
 		</skyfaller>
+	</ThingDef>
+	
+	<ThingDef Name="EnemyShipBase" Abstract="True">
+		<label>Enemy ship (incoming)</label>
+		<category>Ethereal</category>
+		<tickerType>Normal</tickerType>
+		<graphicData>
+			<texPath>Things/Building/Exotic/CrashedShipPart</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(6,3)</drawSize>
+			<shadowData>
+				<volume>(5.17, 1.0, 2.4)</volume>
+				<offset>(-0.16, 0, -0.08)</offset>
+			</shadowData>
+		</graphicData>
+		<size>(6,3)</size>
+		<altitudeLayer>Skyfaller</altitudeLayer>
+		<drawerType>RealtimeOnly</drawerType>
+		<useHitPoints>false</useHitPoints>
+	</ThingDef>
+
+	<ThingDef ParentName="EnemyShipBase">
+		<defName>EnemyShipIncoming</defName>
+		<thingClass>SK.Events.EnemyShipIncoming</thingClass>
+		<skyfaller>
+			<shadowSize>(3,2)</shadowSize>
+			<explosionRadius>4</explosionRadius>
+			<explosionDamage>Bomb</explosionDamage>
+			<rotateGraphicTowardsDirection>false</rotateGraphicTowardsDirection>
+			<speed>1.2</speed>
+		</skyfaller>
+	</ThingDef>
+	
+	<ThingDef ParentName="BuildingBase">
+		<defName>EnemyShipPart</defName>
+		<label>Enemy ship</label>
+		<description>An enemy ship.</description>
+		<thingClass>SK.Events.Building_EnemyShipPart</thingClass>
+		<altitudeLayer>Building</altitudeLayer>
+		<pathCost>150</pathCost>
+		<blockWind>true</blockWind>
+		<passability>Impassable</passability>
+		<fillPercent>1.0</fillPercent>
+		<graphicData>
+			<texPath>Things/Building/Exotic/CrashedShipPart</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(6,3)</drawSize>
+			<shadowData>
+				<volume>(5.17, 1.0, 2.4)</volume>
+				<offset>(-0.16, 0, -0.08)</offset>
+			</shadowData>
+		</graphicData>
+		<size>(6,3)</size>
+		<statBases>
+			<MaxHitPoints>1000</MaxHitPoints>
+			<Flammability>0</Flammability>
+			<Beauty>-60</Beauty>
+		</statBases>
+		<tickerType>Rare</tickerType>
+		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+		<killedLeavings>
+			<Plasteel>150</Plasteel>
+			<ElectronicComponents>8</ElectronicComponents>
+			<ComponentIndustrial>20</ComponentIndustrial>
+			<ComponentSpacer>5</ComponentSpacer>
+			<Mechanism>10</Mechanism>
+		</killedLeavings>
+		<rotatable>true</rotatable>
+		<selectable>true</selectable>
+		<neverMultiSelect>true</neverMultiSelect>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<soundImpactDefault>BulletImpact_Metal</soundImpactDefault>
+		<drawerType>MapMeshOnly</drawerType>
+		<repairEffect>ConstructMetal</repairEffect>
+		<forceDebugSpawnable>true</forceDebugSpawnable>
+		<building>
+			<claimable>true</claimable>
+			<roofCollapseDamageMultiplier>0.2</roofCollapseDamageMultiplier>
+		</building>
 	</ThingDef>
 
 </Defs>
