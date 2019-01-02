@@ -7,6 +7,7 @@
     <label>Weathered Sandstone</label>
     <description>An impassable mass of compacted sand, sculpted by weather and time into flowing shapes.</description>
     <graphicData>
+      <shaderType>CutoutComplex</shaderType>
       <texPath>Things/Rock/WeatheredSandstone</texPath>
       <graphicClass>Graphic_Random</graphicClass>
       <drawSize>(4,4)</drawSize>
@@ -420,6 +421,7 @@
     <label>Sandstone outcropping</label>
     <description>A sandstone outcropping, sculpted by weather and time into flowing shapes.</description>
     <graphicData>
+      <shaderType>CutoutComplex</shaderType>
       <texPath>Things/Rock/PassableSandstone</texPath>
       <graphicClass>Graphic_Random</graphicClass>
       <drawSize>(1.5,1.5)</drawSize>
@@ -446,15 +448,15 @@
     </building>
     <!--How far away it can spawn from an existing location-->
     <!-- Even though it is a static crystal, the map initialization uses "reproduction" to make clusters-->
-    <spawnRadius>2</spawnRadius>
+    <spawnRadius>1</spawnRadius>
     <!-- The probability that this mineral type will be spawned at all on a given map -->
     <perMapProbability>1</perMapProbability>
     <!--For a given map, the minimum/maximum probablility a cluster will spawn for every possible location -->
-    <minClusterProbability>0.02</minClusterProbability>
-    <maxClusterProbability>0.03</maxClusterProbability>
+    <minClusterProbability>0.03</minClusterProbability>
+    <maxClusterProbability>0.05</maxClusterProbability>
     <!-- How  many squares each cluster will be -->
     <minClusterSize>1</minClusterSize>
-    <maxClusterSize>4</maxClusterSize>
+    <maxClusterSize>1</maxClusterSize>
     <!-- The range of starting sizes of individuals in clusters -->
     <initialSizeMin>.6</initialSizeMin>
     <initialSizeMax>1.0</initialSizeMax>
@@ -477,7 +479,7 @@
       <li>Sandstone</li>
     </neededNearbyTerrains>
     <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyTerrainRadius>3</neededNearbyTerrainRadius>
+    <neededNearbyTerrainRadius>2</neededNearbyTerrainRadius>
     <!-- If true, growth rate and initial size depends on distance from needed terrains -->
     <neededNearbyTerrainSizeEffect>true</neededNearbyTerrainSizeEffect>
     <!-- Controls how extra clusters are added near assocaited ore-->
@@ -494,8 +496,8 @@
     <maxMeshCount>1</maxMeshCount>
     <!-- The size range -->
     <visualSizeRange>
-      <min>1.0</min>
-      <max>1.5</max>
+      <min>1.2</min>
+      <max>1.6</max>
     </visualSizeRange>
     <!-- between 0 and 1. 0 = uniform distribution, 1 = normal distribution -->
     <visualClustering>1.0</visualClustering>
@@ -531,9 +533,122 @@
     <!-- Tags which determine how some options behave  -->
     <tags>
       <li>rock</li>
-      <li>small_rock</li>
+      <li>boulder</li>
       <li>chunk_replacer</li>
     </tags>
+  </ThingDef>
+  
+  
+  <ThingDef Name="PassableSandstone" ParentName="SmallRockBase" Class="Minerals.ThingDef_StaticMineral">
+    <defName>PassableSandstone</defName>
+    <label>Sandstone rocks</label>
+    <description>Sandstone rocks, sculpted by weather and time into flowing shapes.</description>
+    <graphicData>
+      <shaderType>CutoutComplex</shaderType>
+      <texPath>Things/Rock/PassableSandstone</texPath>
+      <graphicClass>Graphic_Random</graphicClass>
+      <drawSize>(1.5,1.5)</drawSize>
+      <color>(126,104,94)</color>
+    </graphicData>
+    <fillPercent>0.3</fillPercent>
+    <statBases>
+      <MaxHitPoints>300</MaxHitPoints>
+      <Flammability>0</Flammability>
+      <Beauty>2</Beauty>
+    </statBases>
+    <building>
+      <isInert>true</isInert>
+      <canBuildNonEdificesUnder>false</canBuildNonEdificesUnder>
+      <isNaturalRock>true</isNaturalRock>
+      <isResourceRock>true</isResourceRock>
+      <mineableThing>ChunkSandstone</mineableThing>
+      <mineableDropChance>0.3</mineableDropChance>
+      <mineableYield>1</mineableYield>
+      <mineableNonMinedEfficiency>0.8</mineableNonMinedEfficiency>
+      <claimable>false</claimable>
+      <deconstructible>false</deconstructible>
+    </building>
+    <!--How far away it can spawn from an existing location-->
+    <!-- Even though it is a static crystal, the map initialization uses "reproduction" to make clusters-->
+    <spawnRadius>1</spawnRadius>
+    <!-- The probability that this mineral type will be spawned at all on a given map -->
+    <perMapProbability>1</perMapProbability>
+    <!--For a given map, the minimum/maximum probablility a cluster will spawn for every possible location -->
+    <minClusterProbability>0.01</minClusterProbability>
+    <maxClusterProbability>0.03</maxClusterProbability>
+    <!-- How  many squares each cluster will be -->
+    <minClusterSize>1</minClusterSize>
+    <maxClusterSize>5</maxClusterSize>
+    <!-- The range of starting sizes of individuals in clusters -->
+    <initialSizeMin>.6</initialSizeMin>
+    <initialSizeMax>1.0</initialSizeMax>
+    <!-- How much initial sizes of individuals randomly vary -->
+    <initialSizeVariation>.2</initialSizeVariation>
+    <!-- The terrains this can appear on. The default is rocky terrains-->
+		<allowedTerrains>
+			<li>Sandstone_Rough</li>
+			<li>RockySoil</li>
+			<li>Sand</li>
+			<li>PoorSoil</li>
+      <li>SavannaSoil</li>
+      <li>MarginalSoil</li>
+			<li>SaltField</li>
+		</allowedTerrains>
+    <!-- The terrains this must be near to, but not necessarily on -->
+    <neededNearbyTerrains>
+			<li>BoulderSandstone</li>
+      <li>WeatheredSandstone</li>
+      <li>Sandstone</li>
+    </neededNearbyTerrains>
+    <!-- how far away it can be from needed nearby terrains-->
+    <neededNearbyTerrainRadius>2</neededNearbyTerrainRadius>
+    <!-- If true, growth rate and initial size depends on distance from needed terrains -->
+    <neededNearbyTerrainSizeEffect>true</neededNearbyTerrainSizeEffect>
+    <!-- Controls how extra clusters are added near assocaited ore-->
+    <associatedOres>
+      <li>WeatheredSandstone</li>
+      <li>BoulderSandstone</li>
+      <li>Sandstone</li>
+    </associatedOres>
+    <nearAssociatedOreBonus>5</nearAssociatedOreBonus>
+    <!-- Roof requirements -->
+    <mustBeUnderRoof>false</mustBeUnderRoof>
+    <mustBeUnderThickRoof>false</mustBeUnderThickRoof>
+    <mustBeUnroofed>true</mustBeUnroofed>
+    <!-- The maximum number of images that will be printed per square -->
+    <maxMeshCount>3</maxMeshCount>
+    <!-- The size range -->
+    <visualSizeRange>
+      <min>0.5</min>
+      <max>0.9</max>
+    </visualSizeRange>
+    <!-- between 0 and 1. 0 = uniform distribution, 1 = normal distribution -->
+    <visualClustering>0.5</visualClustering>
+    <!-- 1 = everything appears within cell and can spawn at edge when visualClustering == 0 -->
+    <visualSpread>1.5</visualSpread>
+    <visualSizeVariation>0.3</visualSizeVariation>
+    <!-- Other resources it might drop -->
+    <randomlyDropResources>
+      <li>
+        <ResourceDefName>RoughGem</ResourceDefName>
+        <DropProbability>0.01</DropProbability>
+      </li>
+      <li>
+        <ResourceDefName>Sand</ResourceDefName>
+        <DropProbability>2</DropProbability>
+        <CountPerDrop>5</CountPerDrop>
+      </li>
+      <li>
+        <ResourceDefName>CrushedStone</ResourceDefName>
+        <DropProbability>1</DropProbability>
+        <CountPerDrop>5</CountPerDrop>
+      </li>
+      <li>
+        <ResourceDefName>FlintShard</ResourceDefName>
+        <DropProbability>0.05</DropProbability>
+        <CountPerDrop>5</CountPerDrop>
+      </li>
+    </randomlyDropResources>
   </ThingDef>
   
   
