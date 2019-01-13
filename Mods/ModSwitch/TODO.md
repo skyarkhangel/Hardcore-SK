@@ -1,3 +1,0 @@
-- Combine search boxes with highlight/hide feature
-- import/export for settings
-- cloud sync for settings
