@@ -157,15 +157,59 @@
 			<li>BowRanged</li>
 		</thingCategories>
 	</Verse.ThingDef>
+	
+	
+	
+	
+	
+	<!-- Pilum-specific base (both ammo and weapon) -->
+	<ThingDef ParentName="AmmoBase" Name="BaseWeaponAndAmmoNeolithic" Abstract="True">
+		<equipmentType>Primary</equipmentType>
+		<pathCost>10</pathCost>
+		<graphicData>
+			<onGroundRandomRotateAngle>35</onGroundRandomRotateAngle>
+		</graphicData>
+		<statBases>
+			<MaxHitPoints>100</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<DeteriorationRate>2</DeteriorationRate>
+			<SellPriceFactor>0.5</SellPriceFactor>
+		</statBases>
+		<techLevel>Neolithic</techLevel>
+		<menuHidden>False</menuHidden>
+		<destroyOnDrop>False</destroyOnDrop>
+		<weaponTags>
+			<li>Neolithic</li>
+		</weaponTags>
+		<thingCategories>
+			<li>WeaponsRanged</li>
+		</thingCategories>
+		<comps>
+			<li>
+				<compClass>CompEquippable</compClass>
+			</li>
+		</comps>
+		<recipeMaker>
+			<workSpeedStat>SmithingSpeed</workSpeedStat>
+			<workSkill>Crafting</workSkill>
+			<recipeUsers>
+				<li>ElectricSmithy</li>
+				<li>FueledSmithy</li>
+			</recipeUsers>
+			<effectWorking>Smelt</effectWorking>
+			<unfinishedThingDef>UnfinishedWeapon</unfinishedThingDef>
+		</recipeMaker>
+	</ThingDef>
 
 	<!-- PILA -->
-	<ThingDef ParentName="RangedWeaponNeoliticBase">
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BaseWeaponAndAmmoNeolithic">
 		<defName>Pila</defName>
-		<label>Pila</label>
-		<description>A bundle of pila. It is a type of non-reusable throwing spears.</description>
+		<label>javelins</label>
+		<description>A throwing spear which may be thrown on its own or using an atlatl.</description>
 		<graphicData>
-			<texPath>Things/Weapons/Melee/Pilum</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
+			<texPath>Things/Ammo/Neolithic/Pilum</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<onGroundRandomRotateAngle>0</onGroundRandomRotateAngle>
 		</graphicData>
 		<soundInteract>Interact_BeatFire</soundInteract>
 		<tradeability>Sellable</tradeability>
@@ -184,6 +228,7 @@
 		<equippedAngleOffset>30</equippedAngleOffset>
 		<stackLimit>75</stackLimit>
 		<weaponTags>
+			<li>NeolithicRanged</li>
 			<li>CE_Pila</li>
 			<li>CR_Pila</li>
 			<li>CE_OneHandedWeapon</li>
@@ -194,19 +239,35 @@
 				<verbClass>CombatExtended.Verb_ShootCEOneUse</verbClass>
 				<hasStandardCommand>true</hasStandardCommand>
 				<defaultProjectile>Pilum_Thrown</defaultProjectile>
-				<warmupTime>0.50</warmupTime>
-				<range>12.9</range>
+				<warmupTime>1.30</warmupTime>
+				<range>9</range>
 				<rangedFireRulepack>Combat_RangedFire_Thrown</rangedFireRulepack>
 			</li>
 		</verbs>
-		<comps>
-			<li Class="CombatExtended.CompProperties_FireModes">
-				<noSnapshot>True</noSnapshot>
+		<tools>
+			<li Class="CombatExtended.ToolCE">
+				<label>shaft</label>
+				<capacities>
+					<li>Blunt</li>
+				</capacities>
+				<power>8</power>
+				<cooldownTime>1.6</cooldownTime>
+				<armorPenetration>0.102</armorPenetration>
+				<linkedBodyPartsGroup>Shaft</linkedBodyPartsGroup>
 			</li>
-			<li Class="WHands.WhandCompProps">
-				<MainHand>(-0.25,0.3,0)</MainHand>
+			<li Class="CombatExtended.ToolCE">
+				<label>point</label>
+				<capacities>
+					<li>Stab</li>
+				</capacities>
+				<power>12</power>
+				<cooldownTime>2.3</cooldownTime>
+				<chanceFactor>1.5</chanceFactor>
+				<armorPenetration>0.241</armorPenetration>
+				<linkedBodyPartsGroup>Point</linkedBodyPartsGroup>
 			</li>
-		</comps>
+		</tools>
+		<ammoClass>Javelin</ammoClass>
 		<equippedStatOffsets>
 			<MoveSpeed>-0.14</MoveSpeed>
 			<WorkSpeedGlobal>-0.1</WorkSpeedGlobal>
