@@ -1,3 +1,38 @@
+## v1.1.0
+
+### Bug fixes
+
+* Fixes visual bug when hewn rock was mined.
+* Vanilla meteorites are replaced by minerals from this mod.
+* Fixes flickering textures in the finder tool.
+* Fixed a few minor texture issues.
+* Fixed bug where mobile mineral sonar does not find ores from Minerals mod.
+* Made rubble and other resources not spawn when a rock is damage by a non-pawn source, like meteorites.
+* Solid rock is always thin roof or cave wall and weathered rock is always unroofed.
+
+### Gameplay changes
+
+* Added new rock type: Claystone. Yeilds clay chunks or soft clay when mined.
+* Added giant versions of quartz, glowstone, and coldstone that can drop something special when mined.
+* Increased chunk drop rate for boulders. 
+* Reduced slate block drop rate for walls by 70%.
+* Reduced rubble drop rate by ~50% for all rocks. 
+* Mining output now depends on miner skill.
+
+### Visual changes 
+
+* New textures for quartz, glowstone, and coldstone.
+* Added mod config setting to change the visual spread of textures.
+* Moved weathered and soild rock textures up to avoid gaps and reduce overlaps with nearby walls. 
+* Removed damage graphics from small minerals/rocks.
+
+### Other
+
+* Added Russian translations by skyarkangle.
+* Added mod config settings to change resource drop rate and drop amount.
+* Dynamic minerals like salt can now spawn in groups instead of one at a time. 
+
+
 ## v1.0.7
 
 * Major update that replaces rock walls, ores, chunks, and adds other rock-related content. Replacement of rocks and chunks can be disabled in the mod's settings menu.
@@ -9,7 +44,7 @@
 * Starting rock chunks are now removed at map generation. This can be changed in the settings.
 * Some minerals now appear to grow up adjacent walls.
 * Fixed various graphical bugs when textures overlaped.
-* Fixed most of lag assocaited with cold and NPS and improved preformance overall.
+* Fixed most of lag assocaited with cold and NPS and improved performance overall.
 * Snow appears on rocks.
 
 ## v0.6.0

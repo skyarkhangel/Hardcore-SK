@@ -1,11 +1,10 @@
-Minerals: A rimworld mod for the [Hardcore SK project](https://github.com/skyarkhangel/Hardcore-SK)
----------------------------------------------------------------------------------------------------
+Minerals\_SK: A rimworld mod for the [Hardcore SK project](https://github.com/skyarkhangel/Hardcore-SK)
+-------------------------------------------------------------------------------------------------------
 
 ![](About/Preview.jpg)
 
-This mod adds various mineral-related content. For example, it adds
-various minable crystals underground, obsidian and flint for weapons,
-and living coldstone and glowstone crystals.
+This mod adds various mineral-related content and replaces the textures
+and mechanics of all rocks in the game.
 
 Dynamic minerals
 ----------------
@@ -25,9 +24,26 @@ dig them up and use them to stop meat from spoiling.
 
 **Beauty:** 15
 
-![](Textures/Things/Mineral/ColdstoneCrystal/ColdstoneCrystalA.png)
-![](Textures/Things/Mineral/ColdstoneCrystal/ColdstoneCrystalB.png)
-![](Textures/Things/Mineral/ColdstoneCrystal/ColdstoneCrystalC.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalA_m.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalA.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalA_s_m.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalA_s.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalB_m.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalB.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalB_s_m.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalB_s.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalC_m.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalC.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalC_s_m.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalC_s.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalD_m.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalD.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalD_s_m.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalD_s.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalE_m.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalE.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalE_s_m.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalE_s.png)
 
 ![](readme_images/ColdstoneCrystal.jpg)
 
@@ -121,10 +137,24 @@ a while a gem-quality peice might be found.
 
 ![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalA_m.png)
 ![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalA.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalA_s_m.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalA_s.png)
 ![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalB_m.png)
 ![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalB.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalB_s_m.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalB_s.png)
 ![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalC_m.png)
 ![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalC.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalC_s_m.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalC_s.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalD_m.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalD.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalD_s_m.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalD_s.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalE_m.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalE.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalE_s_m.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalE_s.png)
 
 ![](readme_images/QuartzCrystal.jpg)
 
@@ -140,10 +170,24 @@ when mined. Sometimes a gem-quality peice might be found.
 
 ![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalA_m.png)
 ![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalA.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalA_s_m.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalA_s.png)
 ![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalB_m.png)
 ![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalB.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalB_s_m.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalB_s.png)
 ![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalC_m.png)
 ![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalC.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalC_s_m.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalC_s.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalD_m.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalD.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalD_s_m.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalD_s.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalE_m.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalE.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalE_s_m.png)
+![](Textures/Things/Mineral/QuartzCrystal/QuartzCrystalE_s.png)
 
 ![](readme_images/AmethystCrystal.jpg)
 
@@ -407,6 +451,14 @@ azurite, calcite, and limestone rock.
 
 ![](readme_images/MalachiteDeposit.jpg)
 
+Giant minerals
+--------------
+
+These are large versions of other minerals in this mod and have a chance
+to drop a special minified version of the mineral that can be installed
+like art. They are very rare and valuable and only occur where their
+smaller versions are abundant.
+
 Rocks
 -----
 
@@ -417,20 +469,32 @@ gems, obsidian, and flint, depending on the type. Each type of rock
 (limestone, granite, etc) has distinct advantages and disadvantages.
 Below are how each type might affect gameplay, in order of hit points.
 
-### Sandstone
+### Claystone
 
 -   Hit points / time to mine: **lowest**
+-   Chunk drop rate: very high
+-   Always drops: crushed rock
+-   Often drops: soft clay, flint (MineralsCraft mod)
+-   Landscape: few rocks and some cover
+-   Beauty: high
+
+Claystone is a soft sedimentary rock, so is quite easy to work with and
+mine. Unlike other rock type, mining claystone yields soft clay along
+with crushed rock.
+
+### Sandstone
+
+-   Hit points / time to mine: very low
 -   Chunk drop rate: **highest**
 -   Always drops: crushed rock, sand
 -   Often drops: flint (MineralsCraft mod)
--   Rarely drops: Rough gems
 -   Landscape: few rocks and little cover
 -   Beauty: **highest**
 
-Sandstone is a soft sedamentary rock, so is quite easy to work with and
+Sandstone is a soft sedimentary rock, so is quite easy to work with and
 mine. Since sandstone erodes faster than other rocks, sandstone
 landscapes tend to be less rocky overall and provide less cover. Unlike
-other rock type, mining sandstone yeilds sand along with crushed rock.
+other rock type, mining sandstone yields sand along with crushed rock.
 
 ### Slate
 
@@ -438,7 +502,6 @@ other rock type, mining sandstone yeilds sand along with crushed rock.
 -   Chunk drop rate: medium
 -   Always drops: crushed rock
 -   Often drops: slate blocks, flint (MineralsCraft mod)
--   Rarely drops: Rough gems
 -   Landscape: not rocky and little cover
 -   Beauty: medium
 
@@ -452,12 +515,11 @@ be used for buildings without stoneworking.
 -   Chunk drop rate: high
 -   Always drops: crushed rock
 -   Often drops: flint (MineralsCraft mod)
--   Rarely drops: Rough gems
 -   Landscape: somewhat rocky and some cover
 -   Beauty: low
 
-Limestone is a hard sedamentary rock. Its uniformaity and medium
-hardness makes limestone a good building material.
+Limestone is a hard sedimentary rock. Its uniformity and medium hardness
+makes limestone a good building material.
 
 ### Marble
 
@@ -468,10 +530,10 @@ hardness makes limestone a good building material.
 -   Landscape: somewhat rocky and lots of cover
 -   Beauty: high
 
-Marble is a metamorphic rock of metled and recrystallized limestone. It
+Marble is a metamorphic rock of melted and recrystallized limestone. It
 is often used in decorative applications but is also quite hard.
 
-### Basalt
+### Basalt (Nature Pretty Sweet mod required)
 
 -   Hit points / time to mine: high
 -   Chunk drop rate: low
@@ -482,7 +544,7 @@ is often used in decorative applications but is also quite hard.
 -   Beauty: **lowest**
 
 Basalt is the most common igneous rock and is often associated with
-recent volcanic activlity. Recent lava flows can make basalt landscapes
+recent volcanic activity. Recent lava flows can make basalt landscapes
 variable, very rocky, and difficult to build on.
 
 ### Granite
@@ -494,7 +556,7 @@ variable, very rocky, and difficult to build on.
 -   Landscape: somewhat rocky and lots of cover
 -   Beauty: medium
 
-Granite is an igenous rock which cooled slowly deep underground,
+Granite is an igneous rock which cooled slowly deep underground,
 allowing for large crystals to form. It is very strong, but difficult to
 quarry.
 
@@ -527,6 +589,12 @@ provide very good cover.
 
 Low numerous rocks that slow movement a little.
 
+Ores
+----
+
+All the ores in Hardcore SK have been replaced with rocks with similar
+properties in this mod.
+
 Installation
 ------------
 
@@ -538,20 +606,29 @@ they will probably not be updated too often. Once you have downloaded
 the mod, uncompress the file and up the folder in the `Mods` folder of
 you rimworld installation.
 
+Extension mods
+--------------
+
+Check out these optional extension mods that add more mineral-related
+content:
+
+-   [MineralsCraft\_SK](https://github.com/zachary-foster/MineralsCraft_SK)
+-   [MineralsExtra\_SK](https://github.com/zachary-foster/MineralsExtra_SK)
+
 To xml modders and potential contributers:
 ------------------------------------------
 
 This mod is set up so that new minerals, both static and dynamic, can be
 added and configured using only XML changes. Adding:
 
-    <ThingDef ParentName="StaticMineralBase">
+    <ThingDef ParentName="StaticMineralBase" Class="Minerals.ThingDef_StaticMineral">
             <defName>MyNewMineral</defName>
         ...
     </ThingDef>
 
 or
 
-    <ThingDef ParentName="DynamicMineralBase">
+    <ThingDef ParentName="DynamicMineralBase" Class="Minerals.ThingDef_DynamicMineral">
             <defName>MyNewMineral</defName>
         ...
     </ThingDef>
@@ -712,3 +789,6 @@ non-commercial reuse. Here are the list of images used:
     John
 -   <https://commons.wikimedia.org/wiki/File:Calcite-Chlorite-Group-67816.jpg>
     Rob Lavinsky
+-   <https://torange.biz/smoky-quartz-44694>
+-   <https://www.flickr.com/photos/jsjgeology/42778129494>
+-   <https://commons.wikimedia.org/wiki/File:Hoodoos_at_Bryce_Canyon.jpg>
