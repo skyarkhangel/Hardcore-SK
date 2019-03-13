@@ -11,7 +11,7 @@
   	</value>
 	</Operation>
 	<Operation Class="PatchOperationReplace">
-  	<xpath>*/DamageDef[workerClass = "DamageWorker_Flame"]/workerClass</xpath>
+  	<xpath>Defs/DamageDef[workerClass = "DamageWorker_Flame"]/workerClass</xpath>
   	<value>
       <workerClass>CombatExtended.DamageWorker_FlameCE</workerClass>
   	</value>
@@ -90,20 +90,21 @@
 	<Operation Class="PatchOperationAttributeSet">
   	<xpath>Defs/DamageDef[defName="Bullet"]</xpath>
     <attribute>Name</attribute>
-    <value>BulletDamage</value>
+    <value>Bullet</value>
 	</Operation>
+
 <!--
 	<Operation Class="PatchOperationAttributeSet">
   	<xpath>Defs/DamageDef[defName="Bomb"]</xpath>
     <attribute>Name</attribute>
     <value>BombDamage</value>
 	</Operation>
--->
 	<Operation Class="PatchOperationAttributeSet">
   	<xpath>Defs/DamageDef[defName="Burn"]</xpath>
     <attribute>Name</attribute>
     <value>BurnDamage</value>
 	</Operation>
+-->
 
   <!-- ========== Change Bomb hediff ========== -->
 
@@ -114,13 +115,25 @@
     </value>
   </Operation>
 
-  <!-- ========== Replace redundant DamageWorker ========== -->
+  <!-- ========== Stabs and pokes no longer ignore armor ========== -->
 
-  <Operation Class="PatchOperationReplace">
-    <xpath>Defs/DamageDef/workerClass[.="DamageWorker_Stab"]</xpath>
-    <value>
-      <workerClass>DamageWorker_AddInjury</workerClass>
-    </value>
-  </Operation>
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/DamageDef[defName="Poke"]</xpath>
+		<value>
+			<harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
+		</value>
+	</Operation>
 
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/DamageDef[defName="Stab"]</xpath>
+		<value>
+			<harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
+		</value>
+	</Operation>
+
+<!-- Patch-out vanilla melee stun mechanic from blunt damage -->
+	<Operation Class="PatchOperationRemove">
+		<xpath>/Defs/DamageDef[@Name="BluntBase"]/*[self::bluntStunDuration or self::bluntStunChancePerDamagePctOfCorePartToHeadCurve or self::bluntStunChancePerDamagePctOfCorePartToBodyCurve]</xpath>
+	</Operation>	
+	
 </Patch>
