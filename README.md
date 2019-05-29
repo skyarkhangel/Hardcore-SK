@@ -60,20 +60,25 @@ And copy "ModsConfig.xml", which is at the root of the archive modpack.
 
 5. Have fun <i class="fa fa-smile-o"></i>   
 
+## RimWorld ReShade Guide:
+When a lot of people hear of ReShade, first thought often comes to games in 3D space, such as PUBG and Skyrim. However, ReShade is versatile enough to work with games even like Rimworld and have stunning results.
+Learn more: https://imgur.com/a/DrYqGaY
+
 ____
 A big thank you to the Patreons! ( https://www.patreon.com/skyarkhangel , in no particular order.)
-<br>Szara Kryik, Makzilla, Schio, GuiltyHollow, ErdTod, Soi, Tie, Zachary F, Fsempri, Andrey, Dudok22, Hoouin K, PuffMagicDragon,
-PatchDotExe, Cawi, XLegionX007, НечтоХрустящее, Kristijan, sKeptr
+<br>Szara Kryik, Makzilla, Schio, GuiltyHollow, ErdTod, Soi, Tie, Zachary F, Fsempri, Andrey, Dudok22, Hoouin K, PuffTheMagicDragon,
+PatchDotExe, Cawi, XLegionX007, НечтоХрустящее, Kristijan, sKeptr, White Sonja, Esterior, Igor Barbarossa, Kiko20, Ky6000, NiciusB, plenumolog, томαѕz.
 ____
 <br>
 HCSK 6.0 SK Team:
 <br>Main dev. - Skyarkhangel
-<br>Co-ordinator - Rhyssia
-<br>Artists - Abhay, Qwe, EtherDreamer, Arai, Owlchemist
-<br>Coders - NotFood, FelGoblin
+<br>Co-ordinator - Rhyssia, Adenia
+<br>Discord stuff - Dzeniba, Ziemens, MightyGooga, GG, Sidfu, AnotherFireFox, Flonz, Szara Kryik
+<br>Artists - Abhay, Qwe, EtherDreamer, Owlchemist
+<br>Coders - NotFood, Void, Zachary F
 <br>XML modders - Sidfu, Owlchemist, Freijie
-<br>Guide Writers - Murdantiks, Adenia, Soyaman
-<br>Translators - Rey, Ivanzyfer, FaHT1k, mora145, totobrother
+<br>Guide Writers - Murdantiks, Adenia, Soyaman, Tombomcbombo
+<br>Translators - Rey, Ivanzyfer, FaHT1k, mora145, totobrother, Desert Rain
 <br>
 <br>
 Special Thanks to:

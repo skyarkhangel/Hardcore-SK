@@ -4,12 +4,12 @@
   <ThingDef ParentName="AnimalThingBase">
     <defName>Chicken</defName>
     <label>chicken</label>
-    <description>The most traditional farm bird, the chicken is raised for its eggs and meat.</description>
+    <description>The most traditional farm bird, the chicken is raised for its eggs and meat. It grows very quickly and lays eggs very often.</description>
     <statBases>
       <MoveSpeed>2.1</MoveSpeed>
-      <ComfyTemperatureMin>0</ComfyTemperatureMin>
-      <MarketValue>75</MarketValue>
+      <MarketValue>50</MarketValue>
       <LeatherAmount>0</LeatherAmount>
+      <ComfyTemperatureMin>-10</ComfyTemperatureMin>
     </statBases>
     <tools>
       <li>
@@ -18,15 +18,16 @@
           <li>Scratch</li>
         </capacities>
         <power>2</power>
-        <cooldownTime>1.65</cooldownTime>
+        <cooldownTime>1.5</cooldownTime>
         <linkedBodyPartsGroup>Feet</linkedBodyPartsGroup>
       </li>
       <li>
+        <label>beak</label>
         <capacities>
           <li>Bite</li>
         </capacities>
         <power>3</power>
-        <cooldownTime>1.65</cooldownTime>
+        <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>Beak</linkedBodyPartsGroup>
       </li>
       <li>
@@ -35,9 +36,10 @@
           <li>Blunt</li>
         </capacities>
         <power>1</power>
-        <cooldownTime>1.65</cooldownTime>
+        <cooldownTime>1.5</cooldownTime>
         <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-        <commonality>0.2</commonality>
+        <ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+        <chanceFactor>0.2</chanceFactor>
       </li>
     </tools>
     <comps>
@@ -45,7 +47,7 @@
         <eggUnfertilizedDef>EggChickenUnfertilized</eggUnfertilizedDef>
         <eggFertilizedDef>EggChickenFertilized</eggFertilizedDef>
         <eggFertilizationCountMax>1</eggFertilizationCountMax>
-        <eggLayIntervalDays>1.7</eggLayIntervalDays>
+        <eggLayIntervalDays>2</eggLayIntervalDays>
         <eggCountRange>1</eggCountRange>
       </li>
     </comps>
@@ -55,17 +57,11 @@
       <baseBodySize>0.18</baseBodySize>
       <baseHealthScale>0.35</baseHealthScale>
       <foodType>VegetarianRoughAnimal</foodType>
-      <trainableIntelligence>None</trainableIntelligence>
+      <trainability>None</trainability>
       <wildness>0</wildness>
-      <gestationPeriodDays>7</gestationPeriodDays>
+      <manhunterOnTameFailChance>0</manhunterOnTameFailChance>
+      <manhunterOnDamageChance>0</manhunterOnDamageChance>
       <mateMtbHours>8</mateMtbHours>
-      <litterSizeCurve>
-        <points>
-          <li>(0.99, 0)</li>
-          <li>(1, 1)</li>
-          <li>(1.01, 0)</li>
-        </points>
-      </litterSizeCurve>
       <lifeExpectancy>6</lifeExpectancy>
       <lifeStageAges>
         <li>
@@ -94,7 +90,8 @@
       <soundMeleeMiss>Pawn_Melee_SmallScratch_Miss</soundMeleeMiss>
     </race>
     <tradeTags>
-      <li>StandardAnimal</li>
+      <li>AnimalCommon</li>
+      <li>AnimalFarm</li>
     </tradeTags>
   </ThingDef>
 
@@ -103,7 +100,7 @@
     <label>chicken</label>
     <race>Chicken</race>
     <combatPower>30</combatPower>
-    <wildSpawn_EcoSystemWeight>0.20</wildSpawn_EcoSystemWeight>
+    <ecoSystemWeight>0.30</ecoSystemWeight>
     <labelMale>rooster</labelMale>
     <labelFemale>hen</labelFemale>
     <lifeStages>
@@ -115,7 +112,7 @@
           <color>(223,219,108)</color>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+          <texPath>Things/Pawn/Animal/Chicken/Dessicated_Chicken</texPath>
           <drawSize>0.45</drawSize>
         </dessicatedBodyGraphicData>
       </li>
@@ -131,9 +128,13 @@
           <drawSize>0.73</drawSize>
         </femaleGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-          <drawSize>0.7</drawSize>
+          <texPath>Things/Pawn/Animal/Chicken/Dessicated_Chicken</texPath>
+          <drawSize>0.75</drawSize>
         </dessicatedBodyGraphicData>
+        <femaleDessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Chicken/Dessicated_Chicken</texPath>
+          <drawSize>0.73</drawSize>
+        </femaleDessicatedBodyGraphicData>
       </li>
       <li>
         <bodyGraphicData>
@@ -150,9 +151,13 @@
           <drawSize>0.85</drawSize>
         </femaleGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-          <drawSize>0.85</drawSize>
+          <texPath>Things/Pawn/Animal/Chicken/Dessicated_Chicken</texPath>
+          <drawSize>0.87</drawSize>
         </dessicatedBodyGraphicData>
+        <femaleDessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Chicken/Dessicated_Chicken</texPath>
+          <drawSize>0.85</drawSize>
+        </femaleDessicatedBodyGraphicData>
       </li>
     </lifeStages>
   </PawnKindDef>
@@ -162,54 +167,53 @@
   <ThingDef ParentName="AnimalThingBase">
     <defName>Pig</defName>
     <label>pig</label>
-    <description>The pig was one of the first animals domesticated by humans. It is commonly raised for meat and leather, and is easy to feed because of its omnivorous diet.</description>
+    <description>The pig was one of the first animals domesticated by humans. It is commonly raised for meat, and is easy to feed because of its omnivorous diet. Though pigs are self-serving by disposition, they can be trained in complex tasks.</description>
     <statBases>
-      <MoveSpeed>3.6</MoveSpeed>
+      <MoveSpeed>3.9</MoveSpeed>
       <ComfyTemperatureMin>-5</ComfyTemperatureMin>
-      <MarketValue>280</MarketValue>
+      <MarketValue>200</MarketValue>
     </statBases>
     <tools>
       <li>
         <capacities>
           <li>Bite</li>
         </capacities>
-        <power>7</power>
-        <cooldownTime>1.65</cooldownTime>
+        <power>7.3</power>
+        <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+        <chanceFactor>0.7</chanceFactor>
       </li>
       <li>
         <label>head</label>
         <capacities>
           <li>Blunt</li>
         </capacities>
-        <power>3</power>
-        <cooldownTime>1.65</cooldownTime>
+        <power>6</power>
+        <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-        <commonality>0.2</commonality>
+        <ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+        <chanceFactor>0.2</chanceFactor>
       </li>
     </tools>
     <race>
       <body>QuadrupedAnimalWithHooves</body>
-      <baseBodySize>0.8</baseBodySize>
+      <baseBodySize>0.75</baseBodySize>
       <baseHealthScale>0.7</baseHealthScale>
 			<baseHungerRate>0.45</baseHungerRate>
 			<foodType>OmnivoreRoughAnimal</foodType>
-      <leatherColor>(174,150,126)</leatherColor>
-      <leatherLabel>pigskin</leatherLabel>
-      <leatherStatFactors>
-        <MarketValue>1.45</MarketValue>
-        <ArmorRating_Heat>3.85</ArmorRating_Heat>
-      </leatherStatFactors>
+      <leatherDef>Leather_Pig</leatherDef>
       <wildness>0.07</wildness>
-      <trainableIntelligence>Advanced</trainableIntelligence>
+      <trainability>Advanced</trainability>
       <meatLabel>pork</meatLabel>
-      <gestationPeriodDays>13</gestationPeriodDays>
+      <manhunterOnTameFailChance>0</manhunterOnTameFailChance>
+      <manhunterOnDamageChance>0</manhunterOnDamageChance>
+      <gestationPeriodDays>17</gestationPeriodDays>
       <litterSizeCurve>
         <points>
           <li>(0.5, 0)</li>
           <li>(1, 1)</li>
-          <li>(3, 1)</li>
-          <li>(3.5, 0)</li>
+          <li>(1.7, 1)</li>
+          <li>(2.0, 0)</li>
         </points>
       </litterSizeCurve>
       <lifeExpectancy>12</lifeExpectancy>
@@ -224,7 +228,7 @@
         </li>
         <li>
           <def>AnimalAdult</def>
-          <minAge>0.35</minAge>
+          <minAge>0.4</minAge>
           <soundWounded>Pawn_Wildboar_Wounded</soundWounded>
           <soundDeath>Pawn_Wildboar_Death</soundDeath>
           <soundCall>Pawn_Wildboar_Call</soundCall>
@@ -236,7 +240,8 @@
       <soundMeleeMiss>Pawn_Melee_SmallScratch_Miss</soundMeleeMiss>
     </race>
     <tradeTags>
-      <li>StandardAnimal</li>
+      <li>AnimalCommon</li>
+      <li>AnimalFarm</li>
     </tradeTags>
   </ThingDef>
 
@@ -245,8 +250,7 @@
     <label>pig</label>
     <race>Pig</race>
     <combatPower>45</combatPower>
-    <wildSpawn_EcoSystemWeight>0.5</wildSpawn_EcoSystemWeight>
-    <wildSpawn_spawnWild>false</wildSpawn_spawnWild>
+    <ecoSystemWeight>0.5</ecoSystemWeight>
     <labelFemale>sow</labelFemale>
     <lifeStages>
       <li>
@@ -262,8 +266,8 @@
           </shadowData>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-          <drawSize>1.5</drawSize>
+          <texPath>Things/Pawn/Animal/Pig/Dessicated_Pig</texPath>
+          <drawSize>0.6</drawSize>
         </dessicatedBodyGraphicData>
       </li>
       <li>
@@ -288,9 +292,13 @@
           </shadowData>
         </femaleGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-          <drawSize>1.7</drawSize>
+          <texPath>Things/Pawn/Animal/Pig/Dessicated_Pig</texPath>
+          <drawSize>1.15</drawSize>
         </dessicatedBodyGraphicData>
+        <femaleDessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Pig/Dessicated_Pig</texPath>
+          <drawSize>1.1</drawSize>
+        </femaleDessicatedBodyGraphicData>
       </li>
       <li>
         <bodyGraphicData>
@@ -314,9 +322,13 @@
           </shadowData>
         </femaleGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-          <drawSize>2</drawSize>
+          <texPath>Things/Pawn/Animal/Pig/Dessicated_Pig</texPath>
+          <drawSize>1.42</drawSize>
         </dessicatedBodyGraphicData>
+        <femaleDessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Pig/Dessicated_Pig</texPath>
+          <drawSize>1.3</drawSize>
+        </femaleDessicatedBodyGraphicData>
       </li>
     </lifeStages>
   </PawnKindDef>
@@ -326,11 +338,11 @@
   <ThingDef ParentName="AnimalThingBase">
     <defName>Cow</defName>
     <label>cow</label>
-    <description>A very common domestic animal. It can produce large amounts of milk, or be slaughtered for delicious food.</description>
+    <description>A large domesticated ungulate, cows have been bred for millennia to produce huge amounts of milk, meat, and leather. They are exceptionally gentle creatures and will never seek revenge, no matter how many times they are harmed. Most of them are so adapted to farm life that they cannot survive in the wild.</description>
     <statBases>
-      <MoveSpeed>3.15</MoveSpeed>
-      <ComfyTemperatureMin>-14</ComfyTemperatureMin>
-      <MarketValue>350</MarketValue>
+      <MoveSpeed>3.2</MoveSpeed>
+      <ComfyTemperatureMin>-10</ComfyTemperatureMin>
+      <MarketValue>300</MarketValue>
     </statBases>
     <comps>
       <li Class="CompProperties_Milkable">
@@ -344,47 +356,58 @@
         <capacities>
           <li>Bite</li>
         </capacities>
-        <power>6</power>
-        <cooldownTime>1.65</cooldownTime>
+        <power>8.8</power>
+        <cooldownTime>2.6</cooldownTime>
         <linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+        <chanceFactor>0.7</chanceFactor>
       </li>
       <li>
         <label>head</label>
         <capacities>
           <li>Blunt</li>
         </capacities>
-        <power>5</power>
-        <cooldownTime>1.65</cooldownTime>
+        <power>7</power>
+        <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-        <commonality>0.2</commonality>
+        <ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+        <chanceFactor>0.2</chanceFactor>
+      </li>
+      <li>
+        <label>left hoof</label>
+        <capacities>
+          <li>Blunt</li>
+          <li>Poke</li>
+        </capacities>
+        <power>8</power>
+        <cooldownTime>2</cooldownTime>
+        <linkedBodyPartsGroup>FrontLeftLeg</linkedBodyPartsGroup>
+      </li>
+      <li>
+        <label>right hoof</label>
+        <capacities>
+          <li>Blunt</li>
+          <li>Poke</li>
+        </capacities>
+        <power>8</power>
+        <cooldownTime>2</cooldownTime>
+        <linkedBodyPartsGroup>FrontRightLeg</linkedBodyPartsGroup>
       </li>
     </tools>
     <race>
       <body>QuadrupedAnimalWithHooves</body>
+      <herdAnimal>true</herdAnimal>
       <baseBodySize>2.0</baseBodySize>
       <baseHungerRate>0.85</baseHungerRate>
       <baseHealthScale>1.5</baseHealthScale>
       <foodType>VegetarianRoughAnimal</foodType>
-      <leatherColor>(201,201,201)</leatherColor>
-      <leatherLabel>cowskin</leatherLabel>
-      <leatherInsulation>0.8</leatherInsulation>
-      <gestationPeriodDays>20</gestationPeriodDays>
-      <leatherStatFactors>
-        <MarketValue>1.1</MarketValue>
-        <ArmorRating_Heat>2.9</ArmorRating_Heat>
-      </leatherStatFactors>
+      <leatherDef>Leather_Plain</leatherDef>
       <wildness>0.05</wildness>
-      <trainableIntelligence>Intermediate</trainableIntelligence>
+      <trainability>Simple</trainability>
       <meatLabel>beef</meatLabel>
-      <litterSizeCurve>
-        <points>
-          <li>(0.5, 0)</li>
-          <li>(1, 1)</li>
-          <li>(3, 1)</li>
-          <li>(3.5, 0)</li>
-        </points>
-      </litterSizeCurve>
+      <gestationPeriodDays>20</gestationPeriodDays>
       <lifeExpectancy>22</lifeExpectancy>
+      <manhunterOnDamageChance>0</manhunterOnDamageChance>
+      <manhunterOnTameFailChance>0</manhunterOnTameFailChance>
       <lifeStageAges>
         <li>
           <def>AnimalBaby</def>
@@ -408,7 +431,8 @@
       <soundMeleeMiss>Pawn_Melee_BigBash_Miss</soundMeleeMiss>
     </race>
     <tradeTags>
-      <li>StandardAnimal</li>
+      <li>AnimalCommon</li>
+      <li>AnimalFarm</li>
     </tradeTags>
   </ThingDef>
 
@@ -417,10 +441,13 @@
     <label>cow</label>
     <race>Cow</race>
     <combatPower>55</combatPower>
-    <wildSpawn_EcoSystemWeight>0.5</wildSpawn_EcoSystemWeight>
-    <wildSpawn_spawnWild>false</wildSpawn_spawnWild>
+    <ecoSystemWeight>1.1</ecoSystemWeight>
     <labelMale>bull</labelMale>
     <labelFemale>cow</labelFemale>
+    <wildGroupSize>
+      <min>3</min>
+      <max>7</max>
+    </wildGroupSize>
     <lifeStages>
       <li>
         <label>calf</label>
@@ -444,9 +471,13 @@
           </shadowData>
         </femaleGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
+          <texPath>Things/Pawn/Animal/Cow/Dessicated_Bull</texPath>
           <drawSize>1.3</drawSize>
         </dessicatedBodyGraphicData>
+        <femaleDessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Cow/Dessicated_Cow</texPath>
+          <drawSize>1.25</drawSize>
+        </femaleDessicatedBodyGraphicData>
       </li>
       <li>
         <bodyGraphicData>
@@ -468,9 +499,13 @@
           </shadowData>
         </femaleGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
+          <texPath>Things/Pawn/Animal/Cow/Dessicated_Bull</texPath>
           <drawSize>2.15</drawSize>
         </dessicatedBodyGraphicData>
+        <femaleDessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Cow/Dessicated_Cow</texPath>
+          <drawSize>2.0</drawSize>
+        </femaleDessicatedBodyGraphicData>
       </li>
       <li>
         <bodyGraphicData>
@@ -492,9 +527,13 @@
           </shadowData>
         </femaleGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
+          <texPath>Things/Pawn/Animal/Cow/Dessicated_Bull</texPath>
           <drawSize>2.7</drawSize>
         </dessicatedBodyGraphicData>
+        <femaleDessicatedBodyGraphicData>
+          <texPath>Things/Pawn/Animal/Cow/Dessicated_Cow</texPath>
+          <drawSize>2.6</drawSize>
+        </femaleDessicatedBodyGraphicData>
       </li>
     </lifeStages>
   </PawnKindDef>
@@ -504,11 +543,12 @@
   <ThingDef ParentName="AnimalThingBase">
     <defName>Alpaca</defName>
     <label>alpaca</label>
-    <description>A medium-sized ungulate closely related to the llama, the alpaca is often farmed for its remarkably soft wool.</description>
+    <description>A medium-sized ungulate closely related to the llama, the alpaca is usually raised for its remarkably soft and insulating wool. Alpacas have also been used as pack animals since they hauled cargo on the rugged mountain trails of ancient South America</description>
     <statBases>
-      <MoveSpeed>3.8</MoveSpeed>
+      <MoveSpeed>4.1</MoveSpeed>
       <ComfyTemperatureMin>-18</ComfyTemperatureMin>
-      <MarketValue>400</MarketValue>
+      <MarketValue>350</MarketValue>
+      <ComfyTemperatureMax>45</ComfyTemperatureMax>
     </statBases>
     <tools>
       <li>
@@ -517,8 +557,8 @@
           <li>Blunt</li>
           <li>Poke</li>
         </capacities>
-        <power>7</power>
-        <cooldownTime>1.65</cooldownTime>
+        <power>7.3</power>
+        <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>FrontLeftLeg</linkedBodyPartsGroup>
       </li>
       <li>
@@ -527,27 +567,29 @@
           <li>Blunt</li>
           <li>Poke</li>
         </capacities>
-        <power>7</power>
-        <cooldownTime>1.65</cooldownTime>
+        <power>7.3</power>
+        <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>FrontRightLeg</linkedBodyPartsGroup>
       </li>
       <li>
         <capacities>
           <li>Bite</li>
         </capacities>
-        <power>5</power>
-        <cooldownTime>1.85</cooldownTime>
+        <power>8</power>
+        <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+        <chanceFactor>0.7</chanceFactor>
       </li>
       <li>
         <label>head</label>
         <capacities>
           <li>Blunt</li>
         </capacities>
-        <power>3</power>
-        <cooldownTime>1.65</cooldownTime>
+        <power>7</power>
+        <cooldownTime>2</cooldownTime>
         <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-        <commonality>0.2</commonality>
+        <ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+        <chanceFactor>0.2</chanceFactor>
       </li>
     </tools>
     <comps>
@@ -565,11 +607,10 @@
 			<baseHealthScale>1.0</baseHealthScale>
 			<baseHungerRate>0.45</baseHungerRate>
 			<foodType>VegetarianRoughAnimal</foodType>
-      <leatherColor>(237,216,174)</leatherColor>
-      <leatherLabel>alpacahide</leatherLabel>
-      <leatherInsulation>1.1</leatherInsulation>
-      <wildness>0</wildness>
-      <nuzzleMtbHours>120</nuzzleMtbHours>
+      <leatherDef>Leather_Camel</leatherDef>
+      <wildness>0.25</wildness>
+      <manhunterOnTameFailChance>0</manhunterOnTameFailChance>
+      <manhunterOnDamageChance>0</manhunterOnDamageChance>
       <gestationPeriodDays>25</gestationPeriodDays>
       <lifeExpectancy>15</lifeExpectancy>
       <lifeStageAges>
@@ -595,7 +636,8 @@
       <soundMeleeMiss>Pawn_Melee_BigBash_Miss</soundMeleeMiss>
     </race>
     <tradeTags>
-      <li>StandardAnimal</li>
+      <li>AnimalCommon</li>
+      <li>AnimalFarm</li>
     </tradeTags>
   </ThingDef>
 
@@ -604,7 +646,11 @@
     <label>alpaca</label>
     <race>Alpaca</race>
     <combatPower>65</combatPower>
-    <wildSpawn_spawnWild>false</wildSpawn_spawnWild>
+    <ecoSystemWeight>0.55</ecoSystemWeight>
+    <wildGroupSize>
+      <min>2</min>
+      <max>5</max>
+    </wildGroupSize>
     <lifeStages>
       <li>
         <bodyGraphicData>
@@ -613,8 +659,8 @@
           <color>(180,148,109)</color>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-          <drawSize>1.5</drawSize>
+          <texPath>Things/Pawn/Animal/Alpaca/Dessicated_Alpaca</texPath>
+          <drawSize>1.3</drawSize>
         </dessicatedBodyGraphicData>
       </li>
       <li>
@@ -628,8 +674,8 @@
           </shadowData>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-          <drawSize>2.25</drawSize>
+          <texPath>Things/Pawn/Animal/Alpaca/Dessicated_Alpaca</texPath>
+          <drawSize>1.9</drawSize>
         </dessicatedBodyGraphicData>
       </li>
       <li>
@@ -643,8 +689,8 @@
           </shadowData>
         </bodyGraphicData>
         <dessicatedBodyGraphicData>
-          <texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-          <drawSize>3</drawSize>
+          <texPath>Things/Pawn/Animal/Alpaca/Dessicated_Alpaca</texPath>
+          <drawSize>2.2</drawSize>
         </dessicatedBodyGraphicData>
       </li>
     </lifeStages>

@@ -5,13 +5,13 @@
 
 <!--
 	<Operation Class="PatchOperationReplace">
-  	<xpath>*/DamageDef[workerClass = "DamageWorker_AddInjury"]/workerClass</xpath>
+  	<xpath>Defs/DamageDef[workerClass = "DamageWorker_AddInjury"]/workerClass</xpath>
   	<value>
       <workerClass>CombatExtended.DamageWorker_AddInjuryCE</workerClass>
   	</value>
 	</Operation>
 	<Operation Class="PatchOperationReplace">
-  	<xpath>*/DamageDef[workerClass = "DamageWorker_Flame"]/workerClass</xpath>
+  	<xpath>Defs/DamageDef[workerClass = "DamageWorker_Flame"]/workerClass</xpath>
   	<value>
       <workerClass>CombatExtended.DamageWorker_FlameCE</workerClass>
   	</value>
@@ -21,7 +21,7 @@
 	<!-- ========== Add DefModExtension ========== -->
 
 	<Operation Class="PatchOperationAddModExtension">
-  	<xpath>*/DamageDef[defName="Crush"]</xpath>
+  	<xpath>Defs/DamageDef[defName="Crush"]</xpath>
   	<value>
   		<li Class="CombatExtended.DamageDefExtensionCE">
   			<harmOnlyOutsideLayers>true</harmOnlyOutsideLayers>
@@ -30,7 +30,7 @@
 	</Operation>
 
 	<Operation Class="PatchOperationAddModExtension">
-  	<xpath>*/DamageDef[defName="Blunt"]</xpath>
+  	<xpath>Defs/DamageDef[defName="Blunt"]</xpath>
   	<value>
   		<li Class="CombatExtended.DamageDefExtensionCE">
   			<harmOnlyOutsideLayers>true</harmOnlyOutsideLayers>
@@ -39,7 +39,7 @@
 	</Operation>
 
 	<Operation Class="PatchOperationAddModExtension">
-  	<xpath>*/DamageDef[defName="Scratch"]</xpath>
+  	<xpath>Defs/DamageDef[defName="Scratch"]</xpath>
   	<value>
   		<li Class="CombatExtended.DamageDefExtensionCE">
   			<noDamageOnDeflect>true</noDamageOnDeflect>
@@ -49,7 +49,7 @@
 	</Operation>
 
 	<Operation Class="PatchOperationAddModExtension">
-  	<xpath>*/DamageDef[defName="Bite"]</xpath>
+  	<xpath>Defs/DamageDef[defName="Bite"]</xpath>
   	<value>
   		<li Class="CombatExtended.DamageDefExtensionCE">
   			<harmOnlyOutsideLayers>true</harmOnlyOutsideLayers>
@@ -58,7 +58,7 @@
 	</Operation>
 
 	<Operation Class="PatchOperationAddModExtension">
-  	<xpath>*/DamageDef[defName="Flame"]</xpath>
+  	<xpath>Defs/DamageDef[defName="Flame"]</xpath>
   	<value>
   		<li Class="CombatExtended.DamageDefExtensionCE">
   			<harmOnlyOutsideLayers>true</harmOnlyOutsideLayers>
@@ -68,7 +68,7 @@
 	</Operation>
 
 	<Operation Class="PatchOperationAddModExtension">
-  	<xpath>*/DamageDef[defName="Frostbite"]</xpath>
+  	<xpath>Defs/DamageDef[defName="Frostbite"]</xpath>
   	<value>
   		<li Class="CombatExtended.DamageDefExtensionCE">
   			<harmOnlyOutsideLayers>true</harmOnlyOutsideLayers>
@@ -76,51 +76,84 @@
   		</li>
   	</value>
 	</Operation>
+	
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/DamageDef[defName="EMP"]</xpath>
+    <value>
+      <li Class="CombatExtended.DamageDefExtensionCE">
+        <isAmbientDamage>true</isAmbientDamage>
+      </li>
+    </value>
+  </Operation>
 
 	<!-- ========== Add Names for secondary damage inheritance ========== -->
 
 <!--
 	<Operation Class="PatchOperationAttributeSet">
-  	<xpath>*/DamageDef[defName="Blunt"]</xpath>
+  	<xpath>Defs/DamageDef[defName="Blunt"]</xpath>
     <attribute>Name</attribute>
     <value>BluntDamage</value>
 	</Operation>
 -->
 
 	<Operation Class="PatchOperationAttributeSet">
-  	<xpath>*/DamageDef[defName="Bullet"]</xpath>
+  	<xpath>Defs/DamageDef[defName="Bullet"]</xpath>
     <attribute>Name</attribute>
-    <value>BulletDamage</value>
+    <value>Bullet</value>
 	</Operation>
-
+	
+<!--
 	<Operation Class="PatchOperationAttributeSet">
-  	<xpath>*/DamageDef[defName="Bomb"]</xpath>
+  	<xpath>Defs/DamageDef[defName="Bomb"]</xpath>
     <attribute>Name</attribute>
     <value>BombDamage</value>
 	</Operation>
-
+	
 	<Operation Class="PatchOperationAttributeSet">
-  	<xpath>*/DamageDef[defName="Burn"]</xpath>
+  	<xpath>Defs/DamageDef[defName="Burn"]</xpath>
     <attribute>Name</attribute>
     <value>BurnDamage</value>
 	</Operation>
+-->
 
   <!-- ========== Change Bomb hediff ========== -->
 
   <Operation Class="PatchOperationReplace">
-    <xpath>*/DamageDef[defName="Bomb"]/hediff</xpath>
+    <xpath>Defs/DamageDef[defName="Bomb"]/hediff</xpath>
     <value>
       <hediff>Blast</hediff>
     </value>
   </Operation>
 
-  <!-- ========== Replace redundant DamageWorker ========== -->
+  <!-- ========== Stabs and pokes no longer ignore armor ========== -->
 
-  <Operation Class="PatchOperationReplace">
-    <xpath>*/DamageDef/workerClass[.="DamageWorker_Stab"]</xpath>
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/DamageDef[defName="Poke"]</xpath>
+		<value>
+			<harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/DamageDef[defName="Stab"]</xpath>
+		<value>
+			<harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
+		</value>
+	</Operation>
+
+<!-- ========== Patch-out vanilla melee stun mechanic from blunt damage ========== -->
+
+	<Operation Class="PatchOperationRemove">
+		<xpath>/Defs/DamageDef[@Name="BluntBase"]/*[self::bluntStunDuration or self::bluntStunChancePerDamagePctOfCorePartToHeadCurve or self::bluntStunChancePerDamagePctOfCorePartToBodyCurve]</xpath>
+	</Operation>	
+
+  <!-- ========== Add electric armor to EMP damage ========== -->
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/DamageDef[defName="EMP"]</xpath>
     <value>
-      <workerClass>DamageWorker_AddInjury</workerClass>
+      <armorCategory>Electric</armorCategory>
     </value>
   </Operation>
-
+	
 </Patch>

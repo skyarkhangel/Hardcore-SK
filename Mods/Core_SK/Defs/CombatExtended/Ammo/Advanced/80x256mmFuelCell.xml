@@ -1,88 +1,93 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-    <ThingCategoryDef>
-      <defName>Ammo80x256mmFuelCell</defName>
-      <label>80x256mm Fuel Cell</label>
-      <parent>AmmoAdvanced</parent>
-      <iconPath>UI/Icons/ThingCategories/CaliberFuelLarge</iconPath>
-    </ThingCategoryDef>
-	
+	<ThingCategoryDef>
+		<defName>Ammo80x256mmFuelCell</defName>
+		<label>80x256mm Fuel Cell</label>
+		<parent>AmmoAdvanced</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberFuelLarge</iconPath>
+	</ThingCategoryDef>
+
 	<!-- ==================== AmmoSet ========================== -->
 
-  <CombatExtended.AmmoSetDef>
-    <defName>AmmoSet_80x256mmFuel</defName>
-    <label>80x256mm Fuel Cell</label>
-    <ammoTypes>
-      <Ammo_80x256mmFuel_Thermobaric>Bullet_80x256mmFuel_Thermobaric</Ammo_80x256mmFuel_Thermobaric>
-    </ammoTypes>
-  </CombatExtended.AmmoSetDef>
-	
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_80x256mmFuel</defName>
+		<label>80x256mm Fuel Cell</label>
+		<ammoTypes>
+			<Ammo_80x256mmFuel_Thermobaric>Bullet_80x256mmFuel_Thermobaric</Ammo_80x256mmFuel_Thermobaric>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
 	<!-- ==================== Ammo ========================== -->
 
-  <ThingDef Name="80x256mmFuelBase" ParentName="AmmoBase" Abstract="True">
-    <description>Large fuel container for incendiary shot cannons.</description>
-    <statBases>
-	  <Mass>3.0</Mass>
-	  <Bulk>8</Bulk>
-    </statBases>
-    <thingCategories>
-      <li>Ammo80x256mmFuelCell</li>
-    </thingCategories>
-    <stackLimit>25</stackLimit>
-  </ThingDef>
+	<ThingDef Class="CombatExtended.AmmoDef" Name="80x256mmFuelBase" ParentName="AmmoBase" Abstract="True">
+		<description>Large fuel container for incendiary shot cannons.</description>
+		<statBases>
+			<Mass>3.0</Mass>
+			<Bulk>8</Bulk>
+		</statBases>
+		<tradeability>Sellable</tradeability>
+		<destroyOnDrop>False</destroyOnDrop>
+		<thingCategories>
+			<li>Ammo80x256mmFuelCell</li>
+		</thingCategories>
+		<stackLimit>25</stackLimit>
+	</ThingDef>
 
-  <ThingDef ParentName="80x256mmFuelBase">
-    <defName>Ammo_80x256mmFuel_Thermobaric</defName>
-    <label>80x256mm fuel cell (Thermobaric)</label>
-    <graphicData>
-      <texPath>Things/Ammo/FuelCell/Large</texPath>
-      <graphicClass>Graphic_StackCount</graphicClass>
-    </graphicData>
-    <statBases>
-      <MarketValue>28.98</MarketValue>
-    </statBases>
-    <ammoClass>ThermobaricFuel</ammoClass>
-    <comps>
-      <li Class="CombatExtended.CompProperties_ExplosiveCE">
-        <explosionDamage>160</explosionDamage>
-        <explosionDamageDef>Thermobaric</explosionDamageDef>
-        <explosionRadius>3</explosionRadius>
-        <preExplosionSpawnThingDef>FilthFuel</preExplosionSpawnThingDef>
-        <preExplosionSpawnChance>0.5</preExplosionSpawnChance>
-        <soundExplode>MortarIncendiary_Explode</soundExplode>
-      </li>
-    </comps>
-  </ThingDef>
-	
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="80x256mmFuelBase">
+		<defName>Ammo_80x256mmFuel_Thermobaric</defName>
+		<label>80x256mm fuel cell (Thermobaric)</label>
+		<graphicData>
+			<texPath>Things/Ammo/FuelCell/Large</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>28.98</MarketValue>
+		</statBases>
+		<ammoClass>ThermobaricFuel</ammoClass>
+		<comps>
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>1.9</explosiveRadius>
+				<explosiveDamageType>Flame</explosiveDamageType>
+				<explosiveExpandPerStackcount>0.01</explosiveExpandPerStackcount>
+				<startWickHitPointsPercent>0.333</startWickHitPointsPercent>
+				<wickTicks>
+					<min>5</min>
+					<max>10</max>
+				</wickTicks>
+			</li>
+			<li Class="CompProperties_Forbiddable"/>
+		</comps>
+	</ThingDef>
+
 	<!-- ================== Projectiles ================== -->
 
-  <ThingDef ParentName="BaseBullet">
-    <defName>Bullet_80x256mmFuel_Thermobaric</defName>
-    <thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
-    <label>inferno cannon shell</label>
-    <graphicData>
-      <texPath>Things/Projectile/InfernoCannonShot</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>TransparentPostLight</shaderType>
-    </graphicData>
-    <projectile>
-      <damageDef>Flame</damageDef>
-      <damageAmountBase>60</damageAmountBase>
-      <speed>60</speed>
-      <flyOverhead>false</flyOverhead>
-      <explosionRadius>3</explosionRadius>
-      <preExplosionSpawnThingDef>FilthFuel</preExplosionSpawnThingDef>
-      <preExplosionSpawnChance>0.5</preExplosionSpawnChance>
-      <soundExplode>MortarIncendiary_Explode</soundExplode>
-      <soundHitThickRoof>ArtilleryHitThickRoof</soundHitThickRoof>
-      <soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
-      <soundAmbient>MortarRound_Ambient</soundAmbient>
-	  <ai_IsIncendiary>true</ai_IsIncendiary>
-	  <armorPenetration>1.2</armorPenetration>
-    </projectile>
-  </ThingDef>
-  
+	<ThingDef ParentName="SK_BaseBullet">
+		<defName>Bullet_80x256mmFuel_Thermobaric</defName>
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		<label>inferno cannon shell</label>
+		<graphicData>
+			<texPath>Things/Projectile/InfernoCannonShot</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>TransparentPostLight</shaderType>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Flame</damageDef>
+			<damageAmountBase>60</damageAmountBase>
+			<speed>60</speed>
+			<flyOverhead>false</flyOverhead>
+			<explosionRadius>3</explosionRadius>
+			<preExplosionSpawnThingDef>Filth_Fuel</preExplosionSpawnThingDef>
+			<preExplosionSpawnChance>0.5</preExplosionSpawnChance>
+			<soundExplode>MortarIncendiary_Explode</soundExplode>
+			<soundHitThickRoof>Artillery_HitThickRoof</soundHitThickRoof>
+			<soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
+			<soundAmbient>MortarRound_Ambient</soundAmbient>
+			<ai_IsIncendiary>true</ai_IsIncendiary>
+			<armorPenetrationBase>1.2</armorPenetrationBase>
+		</projectile>
+	</ThingDef>
+
 	<!-- ==================== Recipes ========================== -->
-	
+
 </Defs>

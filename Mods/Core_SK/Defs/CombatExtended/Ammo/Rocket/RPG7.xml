@@ -22,7 +22,7 @@
 
 	<!-- ==================== Ammo ========================== -->
 
-	<ThingDef Name="RPG7GrenadeBase" ParentName="AmmoBase" Abstract="True">
+	<ThingDef Class="CombatExtended.AmmoDef" Name="RPG7GrenadeBase" ParentName="AmmoBase" Abstract="True">
 		<description>Rocket-propelled grenade designed for the RPG-7 launcher. After being fired a rocket motor kicks in to propel the grenade further.</description>
 		<statBases>
 			<MaxHitPoints>150</MaxHitPoints>
@@ -41,7 +41,7 @@
 		<cookOffTailSound>ShellCookOff_Ambient</cookOffTailSound>
 	</ThingDef>
 
-	<ThingDef ParentName="RPG7GrenadeBase">
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="RPG7GrenadeBase">
 		<defName>Ammo_RPG7Grenade_HEAT</defName>
 		<label>RPG-7 grenade (HEAT)</label>
 		<graphicData>
@@ -62,13 +62,13 @@
 				<explosionRadius>2.8</explosionRadius>
 				<fragRange>6</fragRange>
 				<fragments>
-					<Fragment_RocketFrag>30</Fragment_RocketFrag>
+					<Fragment_RocketFrag>20</Fragment_RocketFrag>
 				</fragments>
 			</li>
 		</comps>
 	</ThingDef>
 
-	<ThingDef ParentName="RPG7GrenadeBase">
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="RPG7GrenadeBase">
 		<defName>Ammo_RPG7Grenade_Thermobaric</defName>
 		<label>RPG-7 grenade (Thermobaric)</label>
 		<graphicData>
@@ -92,7 +92,7 @@
 		</comps>
 	</ThingDef>
 
-	<ThingDef ParentName="RPG7GrenadeBase">
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="RPG7GrenadeBase">
 		<defName>Ammo_RPG7Grenade_Frag</defName>
 		<label>RPG-7 grenade (Frag)</label>
 		<graphicData>
@@ -112,7 +112,7 @@
 				<explosionDamageDef>Bomb</explosionDamageDef>
 				<explosionRadius>1</explosionRadius>
 				<fragments>
-					<Fragment_RocketFrag>40</Fragment_RocketFrag>
+					<Fragment_RocketFrag>30</Fragment_RocketFrag>
 				</fragments>
 			</li>
 		</comps>
@@ -124,7 +124,7 @@
 		<graphicData>
 			<shaderType>TransparentPostLight</shaderType>
 		</graphicData>
-		<projectile>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<speed>65</speed>
 			<soundAmbient>RocketPropelledLoop_Small</soundAmbient>
 		</projectile>
@@ -137,11 +137,12 @@
 			<texPath>Things/Projectile/RPG/HEAT</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
-		<projectile>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<damageDef>Bomb</damageDef>
 			<damageAmountBase>150</damageAmountBase>
-			<armorPenetration>1.2</armorPenetration>
+			<armorPenetrationBase>1.2</armorPenetrationBase>
 			<ai_IsIncendiary>true</ai_IsIncendiary>
+			<explosionRadius>1.4</explosionRadius>
 		</projectile>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
@@ -150,7 +151,7 @@
 				<explosionRadius>2</explosionRadius>
 				<fragRange>8</fragRange>
 				<fragments>
-					<Fragment_RocketFrag>35</Fragment_RocketFrag>
+					<Fragment_RocketFrag>25</Fragment_RocketFrag>
 				</fragments>
 			</li>
 		</comps>
@@ -163,11 +164,12 @@
 			<texPath>Things/Projectile/RPG/Thermobaric</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
-		<projectile>
-			<explosionRadius>1</explosionRadius>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<damageDef>Thermobaric</damageDef>
 			<damageAmountBase>140</damageAmountBase>
-			<armorPenetration>1.3</armorPenetration>
+			<armorPenetrationBase>1.3</armorPenetrationBase>
+			<explosionRadius>1.6</explosionRadius>
+			<ai_IsIncendiary>true</ai_IsIncendiary>
 		</projectile>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
@@ -177,7 +179,7 @@
 				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
 				<fragRange>8</fragRange>
 				<fragments>
-					<Fragment_RocketFrag>15</Fragment_RocketFrag>
+					<Fragment_RocketFrag>10</Fragment_RocketFrag>
 				</fragments>
 			</li>
 		</comps>
@@ -190,16 +192,17 @@
 			<texPath>Things/Projectile/RPG/Frag</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
-		<projectile>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<damageDef>Bomb</damageDef>
 			<damageAmountBase>150</damageAmountBase>
-			<armorPenetration>1.1</armorPenetration>
+			<armorPenetrationBase>1.1</armorPenetrationBase>
+			<explosionRadius>1.3</explosionRadius>
 		</projectile>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
 				<fragRange>8</fragRange>
 				<fragments>
-					<Fragment_RocketFrag>300</Fragment_RocketFrag>
+					<Fragment_RocketFrag>210</Fragment_RocketFrag>
 				</fragments>
 			</li>
 		</comps>
@@ -217,10 +220,19 @@
 			<li>
 				<filter>
 					<categories>
-						<li>Metallic</li>
+						<li>SLDBar</li>
+						<li>USLDBar</li>
 					</categories>
 				</filter>
-				<count>17</count>
+				<count>13</count>
+			</li>
+			<li>
+				<filter>
+					<categories>
+						<li>HeavyBar</li>
+					</categories>
+				</filter>
+				<count>4</count>
 			</li>
 			<li>
 				<filter>
@@ -234,21 +246,22 @@
 			<li>
 				<filter>
 					<thingDefs>
-						<li>Component</li>
+						<li>ElectronicComponents</li>
 					</thingDefs>
 				</filter>
-				<count>2</count>
+				<count>3</count>
 			</li>
 		</ingredients>
 		<fixedIngredientFilter>
 			<categories>
 				<li>SLDBar</li>
 				<li>USLDBar</li>
+				<li>HeavyBar</li>
 			</categories>
 			<thingDefs>
 				<li>Powder</li>
 				<li>FSX</li>
-				<li>Component</li>
+				<li>ElectronicComponents</li>
 			</thingDefs>
 		</fixedIngredientFilter>
 		<products>
@@ -266,10 +279,19 @@
 			<li>
 				<filter>
 					<categories>
-						<li>Metallic</li>
+						<li>SLDBar</li>
+						<li>USLDBar</li>
 					</categories>
 				</filter>
-				<count>16</count>
+				<count>12</count>
+			</li>
+			<li>
+				<filter>
+					<categories>
+						<li>HeavyBar</li>
+					</categories>
+				</filter>
+				<count>4</count>
 			</li>
 			<li>
 				<filter>
@@ -288,16 +310,26 @@
 				</filter>
 				<count>3</count>
 			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ElectronicComponents</li>
+					</thingDefs>
+				</filter>
+				<count>3</count>
+			</li>
 		</ingredients>
 		<fixedIngredientFilter>
 			<categories>
 				<li>SLDBar</li>
 				<li>USLDBar</li>
+				<li>HeavyBar</li>
 			</categories>
 			<thingDefs>
 				<li>FSX</li>
 				<li>Napalm</li>
 				<li>Powder</li>
+				<li>ElectronicComponents</li>
 			</thingDefs>
 		</fixedIngredientFilter>
 		<products>
@@ -315,10 +347,19 @@
 			<li>
 				<filter>
 					<categories>
-						<li>Metallic</li>
+						<li>SLDBar</li>
+						<li>USLDBar</li>
 					</categories>
 				</filter>
-				<count>16</count>
+				<count>12</count>
+			</li>
+			<li>
+				<filter>
+					<categories>
+						<li>HeavyBar</li>
+					</categories>
+				</filter>
+				<count>4</count>
 			</li>
 			<li>
 				<filter>
@@ -332,21 +373,22 @@
 			<li>
 				<filter>
 					<thingDefs>
-						<li>Component</li>
+						<li>ElectronicComponents</li>
 					</thingDefs>
 				</filter>
-				<count>6</count>
+				<count>3</count>
 			</li>
 		</ingredients>
 		<fixedIngredientFilter>
 			<categories>
 				<li>SLDBar</li>
 				<li>USLDBar</li>
+				<li>HeavyBar</li>
 			</categories>
 			<thingDefs>
 				<li>FSX</li>
 				<li>Powder</li>
-				<li>Component</li>
+				<li>ElectronicComponents</li>
 			</thingDefs>
 		</fixedIngredientFilter>
 		<products>

@@ -16,8 +16,7 @@
       <MaxHitPoints>100</MaxHitPoints>
       <Flammability>1.0</Flammability>
       <DeteriorationRate>2</DeteriorationRate>
-			<Beauty>-4</Beauty>
-			<SellPriceFactor>0.70</SellPriceFactor>
+			<Beauty>-3</Beauty>
 		</statBases>
     <altitudeLayer>Item</altitudeLayer>
     <alwaysHaulable>True</alwaysHaulable>
@@ -48,18 +47,43 @@
         <categories>
           <li>Root</li>
         </categories>
-        <exceptedThingDefs>
+        <disallowedThingDefs>
           <li>Gold</li>
           <li>Silver</li>
           <li>Plasteel</li>
           <li>Jade</li>
           <li>Uranium</li>
-        </exceptedThingDefs>
+        </disallowedThingDefs>
       </defaultIngredientFilter>
     </recipeMaker>
   </ThingDef>
   
-  <ThingDef Name="ArmorMakeableBase" ParentName="ApparelBase" Abstract="True">
+  <ThingDef Name="ArmorSmithableBase" ParentName="ApparelBase" Abstract="True">
+    <recipeMaker>
+      <workSpeedStat>SmithingSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <effectWorking>Smith</effectWorking>
+      <soundWorking>Recipe_Smith</soundWorking>
+      <recipeUsers>
+        <li>ElectricSmithy</li>
+        <li>FueledSmithy</li>
+      </recipeUsers>
+      <defaultIngredientFilter>
+        <categories>
+          <li>Root</li>
+        </categories>
+        <disallowedThingDefs>
+          <li>Gold</li>
+          <li>Silver</li>
+          <li>Plasteel</li>
+          <li>Jade</li>
+          <li>Uranium</li>
+        </disallowedThingDefs>
+      </defaultIngredientFilter>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef Name="ArmorMachineableBase" ParentName="ApparelBase" Abstract="True">
     <recipeMaker>
       <workSpeedStat>SmithingSpeed</workSpeedStat>
       <workSkill>Crafting</workSkill>
@@ -68,18 +92,18 @@
       <recipeUsers>
         <li>TableMachining</li>
       </recipeUsers>
-      <unfinishedThingDef>UnfinishedApparel</unfinishedThingDef>
+      <unfinishedThingDef>UnfinishedArmor</unfinishedThingDef>
       <defaultIngredientFilter>
         <categories>
           <li>Root</li>
         </categories>
-        <exceptedThingDefs>
+        <disallowedThingDefs>
           <li>Gold</li>
           <li>Silver</li>
           <li>Plasteel</li>
           <li>Jade</li>
           <li>Uranium</li>
-        </exceptedThingDefs>
+        </disallowedThingDefs>
       </defaultIngredientFilter>
     </recipeMaker>
   </ThingDef>
@@ -89,13 +113,13 @@
 	<ThingDef ParentName="ApparelMakeableBase">
 		<defName>Apparel_TribalA</defName>
 		<label>tribalwear</label>
-		<description>A garment crafted without machines using neolithic tools.</description>
+		<description>A full-body garment crafted using neolithic tools. While it may look primitive, it is effective at insulating the wearer.</description>
 		<graphicData>
 			<texPath>Things/Pawn/Humanlike/Apparel/TribalA/TribalA</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<techLevel>Neolithic</techLevel>
-		<costStuffCount>35</costStuffCount>
+		<costStuffCount>60</costStuffCount>
 		<stuffCategories>
 			<li>Fabric</li>
 			<li>Leathery</li>
@@ -103,9 +127,12 @@
 		<tradeability>Sellable</tradeability>
 		<statBases>
 			<MaxHitPoints>100</MaxHitPoints>
-			<WorkToMake>4200</WorkToMake>
+			<WorkToMake>1800</WorkToMake>
 			<Mass>0.4</Mass>
-			<Insulation_Cold>-10</Insulation_Cold>
+      <StuffEffectMultiplierArmor>0.2</StuffEffectMultiplierArmor>
+      <StuffEffectMultiplierInsulation_Cold>0.55</StuffEffectMultiplierInsulation_Cold>
+      <StuffEffectMultiplierInsulation_Heat>0.55</StuffEffectMultiplierInsulation_Heat>
+      <EquipDelay>1.5</EquipDelay>
 		</statBases>
 		<thingCategories>
 			<li>Apparel</li>
@@ -118,10 +145,9 @@
 			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/TribalA/TribalA</wornGraphicPath>
 			<layers>
 				<li>OnSkin</li>
-				<li>Middle</li>
 			</layers>
 			<tags>
-				<li>Tribal</li>
+				<li>Neolithic</li>
 			</tags>
 		</apparel>
 		<recipeMaker>
@@ -135,15 +161,15 @@
 			<options>
 				<li>
 					<weight>10</weight>
-					<only>RGBA(0.4,0.3,0.15,1)</only>
+					<only>(0.4,0.3,0.15)</only>
 				</li>
 				<li>
 					<weight>15</weight>
-					<only>RGBA(0.6,0.45,0.18,1)</only>
+					<only>(0.6,0.45,0.18)</only>
 				</li>
 				<li>
 					<weight>20</weight>
-					<only>RGBA(0.8,0.6,0.23,1)</only>
+					<only>(0.8,0.6,0.23)</only>
 				</li>
 			</options>
 		</colorGenerator>
@@ -152,13 +178,14 @@
 	<ThingDef ParentName="ApparelMakeableBase">
 		<defName>Apparel_Parka</defName>
 		<label>parka</label>
-		<description>A thick parka for staying warm in even the coldest of temperatures.</description>
+		<description>A parka for staying warm in even the coldest of temperatures.</description>
 		<graphicData>
 			<texPath>Things/Pawn/Humanlike/Apparel/Parka/Parka</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
+      <drawSize>0.90</drawSize>
 		</graphicData>
 		<techLevel>Neolithic</techLevel>
-		<costStuffCount>120</costStuffCount>
+		<costStuffCount>80</costStuffCount>
 		<stuffCategories>
 			<li>Fabric</li>
 			<li>Leathery</li>
@@ -168,20 +195,17 @@
 		</thingCategories>
 		<statBases>
 			<MaxHitPoints>180</MaxHitPoints>
-			<WorkToMake>24000</WorkToMake>
+			<WorkToMake>8000</WorkToMake>
 			<Mass>3.8</Mass>
-			<ArmorRating_Sharp>0.03</ArmorRating_Sharp>
-			<ArmorRating_Heat>0.03</ArmorRating_Heat>
-			<Insulation_Cold>-40</Insulation_Cold>
-			<Insulation_Heat>-3</Insulation_Heat>
+      <StuffEffectMultiplierArmor>0.2</StuffEffectMultiplierArmor>
+      <StuffEffectMultiplierInsulation_Cold>2.00</StuffEffectMultiplierInsulation_Cold>
+      <StuffEffectMultiplierInsulation_Heat>0.00</StuffEffectMultiplierInsulation_Heat>
+      <EquipDelay>2.5</EquipDelay>
 		</statBases>
-		<equippedStatOffsets>
-			<MoveSpeed>-0.05</MoveSpeed>
-			<WorkSpeedGlobal>-0.20</WorkSpeedGlobal>
-		</equippedStatOffsets>
 		<apparel>
 			<bodyPartGroups>
 				<li>Torso</li>
+        <li>Neck</li>
 				<li>Shoulders</li>
 				<li>Arms</li>
 			</bodyPartGroups>
@@ -190,8 +214,8 @@
 				<li>Shell</li>
 			</layers>
 			<tags>
-				<li>Outlander</li>
-				<li>Tribal</li>
+				<li>IndustrialBasic</li>
+				<li>Neolithic</li>
 			</tags>
 			<defaultOutfitTags>
 				<li>Worker</li>
@@ -202,25 +226,25 @@
 			<options>
 				<li>
 					<weight>10</weight>
-					<only>RGBA(0.33,0.33,0.33,1)</only>
+					<only>(0.33,0.33,0.33)</only>
 				</li>
 				<li>
 					<weight>10</weight>
-					<only>RGBA(0.65,0.65,0.65,1)</only>
+					<only>(0.65,0.65,0.65)</only>
 				</li>
 				<li>
 					<weight>10</weight>
-					<only>RGBA(0.4,0.3,0.15,1)</only>
+					<only>(0.4,0.3,0.15)</only>
 				</li>
 				<li>
 					<weight>15</weight>
-					<min>RGBA(0.3,0.3,0.3,1)</min>
-					<max>RGBA(0.5,0.5,0.5,1)</max>
+					<min>(0.3,0.3,0.3)</min>
+					<max>(0.5,0.5,0.5)</max>
 				</li>
 				<li>
 					<weight>6</weight>
-					<min>RGBA(0.5,0.5,0.5,1)</min>
-					<max>RGBA(1,1,1,1)</max>
+					<min>(0.5,0.5,0.5)</min>
+					<max>(1,1,1)</max>
 				</li>
 			</options>
 		</colorGenerator>
@@ -236,10 +260,10 @@
       <researchPrerequisite>ComplexClothing</researchPrerequisite>
     </recipeMaker>
     <graphicData>
-      <texPath>Things/Pawn/Humanlike/Apparel/Various/Pants_OnMap</texPath>
+      <texPath>Things/Pawn/Humanlike/Apparel/Pants/Pants</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
-    <costStuffCount>50</costStuffCount>
+    <costStuffCount>40</costStuffCount>
     <stuffCategories>
       <li>Fabric</li>
       <li>Leathery</li>
@@ -249,11 +273,12 @@
     </thingCategories>
     <statBases>
 			<MaxHitPoints>100</MaxHitPoints>
-			<WorkToMake>8500</WorkToMake>
+			<WorkToMake>1600</WorkToMake>
       <Mass>0.5</Mass>
-      <ArmorRating_Blunt>0.03</ArmorRating_Blunt>
-      <ArmorRating_Sharp>0.03</ArmorRating_Sharp>
-      <Insulation_Cold>-3</Insulation_Cold>
+      <StuffEffectMultiplierArmor>0.2</StuffEffectMultiplierArmor>
+      <StuffEffectMultiplierInsulation_Cold>0.20</StuffEffectMultiplierInsulation_Cold>
+      <StuffEffectMultiplierInsulation_Heat>0.08</StuffEffectMultiplierInsulation_Heat>
+      <EquipDelay>2</EquipDelay>
     </statBases>
     <apparel>
       <bodyPartGroups>
@@ -263,8 +288,7 @@
         <li>OnSkin</li>
       </layers>
       <tags>
-        <li>Outlander</li>
-        <li>Spacer</li>
+        <li>IndustrialBasic</li>
       </tags>
       <defaultOutfitTags>
         <li>Worker</li>
@@ -282,7 +306,7 @@
       <texPath>Things/Pawn/Humanlike/Apparel/ShirtBasic/ShirtBasic</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
-    <costStuffCount>50</costStuffCount>
+    <costStuffCount>40</costStuffCount>
     <stuffCategories>
       <li>Fabric</li>
       <li>Leathery</li>
@@ -292,11 +316,12 @@
     </thingCategories>
     <statBases>
 			<MaxHitPoints>100</MaxHitPoints>
-			<WorkToMake>6000</WorkToMake>
+			<WorkToMake>1600</WorkToMake>
       <Mass>0.25</Mass>
-      <ArmorRating_Blunt>0.03</ArmorRating_Blunt>
-      <ArmorRating_Sharp>0.03</ArmorRating_Sharp>
-      <Insulation_Cold>-3</Insulation_Cold>
+      <StuffEffectMultiplierArmor>0.2</StuffEffectMultiplierArmor>
+      <StuffEffectMultiplierInsulation_Cold>0.22</StuffEffectMultiplierInsulation_Cold>
+      <StuffEffectMultiplierInsulation_Heat>0.10</StuffEffectMultiplierInsulation_Heat>
+      <EquipDelay>1.5</EquipDelay>
     </statBases>
     <apparel>
       <bodyPartGroups>
@@ -308,8 +333,7 @@
         <li>OnSkin</li>
       </layers>
       <tags>
-        <li>Outlander</li>
-        <li>Spacer</li>
+        <li>IndustrialBasic</li>
       </tags>
       <defaultOutfitTags>
         <li>Worker</li>
@@ -330,7 +354,7 @@
       <texPath>Things/Pawn/Humanlike/Apparel/ShirtButton/ShirtButton</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
-    <costStuffCount>55</costStuffCount>
+    <costStuffCount>45</costStuffCount>
     <stuffCategories>
       <li>Fabric</li>
       <li>Leathery</li>
@@ -340,16 +364,17 @@
     </thingCategories>
     <statBases>
 			<MaxHitPoints>100</MaxHitPoints>
-			<WorkToMake>8200</WorkToMake>
+			<WorkToMake>2700</WorkToMake>
       <Mass>0.3</Mass>
-      <ArmorRating_Blunt>0.03</ArmorRating_Blunt>
-      <ArmorRating_Sharp>0.03</ArmorRating_Sharp>
-      <Insulation_Cold>-4</Insulation_Cold>
+      <StuffEffectMultiplierArmor>0.2</StuffEffectMultiplierArmor>
+      <StuffEffectMultiplierInsulation_Cold>0.26</StuffEffectMultiplierInsulation_Cold>
+      <StuffEffectMultiplierInsulation_Heat>0.10</StuffEffectMultiplierInsulation_Heat>
+      <EquipDelay>1.5</EquipDelay>
     </statBases>
-		<generateCommonality>0.8</generateCommonality>
 		<apparel>
       <bodyPartGroups>
         <li>Torso</li>
+        <li>Neck</li>
         <li>Shoulders</li>
         <li>Arms</li>
       </bodyPartGroups>
@@ -358,7 +383,7 @@
         <li>OnSkin</li>
       </layers>
       <tags>
-        <li>Outlander</li>
+        <li>IndustrialBasic</li>
       </tags>
       <defaultOutfitTags>
         <li>Worker</li>
@@ -370,7 +395,7 @@
 
   <ThingDef ParentName="ApparelMakeableBase">
     <defName>Apparel_Duster</defName>
-    <description>A long duster coat for blocking the sun and grit of the desert.</description>
+    <description>A long duster coat for blocking the sun and grit of the outdoors.</description>
     <label>duster</label>
     <recipeMaker>
       <researchPrerequisite>ComplexClothing</researchPrerequisite>
@@ -378,6 +403,7 @@
     <graphicData>
       <texPath>Things/Pawn/Humanlike/Apparel/Duster/Duster</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>1.05</drawSize>
     </graphicData>
     <costStuffCount>80</costStuffCount>
     <stuffCategories>
@@ -389,20 +415,17 @@
     </thingCategories>
     <statBases>
       <MaxHitPoints>200</MaxHitPoints>
-      <WorkToMake>26000</WorkToMake>
+      <WorkToMake>10000</WorkToMake>
       <Mass>2.2</Mass>
-      <ArmorRating_Blunt>0.03</ArmorRating_Blunt>
-      <ArmorRating_Sharp>0.07</ArmorRating_Sharp>
-      <ArmorRating_Heat>0.07</ArmorRating_Heat>
-      <Insulation_Cold>-15</Insulation_Cold>
-      <Insulation_Heat>15</Insulation_Heat>
+      <StuffEffectMultiplierArmor>0.3</StuffEffectMultiplierArmor>
+      <StuffEffectMultiplierInsulation_Cold>0.60</StuffEffectMultiplierInsulation_Cold>
+      <StuffEffectMultiplierInsulation_Heat>0.85</StuffEffectMultiplierInsulation_Heat>
+      <EquipDelay>2.5</EquipDelay>
     </statBases>
-    <equippedStatOffsets>
-      <MoveSpeed>-0.04</MoveSpeed>
-    </equippedStatOffsets>
     <apparel>
       <bodyPartGroups>
         <li>Torso</li>
+        <li>Neck</li>
         <li>Shoulders</li>
         <li>Arms</li>
         <li>Legs</li>
@@ -412,7 +435,7 @@
         <li>Shell</li>
       </layers>
       <tags>
-        <li>Outlander</li>
+        <li>IndustrialAdvanced</li>
       </tags>
       <defaultOutfitTags>
         <li>Worker</li>
@@ -422,25 +445,25 @@
       <options>
         <li>
           <weight>10</weight>
-          <only>RGBA(0.33,0.33,0.33,1)</only>
+          <only>(0.33,0.33,0.33)</only>
         </li>
         <li>
           <weight>10</weight>
-          <only>RGBA(0.65,0.65,0.65,1)</only>
+          <only>(0.65,0.65,0.65)</only>
         </li>
         <li>
           <weight>30</weight>
-          <only>RGBA(0.4,0.3,0.15,1)</only>
+          <only>(0.4,0.3,0.15)</only>
         </li>
         <li>
           <weight>6</weight>
-          <min>RGBA(0.3,0.3,0.3,1)</min>
-          <max>RGBA(0.5,0.5,0.5,1)</max>
+          <min>(0.3,0.3,0.3)</min>
+          <max>(0.5,0.5,0.5)</max>
         </li>
         <li>
           <weight>2</weight>
-          <min>RGBA(0.5,0.5,0.5,1)</min>
-          <max>RGBA(1,1,1,1)</max>
+          <min>(0.5,0.5,0.5)</min>
+          <max>(1,1,1)</max>
         </li>
       </options>
     </colorGenerator>
@@ -449,10 +472,11 @@
   <ThingDef ParentName="ApparelMakeableBase">
     <defName>Apparel_Jacket</defName>
     <label>jacket</label>
-    <description>A tough jacket to stop scrapes and bruises, and keep one warm in chilly weather.</description>
+    <description>A tough jacket to stop scrapes and bruises, and to keep one warm in chilly weather.</description>
     <graphicData>
       <texPath>Things/Pawn/Humanlike/Apparel/Jacket/Jacket</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>0.85</drawSize>
     </graphicData>
     <costStuffCount>70</costStuffCount>
     <stuffCategories>
@@ -464,18 +488,17 @@
     </thingCategories>
     <statBases>
       <MaxHitPoints>160</MaxHitPoints>
-      <WorkToMake>15000</WorkToMake>
+      <WorkToMake>7000</WorkToMake>
       <Mass>1.7</Mass>
-      <ArmorRating_Sharp>0.08</ArmorRating_Sharp>
-      <ArmorRating_Heat>0.03</ArmorRating_Heat>
-      <Insulation_Cold>-15</Insulation_Cold>
+      <StuffEffectMultiplierArmor>0.3</StuffEffectMultiplierArmor>
+      <StuffEffectMultiplierInsulation_Cold>0.80</StuffEffectMultiplierInsulation_Cold>
+      <StuffEffectMultiplierInsulation_Heat>0.30</StuffEffectMultiplierInsulation_Heat>
+      <EquipDelay>1.5</EquipDelay>
     </statBases>
-    <equippedStatOffsets>
-      <MoveSpeed>-0.03</MoveSpeed>
-    </equippedStatOffsets>
     <apparel>
       <bodyPartGroups>
         <li>Torso</li>
+        <li>Neck</li>
         <li>Shoulders</li>
         <li>Arms</li>
       </bodyPartGroups>
@@ -484,8 +507,7 @@
         <li>Shell</li>
       </layers>
       <tags>
-        <li>Outlander</li>
-        <li>Spacer</li>
+        <li>IndustrialAdvanced</li>
       </tags>
       <defaultOutfitTags>
         <li>Worker</li>
@@ -495,73 +517,80 @@
       <options>
         <li>
           <weight>10</weight>
-          <only>RGBA(0.33,0.33,0.33,1)</only>
+          <only>(0.33,0.33,0.33)</only>
         </li>
         <li>
           <weight>10</weight>
-          <only>RGBA(0.65,0.65,0.65,1)</only>
+          <only>(0.65,0.65,0.65)</only>
         </li>
         <li>
           <weight>10</weight>
-          <only>RGBA(0.4,0.3,0.15,1)</only>
+          <only>(0.4,0.3,0.15)</only>
         </li>
         <li>
           <weight>15</weight>
-          <min>RGBA(0.3,0.3,0.3,1)</min>
-          <max>RGBA(0.5,0.5,0.5,1)</max>
+          <min>(0.3,0.3,0.3)</min>
+          <max>(0.5,0.5,0.5)</max>
         </li>
         <li>
           <weight>6</weight>
-          <min>RGBA(0.5,0.5,0.5,1)</min>
-          <max>RGBA(1,1,1,1)</max>
+          <min>(0.5,0.5,0.5)</min>
+          <max>(1,1,1)</max>
         </li>
       </options>
     </colorGenerator>
   </ThingDef>
-
-  <!-- ======================================= Industrial =======================================-->
   
-  <ThingDef ParentName="ArmorMakeableBase">
-    <defName>Apparel_VestPlate</defName>
-    <label>armor vest</label>
-    <description>A vest with armor plates inserted on the chest and back. Protects against gunfire.</description>
-    <techLevel>Industrial</techLevel>
+  <ThingDef ParentName="ArmorSmithableBase">
+    <defName>Apparel_PlateArmor</defName>
+    <label>plate armor</label>
+    <description>Overlapping solid plates of armor covering the entire body from neck to feet.</description>
     <recipeMaker>
-        <researchPrerequisite>ComplexClothing</researchPrerequisite>
-      <unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
+      <unfinishedThingDef>UnfinishedMetallicTechArmor</unfinishedThingDef>
+      <researchPrerequisite>PlateArmor</researchPrerequisite>
+      <skillRequirements>
+        <Crafting>8</Crafting>
+      </skillRequirements>
     </recipeMaker>
     <graphicData>
-      <texPath>Things/Pawn/Humanlike/Apparel/VestPlate/VestPlate</texPath>
+      <texPath>Things/Pawn/Humanlike/Apparel/PlateArmor/PlateArmor</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
+    <stuffCategories>
+      <li>Metallic</li>
+      <li>Woody</li>
+    </stuffCategories>
+    <costStuffCount>170</costStuffCount>
     <statBases>
-      <WorkToMake>20000</WorkToMake>
-      <MaxHitPoints>200</MaxHitPoints>
-      <Mass>4</Mass>
-      <ArmorRating_Blunt>0.20</ArmorRating_Blunt>
-      <ArmorRating_Sharp>0.60</ArmorRating_Sharp>
+      <WorkToMake>38000</WorkToMake>
+      <MaxHitPoints>290</MaxHitPoints>
+      <Mass>15</Mass>
+      <StuffEffectMultiplierArmor>0.73</StuffEffectMultiplierArmor>
+      <StuffEffectMultiplierInsulation_Cold>1.0</StuffEffectMultiplierInsulation_Cold>
+      <StuffEffectMultiplierInsulation_Heat>0</StuffEffectMultiplierInsulation_Heat>
+      <EquipDelay>15</EquipDelay>
     </statBases>
+    <equippedStatOffsets>
+      <MoveSpeed>-0.8</MoveSpeed>
+    </equippedStatOffsets>
     <thingCategories>
       <li>Apparel</li>
     </thingCategories>
-    <equippedStatOffsets>
-      <MoveSpeed>-0.08</MoveSpeed>
-    </equippedStatOffsets>
-    <costList>
-      <Steel>120</Steel>
-      <Component>2</Component>
-    </costList>
     <apparel>
       <bodyPartGroups>
         <li>Torso</li>
+        <li>Neck</li>
+        <li>Shoulders</li>
+        <li>Arms</li>
+        <li>Legs</li>
       </bodyPartGroups>
-      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/VestPlate/VestPlate</wornGraphicPath>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/PlateArmor/PlateArmor</wornGraphicPath>
       <layers>
         <li>Middle</li>
+        <li>Shell</li>
       </layers>
       <tags>
-        <li>Outlander</li>
-        <li>Military</li>
+        <li>MedievalMilitary</li>
       </tags>
       <defaultOutfitTags>
         <li>Soldier</li>
@@ -571,16 +600,226 @@
       <options>
         <li>
           <weight>10</weight>
-          <only>RGBA(0.33,0.33,0.33,1)</only>
+          <only>(0.33,0.33,0.33)</only>
         </li>
         <li>
           <weight>10</weight>
-          <only>RGBA(0.65,0.65,0.65,1)</only>
+          <only>(0.65,0.65,0.65)</only>
         </li>
         <li>
           <weight>6</weight>
-          <min>RGBA(0.3,0.3,0.3,1)</min>
-          <max>RGBA(0.5,0.5,0.5,1)</max>
+          <min>(0.3,0.3,0.3)</min>
+          <max>(0.5,0.5,0.5)</max>
+        </li>
+      </options>
+    </colorGenerator>
+  </ThingDef>
+
+  <!-- ======================================= Industrial =======================================-->
+  
+  <ThingDef ParentName="ArmorMachineableBase">
+    <defName>Apparel_FlakVest</defName>
+    <label>flak vest</label>
+    <description>A vest with armor plates inserted on the chest and back. While quite effective at deflecting gunshots and stabbing attacks against the chest, it does nothing to protect the limbs.</description>
+    <techLevel>Industrial</techLevel>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
+      <skillRequirements>
+        <Crafting>5</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <graphicData>
+      <texPath>Things/Pawn/Humanlike/Apparel/FlakVest/FlakVest</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>0.90</drawSize>
+    </graphicData>
+    <statBases>
+      <WorkToMake>9000</WorkToMake>
+      <MaxHitPoints>200</MaxHitPoints>
+      <Mass>4</Mass>
+      <Flammability>0.6</Flammability>
+      <ArmorRating_Sharp>1.00</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.36</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.27</ArmorRating_Heat>
+      <Insulation_Cold>1</Insulation_Cold>
+      <EquipDelay>5</EquipDelay>
+    </statBases>
+    <equippedStatOffsets>
+      <MoveSpeed>-0.12</MoveSpeed>
+    </equippedStatOffsets>
+    <thingCategories>
+      <li>Apparel</li>
+    </thingCategories>
+    <costList>
+      <Cloth>30</Cloth>
+      <Steel>60</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <apparel>
+      <bodyPartGroups>
+        <li>Torso</li>
+        <li>Neck</li>
+        <li>Shoulders</li>
+      </bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/FlakVest/FlakVest</wornGraphicPath>
+      <layers>
+        <li>Middle</li>
+      </layers>
+      <tags>
+        <li>IndustrialMilitaryBasic</li>
+      </tags>
+      <defaultOutfitTags>
+        <li>Soldier</li>
+      </defaultOutfitTags>
+    </apparel>
+    <colorGenerator Class="ColorGenerator_Options">
+      <options>
+        <li>
+          <only>(0.33,0.33,0.33)</only>
+        </li>
+        <li>
+          <only>(0.65,0.65,0.65)</only>
+        </li>
+        <li>
+          <weight>0.5</weight>
+          <min>(0.3,0.3,0.3)</min>
+          <max>(0.5,0.5,0.5)</max>
+        </li>
+      </options>
+    </colorGenerator>
+  </ThingDef>
+
+  <ThingDef ParentName="ArmorMachineableBase">
+    <defName>Apparel_FlakPants</defName>
+    <label>flak pants</label>
+    <description>A pair of pants with armor plates sewn in. While it's not as good as solid armor, it offers effective protection against all manner of attacks while remaining quite comfortable.</description>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
+      <skillRequirements>
+        <Crafting>5</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <graphicData>
+      <texPath>Things/Pawn/Humanlike/Apparel/FlakPants/FlakPants</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>0.90</drawSize>
+    </graphicData>
+    <statBases>
+      <WorkToMake>9000</WorkToMake>
+      <MaxHitPoints>200</MaxHitPoints>
+      <Mass>4</Mass>
+      <Flammability>0.6</Flammability>
+      <ArmorRating_Sharp>0.40</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.10</ArmorRating_Heat>
+      <Insulation_Cold>3.5</Insulation_Cold>
+      <Insulation_Heat>1</Insulation_Heat>
+      <EquipDelay>5</EquipDelay>
+    </statBases>
+    <equippedStatOffsets>
+      <MoveSpeed>-0.12</MoveSpeed>
+    </equippedStatOffsets>
+    <thingCategories>
+      <li>Apparel</li>
+    </thingCategories>
+    <costList>
+      <Cloth>30</Cloth>
+      <Steel>60</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <apparel>
+      <bodyPartGroups>
+        <li>Legs</li>
+      </bodyPartGroups>
+      <layers>
+        <li>OnSkin</li>
+        <li>Middle</li>
+      </layers>
+      <tags>
+        <li>IndustrialMilitaryBasic</li>
+      </tags>
+      <defaultOutfitTags>
+        <li>Soldier</li>
+      </defaultOutfitTags>
+    </apparel>
+    <colorGenerator Class="ColorGenerator_Options">
+      <options>
+        <li>
+          <only>(0.44,0.44,0.44)</only>
+        </li>
+        <li>
+          <only>(0.62,0.62,0.62)</only>
+        </li>
+      </options>
+    </colorGenerator>
+  </ThingDef>
+
+  <ThingDef ParentName="ArmorMachineableBase">
+    <defName>Apparel_FlakJacket</defName>
+    <label>flak jacket</label>
+    <description>A tough fabric jacket with armor plates sewn in. While it's not as good as solid armor, it offers effective protection against all manner of attacks while remaining quite comfortable.</description>
+    <recipeMaker>
+      <researchPrerequisite>FlakArmor</researchPrerequisite>
+      <unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
+      <skillRequirements>
+        <Crafting>5</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <graphicData>
+      <texPath>Things/Pawn/Humanlike/Apparel/FlakJacket/FlakJacket</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>1.00</drawSize>
+    </graphicData>
+    <costList>
+      <Cloth>50</Cloth>
+      <Steel>70</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <thingCategories>
+      <li>Apparel</li>
+    </thingCategories>
+    <statBases>
+      <MaxHitPoints>260</MaxHitPoints>
+      <WorkToMake>14000</WorkToMake>
+      <Mass>7</Mass>
+      <Flammability>0.6</Flammability>
+      <ArmorRating_Sharp>0.40</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.10</ArmorRating_Heat>
+      <Insulation_Cold>14.4</Insulation_Cold> <!-- like a cloth jacket -->
+      <Insulation_Heat>3</Insulation_Heat>
+      <EquipDelay>3</EquipDelay>
+    </statBases>
+    <equippedStatOffsets>
+      <MoveSpeed>-0.12</MoveSpeed>
+    </equippedStatOffsets>
+    <apparel>
+      <bodyPartGroups>
+        <li>Torso</li>
+        <li>Neck</li>
+        <li>Shoulders</li>
+        <li>Arms</li>
+      </bodyPartGroups>
+      <wornGraphicPath>Things/Pawn/Humanlike/Apparel/FlakJacket/FlakJacket</wornGraphicPath>
+      <layers>
+        <li>Shell</li>
+      </layers>
+      <tags>
+        <li>IndustrialAdvanced</li>
+      </tags>
+      <defaultOutfitTags>
+        <li>Soldier</li>
+      </defaultOutfitTags>
+    </apparel>
+    <colorGenerator Class="ColorGenerator_Options">
+      <options>
+        <li>
+          <only>(0.44,0.44,0.44)</only>
+        </li>
+        <li>
+          <only>(0.62,0.62,0.62)</only>
         </li>
       </options>
     </colorGenerator>
@@ -588,40 +827,49 @@
 
 	<!-- ==================================== Spacer =====================================-->
 
-	<ThingDef ParentName="ArmorMakeableBase">
+	<ThingDef ParentName="ArmorMachineableBase">
     <defName>Apparel_PowerArmor</defName>
-    <label>power armor</label>
-    <description>Powered armor usually used by assault troops from advanced glitterworld planets.</description>
+    <label>marine armor</label>
+    <description>A suit of light powered armor. Layered plasteel-weave plates are very effective at stopping attacks, with few vulnerable joint sections. Neuro-memetic assistors allow a human to wear the armor and still move easily.\n\nArmor like this is often used by imperial janissaries and rapid-incursion space marines.</description>
     <techLevel>Spacer</techLevel>
     <recipeMaker>
       <unfinishedThingDef>UnfinishedTechArmor</unfinishedThingDef>
       <researchPrerequisite>PoweredArmor</researchPrerequisite>
+      <skillRequirements>
+        <Crafting>9</Crafting>
+      </skillRequirements>
+      <recipeUsers Inherit="False">
+        <li>FabricationBench</li>
+      </recipeUsers>
     </recipeMaker>
     <graphicData>
       <texPath>Things/Pawn/Humanlike/Apparel/PowerArmor/PowerArmor</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
+    <generateCommonality>2</generateCommonality>
     <statBases>
-      <WorkToMake>170000</WorkToMake>
+      <WorkToMake>60000</WorkToMake>
       <MaxHitPoints>340</MaxHitPoints>
       <Mass>15</Mass>
-      <ArmorRating_Blunt>0.35</ArmorRating_Blunt>
-      <ArmorRating_Sharp>0.65</ArmorRating_Sharp>
-      <ArmorRating_Heat>0.30</ArmorRating_Heat>
-      <Insulation_Cold>-45</Insulation_Cold>
+      <Flammability>0.4</Flammability>
+      <ArmorRating_Sharp>1.08</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.45</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.54</ArmorRating_Heat>
+      <Insulation_Cold>34</Insulation_Cold>
+      <Insulation_Heat>10</Insulation_Heat>
+      <EquipDelay>15</EquipDelay>
     </statBases>
     <equippedStatOffsets>
-      <MoveSpeed>-0.10</MoveSpeed>
-      <WorkSpeedGlobal>-0.10</WorkSpeedGlobal>
+      <MoveSpeed>-0.4</MoveSpeed>
     </equippedStatOffsets>
     <thingCategories>
       <li>Apparel</li>
     </thingCategories>
     <costList>
-      <Component>18</Component>
-      <Plasteel>135</Plasteel>
+      <ComponentSpacer>4</ComponentSpacer>
+      <Plasteel>100</Plasteel>
+      <Uranium>20</Uranium>
     </costList>
-		<generateCommonality>2</generateCommonality>
 		<apparel>
 			<bodyPartGroups>
 				<li>Torso</li>
@@ -636,35 +884,37 @@
 				<li>Shell</li>
 			</layers>
 			<tags>
-        <li>Outlander</li>
-        <li>Spacer</li>
-        <li>Military</li>
+        <li>SpacerMilitary</li>
       </tags>
       <defaultOutfitTags>
         <li>Soldier</li>
       </defaultOutfitTags>
+      <useDeflectMetalEffect>true</useDeflectMetalEffect>
     </apparel>
     <colorGenerator Class="ColorGenerator_Options">
       <options>
         <li>
           <weight>10</weight>
-          <only>RGBA(0.33,0.33,0.33,1)</only>
+          <only>(0.33,0.33,0.33)</only>
         </li>
         <li>
           <weight>10</weight>
-          <only>RGBA(0.65,0.65,0.65,1)</only>
+          <only>(0.65,0.65,0.65)</only>
         </li>
         <li>
           <weight>6</weight>
-          <min>RGBA(0.3,0.3,0.3,1)</min>
-          <max>RGBA(0.5,0.5,0.5,1)</max>
+          <min>(0.3,0.3,0.3)</min>
+          <max>(0.5,0.5,0.5)</max>
         </li>
         <li>
           <weight>10</weight>
-          <only>RGBA(0.9,0.9,0.9,1)</only>
+          <only>(0.9,0.9,0.9)</only>
         </li>
       </options>
     </colorGenerator>
+    <thingSetMakerTags>
+      <li>RewardSpecial</li>
+    </thingSetMakerTags>
   </ThingDef>
 
 </Defs>

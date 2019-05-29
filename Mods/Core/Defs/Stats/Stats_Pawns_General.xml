@@ -4,9 +4,10 @@
   <StatDef>
     <defName>MoveSpeed</defName>
     <label>move speed</label>
-    <description>Speed of movement through the world in cells per second.</description>
+    <description>Speed of movement in cells per second.</description>
     <category>BasicsPawn</category>
-    <defaultBaseValue>2.8</defaultBaseValue>
+    <defaultBaseValue>3.0</defaultBaseValue>
+    <minValue>0.15</minValue>
     <toStringStyle>FloatTwo</toStringStyle>
     <formatString>{0} c/s</formatString>
     <displayPriorityInCategory>90</displayPriorityInCategory>
@@ -33,7 +34,7 @@
   <StatDef>
     <defName>MentalBreakThreshold</defName>
     <label>mental break threshold</label>
-    <description>As long as someone's mood is below this level, they are in danger of having a mental break.</description>
+    <description>As long as someone's mood is below this level, they are in danger of having a mental break. The severity of the mental break will depend on how far below the threshold they are.</description>
     <category>BasicsPawn</category>
     <defaultBaseValue>0.05</defaultBaseValue>
     <minValue>0.01</minValue>
@@ -47,12 +48,13 @@
   <StatDef>
     <defName>PsychicSensitivity</defName>
     <label>psychic sensitivity</label>
-    <description>Multiplier on the impact of psychic phenomena affecting this person.</description>
+    <description>Multiplier on the impact of psychic phenomena affecting this person. More sensitive people both suffer more from negative psychic effects, and benefit more from positive ones.</description>
     <category>BasicsPawn</category>
     <defaultBaseValue>1</defaultBaseValue>
     <toStringStyle>PercentZero</toStringStyle>
     <showOnAnimals>false</showOnAnimals>
     <hideAtValue>1</hideAtValue>
+    <minValue>0</minValue>
     <displayPriorityInCategory>75</displayPriorityInCategory>
 		<scenarioRandomizable>true</scenarioRandomizable>
 	</StatDef>
@@ -60,10 +62,11 @@
   <StatDef>
     <defName>ToxicSensitivity</defName>
     <label>toxic sensitivity</label>
-    <description>Multiplier on the impact of toxic buildup on this character.</description>
+    <description>Multiplier on the impact of toxic buildup on this creature.</description>
     <category>BasicsPawn</category>
     <defaultBaseValue>1.0</defaultBaseValue>
     <hideAtValue>1.0</hideAtValue>
+    <minValue>0</minValue>
     <toStringStyle>PercentZero</toStringStyle>
     <displayPriorityInCategory>75</displayPriorityInCategory>
   </StatDef>
@@ -71,20 +74,63 @@
   <StatDef>
     <defName>GlobalLearningFactor</defName>
     <label>global learning factor</label>
-    <description>Global learning efficiency for all skills.</description>
+    <description>A multiplier on the learning rate for all skills.</description>
     <category>BasicsPawn</category>
     <defaultBaseValue>1.0</defaultBaseValue>
     <toStringStyle>PercentZero</toStringStyle>
     <showOnAnimals>false</showOnAnimals>
     <hideAtValue>1</hideAtValue>
+    <minValue>0</minValue>
     <displayPriorityInCategory>75</displayPriorityInCategory>
 		<scenarioRandomizable>true</scenarioRandomizable>
 	</StatDef>
 
   <StatDef>
+    <defName>HungerRateMultiplier</defName>
+    <label>hunger rate multiplier</label>
+    <description>A multiplier on how quickly a creature becomes hungry.</description>
+    <category>BasicsPawn</category>
+    <defaultBaseValue>1.0</defaultBaseValue>
+    <toStringStyle>PercentZero</toStringStyle>
+    <showOnAnimals>false</showOnAnimals>
+    <hideAtValue>1</hideAtValue>
+    <minValue>0</minValue>
+    <displayPriorityInCategory>75</displayPriorityInCategory>
+    <scenarioRandomizable>true</scenarioRandomizable>
+  </StatDef>
+
+  <StatDef>
+    <defName>RestRateMultiplier</defName>
+    <label>rest rate multiplier</label>
+    <description>A multiplier on how quickly a creature rests while sleeping.</description>
+    <category>BasicsPawn</category>
+    <defaultBaseValue>1.0</defaultBaseValue>
+    <toStringStyle>PercentZero</toStringStyle>
+    <showOnAnimals>false</showOnAnimals>
+    <hideAtValue>1</hideAtValue>
+    <minValue>0.05</minValue>
+    <displayPriorityInCategory>75</displayPriorityInCategory>
+    <scenarioRandomizable>true</scenarioRandomizable>
+    <capacityFactors>
+      <li>
+        <capacity>BloodPumping</capacity>
+        <weight>0.3</weight>
+      </li>
+      <li>
+        <capacity>Metabolism</capacity>
+        <weight>0.3</weight>
+      </li>
+      <li>
+        <capacity>Breathing</capacity>
+        <weight>0.3</weight>
+      </li>
+    </capacityFactors>
+  </StatDef>
+
+  <StatDef>
     <defName>EatingSpeed</defName>
     <label>eating speed</label>
-    <description>Multiplier on eating speed.</description>
+    <description>A multiplier on eating speed.</description>
     <category>BasicsPawn</category>
     <defaultBaseValue>1</defaultBaseValue>
     <toStringStyle>PercentZero</toStringStyle>
@@ -116,6 +162,7 @@
     <parts>
       <li Class="StatPart_ApparelStatOffset">
         <apparelStat>Insulation_Cold</apparelStat>
+        <subtract>true</subtract>
       </li>
     </parts>
 		<scenarioRandomizable>true</scenarioRandomizable>
@@ -126,7 +173,7 @@
     <label>Maximum comfortable temperature</label>
     <description>Above this temperature, characters will be unhappy. Significantly above this temperature, they will develop heatstroke and eventually die.</description>
     <category>BasicsPawn</category>
-    <defaultBaseValue>50</defaultBaseValue>
+    <defaultBaseValue>40</defaultBaseValue>
     <toStringStyle>Temperature</toStringStyle>
     <minValue>-2000</minValue>
     <maxValue>2000</maxValue>
@@ -142,15 +189,16 @@
   <StatDef>
     <defName>ImmunityGainSpeed</defName>
     <label>immunity gain speed</label>
-    <description>Speed at which this character gains immunity to diseases. If this is too slow, the character will die from a disease before developing immunity.</description>
+    <description>The speed at which this character gains immunity to diseases. If this is too slow, the character will die from a disease before developing immunity.</description>
     <category>BasicsPawn</category>
     <defaultBaseValue>1</defaultBaseValue>
+    <minValue>0</minValue>
     <toStringStyle>PercentZero</toStringStyle>
     <displayPriorityInCategory>40</displayPriorityInCategory>
     <capacityFactors>
       <li>
         <capacity>BloodFiltration</capacity>
-        <weight>1</weight>
+        <weight>0.5</weight>
       </li>
     </capacityFactors>
     <parts>
@@ -166,11 +214,15 @@
       <li Class="StatPart_BedStat">
         <stat>ImmunityGainSpeedFactor</stat>
       </li>
+      <li Class="StatPart_Resting">
+        <factor>1.1</factor>
+      </li>
       <li Class="StatPart_Age">
         <curve>
           <points>
 						<li>(0.65,1)</li>
 						<li>(0.8,0.95)</li>
+            <li>(1.0,0.9)</li>
             <li>(1.2,0.8)</li>
 						<li>(1.5,0.5)</li>
 					</points>
@@ -183,9 +235,10 @@
   <StatDef>
     <defName>CarryingCapacity</defName>
     <label>carrying capacity</label>
-    <description>The amount of stuff this creature can carry in its hands, mouth, or other manipulators.</description>
+    <description>The amount of stuff this creature can carry in its hands, mouth, or other manipulators. This is separate from the ability to carry cargo on long cross-world trips.</description>
     <category>BasicsPawn</category>
     <defaultBaseValue>75</defaultBaseValue>
+    <minValue>1</minValue>
     <toStringStyle>Integer</toStringStyle>
     <parts>
       <li Class="StatPart_BodySize" />
@@ -201,9 +254,10 @@
   <StatDef>
     <defName>MeatAmount</defName>
     <label>meat amount</label>
-    <description>The amount of meat you will get from butchering this creature.</description>
+    <description>The amount of meat yielded when butchering this creature.</description>
     <category>BasicsPawn</category>
     <defaultBaseValue>90</defaultBaseValue>
+    <minValue>0</minValue>
     <showOnMechanoids>false</showOnMechanoids>
     <toStringStyle>Integer</toStringStyle>
     <parts>
@@ -223,9 +277,10 @@
   <StatDef>
     <defName>LeatherAmount</defName>
     <label>leather amount</label>
-    <description>The amount of leather you will get from butchering this creature.</description>
+    <description>The amount of leather yielded when butchering this creature.</description>
     <category>BasicsPawn</category>
     <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
     <toStringStyle>Integer</toStringStyle>
     <hideAtValue>0</hideAtValue>
     <parts>
@@ -249,19 +304,55 @@
     <description>This creature cannot be tamed, trained, or commanded by anyone with less than this skill in animals.</description>
     <category>BasicsPawn</category>
     <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
     <toStringStyle>Integer</toStringStyle>
-    <showOnHumanlikes>false</showOnHumanlikes>
+    <showOnNonWildManHumanlikes>false</showOnNonWildManHumanlikes>
+    <parts>
+      <li Class="StatPart_WildManOffset">
+        <offset>6</offset>
+      </li>
+    </parts>
   </StatDef>
 
   <StatDef>
     <defName>PainShockThreshold</defName>
     <label>pain shock threshold</label>
-    <description>The point at which this creature is downed from pain.</description>
+    <description>The pain level at which this creature is downed from pain.</description>
     <category>BasicsPawn</category>
     <minValue>0.01</minValue>
     <maxValue>0.99</maxValue>
     <defaultBaseValue>0.8</defaultBaseValue>
     <toStringStyle>PercentZero</toStringStyle>
+  </StatDef>
+  
+  <StatDef>
+    <defName>ForagedNutritionPerDay</defName>
+    <label>foraged food amount</label>
+    <description>The amount of nutrition this person will automatically forage per day while traveling by caravan.</description>
+    <category>BasicsPawn</category>
+    <minValue>0</minValue>
+    <defaultBaseValue>0</defaultBaseValue>
+    <toStringStyle>FloatMaxTwo</toStringStyle>
+    <showOnAnimals>false</showOnAnimals>
+    <showOnMechanoids>false</showOnMechanoids>
+    <skillNeedOffsets>
+      <li Class="SkillNeed_BaseBonus">
+        <skill>Plants</skill>
+        <baseValue>0</baseValue>
+        <bonusPerLevel>0.09</bonusPerLevel>
+      </li>
+    </skillNeedOffsets>
+    <capacityFactors>
+      <li>
+        <capacity>Manipulation</capacity>
+        <weight>0.5</weight>
+        <max>1</max>
+      </li>
+      <li>
+        <capacity>Sight</capacity>
+        <weight>0.9</weight>
+      </li>
+    </capacityFactors>
   </StatDef>
   
 </Defs>

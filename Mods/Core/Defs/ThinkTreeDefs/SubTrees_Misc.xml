@@ -16,8 +16,8 @@
             <li Class="JobGiver_TakeDrugsForDrugPolicy"/>
             <li Class="ThinkNode_Priority_GetJoy">
               <subNodes>
-                <li Class="JobGiver_GetJoyInBed"/>
                 <li Class="JobGiver_GetJoy"/>
+                <li Class="JobGiver_GetJoyInBed"/>
               </subNodes>
             </li>
             <li Class="JobGiver_Work"/>
@@ -177,7 +177,7 @@
       <subNodes>
         <!-- Various wanders  -->
         <li Class="ThinkNode_ConditionalMentalState">
-          <state>WanderPsychotic</state>
+          <state>Wander_Psychotic</state>
           <subNodes>
             <li Class="JobGiver_WanderAnywhere">
               <maxDanger>Deadly</maxDanger>
@@ -185,7 +185,7 @@
           </subNodes>
         </li>
         <li Class="ThinkNode_ConditionalMentalState">
-          <state>WanderSad</state>
+          <state>Wander_Sad</state>
           <subNodes>
             <li Class="JobGiver_WanderColony">
               <maxDanger>Deadly</maxDanger>
@@ -203,7 +203,7 @@
         
         <!-- Hide in room -->
         <li Class="ThinkNode_ConditionalMentalState">
-          <state>WanderOwnRoom</state>
+          <state>Wander_OwnRoom</state>
           <subNodes>
             <li Class="JobGiver_WanderOwnRoom">
               <maxDanger>Deadly</maxDanger>
@@ -214,8 +214,8 @@
         <!-- Binging on drug -->
         <li Class="ThinkNode_ConditionalMentalStates">
           <states>
-            <li>BingingDrugMajor</li>
-            <li>BingingDrugExtreme</li>
+            <li>Binging_DrugMajor</li>
+            <li>Binging_DrugExtreme</li>
           </states>
           <subNodes>
 						<!-- We can't put GetRest in the priority sorter because then the player can just assign the pawn to sleep,
@@ -248,7 +248,7 @@
 
         <!-- Binging on food -->
         <li Class="ThinkNode_ConditionalMentalState">
-          <state>BingingFood</state>
+          <state>Binging_Food</state>
           <subNodes>
             <li Class="ThinkNode_PrioritySorter">
               <minPriority>0.5</minPriority>
@@ -416,18 +416,24 @@
     <defName>LeaveIfStarving</defName>
     <thinkRoot Class="ThinkNode_ConditionalStarving">
       <subNodes>
-        <li Class="ThinkNode_Tagger">
-          <tagToGive>SatisfyingNeeds</tagToGive>
+        <li Class="ThinkNode_ConditionalCanReachMapEdge">
           <subNodes>
-            <li Class="JobGiver_GetFood" /> <!-- One last chance to find some food -->
-          </subNodes>
-        </li>
-        
-        <li Class="ThinkNode_Tagger">
-          <tagToGive>Misc</tagToGive>
-          <subNodes>
-            <li Class="JobGiver_ExitMapRandom">
-              <defaultLocomotion>Walk</defaultLocomotion>
+            <li Class="ThinkNode_Tagger">
+              <tagToGive>SatisfyingNeeds</tagToGive>
+              <subNodes>
+                <li Class="JobGiver_GetFood"> <!-- One last chance to find some food -->
+                  <forceScanWholeMap>true</forceScanWholeMap>
+                </li>
+              </subNodes>
+            </li>
+            
+            <li Class="ThinkNode_Tagger">
+              <tagToGive>Misc</tagToGive>
+              <subNodes>
+                <li Class="JobGiver_ExitMapRandom">
+                  <defaultLocomotion>Walk</defaultLocomotion>
+                </li>
+              </subNodes>
             </li>
           </subNodes>
         </li>
@@ -504,22 +510,41 @@
         <!-- If in non-PlayerHomeMap -->
         <li Class="ThinkNode_ConditionalInNonPlayerHomeMap">
           <subNodes>
-            <!-- There is a caravan nearby -->
-            <li Class="ThinkNode_ConditionalAnyAutoJoinableCaravan">
+            <!-- Not a player controlled colonist -->
+            <li Class="ThinkNode_ConditionalPlayerControlledColonist">
+              <invert>true</invert>
               <subNodes>
-                <!-- Exit map and join the caravan -->
-                <li Class="JobGiver_ExitMapBest">
-                  <failIfCantJoinOrCreateCaravan>true</failIfCantJoinOrCreateCaravan> <!-- in case the caravan moves before we manage to exit the map -->
-                </li>
-              </subNodes>
-            </li>
-            <!-- Any colonist is now on his way to exit the map -->
-            <li Class="ThinkNode_ConditionalAnyColonistTryingToExitMap">
-              <subNodes>
-                <!-- Wander near the map edge -->
-                <li Class="JobGiver_WanderMapEdge">
-                  <locomotionUrgency>Jog</locomotionUrgency>
-                  <maxDanger>Deadly</maxDanger>
+                <!-- Of player faction, guest, or prisoner of colony -->
+                <li Class="ThinkNode_ConditionalOfPlayerFactionOrPlayerGuestOrPlayerPrisoner">
+                  <subNodes>
+                    <!-- There is a caravan nearby -->
+                    <li Class="ThinkNode_ConditionalAnyAutoJoinableCaravan">
+                      <subNodes>
+                        <!-- Exit map and join the caravan -->
+                        <li Class="JobGiver_ExitMapBest">
+                          <failIfCantJoinOrCreateCaravan>true</failIfCantJoinOrCreateCaravan> <!-- in case the caravan moves before we manage to exit the map -->
+                          <defaultLocomotion>Sprint</defaultLocomotion>
+                        </li>
+                      </subNodes>
+                    </li>
+
+                    <!-- Any colonist is now on his way to exit the map -> prepare to exit -->
+                    <li Class="ThinkNode_ConditionalAnyColonistTryingToExitMap">
+                      <subNodes>
+                        <!-- Only if we're not currently following our master -->
+                        <li Class="ThinkNode_ConditionalShouldFollowMaster">
+                          <invert>true</invert>
+                          <subNodes>
+                            <!-- Wander near the map edge -->
+                            <li Class="JobGiver_WanderMapEdge">
+                              <locomotionUrgency>Jog</locomotionUrgency>
+                              <maxDanger>Deadly</maxDanger>
+                            </li>
+                          </subNodes>
+                        </li>
+                      </subNodes>
+                    </li>
+                  </subNodes>
                 </li>
               </subNodes>
             </li>

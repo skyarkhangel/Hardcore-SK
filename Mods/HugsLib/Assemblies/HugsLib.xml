@@ -23,6 +23,27 @@
             This interface must be implemented by all attributes that should be detectable with AttributeDetector
             </summary>
         </member>
+        <member name="T:HugsLib.Source.Settings.SettingHandleConvertibleUtility">
+            <summary>
+            Utility methods for SettingHandleConvertible data objects.
+            These are useful for packing and unpacking your custom fields into a string without bothering with manual serialization.
+            </summary>
+        </member>
+        <member name="M:HugsLib.Source.Settings.SettingHandleConvertibleUtility.DeserializeValuesFromString(System.String,System.Object)">
+            <summary>
+            Deserializes an XML string into an existing object instance.
+            </summary>
+            <param name="serializedValues">The serialized values to fill the object with</param>
+            <param name="targetObject">The object to receive the deserialized values</param>
+        </member>
+        <member name="M:HugsLib.Source.Settings.SettingHandleConvertibleUtility.SerializeValuesToString(System.Object)">
+            <summary>
+            Serializes an object into a compact XML string.
+            Whitespace and namespace declarations are omitted.
+            Make sure the object is annotated with SerializableAttribute and the fields to serialize with XmlElementAttribute.
+            </summary>
+            <param name="targetObject">The object to serialize</param>
+        </member>
         <member name="T:HugsLib.Core.HugsLibMod">
             <summary>
             Entry point for the library.
@@ -50,10 +71,49 @@
             Provides an entry point for late controller setup during static constructor initialization.
             </summary>
         </member>
+        <member name="T:HugsLib.Core.HugsTickProxy">
+            <summary>
+            Forwards ticks to the controller. Will not be saved and is never spawned.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Core.HugsLibKeyBindings">
+            <summary>
+            Holds references to key binding defs used by the library.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Core.PersistentDataManager">
+            <summary>
+            A base for managers that save data in xml format, to be stored in the save data folder
+            </summary>
+        </member>
+        <member name="T:HugsLib.Core.UnityProxyComponent">
+            <summary>
+            This is added as a component to the GameObject on scene to forward events to the controller.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Core.VersionFile">
+            <summary>
+            Represents the information stored in the About/Version.xml file. 
+            Since we cannot update the version of the library assembly, we have to store the version externally.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Core.VersionShort">
+            <summary>
+            A shorter, invariable alternative to System.Version in the format of major.minor.patch
+            Also known as a semantic version number.
+            System.Version can be implicitly cast to this type.
+            VersionShort is no longer used by HugsLib internally, and the type is retained for backwards compatibility.
+            </summary>
+        </member>
         <member name="T:HugsLib.Patches.DebugWindowsOpener_Patch">
             <summary>
             Adds an entry point to draw and additional debug button on the toolbar.
             The infix is necessary to catch the WidgetRow that the stock buttons are drawn to.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.DevToolStarterOnGUI_Patch">
+            <summary>
+            Extends the width of the immediate window the dev toolbar buttons are drawn to to accommodate an additional button
             </summary>
         </member>
         <member name="T:HugsLib.Patches.Game_FillComponents_Patch">
@@ -147,39 +207,6 @@
             Wraps settings related to the Quickstart system for storage in a SettingHandle.
             </summary>
         </member>
-        <member name="T:HugsLib.Settings.SettingHandleConvertible">
-            <summary>
-            Base type for all custom SettingHandle types.
-            Allows complex data structures to be stored in setting values by converting them to and from their string representation.
-            </summary>
-        </member>
-        <member name="T:RimWorld.Dialog_VanillaModSettings">
-            <summary>
-            Displays custom settings controls for mods that use the vanilla mod settings system.
-            The dialog shows the controls for a single mod only and is opened through Dialog_ModSettings.
-            </summary>
-        </member>
-        <member name="T:HugsLib.Source.Settings.SettingHandleConvertibleUtility">
-            <summary>
-            Utility methods for SettingHandleConvertible data objects.
-            These are useful for packing and unpacking your custom fields into a string without bothering with manual serialization.
-            </summary>
-        </member>
-        <member name="M:HugsLib.Source.Settings.SettingHandleConvertibleUtility.DeserializeValuesFromString(System.String,System.Object)">
-            <summary>
-            Deserializes an XML string into an existing object instance.
-            </summary>
-            <param name="serializedValues">The serialized values to fill the object with</param>
-            <param name="targetObject">The object to receive the deserialized values</param>
-        </member>
-        <member name="M:HugsLib.Source.Settings.SettingHandleConvertibleUtility.SerializeValuesToString(System.Object)">
-            <summary>
-            Serializes an object into a compact XML string.
-            Whitespace and namespace declarations are omitted.
-            Make sure the object is annotated with SerializableAttribute and the fields to serialize with XmlElementAttribute.
-            </summary>
-            <param name="targetObject">The object to serialize</param>
-        </member>
         <member name="T:HugsLib.Shell.Shell">
             <summary>
             Commands start a new process on the target machine using platform specific commands and args to pass to the shell.
@@ -201,38 +228,6 @@
         <member name="T:HugsLib.Shell.ShellRestartRimWorld">
             <summary>
             A Command to cleanly restart RimWorld on the target machine.
-            </summary>
-        </member>
-        <member name="T:HugsLib.Core.HugsTickProxy">
-            <summary>
-            Forwards ticks to the controller. Will not be saved and is never spawned.
-            </summary>
-        </member>
-        <member name="T:HugsLib.Core.HugsLibKeyBindings">
-            <summary>
-            Holds references to key binding defs used by the library.
-            </summary>
-        </member>
-        <member name="T:HugsLib.Core.PersistentDataManager">
-            <summary>
-            A base for managers that save data in xml format, to be stored in the save data folder
-            </summary>
-        </member>
-        <member name="T:HugsLib.Core.UnityProxyComponent">
-            <summary>
-            This is added as a component to the GameObject on scene to forward events to the controller.
-            </summary>
-        </member>
-        <member name="T:HugsLib.Core.VersionFile">
-            <summary>
-            Represents the information stored in the About/Version.xml file. 
-            Since we cannot update the version of the library assembly, we have to store the version externally.
-            </summary>
-        </member>
-        <member name="T:HugsLib.Core.VersionShort">
-            <summary>
-            A shorter, invariable alternative to System.Version in the format of major.minor.patch
-            System.Version can be implicitly cast to this type.
             </summary>
         </member>
         <member name="T:HugsLib.HugsLibController">
@@ -259,13 +254,6 @@
             Allows adding custom buttons to the EditWindow_Log window.
             </summary>
         </member>
-        <member name="M:HugsLib.Logs.LogWindowExtensions.AddLogWindowWidget(HugsLib.Logs.LogWindowExtensions.WidgetDrawer,HugsLib.Logs.LogWindowExtensions.WidgetAlignMode)">
-            <summary>
-            Adds a new drawing callback to the log window widget drawer.
-            </summary>
-            <param name="drawerDelegate">The delegate called each OnGUI to draw the widget.</param>
-            <param name="align">The side of the WidgetRow this widget should be drawn into.</param>
-        </member>
         <member name="T:HugsLib.Logs.LogWindowExtensions.WidgetAlignMode">
             <summary>
             Alignment side for custom widgets.
@@ -280,14 +268,59 @@
             <param name="selectedLogMessage">The currently selected log message, or null.</param>
             <param name="widgetRow">Draw your widget using this to automatically align it with the others.</param>
         </member>
+        <member name="M:HugsLib.Logs.LogWindowExtensions.AddLogWindowWidget(HugsLib.Logs.LogWindowExtensions.WidgetDrawer,HugsLib.Logs.LogWindowExtensions.WidgetAlignMode)">
+            <summary>
+            Adds a new drawing callback to the log window widget drawer.
+            </summary>
+            <param name="drawerDelegate">The delegate called each OnGUI to draw the widget.</param>
+            <param name="align">The side of the WidgetRow this widget should be drawn into.</param>
+        </member>
         <member name="T:HugsLib.ModBase">
             <summary>
             The base class for all mods using HugsLib library. All classes extending ModBase will be instantiated automatically by HugsLibController at game initialization.
             </summary>
         </member>
+        <member name="P:HugsLib.ModBase.Logger">
+            <summary>
+            This can be used to log messages specific to your mod.
+            It will prefix everything with your ModIdentifier.
+            </summary>
+        </member>
+        <member name="P:HugsLib.ModBase.Settings">
+            <summary>
+            The ModSettingsPack specific to your mod.
+            Use this to create settings handles.
+            </summary>
+        </member>
+        <member name="P:HugsLib.ModBase.HarmonyAutoPatch">
+            <summary>
+            Override this and return false to prevent a HarmonyInstance from being automatically created and scanning your assembly for patches.
+            </summary>
+        </member>
+        <member name="P:HugsLib.ModBase.HarmonyInst">
+            <summary>
+            The reference to HarmonyInstance that applied the patches in your assembly.
+            </summary>
+        </member>
+        <member name="P:HugsLib.ModBase.ModIdentifier">
+            <summary>
+            A unique identifier for your mod.
+            Valid characters are A-z, 0-9, -, no spaces.
+            </summary>
+        </member>
+        <member name="P:HugsLib.ModBase.ModContentPack">
+            <summary>
+            The content pack for the mod containing the assembly this class belongs to
+            </summary>
+        </member>
         <member name="M:HugsLib.ModBase.GetVersion">
             <summary>
             Return the override version from the Version.xml file if specified, or the assembly version otherwise
+            </summary>
+        </member>
+        <member name="P:HugsLib.ModBase.ModIsActive">
+            <summary>
+            Can be false if the mod was enabled at game start and then disabled in the mods menu
             </summary>
         </member>
         <member name="M:HugsLib.ModBase.Initialize">
@@ -369,47 +402,14 @@
             If the mod is disabled after being loaded, this method will STILL execute. Use ModIsActive to check.
             </summary>
         </member>
-        <member name="P:HugsLib.ModBase.Logger">
-            <summary>
-            This can be used to log messages specific to your mod.
-            It will prefix everything with your ModIdentifier.
-            </summary>
-        </member>
-        <member name="P:HugsLib.ModBase.Settings">
-            <summary>
-            The ModSettingsPack specific to your mod.
-            Use this to create settings handles.
-            </summary>
-        </member>
-        <member name="P:HugsLib.ModBase.HarmonyAutoPatch">
-            <summary>
-            Override this and return false to prevent a HarmonyInstance from being automatically created and scanning your assembly for patches.
-            </summary>
-        </member>
-        <member name="P:HugsLib.ModBase.HarmonyInst">
-            <summary>
-            The reference to HarmonyInstance that applied the patches in your assembly.
-            </summary>
-        </member>
-        <member name="P:HugsLib.ModBase.ModIdentifier">
-            <summary>
-            A unique identifier fo your mod.
-            Valid characters are A-z, 0-9, -, no spaces.
-            </summary>
-        </member>
-        <member name="P:HugsLib.ModBase.ModContentPack">
-            <summary>
-            The content pack for the mod containing the assembly this class belongs to
-            </summary>
-        </member>
-        <member name="P:HugsLib.ModBase.ModIsActive">
-            <summary>
-            Can be false if the mod was enabled at game start and then disabled in the mods menu
-            </summary>
-        </member>
         <member name="T:HugsLib.News.Dialog_UpdateFeatures">
             <summary>
             Displays a list to update feature defs with basic image and formatting support. See UpdateFeatureDef for proper syntax.
+            </summary>
+        </member>
+        <member name="T:HugsLib.News.UpdateFeatureManager">
+            <summary>
+            Stores the last displayed update news item for all mods. Shows the news dialog window when there are not yet displayed news items available.
             </summary>
         </member>
         <member name="T:HugsLib.UpdateFeatureDef">
@@ -427,11 +427,6 @@
             Example:
             Paragraph1|Paragraph2|img:singleImage|caption:caption\ntext|img:sequence1,sequence2|More text
         </member>
-        <member name="T:HugsLib.News.UpdateFeatureManager">
-            <summary>
-            Stores the last displayed update news item for all mods. Shows the news dialog window when there are not yet displayed news items available.
-            </summary>
-        </member>
         <member name="T:HugsLib.Settings.Dialog_ModSettings">
             <summary>
             An options window for all configurable settings exposed by mods using the library
@@ -440,6 +435,12 @@
         <member name="T:HugsLib.Settings.OptionsDialogInjection">
             <summary>
             Injects the "Mod Settings" button into the Options dialog.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Settings.SettingHandleConvertible">
+            <summary>
+            Base type for all custom SettingHandle types.
+            Allows complex data structures to be stored in setting values by converting them to and from their string representation.
             </summary>
         </member>
         <member name="T:HugsLib.Settings.Validators">
@@ -451,6 +452,27 @@
             <summary>
             A group of settings values added by a mod. Each mod has their own ModSettingsPack.
             Loaded values are stored until they are "claimed" by their mod by requesting a handle for a setting with the same name.
+            </summary>
+        </member>
+        <member name="P:HugsLib.Settings.ModSettingsPack.ModId">
+            <summary>
+            Identifier of the mod that owns this pack
+            </summary>
+        </member>
+        <member name="P:HugsLib.Settings.ModSettingsPack.EntryName">
+            <summary>
+            The name of the owning mod that will display is the Mod Settings dialog
+            </summary>
+        </member>
+        <member name="P:HugsLib.Settings.ModSettingsPack.DisplayPriority">
+            <summary>
+            Special display order for the mod in the Mod Settings dialog.
+            Mods are generally ordered by name. Please leave this at Normal unless you have a good reason to change it.
+            </summary>
+        </member>
+        <member name="F:HugsLib.Settings.ModSettingsPack.AlwaysExpandEntry">
+            <summary>
+            Set to true to disable the collapsing of setting handles in the Mod Settings dialog.
             </summary>
         </member>
         <member name="M:HugsLib.Settings.ModSettingsPack.GetHandle``1(System.String,System.String,System.String,``0,HugsLib.Settings.SettingHandle.ValueIsValid,System.String)">
@@ -496,22 +518,6 @@
             Useful for cleaning up settings that are no longer in use.
             </summary>
             <param name="name">The identifier of the setting (handle identifier)</param>
-        </member>
-        <member name="P:HugsLib.Settings.ModSettingsPack.ModId">
-            <summary>
-            Identifier of the mod that owns this pack
-            </summary>
-        </member>
-        <member name="P:HugsLib.Settings.ModSettingsPack.EntryName">
-            <summary>
-            The name of the owning mod that will display is the Mod Settings dialog
-            </summary>
-        </member>
-        <member name="P:HugsLib.Settings.ModSettingsPack.DisplayPriority">
-            <summary>
-            Special display order for the mod in the Mod Settings dialog.
-            Mods are generally ordered by name. Please leave this at Normal unless you have a good reason to change it.
-            </summary>
         </member>
         <member name="T:HugsLib.Settings.ModSettingsManager">
             <summary>
@@ -608,17 +614,6 @@
             Implicitly cast handles to the Value they carry.
             </summary>
         </member>
-        <member name="M:HugsLib.Settings.SettingHandle`1.ResetToDefault">
-            <summary>
-            Assigns the default value to the Value property.
-            </summary>
-        </member>
-        <member name="M:HugsLib.Settings.SettingHandle`1.HasDefaultValue">
-            <summary>
-            Returns true if the handle is set to its default value.
-            </summary>
-            <returns></returns>
-        </member>
         <member name="P:HugsLib.Settings.SettingHandle`1.OnValueChanged">
             <summary>
             Called when the Value of the handle changes. Optional.
@@ -646,6 +641,17 @@
             <summary>
             Returns the type of the handle Value property.
             </summary>
+        </member>
+        <member name="M:HugsLib.Settings.SettingHandle`1.ResetToDefault">
+            <summary>
+            Assigns the default value to the Value property.
+            </summary>
+        </member>
+        <member name="M:HugsLib.Settings.SettingHandle`1.HasDefaultValue">
+            <summary>
+            Returns true if the handle is set to its default value.
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:HugsLib.Utils.DoLaterScheduler">
             <summary>
@@ -711,6 +717,7 @@
             <param name="title">A title to display in the dialog</param>
             <param name="message">A message to display in the dialog</param>
             <param name="closeButtonText">A custom label to the close button. Optional- when null, the default label will be used instead.</param>
+            <param name="postCloseAction">A callback to call when the dialog is closed</param>
         </member>
         <member name="T:HugsLib.Utils.DistributedTickScheduler">
             <summary>
@@ -778,6 +785,22 @@
         <member name="T:HugsLib.Utils.HugsLibUtility">
             <summary>
             A catch-all place for extension methods and other useful stuff
+            </summary>
+        </member>
+        <member name="P:HugsLib.Utils.HugsLibUtility.ShiftIsHeld">
+            <summary>
+            Returns true if the left or right Shift keys are currently pressed.
+            </summary>
+        </member>
+        <member name="P:HugsLib.Utils.HugsLibUtility.AltIsHeld">
+            <summary>
+            Returns true if the left or right Alt keys are currently pressed.
+            </summary>
+        </member>
+        <member name="P:HugsLib.Utils.HugsLibUtility.ControlIsHeld">
+            <summary>
+            Returns true if the left or right Control keys are currently pressed.
+            Mac command keys are supported, as well.
             </summary>
         </member>
         <member name="M:HugsLib.Utils.HugsLibUtility.ListElements(System.Collections.IEnumerable)">
@@ -887,24 +910,8 @@
             <param name="request">Use UnityWebRequest or WWW to construct a request. Do not call Send().</param>
             <param name="onSuccess">Called with the response body if server replied with status 200.</param>
             <param name="onFailure">Called with the error message in case of a network error or if server replied with status other than 200.</param>
-            <param name="timeout">How long to wait before timing out the request</param>
-            <returns>Returns the thread created to poll for results.</returns>
-        </member>
-        <member name="P:HugsLib.Utils.HugsLibUtility.ShiftIsHeld">
-            <summary>
-            Returns true if the left or right Shift keys are currently pressed.
-            </summary>
-        </member>
-        <member name="P:HugsLib.Utils.HugsLibUtility.AltIsHeld">
-            <summary>
-            Returns true if the left or right Alt keys are currently pressed.
-            </summary>
-        </member>
-        <member name="P:HugsLib.Utils.HugsLibUtility.ControlIsHeld">
-            <summary>
-            Returns true if the left or right Control keys are currently pressed.
-            Mac command keys are supported, as well.
-            </summary>
+            <param name="successStatus">The expected status code in the response for the request to be considered successful</param>
+            <param name="timeout">How long to wait before aborting the request</param>
         </member>
         <member name="T:HugsLib.Utils.InjectedDefHasher">
             <summary>
@@ -1021,6 +1028,12 @@
             Returns an existing UWO or creates a new one, adding it to the world.
             </summary>
             <typeparam name="T">Your custom type that extends UtilityWorldObject</typeparam>
+        </member>
+        <member name="T:RimWorld.Dialog_VanillaModSettings">
+            <summary>
+            Displays custom settings controls for mods that use the vanilla mod settings system.
+            The dialog shows the controls for a single mod only and is opened through Dialog_ModSettings.
+            </summary>
         </member>
     </members>
 </doc>

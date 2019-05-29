@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
 	<!-- Feenix -->
-	<Verse.ThingDef ParentName="AnimalThingBase">
+	<Verse.ThingDef ParentName="SK_AnimalThingBase">
 		<defName>Feenix</defName>
 		<thingClass>SK.Feenix</thingClass>
 		<!-- Tried thingClass Pawn, didn't work -->
@@ -11,7 +11,7 @@
 		<statBases>
 			<Mass>130</Mass>
 			<Flammability>0</Flammability>
-			<MoveSpeed>6.00</MoveSpeed>
+			<MoveSpeed>7.0</MoveSpeed>
 			<LeatherAmount>75</LeatherAmount>
 			<ComfyTemperatureMin>-120</ComfyTemperatureMin>
 			<ComfyTemperatureMax>99999</ComfyTemperatureMax>
@@ -84,6 +84,7 @@
 				<power>27</power>
 				<cooldownTime>2.5</cooldownTime>
 				<linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+				<chanceFactor>0.7</chanceFactor>
 				<armorPenetration>0.7</armorPenetration>
 			</li>
 			<li Class="CombatExtended.ToolCE">
@@ -94,18 +95,31 @@
 				<power>18</power>
 				<cooldownTime>1.95</cooldownTime>
 				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-				<commonality>0.2</commonality>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.2</chanceFactor>
 				<armorPenetration>0.31</armorPenetration>
 			</li>
 		</tools>
+		<comps>
+			<li Class="CompProperties_EggLayer">
+				<eggFertilizedDef>EggFenixFertilized</eggFertilizedDef>
+				<eggFertilizationCountMax>1</eggFertilizationCountMax>
+				<eggLayIntervalDays>60</eggLayIntervalDays>
+				<eggProgressUnfertilizedMax>0.5</eggProgressUnfertilizedMax>
+				<eggCountRange>
+					<min>1</min>
+					<max>1</max>
+				</eggCountRange>
+			</li>
+		</comps>
 		<race>
 			<thinkTreeMain>Feenix</thinkTreeMain>
 			<predator>true</predator>
 			<maxPreyBodySize>1.5</maxPreyBodySize>
 			<herdMigrationAllowed>false</herdMigrationAllowed>
 			<executionRange>5</executionRange>
-			<hasGenders>false</hasGenders>
-			<nameGenerator>NamerAnimalGeneric</nameGenerator>
+			<nameGenerator>NamerAnimalGenericMale</nameGenerator>
+			<nameGeneratorFemale>NamerAnimalGenericFemale</nameGeneratorFemale>
 			<hediffGiverSets>
 				<li>OrganicStandard</li>
 				<li>UnstoppablePassiveSet</li>
@@ -117,30 +131,13 @@
 			<baseHealthScale>9</baseHealthScale>
 			<foodType>OmnivoreAnimal, OvivoreAnimal, CarnivoreAnimal, CarnivoreAnimalStrict</foodType>
 			<useMeatFrom>Muffalo</useMeatFrom>
-			<leatherColor>(186,156,126)</leatherColor>
-			<leatherLabel>feenix leather</leatherLabel>
-			<leatherMarketValueFactor>11.0</leatherMarketValueFactor>
-			<leatherCommonalityFactor>0.1</leatherCommonalityFactor>
-			<leatherStatFactors>
-				<MaxHitPoints>1.9</MaxHitPoints>
-				<Beauty>1.9</Beauty>
-				<MarketValue>4.6</MarketValue>
-				<ArmorRating_Blunt>2.65</ArmorRating_Blunt>
-				<ArmorRating_Sharp>2.45</ArmorRating_Sharp>
-				<ArmorRating_Electric>1.2</ArmorRating_Electric>
-				<ArmorRating_Heat>1.2</ArmorRating_Heat>
-				<Insulation_Cold>0.9</Insulation_Cold>
-				<Insulation_Heat>1.38</Insulation_Heat>
-				<WorkToMake>2.4</WorkToMake>
-				<BedRestEffectiveness>0.7</BedRestEffectiveness>
-				<ImmunityGainSpeedFactor>1.37</ImmunityGainSpeedFactor>
-			</leatherStatFactors>
-			<leatherInsulation>1.5</leatherInsulation>
-			<trainableIntelligence>Intermediate</trainableIntelligence>
-			<wildness>0.9</wildness>
+			<leatherDef>Leather_FireDragonskin</leatherDef>
+			<trainability>Advanced</trainability>
+			<gestationPeriodDays>70</gestationPeriodDays>
+			<wildness>0.81</wildness>
 			<manhunterOnTameFailChance>0.005</manhunterOnTameFailChance>
 			<manhunterOnDamageChance>0.3</manhunterOnDamageChance>
-			<lifeExpectancy>500</lifeExpectancy>
+			<lifeExpectancy>150</lifeExpectancy>
 			<lifeStageAges>
 				<li>
 					<def>AnimalBaby</def>
@@ -148,11 +145,11 @@
 				</li>
 				<li>
 					<def>AnimalJuvenile</def>
-					<minAge>25</minAge>
+					<minAge>5</minAge>
 				</li>
 				<li>
 					<def>AnimalAdult</def>
-					<minAge>100</minAge>
+					<minAge>20</minAge>
 					<soundWounded>Lion_Hurt</soundWounded>
 					<soundDeath>Pawn_Lion_Death</soundDeath>
 					<soundCall>Pawn_Lion_Call</soundCall>
@@ -170,11 +167,12 @@
 		</modExtensions>
 	</Verse.ThingDef>
 
-	<PawnKindDef ParentName="AnimalKindBase">
+	<PawnKindDef ParentName="SK_AnimalKindBase">
 		<defName>Feenix</defName>
 		<label>Feenix</label>
 		<race>Feenix</race>
 		<combatPower>500</combatPower>
+		<ecoSystemWeight>1</ecoSystemWeight>
 		<canArriveManhunter>false</canArriveManhunter>
 		<lifeStages>
 			<li>
@@ -228,11 +226,10 @@
 				</butcherBodyPart>
 			</li>
 		</lifeStages>
-		<wildSpawn_spawnWild>false</wildSpawn_spawnWild>
 	</PawnKindDef>
 
 	<!-- Wyvern-->
-	<Verse.ThingDef ParentName="AnimalThingBase">
+	<Verse.ThingDef ParentName="SK_AnimalThingBase">
 		<defName>GreenWyvern</defName>
 		<thingClass>SK.Feenix</thingClass>
 		<label>green wyvern</label>
@@ -241,7 +238,7 @@
 		<statBases>
 			<Mass>130</Mass>
 			<Flammability>0</Flammability>
-			<MoveSpeed>6.00</MoveSpeed>
+			<MoveSpeed>7.2</MoveSpeed>
 			<LeatherAmount>75</LeatherAmount>
 			<ComfyTemperatureMin>-120</ComfyTemperatureMin>
 			<ComfyTemperatureMax>99999</ComfyTemperatureMax>
@@ -324,17 +321,31 @@
 				<power>16</power>
 				<cooldownTime>1.95</cooldownTime>
 				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-				<commonality>0.2</commonality>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.2</chanceFactor>
 				<armorPenetration>0.28</armorPenetration>
 			</li>
 		</tools>
+		<comps>
+			<li Class="CompProperties_EggLayer">
+				<eggFertilizedDef>EggGreenWyvernFertilized</eggFertilizedDef>
+				<eggFertilizationCountMax>1</eggFertilizationCountMax>
+				<eggLayIntervalDays>60</eggLayIntervalDays>
+				<eggProgressUnfertilizedMax>0.5</eggProgressUnfertilizedMax>
+				<eggCountRange>
+					<min>1</min>
+					<max>1</max>
+				</eggCountRange>
+			</li>
+		</comps>
 		<race>
 			<thinkTreeMain>Feenix</thinkTreeMain>
 			<predator>true</predator>
 			<maxPreyBodySize>1.5</maxPreyBodySize>
 			<herdMigrationAllowed>false</herdMigrationAllowed>
 			<executionRange>5</executionRange>
-			<nameGenerator>NamerAnimalGeneric</nameGenerator>
+			<nameGenerator>NamerAnimalGenericMale</nameGenerator>
+			<nameGeneratorFemale>NamerAnimalGenericFemale</nameGeneratorFemale>
 			<hediffGiverSets>
 				<li>OrganicStandard</li>
 				<li>UnstoppablePassiveSet</li>
@@ -345,32 +356,15 @@
 			<baseHungerRate>1.5</baseHungerRate>
 			<baseHealthScale>8</baseHealthScale>
 			<foodType>OmnivoreAnimal, OvivoreAnimal, CarnivoreAnimal, CarnivoreAnimalStrict</foodType>
-			<leatherLabel>green wyvernhide</leatherLabel>
-			<leatherColor>(201,229,204)</leatherColor>
-			<leatherMarketValueFactor>10.0</leatherMarketValueFactor>
-			<leatherCommonalityFactor>0.1</leatherCommonalityFactor>
-			<leatherStatFactors>
-				<MaxHitPoints>1.8</MaxHitPoints>
-				<Beauty>1.8</Beauty>
-				<MarketValue>4.2</MarketValue>
-				<ArmorRating_Blunt>2.45</ArmorRating_Blunt>
-				<ArmorRating_Sharp>2.55</ArmorRating_Sharp>
-				<ArmorRating_Electric>1.2</ArmorRating_Electric>
-				<ArmorRating_Heat>1.2</ArmorRating_Heat>
-				<Insulation_Cold>0.9</Insulation_Cold>
-				<Insulation_Heat>1.12</Insulation_Heat>
-				<WorkToMake>2.2</WorkToMake>
-				<BedRestEffectiveness>0.7</BedRestEffectiveness>
-				<ImmunityGainSpeedFactor>1.37</ImmunityGainSpeedFactor>
-			</leatherStatFactors>
-			<leatherInsulation>1.5</leatherInsulation>
+			<leatherDef>Leather_Thrumbo</leatherDef>
 			<nuzzleMtbHours>120</nuzzleMtbHours>
 			<useMeatFrom>Muffalo</useMeatFrom>
-			<trainableIntelligence>Intermediate</trainableIntelligence>
-			<wildness>0.88</wildness>
+			<gestationPeriodDays>65</gestationPeriodDays>
+			<trainability>Advanced</trainability>
+			<wildness>0.8</wildness>
 			<manhunterOnTameFailChance>0.005</manhunterOnTameFailChance>
 			<manhunterOnDamageChance>0.3</manhunterOnDamageChance>
-			<lifeExpectancy>500</lifeExpectancy>
+			<lifeExpectancy>130</lifeExpectancy>
 			<lifeStageAges>
 				<li>
 					<def>AnimalBaby</def>
@@ -378,11 +372,11 @@
 				</li>
 				<li>
 					<def>AnimalJuvenile</def>
-					<minAge>25</minAge>
+					<minAge>5</minAge>
 				</li>
 				<li>
 					<def>AnimalAdult</def>
-					<minAge>100</minAge>
+					<minAge>20</minAge>
 					<soundWounded>Lion_Hurt</soundWounded>
 					<soundDeath>Pawn_Lion_Death</soundDeath>
 					<soundCall>Pawn_Lion_Call</soundCall>
@@ -405,14 +399,13 @@
 		</modExtensions>
 	</Verse.ThingDef>
 
-	<PawnKindDef ParentName="AnimalKindBase">
+	<PawnKindDef ParentName="SK_AnimalKindBase">
 		<defName>GreenWyvern</defName>
 		<label>green wyvern</label>
 		<race>GreenWyvern</race>
 		<combatPower>550</combatPower>
 		<canArriveManhunter>false</canArriveManhunter>
-		<wildSpawn_spawnWild>true</wildSpawn_spawnWild>
-		<wildSpawn_EcoSystemWeight>1</wildSpawn_EcoSystemWeight>
+		<ecoSystemWeight>1</ecoSystemWeight>
 		<lifeStages>
 			<li>
 				<label>Wyvern Ember</label>
@@ -459,7 +452,7 @@
 		</lifeStages>
 	</PawnKindDef>
 
-	<Verse.ThingDef ParentName="AnimalThingBase">
+	<Verse.ThingDef ParentName="SK_AnimalThingBase">
 		<defName>Kirin</defName>
 		<label>kirin</label>
 		<description>Born of frost, Misterious Kirin leave a trail of frost wherever they go. They are solitary creatures. Their fur and heart are highly prized on the rim worlds for their high insulation, and supposed medicinal usage.</description>
@@ -477,7 +470,7 @@
 			<Mass>120</Mass>
 			<Flammability>1</Flammability>
 			<LeatherAmount>50</LeatherAmount>
-			<MoveSpeed>6.00</MoveSpeed>
+			<MoveSpeed>6.5</MoveSpeed>
 			<ComfyTemperatureMin>-999999</ComfyTemperatureMin>
 			<ComfyTemperatureMax>60</ComfyTemperatureMax>
 			<MarketValue>15000</MarketValue>
@@ -559,7 +552,8 @@
 				<power>19</power>
 				<cooldownTime>1.95</cooldownTime>
 				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-				<commonality>0.2</commonality>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.2</chanceFactor>
 				<armorPenetration>0.27</armorPenetration>
 			</li>
 		</tools>
@@ -568,8 +562,8 @@
 			<predator>true</predator>
 			<maxPreyBodySize>1.4</maxPreyBodySize>
 			<herdMigrationAllowed>false</herdMigrationAllowed>
-			<hasGenders>false</hasGenders>
-			<nameGenerator>NamerAnimalGeneric</nameGenerator>
+			<nameGenerator>NamerAnimalGenericMale</nameGenerator>
+			<nameGeneratorFemale>NamerAnimalGenericFemale</nameGeneratorFemale>
 			<hediffGiverSets>
 				<li>OrganicStandard</li>
 				<li>UnstoppablePassiveSet</li>
@@ -581,30 +575,13 @@
 			<baseHealthScale>8</baseHealthScale>
 			<foodType>OmnivoreAnimal, OvivoreAnimal, CarnivoreAnimal, CarnivoreAnimalStrict</foodType>
 			<useMeatFrom>Muffalo</useMeatFrom>
-			<leatherLabel>kirin hide</leatherLabel>
-			<leatherColor>(96,135,34)</leatherColor>
-			<leatherMarketValueFactor>9.0</leatherMarketValueFactor>
-			<leatherCommonalityFactor>0.1</leatherCommonalityFactor>
-			<leatherStatFactors>
-				<MaxHitPoints>1.8</MaxHitPoints>
-				<Beauty>1.8</Beauty>
-				<MarketValue>4.2</MarketValue>
-				<ArmorRating_Blunt>2.17</ArmorRating_Blunt>
-				<ArmorRating_Sharp>2.05</ArmorRating_Sharp>
-				<ArmorRating_Electric>1.5</ArmorRating_Electric>
-				<ArmorRating_Heat>0.7</ArmorRating_Heat>
-				<Insulation_Cold>1.46</Insulation_Cold>
-				<Insulation_Heat>0.82</Insulation_Heat>
-				<WorkToMake>2.2</WorkToMake>
-				<BedRestEffectiveness>1.15</BedRestEffectiveness>
-				<ImmunityGainSpeedFactor>1.39</ImmunityGainSpeedFactor>
-			</leatherStatFactors>
-			<leatherInsulation>1.5</leatherInsulation>
-			<trainableIntelligence>Advanced</trainableIntelligence>
-			<wildness>0.99</wildness>
+			<leatherDef>Leather_KirinHide</leatherDef>
+			<gestationPeriodDays>64</gestationPeriodDays>
+			<trainability>Advanced</trainability>
+			<wildness>0.83</wildness>
 			<manhunterOnTameFailChance>0.005</manhunterOnTameFailChance>
 			<manhunterOnDamageChance>0.3</manhunterOnDamageChance>
-			<lifeExpectancy>500</lifeExpectancy>
+			<lifeExpectancy>160</lifeExpectancy>
 			<lifeStageAges>
 				<li>
 					<def>AnimalBaby</def>
@@ -612,11 +589,11 @@
 				</li>
 				<li>
 					<def>AnimalJuvenile</def>
-					<minAge>25</minAge>
+					<minAge>5</minAge>
 				</li>
 				<li>
 					<def>AnimalAdult</def>
-					<minAge>100</minAge>
+					<minAge>20</minAge>
 					<soundWounded>Pawn_Muffalo_Wounded</soundWounded>
 					<soundDeath>Pawn_Muffalo_Death</soundDeath>
 					<soundCall>Pawn_Muffalo_Call</soundCall>
@@ -634,11 +611,12 @@
 		</modExtensions>
 	</Verse.ThingDef>
 
-	<PawnKindDef ParentName="AnimalKindBase">
+	<PawnKindDef ParentName="SK_AnimalKindBase">
 		<defName>Kirin</defName>
 		<label>Kirin</label>
 		<race>Kirin</race>
 		<canArriveManhunter>false</canArriveManhunter>
+		<ecoSystemWeight>0.8</ecoSystemWeight>
 		<combatPower>800</combatPower>
 		<lifeStages>
 			<li>
@@ -692,20 +670,19 @@
 				</butcherBodyPart>
 			</li>
 		</lifeStages>
-		<wildSpawn_spawnWild>false</wildSpawn_spawnWild>
 	</PawnKindDef>
 
-	<Verse.ThingDef ParentName="AnimalThingBase">
+	<Verse.ThingDef ParentName="SK_AnimalThingBase">
 		<defName>Behir</defName>
 		<label>Behir</label>
 		<description>A behir is a huge blue serpentine magical beast with a crocodilian head; the creature is around forty feet long and weighs around four thousand pounds. They can run quickly on their twelve short, powerful legs, or slither by folding their legs close to their body.</description>
 		<statBases>
 			<Mass>260</Mass>
-			<MoveSpeed>7.8</MoveSpeed>
+			<MoveSpeed>8.5</MoveSpeed>
 			<ComfyTemperatureMin>-170</ComfyTemperatureMin>
 			<ComfyTemperatureMax>950</ComfyTemperatureMax>
-			<ArmorRating_Blunt>0.14</ArmorRating_Blunt>
-			<ArmorRating_Sharp>0.08</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.21</ArmorRating_Blunt>
+			<ArmorRating_Sharp>0.21</ArmorRating_Sharp>
 			<LeatherAmount>57</LeatherAmount>
 			<ImmunityGainSpeed>2.5</ImmunityGainSpeed>
 			<MarketValue>15000</MarketValue>
@@ -739,7 +716,7 @@
 				</capacities>
 				<power>18</power>
 				<cooldownTime>1.6</cooldownTime>
-				<linkedBodyPartsGroup>LeftLegClaws</linkedBodyPartsGroup>
+				<linkedBodyPartsGroup>LegLeftClaws</linkedBodyPartsGroup>
 				<surpriseAttack>
 					<extraMeleeDamages>
 						<li>
@@ -757,7 +734,7 @@
 				</capacities>
 				<power>18</power>
 				<cooldownTime>1.6</cooldownTime>
-				<linkedBodyPartsGroup>RightLegClaws</linkedBodyPartsGroup>
+				<linkedBodyPartsGroup>LegRightClaws</linkedBodyPartsGroup>
 				<surpriseAttack>
 					<extraMeleeDamages>
 						<li>
@@ -829,10 +806,23 @@
 				<power>10</power>
 				<cooldownTime>1.65</cooldownTime>
 				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-				<commonality>0.1</commonality>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.2</chanceFactor>
 				<armorPenetration>0.1</armorPenetration>
 			</li>
 		</tools>
+		<comps>
+			<li Class="CompProperties_EggLayer">
+				<eggFertilizedDef>EggFRaptorFertilized</eggFertilizedDef>
+				<eggFertilizationCountMax>1</eggFertilizationCountMax>
+				<eggLayIntervalDays>60</eggLayIntervalDays>
+				<eggProgressUnfertilizedMax>0.5</eggProgressUnfertilizedMax>
+				<eggCountRange>
+					<min>1</min>
+					<max>1</max>
+				</eggCountRange>
+			</li>
+		</comps>
 		<race>
 			<predator>true</predator>
 			<maxPreyBodySize>1.5</maxPreyBodySize>
@@ -842,28 +832,11 @@
 			<baseHungerRate>1.7</baseHungerRate>
 			<baseHealthScale>5.8</baseHealthScale>
 			<foodType>CarnivoreAnimal, CarnivoreAnimalStrict</foodType>
-			<leatherColor>(138,80,154)</leatherColor>
 			<useMeatFrom>Muffalo</useMeatFrom>
-			<leatherLabel>behir leather</leatherLabel>
-			<leatherMarketValueFactor>10.0</leatherMarketValueFactor>
-			<leatherCommonalityFactor>0.1</leatherCommonalityFactor>
-			<leatherStatFactors>
-				<MaxHitPoints>1.7</MaxHitPoints>
-				<Beauty>1.8</Beauty>
-				<MarketValue>4.6</MarketValue>
-				<ArmorRating_Blunt>2.45</ArmorRating_Blunt>
-				<ArmorRating_Sharp>2.32</ArmorRating_Sharp>
-				<ArmorRating_Electric>2.4</ArmorRating_Electric>
-				<ArmorRating_Heat>1.2</ArmorRating_Heat>
-				<Insulation_Cold>1.38</Insulation_Cold>
-				<Insulation_Heat>1.32</Insulation_Heat>
-				<WorkToMake>1.8</WorkToMake>
-				<BedRestEffectiveness>1.05</BedRestEffectiveness>
-				<ImmunityGainSpeedFactor>1.35</ImmunityGainSpeedFactor>
-			</leatherStatFactors>
-			<leatherInsulation>1.5</leatherInsulation>
-			<gestationPeriodDays>24</gestationPeriodDays>
+			<leatherDef>Leather_Thrumbo</leatherDef>
+			<gestationPeriodDays>64</gestationPeriodDays>
 			<wildness>0.9</wildness>
+			<trainability>Advanced</trainability>
 			<petness>0</petness>
 			<manhunterOnDamageChance>0.3</manhunterOnDamageChance>
 			<manhunterOnTameFailChance>0.35</manhunterOnTameFailChance>
@@ -877,7 +850,7 @@
 					<li>(3.5, 0)</li>
 				</points>
 			</litterSizeCurve>
-			<lifeExpectancy>800</lifeExpectancy>
+			<lifeExpectancy>140</lifeExpectancy>
 			<lifeStageAges>
 				<li>
 					<def>AnimalBaby</def>
@@ -885,11 +858,11 @@
 				</li>
 				<li>
 					<def>AnimalJuvenile</def>
-					<minAge>0.15</minAge>
+					<minAge>5</minAge>
 				</li>
 				<li>
 					<def>AnimalAdult</def>
-					<minAge>0.8</minAge>
+					<minAge>20</minAge>
 					<soundWounded>Pawn_Raptor_Wounded</soundWounded>
 					<soundDeath>Pawn_Raptor_Death</soundDeath>
 					<soundCall>Pawn_Raptor_Call</soundCall>
@@ -919,11 +892,12 @@
 		</modExtensions>
 	</Verse.ThingDef>
 
-	<PawnKindDef ParentName="AnimalKindBase">
+	<PawnKindDef ParentName="SK_AnimalKindBase">
 		<defName>Behir</defName>
 		<label>Behir</label>
 		<race>Behir</race>
 		<combatPower>900</combatPower>
+		<ecoSystemWeight>0.9</ecoSystemWeight>
 		<canArriveManhunter>false</canArriveManhunter>
 		<lifeStages>
 			<li>
@@ -971,13 +945,13 @@
 		</lifeStages>
 	</PawnKindDef>
 
-	<Verse.ThingDef ParentName="AnimalThingBase">
+	<Verse.ThingDef ParentName="SK_AnimalThingBase">
 		<defName>FRaptor</defName>
 		<label>feathered raptor</label>
 		<description>Quiet, cunning, elegant and ruthless, these protobird species were originally developed to resolve an increasing warg population problem. Someone quickly realized that adding another alpha predator doesn't help an already broken ecosystem, and the project was cancelled. Scientists then started a new development project that was aimed at making raptors the pets of rich people. Because of that, these raptors now have colorful feathers.</description>
 		<statBases>
 			<Mass>160</Mass>
-			<MoveSpeed>5.5</MoveSpeed>
+			<MoveSpeed>6.9</MoveSpeed>
 			<ComfyTemperatureMin>-30</ComfyTemperatureMin>
 			<ComfyTemperatureMax>50</ComfyTemperatureMax>
 			<ArmorRating_Blunt>0.14</ArmorRating_Blunt>
@@ -997,7 +971,7 @@
 				</capacities>
 				<power>14</power>
 				<cooldownTime>1.6</cooldownTime>
-				<linkedBodyPartsGroup>LeftLegClaws</linkedBodyPartsGroup>
+				<linkedBodyPartsGroup>LegLeftClaws</linkedBodyPartsGroup>
 				<surpriseAttack>
 					<extraMeleeDamages>
 						<li>
@@ -1015,7 +989,7 @@
 				</capacities>
 				<power>14</power>
 				<cooldownTime>1.6</cooldownTime>
-				<linkedBodyPartsGroup>RightLegClaws</linkedBodyPartsGroup>
+				<linkedBodyPartsGroup>LegRightClaws</linkedBodyPartsGroup>
 				<surpriseAttack>
 					<extraMeleeDamages>
 						<li>
@@ -1087,7 +1061,8 @@
 				<power>10</power>
 				<cooldownTime>1.65</cooldownTime>
 				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-				<commonality>0.1</commonality>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.2</chanceFactor>
 				<armorPenetration>0.1</armorPenetration>
 			</li>
 		</tools>
@@ -1113,24 +1088,7 @@
 			<baseHealthScale>3.2</baseHealthScale>
 			<foodType>CarnivoreAnimal, CarnivoreAnimalStrict</foodType>
 			<useMeatFrom>Muffalo</useMeatFrom>
-			<leatherColor>(138,80,154)</leatherColor>
-			<leatherLabel>feathered raptor leather</leatherLabel>
-			<leatherMarketValueFactor>15.0</leatherMarketValueFactor>
-			<leatherStatFactors>
-				<MaxHitPoints>1.5</MaxHitPoints>
-				<Beauty>1.3</Beauty>
-				<MarketValue>2.6</MarketValue>
-				<ArmorRating_Blunt>2.35</ArmorRating_Blunt>
-				<ArmorRating_Sharp>2.22</ArmorRating_Sharp>
-				<ArmorRating_Electric>1.4</ArmorRating_Electric>
-				<ArmorRating_Heat>1.2</ArmorRating_Heat>
-				<Insulation_Cold>1.31</Insulation_Cold>
-				<Insulation_Heat>1.07</Insulation_Heat>
-				<WorkToMake>1.8</WorkToMake>
-				<BedRestEffectiveness>1.05</BedRestEffectiveness>
-				<ImmunityGainSpeedFactor>1.2</ImmunityGainSpeedFactor>
-			</leatherStatFactors>
-			<leatherInsulation>1.5</leatherInsulation>
+			<leatherDef>Leather_FeatheredRaptorLeather</leatherDef>
 			<gestationPeriodDays>24</gestationPeriodDays>
 			<wildness>0.9</wildness>
 			<petness>0</petness>
@@ -1154,11 +1112,11 @@
 				</li>
 				<li>
 					<def>AnimalJuvenile</def>
-					<minAge>0.15</minAge>
+					<minAge>3</minAge>
 				</li>
 				<li>
 					<def>AnimalAdult</def>
-					<minAge>0.8</minAge>
+					<minAge>6</minAge>
 					<soundWounded>Pawn_Raptor_Wounded</soundWounded>
 					<soundDeath>Pawn_Raptor_Death</soundDeath>
 					<soundCall>Pawn_Raptor_Call</soundCall>
@@ -1179,11 +1137,16 @@
 		</modExtensions>
 	</Verse.ThingDef>
 
-	<PawnKindDef ParentName="AnimalKindBase">
+	<PawnKindDef ParentName="SK_AnimalKindBase">
 		<defName>FRaptor</defName>
 		<label>Raptor</label>
 		<race>FRaptor</race>
 		<combatPower>400</combatPower>
+		<ecoSystemWeight>0.9</ecoSystemWeight>
+		<wildGroupSize>
+			<min>1</min>
+			<max>3</max>
+		</wildGroupSize>
 		<lifeStages>
 			<li>
 				<label>Baby raptor</label>
@@ -1228,12 +1191,6 @@
 				</dessicatedBodyGraphicData>
 			</li>
 		</lifeStages>
-		<wildSpawn_spawnWild>true</wildSpawn_spawnWild>
-		<wildSpawn_EcoSystemWeight>0.3</wildSpawn_EcoSystemWeight>
-		<wildSpawn_GroupSizeRange>
-			<min>1</min>
-			<max>3</max>
-		</wildSpawn_GroupSizeRange>
 		<modExtensions>
 			<li Class="SK.PawnGraphicExtension">
 				<colors>
@@ -1249,13 +1206,15 @@
 					<li>(92,126,43)</li>
 					<li>(84,140,60)</li>
 				</colors>
+				<shaderType>Cutout</shaderType>
 			</li>
 		</modExtensions>
-	</PawnKindDef>  
+	</PawnKindDef>
 
-	<Verse.ThingDef ParentName="AnimalThingBase">
+	<Verse.ThingDef ParentName="SK_AnimalThingBase">
 		<defName>Barghest</defName>
 		<label>barghest</label>
+		<thingClass>SK.Events.FeralPawn</thingClass>
 		<description>A ghostly hound of lore, the sight of it is rumoured to foretell one's death.</description>
 		<statBases>
 			<Mass>310</Mass>
@@ -1266,8 +1225,8 @@
 			<ImmunityGainSpeed>5</ImmunityGainSpeed>
 			<MeatAmount>70</MeatAmount>
 			<Flammability>1</Flammability>
-			<ArmorRating_Blunt>0.33</ArmorRating_Blunt>
-			<ArmorRating_Sharp>0.27</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0.32</ArmorRating_Blunt>
+			<ArmorRating_Sharp>0.25</ArmorRating_Sharp>
 			<MeleeDodgeChance>0.05</MeleeDodgeChance>
 			<MeleeCritChance>0</MeleeCritChance>
 		</statBases>
@@ -1310,7 +1269,8 @@
 				<power>14</power>
 				<cooldownTime>1.65</cooldownTime>
 				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-				<commonality>0.2</commonality>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.2</chanceFactor>
 				<armorPenetration>0.14</armorPenetration>
 			</li>
 		</tools>
@@ -1322,31 +1282,13 @@
 			<baseBodySize>1.6</baseBodySize>
 			<baseHungerRate>1.7</baseHungerRate>
 			<baseHealthScale>9</baseHealthScale>
-			<hasGenders>false</hasGenders>
 			<foodType>CarnivoreAnimalStrict</foodType>
 			<petness>0</petness>
-			<nameGenerator>NamerAnimalGeneric</nameGenerator>
-			<trainableIntelligence>Advanced</trainableIntelligence>
+			<nameGenerator>NamerAnimalGenericMale</nameGenerator>
+			<nameGeneratorFemale>NamerAnimalGenericFemale</nameGeneratorFemale>
+			<trainability>Advanced</trainability>
 			<useMeatFrom>Elephant</useMeatFrom>
-			<leatherColor>(220,220,220)</leatherColor>
-			<leatherLabel>barghest fur</leatherLabel>
-			<leatherInsulation>1.5</leatherInsulation>
-			<leatherMarketValueFactor>8.0</leatherMarketValueFactor>
-			<leatherCommonalityFactor>0.1</leatherCommonalityFactor>
-			<leatherStatFactors>
-				<MaxHitPoints>1.5</MaxHitPoints>
-				<Beauty>1.6</Beauty>
-				<MarketValue>14</MarketValue>
-				<ArmorRating_Blunt>1.6</ArmorRating_Blunt>
-				<ArmorRating_Sharp>1.7</ArmorRating_Sharp>
-				<ArmorRating_Electric>1.7</ArmorRating_Electric>
-				<ArmorRating_Heat>0.7</ArmorRating_Heat>
-				<Insulation_Cold>1.39</Insulation_Cold>
-				<Insulation_Heat>0.7</Insulation_Heat>
-				<WorkToMake>1.7</WorkToMake>
-				<BedRestEffectiveness>1.2</BedRestEffectiveness>
-				<ImmunityGainSpeedFactor>1.14</ImmunityGainSpeedFactor>
-			</leatherStatFactors>
+			<leatherDef>Leather_BarghestFur</leatherDef>
 			<gestationPeriodDays>22</gestationPeriodDays>
 			<wildness>0.95</wildness>
 			<manhunterOnTameFailChance>0.2</manhunterOnTameFailChance>
@@ -1361,7 +1303,7 @@
 					<li>(3.5, 0)</li>
 				</points>
 			</litterSizeCurve>
-			<lifeExpectancy>700</lifeExpectancy>
+			<lifeExpectancy>170</lifeExpectancy>
 			<lifeStageAges>
 				<li>
 					<def>AnimalBaby</def>
@@ -1369,11 +1311,11 @@
 				</li>
 				<li>
 					<def>AnimalJuvenile</def>
-					<minAge>50</minAge>
+					<minAge>5</minAge>
 				</li>
 				<li>
 					<def>AnimalAdult</def>
-					<minAge>100</minAge>
+					<minAge>20</minAge>
 					<soundWounded>Pawn_Warg_Wounded</soundWounded>
 					<soundDeath>Pawn_Warg_Death</soundDeath>
 					<soundCall>Pawn_Warg_Call</soundCall>
@@ -1394,11 +1336,12 @@
 		</modExtensions>
 	</Verse.ThingDef>
 
-	<PawnKindDef ParentName="AnimalKindBase">
+	<PawnKindDef ParentName="SK_AnimalKindBase">
 		<defName>Barghest</defName>
 		<label>Barghest</label>
 		<race>Barghest</race>
 		<combatPower>550</combatPower>
+		<ecoSystemWeight>0.95</ecoSystemWeight>
 		<canArriveManhunter>false</canArriveManhunter>
 		<lifeStages>
 			<li>
@@ -1444,11 +1387,6 @@
 				</dessicatedBodyGraphicData>
 			</li>
 		</lifeStages>
-		<wildSpawn_spawnWild>true</wildSpawn_spawnWild>
-		<wildSpawn_EcoSystemWeight>0.9</wildSpawn_EcoSystemWeight>
-		<wildSpawn_GroupSizeRange>
-			<min>1</min>
-			<max>1</max>
-		</wildSpawn_GroupSizeRange>
 	</PawnKindDef>
+
 </Defs>

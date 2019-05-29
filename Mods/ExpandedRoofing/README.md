@@ -1,4 +1,4 @@
-# ExpandedRoofing [![RimWorld Beta 18](https://img.shields.io/badge/RimWorld-Beta%2018-brightgreen.svg)](http://rimworldgame.com/)
+# ExpandedRoofing [![RimWorld 1.0](https://img.shields.io/badge/RimWorld-1.0-green.svg?longCache=true&style=plastic)](http://rimworldgame.com/)
 
 Adds customizable roofing, with transparent greenhouse roofing and photovoltaic solar roofing. Reworked from Vendan's original idea.
 
@@ -40,9 +40,10 @@ Adds customizable roofing, with transparent greenhouse roofing and photovoltaic 
 Thank to Erdelf for getting me back on track and Xen for designator artwork.
 
 Special thanks to Pardeike's amazing non-destructive patching library, Harmony.
+
 <p align="center">
   <a href="https://github.com/pardeike/Harmony">
-    <img src="https://s24.postimg.org/58bl1rz39/logo.png" alt="Harmony" />
+    <img src="https://raw.githubusercontent.com/pardeike/Harmony/master/HarmonyLogo.png" alt="Harmony" width="128" />
   </a>
 </p>
 

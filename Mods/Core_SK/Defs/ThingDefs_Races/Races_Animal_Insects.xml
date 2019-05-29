@@ -1,16 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
 	<!-- ========================== Insects ============================ -->
-	<Verse.ThingDef Abstract="True" ParentName="AnimalThingBase" Name="BaseInsect">
+	<Verse.ThingDef Abstract="True" ParentName="SK_AnimalThingBase" Name="SK_InsectThingBase">
 		<statBases>
 			<ToxicSensitivity>0</ToxicSensitivity>
 			<Flammability>1.0</Flammability>
 			<ImmunityGainSpeed>2.5</ImmunityGainSpeed>
+			<ComfyTemperatureMax>60</ComfyTemperatureMax>
 		</statBases>
 		<race>
+			<herdMigrationAllowed>false</herdMigrationAllowed>
 			<fleshType>Insectoid</fleshType>
-			<bloodDef>FilthBloodInsect</bloodDef>
-			<meatColor>(160,150,140)</meatColor>
+			<bloodDef>Filth_BloodInsect</bloodDef>
+			<meatColor>(160,168,139)</meatColor>
+			<meatMarketValue>0.5</meatMarketValue>
 			<foodType>OmnivoreAnimal, AnimalProduct</foodType>
 			<manhunterOnDamageChance>0.3</manhunterOnDamageChance>
 			<manhunterOnTameFailChance>0.018</manhunterOnTameFailChance>
@@ -20,13 +23,13 @@
 		</race>
 	</Verse.ThingDef>
 
-	<Verse.ThingDef ParentName="BaseInsect">
+	<Verse.ThingDef ParentName="SK_InsectThingBase">
 		<defName>Megascarab</defName>
 		<label>Megascarab</label>
 		<description>A large, genetically-engineered beetle. What was once the worker caste of an artifical ecosystem of insectoids designed to fight Mechanoid invasions, it is now usually seen without its deadlier insectoid cousins. Still, its size and hard shell make it dangerous when it attacks. An eusocial creature, it cannot reproduce individually.</description>
 		<statBases>
 			<Mass>15</Mass>
-			<MoveSpeed>4.4</MoveSpeed>
+			<MoveSpeed>4.1</MoveSpeed>
 			<ArmorRating_Blunt>0.06</ArmorRating_Blunt>
 			<ArmorRating_Sharp>0.05</ArmorRating_Sharp>
 			<ComfyTemperatureMin>-25</ComfyTemperatureMin>
@@ -54,7 +57,8 @@
 				<power>2</power>
 				<cooldownTime>1.65</cooldownTime>
 				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-				<commonality>0.2</commonality>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.1</chanceFactor>
 				<armorPenetration>0.1</armorPenetration>
 			</li>
 		</tools>
@@ -76,10 +80,7 @@
 			<baseHungerRate>0.4</baseHungerRate>
 			<baseHealthScale>0.6</baseHealthScale>
 			<useMeatFrom>Megaspider</useMeatFrom>
-			<petness>0.15</petness>
-			<wildness>0.85</wildness>
-			<manhunterOnTameFailChance>0.01</manhunterOnTameFailChance>
-			<manhunterOnDamageChance>0</manhunterOnDamageChance>
+			<wildness>0.95</wildness>
 			<lifeExpectancy>10</lifeExpectancy>
 			<lifeStageAges>
 				<li>
@@ -104,7 +105,7 @@
 			<soundMeleeMiss>Pawn_Melee_SmallScratch_Miss</soundMeleeMiss>
 		</race>
 		<tradeTags>
-			<li>Insectoid</li>
+			<li>AnimalInsect</li>
 		</tradeTags>
 		<modExtensions>
 			<li Class="CombatExtended.RacePropertiesExtensionCE">
@@ -113,14 +114,13 @@
 		</modExtensions>
 	</Verse.ThingDef>
 
-	<PawnKindDef ParentName="AnimalKindBase">
+	<PawnKindDef ParentName="SK_AnimalKindBase">
 		<defName>Megascarab</defName>
 		<label>Megascarab</label>
 		<race>Megascarab</race>
-		<combatPower>40</combatPower>
+		<combatPower>70</combatPower>
 		<canArriveManhunter>false</canArriveManhunter>
-		<wildSpawn_EcoSystemWeight>0.15</wildSpawn_EcoSystemWeight>
-		<wildSpawn_spawnWild>true</wildSpawn_spawnWild>
+		<ecoSystemWeight>0.15</ecoSystemWeight>
 		<lifeStages>
 			<li>
 				<bodyGraphicData>
@@ -130,7 +130,7 @@
 					<color>(114,107,84)</color>
 				</bodyGraphicData>
 				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
+					<texPath>Things/Pawn/Animal/Megascarab/Dessicated_Megascarab</texPath>
 					<drawSize>0.8</drawSize>
 				</dessicatedBodyGraphicData>
 			</li>
@@ -142,8 +142,8 @@
 					<color>(114,107,84)</color>
 				</bodyGraphicData>
 				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-					<drawSize>0.9</drawSize>
+					<texPath>Things/Pawn/Animal/Megascarab/Dessicated_Megascarab</texPath>
+					<drawSize>1.1</drawSize>
 				</dessicatedBodyGraphicData>
 			</li>
 			<li>
@@ -158,8 +158,8 @@
 					</shadowData>
 				</bodyGraphicData>
 				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-					<drawSize>1.0</drawSize>
+					<texPath>Things/Pawn/Animal/Megascarab/Dessicated_Megascarab</texPath>
+					<drawSize>1.3</drawSize>
 				</dessicatedBodyGraphicData>
 			</li>
 		</lifeStages>
@@ -177,17 +177,18 @@
 					<li>(35,35,35)</li>
 					<!-- dark grey -->
 				</colors>
+				<shaderType>Cutout</shaderType>
 			</li>
 		</modExtensions>
 	</PawnKindDef>
 
-	<Verse.ThingDef ParentName="BaseInsect">
+	<Verse.ThingDef ParentName="SK_InsectThingBase">
 		<defName>Spelopede</defName>
 		<label>Spelopede</label>
 		<description>A medium-sized bioengineered bug the size of a sheep. The spelopede is the middle caste of a hive, taking care of most work tasks as well as fighting with its claws.</description>
 		<statBases>
 			<Mass>80</Mass>
-			<MoveSpeed>4.1</MoveSpeed>
+			<MoveSpeed>3.8</MoveSpeed>
 			<ComfyTemperatureMin>-25</ComfyTemperatureMin>
 			<MarketValue>450</MarketValue>
 			<LeatherAmount>0</LeatherAmount>
@@ -214,7 +215,8 @@
 				<power>5</power>
 				<cooldownTime>1.65</cooldownTime>
 				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-				<commonality>0.2</commonality>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.2</chanceFactor>
 				<armorPenetration>0.12</armorPenetration>
 			</li>
 		</tools>
@@ -236,9 +238,8 @@
 			<baseBodySize>0.7</baseBodySize>
 			<baseHealthScale>1.8</baseHealthScale>
 			<useMeatFrom>Megaspider</useMeatFrom>
-			<gestationPeriodDays>10</gestationPeriodDays>
+			<gestationPeriodDays>12</gestationPeriodDays>
 			<wildness>0.95</wildness>
-			<manhunterOnTameFailChance>0.02</manhunterOnTameFailChance>
 			<lifeExpectancy>6</lifeExpectancy>
 			<lifeStageAges>
 				<li>
@@ -263,7 +264,7 @@
 			<soundMeleeMiss>Pawn_Melee_SmallScratch_Miss</soundMeleeMiss>
 		</race>
 		<tradeTags>
-			<li>Insectoid</li>
+			<li>AnimalInsect</li>
 		</tradeTags>
 		<modExtensions>
 			<li Class="CombatExtended.RacePropertiesExtensionCE">
@@ -272,25 +273,24 @@
 		</modExtensions>
 	</Verse.ThingDef>
 
-	<PawnKindDef ParentName="AnimalKindBase">
+	<PawnKindDef ParentName="SK_AnimalKindBase">
 		<defName>Spelopede</defName>
 		<label>spelopede</label>
 		<race>Spelopede</race>
 		<canArriveManhunter>false</canArriveManhunter>
-		<combatPower>130</combatPower>
-		<wildSpawn_EcoSystemWeight>0.2</wildSpawn_EcoSystemWeight>
-		<wildSpawn_spawnWild>true</wildSpawn_spawnWild>
+		<combatPower>140</combatPower>
+		<ecoSystemWeight>0.35</ecoSystemWeight>
+
 		<lifeStages>
 			<li>
 				<bodyGraphicData>
 					<graphicClass>SK.PawnGraphic</graphicClass>
 					<texPath>Things/Pawn/ExtendedGraphic/Animal/Spelopede/Spelopede</texPath>
 					<drawSize>1.3</drawSize>
-					<color>(156,148,125)</color>
 				</bodyGraphicData>
 				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-					<drawSize>1</drawSize>
+					<texPath>Things/Pawn/Animal/Spelopede/Dessicated_Spelopede</texPath>
+					<drawSize>1.3</drawSize>
 				</dessicatedBodyGraphicData>
 			</li>
 			<li>
@@ -298,11 +298,10 @@
 					<graphicClass>SK.PawnGraphic</graphicClass>
 					<texPath>Things/Pawn/ExtendedGraphic/Animal/Spelopede/Spelopede</texPath>
 					<drawSize>1.75</drawSize>
-					<color>(156,148,125)</color>
 				</bodyGraphicData>
 				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-					<drawSize>1.35</drawSize>
+					<texPath>Things/Pawn/Animal/Spelopede/Dessicated_Spelopede</texPath>
+					<drawSize>1.75</drawSize>
 				</dessicatedBodyGraphicData>
 			</li>
 			<li>
@@ -310,15 +309,14 @@
 					<graphicClass>SK.PawnGraphic</graphicClass>
 					<texPath>Things/Pawn/ExtendedGraphic/Animal/Spelopede/Spelopede</texPath>
 					<drawSize>2.1</drawSize>
-					<color>(156,148,125)</color>
 					<shadowData>
 						<volume>(0.4, 0.5, 0.37)</volume>
 						<offset>(0,0,-0.15)</offset>
 					</shadowData>
 				</bodyGraphicData>
 				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-					<drawSize>1.75</drawSize>
+					<texPath>Things/Pawn/Animal/Spelopede/Dessicated_Spelopede</texPath>
+					<drawSize>2.1</drawSize>
 				</dessicatedBodyGraphicData>
 			</li>
 		</lifeStages>
@@ -336,18 +334,19 @@
 					<li>(35,35,35)</li>
 					<!-- dark grey -->
 				</colors>
+				<shaderType>Cutout</shaderType>
 			</li>
 		</modExtensions>
 	</PawnKindDef>
 
-	<Verse.ThingDef ParentName="BaseInsect">
+	<Verse.ThingDef ParentName="SK_InsectThingBase">
 		<defName>Megaspider</defName>
 		<label>megaspider</label>
 		<description>Not actually a spider, the megaspider is a genetically-engineered giant insectoid the size of a bear. Designed for heavy work and combat, its thick chitinous armor makes it hard to kill, while its long deadly ripper-blades make it deadly.</description>
 		<statBases>
 			<Mass>140</Mass>
-			<MoveSpeed>3.85</MoveSpeed>
-			<ComfyTemperatureMin>-25</ComfyTemperatureMin>
+			<MoveSpeed>3.5</MoveSpeed>
+			<ComfyTemperatureMin>-40</ComfyTemperatureMin>
 			<MarketValue>700</MarketValue>
 			<LeatherAmount>0</LeatherAmount>
 			<ArmorRating_Blunt>0.15</ArmorRating_Blunt>
@@ -373,7 +372,8 @@
 				<power>5</power>
 				<cooldownTime>1.65</cooldownTime>
 				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-				<commonality>0.2</commonality>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.2</chanceFactor>
 				<armorPenetration>0.12</armorPenetration>
 			</li>
 		</tools>
@@ -397,7 +397,6 @@
 			<gestationPeriodDays>10</gestationPeriodDays>
 			<meatLabel>insect meat</meatLabel>
 			<wildness>0.95</wildness>
-			<manhunterOnTameFailChance>0.03</manhunterOnTameFailChance>
 			<lifeExpectancy>6</lifeExpectancy>
 			<lifeStageAges>
 				<li>
@@ -422,7 +421,7 @@
 			<soundMeleeMiss>Pawn_Melee_BigBash_Miss</soundMeleeMiss>
 		</race>
 		<tradeTags>
-			<li>Insectoid</li>
+			<li>AnimalInsect</li>
 		</tradeTags>
 		<modExtensions>
 			<li Class="CombatExtended.RacePropertiesExtensionCE">
@@ -431,25 +430,23 @@
 		</modExtensions>
 	</Verse.ThingDef>
 
-	<PawnKindDef ParentName="AnimalKindBase">
+	<PawnKindDef ParentName="SK_AnimalKindBase">
 		<defName>Megaspider</defName>
 		<label>megaspider</label>
 		<race>Megaspider</race>
-		<combatPower>170</combatPower>
+		<combatPower>190</combatPower>
 		<canArriveManhunter>false</canArriveManhunter>
-		<wildSpawn_EcoSystemWeight>0.2</wildSpawn_EcoSystemWeight>
-		<wildSpawn_spawnWild>true</wildSpawn_spawnWild>
+		<ecoSystemWeight>0.5</ecoSystemWeight>
 		<lifeStages>
 			<li>
 				<bodyGraphicData>
 					<graphicClass>SK.PawnGraphic</graphicClass>
 					<texPath>Things/Pawn/ExtendedGraphic/Animal/Megaspider/Megaspider</texPath>
 					<drawSize>1.1</drawSize>
-					<color>(154,125,94)</color>
 				</bodyGraphicData>
 				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-					<drawSize>1.2</drawSize>
+					<texPath>Things/Pawn/Animal/Megaspider/Dessicated_Megaspider</texPath>
+					<drawSize>1.1</drawSize>
 				</dessicatedBodyGraphicData>
 			</li>
 			<li>
@@ -457,11 +454,10 @@
 					<graphicClass>SK.PawnGraphic</graphicClass>
 					<texPath>Things/Pawn/ExtendedGraphic/Animal/Megaspider/Megaspider</texPath>
 					<drawSize>1.5</drawSize>
-					<color>(154,125,94)</color>
 				</bodyGraphicData>
 				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-					<drawSize>1.6</drawSize>
+					<texPath>Things/Pawn/Animal/Megaspider/Dessicated_Megaspider</texPath>
+					<drawSize>1.5</drawSize>
 				</dessicatedBodyGraphicData>
 			</li>
 			<li>
@@ -469,15 +465,14 @@
 					<graphicClass>SK.PawnGraphic</graphicClass>
 					<texPath>Things/Pawn/ExtendedGraphic/Animal/Megaspider/Megaspider</texPath>
 					<drawSize>2.1</drawSize>
-					<color>(154,125,94)</color>
 					<shadowData>
 						<volume>(0.5, 0.7, 0.43)</volume>
 						<offset>(0,0,-0.1)</offset>
 					</shadowData>
 				</bodyGraphicData>
 				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedMedium</texPath>
-					<drawSize>2.0</drawSize>
+					<texPath>Things/Pawn/Animal/Megaspider/Dessicated_Megaspider</texPath>
+					<drawSize>2.1</drawSize>
 				</dessicatedBodyGraphicData>
 			</li>
 		</lifeStages>
@@ -495,20 +490,21 @@
 					<li>(35,35,35)</li>
 					<!-- dark grey -->
 				</colors>
+				<shaderType>Cutout</shaderType>
 			</li>
 		</modExtensions>
 	</PawnKindDef>
 
 
-	<Verse.ThingDef ParentName="BaseInsect">
+	<Verse.ThingDef ParentName="SK_InsectThingBase">
 		<defName>Scorpion</defName>
 		<label>Scorpion</label>
 		<description>Scorpions are predatory arachnids with eight legs. The two frontal legs consist of a pair of sharp, grasping claws. They have a segmented tail that ends with a venomous stinger.</description>
 		<statBases>
 			<Mass>120</Mass>
-			<MoveSpeed>2.9</MoveSpeed>
-			<ArmorRating_Blunt>0.20</ArmorRating_Blunt>
-			<ArmorRating_Sharp>0.21</ArmorRating_Sharp>
+			<MoveSpeed>2.8</MoveSpeed>
+			<StuffPower_Armor_Blunt>0.20</StuffPower_Armor_Blunt>
+			<StuffPower_Armor_Sharp>0.21</StuffPower_Armor_Sharp>
 			<ComfyTemperatureMin>-15</ComfyTemperatureMin>
 			<ComfyTemperatureMax>60</ComfyTemperatureMax>
 			<LeatherAmount>0</LeatherAmount>
@@ -536,7 +532,7 @@
 				<power>10</power>
 				<cooldownTime>1.65</cooldownTime>
 				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-				<commonality>0.5</commonality>
+				<chanceFactor>0.5</chanceFactor>
 				<armorPenetration>0.27</armorPenetration>
 			</li>
 		</tools>
@@ -558,14 +554,14 @@
 			<baseHungerRate>0.9</baseHungerRate>
 			<body>BeetleLike</body>
 			<baseBodySize>1.3</baseBodySize>
-			<petness>0</petness>
 			<baseHealthScale>2.8</baseHealthScale>
 			<foodType>CarnivoreAnimal, CarnivoreAnimalStrict, Corpse, AnimalProduct</foodType>
 			<fleshType>Insectoid</fleshType>
-			<bloodDef>FilthBloodInsect</bloodDef>
+			<bloodDef>Filth_BloodInsect</bloodDef>
 			<useMeatFrom>Megaspider</useMeatFrom>
 			<wildness>0.9</wildness>
-			<manhunterOnTameFailChance>0.01</manhunterOnTameFailChance>
+			<gestationPeriodDays>20</gestationPeriodDays>
+			<manhunterOnTameFailChance>0.3</manhunterOnTameFailChance>
 			<manhunterOnDamageChance>0.3</manhunterOnDamageChance>
 			<lifeExpectancy>10</lifeExpectancy>
 			<lifeStageAges>
@@ -597,13 +593,12 @@
 		</modExtensions>
 	</Verse.ThingDef>
 
-	<PawnKindDef ParentName="AnimalKindBase">
+	<PawnKindDef ParentName="SK_AnimalKindBase">
 		<defName>Scorpion</defName>
 		<label>Scorpion</label>
 		<race>Scorpion</race>
-		<combatPower>200</combatPower>
-		<wildSpawn_EcoSystemWeight>0.6</wildSpawn_EcoSystemWeight>
-		<wildSpawn_spawnWild>true</wildSpawn_spawnWild>
+		<combatPower>220</combatPower>
+		<ecoSystemWeight>0.7</ecoSystemWeight>
 		<lifeStages>
 			<li>
 				<bodyGraphicData>
@@ -611,8 +606,8 @@
 					<drawSize>1.3</drawSize>
 				</bodyGraphicData>
 				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-					<drawSize>1.0</drawSize>
+					<texPath>Things/Pawn/Animal/Megaspider/Dessicated_Megaspider</texPath>
+					<drawSize>1.2</drawSize>
 				</dessicatedBodyGraphicData>
 			</li>
 			<li>
@@ -621,8 +616,8 @@
 					<drawSize>2.0</drawSize>
 				</bodyGraphicData>
 				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-					<drawSize>1.5</drawSize>
+					<texPath>Things/Pawn/Animal/Megaspider/Dessicated_Megaspider</texPath>
+					<drawSize>1.9</drawSize>
 				</dessicatedBodyGraphicData>
 			</li>
 			<li>
@@ -631,10 +626,11 @@
 					<drawSize>2.5</drawSize>
 				</bodyGraphicData>
 				<dessicatedBodyGraphicData>
-					<texPath>Things/Pawn/Animal/Dessicated/CritterDessicatedSmall</texPath>
-					<drawSize>2</drawSize>
+					<texPath>Things/Pawn/Animal/Megaspider/Dessicated_Megaspider</texPath>
+					<drawSize>2.4</drawSize>
 				</dessicatedBodyGraphicData>
 			</li>
 		</lifeStages>
 	</PawnKindDef>
+
 </Defs>
