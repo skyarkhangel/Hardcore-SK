@@ -3,29 +3,38 @@
 
   <!--=============== Medicine ====================-->
 
-  <ThingDef ParentName="ResourceBase">
-    <defName>HerbalMedicine</defName>
-    <label>herbal medicine</label>
-    <description>A pack of herbal concoctions typically extracted from the healroot plant. Less potent than industrial pharmaceuticals, but much better than nothing.</description>
+  <ThingDef ParentName="ResourceBase" Name="MedicineBase" Abstract="True">
     <thingClass>Medicine</thingClass>
-    <graphicData>
-      <texPath>Things/Item/Resource/MedicineHerbal</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-    </graphicData>
+    <stackLimit>25</stackLimit>
+    <uiIconForStackCount>1</uiIconForStackCount>
     <soundInteract>Standard_Drop</soundInteract>
     <soundDrop>Standard_Drop</soundDrop>
-		<techLevel>Neolithic</techLevel>
-		<statBases>
+    <statBases>
       <MaxHitPoints>60</MaxHitPoints>
-      <MarketValue>10</MarketValue>
-      <Mass>0.35</Mass>
-      <Flammability>1.0</Flammability>
-      <MedicalPotency>0.60</MedicalPotency>
-      <DeteriorationRate>6</DeteriorationRate>
     </statBases>
     <thingCategories>
       <li>Medicine</li>
     </thingCategories>
+  </ThingDef>
+
+  <ThingDef ParentName="MedicineBase">
+    <defName>MedicineHerbal</defName>
+    <label>herbal medicine</label>
+    <description>A pack of herbal concoctions extracted from the healroot plant. It is less potent than industrial pharmaceuticals, but much better than nothing.</description>
+    <graphicData>
+      <texPath>Things/Item/Resource/Medicine/MedicineHerbal</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+      <drawSize>0.85</drawSize>
+    </graphicData>
+		<techLevel>Neolithic</techLevel>
+		<statBases>
+      <MarketValue>10</MarketValue>
+      <Mass>0.35</Mass>
+      <Flammability>1.3</Flammability>
+      <MedicalPotency>0.60</MedicalPotency>
+      <MedicalQualityMax>0.70</MedicalQualityMax>
+      <DeteriorationRate>6</DeteriorationRate>
+    </statBases>
     <tickerType>Rare</tickerType>
     <comps>
       <li Class="CompProperties_Rottable">
@@ -35,96 +44,86 @@
     </comps>
   </ThingDef>
 
-  <ThingDef ParentName="ResourceBase">
-    <defName>Medicine</defName>
+  <ThingDef ParentName="MedicineBase">
+    <defName>MedicineIndustrial</defName>
     <label>medicine</label>
-    <description>Medical staff use these supplies to heal the wounded.</description>
-    <thingClass>Medicine</thingClass>
+    <description>A kit of industrial-era medical equipment. It contains basic drugs, tools for suturing and bone setting, diagnostic devices, and various pads and fluids.</description>
     <graphicData>
-      <texPath>Things/Item/Resource/Medicine</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
+      <texPath>Things/Item/Resource/Medicine/MedicineIndustrial</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+      <drawSize>0.85</drawSize>
     </graphicData>
-    <soundInteract>Standard_Drop</soundInteract>
-    <soundDrop>Standard_Drop</soundDrop>
 		<techLevel>Industrial</techLevel>
 		<statBases>
-      <MaxHitPoints>60</MaxHitPoints>
       <MarketValue>18</MarketValue>
-      <Mass>0.5</Mass>
-      <Flammability>1.0</Flammability>
+      <Mass>0.50</Mass>
+      <Flammability>0.7</Flammability>
       <MedicalPotency>1.00</MedicalPotency>
+      <MedicalQualityMax>1.00</MedicalQualityMax>
       <DeteriorationRate>2</DeteriorationRate>
       <WorkToMake>700</WorkToMake>
     </statBases>
-    <thingCategories>
-      <li>Medicine</li>
-    </thingCategories>
     <costList>
-      <HerbalMedicine>1</HerbalMedicine>
+      <MedicineHerbal>1</MedicineHerbal>
       <Neutroamine>1</Neutroamine>
       <Cloth>3</Cloth>
     </costList>
     <recipeMaker>
-      <workSpeedStat>DrugProductionSpeed</workSpeedStat>
+      <workSpeedStat>DrugSynthesisSpeed</workSpeedStat>
       <workSkill>Intellectual</workSkill>
       <recipeUsers>
         <li>DrugLab</li>
       </recipeUsers>
       <researchPrerequisite>MedicineProduction</researchPrerequisite>
       <skillRequirements>
-				<Medicine>6</Medicine>
-				<Crafting>3</Crafting>
+				<Crafting>4</Crafting>
+        <Intellectual>4</Intellectual>
       </skillRequirements>
     </recipeMaker>
   </ThingDef>
 
-  <ThingDef ParentName="ResourceBase">
-    <defName>GlitterworldMedicine</defName>
+  <ThingDef ParentName="MedicineBase">
+    <defName>MedicineUltratech</defName>
     <label>glitterworld medicine</label>
-    <description>Advanced medical supplies from a high-tech glitterworld.</description>
-    <thingClass>Medicine</thingClass>
+    <description>A kit of advanced ultra-tech medical supplies, probably manufactured on a distant glitterworld. It contains advanced polymorphic drugs, nanite diagnostic and healing assisters, a mini-imager, and various multi-use tools.</description>
     <graphicData>
-      <texPath>Things/Item/Resource/MedicineGlitterworld</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
+      <texPath>Things/Item/Resource/Medicine/MedicineUltratech</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+      <drawSize>0.85</drawSize>
     </graphicData>
-    <soundInteract>Standard_Drop</soundInteract>
-    <soundDrop>Standard_Drop</soundDrop>
 		<techLevel>Ultra</techLevel>
     <statBases>
-			<MaxHitPoints>60</MaxHitPoints>
-      <MarketValue>100</MarketValue>
-      <Mass>0.5</Mass>
-      <Flammability>1.0</Flammability>
-      <MedicalPotency>2.2</MedicalPotency>
+      <MarketValue>50</MarketValue>
+      <Mass>0.50</Mass>
+      <Flammability>0.7</Flammability>
+      <MedicalPotency>1.60</MedicalPotency>
+      <MedicalQualityMax>1.30</MedicalQualityMax>
 			<DeteriorationRate>2.0</DeteriorationRate>
 		</statBases>
-    <thingCategories>
-      <li>Medicine</li>
-    </thingCategories>
     <tradeTags>
-      <li>Exotic</li>
+      <li>ExoticMisc</li>
     </tradeTags>
   </ThingDef>
 
 
-  <!--=============== Component ====================-->
+  <!--=============== ComponentIndustrial ====================-->
   
   <ThingDef ParentName="ResourceBase">
-    <defName>Component</defName>
+    <defName>ComponentIndustrial</defName>
     <label>component</label>
     <description>Miscellaneous gears, capacitors, circuit boards, tubes, wheels, sensors, wires, chips, processors, and other electronic and industrial parts. Necessary for assembling complex machines or electronics.</description>
     <graphicData>
-      <texPath>Things/Item/Resource/Component</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
+      <texPath>Things/Item/Resource/ComponentIndustrial</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
     </graphicData>
     <soundInteract>Metal_Drop</soundInteract>
     <soundDrop>Standard_Drop</soundDrop>
     <stackLimit>50</stackLimit>
     <statBases>
       <MaxHitPoints>70</MaxHitPoints>
-      <MarketValue>21</MarketValue>
+      <MarketValue>32</MarketValue>
       <Mass>0.6</Mass>
-      <Flammability>1.0</Flammability>
+      <Flammability>0.6</Flammability>
 			<DeteriorationRate>2.0</DeteriorationRate>
 		</statBases>
     <intricate>true</intricate>
@@ -134,27 +133,30 @@
   </ThingDef>
 
   <ThingDef ParentName="ResourceBase">
-    <defName>AdvancedComponent</defName>
+    <defName>ComponentSpacer</defName>
     <label>advanced component</label>
-    <description>High-quality electronic equipment, miniaturized and hardened for the most stressful applications.</description>
+    <description>Advanced computing and energy-directing machinery, miniaturized and hardened for the most demanding applications.</description>
     <graphicData>
-      <texPath>Things/Item/Resource/AdvancedComponent</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
+      <texPath>Things/Item/Resource/ComponentSpacer</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
     </graphicData>
     <soundInteract>Metal_Drop</soundInteract>
     <soundDrop>Standard_Drop</soundDrop>
     <stackLimit>50</stackLimit>
     <statBases>
       <MaxHitPoints>70</MaxHitPoints>
-      <MarketValue>80</MarketValue>
+      <MarketValue>200</MarketValue>
       <Mass>0.6</Mass>
-      <Flammability>1.0</Flammability>
+      <Flammability>0.6</Flammability>
       <DeteriorationRate>2.0</DeteriorationRate>
     </statBases>
     <intricate>true</intricate>
     <thingCategories>
       <li>Manufactured</li>
     </thingCategories>
+    <tradeTags>
+      <li>ExoticMisc</li>
+    </tradeTags>
   </ThingDef>
   
   <!--=============== Neutroamine ====================-->
@@ -162,17 +164,18 @@
   <ThingDef ParentName="ResourceBase">
     <defName>Neutroamine</defName>
     <label>neutroamine</label>
-    <description>A synthetic precursor chemical. Useless on its own, many drugs require neutroamine as an ingredient.</description>
+    <description>A synthetic precursor chemical. While it is useless on its own, many drugs require neutroamine as an ingredient.</description>
     <graphicData>
       <texPath>Things/Item/Resource/Neutroamine</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
+      <graphicClass>Graphic_StackCount</graphicClass>
+      <drawSize>0.90</drawSize>
     </graphicData>
-    <stackLimit>400</stackLimit>
+    <stackLimit>150</stackLimit>
     <statBases>
       <MaxHitPoints>50</MaxHitPoints>
       <MarketValue>6</MarketValue>
       <Mass>0.02</Mass>
-      <Flammability>1.0</Flammability>
+      <Flammability>0.7</Flammability>
 			<DeteriorationRate>1.0</DeteriorationRate>
 		</statBases>
     <thingCategories>
@@ -185,20 +188,19 @@
   <ThingDef ParentName="ResourceBase">
     <defName>Chemfuel</defName>
     <label>chemfuel</label>
-    <description>Volatile liquid chemical compound. Used to fuel rockets and other machines.</description>
+    <description>A volatile liquid chemical. Used to fuel engines and rockets, or to transmute into propellant for projectiles, or as an incendiary weapon.</description>
 		<tickerType>Normal</tickerType>
     <graphicData>
       <texPath>Things/Item/Resource/Chemfuel</texPath>
       <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>0.85</drawSize>
     </graphicData>
-    <stackLimit>400</stackLimit>
-		<deepCommonality>2</deepCommonality>
-		<deepCountPerCell>300</deepCountPerCell>
+    <stackLimit>150</stackLimit>
 		<statBases>
       <MaxHitPoints>50</MaxHitPoints>
-      <MarketValue>3</MarketValue>
+      <MarketValue>2.3</MarketValue>
       <Mass>0.05</Mass>
-      <Flammability>1.0</Flammability>
+      <Flammability>2.0</Flammability>
 			<DeteriorationRate>1.0</DeteriorationRate>
 		</statBases>
     <thingCategories>
@@ -211,7 +213,7 @@
 				<explosiveExpandPerStackcount>0.037</explosiveExpandPerStackcount>
 				<startWickOnDamageTaken>Flame</startWickOnDamageTaken>
 				<startWickHitPointsPercent>0.333</startWickHitPointsPercent>
-				<preExplosionSpawnThingDef>FilthFuel</preExplosionSpawnThingDef>
+				<preExplosionSpawnThingDef>Filth_Fuel</preExplosionSpawnThingDef>
 				<preExplosionSpawnChance>1</preExplosionSpawnChance>
 				<wickTicks>
 					<min>70</min>

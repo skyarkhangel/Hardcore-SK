@@ -5,9 +5,9 @@
 		<defName>Ammo303British</defName>
 		<label>.303 British</label>
 		<parent>AmmoRifles</parent>
-    <iconPath>UI/Icons/ThingCategories/CaliberRifle</iconPath>
+		<iconPath>UI/Icons/ThingCategories/CaliberRifle</iconPath>
 	</ThingCategoryDef>
-	
+
 	<!-- ==================== AmmoSet ========================== -->
 
 	<CombatExtended.AmmoSetDef>
@@ -19,25 +19,37 @@
 			<Ammo_303British_HP>Bullet_303British_HP</Ammo_303British_HP>
 		</ammoTypes>
 	</CombatExtended.AmmoSetDef>
-	
+
 	<!-- ==================== Ammo ========================== -->
 
-	<ThingDef Name="303BritishBase" ParentName="SmallAmmoBase" Abstract="True">
+	<ThingDef Class="CombatExtended.AmmoDef" Name="303BritishBase" ParentName="SmallAmmoBase" Abstract="True">
 		<description>Large rifle bullet found mostly in outdated bolt-action firearms.</description>
 		<statBases>
-		<Mass>0.03</Mass>
-		<Bulk>0.05</Bulk>
+			<Mass>0.03</Mass>
+			<Bulk>0.05</Bulk>
 		</statBases>
-	<tradeTags>
-		<li>CE_AutoEnableTrade</li>
-		<li>CE_AutoEnableCrafting</li>
-	</tradeTags>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting</li>
+		</tradeTags>
 		<thingCategories>
 			<li>Ammo303British</li>
 		</thingCategories>
+		<comps>
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>0.6</explosiveRadius>
+				<explosiveDamageType>Flame</explosiveDamageType>
+				<explosiveExpandPerStackcount>0.01</explosiveExpandPerStackcount>
+				<startWickHitPointsPercent>0.333</startWickHitPointsPercent>
+				<wickTicks>
+					<min>5</min>
+					<max>10</max>
+				</wickTicks>
+			</li>
+		</comps>
 	</ThingDef>
 
-	<ThingDef ParentName="303BritishBase">
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="303BritishBase">
 		<defName>Ammo_303British_FMJ</defName>
 		<label>.303 British cartridge (FMJ)</label>
 		<graphicData>
@@ -51,7 +63,7 @@
 		<cookOffProjectile>Bullet_303British_FMJ</cookOffProjectile>
 	</ThingDef>
 
-	<ThingDef ParentName="303BritishBase">
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="303BritishBase">
 		<defName>Ammo_303British_AP</defName>
 		<label>.303 British cartridge (AP)</label>
 		<graphicData>
@@ -65,7 +77,7 @@
 		<cookOffProjectile>Bullet_303British_AP</cookOffProjectile>
 	</ThingDef>
 
-	<ThingDef ParentName="303BritishBase">
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="303BritishBase">
 		<defName>Ammo_303British_HP</defName>
 		<label>.303 British cartridge (HP)</label>
 		<graphicData>
@@ -78,15 +90,15 @@
 		<ammoClass>HollowPoint</ammoClass>
 		<cookOffProjectile>Bullet_303British_HP</cookOffProjectile>
 	</ThingDef>
-	
+
 	<!-- ================== Projectiles ================== -->
-	
-	<ThingDef Name="Base303BritishBullet" ParentName="BaseBullet" Abstract="true">
+
+	<ThingDef Name="Base303BritishBullet" ParentName="SK_BaseBullet" Abstract="true">
 		<graphicData>
 			<texPath>Things/Projectile/Bullet_Small</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
-		<projectile>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<damageDef>Bullet</damageDef>
 			<speed>169</speed>
 			<dropsCasings>true</dropsCasings>
@@ -96,188 +108,188 @@
 	<ThingDef ParentName="Base303BritishBullet">
 		<defName>Bullet_303British_FMJ</defName>
 		<label>.303 British bullet (FMJ)</label>
-		<projectile>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<damageAmountBase>20</damageAmountBase>
-			<armorPenetration>0.57</armorPenetration>
+			<armorPenetrationBase>0.57</armorPenetrationBase>
 		</projectile>
 	</ThingDef>
 
 	<ThingDef ParentName="Base303BritishBullet">
 		<defName>Bullet_303British_AP</defName>
 		<label>.303 British bullet (AP)</label>
-		<projectile>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<damageAmountBase>18</damageAmountBase>
-			<armorPenetration>0.74</armorPenetration>
+			<armorPenetrationBase>0.74</armorPenetrationBase>
 		</projectile>
 	</ThingDef>
 
 	<ThingDef ParentName="Base303BritishBullet">
 		<defName>Bullet_303British_HP</defName>
 		<label>.303 British bullet (HP)</label>
-		<projectile>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<damageAmountBase>27</damageAmountBase>
-			<armorPenetration>0.54</armorPenetration>
+			<armorPenetrationBase>0.54</armorPenetrationBase>
 		</projectile>
 	</ThingDef>
-  
+
 	<!-- ==================== Recipes ========================== -->
 
-  <RecipeDef ParentName="AmmoRecipeRifle">
-    <defName>MakeAmmo_303British_FMJ</defName>
-    <label>make .303 British (FMJ) cartridge x80</label>
-    <description>Craft 80 .303 British (FMJ) cartridges.</description>
-    <jobString>Making .303 British (FMJ) cartridges.</jobString>
-    <ingredients>
-      <li>
-        <filter>
-          <categories>
-			<li>SLDBar</li>
-			<li>USLDBar</li>
-          </categories>
-        </filter>
-        <count>11</count>
-      </li>
-      <li>
-        <filter>
-          <categories>
-            <li>HeavyBar</li>
-          </categories>
-        </filter>
-        <count>3</count>
-      </li>
-      <li>
-        <filter>
-          <thingDefs>
-            <li>Powder</li>
-          </thingDefs>
-        </filter>
-        <count>4</count>
-      </li>
-    </ingredients>
-    <fixedIngredientFilter>
-      <categories>
-        <li>SLDBar</li>
-        <li>USLDBar</li>
-		<li>HeavyBar</li>
-      </categories>
-      <thingDefs>
-        <li>Powder</li>
-      </thingDefs>
-    </fixedIngredientFilter>
-    <products>
-      <Ammo_303British_FMJ>80</Ammo_303British_FMJ>
-    </products>
-	<skillRequirements>
-		<Crafting>4</Crafting>
-	</skillRequirements>
-    <workSkill>Crafting</workSkill>
-    <workSkillLearnFactor>0.8</workSkillLearnFactor>
-  </RecipeDef>
-  
-  <RecipeDef ParentName="AmmoRecipeRifle">
-    <defName>MakeAmmo_303British_AP</defName>
-    <label>make .303 British (AP) cartridge x80</label>
-    <description>Craft 80 .303 British (AP) cartridges.</description>
-    <jobString>Making .303 British (AP) cartridges.</jobString>
-    <ingredients>
-      <li>
-        <filter>
-          <categories>
-			<li>SLDBar</li>
-			<li>USLDBar</li>
-          </categories>
-        </filter>
-        <count>11</count>
-      </li>
-      <li>
-        <filter>
-          <categories>
-			<li>USLDHBar</li>
-			<li>Ceramic</li>
-          </categories>
-        </filter>
-        <count>3</count>
-      </li>
-      <li>
-        <filter>
-          <thingDefs>
-            <li>Powder</li>
-          </thingDefs>
-        </filter>
-        <count>4</count>
-      </li>
-    </ingredients>
-    <fixedIngredientFilter>
-      <categories>
-        <li>SLDBar</li>
-        <li>USLDBar</li>
-		<li>USLDHBar</li>
-		<li>Ceramic</li>
-      </categories>
-      <thingDefs>
-        <li>Powder</li>
-      </thingDefs>
-    </fixedIngredientFilter>
-    <products>
-      <Ammo_303British_AP>80</Ammo_303British_AP>
-    </products>
-	<skillRequirements>
-		<Crafting>5</Crafting>
-	</skillRequirements>
-    <workSkill>Crafting</workSkill>
-    <workSkillLearnFactor>0.8</workSkillLearnFactor>
-  </RecipeDef>
-  
-  <RecipeDef ParentName="AmmoRecipeRifle">
-    <defName>MakeAmmo_303British_HP</defName>
-    <label>make .303 British (HP) cartridge x80</label>
-    <description>Craft 80 .303 British (HP) cartridges.</description>
-    <jobString>Making .303 British (HP) cartridges.</jobString>
-    <ingredients>
-      <li>
-        <filter>
-          <categories>
-			<li>SLDBar</li>
-			<li>USLDBar</li>
-          </categories>
-        </filter>
-        <count>11</count>
-      </li>
-      <li>
-        <filter>
-          <thingDefs>
-            <li>Carbon</li>
-          </thingDefs>
-        </filter>
-        <count>3</count>
-      </li>
-      <li>
-        <filter>
-          <thingDefs>
-            <li>Powder</li>
-          </thingDefs>
-        </filter>
-        <count>4</count>
-      </li>
-    </ingredients>
-    <fixedIngredientFilter>
-      <categories>
-        <li>SLDBar</li>
-        <li>USLDBar</li>
-      </categories>
-      <thingDefs>
-        <li>Carbon</li>
-        <li>Powder</li>
-      </thingDefs>
-    </fixedIngredientFilter>
-    <products>
-      <Ammo_303British_HP>80</Ammo_303British_HP>
-    </products>
-	<skillRequirements>
-		<Crafting>6</Crafting>
-	</skillRequirements>
-    <workSkill>Crafting</workSkill>
-    <workSkillLearnFactor>0.8</workSkillLearnFactor>
-  </RecipeDef>
-	
+	<RecipeDef ParentName="AmmoRecipeRifle">
+		<defName>MakeAmmo_303British_FMJ</defName>
+		<label>make .303 British (FMJ) cartridge x80</label>
+		<description>Craft 80 .303 British (FMJ) cartridges.</description>
+		<jobString>Making .303 British (FMJ) cartridges.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>SLDBar</li>
+						<li>USLDBar</li>
+					</categories>
+				</filter>
+				<count>11</count>
+			</li>
+			<li>
+				<filter>
+					<categories>
+						<li>HeavyBar</li>
+					</categories>
+				</filter>
+				<count>3</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Powder</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>SLDBar</li>
+				<li>USLDBar</li>
+				<li>HeavyBar</li>
+			</categories>
+			<thingDefs>
+				<li>Powder</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_303British_FMJ>80</Ammo_303British_FMJ>
+		</products>
+		<skillRequirements>
+			<Crafting>4</Crafting>
+		</skillRequirements>
+		<workSkill>Crafting</workSkill>
+		<workSkillLearnFactor>0.8</workSkillLearnFactor>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeRifle">
+		<defName>MakeAmmo_303British_AP</defName>
+		<label>make .303 British (AP) cartridge x80</label>
+		<description>Craft 80 .303 British (AP) cartridges.</description>
+		<jobString>Making .303 British (AP) cartridges.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>SLDBar</li>
+						<li>USLDBar</li>
+					</categories>
+				</filter>
+				<count>11</count>
+			</li>
+			<li>
+				<filter>
+					<categories>
+						<li>USLDHBar</li>
+						<li>Ceramic</li>
+					</categories>
+				</filter>
+				<count>3</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Powder</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>SLDBar</li>
+				<li>USLDBar</li>
+				<li>USLDHBar</li>
+				<li>Ceramic</li>
+			</categories>
+			<thingDefs>
+				<li>Powder</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_303British_AP>80</Ammo_303British_AP>
+		</products>
+		<skillRequirements>
+			<Crafting>5</Crafting>
+		</skillRequirements>
+		<workSkill>Crafting</workSkill>
+		<workSkillLearnFactor>0.8</workSkillLearnFactor>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeRifle">
+		<defName>MakeAmmo_303British_HP</defName>
+		<label>make .303 British (HP) cartridge x80</label>
+		<description>Craft 80 .303 British (HP) cartridges.</description>
+		<jobString>Making .303 British (HP) cartridges.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>SLDBar</li>
+						<li>USLDBar</li>
+					</categories>
+				</filter>
+				<count>11</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Carbon</li>
+					</thingDefs>
+				</filter>
+				<count>3</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Powder</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>SLDBar</li>
+				<li>USLDBar</li>
+			</categories>
+			<thingDefs>
+				<li>Carbon</li>
+				<li>Powder</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_303British_HP>80</Ammo_303British_HP>
+		</products>
+		<skillRequirements>
+			<Crafting>6</Crafting>
+		</skillRequirements>
+		<workSkill>Crafting</workSkill>
+		<workSkillLearnFactor>0.8</workSkillLearnFactor>
+	</RecipeDef>
+
 </Defs>

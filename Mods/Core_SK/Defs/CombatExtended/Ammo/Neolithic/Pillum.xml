@@ -1,36 +1,77 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
- 
-  <!-- ================== Pilum ================== -->
-  
-  <ThingDef Name="BaseProjectileNeolithic" Abstract="True">
-    <category>Projectile</category>
-    <tickerType>Normal</tickerType>
-    <altitudeLayer>Projectile</altitudeLayer>
-    <thingClass>CombatExtended.BulletCE</thingClass>
-    <label>arrow</label>
-    <useHitPoints>False</useHitPoints>
-    <neverMultiSelect>True</neverMultiSelect>
-    <graphicData>
-      <shaderType>Transparent</shaderType>
-    </graphicData>
-    <projectile Class="CombatExtended.ProjectilePropertiesCE" />
-  </ThingDef>
-  
-  
-  <ThingDef ParentName="BaseProjectileNeolithic">
-    <defName>Pilum_Thrown</defName>
-    <label>pilum (thrown)</label>
-    <graphicData>
-      <texPath>Things/Projectile/Pilum</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-    </graphicData>
-    <projectile Class="CombatExtended.ProjectilePropertiesCE">
-      <damageDef>Stab</damageDef>
-      <damageAmountBase>24</damageAmountBase>
-      <speed>30</speed>
-	  <armorPenetration>0.38</armorPenetration>
-    </projectile>
-  </ThingDef>
-	
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_Javelins</defName>
+		<label>javelins</label>
+		<ammoTypes>
+			<Pila>Pilum_Fired</Pila>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<!-- ================== Pilum ================== -->
+
+	<ThingDef Name="SK_BaseProjectileNeolithic" Abstract="True">
+		<category>Projectile</category>
+		<tickerType>Normal</tickerType>
+		<altitudeLayer>Projectile</altitudeLayer>
+		<thingClass>CombatExtended.BulletCE</thingClass>
+		<label>arrow</label>
+		<useHitPoints>False</useHitPoints>
+		<neverMultiSelect>True</neverMultiSelect>
+		<graphicData>
+			<shaderType>Transparent</shaderType>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE" />
+	</ThingDef>
+
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="SK_BaseProjectileNeolithic" Name="BasePilumProjectile" Abstract="true">
+		<graphicData>
+			<texPath>Things/Projectile/Pilum</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Stab</damageDef>
+		</projectile>
+	</ThingDef>
+
+	<!-- The amount of arrows usable over the ammo lifetime for each resource cost is equal to
+	[r / (1 - x)];
+		x = preExplosionSpawnChance,
+		r = resource cost. -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BasePilumProjectile">
+		<defName>Pilum_Thrown</defName>
+		<label>pilum (thrown)</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageAmountBase>24</damageAmountBase>
+			<speed>26</speed>
+			<armorPenetrationBase>0.35</armorPenetrationBase>
+			<preExplosionSpawnChance>0.75</preExplosionSpawnChance>
+			<!-- 4 javelins per resource -->
+			<preExplosionSpawnThingDef>Pila</preExplosionSpawnThingDef>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BasePilumProjectile">
+		<defName>Pilum_Fired</defName>
+		<label>pilum (fired)</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageAmountBase>26</damageAmountBase>
+			<speed>38</speed>
+			<armorPenetrationBase>0.4</armorPenetrationBase>
+			<preExplosionSpawnChance>0.6</preExplosionSpawnChance>
+			<!-- 2.5 javelins per resource -->
+			<preExplosionSpawnThingDef>Pila</preExplosionSpawnThingDef>
+		</projectile>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
 </Defs>

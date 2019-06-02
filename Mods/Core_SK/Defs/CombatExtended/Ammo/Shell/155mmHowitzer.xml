@@ -21,7 +21,7 @@
 
 	<!-- ==================== Ammo ========================== -->
 
-	<ThingDef Name="155mmHowitzerShellBase" ParentName="AmmoBase" Abstract="True">
+	<ThingDef Class="CombatExtended.AmmoDef" Name="155mmHowitzerShellBase" ParentName="AmmoBase" Abstract="True">
 		<description>155mm howitzer shell.</description>
 		<thingCategories>
 			<li>Ammo155mmCannonShells</li>
@@ -43,7 +43,7 @@
 		<cookOffTailSound>ShellCookOff_Ambient</cookOffTailSound>
 	</ThingDef>
 
-	<ThingDef ParentName="155mmHowitzerShellBase">
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="155mmHowitzerShellBase">
 		<defName>Ammo_155mmHowitzerShell_HE</defName>
 		<label>155mm howitzer shell (HE)</label>
 		<description>155 mm (6.1") is a common and NATO-standard artillery calibre.</description>
@@ -61,15 +61,16 @@
 				<explosionDamage>120</explosionDamage>
 				<explosionDamageDef>Bomb</explosionDamageDef>
 				<explosionRadius>7</explosionRadius>
+				<soundExplode>Explosion_GiantBomb</soundExplode>
 				<fragments>
-					<Fragment_Shell>570</Fragment_Shell>
+					<Fragment_Shell>420</Fragment_Shell>
 				</fragments>
 				<fragRange>13</fragRange>
 			</li>
 		</comps>
 	</ThingDef>
 
-	<ThingDef ParentName="155mmHowitzerShellBase">
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="155mmHowitzerShellBase">
 		<defName>Ammo_155mmHowitzerShell_EMP</defName>
 		<label>155mm howitzer shell (EMP)</label>
 		<description>155 mm (6.1") is a common and NATO-standard artillery calibre.</description>
@@ -81,6 +82,7 @@
 			<MarketValue>150</MarketValue>
 		</statBases>
 		<ammoClass>GrenadeEMP</ammoClass>
+		<generateAllowChance>0</generateAllowChance>
 		<cookOffProjectile>Bullet_155mmHowitzerShell_EMP</cookOffProjectile>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
@@ -88,7 +90,7 @@
 				<explosionDamageDef>Bomb</explosionDamageDef>
 				<explosionRadius>2.4</explosionRadius>
 				<fragments>
-					<Fragment_Shell>70</Fragment_Shell>
+					<Fragment_Shell>50</Fragment_Shell>
 				</fragments>
 			</li>
 		</comps>
@@ -96,12 +98,12 @@
 
 	<!-- ================== Projectiles ================== -->
 
-	<ThingDef Name="Base155mmHowitzerShell" ParentName="BaseBullet" Abstract="true">
+	<ThingDef Name="Base155mmHowitzerShell" ParentName="SK_BaseBullet" Abstract="true">
 		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
 		<graphicData>
 			<shaderType>TransparentPostLight</shaderType>
 		</graphicData>
-		<projectile>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<speed>100</speed>
 			<soundExplode>MortarBomb_Explode</soundExplode>
 			<flyOverhead>true</flyOverhead>
@@ -117,12 +119,19 @@
 			<texPath>Things/Projectile/Cannon/HE</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
-		<projectile>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<damageDef>Bomb</damageDef>
 			<damageAmountBase>150</damageAmountBase>
 			<explosionRadius>3</explosionRadius>
-			<soundExplode>MortarBomb_Explode</soundExplode>
-			<armorPenetration>2.7</armorPenetration>
+			<explosionChanceToStartFire>0.22</explosionChanceToStartFire>
+			<explosionEffect>GiantExplosion</explosionEffect>
+			<soundHitThickRoof>Artillery_HitThickRoof</soundHitThickRoof>
+			<soundExplode>Explosion_GiantBomb</soundExplode>
+			<soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
+			<soundAmbient>MortarRound_Ambient</soundAmbient>
+			<armorPenetrationBase>2.7</armorPenetrationBase>
+			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<ai_IsIncendiary>true</ai_IsIncendiary>
 		</projectile>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
@@ -130,7 +139,7 @@
 				<explosionDamageDef>Bomb</explosionDamageDef>
 				<explosionRadius>5</explosionRadius>
 				<fragments>
-					<Fragment_Shell>480</Fragment_Shell>
+					<Fragment_Shell>320</Fragment_Shell>
 				</fragments>
 				<fragRange>13</fragRange>
 			</li>
@@ -145,11 +154,11 @@
 			<texPath>Things/Projectile/Cannon/EMP</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
-		<projectile>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<damageDef>Bomb</damageDef>
 			<damageAmountBase>190</damageAmountBase>
 			<explosionRadius>2.2</explosionRadius>
-			<armorPenetration>2.4</armorPenetration>
+			<armorPenetrationBase>2.4</armorPenetrationBase>
 			<soundExplode>Explosion_EMP</soundExplode>
 		</projectile>
 		<comps>
@@ -199,7 +208,7 @@
 			<li>
 				<filter>
 					<thingDefs>
-						<li>Component</li>
+						<li>ComponentIndustrial</li>
 					</thingDefs>
 				</filter>
 				<count>3</count>
@@ -214,7 +223,7 @@
 			<thingDefs>
 				<li>Powder</li>
 				<li>FSX</li>
-				<li>Component</li>
+				<li>ComponentIndustrial</li>
 			</thingDefs>
 		</fixedIngredientFilter>
 		<products>
@@ -257,7 +266,7 @@
 			<li>
 				<filter>
 					<thingDefs>
-						<li>Component</li>
+						<li>ComponentIndustrial</li>
 					</thingDefs>
 				</filter>
 				<count>4</count>
@@ -271,7 +280,7 @@
 			</categories>
 			<thingDefs>
 				<li>Powder</li>
-				<li>Component</li>
+				<li>ComponentIndustrial</li>
 			</thingDefs>
 		</fixedIngredientFilter>
 		<products>

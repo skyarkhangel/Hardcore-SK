@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>AmmoFlamethrower</defName>
+		<label>flamethrower fuel</label>
+		<parent>AmmoAdvanced</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberFuel</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_Flamethrower</defName>
+		<label>flamethrower fuel</label>
+		<ammoTypes>
+			<Ammo_Flamethrower_Napalm>Bullet_Flamethrower_Napalm</Ammo_Flamethrower_Napalm>
+			<Ammo_Flamethrower_Prometheum>Bullet_Flamethrower_Prometheum</Ammo_Flamethrower_Prometheum>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="FlamethrowerBase" ParentName="SpacerSmallAmmoBase" Abstract="True">
+		<description>Fuel for use with a flamethrower.</description>
+		<statBases>
+			<MaxHitPoints>70</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<Mass>0.05</Mass>
+			<Bulk>0.1</Bulk>
+		</statBases>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting_DrugLab</li>
+		</tradeTags>
+		<thingCategories>
+			<li>AmmoFlamethrower</li>
+		</thingCategories>
+		<stackLimit>75</stackLimit>
+		<comps>
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>1.3</explosiveRadius>
+				<explosiveDamageType>Flame</explosiveDamageType>
+				<explosiveExpandPerStackcount>0.01</explosiveExpandPerStackcount>
+				<startWickHitPointsPercent>0.333</startWickHitPointsPercent>
+				<wickTicks>
+					<min>5</min>
+					<max>10</max>
+				</wickTicks>
+			</li>
+			<li Class="CompProperties_Forbiddable"/>
+		</comps>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="FlamethrowerBase">
+		<defName>Ammo_Flamethrower_Napalm</defName>
+		<label>Napalm</label>
+		<graphicData>
+			<texPath>Things/Ammo/FuelCell/Incendiary</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>0.3</MarketValue>
+		</statBases>
+		<ammoClass>IncendiaryFuel</ammoClass>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="FlamethrowerBase">
+		<defName>Ammo_Flamethrower_Prometheum</defName>
+		<label>jellied Prometheum</label>
+		<graphicData>
+			<texPath>Things/Ammo/FuelCell/Incendiary</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>0.7</MarketValue>
+		</statBases>
+		<ammoClass>IncendiaryFuel</ammoClass>
+	</ThingDef>
+
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="BaseFlamethrowerBullet" ParentName="BaseBullet" Abstract="true">
+		<graphicData>
+			<texPath>Things/Special/Fire/FireA</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>TransparentPostLight</shaderType>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>20</speed>
+			<flyOverhead>false</flyOverhead>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BaseFlamethrowerBullet">
+		<defName>Bullet_Flamethrower_Napalm</defName>
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		<label>Napalm stream</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>PrometheumFlame</damageDef>
+			<damageAmountBase>3</damageAmountBase>
+			<preExplosionSpawnThingDef>Filth_Fuel</preExplosionSpawnThingDef>
+			<preExplosionSpawnChance>0.33</preExplosionSpawnChance>
+			<soundExplode>CE_FlamethrowerExplosion</soundExplode>
+			<explosionRadius>1.0</explosionRadius>
+			<ai_IsIncendiary>true</ai_IsIncendiary>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BaseFlamethrowerBullet">
+		<defName>Bullet_Flamethrower_Prometheum</defName>
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		<label>jellied Prometheum stream</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>PrometheumFlame</damageDef>
+			<damageAmountBase>5</damageAmountBase>
+			<preExplosionSpawnThingDef>FilthPrometheum</preExplosionSpawnThingDef>
+			<preExplosionSpawnChance>0.67</preExplosionSpawnChance>
+			<soundExplode>CE_FlamethrowerExplosion</soundExplode>
+			<explosionRadius>1.2</explosionRadius>
+			<ai_IsIncendiary>true</ai_IsIncendiary>
+		</projectile>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef Name="FlamethrowerAmmoRecipeBase" ParentName="AmmoRecipeBase" Abstract="true">
+		<workSpeedStat>DrugSynthesisSpeed</workSpeedStat>
+		<effectWorking>Cook</effectWorking>
+		<soundWorking>Recipe_CookMeal</soundWorking>
+		<workSkill>Intellectual</workSkill>
+	</RecipeDef>
+
+	<RecipeDef ParentName="FlamethrowerAmmoRecipeBase">
+		<defName>MakeAmmo_Flamethrower_Napalm</defName>
+		<label>make Napalm x100</label>
+		<description>Craft 100 units of Napalm.</description>
+		<jobString>Making Napalm.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Chemfuel</li>
+					</thingDefs>
+				</filter>
+				<count>20</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Chemfuel</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_Flamethrower_Napalm>100</Ammo_Flamethrower_Napalm>
+		</products>
+	</RecipeDef>
+
+	<RecipeDef ParentName="FlamethrowerAmmoRecipeBase">
+		<defName>MakeAmmo_Flamethrower_Prometheum</defName>
+		<label>make jellied Prometheum x100</label>
+		<description>Craft 100 units of jellied Prometheum.</description>
+		<jobString>Making jellied Prometheum.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Prometheum</li>
+					</thingDefs>
+				</filter>
+				<count>20</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Prometheum</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_Flamethrower_Prometheum>100</Ammo_Flamethrower_Prometheum>
+		</products>
+	</RecipeDef>
+
+</Defs>

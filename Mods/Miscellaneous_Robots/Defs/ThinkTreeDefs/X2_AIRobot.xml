@@ -29,93 +29,58 @@
 				<li Class="ThinkNode_QueuedJob" />
 
 				<!-- Wait if drafted -->
-				<li Class="ThinkNode_ConditionalColonist">
+				<li Class="ThinkNode_Tagger">
+					<tagToGive>DraftedOrder</tagToGive>
 					<subNodes>
-						<li Class="ThinkNode_Tagger">
-							<tagToGive>DraftedOrder</tagToGive>
-							<subNodes>
-								<li Class="JobGiver_Orders" />
-							</subNodes>
-						</li>
+						<li Class="JobGiver_Orders" />
 					</subNodes>
 				</li>
 
-				<!-- Lord directives (high priority) 
-				<li Class="ThinkNode_JoinVoluntarilyJoinableLord">
-					<dutyHook>HighPriority</dutyHook>
-					<subNodes>
-						<li Class="ThinkNode_Subtree">
-							<treeDef>AIRobot_LordDuty</treeDef>
-						</li>
-					</subNodes>
-				</li>
-				-->
 
-				<li Class="ThinkNode_ConditionalOfPlayerFaction">
-					<subNodes>
-						<!-- Seek allowed area -->
-						<li Class="JobGiver_SeekAllowedArea" />
-						<!-- Seek safe temperatures -->
-						<li Class="JobGiver_SeekSafeTemperature" />
-						<!-- Drop unused inventory -->
-						<li Class="JobGiver_DropUnusedInventory" />
-						<!-- Emergency work 
-						<li Class="JobGiver_Work">
-							<leaveJoinableLordIfIssuesJob>true</leaveJoinableLordIfIssuesJob>
-							<emergency>true</emergency>
-						</li>  -->
-					</subNodes>
-				</li>
+				<!-- Seek allowed area -->
+				<li Class="JobGiver_SeekAllowedArea" />
+				<!-- Seek safe temperatures -->
+				<li Class="JobGiver_SeekSafeTemperature" />
+				<!-- Drop unused inventory -->
+				<li Class="JobGiver_DropUnusedInventory" />
 
-				<!-- Lord directives (medium priority) 
-				<li Class="ThinkNode_JoinVoluntarilyJoinableLord">
-					<dutyHook>MediumPriority</dutyHook>
-					<subNodes>
-						<li Class="ThinkNode_Subtree">
-							<treeDef>AIRobot_LordDuty</treeDef>
-						</li>
-					</subNodes>
-				</li>
-				-->
 
 				<!-- Main behavior core-->
-				<li Class="ThinkNode_ConditionalOfPlayerFaction">
-					<subNodes>		
-						<li Class="ThinkNode_PrioritySorter">
-							<subNodes>
-								<!-- AIPawn - satisfy basic needs -->
-								<li Class="AIRobot.X2_JobGiver_RechargeEnergy" />
-								
-								<li Class="AIRobot.X2_JobGiver_Work" />
-							</subNodes>
+				<li Class="ThinkNode_PrioritySorter">
+					<subNodes>
+						<!-- AIPawn - satisfy basic needs -->
+						<li Class="AIRobot.X2_JobGiver_RechargeEnergy" />
+
+						<li Class="AIRobot.X2_JobGiver_Work" />
+					</subNodes>
+				</li>
+
+
+				<!-- Idle wander for colonists -->
+				<li Class="AIRobot.X2_JobGiver_Return2BaseRoom" />
+				<li Class="AIRobot.X2_JobGiver_RechargeEnergyIdle" />
+				
+				<li Class="ThinkNode_Tagger">
+					<tagToGive>Idle</tagToGive>
+					<subNodes>
+						<!-- Wander -->
+						<li Class="JobGiver_WanderColony">
+							<maxDanger>None</maxDanger>
 						</li>
 					</subNodes>
 				</li>
 
-				<!-- Idle wander for colonists -->
-				<li Class="ThinkNode_ConditionalOfPlayerFaction">
-					<subNodes>
-						<li Class="AIRobot.X2_JobGiver_Return2BaseRoom" />
-						<li Class="ThinkNode_Tagger">
-							<tagToGive>Idle</tagToGive>
-							<subNodes>
-								<!-- Wander -->
-								<li Class="JobGiver_WanderColony">
-									<maxDanger>None</maxDanger>
-								</li>
-							</subNodes>
-						</li>
-					</subNodes>
-				</li>
 
 
 				<!-- If you're a neutral non-prisoner, if you're not bleeding exit the map, otherwise wander the room -->
 				<li Class="ThinkNode_ConditionalPrisoner">
 					<invert>true</invert>
 					<subNodes>
-						<li Class="ThinkNode_ConditionalNeutralFaction">
+						<li Class="ThinkNode_ConditionalNonPlayerNonHostileFactionOrFactionless">
 							<subNodes>
-								<li Class="JobGiver_ExitMapBest" />
+								<li Class="JobGiver_ExitMapBest" >
+									<defaultLocomotion>Walk</defaultLocomotion>
+								</li>
 							</subNodes>
 						</li>
 					</subNodes>

@@ -41,11 +41,22 @@
           <treeDef>SatisfyVeryUrgentNeeds</treeDef>
         </li>
         
-        <!-- Wander near duty target -->
+        <!-- Follow colonists if you're a pack animal -->
+        <li Class="ThinkNode_ConditionalPackAnimalHasColonistToFollowWhilePacking">
+          <subNodes>
+            <li Class="JobGiver_PackAnimalFollowColonists" />
+
+            <!-- Wander anywhere if you're close enough -->
+            <li Class="JobGiver_WanderAnywhere"/>
+          </subNodes>
+        </li>
+
+        <!-- Wander near duty location -->
         <li Class="ThinkNode_ConditionalHasDutyTarget">
           <subNodes>
             <li Class="JobGiver_WanderNearDutyLocation">
               <wanderRadius>5</wanderRadius>
+              <expiryInterval>120</expiryInterval>
             </li>
           </subNodes>
         </li>
@@ -112,6 +123,24 @@
             <li Class="JobGiver_WanderCurrentRoom"/>
           </subNodes>
         </li>
+        
+        <!-- Wander anywhere -->
+        <li Class="JobGiver_WanderAnywhere"/>
+      </subNodes>
+    </thinkNode>
+  </DutyDef>
+
+  <DutyDef>
+    <defName>PrepareCaravan_GatherDownedPawns</defName>
+    <thinkNode Class="ThinkNode_Priority">
+      <subNodes>
+        <!-- Basic needs -->
+        <li Class="ThinkNode_Subtree">
+          <treeDef>SatisfyVeryUrgentNeeds</treeDef>
+        </li>
+      
+        <!-- Gather downed pawns -->
+        <li Class="JobGiver_PrepareCaravan_GatherDownedPawns"/>
         
         <!-- Wander anywhere -->
         <li Class="JobGiver_WanderAnywhere"/>

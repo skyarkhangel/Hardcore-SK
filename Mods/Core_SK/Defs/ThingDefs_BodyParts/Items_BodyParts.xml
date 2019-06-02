@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-	<ThingDef Name="BodyPartBase" Abstract="True">
-		<label>body part</label>
+	<ThingDef Name="SK_BodyPartBase" Abstract="True">
 		<thingClass>ThingWithComps</thingClass>
 		<category>Item</category>
 		<useHitPoints>true</useHitPoints>
@@ -16,9 +15,9 @@
 		<altitudeLayer>Item</altitudeLayer>
 		<tickerType>Never</tickerType>
 		<alwaysHaulable>true</alwaysHaulable>
-		<isBodyPartOrImplant>true</isBodyPartOrImplant>
+		<isTechHediff>true</isTechHediff>
 		<tradeTags>
-			<li>BodyPartOrImplant</li>
+			<li>TechHediff</li>
 		</tradeTags>
 		<comps>
 			<li Class="CompProperties_Forbiddable"/>
@@ -26,106 +25,65 @@
 		<pathCost>10</pathCost>
 	</ThingDef>
 
-	
-  <ThingDef Name="ImplantBase" Abstract="True">
-    <label>implant</label>
-    <thingClass>ThingWithComps</thingClass>
-    <category>Item</category>
-    <useHitPoints>true</useHitPoints>
-    <selectable>true</selectable>
-    <statBases>
-      <MaxHitPoints>50</MaxHitPoints>
-      <Flammability>1.0</Flammability>
-	  <Mass>2.5</Mass>
-      <Bulk>3</Bulk>
-    </statBases>
-    <altitudeLayer>Item</altitudeLayer>
-    <tickerType>Never</tickerType>
-    <alwaysHaulable>true</alwaysHaulable>
-    <isBodyPartOrImplant>true</isBodyPartOrImplant>
-    <tradeTags>
-      <li>BodyPartOrImplant</li>
-    </tradeTags>
-    <comps>
-      <li Class="CompProperties_Forbiddable"/>
-    </comps>
-    <thingCategories>
-      <li>BodyPartsArtificial</li>
-    </thingCategories>
-    <pathCost>10</pathCost>
-  </ThingDef>
-	  
-	<!-- artificial - advanced prosthetic weapons -->
-	
-	<ThingDef ParentName="BodyPartBase">
-		<defName>ScytherBlade</defName>
-		<label>Scyther Blade</label>
-		<description>Hand replacement with a telescoping blade.  Not very comfortable, but quite effective as a close-range weapon.</description>
-		<graphicData>
-			<texPath>Things/Item/BodyPart/MedProstheticWeapon</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
-		</graphicData>
+	<ThingDef Name="SK_BodyPartArtificialBase" ParentName="SK_BodyPartBase" Abstract="True">
+		<thingCategories>
+			<li>BodyPartsArtificial</li>
+		</thingCategories>
 		<statBases>
-			<MarketValue>1500</MarketValue>
-			<Mass>5</Mass>
+			<DeteriorationRate>2.0</DeteriorationRate>
 		</statBases>
+	</ThingDef>
+
+	<!-- lifesupport system -->
+
+
+	<ThingDef ParentName="SK_BodyPartBase">
+		<defName>lifesupport</defName>
+		<label>Life Support System</label>
+		<description>A basic piece of technology made to keep the victim/patient alive.</description>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/Organ</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
 		<techHediffsTags>
-			<li>SpecialWeapon</li>
+			<li>lifesupport</li>
 		</techHediffsTags>
-		<tradeability>Sellable</tradeability>
+		<stackLimit>5</stackLimit>
+		<statBases>
+			<MarketValue>180</MarketValue>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<DeteriorationRate>1</DeteriorationRate>
+			<Mass>2</Mass>
+		</statBases>
+		<drawGUIOverlay>true</drawGUIOverlay>
+		<altitudeLayer>Item</altitudeLayer>
+		<tickerType>Never</tickerType>
+		<alwaysHaulable>true</alwaysHaulable>
+		<isTechHediff>true</isTechHediff>
+		<comps>
+			<li Class="CompProperties_Forbiddable"/>
+		</comps>
 		<thingCategories>
 			<li>BodyParts</li>
 		</thingCategories>
+		<pathCost>10</pathCost>
 	</ThingDef>
-	
-	<!-- lifesupport system -->
-	
-	
-   <ThingDef ParentName="BodyPartBase">
-      <defName>lifesupport</defName>
-      <label>Life Support System</label>
-      <description>A basic piece of technology made to keep the victim/patient alive.</description>
-      <graphicData>
-         <texPath>Things/Item/Resource/lifesupport</texPath>
-         <graphicClass>Graphic_Single</graphicClass>
-      </graphicData>
-      <techHediffsTags>
-         <li>lifesupport</li>
-      </techHediffsTags>
-      <stackLimit>5</stackLimit>
-      <statBases>
-        <MarketValue>180</MarketValue>
-        <MaxHitPoints>50</MaxHitPoints>
-        <Flammability>1.0</Flammability>
-		<DeteriorationRate>1</DeteriorationRate>
-		<Mass>2</Mass>
-      </statBases>
-		<drawGUIOverlay>true</drawGUIOverlay>
-      <altitudeLayer>Item</altitudeLayer>
-      <tickerType>Never</tickerType>
-      <alwaysHaulable>true</alwaysHaulable>
-      <isBodyPartOrImplant>true</isBodyPartOrImplant>
-      <comps>
-			<li Class="CompProperties_Forbiddable"/>
-      </comps>
-      <thingCategories>
-         <li>BodyParts</li>
-      </thingCategories>
-      <pathCost>10</pathCost>
-   </ThingDef>
-   
-    <ThingDef ParentName="ImplantBase">
-        <defName>Senex_Implant</defName>
-        <label>senexium implant</label>
-        <description>Age accelleration implant. Multiplies aging by 100</description>
-        <graphicData>
-            <texPath>Things/Item/Implant/Implant</texPath>
-            <graphicClass>Graphic_Single</graphicClass>
-        </graphicData>
-        <statBases>
-            <MarketValue>1500</MarketValue>
+
+	<ThingDef ParentName="SK_BodyPartArtificialBase">
+		<defName>Senex_Implant</defName>
+		<label>senexium implant</label>
+		<description>Age accelleration implant. Multiplies aging by 100</description>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/Organ</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<statBases>
+			<MarketValue>1400</MarketValue>
 			<Mass>0.1</Mass>
-        </statBases>
-    </ThingDef>
-   
+		</statBases>
+	</ThingDef>
+
 </Defs>

@@ -4,18 +4,22 @@
 
 	<!-- ========== Apparel ========== -->
 
+	<!-- Armor Cap -->
+
+	<Operation Class="PatchOperationRemove">
+		<xpath>Defs/StatDef[@Name = "ArmorRatingBase"]/maxValue</xpath>
+	</Operation>
+	
 	<!-- Armor Rating : Not needed already in core sk
 
 	<Operation Class="PatchOperationReplace">
-		<xpath>*/StatDef[@Name = "ArmorRatingBase"]/parts/li[@Class = "StatPart_Quality"]</xpath>
+		<xpath>Defs/StatDef[@Name = "ArmorRatingBase"]/parts/li[@Class = "StatPart_Quality"]</xpath>
 		<value>
 			<li Class="StatPart_Quality">
 			  <factorAwful>0.7</factorAwful>
-			  <factorShoddy>0.8</factorShoddy>
 			  <factorPoor>0.9</factorPoor>
 			  <factorNormal>1</factorNormal>
 			  <factorGood>1.06</factorGood>
-			  <factorSuperior>1.12</factorSuperior>
 			  <factorExcellent>1.18</factorExcellent>
 			  <factorMasterwork>1.24</factorMasterwork>
 			  <factorLegendary>1.3</factorLegendary>
@@ -25,9 +29,32 @@
 	-->
 	
 	<Operation Class="PatchOperationAdd">
-		<xpath>*/StatDef[defName="ArmorRating_Blunt" or defName="ArmorRating_Sharp"]</xpath>
+		<xpath>Defs/StatDef[defName="ArmorRating_Blunt" or defName="ArmorRating_Sharp"]</xpath>
 		<value>
 			<toStringStyle>FloatTwo</toStringStyle>
+		</value>
+	</Operation>
+	
+	<!-- Armor Descriptions -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/StatDef[defName = "ArmorRating_Sharp"]/description</xpath>
+		<value>
+			<description>The chance to affect sharp damage like bullets, knife stabs, explosions, and animal bites.\n\nUpon taking damage, the attack's armor penetration value is compared against this armor rating.\n\nDamage is scaled based on the ratio of penetration to armor, where post-armor damage is 50% if both values are equal, 0% if penetration is half or less of armor and 100% if it is twice the value of armor.\n\nArmor penetration is scaled by the same factor, making it harder to penetrate subsequent layers of armor.\n\nAfterwards, the attack has to pass a deflection check, where the remaining armor penetration is randomized by +-0.05 and compared against the armor. If the randomized penetration value is higher than the armor value it will penetrate, else it will be converted into blunt damage and checked again against this apparel's blunt armor.</description>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/StatDef[defName = "ArmorRating_Blunt"]/description</xpath>
+		<value>
+			<description>The chance to affect sharp damage like bullets, knife stabs, explosions, and animal bites.\n\nUpon taking damage, the attack's armor penetration value is compared against this armor rating.\n\nDamage is scaled based on the ratio of penetration to armor, where post-armor damage is 50% if both values are equal, 0% if penetration is half or less of armor and 100% if it is twice the value of armor.\n\nArmor penetration is scaled by the same factor, making it harder to penetrate subsequent layers of armor.</description>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/StatDef[defName = "ArmorRating_Heat"]/description</xpath>
+		<value>
+			<description>The chance to affect temperature-related damage like burns.\n\nUpon taking damage, first this armor rating is reduced by the attack's armor penetration value. The remaining armor forms a percentage reduction of damage.</description>
 		</value>
 	</Operation>
 
@@ -36,7 +63,7 @@
 	<!-- Melee Hit Chance -->
 
 	<Operation Class="PatchOperationReplace">
-		<xpath>*/StatDef[defName="MeleeHitChance"]/postProcessCurve/points</xpath>
+		<xpath>Defs/StatDef[defName="MeleeHitChance"]/postProcessCurve/points</xpath>
 		<value>
 			<points>
 				<li>(-20, 0.10)</li>
@@ -49,7 +76,7 @@
 	</Operation>
 
 	<Operation Class="PatchOperationReplace">
-		<xpath>*/StatDef[defName="MeleeHitChance"]/noSkillOffset</xpath>
+		<xpath>Defs/StatDef[defName="MeleeHitChance"]/noSkillOffset</xpath>
 		<value>
 			<noSkillOffset>6.7</noSkillOffset>
 		</value>
@@ -58,28 +85,33 @@
 	<!-- Shooting Accuracy -->
 
 	<Operation Class="PatchOperationReplace">
-		<xpath>*/StatDef[defName="ShootingAccuracy"]/label</xpath>
+		<xpath>Defs/StatDef[defName="ShootingAccuracyPawn"]/label</xpath>
 		<value>
 			<label>weapon handling</label>
 		</value>
 	</Operation>
+	
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+			<li Class="PatchOperationTest">
+				<xpath>Defs/StatDef[defName="ShootingAccuracyPawn"]/workerClass</xpath>
+			</li>
+			<li Class="PatchOperationRemove">
+				<xpath>Defs/StatDef[defName="ShootingAccuracyPawn"]/workerClass</xpath>
+			</li>
+		</operations>
+	</Operation>
 
 	<Operation Class="PatchOperationReplace">
-		<xpath>*/StatDef[defName="ShootingAccuracy"]/description</xpath>
+		<xpath>Defs/StatDef[defName="ShootingAccuracyPawn"]/description</xpath>
 		<value>
 			<description>How well a shooter can hold a gun steady when aiming and compensate for recoil.\n\nThe total sway is calculated as:\n(4.5 - shooting accuracy) * weapon sway factor\n\nThe recoil per shot is determined by multiplying this value against the weapon's inherent recoil amount and increases after every shot in a burst.</description>
 		</value>
 	</Operation>
 
 	<Operation Class="PatchOperationAdd">
-		<xpath>*/StatDef[defName="ShootingAccuracy"]</xpath>
-		<value>
-			<minValue>0</minValue>
-		</value>
-	</Operation>
-
-	<Operation Class="PatchOperationAdd">
-		<xpath>*/StatDef[defName="ShootingAccuracy"]</xpath>
+		<xpath>Defs/StatDef[defName="ShootingAccuracyPawn"]</xpath>
 		<value>
 			<maxValue>13</maxValue>
 		</value>
@@ -89,10 +121,10 @@
 		<success>Always</success>
 		<operations>
 			<li Class="PatchOperationTest">
-				<xpath>*/StatDef[defName="ShootingAccuracy"]/skillNeedOffsets/li[@Class = "SkillNeed_Direct"]</xpath>
+				<xpath>Defs/StatDef[defName="ShootingAccuracyPawn"]/skillNeedOffsets/li[@Class = "SkillNeed_Direct"]</xpath>
 			</li>
 			<li Class="PatchOperationReplace">
-				<xpath>*/StatDef[defName="ShootingAccuracy"]/skillNeedOffsets/li[@Class = "SkillNeed_Direct"]</xpath>
+				<xpath>Defs/StatDef[defName="ShootingAccuracyPawn"]/skillNeedOffsets/li[@Class = "SkillNeed_Direct"]</xpath>
 				<value>
 					<li Class="SkillNeed_BaseBonus" />
 				</value>
@@ -101,7 +133,7 @@
 	</Operation>
 
 	<Operation Class="PatchOperationReplace">
-		<xpath>*/StatDef[defName="ShootingAccuracy"]/skillNeedOffsets/li[@Class = "SkillNeed_BaseBonus"]</xpath>
+		<xpath>Defs/StatDef[defName="ShootingAccuracyPawn"]/skillNeedOffsets/li[@Class = "SkillNeed_BaseBonus"]</xpath>
 		<value>
 			<li Class="SkillNeed_BaseBonus">
 			  <skill>Shooting</skill>
@@ -112,7 +144,7 @@
 	</Operation>
 
 	<Operation Class="PatchOperationReplace">
-		<xpath>*/StatDef[defName="ShootingAccuracy"]/capacityOffsets</xpath>
+		<xpath>Defs/StatDef[defName="ShootingAccuracyPawn"]/capacityOffsets</xpath>
 		<value>
 			<capacityOffsets>
 				<li>
@@ -124,7 +156,7 @@
 	</Operation>
 
 	<Operation Class="PatchOperationReplace">
-		<xpath>*/StatDef[defName="ShootingAccuracy"]/postProcessCurve</xpath>
+		<xpath>Defs/StatDef[defName="ShootingAccuracyPawn"]/postProcessCurve</xpath>
 		<value>
 			<postProcessCurve>
 			  <points>
@@ -140,7 +172,7 @@
 	</Operation>
 
 	<Operation Class="PatchOperationReplace">
-		<xpath>*/StatDef[defName="ShootingAccuracy"]/noSkillOffset</xpath>
+		<xpath>Defs/StatDef[defName="ShootingAccuracyPawn"]/noSkillOffset</xpath>
 		<value>
 			<noSkillFactor>2.6</noSkillFactor>
 		</value>
@@ -149,7 +181,7 @@
 	<!-- Move speed -->
 
 	<Operation Class="PatchOperationAdd">
-		<xpath>*/StatDef[defName="MoveSpeed"]</xpath>
+		<xpath>Defs/StatDef[defName="MoveSpeed"]</xpath>
 		<value>
 			<workerClass>CombatExtended.StatWorker_MoveSpeed</workerClass>
 		</value>
@@ -158,11 +190,30 @@
 	<!-- Work speed -->
 
 	<Operation Class="PatchOperationAdd">
-		<xpath>*/StatDef[defName="WorkSpeedGlobal"]</xpath>
+		<xpath>Defs/StatDef[defName="WorkSpeedGlobal"]</xpath>
 		<value>
 			<workerClass>CombatExtended.StatWorker_WorkSpeedGlobal</workerClass>
 		</value>
 	</Operation>
+
+	<!-- Ranged Weapon Damage Multiplier -->
+	<Operation Class="PatchOperationRemove">
+		<xpath>Defs/StatDef[defName="RangedWeapon_DamageMultiplier"]/parts/li[@Class="StatPart_Quality"]</xpath>
+	</Operation>
+	
+	<!-- Melee DPS -->
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/StatDef[defName="MeleeWeapon_AverageArmorPenetration"]/workerClass</xpath>
+		<value>
+			<workerClass>CombatExtended.StatWorker_MeleeArmorPenetration</workerClass>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/StatDef[defName="MeleeWeapon_AverageArmorPenetration"]/toStringStyle</xpath>
+		<value>
+			<toStringStyle>FloatTwo</toStringStyle>
+		</value>
+	</Operation>
 	
 </Patch>
-

@@ -5,12 +5,9 @@
     <layerable>true</layerable>
     <affordances>
       <li>Light</li>
+      <li>Medium</li>
       <li>Heavy</li>
-      <li>SmoothHard</li>
     </affordances>
-    <statBases>
-      <WorkToBuild>135</WorkToBuild>
-    </statBases>
     <designationCategory>Floors</designationCategory>
     <fertility>0</fertility>
     <constructEffect>ConstructDirt</constructEffect>
@@ -18,28 +15,51 @@
     <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
   </TerrainDef>
 
+  <TerrainDef Name="FAFBurnedFloorBase" Abstract="True">
+    <layerable>true</layerable>
+    <affordances>
+      <li>Light</li>
+      <li>Medium</li>
+      <li>Heavy</li>
+    </affordances>
+    <pathCost>1</pathCost>
+    <fertility>0</fertility>
+    <acceptTerrainSourceFilth>True</acceptTerrainSourceFilth>
+    <statBases>
+      <Beauty>-6</Beauty>
+    </statBases>
+  </TerrainDef> 
 
 <!-- ================= Plywood ================= -->
 
-	<TerrainDef ParentName="FAFloorBase">
+	<TerrainDef  ParentName="FAFloorBase">
 		<defName>FAFWoodTile</defName>
-		<label>Plywood panels</label>
+		<label>plywood panels</label>
 		<renderPrecedence>245</renderPrecedence>
 		<description>Sheets of compressed plywood.  A great option for cheap, temporary flooring during construction.</description>
 		<texturePath>Terrain/Surfaces/FloorPlywood</texturePath>
-		<uiIconPath>Terrain/Surfaces/FloorPlywoodIco</uiIconPath>
+		<burnedDef>FAFBurnedWoodTile</burnedDef>
 		<statBases>
 			<Beauty>-3</Beauty>
 			<WorkToBuild>40</WorkToBuild>
-			<Flammability>0.78</Flammability>
-		</statBases>
+			<Flammability>0.8</Flammability>
+    </statBases>
 		<costList>
 			<Kindling>5</Kindling>
 		</costList>
 		<constructEffect>ConstructWood</constructEffect>
-		<burnedDef>BurnedWoodPlankFloor</burnedDef>
+		<designationHotKey>Misc7</designationHotKey>
 		<designationCategory>Floors</designationCategory>
 	</TerrainDef>
+	
+	<TerrainDef ParentName="FAFBurnedFloorBase">
+		<defName>FAFBurnedWoodTile</defName>
+		<label>burned plywood floor</label>
+		<renderPrecedence>251</renderPrecedence>
+		<description>Burned-out plywood panel flooring.</description>
+		<texturePath>Terrain/Surfaces/BurnedFloorPlywood</texturePath>
+		<edgeType>FadeRough</edgeType>
+	</TerrainDef>	
 
 <!-- ================= Metal Grate ================= -->
 	
@@ -57,10 +77,10 @@
 		</statBases>
 		<costList>
 		    <Plasteel>4</Plasteel>
-			<Component>3</Component>
+			<ComponentIndustrial>1</ComponentIndustrial>
 		</costList>
 		<researchPrerequisites>
-			<li>Machining</li>
+			<li>FloorArtII</li>
 		</researchPrerequisites>
 		<designationCategory>OutsideFloors</designationCategory>
 	</TerrainDef>
@@ -75,14 +95,16 @@
 		<texturePath>Terrain/Surfaces/FloorPlate</texturePath>
 		<uiIconPath>Terrain/Surfaces/FloorPlateIco</uiIconPath>
 		<statBases>
-		    <Beauty>-2</Beauty>
-			<WorkToBuild>500</WorkToBuild>
+			<Beauty>-1</Beauty>
+			<Cleanliness>0.4</Cleanliness>
+			<WorkToBuild>400</WorkToBuild>
 		</statBases>
 		<costList>
 		    <Plasteel>4</Plasteel>
+			<ComponentIndustrial>1</ComponentIndustrial>
 		</costList>
 		<researchPrerequisites>
-			<li>Machining</li>
+			<li>FloorArtII</li>
 		</researchPrerequisites>
 		<designationCategory>OutsideFloors</designationCategory>
 	</TerrainDef>
@@ -91,9 +113,9 @@
 	
 	<TerrainDef ParentName="FAFloorBase">
 		<defName>FAFTechTile</defName>
-		<label>Dynamic panels</label>
+		<label>Sensor panels</label>
 		<renderPrecedence>242</renderPrecedence>
-		<description>These incredibly advanced floor panels are actually in active communication with one another. Utilizing built in sensors and an integrated high speed network these "smart" tiles can quickly remove most dirt particles on its surface, keeping it clean.</description>
+		<description>These incredibly advanced floor panels are actually in active communication with one another.  Utilizing built in sensors and an integrated high speed network these "smart" tiles can detect and subtly react to being walked upon to always provide an optimal surface for rapid locomotion.</description>
 		<texturePath>Terrain/Surfaces/FloorTech</texturePath>
 		<uiIconPath>Terrain/Surfaces/FloorTechIco</uiIconPath>
 		<pathCost>0</pathCost>
@@ -105,11 +127,11 @@
 	    <costList>
 		    <SilverBar>5</SilverBar>
 	        <Wire>10</Wire>
-		    <Component>3</Component>
+		    <ComponentIndustrial>3</ComponentIndustrial>
 		    <ReinforcedConcrete>10</ReinforcedConcrete>
         </costList>
 		<researchPrerequisites>
-			<li>FutureFlooring</li>
+			<li>FloorArtIV</li>
 		</researchPrerequisites>
 		<designationCategory>OutsideFloors</designationCategory>
 	</TerrainDef>

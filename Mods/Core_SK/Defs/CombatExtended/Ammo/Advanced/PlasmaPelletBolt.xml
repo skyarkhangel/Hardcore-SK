@@ -1,122 +1,134 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-    <ThingCategoryDef>
-      <defName>AmmoPlasmaPelletBolt</defName>
-      <label>Charged Plasma pellet bolt</label>
-      <parent>AmmoAdvanced</parent>
-      <iconPath>UI/Icons/ThingCategories/CaliberCharge</iconPath>
-    </ThingCategoryDef>
-	
+	<ThingCategoryDef>
+		<defName>AmmoPlasmaPelletBolt</defName>
+		<label>Charged Plasma pellet bolt</label>
+		<parent>AmmoAdvanced</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberCharge</iconPath>
+	</ThingCategoryDef>
+
 	<!-- ==================== AmmoSet ========================== -->
 
-  <CombatExtended.AmmoSetDef>
-    <defName>AmmoSet_PlasmaPelletBolt</defName>
-    <label>Plasma pellet bolt</label>
-    <ammoTypes>
-      <Ammo_PlasmaPelletBolt>Bullet_PlasmaPelletBolt</Ammo_PlasmaPelletBolt>
-    </ammoTypes>
-  </CombatExtended.AmmoSetDef>
-	
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_PlasmaPelletBolt</defName>
+		<label>Plasma pellet bolt</label>
+		<ammoTypes>
+			<Ammo_PlasmaPelletBolt>Bullet_PlasmaPelletBolt</Ammo_PlasmaPelletBolt>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
 	<!-- ==================== Ammo ========================== -->
 
-  <ThingDef ParentName="SpacerSmallAmmoBase">
-    <defName>Ammo_PlasmaPelletBolt</defName>
-    <label>Plasma pellet bolt</label>
-    <description></description>
-	<tradeTags>
-	  <li>CE_AutoEnableCrafting</li>
-	</tradeTags>
-    <thingCategories>
-      <li>AmmoPlasmaPelletBolt</li>
-    </thingCategories>
-    <graphicData>
-      <texPath>Things/Ammo/Charged/Ion</texPath>
-      <graphicClass>Graphic_StackCount</graphicClass>
-    </graphicData>
-    <statBases>
-		<MarketValue>3</MarketValue>
-		<Mass>0.015</Mass>
-		<Bulk>0.04</Bulk>
-    </statBases>
-	<ammoClass>Charged</ammoClass>
-    <comps>
-      <li Class="CompProperties_Forbiddable"/>
-    </comps>
-  </ThingDef>
-  
-	
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="SpacerSmallAmmoBase">
+		<defName>Ammo_PlasmaPelletBolt</defName>
+		<label>Plasma pellet bolt</label>
+
+		<tradeTags>
+			<li>CE_AutoEnableCrafting</li>
+		</tradeTags>
+		<thingCategories>
+			<li>AmmoPlasmaPelletBolt</li>
+		</thingCategories>
+		<graphicData>
+			<texPath>Things/Ammo/Charged/Ion</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>3</MarketValue>
+			<Mass>0.015</Mass>
+			<Bulk>0.04</Bulk>
+		</statBases>
+		<tradeability>Sellable</tradeability>
+		<destroyOnDrop>False</destroyOnDrop>
+		<ammoClass>Charged</ammoClass>
+		<comps>
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>0.65</explosiveRadius>
+				<explosiveDamageType>Flame</explosiveDamageType>
+				<explosiveExpandPerStackcount>0.01</explosiveExpandPerStackcount>
+				<startWickHitPointsPercent>0.333</startWickHitPointsPercent>
+				<wickTicks>
+					<min>5</min>
+					<max>10</max>
+				</wickTicks>
+			</li>
+			<li Class="CompProperties_Forbiddable"/>
+		</comps>
+	</ThingDef>
+
+
 	<!-- ================== Projectiles ================== -->
 
-  <ThingDef ParentName="BaseBullet">
-    <defName>Bullet_PlasmaPelletBolt</defName>
-    <thingClass>SK.Projectile_PlasmaCE</thingClass>
-    <label>Plasma pellet bolt</label>
-    <graphicData>
-      <texPath>Things/Projectile/Pulse</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-    </graphicData>
-    <projectile>
-      <damageDef>Plasma</damageDef>
-      <damageAmountBase>3</damageAmountBase>
-	  <pelletCount>8</pelletCount>
-	  <armorPenetration>0.5</armorPenetration>
-	  <spreadMult>8</spreadMult>
-      <speed>150</speed>
-      <secondaryDamage>
-        <li>
-          <def>Flame_Secondary</def>
-          <amount>1</amount>
-        </li>
-      </secondaryDamage>
-    </projectile>
-  </ThingDef>
-  
+	<ThingDef ParentName="SK_BaseBullet">
+		<defName>Bullet_PlasmaPelletBolt</defName>
+		<thingClass>SK.Projectile_PlasmaCE</thingClass>
+		<label>Plasma pellet bolt</label>
+		<graphicData>
+			<texPath>Things/Projectile/Pulse</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Plasma</damageDef>
+			<damageAmountBase>3</damageAmountBase>
+			<pelletCount>8</pelletCount>
+			<armorPenetrationBase>0.5</armorPenetrationBase>
+			<spreadMult>8</spreadMult>
+			<speed>150</speed>
+			<secondaryDamage>
+				<li>
+					<def>Flame_Secondary</def>
+					<amount>1</amount>
+				</li>
+			</secondaryDamage>
+		</projectile>
+	</ThingDef>
+
 	<!-- ==================== Recipes ========================== -->
-	
-  <RecipeDef ParentName="AmmoRecipeBase">
-    <defName>MakeAmmo_PlasmaPelletBolt</defName>
-    <label>make Plasma Charged pellet bolt cartridge x80</label>
-    <description>Craft 80 Plasma charged pellet bolt cartridges.</description>
-    <jobString>Making Plasma Charged pellet bolt cartridges.</jobString>
-    <ingredients>
-      <li>
-        <filter>
-          <categories>
-            <li>SLDBar</li>
-          </categories>
-        </filter>
-        <count>20</count>
-      </li>
-      <li>
-        <filter>
-          <categories>
-            <li>USLDBar</li>
-          </categories>
-        </filter>
-        <count>16</count>
-      </li>
-      <li>
-        <filter>
-          <thingDefs>
-            <li>BiosyntheticMaterial</li>
-          </thingDefs>
-        </filter>
-        <count>2</count>
-      </li>
-    </ingredients>
-    <fixedIngredientFilter>
-      <categories>
-        <li>SLDBar</li>
-        <li>USLDBar</li>
-      </categories>
-      <thingDefs>
-        <li>BiosyntheticMaterial</li>
-      </thingDefs>
-    </fixedIngredientFilter>
-    <products>
-      <Ammo_PlasmaPelletBolt>80</Ammo_PlasmaPelletBolt>
-    </products>
-  </RecipeDef>
-	
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeAmmo_PlasmaPelletBolt</defName>
+		<label>make Plasma Charged pellet bolt cartridge x80</label>
+		<description>Craft 80 Plasma charged pellet bolt cartridges.</description>
+		<jobString>Making Plasma Charged pellet bolt cartridges.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>SLDBar</li>
+					</categories>
+				</filter>
+				<count>20</count>
+			</li>
+			<li>
+				<filter>
+					<categories>
+						<li>USLDBar</li>
+					</categories>
+				</filter>
+				<count>16</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>BiosyntheticMaterial</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>SLDBar</li>
+				<li>USLDBar</li>
+			</categories>
+			<thingDefs>
+				<li>BiosyntheticMaterial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_PlasmaPelletBolt>80</Ammo_PlasmaPelletBolt>
+		</products>
+	</RecipeDef>
+
 </Defs>

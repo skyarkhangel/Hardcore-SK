@@ -23,11 +23,11 @@
     <designateHaulable>true</designateHaulable>
     <saveCompressible>true</saveCompressible>
     <stackLimit>1</stackLimit>
-    <tradeability>Never</tradeability>
+    <tradeability>None</tradeability>
   </ThingDef>
 
   <ThingDef ParentName="ChunkBase" Name="ChunkRockBase" Abstract="True">
-    <description>A chunk of rock. It's possible to cut usable stone blocks from it.</description>
+    <description>A chunk of rock. Can be cut into usable stone blocks.</description>
     <graphicData>
       <texPath>Things/Item/Chunk/ChunkStone</texPath>
       <graphicClass>Graphic_Random</graphicClass>
@@ -42,17 +42,19 @@
     <description>Blocks of stone. Mostly useful for building long-lasting, simple structures.</description>
     <graphicData>
       <texPath>Things/Item/Resource/StoneBlocks</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
+      <graphicClass>Graphic_StackCount</graphicClass>
     </graphicData>
     <soundInteract>Stone_Drop</soundInteract>
     <soundDrop>Stone_Drop</soundDrop>
     <useHitPoints>false</useHitPoints>
+    <tradeability>Buyable</tradeability>
     <statBases>
 			<MaxHitPoints>200</MaxHitPoints>
-      <MarketValue>1.9</MarketValue>
+      <MarketValue>0.9</MarketValue>
       <SharpDamageMultiplier>0.6</SharpDamageMultiplier>
       <BluntDamageMultiplier>1.0</BluntDamageMultiplier>
 			<Beauty>-12</Beauty>
+      <ConstructionSpeedFactor>0.8</ConstructionSpeedFactor>
 		</statBases>
     <thingCategories>
       <li>StoneBlocks</li>
@@ -68,18 +70,18 @@
       </statOffsets>
       <statFactors>
         <MarketValue>0.4</MarketValue>
-        <MaxHitPoints>2.4</MaxHitPoints>
+        <MaxHitPoints>1.8</MaxHitPoints>
         <Flammability>0</Flammability>
         <WorkToBuild>6.0</WorkToBuild>
 				<WorkToMake>1.3</WorkToMake>
         <DoorOpenSpeed>0.45</DoorOpenSpeed>
         <BedRestEffectiveness>0.9</BedRestEffectiveness>
-        <MeleeWeapon_CooldownMultiplier>1.35</MeleeWeapon_CooldownMultiplier>
+        <MeleeWeapon_CooldownMultiplier>1.30</MeleeWeapon_CooldownMultiplier>
       </statFactors>
     </stuffProps>
   </ThingDef>
 
-  <ThingDef Name="UglyRockBase" ParentName="RockBase" Abstract="True" >
+  <ThingDef Name="UglyRockBase" ParentName="RockBase" Abstract="True">
     <statBases>
       <Flammability>0</Flammability>
       <Beauty>-2</Beauty>
@@ -94,7 +96,7 @@
   <ThingDef ParentName="ChunkBase">
     <defName>ChunkSlagSteel</defName>
     <label>steel slag chunk</label>
-    <description>A chunk of steel slag. Not very useful in its current form but it's possible to smelt steel from it.</description>
+    <description>A chunk of steel slag. While it's useless in its current form, it can be smelted to recover steel.</description>
     <graphicData>
       <texPath>Things/Item/Chunk/ChunkSlag</texPath>
       <graphicClass>Graphic_Random</graphicClass>
@@ -107,13 +109,13 @@
       <li>Chunks</li>
     </thingCategories>
     <smeltProducts>
-      <Steel>10</Steel>
+      <Steel>20</Steel>
     </smeltProducts>
   </ThingDef>
 
   <!-- ================ Sandstone ================ -->
   
-  <ThingDef ParentName="UglyRockBase">
+  <ThingDef ParentName="UglyRockBase" Name="SandstoneBase">
     <defName>Sandstone</defName>
     <label>sandstone</label>
     <description>A sedimentary rock composed of sand particles compressed together.</description>
@@ -126,7 +128,28 @@
     <building>
       <mineableThing>ChunkSandstone</mineableThing>
       <mineableDropChance>0.25</mineableDropChance>
+      <smoothedThing>SmoothedSandstone</smoothedThing>
     </building>
+  </ThingDef>
+
+  <ThingDef ParentName="SandstoneBase">
+    <defName>SmoothedSandstone</defName>
+    <label>smoothed sandstone</label>
+    <description>A sedimentary rock composed of sand particles compressed together. The sand layers have been polished to a flat, smooth surface.</description>
+    <graphicData>
+      <texPath>Things/Building/Linked/RockSmooth_Atlas</texPath>
+    </graphicData>
+    <statBases>
+      <Beauty>1</Beauty>
+      <MarketValue>18</MarketValue>
+    </statBases>
+    <building>
+      <isNaturalRock>false</isNaturalRock>
+      <canBuildNonEdificesUnder>true</canBuildNonEdificesUnder>
+      <smoothedThing />
+    </building>
+    <saveCompressible>false</saveCompressible>
+    <repairEffect>Repair</repairEffect>
   </ThingDef>
   
   <ThingDef ParentName="ChunkRockBase">
@@ -152,19 +175,17 @@
       <color>(126,104,94)</color>
     </graphicData>
     <statBases>
-      <MarketValue>1.9</MarketValue>
       <Mass>1</Mass>
       <SharpDamageMultiplier>0.5</SharpDamageMultiplier>
     </statBases>
     <stuffProps>
       <color>(126,104,94)</color>
-      <soundImpactStuff>BulletImpactGround</soundImpactStuff>
+      <soundImpactStuff>BulletImpact_Ground</soundImpactStuff>
       <soundMeleeHitSharp>MeleeHit_Stone</soundMeleeHitSharp>
       <soundMeleeHitBlunt>MeleeHit_Stone</soundMeleeHitBlunt>
       <stuffAdjective>sandstone</stuffAdjective>
       <statFactors>
         <Beauty>1.1</Beauty>  
-        <MarketValue>0.4</MarketValue>
         <MaxHitPoints>1.4</MaxHitPoints>
 				<WorkToBuild>5.0</WorkToBuild>
 				<WorkToMake>1.1</WorkToMake>
@@ -173,7 +194,7 @@
   </ThingDef>
 
 	<RecipeDef ParentName="MakeStoneBlocksBase">
-		<defName>MakeStoneBlocksSandstone</defName>
+		<defName>Make_StoneBlocksSandstone</defName>
 		<label>make sandstone blocks</label>
 		<description>Cuts sandstone chunks into usable blocks.</description>
 		<ingredients>
@@ -198,7 +219,7 @@
 
 	<!-- ================ Granite ================ -->
 
-	<ThingDef ParentName="UglyRockBase">
+	<ThingDef ParentName="UglyRockBase" Name="GraniteBase">
     <defName>Granite</defName>
     <label>granite</label>
     <description>A very hard igneous rock.</description>
@@ -211,7 +232,28 @@
     <building>
       <mineableThing>ChunkGranite</mineableThing>
       <mineableDropChance>0.25</mineableDropChance>
+      <smoothedThing>SmoothedGranite</smoothedThing>
     </building>
+  </ThingDef>
+
+  <ThingDef ParentName="GraniteBase">
+    <defName>SmoothedGranite</defName>
+    <label>smoothed granite</label>
+    <description>A very hard igneous rock. The shining surface is filled with a mosaic of black, white, and pink speckles.</description>
+    <graphicData>
+      <texPath>Things/Building/Linked/RockSmooth_Atlas</texPath>
+    </graphicData>
+    <statBases>
+      <Beauty>1</Beauty>
+      <MarketValue>20</MarketValue>
+    </statBases>
+    <building>
+      <isNaturalRock>false</isNaturalRock>
+      <canBuildNonEdificesUnder>true</canBuildNonEdificesUnder>
+      <smoothedThing />
+    </building>
+    <saveCompressible>false</saveCompressible>
+    <repairEffect>Repair</repairEffect>
   </ThingDef>
 
   <ThingDef ParentName="ChunkRockBase">
@@ -237,25 +279,23 @@
       <color>(105,95,97)</color>
     </graphicData>
     <statBases>
-      <MarketValue>2.1</MarketValue>
       <Mass>1.25</Mass>
       <SharpDamageMultiplier>0.65</SharpDamageMultiplier>
     </statBases>
     <stuffProps>
       <color>(105,95,97)</color>
-      <soundImpactStuff>BulletImpactGround</soundImpactStuff>
+      <soundImpactStuff>BulletImpact_Ground</soundImpactStuff>
       <soundMeleeHitSharp>MeleeHit_Stone</soundMeleeHitSharp>
       <soundMeleeHitBlunt>MeleeHit_Stone</soundMeleeHitBlunt>
       <stuffAdjective>granite</stuffAdjective>
       <statFactors>
-        <MarketValue>0.5</MarketValue>
         <MaxHitPoints>1.7</MaxHitPoints>
       </statFactors>
     </stuffProps>
   </ThingDef>
 
 	<RecipeDef ParentName="MakeStoneBlocksBase">
-		<defName>MakeStoneBlocksGranite</defName>
+		<defName>Make_StoneBlocksGranite</defName>
 		<label>make granite blocks</label>
 		<description>Cuts granite chunks into usable blocks.</description>
 		<ingredients>
@@ -280,7 +320,7 @@
 
 	<!-- ================ Limestone ================ -->
 
-	<ThingDef ParentName="UglyRockBase">
+	<ThingDef ParentName="UglyRockBase" Name="LimestoneBase">
     <defName>Limestone</defName>
     <label>limestone</label>
     <description>A sedimentary rock formed from the compacted remains of ancient seashells.</description>
@@ -293,9 +333,30 @@
     <building>
       <mineableThing>ChunkLimestone</mineableThing>
       <mineableDropChance>0.25</mineableDropChance>
+      <smoothedThing>SmoothedLimestone</smoothedThing>
     </building>
   </ThingDef>
 
+  <ThingDef ParentName="LimestoneBase">
+    <defName>SmoothedLimestone</defName>
+    <label>smoothed limestone</label>
+    <description>A sedimentary rock formed from the compacted remains of ancient seashells. It glows a smooth white, with light patterns of impurities suspended within.</description>
+    <graphicData>
+      <texPath>Things/Building/Linked/RockSmooth_Atlas</texPath>
+    </graphicData>
+    <statBases>
+      <Beauty>1</Beauty>
+      <MarketValue>20</MarketValue>
+    </statBases>
+    <building>
+      <isNaturalRock>false</isNaturalRock>
+      <canBuildNonEdificesUnder>true</canBuildNonEdificesUnder>
+      <smoothedThing />
+    </building>
+    <saveCompressible>false</saveCompressible>
+    <repairEffect>Repair</repairEffect>
+  </ThingDef>
+  
   <ThingDef ParentName="ChunkRockBase">
     <defName>ChunkLimestone</defName>
     <label>limestone chunk</label>
@@ -319,24 +380,22 @@
       <color>(158,153,135)</color>
     </graphicData>
     <statBases>
-      <MarketValue>1.9</MarketValue>
       <Mass>1.1</Mass>
     </statBases>
     <stuffProps>
       <color>(158,153,135)</color>
-      <soundImpactStuff>BulletImpactGround</soundImpactStuff>
+      <soundImpactStuff>BulletImpact_Ground</soundImpactStuff>
       <soundMeleeHitSharp>MeleeHit_Stone</soundMeleeHitSharp>
       <soundMeleeHitBlunt>MeleeHit_Stone</soundMeleeHitBlunt>
       <stuffAdjective>limestone</stuffAdjective>
       <statFactors>
-        <MarketValue>0.4</MarketValue>
         <MaxHitPoints>1.55</MaxHitPoints>
       </statFactors>
     </stuffProps>
   </ThingDef>
 
 	<RecipeDef ParentName="MakeStoneBlocksBase">
-		<defName>MakeStoneBlocksLimestone</defName>
+		<defName>Make_StoneBlocksLimestone</defName>
 		<label>make limestone blocks</label>
 		<description>Cuts limestone chunks into usable blocks.</description>
 		<ingredients>
@@ -361,7 +420,7 @@
 
 	<!-- ================ Slate ================ -->
 
-	<ThingDef ParentName="UglyRockBase">
+	<ThingDef ParentName="UglyRockBase" Name="SlateBase">
     <defName>Slate</defName>
     <label>slate</label>
     <description>A dark-colored metamorphic rock. Its fine layers are emblematic of slaty cleavage.</description>
@@ -374,9 +433,31 @@
     <building>
       <mineableThing>ChunkSlate</mineableThing>
       <mineableDropChance>0.25</mineableDropChance>
+      <smoothedThing>SmoothedSlate</smoothedThing>
     </building>
+    
   </ThingDef>
 
+  <ThingDef ParentName="SlateBase">
+    <defName>SmoothedSlate</defName>
+    <label>smoothed slate</label>
+    <description>A dark-colored metamorphic rock. Its fine layers are emblematic of slaty cleavage. Interior strata are clearly visible through the polished surface.</description>
+    <graphicData>
+      <texPath>Things/Building/Linked/RockSmooth_Atlas</texPath>
+    </graphicData>
+    <statBases>
+      <Beauty>1</Beauty>
+      <MarketValue>20</MarketValue>
+    </statBases>
+    <building>
+      <isNaturalRock>false</isNaturalRock>
+      <canBuildNonEdificesUnder>true</canBuildNonEdificesUnder>
+      <smoothedThing />
+    </building>
+    <saveCompressible>false</saveCompressible>
+    <repairEffect>Repair</repairEffect>
+  </ThingDef>
+  
   <ThingDef ParentName="ChunkRockBase">
     <defName>ChunkSlate</defName>
     <label>slate chunk</label>
@@ -400,25 +481,23 @@
       <color>(70,70,70)</color>
     </graphicData>
     <statBases>
-      <MarketValue>1.9</MarketValue>
       <Mass>0.9</Mass>
     </statBases>
     <stuffProps>
       <color>(70,70,70)</color>
-      <soundImpactStuff>BulletImpactGround</soundImpactStuff>
+      <soundImpactStuff>BulletImpact_Ground</soundImpactStuff>
       <soundMeleeHitSharp>MeleeHit_Stone</soundMeleeHitSharp>
       <soundMeleeHitBlunt>MeleeHit_Stone</soundMeleeHitBlunt>
       <stuffAdjective>slate</stuffAdjective>
       <statFactors>
         <Beauty>1.1</Beauty>
-        <MarketValue>0.38</MarketValue>
         <MaxHitPoints>1.3</MaxHitPoints>
       </statFactors>
     </stuffProps>
   </ThingDef>
 
 	<RecipeDef ParentName="MakeStoneBlocksBase">
-		<defName>MakeStoneBlocksSlate</defName>
+		<defName>Make_StoneBlocksSlate</defName>
 		<label>make slate blocks</label>
 		<description>Cuts slate chunks into usable blocks.</description>
 		<ingredients>
@@ -443,7 +522,7 @@
 
 	<!-- ================ Marble ================ -->
 
-	<ThingDef ParentName="UglyRockBase">
+	<ThingDef ParentName="UglyRockBase" Name="MarbleBase">
     <defName>Marble</defName>
     <label>marble</label>
     <description>A soft metamorphic rock.</description>
@@ -457,9 +536,30 @@
     <building>
       <mineableThing>ChunkMarble</mineableThing>
       <mineableDropChance>0.25</mineableDropChance>
+      <smoothedThing>SmoothedMarble</smoothedThing>
     </building>
   </ThingDef>
 
+  <ThingDef ParentName="MarbleBase">
+    <defName>SmoothedMarble</defName>
+    <label>smoothed marble</label>
+    <description>A soft metamorphic rock. This semi-transparent rock almost appears to glow with its own inner light.</description>
+    <graphicData>
+      <texPath>Things/Building/Linked/RockSmooth_Atlas</texPath>
+    </graphicData>
+    <statBases>
+      <Beauty>2</Beauty>
+      <MarketValue>25</MarketValue>
+    </statBases>
+    <building>
+      <isNaturalRock>false</isNaturalRock>
+      <canBuildNonEdificesUnder>true</canBuildNonEdificesUnder>
+      <smoothedThing />
+    </building>
+    <saveCompressible>false</saveCompressible>
+    <repairEffect>Repair</repairEffect>
+  </ThingDef>
+  
   <ThingDef ParentName="ChunkRockBase">
     <defName>ChunkMarble</defName>
     <label>marble chunk</label>
@@ -483,27 +583,28 @@
       <color>(132,135,132)</color>
     </graphicData>
     <statBases>
-      <MarketValue>1.9</MarketValue>
       <Mass>1.25</Mass>
     </statBases>
     <stuffProps>
       <color>(132,135,132)</color>
-      <soundImpactStuff>BulletImpactGround</soundImpactStuff>
+      <soundImpactStuff>BulletImpact_Ground</soundImpactStuff>
       <soundMeleeHitSharp>MeleeHit_Stone</soundMeleeHitSharp>
       <soundMeleeHitBlunt>MeleeHit_Stone</soundMeleeHitBlunt>
       <stuffAdjective>marble</stuffAdjective>
       <statFactors>
         <Beauty>1.35</Beauty>
-        <MarketValue>0.45</MarketValue>
         <MaxHitPoints>1.2</MaxHitPoints>
 				<WorkToBuild>5.5</WorkToBuild>
 				<WorkToMake>1.15</WorkToMake>
       </statFactors>
+      <statOffsets>
+        <Beauty>1</Beauty>
+      </statOffsets>
     </stuffProps>
   </ThingDef>
 
 	<RecipeDef ParentName="MakeStoneBlocksBase">
-		<defName>MakeStoneBlocksMarble</defName>
+		<defName>Make_StoneBlocksMarble</defName>
 		<label>make marble blocks</label>
 		<description>Cuts marble chunks into usable blocks.</description>
 		<ingredients>

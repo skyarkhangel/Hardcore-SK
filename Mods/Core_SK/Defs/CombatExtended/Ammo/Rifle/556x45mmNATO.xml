@@ -5,9 +5,9 @@
 		<defName>Ammo556x45mmNATO</defName>
 		<label>5.56x45mm NATO</label>
 		<parent>AmmoRifles</parent>
-    <iconPath>UI/Icons/ThingCategories/CaliberRifle</iconPath>
+		<iconPath>UI/Icons/ThingCategories/CaliberRifle</iconPath>
 	</ThingCategoryDef>
-	
+
 	<!-- ==================== AmmoSet ========================== -->
 
 	<CombatExtended.AmmoSetDef>
@@ -19,25 +19,37 @@
 			<Ammo_556x45mmNATO_HP>Bullet_556x45mmNATO_HP</Ammo_556x45mmNATO_HP>
 		</ammoTypes>
 	</CombatExtended.AmmoSetDef>
-	
+
 	<!-- ==================== Ammo ========================== -->
 
-	<ThingDef Name="556x45mmNATOBase" ParentName="SmallAmmoBase" Abstract="True">
+	<ThingDef Class="CombatExtended.AmmoDef" Name="556x45mmNATOBase" ParentName="SmallAmmoBase" Abstract="True">
 		<description>Small, high-velocity rifle bullet used in a variety of assault rifles.</description>
 		<statBases>
-		<Mass>0.012</Mass>
-		<Bulk>0.03</Bulk>
+			<Mass>0.012</Mass>
+			<Bulk>0.03</Bulk>
 		</statBases>
-	<tradeTags>
-		<li>CE_AutoEnableTrade</li>
-		<li>CE_AutoEnableCrafting</li>
-	</tradeTags>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting</li>
+		</tradeTags>
 		<thingCategories>
 			<li>Ammo556x45mmNATO</li>
 		</thingCategories>
+		<comps>
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>0.45</explosiveRadius>
+				<explosiveDamageType>Flame</explosiveDamageType>
+				<explosiveExpandPerStackcount>0.01</explosiveExpandPerStackcount>
+				<startWickHitPointsPercent>0.333</startWickHitPointsPercent>
+				<wickTicks>
+					<min>5</min>
+					<max>10</max>
+				</wickTicks>
+			</li>
+		</comps>
 	</ThingDef>
 
-	<ThingDef ParentName="556x45mmNATOBase">
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="556x45mmNATOBase">
 		<defName>Ammo_556x45mmNATO_FMJ</defName>
 		<label>5.56x45mm NATO cartridge (FMJ)</label>
 		<graphicData>
@@ -45,13 +57,13 @@
 			<graphicClass>Graphic_StackCount</graphicClass>
 		</graphicData>
 		<statBases>
-			<MarketValue>0.07</MarketValue>
+			<MarketValue>0.11</MarketValue>
 		</statBases>
 		<ammoClass>FullMetalJacket</ammoClass>
 		<cookOffProjectile>Bullet_556x45mmNATO_FMJ</cookOffProjectile>
 	</ThingDef>
 
-	<ThingDef ParentName="556x45mmNATOBase">
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="556x45mmNATOBase">
 		<defName>Ammo_556x45mmNATO_AP</defName>
 		<label>5.56x45mm NATO cartridge (AP)</label>
 		<graphicData>
@@ -59,13 +71,13 @@
 			<graphicClass>Graphic_StackCount</graphicClass>
 		</graphicData>
 		<statBases>
-			<MarketValue>0.12</MarketValue>
+			<MarketValue>0.13</MarketValue>
 		</statBases>
 		<ammoClass>ArmorPiercing</ammoClass>
 		<cookOffProjectile>Bullet_556x45mmNATO_AP</cookOffProjectile>
 	</ThingDef>
 
-	<ThingDef ParentName="556x45mmNATOBase">
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="556x45mmNATOBase">
 		<defName>Ammo_556x45mmNATO_HP</defName>
 		<label>5.56x45mm NATO cartridge (HP)</label>
 		<graphicData>
@@ -73,20 +85,20 @@
 			<graphicClass>Graphic_StackCount</graphicClass>
 		</graphicData>
 		<statBases>
-			<MarketValue>0.1</MarketValue>
+			<MarketValue>0.12</MarketValue>
 		</statBases>
 		<ammoClass>HollowPoint</ammoClass>
 		<cookOffProjectile>Bullet_556x45mmNATO_HP</cookOffProjectile>
 	</ThingDef>
-	
+
 	<!-- ================== Projectiles ================== -->
 
-	<ThingDef Name="Base556x45mmNATOBullet" ParentName="BaseBullet" Abstract="true">
+	<ThingDef Name="Base556x45mmNATOBullet" ParentName="SK_BaseBullet" Abstract="true">
 		<graphicData>
 			<texPath>Things/Projectile/Bullet_Small</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
-		<projectile>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<damageDef>Bullet</damageDef>
 			<speed>165</speed>
 			<dropsCasings>true</dropsCasings>
@@ -97,188 +109,188 @@
 	<ThingDef ParentName="Base556x45mmNATOBullet">
 		<defName>Bullet_556x45mmNATO_FMJ</defName>
 		<label>5.56mm NATO bullet (FMJ)</label>
-		<projectile>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<damageAmountBase>15</damageAmountBase>
-			<armorPenetration>0.53</armorPenetration>
+			<armorPenetrationBase>0.53</armorPenetrationBase>
 		</projectile>
 	</ThingDef>
 
 	<ThingDef ParentName="Base556x45mmNATOBullet">
 		<defName>Bullet_556x45mmNATO_AP</defName>
 		<label>5.56mm NATO bullet (AP)</label>
-		<projectile>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<damageAmountBase>14</damageAmountBase>
-			<armorPenetration>0.70</armorPenetration>
+			<armorPenetrationBase>0.70</armorPenetrationBase>
 		</projectile>
 	</ThingDef>
 
 	<ThingDef ParentName="Base556x45mmNATOBullet">
 		<defName>Bullet_556x45mmNATO_HP</defName>
 		<label>5.56mm NATO bullet (HP)</label>
-		<projectile>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<damageAmountBase>22</damageAmountBase>
-			<armorPenetration>0.50</armorPenetration>
+			<armorPenetrationBase>0.50</armorPenetrationBase>
 		</projectile>
 	</ThingDef>
-  
+
 	<!-- ==================== Recipes ========================== -->
 
-  <RecipeDef ParentName="AmmoRecipeRifle">
-    <defName>MakeAmmo_556x45mmNATO_FMJ</defName>
-    <label>make 5.56x45mm NATO (FMJ) cartridge x80</label>
-    <description>Craft 80 5.56x45mm NATO (FMJ) cartridges.</description>
-    <jobString>Making 5.56x45mm NATO (FMJ) cartridges.</jobString>
-    <ingredients>
-      <li>
-        <filter>
-          <categories>
-			<li>SLDBar</li>
-			<li>USLDBar</li>
-          </categories>
-        </filter>
-        <count>8</count>
-      </li>
-      <li>
-        <filter>
-          <categories>
-            <li>HeavyBar</li>
-          </categories>
-        </filter>
-        <count>2</count>
-      </li>
-      <li>
-        <filter>
-          <thingDefs>
-            <li>Powder</li>
-          </thingDefs>
-        </filter>
-        <count>2</count>
-      </li>
-    </ingredients>
-    <fixedIngredientFilter>
-      <categories>
-        <li>SLDBar</li>
-        <li>USLDBar</li>
-		<li>HeavyBar</li>
-      </categories>
-      <thingDefs>
-        <li>Powder</li>
-      </thingDefs>
-    </fixedIngredientFilter>
-    <products>
-      <Ammo_556x45mmNATO_FMJ>80</Ammo_556x45mmNATO_FMJ>
-    </products>
-	<skillRequirements>
-		<Crafting>4</Crafting>
-	</skillRequirements>
-    <workSkill>Crafting</workSkill>
-    <workSkillLearnFactor>0.8</workSkillLearnFactor>
-  </RecipeDef>
-  
-  <RecipeDef ParentName="AmmoRecipeRifle">
-    <defName>MakeAmmo_556x45mmNATO_AP</defName>
-    <label>make 5.56x45mm NATO (AP) cartridge x80</label>
-    <description>Craft 80 5.56x45mm NATO (AP) cartridges.</description>
-    <jobString>Making 5.56x45mm NATO (AP) cartridges.</jobString>
-    <ingredients>
-      <li>
-        <filter>
-          <categories>
-			<li>SLDBar</li>
-			<li>USLDBar</li>
-          </categories>
-        </filter>
-        <count>8</count>
-      </li>
-      <li>
-        <filter>
-          <categories>
-			<li>USLDHBar</li>
-			<li>Ceramic</li>
-          </categories>
-        </filter>
-        <count>3</count>
-      </li>
-      <li>
-        <filter>
-          <thingDefs>
-            <li>Powder</li>
-          </thingDefs>
-        </filter>
-        <count>2</count>
-      </li>
-    </ingredients>
-    <fixedIngredientFilter>
-      <categories>
-        <li>SLDBar</li>
-        <li>USLDBar</li>
-		<li>USLDHBar</li>
-		<li>Ceramic</li>
-      </categories>
-      <thingDefs>
-        <li>Powder</li>
-      </thingDefs>
-    </fixedIngredientFilter>
-    <products>
-      <Ammo_556x45mmNATO_AP>80</Ammo_556x45mmNATO_AP>
-    </products>
-	<skillRequirements>
-		<Crafting>5</Crafting>
-	</skillRequirements>
-    <workSkill>Crafting</workSkill>
-    <workSkillLearnFactor>0.8</workSkillLearnFactor>
-  </RecipeDef>
-  
-  <RecipeDef ParentName="AmmoRecipeRifle">
-    <defName>MakeAmmo_556x45mmNATO_HP</defName>
-    <label>make 5.56x45mm NATO (HP) cartridge x80</label>
-    <description>Craft 80 5.56x45mm NATO (HP) cartridges.</description>
-    <jobString>Making 5.56x45mm NATO (HP) cartridges.</jobString>
-    <ingredients>
-      <li>
-        <filter>
-          <categories>
-			<li>SLDBar</li>
-			<li>USLDBar</li>
-          </categories>
-        </filter>
-        <count>6</count>
-      </li>
-      <li>
-        <filter>
-          <thingDefs>
-            <li>Carbon</li>
-          </thingDefs>
-        </filter>
-        <count>2</count>
-      </li>
-      <li>
-        <filter>
-          <thingDefs>
-            <li>Powder</li>
-          </thingDefs>
-        </filter>
-        <count>2</count>
-      </li>
-    </ingredients>
-    <fixedIngredientFilter>
-      <categories>
-        <li>SLDBar</li>
-        <li>USLDBar</li>
-      </categories>
-      <thingDefs>
-        <li>Carbon</li>
-        <li>Powder</li>
-      </thingDefs>
-    </fixedIngredientFilter>
-    <products>
-      <Ammo_556x45mmNATO_HP>80</Ammo_556x45mmNATO_HP>
-    </products>
-	<skillRequirements>
-		<Crafting>6</Crafting>
-	</skillRequirements>
-    <workSkill>Crafting</workSkill>
-    <workSkillLearnFactor>0.8</workSkillLearnFactor>
-  </RecipeDef>
-	
+	<RecipeDef ParentName="AmmoRecipeRifle">
+		<defName>MakeAmmo_556x45mmNATO_FMJ</defName>
+		<label>make 5.56x45mm NATO (FMJ) cartridge x80</label>
+		<description>Craft 80 5.56x45mm NATO (FMJ) cartridges.</description>
+		<jobString>Making 5.56x45mm NATO (FMJ) cartridges.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>SLDBar</li>
+						<li>USLDBar</li>
+					</categories>
+				</filter>
+				<count>8</count>
+			</li>
+			<li>
+				<filter>
+					<categories>
+						<li>HeavyBar</li>
+					</categories>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Powder</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>SLDBar</li>
+				<li>USLDBar</li>
+				<li>HeavyBar</li>
+			</categories>
+			<thingDefs>
+				<li>Powder</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_556x45mmNATO_FMJ>80</Ammo_556x45mmNATO_FMJ>
+		</products>
+		<skillRequirements>
+			<Crafting>4</Crafting>
+		</skillRequirements>
+		<workSkill>Crafting</workSkill>
+		<workSkillLearnFactor>0.8</workSkillLearnFactor>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeRifle">
+		<defName>MakeAmmo_556x45mmNATO_AP</defName>
+		<label>make 5.56x45mm NATO (AP) cartridge x80</label>
+		<description>Craft 80 5.56x45mm NATO (AP) cartridges.</description>
+		<jobString>Making 5.56x45mm NATO (AP) cartridges.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>SLDBar</li>
+						<li>USLDBar</li>
+					</categories>
+				</filter>
+				<count>8</count>
+			</li>
+			<li>
+				<filter>
+					<categories>
+						<li>USLDHBar</li>
+						<li>Ceramic</li>
+					</categories>
+				</filter>
+				<count>3</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Powder</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>SLDBar</li>
+				<li>USLDBar</li>
+				<li>USLDHBar</li>
+				<li>Ceramic</li>
+			</categories>
+			<thingDefs>
+				<li>Powder</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_556x45mmNATO_AP>80</Ammo_556x45mmNATO_AP>
+		</products>
+		<skillRequirements>
+			<Crafting>5</Crafting>
+		</skillRequirements>
+		<workSkill>Crafting</workSkill>
+		<workSkillLearnFactor>0.8</workSkillLearnFactor>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeRifle">
+		<defName>MakeAmmo_556x45mmNATO_HP</defName>
+		<label>make 5.56x45mm NATO (HP) cartridge x80</label>
+		<description>Craft 80 5.56x45mm NATO (HP) cartridges.</description>
+		<jobString>Making 5.56x45mm NATO (HP) cartridges.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>SLDBar</li>
+						<li>USLDBar</li>
+					</categories>
+				</filter>
+				<count>6</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Carbon</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Powder</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>SLDBar</li>
+				<li>USLDBar</li>
+			</categories>
+			<thingDefs>
+				<li>Carbon</li>
+				<li>Powder</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_556x45mmNATO_HP>80</Ammo_556x45mmNATO_HP>
+		</products>
+		<skillRequirements>
+			<Crafting>6</Crafting>
+		</skillRequirements>
+		<workSkill>Crafting</workSkill>
+		<workSkillLearnFactor>0.8</workSkillLearnFactor>
+	</RecipeDef>
+
 </Defs>

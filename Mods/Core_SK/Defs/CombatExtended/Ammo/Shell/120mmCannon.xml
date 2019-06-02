@@ -22,7 +22,7 @@
 
 	<!-- ==================== Ammo ========================== -->
 
-	<ThingDef Name="120mmCannonShellBase" ParentName="AmmoBase" Abstract="True">
+	<ThingDef Class="CombatExtended.AmmoDef" Name="120mmCannonShellBase" ParentName="AmmoBase" Abstract="True">
 		<description>Relatively small cannon shell.</description>
 		<thingCategories>
 			<li>Ammo120mmCannonShells</li>
@@ -43,7 +43,7 @@
 		<cookOffTailSound>ShellCookOff_Ambient</cookOffTailSound>
 	</ThingDef>
 
-	<ThingDef ParentName="120mmCannonShellBase">
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="120mmCannonShellBase">
 		<defName>Ammo_120mmCannonShell_HEAT</defName>
 		<label>120mm cannon shell (HEAT)</label>
 		<description>The 120mm ammunition system equips the MlE1 (Abrams) tank with a 120mm main armament.</description>
@@ -62,13 +62,13 @@
 				<explosionDamageDef>Bomb</explosionDamageDef>
 				<explosionRadius>2.1</explosionRadius>
 				<fragments>
-					<Fragment_Shell>210</Fragment_Shell>
+					<Fragment_Shell>160</Fragment_Shell>
 				</fragments>
 			</li>
 		</comps>
 	</ThingDef>
 
-	<ThingDef ParentName="120mmCannonShellBase">
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="120mmCannonShellBase">
 		<defName>Ammo_120mmCannonShell_HE</defName>
 		<label>120mm cannon shell (HE)</label>
 		<description>The 120mm ammunition system equips the MlE1 (Abrams) tank with a 120mm main armament.</description>
@@ -87,14 +87,14 @@
 				<explosionDamageDef>Bomb</explosionDamageDef>
 				<explosionRadius>6</explosionRadius>
 				<fragments>
-					<Fragment_Shell>420</Fragment_Shell>
+					<Fragment_Shell>290</Fragment_Shell>
 				</fragments>
 				<fragRange>10</fragRange>
 			</li>
 		</comps>
 	</ThingDef>
 
-	<ThingDef ParentName="120mmCannonShellBase">
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="120mmCannonShellBase">
 		<defName>Ammo_120mmCannonShell_EMP</defName>
 		<label>120mm cannon shell (EMP)</label>
 		<description>The 120mm ammunition system equips the MlE1 (Abrams) tank with a 120mm main armament.</description>
@@ -106,6 +106,7 @@
 			<MarketValue>120</MarketValue>
 		</statBases>
 		<ammoClass>GrenadeEMP</ammoClass>
+		<generateAllowChance>0</generateAllowChance>
 		<cookOffProjectile>Bullet_120mmCannonShell_EMP</cookOffProjectile>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
@@ -113,7 +114,7 @@
 				<explosionDamageDef>Bomb</explosionDamageDef>
 				<explosionRadius>2.1</explosionRadius>
 				<fragments>
-					<Fragment_Shell>58</Fragment_Shell>
+					<Fragment_Shell>35</Fragment_Shell>
 				</fragments>
 			</li>
 		</comps>
@@ -121,12 +122,12 @@
 
 	<!-- ================== Projectiles ================== -->
 
-	<ThingDef Name="Base120mmCannonShell" ParentName="BaseBullet" Abstract="true">
+	<ThingDef Name="Base120mmCannonShell" ParentName="SK_BaseBullet" Abstract="true">
 		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
 		<graphicData>
 			<shaderType>TransparentPostLight</shaderType>
 		</graphicData>
-		<projectile>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<speed>155</speed>
 			<soundExplode>MortarBomb_Explode</soundExplode>
 			<flyOverhead>false</flyOverhead>
@@ -142,13 +143,13 @@
 			<texPath>Things/Projectile/Cannon/HEAT</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
-		<projectile>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<damageDef>Bomb</damageDef>
 			<damageAmountBase>230</damageAmountBase>
 			<explosionRadius>2</explosionRadius>
 			<soundExplode>MortarBomb_Explode</soundExplode>
 			<ai_IsIncendiary>true</ai_IsIncendiary>
-			<armorPenetration>2.9</armorPenetration>
+			<armorPenetrationBase>2.9</armorPenetrationBase>
 		</projectile>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
@@ -156,9 +157,10 @@
 				<explosionDamageDef>Bomb</explosionDamageDef>
 				<explosionRadius>5.5</explosionRadius>
 				<fragments>
-					<Fragment_Shell>180</Fragment_Shell>
+					<Fragment_Shell>130</Fragment_Shell>
 				</fragments>
 				<fragRange>10</fragRange>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
 			</li>
 		</comps>
 	</ThingDef>
@@ -170,12 +172,14 @@
 			<texPath>Things/Projectile/Cannon/HE</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
-		<projectile>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<damageDef>Bomb</damageDef>
 			<damageAmountBase>170</damageAmountBase>
 			<explosionRadius>2.6</explosionRadius>
 			<soundExplode>MortarBomb_Explode</soundExplode>
-			<armorPenetration>2.5</armorPenetration>
+			<armorPenetrationBase>2.5</armorPenetrationBase>
+			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<ai_IsIncendiary>true</ai_IsIncendiary>
 		</projectile>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
@@ -183,7 +187,7 @@
 				<explosionDamageDef>Bomb</explosionDamageDef>
 				<explosionRadius>4</explosionRadius>
 				<fragments>
-					<Fragment_Shell>380</Fragment_Shell>
+					<Fragment_Shell>240</Fragment_Shell>
 				</fragments>
 				<fragRange>10</fragRange>
 			</li>
@@ -197,11 +201,11 @@
 			<texPath>Things/Projectile/Cannon/EMP</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
-		<projectile>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<damageDef>Bomb</damageDef>
 			<damageAmountBase>170</damageAmountBase>
 			<explosionRadius>2</explosionRadius>
-			<armorPenetration>2.4</armorPenetration>
+			<armorPenetrationBase>2.4</armorPenetrationBase>
 			<soundExplode>Explosion_EMP</soundExplode>
 		</projectile>
 		<comps>
@@ -251,7 +255,7 @@
 			<li>
 				<filter>
 					<thingDefs>
-						<li>Component</li>
+						<li>ComponentIndustrial</li>
 					</thingDefs>
 				</filter>
 				<count>2</count>
@@ -266,7 +270,7 @@
 			<thingDefs>
 				<li>Powder</li>
 				<li>FSX</li>
-				<li>Component</li>
+				<li>ComponentIndustrial</li>
 			</thingDefs>
 		</fixedIngredientFilter>
 		<products>
@@ -310,7 +314,7 @@
 			<li>
 				<filter>
 					<thingDefs>
-						<li>Component</li>
+						<li>ComponentIndustrial</li>
 					</thingDefs>
 				</filter>
 				<count>3</count>
@@ -325,7 +329,7 @@
 			<thingDefs>
 				<li>Powder</li>
 				<li>FSX</li>
-				<li>Component</li>
+				<li>ComponentIndustrial</li>
 			</thingDefs>
 		</fixedIngredientFilter>
 		<products>
@@ -368,7 +372,7 @@
 			<li>
 				<filter>
 					<thingDefs>
-						<li>Component</li>
+						<li>ComponentIndustrial</li>
 					</thingDefs>
 				</filter>
 				<count>4</count>
@@ -382,7 +386,7 @@
 			</categories>
 			<thingDefs>
 				<li>Powder</li>
-				<li>Component</li>
+				<li>ComponentIndustrial</li>
 			</thingDefs>
 		</fixedIngredientFilter>
 		<products>

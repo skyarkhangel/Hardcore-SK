@@ -10,17 +10,18 @@
 		<altitudeLayer>Pawn</altitudeLayer>
 		<useHitPoints>false</useHitPoints>
 		<hasTooltip>true</hasTooltip>
-		<soundImpactDefault>BulletImpactFlesh</soundImpactDefault>
+		<soundImpactDefault>BulletImpact_Flesh</soundImpactDefault>
 		<inspectorTabs>
 			<li>ITab_Pawn_Health</li>
 			<li>ITab_Pawn_Needs</li>
 			<li>ITab_Pawn_Character</li>
 			<li>ITab_Pawn_Training</li>
-			<li>CombatExtended.ITab_Inventory</li>
+			<li>ITab_Pawn_Social</li>
 			<li>ITab_Pawn_Guest</li>
 			<li>ITab_Pawn_Prisoner</li>
-			<li>ITab_Pawn_Social</li>
-			<li>ITab_Pawn_Combat</li>
+			<li>ITab_Pawn_FormingCaravan</li>
+			<li>CombatExtended.ITab_Inventory</li>
+			<li>ITab_Pawn_Log</li>
 		</inspectorTabs>
 		<comps>
 			<li>
@@ -34,23 +35,24 @@
 		<uiIconPath>Things/Pawn/Humanlike/UI/IconHuman</uiIconPath>
 		<statBases>
 			<MarketValue>1750</MarketValue>
-			<MoveSpeed>4.8</MoveSpeed>
+			<MoveSpeed>4.85</MoveSpeed>
 			<Flammability>1.0</Flammability>
+			<MeleeDodgeChance>0.02</MeleeDodgeChance>
+			<MeleeCritChance>0.1</MeleeCritChance>
+			<MeleeParryChance>0.15</MeleeParryChance>
 			<Mass>70</Mass>
 		</statBases>
 		<race>
-            <thinkTreeMain>Humanlike</thinkTreeMain>
-            <thinkTreeConstant>HumanlikeConstant</thinkTreeConstant>
-            <intelligence>Humanlike</intelligence>
-            <makesFootprints>true</makesFootprints>
-            <lifeExpectancy>80</lifeExpectancy>
-            <leatherColor>(235,235,235)</leatherColor>
-            <leatherCommonalityFactor>0.01</leatherCommonalityFactor>
-            <leatherInsulation>1.25</leatherInsulation>
-            <leatherMarketValueFactor>8</leatherMarketValueFactor>
+			<thinkTreeMain>Humanlike</thinkTreeMain>
+			<thinkTreeConstant>HumanlikeConstant</thinkTreeConstant>
+			<intelligence>Humanlike</intelligence>
+			<makesFootprints>true</makesFootprints>
+			<lifeExpectancy>80</lifeExpectancy>
 			<nameCategory>HumanStandard</nameCategory>
 			<baseBodySize>1.0</baseBodySize>
 			<body>Human</body>
+			<useMeatFrom>Human</useMeatFrom>
+			<useLeatherFrom>Human</useLeatherFrom>
 			<baseHealthScale>1</baseHealthScale>
 			<foodType>OmnivoreHuman</foodType>
 			<gestationPeriodDays>45</gestationPeriodDays>
@@ -82,6 +84,10 @@
 				<li>
 					<def>HumanlikeAdult</def>
 					<minAge>14</minAge>
+					<soundWounded>Pawn_Human_Wounded</soundWounded>
+					<soundDeath>Pawn_Human_Death</soundDeath>
+					<soundCall>Pawn_Human_Wounded</soundCall>
+					<soundAngry>Pawn_Human_Wounded</soundAngry>
 				</li>
 			</lifeStageAges>
 			<soundMeleeHitPawn>Pawn_Melee_Punch_HitPawn</soundMeleeHitPawn>
@@ -105,6 +111,7 @@
 			</ageGenerationCurve>
 			<hediffGiverSets>
 				<li>OrganicStandard</li>
+				<li>Human</li>
 			</hediffGiverSets>
 		</race>
 		<modExtensions>
@@ -112,126 +119,118 @@
 				<bodyShape>Humanoid</bodyShape>
 			</li>
 		</modExtensions>
-        <recipes>
-            <!--Vanilla operation-->
-            <li>ExciseCarcinoma</li>
-            <!--Lifesupport-->
-            <li>installlifesupportheart</li>
-            <li>installlifesupportlung</li>
-            <li>installlifesupportkidney</li>
-            <li>installlifesupportliver</li>
-            <!--Bones-->
-            <li>InstallArtificialBone_Small</li>
-            <li>InstallArtificialBone_Medium</li>
-            <li>InstallArtificialBonePiece_Large</li>
-            <!--HealScars-->
-            <li>HealScars</li>
-            <!--Basic-->
-            <li>InstallPegLeg</li>
-            <li>InstallSteelArm</li>
-            <li>InstallWoodenFoot</li>
-            <li>InstallHookHand</li>
-            <li>InstallDenture</li>
-            <li>InstallEyePatch</li>
-            <!--Simple-->
-            <li>InstallGlassEye</li>
-            <li>InstallSimpleProstheticHand</li>
-            <li>InstallSimpleProstheticFoot</li>
-            <li>InstallHydraulicJaw</li>
-            <li>InstallArtificialNose</li>
-            <li>InstallSimpleProstheticArm</li>
-            <li>InstallSimpleProstheticLeg</li>
-            <li>InstallArtificialPelvis</li>
-            <li>InstallEarBandage</li>		
-            <!--Bionic-->
-            <li>InstallBionicEye</li>
-            <li>InstallBionicHand</li>
-            <li>InstallBionicFoot</li>
-            <li>InstallPowerArm</li>
-            <li>InstallBionicArm</li>
-            <li>InstallBionicLeg</li>
-            <li>InstallBionicSpine</li>
-            <li>InstallBionicJaw</li>
-            <li>InstallBionicEar</li>
-            <li>InstallSilentJaw</li>
-            <li>InstallMedicalRib</li>
-            <li>InstallAdrenalineRib</li>
-            <li>InstallBrainStimulator</li>
-			<li>InstallPainkillerRib</li>
-			<li>InstallDruggedRib</li>
-            <!--Synthetic Organs-->
-            <li>InstallAIChip</li>
-            <li>InstallSyntheticLung</li>
-            <li>InstallSyntheticStomach</li>
-            <li>InstallSyntheticLiver</li>
-            <li>InstallSyntheticKidney</li>
-            <li>InstallSyntheticHeart</li>
-            <!--Natural-->
-            <li>InstallNaturalHeart</li>
-            <li>InstallNaturalLung</li>
-            <li>InstallNaturalKidney</li>
-            <li>InstallNaturalLiver</li>
-            <li>InstallNaturalEar</li>
-            <li>InstallNaturalEye</li>
-            <li>InstallNaturalNose</li>
-            <li>InstallNaturalArm</li>
-            <li>InstallNaturalLeg</li>
-            <li>InstallNaturalJaw</li>
-            <li>InstallNaturalStomach</li>
-            <!--Cybernetics-->
-            <li>InstallGTHeart</li>
-            <li>InstallGTLung</li>
-            <li>InstallGTKidney</li>
-            <li>InstallGTLiver</li>
-            <li>InstallGTStomach</li>
-            <li>InstallGTEar</li>
-            <li>InstallGTEye</li>
-            <li>InstallGTArm</li>
-            <li>InstallGTHand</li>
-            <li>InstallGTLeg</li>
-            <li>InstallGTFoot</li>
-            <li>InstallGTDentures</li>
-            <li>InstallGTSpine</li>
-            <li>InstallCyberneticPowerArm</li>
-            <li>InstallExoskeleton</li>
-            <!--DE Surgery-->
-            <li>RepairCosmeticEar</li>
-            <li>RepairCosmeticNose</li>
-            <li>RepairFinger</li>
-            <li>RepairToe</li>
-            <li>CureChronicBadBack</li>
-            <li>CureChronicFrail</li>
-            <li>CureChronicCataract</li>
-            <li>CureChronicHearingLoss</li>
-            <li>CureChronicDementia</li>
-            <li>CureMuscleParasites</li>
-            <li>CureGutWorms</li>
-            <li>CureChronicAlzheimers</li>
-            <li>CureChronicAsthma</li>
-            <li>CureChronicHeartArteryBlockage</li>
-            <li>CureInjuryBurn</li>
-            <li>CureInjuryCrush</li>
-            <li>CureInjuryCrack</li>
-            <li>CureInjuryCut</li>
-            <li>CureInjurySurgicalCut</li>
-            <li>CureInjuryScratch</li>
-            <li>CureInjuryBite</li>
-            <li>CureInjuryStab</li>
-            <li>CureInjuryGunshot</li>
-            <li>CureInjuryShredded</li>
-            <li>CureInjuryBruise</li>
-            <li>CureInjuryFrostbite</li>
-            <li>InjectMedicine</li>
-            <li>Installsenex</li>
-            <!--Misc-->
-            <li>InstallJoywire</li>
-            <li>InstallPainstopper</li>
-            <li>InstallPowerClaw</li>
-            <li>InstallScytherBlade</li>
+		<recipes>
+			<!--Vanilla operation-->
+			<li>ExciseCarcinoma</li>
+			<!--Lifesupport-->
+			<li>installlifesupportheart</li>
+			<li>installlifesupportlung</li>
+			<li>installlifesupportkidney</li>
+			<li>installlifesupportliver</li>
+			<!--Bones-->
+			<li>InstallArtificialBone_Small</li>
+			<li>InstallArtificialBone_Medium</li>
+			<li>InstallArtificialBonePiece_Large</li>
+			<!--HealScars-->
+			<li>HealScars</li>
+			<!--Basic-->
+			<li>InstallPegLeg</li>
+			<li>InstallWoodenFoot</li>
+			<li>InstallHookHand</li>
+			<li>InstallDenture</li>
+			<li>InstallEyePatch</li>
+			<!--Simple-->
+			<li>InstallGlassEye</li>
+			<li>InstallSimpleProstheticHand</li>
+			<li>InstallSimpleProstheticFoot</li>
+			<li>InstallArtificialNose</li>
+			<li>InstallSimpleProstheticArm</li>
+			<li>InstallSimpleProstheticLeg</li>
+			<li>InstallArtificialPelvis</li>
+			<li>InstallCochlearImplant</li>		
+			<!--Bionic-->
+			<li>InstallBionicEye</li>
+			<li>InstallBionicHand</li>
+			<li>InstallBionicFoot</li>
+			<li>InstallBionicArm</li>
+			<li>InstallBionicArm</li>
+			<li>InstallBionicLeg</li>
+			<li>InstallBionicSpine</li>
+			<li>InstallBionicJaw</li>
+			<li>InstallBionicEar</li>
+			<li>InstallBionicRibcage</li>
+			<li>InstallBrainStimulator</li>
+			<!--Synthetic Organs-->
+			<li>InstallAIChip</li>
+			<li>InstallBionicLung</li>
+			<li>InstallBionicStomach</li>
+			<li>InstallBionicLiver</li>
+			<li>InstallBionicKidney</li>
+			<li>InstallBionicHeart</li>
+			<!--Natural-->
+			<li>InstallNaturalHeart</li>
+			<li>InstallNaturalLung</li>
+			<li>InstallNaturalKidney</li>
+			<li>InstallNaturalLiver</li>
+			<li>InstallNaturalEar</li>
+			<li>InstallNaturalEye</li>
+			<li>InstallNaturalNose</li>
+			<li>InstallNaturalArm</li>
+			<li>InstallNaturalLeg</li>
+			<li>InstallNaturalJaw</li>
+			<li>InstallNaturalStomach</li>
+			<!--Cybernetics-->
+			<li>InstallGTHeart</li>
+			<li>InstallGTLung</li>
+			<li>InstallGTKidney</li>
+			<li>InstallGTLiver</li>
+			<li>InstallGTStomach</li>
+			<li>InstallGTEar</li>
+			<li>InstallArchotechEye</li>
+			<li>InstallArchotechArm</li>
+			<li>InstallGTHand</li>
+			<li>InstallArchotechLeg</li>
+			<li>InstallGTFoot</li>
+			<li>InstallGTDentures</li>
+			<li>InstallGTSpine</li>
+			<li>InstallExoskeleton</li>
+			<!--DE Surgery-->
+			<li>RepairCosmeticEar</li>
+			<li>RepairCosmeticNose</li>
+			<li>RepairFinger</li>
+			<li>RepairToe</li>
+			<li>CureChronicBadBack</li>
+			<li>CureChronicFrail</li>
+			<li>CureChronicCataract</li>
+			<li>CureChronicHearingLoss</li>
+			<li>CureChronicDementia</li>
+			<li>CureMuscleParasites</li>
+			<li>CureGutWorms</li>
+			<li>CureChronicAlzheimers</li>
+			<li>CureChronicAsthma</li>
+			<li>CureChronicHeartArteryBlockage</li>
+			<li>CureInjuryBurn</li>
+			<li>CureInjuryCrush</li>
+			<li>CureInjuryCrack</li>
+			<li>CureInjuryCut</li>
+			<li>CureInjurySurgicalCut</li>
+			<li>CureInjuryScratch</li>
+			<li>CureInjuryBite</li>
+			<li>CureInjuryStab</li>
+			<li>CureInjuryGunshot</li>
+			<li>CureInjuryShredded</li>
+			<li>CureInjuryBruise</li>
+			<li>CureInjuryFrostbite</li>
+			<li>InjectMedicine</li>
+			<li>Installsenex</li>
+			<!--Misc-->
+			<li>InstallJoywire</li>
+			<li>InstallPainstopper</li>
+			<li>InstallPowerClaw</li>
 			<li>AdministerMechSerumHealer</li>
-            <li>RemoveBodyPart</li>
-            <li>Euthanize</li>
-        </recipes>
+			<li>RemoveBodyPart</li>
+			<li>Euthanize</li>
+		</recipes>
 	</Verse.ThingDef>
 
 	<Verse.ThingDef Name="BasePawnSkynet" Abstract="True">
@@ -242,17 +241,18 @@
 		<altitudeLayer>Pawn</altitudeLayer>
 		<useHitPoints>false</useHitPoints>
 		<hasTooltip>true</hasTooltip>
-		<soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+		<soundImpactDefault>BulletImpact_Metal</soundImpactDefault>
 		<inspectorTabs>
 			<li>ITab_Pawn_Health</li>
 			<li>ITab_Pawn_Needs</li>
 			<li>ITab_Pawn_Character</li>
 			<li>ITab_Pawn_Training</li>
-			<li>CombatExtended.ITab_Inventory</li>
+			<li>ITab_Pawn_Social</li>
 			<li>ITab_Pawn_Guest</li>
 			<li>ITab_Pawn_Prisoner</li>
-			<li>ITab_Pawn_Social</li>
-			<li>ITab_Pawn_Combat</li>
+			<li>ITab_Pawn_FormingCaravan</li>
+			<li>CombatExtended.ITab_Inventory</li>
+			<li>ITab_Pawn_Log</li>
 		</inspectorTabs>
 		<comps>
 			<li>
@@ -276,8 +276,6 @@
 			<ToxicSensitivity>0</ToxicSensitivity>
 			<MentalBreakThreshold>0</MentalBreakThreshold>
 			<Flammability>0</Flammability>
-			<ComfyTemperatureMin>-150</ComfyTemperatureMin>
-			<ComfyTemperatureMax>900</ComfyTemperatureMax>
 			<CarryWeight>150</CarryWeight>
 			<CarryBulk>120</CarryBulk>
 			<LeatherAmount>0</LeatherAmount>
@@ -288,10 +286,18 @@
 			<fleshType>Skynet</fleshType>
 			<needsRest>true</needsRest>
 			<hasGenders>true</hasGenders>
+			<useMeatFrom>Human</useMeatFrom>
+			<useLeatherFrom>Human</useLeatherFrom>
+			<bloodDef>ChjFilthCoolant</bloodDef>
 			<hediffGiverSets>
 				<li>AndroidPassiveSet</li>
+				<li>ChjAndroidStandard</li>
 			</hediffGiverSets>
 		</race>
+		<recipes>
+			<li>AndroidShutDown</li>
+			<li>AndroidRepairKit</li>
+		</recipes>
 	</Verse.ThingDef>
 
 
@@ -300,7 +306,7 @@
 		<defName>SkynetCovert</defName>
 		<label>Human</label>
 		<description>A baseline human, mostly unmodified by gene engineering and mostly unchanged by evolutionary pressures on non-Earth planets.</description>
-		<soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+		<soundImpactDefault>BulletImpact_Metal</soundImpactDefault>
 		<statBases>
 			<Mass>70</Mass>
 			<MoveSpeed>4.85</MoveSpeed>
@@ -333,6 +339,17 @@
 				<armorPenetration>0.08</armorPenetration>
 			</li>
 			<li Class="CombatExtended.ToolCE">
+				<label>teeth</label>
+				<capacities>
+					<li>Bite</li>
+				</capacities>
+				<power>7</power>
+				<cooldownTime>2</cooldownTime>
+				<linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+				<chanceFactor>0.1</chanceFactor>
+				<armorPenetration>0.08</armorPenetration>
+			</li>
+			<li Class="CombatExtended.ToolCE">
 				<label>head</label>
 				<capacities>
 					<li>Blunt</li>
@@ -340,8 +357,9 @@
 				<power>5</power>
 				<cooldownTime>1.75</cooldownTime>
 				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-				<commonality>0.2</commonality>
+				<chanceFactor>0.2</chanceFactor>
 				<armorPenetration>0.08</armorPenetration>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
 			</li>
 		</tools>
 		<race>
@@ -350,33 +368,45 @@
 			<intelligence>Humanlike</intelligence>
 			<fleshType>Skynet</fleshType>
 			<foodType>OmnivoreHuman</foodType>
-			<useMeatFrom>Human</useMeatFrom>
-			<useLeatherFrom>Human</useLeatherFrom>
 			<baseHealthScale>1.0</baseHealthScale>
 		</race>
-        <comps>
-            <li>
-                <compClass>CombatExtended.CompPawnGizmo</compClass>
-            </li>
-        </comps>
+		<comps>
+			<li>
+				<compClass>CombatExtended.CompPawnGizmo</compClass>
+			</li>
+		</comps>
 		<butcherProducts>
 			<TitaniumBar>10</TitaniumBar>
 			<DepletedUranium>12</DepletedUranium>
 			<CarbonAlloy>11</CarbonAlloy>
 		</butcherProducts>
+		<modExtensions>
+			<li Class="Skynet.SkynetCovertExtension">
+				<isCovert>true</isCovert>
+			</li>
+		</modExtensions>
 	</Verse.ThingDef>
-
+	
+	<!-- Terminator T800 -->
 	<Verse.ThingDef ParentName="BaseSkynet">
-		<thingClass>Skynet.SkynetAgent</thingClass>
-		<defName>SkynetAgent</defName>
-		<label>Skynet Agent</label>
-		<description>The T-1000, also known as a Prototype Series 1000 Terminator, is a shapeshifting android assassin. T-1000 is a more advanced Terminator then T-800, composed entirely of a "mimetic polyalloy", rendering it capable of rapid shapeshifting, near-perfect mimicry and rapid recovery from damage. Furthermore, it can use its ability to quickly liquify and assume forms in innovative and surprising ways, including fitting through narrow openings, morphing its arms into solid metal tools or bladed weapons, walking through prison bars, flattening itself and imitating the pattern and texture of the ground to hide or ambush targets.</description>
+		<thingClass>Skynet.SkynetInfiltrator</thingClass>
+		<defName>SkynetInfiltrator</defName>
+		<label>Terminator prototype T800</label>
+		<description>The Terminator is an infiltration unit that is part-man and part-machine. The interior is composed of a hyperalloy combat chassis that is microprocessor-controlled. The exterior is living human tissue. The endoskeleton is assisted by a powerful network of hydraulic servomechanisms. This makes Terminators superhumanly strong. \n\nMain features:\n ++Great armor\n ++Great durability\n --No regeneration abilities\n -- No restore lost limbs\n -Can't change appearance\n --Can't transform arms in melee battle\n -No colony socialization\n --Weak working opportunities\n +Сan't get overheating.</description>
 		<uiIconPath>Things/Pawn/Humanlike/UI/IconHuman</uiIconPath>
 		<statBases>
-			<MarketValue>30000</MarketValue>
-			<MoveSpeed>5.1</MoveSpeed>
-			<MeleeDodgeChance>0.3</MeleeDodgeChance>
-			<MeleeCritChance>0.35</MeleeCritChance>
+			<MoveSpeed>4.6</MoveSpeed>
+			<ArmorRating_Blunt>0.54</ArmorRating_Blunt>
+			<ArmorRating_Sharp>0.58</ArmorRating_Sharp>
+			<ArmorRating_Heat>0.62</ArmorRating_Heat>
+			<Flammability>0</Flammability>
+			<ComfyTemperatureMin>-120</ComfyTemperatureMin>
+			<ComfyTemperatureMax>450</ComfyTemperatureMax>
+			<CarryWeight>140</CarryWeight>
+			<CarryBulk>100</CarryBulk>
+			<MarketValue>90000</MarketValue>
+			<MeleeDodgeChance>0.05</MeleeDodgeChance>
+			<MeleeCritChance>0.1</MeleeCritChance>
 		</statBases>
 		<tools>
 			<li Class="CombatExtended.ToolCE">
@@ -384,8 +414,149 @@
 				<capacities>
 					<li>Blunt</li>
 				</capacities>
-				<power>21</power>
-				<cooldownTime>1.15</cooldownTime>
+				<power>18</power>
+				<cooldownTime>1.55</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+				<armorPenetration>0.6</armorPenetration>
+			</li>
+			<li Class="CombatExtended.ToolCE">
+				<label>right fist</label>
+				<capacities>
+					<li>Blunt</li>
+				</capacities>
+				<power>18</power>
+				<cooldownTime>1.55</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+				<armorPenetration>0.6</armorPenetration>
+			</li>
+			<li Class="CombatExtended.ToolCE">
+				<label>head</label>
+				<capacities>
+					<li>Blunt</li>
+				</capacities>
+				<power>14</power>
+				<cooldownTime>1.75</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<armorPenetration>0.35</armorPenetration>
+				<chanceFactor>0.2</chanceFactor>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+			</li>
+		</tools>
+		<race>
+			<thinkTreeMain>Terminator</thinkTreeMain>
+			<thinkTreeConstant>HumanlikeConstant</thinkTreeConstant>
+			<fleshType>Skynet</fleshType>
+			<intelligence>Humanlike</intelligence>
+			<nameCategory>HumanStandard</nameCategory>
+			<body>HumanoidTerminator</body>
+			<lifeExpectancy>150</lifeExpectancy>
+			<baseBodySize>1.1</baseBodySize>
+			<baseHealthScale>3.0</baseHealthScale>
+			<gestationPeriodDays>3</gestationPeriodDays>
+			<litterSizeCurve>
+				<points>
+					<li>(0.5, 0)</li>
+					<li>(1, 1)</li>
+					<li>(1.01, 0.02)</li>
+					<li>(3.5, 0)</li>
+				</points>
+			</litterSizeCurve>
+			<lifeStageAges>
+				<li>
+					<def>HumanlikeBaby</def>
+					<minAge>0</minAge>
+				</li>
+				<li>
+					<def>HumanlikeToddler</def>
+					<minAge>0.3</minAge>
+				</li>
+				<li>
+					<def>HumanlikeChild</def>
+					<minAge>1</minAge>
+				</li>
+				<li>
+					<def>HumanlikeTeenager</def>
+					<minAge>1.5</minAge>
+				</li>
+				<li>
+					<def>HumanlikeAdult</def>
+					<minAge>2</minAge>
+				</li>
+			</lifeStageAges>
+			<soundMeleeHitPawn>Pawn_Melee_MechanoidSlash_HitPawn</soundMeleeHitPawn>
+			<soundMeleeHitBuilding>Pawn_Melee_MechanoidSlash_HitBuilding</soundMeleeHitBuilding>
+			<soundMeleeMiss>Pawn_Melee_MechanoidSlash_Miss</soundMeleeMiss>
+			<specialShadowData>
+				<volume>(0.3, 0.8, 0.4)</volume>
+				<offset>(0,0,-0.3)</offset>
+			</specialShadowData>
+			<ageGenerationCurve>
+				<points>
+					<li>(14,0)</li>
+					<li>(16,100)</li>
+					<li>(50,100)</li>
+					<li>(60,30)</li>
+					<li>(70,18)</li>
+					<li>(80,10)</li>
+					<li>(90,3)</li>
+					<li>(100,0)</li>
+				</points>
+			</ageGenerationCurve>
+		</race>
+		<comps>
+			<li>
+				<compClass>CombatExtended.CompPawnGizmo</compClass>
+			</li>
+		</comps>
+		<butcherProducts>
+			<TitaniumBar>11</TitaniumBar>
+			<DepletedUranium>12</DepletedUranium>
+		</butcherProducts>
+		<modExtensions>
+			<li Class="Skynet.SkynetPawnExtension">
+				<regenerationDelayInTicks>0</regenerationDelayInTicks>
+				<healPrimaryBodyParts>false</healPrimaryBodyParts>
+				<regenerateBodyParts>false</regenerateBodyParts>
+				<enableBleeding>false</enableBleeding>
+				<dropBlood>false</dropBlood>
+				<canSocialize>false</canSocialize>
+				<canSocialFights>false</canSocialFights>
+				<noSkillLoss>true</noSkillLoss>
+				<colonyCaresIfDead>false</colonyCaresIfDead>
+				<batteryChargeDuration>50</batteryChargeDuration>
+			</li>
+		</modExtensions>
+	</Verse.ThingDef>
+
+	<Verse.ThingDef ParentName="BaseSkynet">
+		<thingClass>Skynet.SkynetAgent</thingClass>
+		<defName>SkynetAgent</defName>
+		<label>Terminator T-Hybrid</label>
+		<description>A Hybrid, or T-H, is a human who has been transformed into a cybernetic organism. T-H was successfully transformed into a cybernetic organism, his skeleton replaced with a hyper-alloy replica while still retaining key biological components such as the brain, organs, eyes, and curiously his gums and teeth (though these could have been prosthetic). The result was a stronger, faster, and more resilient vessel in which he could survive beyond death. \n\nMain features:\n -Weak armor\n -Bad durability\n +Average regeneration abilities\n --Can't restore lost limbs\n +Can change appearance\n --Can't transform arms in melee battle\n +Colony socialization\n ++Great working opportunities.\n -Сan get overheating.</description>
+		<uiIconPath>Things/Pawn/Humanlike/UI/IconHuman</uiIconPath>
+		<statBases>
+			<ArmorRating_Blunt>0.42</ArmorRating_Blunt>
+			<ArmorRating_Sharp>0.34</ArmorRating_Sharp>
+			<ArmorRating_Heat>0.6</ArmorRating_Heat>
+			<Flammability>0</Flammability>
+			<ComfyTemperatureMin>-120</ComfyTemperatureMin>
+			<ComfyTemperatureMax>750</ComfyTemperatureMax>
+			<MarketValue>50000</MarketValue>
+			<MoveSpeed>5.5</MoveSpeed>
+			<CarryWeight>120</CarryWeight>
+			<CarryBulk>90</CarryBulk>
+			<SocialImpact>1.5</SocialImpact>
+			<MeleeDodgeChance>0.22</MeleeDodgeChance>
+			<MeleeCritChance>0.15</MeleeCritChance>
+		</statBases>
+		<tools>
+			<li Class="CombatExtended.ToolCE">
+				<label>left fist</label>
+				<capacities>
+					<li>Blunt</li>
+				</capacities>
+				<power>17</power>
+				<cooldownTime>1.45</cooldownTime>
 				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
 				<armorPenetration>0.5</armorPenetration>
 			</li>
@@ -394,8 +565,8 @@
 				<capacities>
 					<li>Blunt</li>
 				</capacities>
-				<power>21</power>
-				<cooldownTime>1.15</cooldownTime>
+				<power>17</power>
+				<cooldownTime>1.45</cooldownTime>
 				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
 				<armorPenetration>0.5</armorPenetration>
 			</li>
@@ -405,10 +576,11 @@
 					<li>Blunt</li>
 				</capacities>
 				<power>12</power>
-				<cooldownTime>1.15</cooldownTime>
+				<cooldownTime>1.6</cooldownTime>
 				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-				<commonality>0.2</commonality>
 				<armorPenetration>0.35</armorPenetration>
+				<chanceFactor>0.2</chanceFactor>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
 			</li>
 		</tools>
 		<race>
@@ -416,13 +588,11 @@
 			<thinkTreeConstant>HumanlikeConstant</thinkTreeConstant>
 			<intelligence>Humanlike</intelligence>
 			<makesFootprints>true</makesFootprints>
-			<lifeExpectancy>1000</lifeExpectancy>
-			<useMeatFrom>Human</useMeatFrom>
-			<useLeatherFrom>Human</useLeatherFrom>
+			<lifeExpectancy>500</lifeExpectancy>
 			<nameCategory>HumanStandard</nameCategory>
-			<body>Human</body>
+			<body>HumanoidTerminator</body>
 			<baseBodySize>1</baseBodySize>
-			<baseHealthScale>4.5</baseHealthScale>
+			<baseHealthScale>3.5</baseHealthScale>
 			<gestationPeriodDays>3</gestationPeriodDays>
 			<litterSizeCurve>
 				<points>
@@ -477,173 +647,54 @@
 				<li>OrganicStandard</li>
 			</hediffGiverSets>
 		</race>
-        <comps>
-            <li>
-                <compClass>CombatExtended.CompPawnGizmo</compClass>
-            </li>
-        </comps>
+		<comps>
+			<li>
+				<compClass>CombatExtended.CompPawnGizmo</compClass>
+			</li>
+		</comps>
 		<butcherProducts>
-			<NitinolAlloy>28</NitinolAlloy>
+			<NitinolAlloy>12</NitinolAlloy>
+			<CarbonAlloy>11</CarbonAlloy>
 		</butcherProducts>
 		<modExtensions>
-            <li Class="Skynet.SkynetPawnExtension">
-				<TicksBetweenRepairs>70</TicksBetweenRepairs>
-            </li>
-		</modExtensions>
-	</Verse.ThingDef>
-
-	<!-- Terminator T1000 -->
-	<Verse.ThingDef ParentName="BaseSkynet">
-		<thingClass>Skynet.SkynetAgent</thingClass>
-		<defName>SkynetTerminator</defName>
-		<label>terminator prototype T1000</label>
-		<description>The T-1000, also known as a Prototype Series 1000 Terminator, is a shapeshifting android assassin. T-1000 is a more advanced Terminator then T-800, composed entirely of a "mimetic polyalloy", rendering it capable of rapid shapeshifting, near-perfect mimicry and rapid recovery from damage. Furthermore, it can use its ability to quickly liquify and assume forms in innovative and surprising ways, including fitting through narrow openings, morphing its arms into solid metal tools or bladed weapons, walking through prison bars, flattening itself and imitating the pattern and texture of the ground to hide or ambush targets.</description>
-		<uiIconPath>Things/Pawn/Humanlike/UI/IconHuman</uiIconPath>
-		<statBases>
-			<ArmorRating_Blunt>0.12</ArmorRating_Blunt>
-			<ArmorRating_Sharp>0.15</ArmorRating_Sharp>
-			<ArmorRating_Electric>0.7</ArmorRating_Electric>
-			<ArmorRating_Heat>0.1</ArmorRating_Heat>
-			<Flammability>0</Flammability>
-			<ComfyTemperatureMin>-160</ComfyTemperatureMin>
-			<ComfyTemperatureMax>880</ComfyTemperatureMax>
-			<MarketValue>30000</MarketValue>
-			<MoveSpeed>5.1</MoveSpeed>
-			<CarryWeight>120</CarryWeight>
-			<CarryBulk>90</CarryBulk>
-			<MeleeDodgeChance>0.3</MeleeDodgeChance>
-			<MeleeCritChance>0.35</MeleeCritChance>
-		</statBases>
-		<tools>
-			<li Class="CombatExtended.ToolCE">
-				<label>left fist</label>
-				<capacities>
-					<li>Blunt</li>
-				</capacities>
-				<power>21</power>
-				<cooldownTime>1.15</cooldownTime>
-				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
-				<armorPenetration>0.5</armorPenetration>
+			<li Class="Skynet.SkynetPawnExtension">
+				<regenerationDelayInTicks>50</regenerationDelayInTicks>
+				<healpower>5</healpower>
+				<healPrimaryBodyParts>false</healPrimaryBodyParts>
+				<regenerateBodyParts>false</regenerateBodyParts>
+				<enableBleeding>true</enableBleeding>
+				<dropBlood>true</dropBlood>
+				<canSocialize>true</canSocialize>
+				<canSocialFights>false</canSocialFights>
+				<noSkillLoss>true</noSkillLoss>
+				<colonyCaresIfDead>false</colonyCaresIfDead>
+				<faceChanger>true</faceChanger>
+				<transformArmsAbility>false</transformArmsAbility>
+				<batteryChargeDuration>80</batteryChargeDuration>
 			</li>
-			<li Class="CombatExtended.ToolCE">
-				<label>right fist</label>
-				<capacities>
-					<li>Blunt</li>
-				</capacities>
-				<power>21</power>
-				<cooldownTime>1.15</cooldownTime>
-				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
-				<armorPenetration>0.5</armorPenetration>
-			</li>
-			<li Class="CombatExtended.ToolCE">
-				<label>head</label>
-				<capacities>
-					<li>Blunt</li>
-				</capacities>
-				<power>12</power>
-				<cooldownTime>1.15</cooldownTime>
-				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-				<commonality>0.2</commonality>
-				<armorPenetration>0.35</armorPenetration>
-			</li>
-		</tools>
-		<race>
-			<fleshType>Skynet</fleshType>
-			<thinkTreeMain>Terminator</thinkTreeMain>
-			<thinkTreeConstant>HumanlikeConstant</thinkTreeConstant>
-			<intelligence>Humanlike</intelligence>
-			<makesFootprints>true</makesFootprints>
-			<lifeExpectancy>400</lifeExpectancy>
-			<useMeatFrom>Human</useMeatFrom>
-			<useLeatherFrom>Human</useLeatherFrom>
-			<nameCategory>HumanStandard</nameCategory>
-			<body>HumanoidTerminator</body>
-			<baseBodySize>1</baseBodySize>
-			<baseHealthScale>4.5</baseHealthScale>
-			<gestationPeriodDays>3</gestationPeriodDays>
-			<litterSizeCurve>
-				<points>
-					<li>(0.5, 0)</li>
-					<li>(1, 1)</li>
-					<li>(1.01, 0.02)</li>
-					<li>(3.5, 0)</li>
-				</points>
-			</litterSizeCurve>
-			<lifeStageAges>
-				<li>
-					<def>HumanlikeBaby</def>
-					<minAge>0</minAge>
-				</li>
-				<li>
-					<def>HumanlikeToddler</def>
-					<minAge>0.3</minAge>
-				</li>
-				<li>
-					<def>HumanlikeChild</def>
-					<minAge>1</minAge>
-				</li>
-				<li>
-					<def>HumanlikeTeenager</def>
-					<minAge>1.5</minAge>
-				</li>
-				<li>
-					<def>HumanlikeAdult</def>
-					<minAge>2</minAge>
-				</li>
-			</lifeStageAges>
-			<soundMeleeHitPawn>Pawn_Melee_MechanoidSlash_HitPawn</soundMeleeHitPawn>
-			<soundMeleeHitBuilding>Pawn_Melee_MechanoidSlash_HitBuilding</soundMeleeHitBuilding>
-			<soundMeleeMiss>Pawn_Melee_MechanoidSlash_Miss</soundMeleeMiss>
-			<specialShadowData>
-				<volume>(0.3, 0.8, 0.4)</volume>
-				<offset>(0,0,-0.3)</offset>
-			</specialShadowData>
-			<ageGenerationCurve>
-				<points>
-					<li>(14,0)</li>
-					<li>(16,100)</li>
-					<li>(50,100)</li>
-					<li>(60,30)</li>
-					<li>(70,18)</li>
-					<li>(80,10)</li>
-					<li>(90,3)</li>
-					<li>(100,0)</li>
-				</points>
-			</ageGenerationCurve>
-		</race>
-        <comps>
-            <li>
-                <compClass>CombatExtended.CompPawnGizmo</compClass>
-            </li>
-        </comps>
-		<butcherProducts>
-			<NitinolAlloy>28</NitinolAlloy>
-		</butcherProducts>
-		<modExtensions>
-            <li Class="Skynet.SkynetPawnExtension">
-				<TicksBetweenRepairs>70</TicksBetweenRepairs>
-            </li>
 		</modExtensions>
 	</Verse.ThingDef>
 
 	<!-- Terminator T-X -->
 	<Verse.ThingDef ParentName="BaseSkynet">
 		<thingClass>Skynet.SkynetAgent</thingClass>
-		<defName>SkynetTerminatorTX</defName>
+		<defName>SkynetPrototypeTX</defName>
 		<label>Terminator prototype T-X</label>
-		<description>The T-X model also known as Terminatrix. It is a composite of the T-800 and T-1000, a solid sophisticated human sized frame endoskeleton covered with a nanorobotic liquid metal "mimetic polyalloy", capable of changing shape, color and temperature in order to mimic living creatures and recover from damage.</description>
+		<description>The T-X model also known as Terminatrix. It is a composite of the T-800 and T-1000, a solid sophisticated human sized frame endoskeleton covered with a nanorobotic liquid metal "mimetic polyalloy", capable of changing shape, color and temperature in order to mimic living creatures and recover from damage.\n\nMain features:\n +Average armor\n ++Good durability\n ++Strong regeneration abilities\n ++Restore lost limbs, except reactor core and brain\n +Can change appearance\n ++Can transform arms in melee battle\n -No colony socialization\n --Weak working opportunities\n +Сan't get overheating.</description>
 		<uiIconPath>Things/Pawn/Humanlike/UI/IconHuman</uiIconPath>
 		<statBases>
-			<ArmorRating_Blunt>0.50</ArmorRating_Blunt>
+			<ArmorRating_Blunt>0.46</ArmorRating_Blunt>
 			<ArmorRating_Sharp>0.50</ArmorRating_Sharp>
-			<ArmorRating_Electric>0.85</ArmorRating_Electric>
-			<ArmorRating_Heat>0.85</ArmorRating_Heat>
-			<MoveSpeed>5.1</MoveSpeed>
+			<ArmorRating_Heat>0.8</ArmorRating_Heat>
+			<MoveSpeed>5.5</MoveSpeed>
+			<ComfyTemperatureMin>-150</ComfyTemperatureMin>
+			<ComfyTemperatureMax>600</ComfyTemperatureMax>
 			<CarryWeight>140</CarryWeight>
 			<CarryBulk>100</CarryBulk>
-			<MarketValue>45000</MarketValue>
-			<MeleeDodgeChance>0.3</MeleeDodgeChance>
-			<MeleeCritChance>0.5</MeleeCritChance>
+			<WorkSpeedGlobal>0.5</WorkSpeedGlobal>
+			<MarketValue>130000</MarketValue>
+			<MeleeDodgeChance>0.22</MeleeDodgeChance>
+			<MeleeCritChance>0.2</MeleeCritChance>
 		</statBases>
 		<tools>
 			<li Class="CombatExtended.ToolCE">
@@ -651,8 +702,8 @@
 				<capacities>
 					<li>Blunt</li>
 				</capacities>
-				<power>24</power>
-				<cooldownTime>1.1</cooldownTime>
+				<power>19</power>
+				<cooldownTime>1.45</cooldownTime>
 				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
 				<armorPenetration>0.7</armorPenetration>
 			</li>
@@ -661,8 +712,8 @@
 				<capacities>
 					<li>Blunt</li>
 				</capacities>
-				<power>24</power>
-				<cooldownTime>1.1</cooldownTime>
+				<power>19</power>
+				<cooldownTime>1.45</cooldownTime>
 				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
 				<armorPenetration>0.7</armorPenetration>
 			</li>
@@ -672,10 +723,11 @@
 					<li>Blunt</li>
 				</capacities>
 				<power>15</power>
-				<cooldownTime>1.15</cooldownTime>
+				<cooldownTime>1.6</cooldownTime>
 				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-				<commonality>0.2</commonality>
 				<armorPenetration>0.4</armorPenetration>
+				<chanceFactor>0.2</chanceFactor>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
 			</li>
 		</tools>
 		<race>
@@ -685,12 +737,10 @@
 			<intelligence>Humanlike</intelligence>
 			<makesFootprints>true</makesFootprints>
 			<lifeExpectancy>400</lifeExpectancy>
-			<useMeatFrom>Human</useMeatFrom>
-			<useLeatherFrom>Human</useLeatherFrom>
 			<nameCategory>HumanStandard</nameCategory>
 			<body>HumanoidTerminator</body>
 			<baseBodySize>1</baseBodySize>
-			<baseHealthScale>2.8</baseHealthScale>
+			<baseHealthScale>3.3</baseHealthScale>
 			<gestationPeriodDays>3</gestationPeriodDays>
 			<litterSizeCurve>
 				<points>
@@ -742,155 +792,30 @@
 				</points>
 			</ageGenerationCurve>
 		</race>
-        <comps>
-            <li>
-                <compClass>CombatExtended.CompPawnGizmo</compClass>
-            </li>
-        </comps>
+		<comps>
+			<li>
+				<compClass>CombatExtended.CompPawnGizmo</compClass>
+			</li>
+		</comps>
 		<butcherProducts>
-			<TitaniumBar>12</TitaniumBar>
-			<Tungsten>8</Tungsten>
-			<PobediteAlloy>10</PobediteAlloy>
+			<TitaniumBar>14</TitaniumBar>
+			<Tungsten>12</Tungsten>
 		</butcherProducts>
 		<modExtensions>
-            <li Class="Skynet.SkynetPawnExtension">
-				<TicksBetweenRepairs>70</TicksBetweenRepairs>
-            </li>
-		</modExtensions>
-	</Verse.ThingDef>
-
-	<!-- Terminator T800 -->
-	<Verse.ThingDef ParentName="BaseSkynet">
-		<thingClass>Skynet.SkynetInfiltrator</thingClass>
-		<defName>SkynetInfiltrator</defName>
-		<label>Terminator prototype T800</label>
-		<description>The Terminator is an infiltration unit that is part-man and part-machine. The interior is composed of a hyperalloy combat chassis that is microprocessor-controlled. The exterior is living human tissue. The endoskeleton is assisted by a powerful network of hydraulic servomechanisms. This makes Terminators superhumanly strong.</description>
-		<uiIconPath>Things/Pawn/Humanlike/UI/IconHuman</uiIconPath>
-		<statBases>
-			<MoveSpeed>4.4</MoveSpeed>
-			<ArmorRating_Blunt>0.54</ArmorRating_Blunt>
-			<ArmorRating_Sharp>0.58</ArmorRating_Sharp>
-			<ArmorRating_Electric>0.2</ArmorRating_Electric>
-			<ArmorRating_Heat>0.3</ArmorRating_Heat>
-			<Flammability>0</Flammability>
-			<ComfyTemperatureMin>-120</ComfyTemperatureMin>
-			<ComfyTemperatureMax>840</ComfyTemperatureMax>
-			<CarryWeight>140</CarryWeight>
-			<CarryBulk>100</CarryBulk>
-			<MarketValue>13000</MarketValue>
-			<MeleeDodgeChance>0.25</MeleeDodgeChance>
-			<MeleeCritChance>0.35</MeleeCritChance>
-		</statBases>
-		<tools>
-			<li Class="CombatExtended.ToolCE">
-				<label>left fist</label>
-				<capacities>
-					<li>Blunt</li>
-				</capacities>
-				<power>22</power>
-				<cooldownTime>1.2</cooldownTime>
-				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
-				<armorPenetration>0.6</armorPenetration>
+			<li Class="Skynet.SkynetPawnExtension">
+				<regenerationDelayInTicks>50</regenerationDelayInTicks>
+				<healPrimaryBodyParts>false</healPrimaryBodyParts>
+				<regenerateBodyParts>true</regenerateBodyParts>
+				<enableBleeding>false</enableBleeding>
+				<dropBlood>false</dropBlood>
+				<canSocialize>false</canSocialize>
+				<canSocialFights>false</canSocialFights>
+				<noSkillLoss>true</noSkillLoss>
+				<colonyCaresIfDead>false</colonyCaresIfDead>
+				<faceChanger>true</faceChanger>
+				<transformArmsAbility>true</transformArmsAbility>
+				<batteryChargeDuration>100</batteryChargeDuration>
 			</li>
-			<li Class="CombatExtended.ToolCE">
-				<label>right fist</label>
-				<capacities>
-					<li>Blunt</li>
-				</capacities>
-				<power>22</power>
-				<cooldownTime>1.2</cooldownTime>
-				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
-				<armorPenetration>0.6</armorPenetration>
-			</li>
-			<li Class="CombatExtended.ToolCE">
-				<label>head</label>
-				<capacities>
-					<li>Blunt</li>
-				</capacities>
-				<power>12</power>
-				<cooldownTime>1.25</cooldownTime>
-				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
-				<commonality>0.2</commonality>
-				<armorPenetration>0.35</armorPenetration>
-			</li>
-		</tools>
-		<race>
-			<thinkTreeMain>Terminator</thinkTreeMain>
-			<thinkTreeConstant>HumanlikeConstant</thinkTreeConstant>
-			<fleshType>Skynet</fleshType>
-			<intelligence>Humanlike</intelligence>
-			<useMeatFrom>Human</useMeatFrom>
-			<useLeatherFrom>Human</useLeatherFrom>
-			<nameCategory>HumanStandard</nameCategory>
-			<body>HumanoidTerminator</body>
-			<lifeExpectancy>150</lifeExpectancy>
-			<baseBodySize>1.1</baseBodySize>
-			<baseHealthScale>2.5</baseHealthScale>
-			<gestationPeriodDays>3</gestationPeriodDays>
-			<litterSizeCurve>
-				<points>
-					<li>(0.5, 0)</li>
-					<li>(1, 1)</li>
-					<li>(1.01, 0.02)</li>
-					<li>(3.5, 0)</li>
-				</points>
-			</litterSizeCurve>
-			<lifeStageAges>
-				<li>
-					<def>HumanlikeBaby</def>
-					<minAge>0</minAge>
-				</li>
-				<li>
-					<def>HumanlikeToddler</def>
-					<minAge>0.3</minAge>
-				</li>
-				<li>
-					<def>HumanlikeChild</def>
-					<minAge>1</minAge>
-				</li>
-				<li>
-					<def>HumanlikeTeenager</def>
-					<minAge>1.5</minAge>
-				</li>
-				<li>
-					<def>HumanlikeAdult</def>
-					<minAge>2</minAge>
-				</li>
-			</lifeStageAges>
-			<soundMeleeHitPawn>Pawn_Melee_MechanoidSlash_HitPawn</soundMeleeHitPawn>
-			<soundMeleeHitBuilding>Pawn_Melee_MechanoidSlash_HitBuilding</soundMeleeHitBuilding>
-			<soundMeleeMiss>Pawn_Melee_MechanoidSlash_Miss</soundMeleeMiss>
-			<specialShadowData>
-				<volume>(0.3, 0.8, 0.4)</volume>
-				<offset>(0,0,-0.3)</offset>
-			</specialShadowData>
-			<ageGenerationCurve>
-				<points>
-					<li>(14,0)</li>
-					<li>(16,100)</li>
-					<li>(50,100)</li>
-					<li>(60,30)</li>
-					<li>(70,18)</li>
-					<li>(80,10)</li>
-					<li>(90,3)</li>
-					<li>(100,0)</li>
-				</points>
-			</ageGenerationCurve>
-		</race>
-        <comps>
-            <li>
-                <compClass>CombatExtended.CompPawnGizmo</compClass>
-            </li>
-        </comps>
-		<butcherProducts>
-			<TitaniumBar>9</TitaniumBar>
-			<DepletedUranium>8</DepletedUranium>
-			<CarbonAlloy>8</CarbonAlloy>
-		</butcherProducts>
-		<modExtensions>
-            <li Class="Skynet.SkynetPawnExtension">
-				<TicksBetweenRepairs>220</TicksBetweenRepairs>
-            </li>
 		</modExtensions>
 	</Verse.ThingDef>
 
