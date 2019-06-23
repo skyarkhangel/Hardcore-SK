@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <ThingDef ParentName="MakeableDrugPillBase">
+    <defName>FertilityBooster</defName>
+    <label>fertility booster</label>
+    <description>Boosts fertility for 2 days. (works for both genders, both have to take it if their fertility is low)</description>
+    <graphicData>
+      <texPath>Things/Item/FertPill</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <socialPropernessMatters>false</socialPropernessMatters>
+    <rotatable>false</rotatable>
+    <statBases>
+      <WorkToMake>700</WorkToMake>
+      <MarketValue>15</MarketValue>
+      <Mass>0.005</Mass>
+    </statBases>
+    <techLevel>Industrial</techLevel>
+    <ingestible>
+      <drugCategory>Medical</drugCategory>
+      <outcomeDoers>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>FertilityBoosterActive</hediffDef>
+          <severity>1.0</severity>
+		  <doToGeneratedPawnIfAddicted>false</doToGeneratedPawnIfAddicted>
+        </li>
+      </outcomeDoers>
+    </ingestible>
+    <recipeMaker>
+      <recipeUsers>
+        <li>DrugLab</li>
+      </recipeUsers>
+	  <researchPrerequisite>MedicineProduction</researchPrerequisite>
+      <skillRequirements>
+        <Medicine>6</Medicine>
+        <Crafting>4</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <costList>
+      <MedicineHerbal>1</MedicineHerbal>
+      <Neutroamine>1</Neutroamine>
+    </costList>
+    <comps>
+      <li Class="CompProperties_Drug">
+        <listOrder>1000</listOrder>
+        <overdoseSeverityOffset>
+          <min>0.08</min>
+          <max>0.14</max>
+        </overdoseSeverityOffset>
+		<addictiveness>0</addictiveness>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <HediffDef>
+    <defName>FertilityBoosterActive</defName>
+    <hediffClass>HediffWithComps</hediffClass>
+    <label>on fertility booster</label>
+    <labelNoun>fertility booster</labelNoun>
+    <defaultLabelColor>(1,0,0.5)</defaultLabelColor>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <maxSeverity>1.0</maxSeverity>
+    <isBad>false</isBad>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-0.5</severityPerDay>
+      </li>
+    </comps>
+      <stages>
+        <li>
+          <capMods>
+            <li>
+              <capacity>Fertility</capacity>
+              <offset>2.0</offset>
+            </li>
+          </capMods>
+        </li>
+      </stages>
+  </HediffDef>
+    
+</Defs>
