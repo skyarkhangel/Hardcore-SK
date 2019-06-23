@@ -1,31 +1,35 @@
-Spanish-translation-of-Rimworld
-===============================
+# Latin American Spanish Translation of RimWorld
 
-Esta es la traducción al español de Rimworld.
+![Logo](https://github.com/Ludeon/RimWorld-SpanishLatin/blob/master/LangIcon.png?raw=true) <br>
+![VRim](https://img.shields.io/badge/RimWorld-1.0.1967-green.svg?style=for-the-badge)
 
-Consulte esta página para obtener información sobre la licencia:
+_ _ _
+
+This is the Latin American Spanish translation of Rimworld 1.0.19XX (Development Build)
+
+See this page for license info:
 
 http://ludeon.com/forums/index.php?topic=2933.0
 
---------------------
+- - -
 
--Traductores:
+Grupo Discord de traduccion: https://discord.gg/PdwjvDA
+- - -
 
--Capiqua 
+Current translation and adaptation by:
+* __Etaglibash__
+* __Mora145__
+* __Andres6936__
+* __Destiny609__
 
--Gaesatae 
+Thanks to AM for the 10f. version.
 
--Ghrull
+Thanks for original spanish translation.
 
--Vhiden 
+* __Gaesatae (Inactivo)__
+* __Vhiden (Inactivo)__
+* __Emsaic (Inactivo)__
+* __Alvirolo (Inactivo)__
+* __Mototron (Inactivo)__
 
-
--Colaboradores:
-
--Emsaic
-
--Alvirolo
-
--Mototron
-
--Amatiasq
+- - -
