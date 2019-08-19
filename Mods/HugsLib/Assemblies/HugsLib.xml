@@ -44,6 +44,13 @@
             </summary>
             <param name="targetObject">The object to serialize</param>
         </member>
+        <member name="T:HugsLib.EarlyInitAttribute">
+            <summary>
+            Used to indicate that a <see cref="T:HugsLib.ModBase"/> type should be instantiated at the earliest moment possible.
+            Specifically, when <see cref="T:Verse.Mod"/> classes are instantiated (see <see cref="T:Verse.PlayDataLoader"/>.DoPlayLoad()).
+            If <see cref="P:HugsLib.ModBase.HarmonyAutoPatch"/> is true, Harmony patching will also happen at that time.
+            </summary>
+        </member>
         <member name="T:HugsLib.Core.HugsLibMod">
             <summary>
             Entry point for the library.
@@ -104,6 +111,43 @@
             System.Version can be implicitly cast to this type.
             VersionShort is no longer used by HugsLib internally, and the type is retained for backwards compatibility.
             </summary>
+        </member>
+        <member name="T:HugsLib.Logs.Dialog_PublishLogs">
+            <summary>
+            The front-end for LogPublisher.
+            Shows the status of the upload operation, provides controls and shows the produced URL.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Logs.LogPublisher">
+            <summary>
+            Collects the game logs and loaded mods and posts the information on GitHub as a gist.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Logs.LogWindowExtensions">
+            <summary>
+            Allows adding custom buttons to the EditWindow_Log window.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Logs.LogWindowExtensions.WidgetAlignMode">
+            <summary>
+            Alignment side for custom widgets.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Logs.LogWindowExtensions.WidgetDrawer">
+            <summary>
+            Callback to draw log window widgets in.
+            </summary>
+            <param name="logWindow">The log window being dawn.</param>
+            <param name="widgetArea">Window area for custom widgets.</param>
+            <param name="selectedLogMessage">The currently selected log message, or null.</param>
+            <param name="widgetRow">Draw your widget using this to automatically align it with the others.</param>
+        </member>
+        <member name="M:HugsLib.Logs.LogWindowExtensions.AddLogWindowWidget(HugsLib.Logs.LogWindowExtensions.WidgetDrawer,HugsLib.Logs.LogWindowExtensions.WidgetAlignMode)">
+            <summary>
+            Adds a new drawing callback to the log window widget drawer.
+            </summary>
+            <param name="drawerDelegate">The delegate called each OnGUI to draw the widget.</param>
+            <param name="align">The side of the WidgetRow this widget should be drawn into.</param>
         </member>
         <member name="T:HugsLib.Patches.DebugWindowsOpener_Patch">
             <summary>
@@ -233,47 +277,10 @@
         <member name="T:HugsLib.HugsLibController">
             <summary>
             The hub of the library. Instantiates classes that extend ModBase and forwards some of the more useful events to them.
-            The minor version of the assembly should reflect the current major Rimworld version, just like CCL.
+            The assembly version of the library should reflect the current major Rimworld version, i.e.: 0.18.0.0 for B18.
             This gives us the ability to release updates to the library without breaking compatibility with the mods that implement it.
             See Core.HugsLibMod for the entry point.
             </summary>
-        </member>
-        <member name="T:HugsLib.Logs.Dialog_PublishLogs">
-            <summary>
-            The front-end for LogPublisher.
-            Shows the status of the upload operation, provides controls and shows the produced URL.
-            </summary>
-        </member>
-        <member name="T:HugsLib.Logs.LogPublisher">
-            <summary>
-            Collects the game logs and loaded mods and posts the information on GitHub as a gist.
-            </summary>
-        </member>
-        <member name="T:HugsLib.Logs.LogWindowExtensions">
-            <summary>
-            Allows adding custom buttons to the EditWindow_Log window.
-            </summary>
-        </member>
-        <member name="T:HugsLib.Logs.LogWindowExtensions.WidgetAlignMode">
-            <summary>
-            Alignment side for custom widgets.
-            </summary>
-        </member>
-        <member name="T:HugsLib.Logs.LogWindowExtensions.WidgetDrawer">
-            <summary>
-            Callback to draw log window widgets in.
-            </summary>
-            <param name="logWindow">The log window being dawn.</param>
-            <param name="widgetArea">Window area for custom widgets.</param>
-            <param name="selectedLogMessage">The currently selected log message, or null.</param>
-            <param name="widgetRow">Draw your widget using this to automatically align it with the others.</param>
-        </member>
-        <member name="M:HugsLib.Logs.LogWindowExtensions.AddLogWindowWidget(HugsLib.Logs.LogWindowExtensions.WidgetDrawer,HugsLib.Logs.LogWindowExtensions.WidgetAlignMode)">
-            <summary>
-            Adds a new drawing callback to the log window widget drawer.
-            </summary>
-            <param name="drawerDelegate">The delegate called each OnGUI to draw the widget.</param>
-            <param name="align">The side of the WidgetRow this widget should be drawn into.</param>
         </member>
         <member name="T:HugsLib.ModBase">
             <summary>
@@ -313,14 +320,26 @@
             The content pack for the mod containing the assembly this class belongs to
             </summary>
         </member>
-        <member name="M:HugsLib.ModBase.GetVersion">
-            <summary>
-            Return the override version from the Version.xml file if specified, or the assembly version otherwise
-            </summary>
-        </member>
         <member name="P:HugsLib.ModBase.ModIsActive">
             <summary>
             Can be false if the mod was enabled at game start and then disabled in the mods menu
+            </summary>
+        </member>
+        <member name="P:HugsLib.ModBase.VersionInfo">
+            <summary>
+            Contains the AssemblyVersion and AssemblyFileVersion of the mod. Used by <see cref="M:HugsLib.ModBase.GetVersion"/>.
+            </summary>
+        </member>
+        <member name="M:HugsLib.ModBase.GetVersion">
+            <summary>
+            Return the override version from the Version.xml file if specified, 
+            or the higher one between AssemblyVersion and AssemblyFileVersion
+            </summary>
+        </member>
+        <member name="M:HugsLib.ModBase.EarlyInitalize">
+            <summary>
+            Called during <see cref="T:Verse.Mod"/> instantiation, 
+            and only if the implementing class is annotated with <see cref="T:HugsLib.EarlyInitAttribute"/>
             </summary>
         </member>
         <member name="M:HugsLib.ModBase.Initialize">
@@ -404,7 +423,7 @@
         </member>
         <member name="T:HugsLib.News.Dialog_UpdateFeatures">
             <summary>
-            Displays a list to update feature defs with basic image and formatting support. See UpdateFeatureDef for proper syntax.
+            Displays a list to update feature defs with basic image and formatting support. See <see cref="T:HugsLib.UpdateFeatureDef"/> for proper syntax.
             </summary>
         </member>
         <member name="T:HugsLib.News.UpdateFeatureManager">
@@ -417,7 +436,31 @@
             Describes a single update news item. A mod must have a class extending ModBase and keep its assembly version up to date to make use of this.
             </summary>
         </member>
+        <member name="F:HugsLib.UpdateFeatureDef.modIdentifier">
+            <summary>
+            The <see cref="P:HugsLib.ModBase.ModIdentifier"/> of the mod which will cause this news item to be displayed.
+            Alternatively, the name of the folder the mod is loaded from can also be used.
+            </summary>
+        </member>
+        <member name="F:HugsLib.UpdateFeatureDef.modNameReadable">
+            <summary>
+            Displayed in the title of the news item
+            </summary>
+        </member>
+        <member name="F:HugsLib.UpdateFeatureDef.titleOverride">
+            <summary>
+            Optional complete replacement for the news item title
+            </summary>
+        </member>
+        <member name="F:HugsLib.UpdateFeatureDef.assemblyVersion">
+            <summary>
+            The minimum assembly version or assembly file version (whichever one is higher) of the assembly 
+            containing the ModBase extending class, that will cause the feature to be displayed. (format: major.minor.patch)
+            If overrideVersion in Version.xml is set, it will be considered instead of the assembly versions.
+            </summary>
+        </member>
         <member name="F:HugsLib.UpdateFeatureDef.content">
+            <summary>
             The text of the news item. Can contain text and images, supports Unity html markup (only recommended for highlighting).
             The text can contain the following formatting markers:
             |               -> (pipe) splits the content into segments. A segment can be a paragraph or image sequence
@@ -426,6 +469,12 @@
             Everything else is treated as plain text and creates a paragraph.
             Example:
             Paragraph1|Paragraph2|img:singleImage|caption:caption\ntext|img:sequence1,sequence2|More text
+            </summary>
+        </member>
+        <member name="F:HugsLib.UpdateFeatureDef.linkUrl">
+            <summary>
+            Optional link to a forum post/info page for this update, or the whole mod. Displayed in the news item title.
+            </summary>
         </member>
         <member name="T:HugsLib.Settings.Dialog_ModSettings">
             <summary>
@@ -441,6 +490,24 @@
             <summary>
             Base type for all custom SettingHandle types.
             Allows complex data structures to be stored in setting values by converting them to and from their string representation.
+            See <see cref="T:HugsLib.Source.Settings.SettingHandleConvertibleUtility"/> for an easy way to serialize complex types to XML.
+            </summary>
+        </member>
+        <member name="P:HugsLib.Settings.SettingHandleConvertible.ShouldBeSaved">
+            <summary>
+            Return false to prevent this object from serializing and being written to file.
+            </summary>
+        </member>
+        <member name="M:HugsLib.Settings.SettingHandleConvertible.FromString(System.String)">
+            <summary>
+            Called when settings handles of this type load an existing value.
+            Should deserialize and restore the state of the object using the provided string.
+            </summary>
+        </member>
+        <member name="M:HugsLib.Settings.SettingHandleConvertible.ToString">
+            <summary>
+            Called when handles of this type are being saved, and only if <see cref="P:HugsLib.Settings.SettingHandleConvertible.ShouldBeSaved"/> return true.
+            Should serialize the state of the object into a string so it can be restored later.
             </summary>
         </member>
         <member name="T:HugsLib.Settings.Validators">
@@ -652,6 +719,27 @@
             Returns true if the handle is set to its default value.
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:HugsLib.Utils.AssemblyVersionInfo">
+            <summary>
+            Provides a convenient way to read, compare and print out the assembly version and file version of assemblies.
+            </summary>
+        </member>
+        <member name="M:HugsLib.Utils.AssemblyVersionInfo.ReadAssembly(System.Reflection.Assembly,System.String)">
+            <summary>
+            Tries to read the file assembly version in addition to the already known assembly version.
+            </summary>
+            <param name="assembly">The assembly to read</param>
+            <param name="overrideLocation">The full path to the assembly file, if <see cref="P:System.Reflection.Assembly.Location"/> is not set</param>
+            <returns>An <see cref="T:HugsLib.Utils.AssemblyVersionInfo"/> with only AssemblyVersion set if an exception was encountered</returns>
+        </member>
+        <member name="M:HugsLib.Utils.AssemblyVersionInfo.ReadModAssembly(System.Reflection.Assembly,Verse.ModContentPack)">
+            <summary>
+            Reads assembly version information for a mod assembly.
+            </summary>
+            <param name="assembly">The assembly to read</param>
+            <param name="contentPack">The content pack the assembly was loaded from</param>
+            <returns>See <see cref="M:HugsLib.Utils.AssemblyVersionInfo.ReadAssembly(System.Reflection.Assembly,System.String)"/></returns>
         </member>
         <member name="T:HugsLib.Utils.DoLaterScheduler">
             <summary>
@@ -912,6 +1000,20 @@
             <param name="onFailure">Called with the error message in case of a network error or if server replied with status other than 200.</param>
             <param name="successStatus">The expected status code in the response for the request to be considered successful</param>
             <param name="timeout">How long to wait before aborting the request</param>
+        </member>
+        <member name="M:HugsLib.Utils.HugsLibUtility.GetModAssemblyFileInfo(System.String,Verse.ModContentPack)">
+            <summary>
+            Tries to find the file handle for a given mod assembly name.
+            </summary>
+            <remarks>This is a replacement for <see cref="P:System.Reflection.Assembly.Location"/> mod assemblies are loaded from byte arrays.</remarks>
+            <param name="assemblyName">The <see cref="P:System.Reflection.AssemblyName.Name"/> of the assembly</param>
+            <param name="contentPack">The content pack the assembly was presumably loaded from</param>
+            <returns>Returns null if the file is not found</returns>
+        </member>
+        <member name="M:HugsLib.Utils.HugsLibUtility.TryGetModAssemblyFileInfo(System.String,Verse.ModContentPack)">
+            <summary>
+            Same as <see cref="M:HugsLib.Utils.HugsLibUtility.GetModAssemblyFileInfo(System.String,Verse.ModContentPack)"/> but suppresses all exceptions.
+            </summary>
         </member>
         <member name="T:HugsLib.Utils.InjectedDefHasher">
             <summary>
