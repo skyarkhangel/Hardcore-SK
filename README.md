@@ -44,16 +44,21 @@ Delete all mods inside your Rimworld\Mods\ folder except "Core".
 2. Open up the downloaded Hardcore sk project .zip file.
 Extract everything in the Hardcore-SK-master\Mods\ folder into your Rimworlds\Mods\ folder, and overwrite any files if prompted.
 
-3. Go to:  
+3. Go to:
+
 For Windows users:
-C:\Users\your user name\AppData\LocalLow\Ludeon Studios\RimWorld by Ludeon Studios\Config
-windows button + R -> the Run dialog will appear
-type %APPDATA%\..\LocalLow -> this will open the appdata folder
+- `C:\Users\your user name\AppData\LocalLow\Ludeon Studios\RimWorld by Ludeon Studios\Config`
+- `windows button + R` -> the Run dialog will appear
+- type `%APPDATA%\..\LocalLow` -> this will open the appdata folder
+
 For Linux users:
-/home/your user name/.config/unity3d/Ludeon Studios/RimWorld/Config
-For Mac users: 
-/Users/your user name/Library/Application Support/RimWorld/Config
+- `/home/your user name/.config/unity3d/Ludeon Studios/RimWorld/Config`
+
+For Mac users:
+- `/Users/your user name/Library/Application Support/RimWorld/Config`
+
 Delete all the files that exist in that folder.
+
 And copy "ModsConfig.xml", which is at the root of the archive modpack.
 
 4. Check mods in the game. Switch Language if needed. Play!
