@@ -1,3 +1,18 @@
+## v1.2.0
+
+* Added small fossils in sedimentary rocks. They can be used for decorative flooring if MineralsCraft mod is used or sold.
+* Added ultra-hard gems, which are worth more than normal gems, and have high-tech uses if MineralsCraft mod is used.
+* Adds large and giant mineral specimens that can be used to speed up research. Up to 3 of each type has an effect, so make a museum!
+* Giant versions of crystals now increase research speed. Up to 3 of each type has an effect, so make a museum!
+* Added event: a cluster of minerals is found. Only happens when at least one pawn has a mining skill of 5 and is near rock that can minerals can spawn on. Happens more often if at least one pawn has a mining skill of 10 or more.
+* Added event: A strange storm of blueish snow lasts for many days or until the temperature rises.
+* Limestone, sandstone, claystone, and slate rocks might drop amber (NPS) or small fossils
+* Limestone,  sandstone, and slate no longer drops gems
+* Gem drop rate of granite and marble reduced 50%
+* Compacted machinery drops twice amount of steel and aluminum
+* River/beach rock might drop many different things
+* Fixed claystone chunk graphic
+
 ## v1.1.0
 
 ### Bug fixes
@@ -12,7 +27,7 @@
 
 ### Gameplay changes
 
-* Added new rock type: Claystone. Yeilds clay chunks or soft clay when mined.
+* Added new rock type: Claystone. Yields clay chunks or soft clay when mined.
 * Added giant versions of quartz, glowstone, and coldstone that can drop something special when mined.
 * Increased chunk drop rate for boulders. 
 * Reduced slate block drop rate for walls by 70%.
@@ -23,7 +38,7 @@
 
 * New textures for quartz, glowstone, and coldstone.
 * Added mod config setting to change the visual spread of textures.
-* Moved weathered and soild rock textures up to avoid gaps and reduce overlaps with nearby walls. 
+* Moved weathered and solid rock textures up to avoid gaps and reduce overlaps with nearby walls. 
 * Removed damage graphics from small minerals/rocks.
 
 ### Other
@@ -43,15 +58,15 @@
 * Dravite and Goshenite moved from this mod to MineralsExtra. See [MineralsExtra mod](https://github.com/zachary-foster/MineralsExtra_SK)).
 * Starting rock chunks are now removed at map generation. This can be changed in the settings.
 * Some minerals now appear to grow up adjacent walls.
-* Fixed various graphical bugs when textures overlaped.
-* Fixed most of lag assocaited with cold and NPS and improved performance overall.
+* Fixed various graphical bugs when textures overlapped.
+* Fixed most of lag associated with cold and NPS and improved performance overall.
 * Snow appears on rocks.
 
 ## v0.6.0
 
 ### Bug fixes:
 
-* Various treaders now buy/sell rough gems and cut gems.
+* Various traders now buy/sell rough gems and cut gems.
 
 
 ## v0.5.0
@@ -80,7 +95,7 @@ This version splits the mod into a few different mods:
 ### Aditions:
 
 * 7 new static minerals: Tourmaline group
-* 2 new minerals: growning sulfur and larger static sulfur
+* 2 new minerals: growing sulfur and larger static sulfur
 * 4 new static minerals: Corundum group
 * 6 new static minerals: Beryl group
 * 2 new static minerals: Magnetite and lodestone
@@ -92,8 +107,8 @@ This version splits the mod into a few different mods:
 ### Improvements:
 
 * New print method now uses normal distributions, so clusters look more natural
-* "neededNearbyTerrains" now can be used with "things" like buildingd and steam geysers.
-* Minerals can now stack on eachother
+* "neededNearbyTerrains" now can be used with "things" like buildings and steam geysers.
+* Minerals can now stack on each other
 
 ### Changes
 
@@ -107,7 +122,7 @@ This version splits the mod into a few different mods:
 
 ### Bug fixes:
 
-* Ice stalagmites dont drop sand anymore
+* Ice stalagmites don't drop sand anymore
 
 ## v0.3.1
 
