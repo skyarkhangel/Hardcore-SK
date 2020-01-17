@@ -13,9 +13,9 @@ This project support English, Russian Spanish and Korean language.
 Using additional mods (not included in the project) is not recommended.
 
 Cheat Sheet
-https://goo.gl/ng4FWA
+https://docs.google.com/spreadsheets/d/15plqVpwOR3apQaVIy-VjFIngLyA1D0y5ont7KYbxkaQ
 Known Compatible Optional Mods
-https://goo.gl/yvjYDV
+https://docs.google.com/spreadsheets/d/1i5eWzeJCNSgWl-q8cnTRsiOXZOcvtZAWdtRA1BNn0HY
 
 Feel free to join us on our Discord Server!
 https://discord.gg/FMPRSKr
