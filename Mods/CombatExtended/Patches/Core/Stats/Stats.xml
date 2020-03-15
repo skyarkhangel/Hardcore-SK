@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Patch>
 
+	<!-- ========== General ========== -->
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/StatDef[defName = "Flammability"]</xpath>
+		<value>
+			<workerClass>CombatExtended.StatWorker_Flammability</workerClass>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/StatDef[defName = "Flammability"]/category</xpath>
+		<value>
+			<category>Basics</category>
+		</value>
+	</Operation>
 
 	<!-- ========== Apparel ========== -->
 
@@ -16,38 +31,75 @@
 		<xpath>Defs/StatDef[@Name = "ArmorRatingBase"]/parts/li[@Class = "StatPart_Quality"]</xpath>
 		<value>
 			<li Class="StatPart_Quality">
-			  <factorAwful>0.7</factorAwful>
-			  <factorPoor>0.9</factorPoor>
+			  <factorAwful>0.5</factorAwful>
+			  <factorPoor>0.75</factorPoor>
 			  <factorNormal>1</factorNormal>
-			  <factorGood>1.06</factorGood>
-			  <factorExcellent>1.18</factorExcellent>
-			  <factorMasterwork>1.24</factorMasterwork>
-			  <factorLegendary>1.3</factorLegendary>
+			  <factorGood>1.15</factorGood>
+			  <factorExcellent>1.3</factorExcellent>
+			  <factorMasterwork>1.5</factorMasterwork>
+			  <factorLegendary>1.75</factorLegendary>
+			</li>
+			<li Class="StatPart_Health">
+			  <curve>
+			    <points>
+			      <li>(0.0, 0.0)</li>
+			      <li>(0.5, 0.5)</li>
+			      <li>(0.8, 1.0)</li>
+			    </points>
+			  </curve>
 			</li>
 		</value>
 	</Operation>
 	-->
 	
 	<Operation Class="PatchOperationAdd">
-		<xpath>Defs/StatDef[defName="ArmorRating_Blunt" or defName="ArmorRating_Sharp"]</xpath>
+		<xpath>Defs/StatDef[defName="ArmorRating_Sharp"]</xpath>
 		<value>
-			<toStringStyle>FloatTwo</toStringStyle>
+			<toStringStyle>FloatMaxTwo</toStringStyle>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/StatDef[defName="ArmorRating_Blunt"]</xpath>
+		<value>
+			<toStringStyle>FloatMaxThree</toStringStyle>
 		</value>
 	</Operation>
 	
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/StatDef[defName="StuffPower_Armor_Blunt" or defName="StuffPower_Armor_Sharp"]/toStringStyle</xpath>
+		<value>
+			<toStringStyle>FloatMaxThree</toStringStyle>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/StatDef[defName="ArmorRating_Blunt" or defName="StuffPower_Armor_Blunt"]</xpath>
+		<value>
+			<formatString>{0} MPa</formatString>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/StatDef[defName="ArmorRating_Sharp" or defName="StuffPower_Armor_Sharp"]</xpath>
+		<value>
+			<formatString>{0} mm RHA</formatString>
+		</value>
+	</Operation>
+
 	<!-- Armor Descriptions -->
 
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/StatDef[defName = "ArmorRating_Sharp"]/description</xpath>
 		<value>
-			<description>The chance to affect sharp damage like bullets, knife stabs, explosions, and animal bites.\n\nUpon taking damage, the attack's armor penetration value is compared against this armor rating.\n\nDamage is scaled based on the ratio of penetration to armor, where post-armor damage is 50% if both values are equal, 0% if penetration is half or less of armor and 100% if it is twice the value of armor.\n\nArmor penetration is scaled by the same factor, making it harder to penetrate subsequent layers of armor.\n\nAfterwards, the attack has to pass a deflection check, where the remaining armor penetration is randomized by +-0.05 and compared against the armor. If the randomized penetration value is higher than the armor value it will penetrate, else it will be converted into blunt damage and checked again against this apparel's blunt armor.</description>
+			<description>Mitigation effect on sharp damage such as bullets, knife stabs, and animal bites.\n\nThis armor rating is compared against an attack's armor penetration, with deflection occurring if armor is the higher stat. Otherwise, armor penetration has the armor rating subtracted from it, and damage is reduced by the ratio of modified to initial AP, as follows:\n\nModifiedAP = InitialAP - ArmorRating\nModifiedDamage = InitialDamage * (ModifiedAP / InitialAP)\n\nThese reductions apply for each layer the attack goes through, lowering its ability to penetrate and damage subsequent layers. If an attack is deflected, it's converted to blunt, and checked against the apparel's blunt armor rating.</description>
 		</value>
 	</Operation>
 
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/StatDef[defName = "ArmorRating_Blunt"]/description</xpath>
 		<value>
-			<description>The chance to affect sharp damage like bullets, knife stabs, explosions, and animal bites.\n\nUpon taking damage, the attack's armor penetration value is compared against this armor rating.\n\nDamage is scaled based on the ratio of penetration to armor, where post-armor damage is 50% if both values are equal, 0% if penetration is half or less of armor and 100% if it is twice the value of armor.\n\nArmor penetration is scaled by the same factor, making it harder to penetrate subsequent layers of armor.</description>
+			<description>Mitigation effect on blunt-force damage such as maces, explosions, and animal hoofs.\n\nThis armor rating is compared against an attack's armor penetration, with no damage occurring if armor is the higher stat. Otherwise, armor penetration has the armor rating subtracted from it, and damage is reduced by the ratio of modified to initial AP, as follows:\n\nModifiedAP = InitialAP - ArmorRating\nModifiedDamage = InitialDamage * (ModifiedAP / InitialAP)\n\nThese reductions apply for each layer the attack goes through, lowering its ability to penetrate and damage subsequent layers.</description>
 		</value>
 	</Operation>
 
@@ -81,7 +133,7 @@
 			<noSkillOffset>6.7</noSkillOffset>
 		</value>
 	</Operation>
-	
+
 	<!-- Shooting Accuracy -->
 
 	<Operation Class="PatchOperationReplace">
@@ -90,7 +142,7 @@
 			<label>weapon handling</label>
 		</value>
 	</Operation>
-	
+
 	<Operation Class="PatchOperationSequence">
 		<success>Always</success>
 		<operations>
@@ -116,7 +168,7 @@
 			<maxValue>13</maxValue>
 		</value>
 	</Operation>
-	
+
 	<Operation Class="PatchOperationSequence"> <!-- compatibility with any mod that redefines ShootingAccuracy and changes SkillNeed back to the traditional pre-A17 values per skill level (e.g. Shooting Skill Rebalanced) -->
 		<success>Always</success>
 		<operations>
@@ -200,8 +252,23 @@
 	<Operation Class="PatchOperationRemove">
 		<xpath>Defs/StatDef[defName="RangedWeapon_DamageMultiplier"]/parts/li[@Class="StatPart_Quality"]</xpath>
 	</Operation>
-	
+
 	<!-- Melee DPS -->
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/StatDef[defName="MeleeWeapon_AverageDPS"]/workerClass</xpath>
+		<value>
+			<workerClass>CombatExtended.StatWorker_MeleeDamageAverage</workerClass>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/StatDef[defName="MeleeWeapon_AverageDPS"]/displayPriorityInCategory</xpath>
+		<value>
+			<displayPriorityInCategory>6</displayPriorityInCategory>
+		</value>
+	</Operation>
+
+	<!-- Melee AP -->
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/StatDef[defName="MeleeWeapon_AverageArmorPenetration"]/workerClass</xpath>
 		<value>
@@ -215,5 +282,6 @@
 			<toStringStyle>FloatTwo</toStringStyle>
 		</value>
 	</Operation>
-	
+
 </Patch>
+
