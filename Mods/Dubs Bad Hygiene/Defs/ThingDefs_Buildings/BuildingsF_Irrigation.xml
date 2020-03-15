@@ -22,8 +22,17 @@
     <thingCategories>
       <li>BuildingsHygiene</li>
     </thingCategories>
+    <clearBuildingArea>false</clearBuildingArea>
+    <passability>Standable</passability>
+    <blockLight>false</blockLight>
+    <holdsRoof>false</holdsRoof>
     <tickerType>Normal</tickerType>
     <blockWind>false</blockWind>
+    <building>
+      <isInert>true</isInert>
+      <isEdifice>false</isEdifice>
+      <canBuildNonEdificesUnder>true</canBuildNonEdificesUnder>
+    </building>
     <pathCost>8</pathCost>
     <size>(1,1)</size>
     <costList>
@@ -55,6 +64,7 @@
     <drawPlaceWorkersWhileSelected>false</drawPlaceWorkersWhileSelected>
     <placeWorkers>
       <li>DubsBadHygiene.PlaceWorker_Sprinkler</li>
+      <li>DubsBadHygiene.PlaceWorker_NotUnderEdiface</li>
     </placeWorkers>
     <designationCategory>Hygiene</designationCategory>
   </ThingDef>
@@ -62,7 +72,7 @@
   <ThingDef ParentName="BasedHygieneMom">
     <defName>FireSprinkler</defName>
     <label>Fire Sprinkler</label>
-    <description>Triggered by fire or high temperature, douses flames with a spray of water</description>
+    <description>Triggered by fire or high temperature. Douses flames with a spray of water</description>
     <graphicData>
       <texPath>DBH/Things/Building/firesprinkler</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -79,7 +89,16 @@
       <li>BuildingsHygiene</li>
     </thingCategories>
     <tickerType>Normal</tickerType>
+    <clearBuildingArea>false</clearBuildingArea>
+    <passability>Standable</passability>
+    <blockLight>false</blockLight>
+    <holdsRoof>false</holdsRoof>
     <blockWind>false</blockWind>
+    <building>
+      <isInert>true</isInert>
+      <isEdifice>false</isEdifice>
+      <canBuildNonEdificesUnder>true</canBuildNonEdificesUnder>
+    </building>
     <pathCost>8</pathCost>
     <size>(1,1)</size>
     <costList>
@@ -116,62 +135,12 @@
     <drawPlaceWorkersWhileSelected>false</drawPlaceWorkersWhileSelected>
     <placeWorkers>
       <li>DubsBadHygiene.PlaceWorker_Sprinkler</li>
+      <li>DubsBadHygiene.PlaceWorker_NotUnderEdiface</li>
     </placeWorkers>
     <designationCategory>Hygiene</designationCategory>
   </ThingDef>
 
-  <ThingDef ParentName="BasedHygieneMom">
-    <thingClass>DubsBadHygiene.Building_Valve</thingClass>
-    <altitudeLayer>Building</altitudeLayer>
-    <passability>Standable</passability>
-    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
-    <minifiedDef>MinifiedThing</minifiedDef>
-    <thingCategories>
-      <li>BuildingsHygiene</li>
-    </thingCategories>
-    <building>
-      <ai_chillDestination>false</ai_chillDestination>
-      <isInert>true</isInert>
-      <isEdifice>false</isEdifice>
-    </building>
-    <statBases>
-      <MaxHitPoints>80</MaxHitPoints>
-      <WorkToBuild>350</WorkToBuild>
-      <Flammability>1.0</Flammability>
-      <Beauty>-2</Beauty>
-      <Mass>2</Mass>
-    </statBases>
-    <costList>
-      <ComponentIndustrial>2</ComponentIndustrial>
-	  <Mechanism>1</Mechanism>
-    </costList>
-    <costStuffCount>15</costStuffCount>
-    <stuffCategories>
-      <li>Metallic</li>
-    </stuffCategories>
-    <rotatable>false</rotatable>
-    <selectable>true</selectable>
-    <defName>plumbingValve</defName>
-    <label>plumbing valve</label>
-    <pathCost>75</pathCost>
-    <description>Opens or closes connections between pipes.</description>
-    <graphicData>
-      <texPath>DBH/Things/Building/Valve</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <drawSize>(1,1)</drawSize>
-    </graphicData>
-    <comps>
-      <li Class="DubsBadHygiene.CompProperties_Pipe">
-        <mode>Sewage</mode>
-      </li>
-      <li Class="CompProperties_Flickable">
-        <commandTexture>DBH/Things/Building/Valve</commandTexture>
-        <commandLabelKey>CommandDesignateOpenCloseValveLabel</commandLabelKey>
-        <commandDescKey>CommandDesignateOpenCloseValveDesc</commandDescKey>
-      </li>
-    </comps>
-    <designationCategory>Hygiene</designationCategory>
-  </ThingDef>
+
 
   <ThingDef ParentName="BasedHygieneMom">
     <defName>BiosolidsComposter</defName>
@@ -218,7 +187,7 @@
         <maxSafeTemperature>60</maxSafeTemperature>
         <progressPerDegreePerTick>0.00001</progressPerDegreePerTick>
       </li>
-	  <li Class="CompProperties_Forbiddable"/>
+      <li Class="CompProperties_Forbiddable"/>
     </comps>
     <tickerType>Rare</tickerType>
     <rotatable>false</rotatable>
@@ -231,7 +200,7 @@
   <ThingDef ParentName="BasedHygieneMom">
     <defName>BiosolidFertilizer</defName>
     <label>Biosolid Fertilizer</label>
-    <description>Biosolid fertilizer used for increasing the fertility of diggable terrain, lasts just under 1 year.</description>
+    <description>Biosolid fertilizer used for increasing the fertility of diggable terrain. Lasts just under 1 year.</description>
     <selectable>false</selectable>
     <uiIconPath>DBH/UI/fertilizer</uiIconPath>
     <statBases>
@@ -261,8 +230,10 @@
       <isEdifice>false</isEdifice>
       <deconstructible>true</deconstructible>
       <canPlaceOverWall>false</canPlaceOverWall>
+      <isInert>true</isInert>
     </building>
     <resourcesFractionWhenDeconstructed>0</resourcesFractionWhenDeconstructed>
+    <constructEffect>ConstructDirt</constructEffect>
     <comps>
       <li Class="CompProperties_Lifespan">
         <lifespanTicks>3000000</lifespanTicks>
