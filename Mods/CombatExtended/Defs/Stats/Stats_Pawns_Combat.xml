@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-
   <!-- ================================== Shooting =======================================-->
 
   <StatDef>
@@ -18,7 +17,7 @@
     <skillNeedFactors>
       <li Class="SkillNeed_BaseBonus">
         <skill>Shooting</skill>
-        <baseValue>0.2</baseValue>
+        <baseValue>0.01</baseValue>
         <bonusPerLevel>0.1</bonusPerLevel>
       </li>
     </skillNeedFactors>
@@ -53,6 +52,7 @@
     <defaultBaseValue>1</defaultBaseValue>
     <minValue>0.001</minValue>
     <toStringStyle>PercentZero</toStringStyle>
+    <neverDisabled>true</neverDisabled>
     <showOnAnimals>false</showOnAnimals>
     <showOnMechanoids>true</showOnMechanoids>
     <skillNeedFactors>
@@ -114,9 +114,22 @@
     <capacityFactors>
       <li>
         <capacity>Consciousness</capacity>
-        <weight>0.2</weight>
+        <weight>0.5</weight>
       </li>
     </capacityFactors>
+  </StatDef>
+
+  <StatDef>
+    <defName>AverageSharpArmor</defName>
+    <label>armor coverage</label>
+    <description>The average value of armor coverage across this person's body. Higher values will make them more confident against low-penetration projectiles.</description>
+    <workerClass>CombatExtended.StatWorker_ArmorCoverage</workerClass>
+    <category>PawnCombat</category>
+    <displayPriorityInCategory>55</displayPriorityInCategory>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>FloatMaxTwo</toStringStyle>
+    <formatString>{0} mm RHA</formatString>
   </StatDef>
 
   <!-- ================================== Melee =======================================-->
@@ -133,7 +146,7 @@
     <minValue>0</minValue>
     <toStringStyle>FloatTwo</toStringStyle>
   </StatDef>
-  
+
   <StatDef>
     <defName>MeleeCritChance</defName>
     <label>melee critical chance</label>
@@ -200,12 +213,8 @@
     </skillNeedFactors>
     <capacityFactors>
       <li>
-        <capacity>Consciousness</capacity>
-        <weight>1</weight>
-      </li>
-      <li>
         <capacity>Moving</capacity>
-        <weight>0.9</weight>
+        <weight>1</weight>
       </li>
       <li>
         <capacity>Sight</capacity>
@@ -244,10 +253,10 @@
       </li>
     </skillNeedFactors>
     <capacityFactors>
-      <li>
+      <!-- <li>
         <capacity>Consciousness</capacity>
         <weight>1</weight>
-      </li>
+      </li> -->
       <li>
         <capacity>Sight</capacity>
         <weight>0.7</weight>
@@ -269,5 +278,62 @@
       </points>
     </postProcessCurve>
   </StatDef>
+  
+  <StatDef>
+    <defName>UnarmedDamage</defName>
+    <label>unarmed damage bonus</label>
+    <description>Additional damage done in unarmed combat.</description>
+    <category>PawnCombat</category>
+    <displayPriorityInCategory>99</displayPriorityInCategory>
+    <defaultBaseValue>0</defaultBaseValue>
+    <showOnPawns>true</showOnPawns>
+    <minValue>0.0</minValue>
+    <maxValue>10.0</maxValue>
+    <toStringStyle>FloatMaxTwo</toStringStyle>
+    <skillNeedOffsets>
+      <li Class="SkillNeed_BaseBonus">
+        <skill>Melee</skill>
+        <baseValue>0.00</baseValue>
+        <bonusPerLevel>0.50</bonusPerLevel>
+      </li>
+    </skillNeedOffsets>
+    <capacityFactors>
+      <li>
+        <capacity>Sight</capacity>
+        <weight>0.7</weight>
+        <max>1</max>
+      </li>
+      <li>
+        <capacity>Manipulation</capacity>
+        <weight>1</weight>
+      </li>
+    </capacityFactors>
+  </StatDef>
+
+  <!-- ================================== Body part armor =======================================-->
+
+  <StatDef Abstract="true" Name="BodyPartDensity">
+    <description>Compared against weapon's armor penetration to see if it can penetrate to the next layer of body parts. A high value means low-penetration attacks like buckshot will have a harder time hitting internal organs.</description>
+    <category>PawnCombat</category>
+    <displayPriorityInCategory>100</displayPriorityInCategory>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>FloatMaxTwo</toStringStyle>
+  </StatDef>
+
+  <StatDef ParentName="BodyPartDensity">
+    <defName>BodyPartSharpArmor</defName>
+    <label>body part RHA</label>
+    <workerClass>CombatExtended.StatWorker_BodyPartSharpArmor</workerClass>
+    <formatString>{0} mm RHA</formatString>
+  </StatDef>
+
+  <StatDef ParentName="BodyPartDensity">
+    <defName>BodyPartBluntArmor</defName>
+    <label>body part MPa</label>
+    <workerClass>CombatExtended.StatWorker_BodyPartBluntArmor</workerClass>
+    <formatString>{0} MPa</formatString>
+  </StatDef>
+
 
 </Defs>
