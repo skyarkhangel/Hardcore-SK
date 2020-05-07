@@ -1,123 +1,125 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-    <ThingCategoryDef>
-      <defName>AmmoDarts</defName>
-      <label>poison darts</label>
-      <parent>AmmoNeolithic</parent>
-      <iconPath>UI/Icons/ThingCategories/CaliberArrow</iconPath>
-    </ThingCategoryDef>
-	
+	<ThingCategoryDef>
+		<defName>AmmoDarts</defName>
+		<label>poison darts</label>
+		<parent>AmmoNeolithic</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberArrow</iconPath>
+	</ThingCategoryDef>
+
 	<!-- ==================== AmmoSet ========================== -->
 
-  <CombatExtended.AmmoSetDef>
-    <defName>AmmoSet_Darts</defName>
-    <label>darts</label>
-    <ammoTypes>
-      <Ammo_Dart>PoisonDart</Ammo_Dart>
-    </ammoTypes>
-  </CombatExtended.AmmoSetDef>
-  
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_Darts</defName>
+		<label>darts</label>
+		<ammoTypes>
+			<Ammo_Dart>PoisonDart</Ammo_Dart>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
 	<!-- ==================== Ammo ========================== -->
 
-  <ThingDef Class="CombatExtended.AmmoDef" ParentName="SmallAmmoBase">
-    <defName>Ammo_Dart</defName>
-    <label>Dart</label>
-	<description>The posion dart.</description>
-	<tradeTags>
-      <li>CE_AutoEnableTrade</li>
-      <li>CE_AutoEnableCrafting_FueledSmithy</li>
-      <li>CE_AutoEnableCrafting_ElectricSmithy</li>
-	</tradeTags>
-    <thingCategories>
-      <li>AmmoDarts</li>
-    </thingCategories>
-    <graphicData>
-      <texPath>Things/Projectile/Dart</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-    </graphicData>
-    <statBases>
-      <MarketValue>0.06</MarketValue>
-	  <Mass>0.012</Mass>
-	  <Bulk>0.01</Bulk>
-    </statBases>
-	<ammoClass>Poison</ammoClass>
-    <comps>
-      <li Class="CompProperties_Forbiddable"/>
-    </comps>
-  </ThingDef>
-	
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="SmallAmmoBase">
+		<defName>Ammo_Dart</defName>
+		<label>Dart</label>
+		<description>The posion dart.</description>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting_FueledSmithy</li>
+			<li>CE_AutoEnableCrafting_ElectricSmithy</li>
+		</tradeTags>
+		<thingCategories>
+			<li>AmmoDarts</li>
+		</thingCategories>
+		<graphicData>
+			<texPath>Things/Projectile/Dart</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>0.06</MarketValue>
+			<Mass>0.012</Mass>
+			<Bulk>0.01</Bulk>
+		</statBases>
+		<ammoClass>Poison</ammoClass>
+		<comps>
+			<li Class="CompProperties_Forbiddable"/>
+		</comps>
+	</ThingDef>
+
 	<!-- ================== Projectiles ================== -->
 
-  <ThingDef Name="BasePoisonDart" ParentName="SK_BaseBullet" Abstract="true">
-    <graphicData>
-      <texPath>Things/Projectile/Dart</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-    </graphicData>
-    <projectile Class="CombatExtended.ProjectilePropertiesCE">
-      <damageDef>Poison</damageDef>
-      <speed>38</speed>
-	  <dropsCasings>false</dropsCasings>
-    </projectile>
-  </ThingDef>
+	<ThingDef Class="CombatExtended.AmmoDef" Name="BasePoisonDart" ParentName="SK_BaseBullet" Abstract="true">
+		<graphicData>
+			<texPath>Things/Projectile/Dart</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>ArrowVenom</damageDef>
+			<speed>28</speed>
+			<dropsCasings>false</dropsCasings>
+		</projectile>
+	</ThingDef>
 
-  <ThingDef ParentName="BasePoisonDart">
-    <defName>PoisonDart</defName>
-    <label>Poison Dart</label>
-    <projectile Class="CombatExtended.ProjectilePropertiesCE">
-      <damageAmountBase>1</damageAmountBase>
-      <armorPenetrationBase>0.15</armorPenetrationBase>
-    </projectile>
-  </ThingDef>
-  
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BasePoisonDart">
+		<defName>PoisonDart</defName>
+		<label>Poison Dart</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageAmountBase>1</damageAmountBase>
+			<!-- <armorPenetrationBase>0.15</armorPenetrationBase> -->
+			<armorPenetrationBlunt>1</armorPenetrationBlunt>
+			<armorPenetrationSharp>1.9</armorPenetrationSharp>
+		</projectile>
+	</ThingDef>
+
 	<!-- ==================== Recipes ========================== -->
 
-  <RecipeDef ParentName="AmmoRecipeNeolithicBase">
-    <defName>MakeAmmo_Dart</defName>
-    <label>make poison darts x50</label>
-    <description>Craft 50 poison darts.</description>
-    <jobString>Making poison darts.</jobString>
-    <workAmount>500</workAmount>
-    <workSpeedStat>SmithingSpeed</workSpeedStat>
-    <effectWorking>Cook</effectWorking>
-    <soundWorking>Recipe_Machining</soundWorking>
-    <allowMixingIngredients>true</allowMixingIngredients>
-    <workSkill>Crafting</workSkill>
-    <targetCountAdjustment>50</targetCountAdjustment>
-    <recipeUsers>
-      <li>CraftingSpot</li>
-    </recipeUsers>
+	<RecipeDef ParentName="AmmoRecipeNeolithicBase">
+		<defName>MakeAmmo_Dart</defName>
+		<label>make poison darts x50</label>
+		<description>Craft 50 poison darts.</description>
+		<jobString>Making poison darts.</jobString>
+		<workAmount>500</workAmount>
+		<workSpeedStat>SmithingSpeed</workSpeedStat>
+		<effectWorking>Cook</effectWorking>
+		<soundWorking>Recipe_Machining</soundWorking>
+		<allowMixingIngredients>true</allowMixingIngredients>
+		<workSkill>Crafting</workSkill>
+		<targetCountAdjustment>50</targetCountAdjustment>
+		<recipeUsers>
+			<li>CraftingSpot</li>
+		</recipeUsers>
 		<skillRequirements>
 			<Medicine>7</Medicine>
 			<Crafting>5</Crafting>
 		</skillRequirements>
-    <ingredients>
-      <li>
-        <filter>
-          <thingDefs>
-            <li>WoodLog</li>
-          </thingDefs>
-        </filter>
-        <count>5</count>
-      </li>
-      <li>
-        <filter>
-          <thingDefs>
-            <li>MedicineHerbal</li>
-          </thingDefs>
-        </filter>
-        <count>2</count>
-      </li>
-    </ingredients>
-    <fixedIngredientFilter>
-      <thingDefs>
-        <li>WoodLog</li>
-        <li>MedicineHerbal</li>
-      </thingDefs>
-    </fixedIngredientFilter>
-    <products>
-      <Ammo_Dart>50</Ammo_Dart>
-    </products>
-  </RecipeDef>
-	
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>WoodLog</li>
+					</thingDefs>
+				</filter>
+				<count>5</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>MedicineHerbal</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>WoodLog</li>
+				<li>MedicineHerbal</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_Dart>50</Ammo_Dart>
+		</products>
+	</RecipeDef>
+
 </Defs>

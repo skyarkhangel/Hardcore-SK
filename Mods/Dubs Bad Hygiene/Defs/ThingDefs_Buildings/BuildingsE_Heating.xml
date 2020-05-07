@@ -18,7 +18,7 @@
   <ThingDef ParentName="BasedHeating">
     <defName>Thermostat</defName>
     <label>Thermostat</label>
-    <description>Used to control electric and gas boilers, more than 1 can be placed, connects via standard plumbing.</description>
+    <description>Used to control electric and gas boilers. More than 1 can be placed. Connects via standard plumbing.</description>
     <graphicData>
       <texPath>DBH/Things/Building/Heating/thermostat</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
@@ -55,7 +55,7 @@
       </li>
     </comps>
     <researchPrerequisites>
-      <li>PoweredHeating</li>
+      <li>CentralHeating</li>
     </researchPrerequisites>
   </ThingDef>
 
@@ -111,6 +111,8 @@
 				<smokesize>0.5</smokesize>
 				<fuelCapacity>30</fuelCapacity>
 				<effectOnWeather>true</effectOnWeather>
+				<smokeEnabled>true</smokeEnabled>
+				<smokeDensity>1</smokeDensity>
 				<fuelFilter>
 					<thingDefs>
 						<li>Coal</li>
@@ -138,14 +140,14 @@
 			<li>SK.ITab_Fuel</li>
 		</inspectorTabs>
     <researchPrerequisites>
-      <li>CentralHeating</li>
+      <li>LogBoilers</li>
     </researchPrerequisites>
   </ThingDef>
 
   <ThingDef ParentName="BasedHeating">
     <defName>GasBoiler</defName>
     <label>Gas boiler</label>
-    <description>Produces 2000 heating units for radiators and hot water tanks. Requires chemfuel for fuel, Can be controlled by thermostats</description>
+    <description>Produces 2000 heating units for radiators and hot water tanks. Requires chemfuel for fuel. Can be controlled by thermostats.</description>
     <graphicData>
       <texPath>DBH/Things/Building/Heating/GasBoiler</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
@@ -165,7 +167,7 @@
     <stuffCategories>
       <li>Metallic</li>
       <li>Stony</li>
-    </stuffCategories>	
+    </stuffCategories>
     <rotatable>true</rotatable>
     <statBases>
       <MaxHitPoints>150</MaxHitPoints>
@@ -192,22 +194,20 @@
       <li Class="CompProperties_Breakdownable"/>
       <li Class="CompProperties_Flickable"/>
 			<li Class="SK.CompFueled_Properties">
-				<operatingTemp>1500</operatingTemp>
+				<operatingTemp>800</operatingTemp>
 				<drawfirefuel>false</drawfirefuel>
 				<smokeDrawOffset>(0,-0.1,0.85)</smokeDrawOffset>
 				<smokesize>0.5</smokesize>
 				<fuelCapacity>50</fuelCapacity>
 				<effectOnWeather>false</effectOnWeather>
+				<smokeEnabled>true</smokeEnabled>
+				<smokeDensity>1</smokeDensity>
 				<fuelFilter>
 					<thingDefs>
 						<li>Chemfuel</li>
 					</thingDefs>
 				</fuelFilter>
 			</li>
-      <li Class="CompProperties_Glower">
-        <glowRadius>2</glowRadius>
-        <glowColor>(217,112,33,0)</glowColor>
-      </li>
 			<li Class="SK.CompProperties_HeatPusherExt">
 				<compClass>SK.CompHeatPusherExt</compClass>
 				<heatPerSecond>15</heatPerSecond>
@@ -226,7 +226,7 @@
   <ThingDef ParentName="BasedHeating">
     <defName>ElectricBoiler</defName>
     <label>Electric Boiler</label>
-    <description>Produces a variable amount of heating units for radiators and hot water tanks. Manually controlled power setting. Can be controlled by thermostats</description>
+    <description>Produces a variable amount of heating units for radiators and hot water tanks. Manually controlled power setting. Can be controlled by thermostats.</description>
     <graphicData>
       <texPath>DBH/Things/Building/Heating/ElectricBoiler</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
@@ -280,7 +280,7 @@
       <li Class="CompProperties_Breakdownable"/>
     </comps>
     <researchPrerequisites>
-      <li>PoweredHeating</li>
+      <li>CentralHeating</li>
     </researchPrerequisites>
   </ThingDef>
 
@@ -289,7 +289,7 @@
   <ThingDef ParentName="BasedHygieneMom">
     <defName>SolarHeater</defName>
     <label>Solar Heater</label>
-    <description>Uses sunlight to heat hot water tanks and radiators, 0-2000 units of heating power depending on light level and ambient temperature.</description>
+    <description>Uses sunlight to heat hot water tanks and radiators. 0-2000 units of heating power depending on light level and ambient temperature.</description>
     <graphicData>
       <texPath>DBH/Things/Building/Heating/solarHeater</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -302,8 +302,11 @@
     <castEdgeShadows>true</castEdgeShadows>
     <pathCost>150</pathCost>
     <size>(3,3)</size>
+	 <stuffCategories>
+      <li>Metallic</li>
+    </stuffCategories>
     <costList>
-	  <Glass>9</Glass>
+	  <Glass>10</Glass>
       <ComponentIndustrial>2</ComponentIndustrial>
     </costList>
 	<costStuffCount>50</costStuffCount>
@@ -330,7 +333,7 @@
   <ThingDef ParentName="BasedHeating">
     <defName>HotWaterTank</defName>
     <label>Hot Water Tank</label>
-    <description>Stores hot running water for showers and baths, connect to any boiler to heat.</description>
+    <description>Stores hot running water for showers and baths. Connect to any boiler to heat.</description>
     <graphicData>
       <texPath>DBH/Things/Building/Heating/Boiler</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -370,8 +373,8 @@
       </li>
       <li Class="DubsBadHygiene.CompProperties_HeatStore">
         <StoreCapacity>100</StoreCapacity>
-        <RiseRate>0.04</RiseRate>
-        <FallRate>0.001</FallRate>
+        <RiseRate>0.0024</RiseRate>
+        <FallRate>0.00001</FallRate>
         <ForRunningWater>true</ForRunningWater>
       </li>
     </comps>
@@ -379,6 +382,7 @@
       <li>CentralHeating</li>
     </researchPrerequisites>
   </ThingDef>
+
 
   <ThingDef Name="BaseRadiator" ParentName="BasedHeating" Abstract="True">
     <thingClass>DubsBadHygiene.Building_Radiator</thingClass>
@@ -390,7 +394,7 @@
         <rect>(0.05,0.05,0.95,0.95)</rect>
       </damageData>
     </graphicData>
-    <description>Heats rooms using hot water, requires 100 heating units.</description>
+    <description>Heats rooms using hot water. Requires 100 heating units.</description>
     <passability>Standable</passability>
     <blockWind>false</blockWind>
     <castEdgeShadows>false</castEdgeShadows>
@@ -421,21 +425,14 @@
     </placeWorkers>
     <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
   </ThingDef>
-
+<!--
   <ThingDef ParentName="BaseRadiator">
     <defName>Radiator</defName>
     <label>Radiator</label>
     <uiIconPath>DBH/UI/radiator</uiIconPath>
     <costList>
-	  <Mechanism>1</Mechanism>
-      <ComponentIndustrial>3</ComponentIndustrial>
+      <Steel>25</Steel>
     </costList>
-    <costStuffCount>25</costStuffCount>
-    <stuffCategories>
-      <li>Metallic</li>
-      <li>Stony</li>
-	  <li>Ceramic</li>
-    </stuffCategories>
     <comps>
       <li Class="DubsBadHygiene.CompProperties_Radiator">
         <StoreCapacity>100</StoreCapacity>
@@ -445,7 +442,8 @@
     </comps>
     <menuHidden>true</menuHidden>
     <designationCategory></designationCategory>
-  </ThingDef>
+  </ThingDef> 
+  -->
 
   <ThingDef ParentName="BaseRadiator">
     <defName>RadiatorStuffed</defName>
@@ -482,7 +480,7 @@
         <rect>(0.05,0.05,0.95,0.95)</rect>
       </damageData>
     </graphicData>
-    <description>3 times the output of a standard radiator, useful for larger rooms, requires 300 heating units.</description>
+    <description>3 times the output of a standard radiator, useful for larger rooms. Requires 300 heating units.</description>
     <size>(2,1)</size>
     <costList>
 	<Mechanism>2</Mechanism>
@@ -505,6 +503,9 @@
 
   <!--COOLING-->
 
+  <DesignatorDropdownGroupDef>
+    <defName>CeilingFans</defName>
+  </DesignatorDropdownGroupDef>
 
   <ThingDef ParentName="BasedHeating">
     <defName>CeilingFan</defName>
@@ -518,7 +519,7 @@
     <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
     <altitudeLayer>Weather</altitudeLayer>
     <clearBuildingArea>false</clearBuildingArea>
-    <description>Cools a room by circulating air, includes a built in lamp</description>
+    <description>Cools a room by circulating air. Includes a built in lamp.</description>
     <passability>Standable</passability>
     <drawerType>RealtimeOnly</drawerType>
     <blockWind>false</blockWind>
@@ -561,14 +562,15 @@
       <li Class="CompProperties_Flickable"/>
     </comps>
     <researchPrerequisites>
-      <li>CentralHeating</li>
+      <li>Electricity</li>
     </researchPrerequisites>
     <placeWorkers>
       <li>PlaceWorker_CoolerSimple</li>
       <li>DubsBadHygiene.PlaceWorker_NotUnderEdiface</li>
     </placeWorkers>
     <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
-    <designationCategory>Temperature</designationCategory>
+    <designationCategory>Hygiene</designationCategory>
+    <designatorDropdown>CeilingFans</designatorDropdown>
   </ThingDef>
 
   <ThingDef ParentName="BasedHeating">
@@ -584,7 +586,7 @@
     <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
     <altitudeLayer>Weather</altitudeLayer>
     <clearBuildingArea>false</clearBuildingArea>
-    <description>Cools a room by circulating air, includes a built in lamp</description>
+    <description>Cools a room by circulating air. Includes a built in lamp.</description>
     <passability>Standable</passability>
     <drawerType>RealtimeOnly</drawerType>
     <blockWind>false</blockWind>
@@ -627,14 +629,15 @@
       <li Class="CompProperties_Flickable"/>
     </comps>
     <researchPrerequisites>
-      <li>CentralHeating</li>
+      <li>Electricity</li>
     </researchPrerequisites>
     <placeWorkers>
       <li>PlaceWorker_CoolerSimple</li>
       <li>DubsBadHygiene.PlaceWorker_NotUnderEdiface</li>
     </placeWorkers>
     <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
-    <designationCategory>Temperature</designationCategory>
+    <designationCategory>Hygiene</designationCategory>
+    <designatorDropdown>CeilingFans</designatorDropdown>
   </ThingDef>
   
   
@@ -644,7 +647,7 @@
   <ThingDef ParentName="BasedHeating">
     <defName>AirConOutdoorUnit</defName>
     <label>Air-Con Outdoor Unit</label>
-    <description>Multi-split Air Conditioner unit, place outdoors and pipe to indoor units or freezer units, power mode select with 100-1000 cooling units capacity</description>
+    <description>Multi-split Air Conditioner unit. Place outdoors and pipe to indoor units or freezer units. Power mode selection with 100-1000 cooling units capacity</description>
     <graphicData>
       <texPath>DBH/Things/Building/Heating/Aircon</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -687,7 +690,7 @@
     <researchPrerequisites>
       <li>MultiSplitAirCon</li>
     </researchPrerequisites>
-    <designationCategory>Temperature</designationCategory>
+    <designationCategory>Hygiene</designationCategory>
   </ThingDef>
 
   <ThingDef Name="BaseAircon" ParentName="BasedHeating" Abstract="True">
@@ -716,13 +719,13 @@
       <li>MultiSplitAirCon</li>
     </researchPrerequisites>
     <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
-    <designationCategory>Temperature</designationCategory>
+    <designationCategory>Hygiene</designationCategory>
   </ThingDef>
 
   <ThingDef ParentName="BaseAircon">
     <defName>AirconIndoorUnit</defName>
     <label>Air-Con Indoor Unit</label>
-    <description>Indoor Air-con unit for rooms, connect to outdoor air-con units, requires 100 cooling units.</description>
+    <description>Indoor Air-con unit for rooms. Connect to outdoor air-con units. Requires 100 cooling units.</description>
 		<stuffCategories>
 			<li>Metallic</li>
 		</stuffCategories>
@@ -773,7 +776,7 @@
   <ThingDef ParentName="BaseAircon">
     <defName>FreezerUnit</defName>
     <label>Walk-in freezer unit</label>
-    <description>Freezer unit for creating a walk in freezer, connect to outdoor air-con units, requires 300 cooling units.</description>
+    <description>Freezer unit for creating a walk in freezer. Connect to outdoor air-con units. Requires 300 cooling units.</description>
 		<stuffCategories>
 			<li>Metallic</li>
 		</stuffCategories>
@@ -791,7 +794,7 @@
         <rect>(0.05,0.05,0.95,0.95)</rect>
       </damageData>
     </graphicData>
-    <terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
     <size>(2,1)</size>
     <statBases>
       <WorkToBuild>800</WorkToBuild>

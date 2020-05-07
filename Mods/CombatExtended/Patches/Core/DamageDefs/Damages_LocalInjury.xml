@@ -10,6 +10,7 @@
       <workerClass>CombatExtended.DamageWorker_AddInjuryCE</workerClass>
   	</value>
 	</Operation>
+
 	<Operation Class="PatchOperationReplace">
   	<xpath>Defs/DamageDef[workerClass = "DamageWorker_Flame"]/workerClass</xpath>
   	<value>
@@ -19,15 +20,6 @@
 -->
 
 	<!-- ========== Add DefModExtension ========== -->
-
-	<Operation Class="PatchOperationAddModExtension">
-  	<xpath>Defs/DamageDef[defName="Crush"]</xpath>
-  	<value>
-  		<li Class="CombatExtended.DamageDefExtensionCE">
-  			<harmOnlyOutsideLayers>true</harmOnlyOutsideLayers>
-  		</li>
-  	</value>
-	</Operation>
 
 	<Operation Class="PatchOperationAddModExtension">
   	<xpath>Defs/DamageDef[defName="Blunt"]</xpath>
@@ -42,7 +34,6 @@
   	<xpath>Defs/DamageDef[defName="Scratch"]</xpath>
   	<value>
   		<li Class="CombatExtended.DamageDefExtensionCE">
-  			<noDamageOnDeflect>true</noDamageOnDeflect>
   			<harmOnlyOutsideLayers>true</harmOnlyOutsideLayers>
   		</li>
   	</value>
@@ -76,7 +67,7 @@
   		</li>
   	</value>
 	</Operation>
-	
+
   <Operation Class="PatchOperationAddModExtension">
     <xpath>Defs/DamageDef[defName="EMP"]</xpath>
     <value>
@@ -101,14 +92,14 @@
     <attribute>Name</attribute>
     <value>Bullet</value>
 	</Operation>
-	
+
 <!--
 	<Operation Class="PatchOperationAttributeSet">
   	<xpath>Defs/DamageDef[defName="Bomb"]</xpath>
     <attribute>Name</attribute>
     <value>BombDamage</value>
 	</Operation>
-	
+
 	<Operation Class="PatchOperationAttributeSet">
   	<xpath>Defs/DamageDef[defName="Burn"]</xpath>
     <attribute>Name</attribute>
@@ -125,26 +116,40 @@
     </value>
   </Operation>
 
-  <!-- ========== Stabs and pokes no longer ignore armor ========== -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/DamageDef[defName="Bomb"]/armorCategory</xpath>
+    <value>
+      <armorCategory>Blunt</armorCategory>
+    </value>
+  </Operation>
 
-	<Operation Class="PatchOperationAdd">
-		<xpath>Defs/DamageDef[defName="Poke"]</xpath>
-		<value>
-			<harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
-		</value>
-	</Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/DamageDef[defName="Bomb"]/minDamageToFragment</xpath>
+    <value>
+      <minDamageToFragment>4</minDamageToFragment>
+    </value>
+  </Operation>
+  
+  <!-- ========== Remove vanilla DamageWorker ========== -->
 
-	<Operation Class="PatchOperationAdd">
-		<xpath>Defs/DamageDef[defName="Stab"]</xpath>
-		<value>
-			<harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
-		</value>
-	</Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/DamageDef[defName="Cut" or defName="Poke" or defName="Stab" or defName="Scratch" or defName="Bite"]/workerClass</xpath>
+    <value>
+      <workerClass>DamageWorker_AddInjury</workerClass>
+    </value>
+  </Operation>
+  
+    <Operation Class="PatchOperationReplace">
+    <xpath>Defs/DamageDef[defName="Blunt"]/workerClass</xpath>
+    <value>
+      <workerClass>CombatExtended.DamageWorker_BluntCE</workerClass>
+    </value>
+  </Operation>
 
 <!-- ========== Patch-out vanilla melee stun mechanic from blunt damage ========== -->
 
 	<Operation Class="PatchOperationRemove">
-		<xpath>/Defs/DamageDef[@Name="BluntBase"]/*[self::bluntStunDuration or self::bluntStunChancePerDamagePctOfCorePartToHeadCurve or self::bluntStunChancePerDamagePctOfCorePartToBodyCurve]</xpath>
+		<xpath>Defs/DamageDef[@Name="BluntBase"]/*[self::bluntStunDuration or self::bluntStunChancePerDamagePctOfCorePartToHeadCurve or self::bluntStunChancePerDamagePctOfCorePartToBodyCurve]</xpath>
 	</Operation>	
 
   <!-- ========== Add electric armor to EMP damage ========== -->
@@ -153,6 +158,28 @@
     <xpath>Defs/DamageDef[defName="EMP"]</xpath>
     <value>
       <armorCategory>Electric</armorCategory>
+    </value>
+  </Operation>
+
+  <!-- ========== Snake venom ========== -->
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/DamageDef[defName="ToxicBite"]</xpath>
+    <value>
+      <hediff>VenomousBite</hediff>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationRemove">
+    <xpath>Defs/DamageDef[defName="ToxicBite"]/additionalHediffs/li[hediff="ToxicBuildup"]</xpath>
+  </Operation>
+  
+  <!-- ========== Fix harm layers for stab attacks ========== -->
+  
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/DamageDef[defName="Stab"]</xpath>
+    <value>
+      <harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
     </value>
   </Operation>
 	

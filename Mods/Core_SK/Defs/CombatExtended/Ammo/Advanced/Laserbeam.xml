@@ -15,6 +15,7 @@
 		<label>Charged Laser beam</label>
 		<ammoTypes>
 			<Ammo_ChargedLaser>Bullet_Laserbeam</Ammo_ChargedLaser>
+			<Ammo_ChargedLaser_Stable>Bullet_Laserbeam_Stable</Ammo_ChargedLaser_Stable>
 		</ammoTypes>
 	</CombatExtended.AmmoSetDef>
 
@@ -57,6 +58,43 @@
 		</comps>
 	</ThingDef>  
 
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="SpacerSmallAmmoBase">
+		<defName>Ammo_ChargedLaser_Stable</defName>
+		<label>Charged Laser beam (Stable)</label>
+
+		<tradeTags>
+			<li>CE_AutoEnableCrafting</li>
+		</tradeTags>
+		<thingCategories>
+			<li>AmmoLaser</li>
+		</thingCategories>
+		<graphicData>
+			<texPath>Things/Ammo/Charged/Concentrated</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>4</MarketValue>
+			<Mass>0.01</Mass>
+			<Bulk>0.02</Bulk>
+		</statBases>
+		<tradeability>Sellable</tradeability>
+		<destroyOnDrop>False</destroyOnDrop>
+		<ammoClass>ChargedST</ammoClass>
+		<comps>
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>0.6</explosiveRadius>
+				<explosiveDamageType>Flame</explosiveDamageType>
+				<explosiveExpandPerStackcount>0.01</explosiveExpandPerStackcount>
+				<startWickHitPointsPercent>0.333</startWickHitPointsPercent>
+				<wickTicks>
+					<min>5</min>
+					<max>10</max>
+				</wickTicks>
+			</li>
+			<li Class="CompProperties_Forbiddable"/>
+		</comps>
+	</ThingDef>  
+
 	<!-- ================== Projectiles ================== -->
 
 	<ThingDef Class="SK.ThingDef_LaserProjectileCR" ParentName="SK_BaseBullet">
@@ -71,7 +109,33 @@
 			<damageDef>LaserBurn</damageDef>
 			<damageAmountBase>14</damageAmountBase>
 			<speed>250</speed>
-			<armorPenetrationBase>0.7</armorPenetrationBase>
+			<!-- <armorPenetrationBase>0.7</armorPenetrationBase> -->
+			<armorPenetrationSharp>18</armorPenetrationSharp>
+			<armorPenetrationBlunt>7.6</armorPenetrationBlunt>
+		</projectile>
+		<preFiringInitialIntensity>4</preFiringInitialIntensity>
+		<preFiringFinalIntensity>2</preFiringFinalIntensity>
+		<postFiringInitialIntensity>1</postFiringInitialIntensity>
+		<postFiringFinalIntensity>1</postFiringFinalIntensity>
+		<preFiringDuration>2</preFiringDuration>
+		<postFiringDuration>1</postFiringDuration>
+	</ThingDef>
+
+	<ThingDef Class="SK.ThingDef_LaserProjectileCR" ParentName="SK_BaseBullet">
+		<defName>Bullet_Laserbeam_Stable</defName>
+		<thingClass>SK.Projectile_LaserCE</thingClass>
+		<label>Laser beam (Stable)</label>
+		<graphicData>
+			<texPath>Things/Projectile/LaserRay</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Optic</damageDef>
+			<damageAmountBase>16</damageAmountBase>
+			<speed>250</speed>
+			<!-- <armorPenetrationBase>0.7</armorPenetrationBase> -->
+			<armorPenetrationSharp>18</armorPenetrationSharp>
+			<armorPenetrationBlunt>7.6</armorPenetrationBlunt>
 		</projectile>
 		<preFiringInitialIntensity>4</preFiringInitialIntensity>
 		<preFiringFinalIntensity>2</preFiringFinalIntensity>
@@ -125,6 +189,51 @@
 		</fixedIngredientFilter>
 		<products>
 			<Ammo_ChargedLaser>40</Ammo_ChargedLaser>
+		</products>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeAmmo_ChargedLaser_Stable</defName>
+		<label>make Charged Laser beam (Stable) cartridge x40</label>
+		<description>Craft 40 Charged Laser beam (Stable) cartridges.</description>
+		<jobString>Making Charged Laser beam (Stable) cartridges.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>SLDBar</li>
+					</categories>
+				</filter>
+				<count>30</count>
+			</li>
+			<li>
+				<filter>
+					<categories>
+						<li>USLDBar</li>
+					</categories>
+				</filter>
+				<count>6</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Hexcell</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>SLDBar</li>
+				<li>USLDBar</li>
+			</categories>
+			<thingDefs>
+				<li>Hexcell</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_ChargedLaser_Stable>40</Ammo_ChargedLaser_Stable>
 		</products>
 	</RecipeDef>
 

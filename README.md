@@ -13,9 +13,9 @@ This project support English, Russian Spanish and Korean language.
 Using additional mods (not included in the project) is not recommended.
 
 Cheat Sheet
-https://goo.gl/ng4FWA
+https://docs.google.com/spreadsheets/d/15plqVpwOR3apQaVIy-VjFIngLyA1D0y5ont7KYbxkaQ
 Known Compatible Optional Mods
-https://goo.gl/yvjYDV
+https://docs.google.com/spreadsheets/d/1i5eWzeJCNSgWl-q8cnTRsiOXZOcvtZAWdtRA1BNn0HY
 
 Feel free to join us on our Discord Server!
 https://discord.gg/FMPRSKr
@@ -34,7 +34,7 @@ Requirements:
 - If the game was installed for the first time, you need to start before updating HSK. (The game at startup generates configuration files).
 - .Net Framework 4.5 (goes by default since Windows 8. There is no support for Windows XP and previously released OS).
 
-Download installer: http://hardcore-sk.ru/hardcore/installer/HSK-Launcher-1.1-Setup.exe
+Download installer: http://hardcore-sk.ru/hardcore/installer/HSK-Launcher-1.6-Setup.exe
 
 ## Manual installation:
 
@@ -44,16 +44,21 @@ Delete all mods inside your Rimworld\Mods\ folder except "Core".
 2. Open up the downloaded Hardcore sk project .zip file.
 Extract everything in the Hardcore-SK-master\Mods\ folder into your Rimworlds\Mods\ folder, and overwrite any files if prompted.
 
-3. Go to:  
+3. Go to:
+
 For Windows users:
-C:\Users\your user name\AppData\LocalLow\Ludeon Studios\RimWorld by Ludeon Studios\Config
-windows button + R -> the Run dialog will appear
-type %APPDATA%\..\LocalLow -> this will open the appdata folder
+- `C:\Users\your user name\AppData\LocalLow\Ludeon Studios\RimWorld by Ludeon Studios\Config`
+- `windows button + R` -> the Run dialog will appear
+- type `%APPDATA%\..\LocalLow` -> this will open the appdata folder
+
 For Linux users:
-/home/your user name/.config/unity3d/Ludeon Studios/RimWorld/Config
-For Mac users: 
-/Users/your user name/Library/Application Support/RimWorld/Config
+- `/home/your user name/.config/unity3d/Ludeon Studios/RimWorld/Config`
+
+For Mac users:
+- `/Users/your user name/Library/Application Support/RimWorld/Config`
+
 Delete all the files that exist in that folder.
+
 And copy "ModsConfig.xml", which is at the root of the archive modpack.
 
 4. Check mods in the game. Switch Language if needed. Play!
