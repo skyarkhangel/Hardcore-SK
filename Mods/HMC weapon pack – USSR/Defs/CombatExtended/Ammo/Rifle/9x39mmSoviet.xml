@@ -1,0 +1,400 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>Ammo9x39mmSoviet</defName>
+		<label>9x39mm Soviet</label>
+		<parent>AmmoRifles</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberRifle</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_9x39mmSoviet</defName>
+		<label>9x39mm Soviet</label>
+		<ammoTypes>
+			<Ammo_9x39mmSoviet_FMJ>Bullet_9x39mmSoviet_FMJ</Ammo_9x39mmSoviet_FMJ>
+			<Ammo_9x39mmSoviet_AP>Bullet_9x39mmSoviet_AP</Ammo_9x39mmSoviet_AP>
+			<Ammo_9x39mmSoviet_SH>Bullet_9x39mmSoviet_SH</Ammo_9x39mmSoviet_SH>
+			<Ammo_9x39mmSoviet_EMP>Bullet_9x39mmSoviet_EMP</Ammo_9x39mmSoviet_EMP>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="9x39mmSovietBase" ParentName="SmallAmmoBase" Abstract="True">
+		<description>Small, subsonic rifle bullet used in a variety of special rifles.</description>
+		<statBases>
+			<Mass>0.024</Mass>
+			<Bulk>0.04</Bulk>
+		</statBases>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting</li>
+		</tradeTags>
+		<thingCategories>
+			<li>Ammo9x39mmSoviet</li>
+		</thingCategories>
+		<comps>
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>0.35</explosiveRadius>
+				<explosiveDamageType>Flame</explosiveDamageType>
+				<explosiveExpandPerStackcount>0.01</explosiveExpandPerStackcount>
+				<startWickHitPointsPercent>0.333</startWickHitPointsPercent>
+				<wickTicks>
+					<min>5</min>
+					<max>10</max>
+				</wickTicks>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="9x39mmSovietBase">
+		<defName>Ammo_9x39mmSoviet_FMJ</defName>
+		<label>9x39mm Soviet cartridge (FMJ)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Rifle/FMJ</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>0.09</MarketValue>
+		</statBases>
+		<ammoClass>FullMetalJacket</ammoClass>
+		<cookOffProjectile>Bullet_9x39mmSoviet_FMJ</cookOffProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="9x39mmSovietBase">
+		<defName>Ammo_9x39mmSoviet_AP</defName>
+		<label>9x39mm Soviet cartridge (AP)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Rifle/AP</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>0.13</MarketValue>
+		</statBases>
+		<ammoClass>ArmorPiercing</ammoClass>
+		<cookOffProjectile>Bullet_9x39mmSoviet_AP</cookOffProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="9x39mmSovietBase">
+		<defName>Ammo_9x39mmSoviet_SH</defName>
+		<label>9x39mm Soviet cartridge (SH)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Rifle/Shock</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>0.15</MarketValue>
+		</statBases>
+		<ammoClass>Shock</ammoClass>
+		<cookOffProjectile>Bullet_9x39mmSoviet_SH</cookOffProjectile>
+	</ThingDef>
+	
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="9x39mmSovietBase">
+		<defName>Ammo_9x39mmSoviet_EMP</defName>
+		<label>9x39mm Soviet cartridge (EMP)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Rifle/EMP</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>0.20</MarketValue>
+		</statBases>
+		<ammoClass>GrenadeEMP</ammoClass>
+		<cookOffProjectile>Bullet_9x39mmSoviet_SH</cookOffProjectile>
+	</ThingDef>	
+
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="Base9x39mmSovietBullet" ParentName="SK_BaseBullet" Abstract="true">
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_Small</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bullet</damageDef>
+			<speed>80</speed>
+			<dropsCasings>true</dropsCasings>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base9x39mmSovietBullet">
+		<defName>Bullet_9x39mmSoviet_FMJ</defName>
+		<label>9mm Soviet bullet (FMJ)</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageAmountBase>14</damageAmountBase>
+			<!-- <armorPenetrationBase>0.49</armorPenetrationBase> -->
+			<armorPenetrationSharp>7.8</armorPenetrationSharp>
+			<armorPenetrationBlunt>30.4</armorPenetrationBlunt>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base9x39mmSovietBullet">
+		<defName>Bullet_9x39mmSoviet_AP</defName>
+		<label>9mm Soviet bullet (AP)</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageAmountBase>11</damageAmountBase>
+			<!-- <armorPenetrationBase>0.67</armorPenetrationBase> -->
+			<armorPenetrationSharp>11</armorPenetrationSharp>
+			<armorPenetrationBlunt>38.2</armorPenetrationBlunt>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base9x39mmSovietBullet">
+		<defName>Bullet_9x39mmSoviet_SH</defName>
+		<label>9mm Soviet bullet (SH)</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageAmountBase>8</damageAmountBase>
+			<!-- <armorPenetrationBase>0.46</armorPenetrationBase> -->
+			<armorPenetrationSharp>7.8</armorPenetrationSharp>
+			<armorPenetrationBlunt>30.4</armorPenetrationBlunt>
+			  <secondaryDamage>
+				<li>
+				  <def>ElectricShock</def>
+				  <amount>7</amount>
+				</li>
+			  </secondaryDamage>
+		</projectile>
+	</ThingDef>
+	
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base9x39mmSovietBullet">
+		<defName>Bullet_9x39mmSoviet_EMP</defName>
+		<label>9mm Soviet bullet (EMP)</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageAmountBase>7</damageAmountBase>
+			<!-- <armorPenetrationBase>0.37</armorPenetrationBase> -->
+			<armorPenetrationSharp>9.4</armorPenetrationSharp>
+			<armorPenetrationBlunt>36.6</armorPenetrationBlunt>
+			  <secondaryDamage>
+				<li>
+				  <def>EMP</def>
+				  <amount>8</amount>
+				</li>
+			  </secondaryDamage>			
+		</projectile>
+	</ThingDef>	
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef ParentName="AmmoRecipeRifle">
+        <defName>MakeAmmo_9x39mmSoviet_FMJ</defName>
+        <label>make 9x39mm Soviet (FMJ) cartridge x90</label>
+        <description>Craft 90 9x39mm Soviet (FMJ) cartridges.</description>
+        <jobString>Making 9x39mm Soviet (FMJ) cartridges.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>SLDBar</li>
+						<li>USLDBar</li>
+					</categories>
+				</filter>
+				<count>11</count>
+			</li>
+			<li>
+				<filter>
+					<categories>
+						<li>HeavyBar</li>
+					</categories>
+				</filter>
+				<count>4</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Powder</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>SLDBar</li>
+				<li>USLDBar</li>
+				<li>HeavyBar</li>
+			</categories>
+			<thingDefs>
+				<li>Powder</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_9x39mmSoviet_FMJ>90</Ammo_9x39mmSoviet_FMJ>
+		</products>
+		<skillRequirements>
+			<Crafting>5</Crafting>
+		</skillRequirements>
+		<workSkill>Crafting</workSkill>
+		<workSkillLearnFactor>0.8</workSkillLearnFactor>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeRifle">
+        <defName>MakeAmmo_9x39mmSoviet_AP</defName>
+        <label>make 9x39mm Soviet (AP) cartridge x90</label>
+        <description>Craft 90 9x39mm Soviet (AP) cartridges.</description>
+        <jobString>Making 9x39mm Soviet (AP) cartridges.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>SLDBar</li>
+						<li>USLDBar</li>
+					</categories>
+				</filter>
+				<count>11</count>
+			</li>
+			<li>
+				<filter>
+					<categories>
+						<li>USLDHBar</li>
+						<li>Ceramic</li>
+					</categories>
+				</filter>
+				<count>4</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Powder</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>SLDBar</li>
+				<li>USLDBar</li>
+				<li>USLDHBar</li>
+				<li>Ceramic</li>
+			</categories>
+			<thingDefs>
+				<li>Powder</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_9x39mmSoviet_AP>90</Ammo_9x39mmSoviet_AP>
+		</products>
+		<skillRequirements>
+			<Crafting>6</Crafting>
+		</skillRequirements>
+		<workSkill>Crafting</workSkill>
+		<workSkillLearnFactor>0.8</workSkillLearnFactor>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeRifle">
+        <defName>MakeAmmo_9x39mmSoviet_SH</defName>
+        <label>make 9x39mm Soviet (SH) cartridge x90</label>
+        <description>Craft 90 9x39mm Soviet (SH) cartridges.</description>
+        <jobString>Making 9x39mm Soviet (SH) cartridges.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>SLDBar</li>
+						<li>USLDBar</li>
+					</categories>
+				</filter>
+				<count>11</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Carbon</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Powder</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>SLDBar</li>
+				<li>USLDBar</li>
+			</categories>
+			<thingDefs>
+				<li>Carbon</li>
+				<li>Powder</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_9x39mmSoviet_SH>90</Ammo_9x39mmSoviet_SH>
+		</products>
+		<skillRequirements>
+			<Crafting>7</Crafting>
+		</skillRequirements>
+		<workSkill>Crafting</workSkill>
+		<workSkillLearnFactor>0.8</workSkillLearnFactor>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeRifle">
+        <defName>MakeAmmo_9x39mmSoviet_EMP</defName>
+        <label>make 9x39mm Soviet (EMP) cartridge x90</label>
+        <description>Craft 90 9x39mm Soviet (EMP) cartridges.</description>
+        <jobString>Craft 90 9x39mm Soviet (EMP) cartridges.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>SLDBar</li>
+						<li>USLDBar</li>
+					</categories>
+				</filter>
+				<count>11</count>
+			</li>
+			<li>
+				<filter>
+					<categories>
+						<li>HeavyBar</li>
+					</categories>
+				</filter>
+				<count>4</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Powder</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ElectronicComponents</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>			
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>SLDBar</li>
+				<li>USLDBar</li>
+				<li>HeavyBar</li>
+			</categories>
+			<thingDefs>
+				<li>Powder</li>
+				<li>ElectronicComponents</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_9x39mmSoviet_EMP>90</Ammo_9x39mmSoviet_EMP>
+		</products>
+		<skillRequirements>
+			<Crafting>8</Crafting>
+		</skillRequirements>
+		<workSkill>Crafting</workSkill>
+		<workSkillLearnFactor>0.8</workSkillLearnFactor>
+	</RecipeDef>
+
+</Defs>
