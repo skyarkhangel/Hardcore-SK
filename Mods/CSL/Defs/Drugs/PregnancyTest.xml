@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <ThingDef ParentName="MakeableDrugPillBase">
+    <defName>PregnancyTest</defName>
+    <label>pregnancy test</label>
+    <description>Discover/check on pregnancy of a creature (pregnancy is normally not visible for the first third of its duration).</description>
+    <graphicData>
+      <texPath>Things/Item/TestPill</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <socialPropernessMatters>false</socialPropernessMatters>
+    <rotatable>false</rotatable>
+    <statBases>
+      <WorkToMake>300</WorkToMake>
+      <MarketValue>7</MarketValue>
+      <Mass>0.005</Mass>
+    </statBases>
+    <techLevel>Industrial</techLevel>
+    <ingestible>
+      <drugCategory>Medical</drugCategory>
+      <outcomeDoers>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>PregnancyTestActive</hediffDef>
+          <severity>0.1</severity>
+		  <doToGeneratedPawnIfAddicted>false</doToGeneratedPawnIfAddicted>
+        </li>
+      </outcomeDoers>
+    </ingestible>
+    <recipeMaker>
+      <recipeUsers>
+        <li>DrugLab</li>
+      </recipeUsers>
+	  <researchPrerequisite>MedicineProduction</researchPrerequisite>
+      <skillRequirements>
+        <Medicine>6</Medicine>
+        <Crafting>4</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <costList>
+      <MedicineHerbal>1</MedicineHerbal>
+      <Neutroamine>1</Neutroamine>
+    </costList>
+    <comps>
+      <li Class="CompProperties_Drug">
+        <listOrder>1000</listOrder>
+        <overdoseSeverityOffset>
+          <min>0.08</min>
+          <max>0.14</max>
+        </overdoseSeverityOffset>
+		<addictiveness>0</addictiveness>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <HediffDef>
+    <defName>PregnancyTestActive</defName>
+    <hediffClass>HediffWithComps</hediffClass>
+    <label>on pregnancy test</label>
+    <labelNoun>pregnancy test</labelNoun>
+    <description>pregnancy test</description>
+    <defaultLabelColor>(1,0,0.5)</defaultLabelColor>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <maxSeverity>1.0</maxSeverity>
+    <isBad>false</isBad>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-0.9</severityPerDay>
+      </li>
+    </comps>
+  </HediffDef>
+    
+</Defs>

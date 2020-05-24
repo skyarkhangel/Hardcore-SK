@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <ThingDef ParentName="MakeableDrugPillBase">
+    <defName>BirthControl</defName>
+    <label>birth control</label>
+    <description>100% Prevents getting pregnant for 5 days. (works for both genders, at least one has to take it) - (The default settings from the base-game have the pregnancy hidden for the first third of the duration, this can be disabled in the mod-settings)</description>
+    <graphicData>
+      <texPath>Things/Item/Pill</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <socialPropernessMatters>false</socialPropernessMatters>
+    <rotatable>false</rotatable>
+    <statBases>
+      <WorkToMake>500</WorkToMake>
+      <MarketValue>10</MarketValue>
+      <Mass>0.005</Mass>
+    </statBases>
+    <techLevel>Industrial</techLevel>
+    <ingestible>
+      <drugCategory>Medical</drugCategory>
+      <outcomeDoers>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>BirthControlActive</hediffDef>
+          <severity>1.0</severity>
+		  <doToGeneratedPawnIfAddicted>false</doToGeneratedPawnIfAddicted>
+        </li>
+      </outcomeDoers>
+    </ingestible>
+    <recipeMaker>
+      <recipeUsers>
+        <li>DrugLab</li>
+      </recipeUsers>
+	  <researchPrerequisite>MedicineProduction</researchPrerequisite>
+      <skillRequirements>
+        <Medicine>6</Medicine>
+        <Crafting>4</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <costList>
+      <MedicineHerbal>1</MedicineHerbal>
+      <Neutroamine>1</Neutroamine>
+    </costList>
+    <comps>
+      <li Class="CompProperties_Drug">
+        <listOrder>1000</listOrder>
+        <overdoseSeverityOffset>
+          <min>0.08</min>
+          <max>0.14</max>
+        </overdoseSeverityOffset>
+		<addictiveness>0</addictiveness>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <HediffDef>
+    <defName>BirthControlActive</defName>
+    <hediffClass>HediffWithComps</hediffClass>
+    <label>on birth control</label>
+    <labelNoun>birth control</labelNoun>
+    <description>birth control</description>
+    <defaultLabelColor>(1,0,0.5)</defaultLabelColor>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <maxSeverity>1.0</maxSeverity>
+    <isBad>false</isBad>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-0.2</severityPerDay>
+      </li>
+    </comps>
+      <stages>
+        <li>
+          <capMods>
+            <li>
+              <capacity>Fertility</capacity>
+              <offset>-1.0</offset>
+			  <setMax>0.0</setMax>
+            </li>
+          </capMods>
+        </li>
+      </stages>
+  </HediffDef>
+    
+</Defs>
