@@ -1,41 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-	<ThingDef ParentName="SK_BuildingBase" Name="MechShipPart" Abstract="True">
-		<thingClass>Building_CrashedShipPart</thingClass>
+	<ThingDef Abstract="True" Name="CrashedShipPartBase" ParentName="SK_BuildingBase">
 		<altitudeLayer>Building</altitudeLayer>
 		<pathCost>150</pathCost>
 		<blockWind>true</blockWind>
+		<receivesSignals>true</receivesSignals>
 		<passability>Impassable</passability>
-		<fillPercent>0.98</fillPercent>
+		<fillPercent>1</fillPercent>
 		<statBases>
 			<MarketValue>0</MarketValue>
 			<MaxHitPoints>1200</MaxHitPoints>
 			<Flammability>0</Flammability>
-			<Beauty>-100</Beauty>
+			<Beauty>-200</Beauty>
 		</statBases>
 		<tickerType>Normal</tickerType>
+		<rotatable>false</rotatable>
 		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
 		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<soundImpactDefault>BulletImpact_Metal</soundImpactDefault>
 		<drawerType>MapMeshOnly</drawerType>
 		<repairEffect>ConstructMetal</repairEffect>
 		<forceDebugSpawnable>true</forceDebugSpawnable>
+		<damageMultipliers>
+			<li>
+				<damageDef>Flame</damageDef>
+				<multiplier>0</multiplier>
+			</li>
+		</damageMultipliers>
 		<building>
+			<combatPower>250</combatPower>
 			<claimable>false</claimable>
-			<soundAmbient>CrashedShipPart_Ambience</soundAmbient>
 			<roofCollapseDamageMultiplier>0.2</roofCollapseDamageMultiplier>
 		</building>
 		<comps>
-			<li Class="CompProperties_SnowExpand" />
-			<li Class="CompProperties_SpawnerMechanoidsOnDamaged" />
+			<li Class="CompProperties_WakeUpDormant" />
 		</comps>
 	</ThingDef>
 
-	<ThingDef ParentName="MechShipPart">
-		<defName>CrashedPsychicEmanatorShipPart</defName>
-		<label>ancient ship part (psychic)</label>
-		<description>A mysterious crashed piece of a spaceship. It may contain exotic materials and computers. This one seems to be emanating psychic waves.</description>
-		<graphicData>
+	<!-- ========================= Psychic droner ========================= -->
+	<!-- Note this is a ConditionCauser -->
+
+
+	<ThingDef ParentName="CrashedShipPartBase">
+		<defName>PsychicDronerShipPart</defName>
+		<label>ship part (psychic droner)</label>
+		<description>An ancient ship part, torn off of a craft of unknown origin. It might be thousands of years old.\n\nThis one contains a psychic disturbance device. Using incomprehensible archotechnologies, it generates a psychic signal that drives people and animals mad within a wide radius around itself.</description>
+		<!-- 		<graphicData>
 			<texPath>Things/Building/Genstep/MechanoidShipIncoming</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<shaderType>CutoutComplex</shaderType>
@@ -43,27 +54,60 @@
 			<shadowData>
 				<volume>(3.5, 2, 3.5)</volume>
 			</shadowData>
+		</graphicData> -->
+		<graphicData>
+			<texPath>Things/Building/Exotic/CrashedShipPart</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(6,3)</drawSize>
+			<shadowData>
+				<volume>(0.9, 1.0, 0.9)</volume>
+			</shadowData>
+			<damageData>
+				<rect>(0.5, 0.1, 5, 2.8)</rect>
+			</damageData>
 		</graphicData>
+
 		<size>(6,6)</size>
-		<rotatable>false</rotatable>
 		<killedLeavings>
-			<Plasteel>280</Plasteel>
-			<SilverBar>140</SilverBar>
-			<ComponentSpacer>5</ComponentSpacer>
-			<ChunkSlagSteel>2</ChunkSlagSteel>
+			<ChunkSlagSteel>6</ChunkSlagSteel>
+			<ComponentSpacer>4</ComponentSpacer>
 			<AIPersonaCore>1</AIPersonaCore>
 		</killedLeavings>
 		<comps>
-			<li Class="CompProperties_PsychicDrone" />
+			<li Class="CompProperties_CausesGameCondition_PsychicEmanation">
+				<conditionDef>PsychicDroner</conditionDef>
+				<compClass>CompCauseGameCondition_PsychicEmanation</compClass>
+				<worldRange>1</worldRange>
+				<droneLevelIncreaseInterval>150000</droneLevelIncreaseInterval>
+				<droneLevel>2</droneLevel>
+			</li>
 			<li Class="CompProperties_AnimalInsanityPulser" />
 		</comps>
+		<building>
+			<soundAmbient>CrashedShipPart_Ambience</soundAmbient>
+		</building>
 	</ThingDef>
 
-	<ThingDef ParentName="MechShipPart">
-		<defName>CrashedPoisonShipPart</defName>
-		<label>ancient ship part (poison)</label>
-		<description>A mysterious crashed piece of a spaceship. It may contain exotic materials and computers. This one seems to be poisoning the ground around it.</description>
-		<graphicData>
+	<GameConditionDef>
+		<defName>PsychicDroner</defName>
+		<conditionClass>GameCondition_PsychicEmanation</conditionClass>
+		<label>psychic droner</label>
+		<description>A psychic droner tuned to the {0} gender is driving {0}s mad.</description>
+		<letterText>A psychic droner machine has begun affecting this region.</letterText>
+		<canBePermanent>false</canBePermanent>
+	</GameConditionDef>
+
+	<!-- =============================== Defoliator ship part ============================ -->
+
+	<ThingDef ParentName="CrashedShipPartBase">
+		<defName>DefoliatorShipPart</defName>
+		<label>ship part (defoliator)</label>
+		<description>An ancient ship part, torn off of a craft of unknown origin. It might be thousands of years old.\n\nThis one contains a device which annihilates plant life near itself without directly affecting flesh creatures. These kinds of weapons are sometimes scattered across farmlands or forests during land, to remove the enemy's food supply and hiding places without permanently ruining the territory. They're usually associated with orbital-drop mechanoid armies.</description>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<placeWorkers>
+			<li>PlaceWorker_ShowPlantHarmRadius</li>
+		</placeWorkers>
+		<!-- 		<graphicData>
 			<texPath>Things/Building/Genstep/MechanoidShipIncoming</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<shaderType>CutoutComplex</shaderType>
@@ -71,27 +115,34 @@
 			<shadowData>
 				<volume>(3.5, 2, 3.5)</volume>
 			</shadowData>
+		</graphicData> -->
+		<graphicData>
+			<texPath>Things/Building/Exotic/CrashedPoisonShipPart</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(6,3)</drawSize>
+			<shadowData>
+				<volume>(0.9, 1.0, 0.9)</volume>
+			</shadowData>
+			<damageData>
+				<rect>(0.5, 0.1, 5, 2.8)</rect>
+			</damageData>
 		</graphicData>
 		<size>(6,6)</size>
-		<rotatable>false</rotatable>
 		<killedLeavings>
-			<Plasteel>230</Plasteel>
-			<SilverBar>120</SilverBar>
-			<ChunkSlagSteel>2</ChunkSlagSteel>
-			<ComponentSpacer>5</ComponentSpacer>
+			<ChunkSlagSteel>6</ChunkSlagSteel>
+			<ComponentSpacer>4</ComponentSpacer>
 			<AIPersonaCore>1</AIPersonaCore>
 		</killedLeavings>
 		<comps>
 			<li Class="CompProperties_PlantHarmRadius">
 				<radiusPerDayCurve>
 					<points>
-						<li>0,5</li>
-						<li>1.5,18</li>
-						<li>6,40</li>
-						<li>20,100</li>
+						<li>0  , 5</li>
+						<li>1.5, 18</li>
+						<li>6  , 40</li>
+						<li>20 , 100</li>
 					</points>
 				</radiusPerDayCurve>
-				<harmFrequencyPerArea>0.015</harmFrequencyPerArea>
 			</li>
 		</comps>
 	</ThingDef>
@@ -108,7 +159,7 @@
 			<MaxHitPoints>300</MaxHitPoints>
 			<Flammability>0</Flammability>
 			<Beauty>-20</Beauty>
-			<WorkToBuild>8000</WorkToBuild>
+			<WorkToBuild>7000</WorkToBuild>
 		</statBases>
 		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
 		<killedLeavings>
@@ -155,7 +206,7 @@
 			<MaxHitPoints>300</MaxHitPoints>
 			<Flammability>0</Flammability>
 			<Beauty>-30</Beauty>
-			<WorkToBuild>18750</WorkToBuild>
+			<WorkToBuild>14000</WorkToBuild>
 		</statBases>
 		<killedLeavings>
 			<ChunkSlagSteel>5</ChunkSlagSteel>
@@ -247,7 +298,7 @@
 			<MaxHitPoints>120</MaxHitPoints>
 			<Flammability>1</Flammability>
 			<Beauty>25</Beauty>
-			<WorkToBuild>36000</WorkToBuild>
+			<WorkToBuild>30000</WorkToBuild>
 		</statBases>
 		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
 		<rotatable>false</rotatable>
@@ -271,7 +322,6 @@
 			<li>ITab_Art</li>
 		</inspectorTabs>
 	</ThingDef>
-
 
 	<ThingDef ParentName="GenstepArts">
 		<defName>Totem</defName>
@@ -313,7 +363,7 @@
 			<MaxHitPoints>180</MaxHitPoints>
 			<Flammability>0</Flammability>
 			<Beauty>10</Beauty>
-			<WorkToBuild>13500</WorkToBuild>
+			<WorkToBuild>10000</WorkToBuild>
 		</statBases>
 		<stuffCategories>
 			<li>Stony</li>
@@ -379,7 +429,7 @@
 		<size>(4,2)</size>
 		<rotatable>false</rotatable>
 		<statBases>
-			<WorkToBuild>750</WorkToBuild>
+			<WorkToBuild>600</WorkToBuild>
 		</statBases>
 		<comps>
 			<li Class="SK.CompLoot_Properties">
@@ -394,7 +444,7 @@
 			</li>
 		</comps>
 	</ThingDef>
-	
+
 	<ThingDef ParentName="SK_BuildingBase">
 		<defName>ArtefactFound_Artefact</defName>
 		<label>Mysterious Artefact</label>
@@ -402,7 +452,7 @@
 		<thingClass>SK.Events.Building_Artefact</thingClass>
 		<category>Building</category>
 		<graphicData>
-      		<texPath>Things/Building/Genstep/ArtefactFound/Artefact</texPath>
+			<texPath>Things/Building/Genstep/ArtefactFound/Artefact</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<altitudeLayer>FloorEmplacement</altitudeLayer>
@@ -410,7 +460,7 @@
 		<passability>Standable</passability>
 		<statBases>
 			<MaxHitPoints>30</MaxHitPoints>
-			<WorkToBuild>75</WorkToBuild>
+			<WorkToBuild>100</WorkToBuild>
 			<Flammability>0.0</Flammability>
 			<Beauty>3</Beauty>
 		</statBases>
