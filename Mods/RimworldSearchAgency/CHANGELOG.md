@@ -1,3 +1,7 @@
+# 3.0 
+
+updates for rimworld 1.1 / 1.0 compatibility
+
 # 2.2
 
 experimental 1.0 build
