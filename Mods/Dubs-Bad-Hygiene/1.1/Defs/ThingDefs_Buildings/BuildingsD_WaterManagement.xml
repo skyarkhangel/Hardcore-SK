@@ -1,0 +1,677 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+ 
+  <!--WATER PUMPING-->
+
+  
+  <ThingDef Name="BasedWaterWell" ParentName="BasedHygieneMom"  Abstract="True">
+    <graphicData>
+      <texPath>DBH/Things/Building/Water/WaterWell</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+      <drawRotated>false</drawRotated>
+    </graphicData>
+    <category>Building</category>
+    <tickerType>Normal</tickerType>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <blockWind>false</blockWind>
+    <castEdgeShadows>false</castEdgeShadows>
+    <pathCost>60</pathCost>
+    <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<costList>
+			<ComponentIndustrial>6</ComponentIndustrial>	
+			<Mechanism>2</Mechanism>
+		</costList>
+		<stuffCategories>
+          <li>Metallic</li>
+          <li>Stony</li>
+	      <li>Ceramic</li>
+     	  <li>Bricks</li>
+		</stuffCategories>
+		<costStuffCount>50</costStuffCount>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <rotatable>true</rotatable>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <WorkToBuild>15000</WorkToBuild>
+      <Flammability>1.0</Flammability>
+    </statBases>
+    <modExtensions>
+      <li Class="DubsBadHygiene.BuildWaterExt" />
+    </modExtensions>
+  </ThingDef>
+
+
+  <ThingDef ParentName="BasedWaterWell">
+    <defName>WaterWellInlet</defName>
+    <label>Water Well</label>
+    <description>Accesses ground water which can be pumped by water pumps. The presence of sewage or other pollution will reduce water quality and can cause contamination.</description>
+    <specialDisplayRadius>7.9</specialDisplayRadius>
+    <researchPrerequisites>
+      <li>Plumbing</li>
+    </researchPrerequisites>
+    <comps>
+      <li Class="DubsBadHygiene.CompProperties_Pipe">
+        <mode>Sewage</mode>
+      </li>
+      <li Class="DubsBadHygiene.CompProperties_WaterInlet"/>
+    </comps>
+    <placeWorkers>
+      <li>DubsBadHygiene.PlaceWorker_WaterGrid</li>
+      <li>DubsBadHygiene.PlaceWorker_SewageGrid</li>
+    </placeWorkers>
+  </ThingDef>
+
+  <ThingDef ParentName="BasedWaterWell">
+    <defName>DeepWaterWellInlet</defName>
+    <label>Deep Water Well</label>
+    <description>Accesses a large area of ground water which can be pumped by water pumps. Deep wells are unaffected by pollution.</description>
+    <graphicData>
+      <texPath>DBH/Things/Building/Water/DeepWaterWell</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+      <drawRotated>false</drawRotated>
+    </graphicData>
+    <specialDisplayRadius>13.7</specialDisplayRadius>
+    <statBases>
+      <WorkToBuild>29000</WorkToBuild>
+    </statBases>
+		<costList>
+			<ComponentIndustrial>30</ComponentIndustrial>	
+			<Mechanism>15</Mechanism>
+		</costList>
+		<stuffCategories>
+          <li>Metallic</li>
+          <li>Stony</li>
+	      <li>Ceramic</li>
+     	  <li>Bricks</li>
+		</stuffCategories>
+		<costStuffCount>150</costStuffCount>
+    <researchPrerequisites>
+      <li>DeepWells</li>
+    </researchPrerequisites>
+    <comps>
+      <li Class="DubsBadHygiene.CompProperties_Pipe">
+        <mode>Sewage</mode>
+      </li>
+      <li Class="DubsBadHygiene.CompProperties_WaterInlet">
+        <Deep>true</Deep>
+      </li>
+    </comps>
+    <placeWorkers>
+      <li>DubsBadHygiene.PlaceWorker_DeepWaterGrid</li>
+      <li>DubsBadHygiene.PlaceWorker_SewageGrid</li>
+    </placeWorkers>
+  </ThingDef>
+
+  <ThingDef Name="BasedWaterTower" ParentName="BasedHygieneMom" Abstract="True">
+    <description>Stores water for use by plumbed fixtures. If the contained water becomes contaminated, the tank must be drained.</description>
+    <tickerType>Normal</tickerType>
+    <blockWind>true</blockWind>
+    <castEdgeShadows>false</castEdgeShadows>
+    <canOverlapZones>false</canOverlapZones>
+    <pathCost>60</pathCost>
+    <building>
+      <ai_chillDestination>false</ai_chillDestination>
+    </building>
+    <rotatable>false</rotatable>
+    <statBases>
+      <Beauty>-15</Beauty>
+    </statBases>
+    <comps>
+      <li Class="DubsBadHygiene.CompProperties_Pipe">
+        <mode>Sewage</mode>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="BasedWaterTower">
+    <defName>WaterButt</defName>
+    <label>Water Butt</label>
+    <thingClass>DubsBadHygiene.Building_Butt</thingClass>
+    <graphicData>
+      <texPath>DBH/Things/Building/Water/WaterButt</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(2,2)</drawSize>
+      <damageData>
+        <rect>(0.05,0.05,0.95,0.95)</rect>
+      </damageData>
+    </graphicData>
+    <socialPropernessMatters>true</socialPropernessMatters>
+    <size>(1,1)</size>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <tradeNeverStack>true</tradeNeverStack>
+    <thingCategories>
+      <li>BuildingsFurniture</li>
+    </thingCategories>
+    <stuffCategories>
+      <li>Stony</li>
+      <li>Metallic</li>
+    </stuffCategories>
+    <costStuffCount>25</costStuffCount>
+		<costList>
+			<ComponentIndustrial>4</ComponentIndustrial>
+			<Mechanism>2</Mechanism>
+		</costList>
+    <comps>
+      <li>
+        <compClass>CompColorable</compClass>
+      </li>
+      <li Class="DubsBadHygiene.CompProperties_WaterStorage">
+        <WaterStorageCap>100</WaterStorageCap>
+      </li>
+    </comps>
+    <blockWind>false</blockWind>
+    <canOverlapZones>true</canOverlapZones>
+    <tradeability>Sellable</tradeability>
+    <statBases>
+      <Mass>2</Mass>
+      <MaxHitPoints>75</MaxHitPoints>
+      <WorkToBuild>1000</WorkToBuild>
+    </statBases>
+    <researchPrerequisites>
+      <li>Plumbing</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+  <ThingDef ParentName="BasedWaterTower">
+    <defName>WaterTowerS</defName>
+    <label>Water Tower</label>
+    <graphicData>
+      <texPath>DBH/Things/Building/Water/WaterTowerSmall</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(2,3)</drawSize>
+      <damageData>
+        <rect>(0.05,0.05,0.95,0.95)</rect>
+      </damageData>
+    </graphicData>
+    <size>(2,2)</size>  
+		<costList>
+		    <Mechanism>4</Mechanism>
+			<ComponentIndustrial>15</ComponentIndustrial>
+			<ConcreteResource>100</ConcreteResource>
+		</costList>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Stony</li>
+			<li>Plastic</li>
+		</stuffCategories>
+		<costStuffCount>100</costStuffCount>
+    <comps>
+      <li Class="DubsBadHygiene.CompProperties_WaterStorage">
+        <WaterStorageCap>8000</WaterStorageCap>
+      </li>
+    </comps>
+    <statBases>
+      <MaxHitPoints>75</MaxHitPoints>
+      <WorkToBuild>2000</WorkToBuild>
+      <Flammability>1.0</Flammability>
+    </statBases>
+    <researchPrerequisites>
+      <li>Plumbing</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+  <ThingDef ParentName="BasedWaterTower">
+    <defName>WaterTowerL</defName>
+    <label>Huge Water Tower</label>
+    <graphicData>
+      <texPath>DBH/Things/Building/Water/WaterTower</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(3,4)</drawSize>
+      <damageData>
+        <rect>(0.05,0.05,0.95,0.95)</rect>
+      </damageData>
+    </graphicData>
+    <size>(3,3)</size>
+    <comps>
+      <li Class="DubsBadHygiene.CompProperties_WaterStorage">
+        <WaterStorageCap>50000</WaterStorageCap>
+      </li>
+    </comps>
+		<costList>
+		    <Mechanism>8</Mechanism>
+			<ComponentIndustrial>30</ComponentIndustrial>
+			<ReinforcedConcrete>100</ReinforcedConcrete>
+		</costList>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Stony</li>
+			<li>Plastic</li>
+		</stuffCategories>
+		<costStuffCount>200</costStuffCount>
+    <statBases>
+      <MaxHitPoints>150</MaxHitPoints>
+      <WorkToBuild>5000</WorkToBuild>
+      <Flammability>0.0</Flammability>
+    </statBases>
+    <researchPrerequisites>
+      <li>LargeWaterPumps</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+  
+  
+  <ThingDef Name="BasedWaterPump" ParentName="BasedHygieneMom" Abstract="True">
+    <category>Building</category>
+    <tickerType>Normal</tickerType>
+    <!--<drawerType>RealtimeOnly</drawerType>-->
+    <canOverlapZones>false</canOverlapZones>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <blockWind>false</blockWind>
+    <castEdgeShadows>true</castEdgeShadows>
+    <pathCost>60</pathCost>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <rotatable>true</rotatable>
+    <comps>
+      <li Class="DubsBadHygiene.CompProperties_Pipe">
+        <mode>Sewage</mode>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="BasedWaterPump">
+    <defName>WindPump</defName>
+    <label>Wind Pump</label>
+    <description>Pumps water from wells to water towers. Pumping capacity: 3000 L/day</description>
+    <graphicData>
+      <texPath>DBH/Things/Building/Water/WindPump</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(2,2)</drawSize>
+      <shadowData>
+        <volume>(0.6, 1.0, 1.6)</volume>
+        <offset>(-0.1,0,-0.08)</offset>
+      </shadowData>
+    </graphicData>
+    <castEdgeShadows>false</castEdgeShadows>
+    <size>(3,2)</size>
+    <rotatable>true</rotatable>
+		<costList>
+			<ComponentIndustrial>10</ComponentIndustrial>	
+			<Mechanism>3</Mechanism>
+		</costList>
+		<stuffCategories>
+			<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>100</costStuffCount>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <WorkToBuild>2500</WorkToBuild>
+      <Flammability>1.0</Flammability>
+    </statBases>
+    <comps>
+      <li Class="DubsBadHygiene.CompProperties_WaterPumpingStation">
+        <compClass>DubsBadHygiene.CompWindPump</compClass>
+        <Capacity>2000</Capacity>
+      </li>
+    </comps>
+    <researchPrerequisites>
+      <li>Plumbing</li>
+    </researchPrerequisites>
+    <placeWorkers>
+      <li>DubsBadHygiene.PlaceWorker_WindPump</li>
+    </placeWorkers>
+    <building>
+      <ai_chillDestination>false</ai_chillDestination>
+      <allowAutoroof>false</allowAutoroof>
+    </building>
+    <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+    <passability>Impassable</passability>
+    <blockWind>true</blockWind>
+    <modExtensions>
+      <li Class="DubsBadHygiene.BuildWaterExt" />
+    </modExtensions>
+  </ThingDef>
+
+  <ThingDef ParentName="BasedWaterPump">
+    <defName>ElectricPump</defName>
+    <label>Electric Pump</label>
+    <description>Pumps water from wells to water towers. Pumping capacity: 1500 L/day</description>
+    <graphicData>
+      <texPath>DBH/Things/Building/Water/MiniPump</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawRotated>false</drawRotated>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <size>(1,1)</size>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsHygiene</li>
+    </thingCategories>
+    <tickerType>Never</tickerType>
+		<stuffCategories>
+			<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>130</costStuffCount>
+		<costList>
+			<ComponentIndustrial>10</ComponentIndustrial>
+			<ElectronicComponents>2</ElectronicComponents>
+			<Mechanism>5</Mechanism>
+		</costList>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <WorkToBuild>1500</WorkToBuild>
+      <Flammability>1.0</Flammability>
+      <Mass>25</Mass>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>250</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Breakdownable"/>
+      <li Class="DubsBadHygiene.CompProperties_WaterPumpingStation">
+        <Capacity>1500</Capacity>
+      </li>
+    </comps>
+    <researchPrerequisites>
+      <li>ElectricPumps</li>
+    </researchPrerequisites>
+  </ThingDef>
+  
+  <ThingDef ParentName="BasedWaterPump">
+    <defName>PumpingStation</defName>
+    <label>Pumping Station</label>
+    <description>Pumps water from wells to water towers. Pumping capacity: 10000 L/day</description>
+    <graphicData>
+      <texPath>DBH/Things/Building/Water/waterPumpingStation</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawRotated>false</drawRotated>
+      <drawSize>(2,2)</drawSize>
+    </graphicData>
+    <tickerType>Never</tickerType>
+    <size>(2,2)</size>
+		<stuffCategories>
+			<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>200</costStuffCount>
+		<costList>
+			<ComponentIndustrial>10</ComponentIndustrial>
+			<ElectronicComponents>6</ElectronicComponents>
+			<Mechanism>5</Mechanism>
+		</costList>
+    <statBases>
+      <MaxHitPoints>150</MaxHitPoints>
+      <WorkToBuild>5000</WorkToBuild>
+      <Flammability>1.0</Flammability>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>1000</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Breakdownable"/>
+      <li Class="DubsBadHygiene.CompProperties_WaterPumpingStation">
+        <Capacity>10000</Capacity>
+      </li>
+    </comps>
+    <researchPrerequisites>
+      <li>LargeWaterPumps</li>
+    </researchPrerequisites>
+  </ThingDef>
+  
+  
+  
+  
+  
+  
+
+  <ThingDef ParentName="BasedHygieneMom">
+    <defName>SewageOutlet</defName>
+    <label>Sewage outlet</label>
+    <description>Can be placed anywhere. Sewage will pool and spread on land or disperse in water. Sewage cleans up over time; the presence of trees, water or rain will speed this up.</description>
+    <graphicData>
+      <texPath>DBH/Things/Building/Sewage/sewagePipe</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(3,3)</drawSize>
+      <damageData>
+        <rect>(0.05,0.05,0.95,0.95)</rect>
+      </damageData>
+    </graphicData>
+    <size>(1,1)</size>
+    <category>Building</category>
+    <tickerType>Normal</tickerType>
+    <drawerType>RealtimeOnly</drawerType>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <blockWind>false</blockWind>
+    <castEdgeShadows>false</castEdgeShadows>
+    <pathCost>60</pathCost>
+    <uiIconPath>DBH/UI/outlet</uiIconPath>
+    <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<costList>
+			<ComponentIndustrial>5</ComponentIndustrial>
+			<Mechanism>1</Mechanism>
+		</costList>
+		<stuffCategories>
+	       <li>Metallic</li>
+           <li>Stony</li>
+	       <li>Ceramic</li>
+	       <li>Bricks</li>
+		</stuffCategories>
+		<costStuffCount>50</costStuffCount>
+    <building>
+      <watchBuildingStandDistanceRange>
+        <min>1</min>
+        <max>5</max>
+      </watchBuildingStandDistanceRange>
+      <watchBuildingStandRectWidth>3</watchBuildingStandRectWidth>
+        <ai_chillDestination>false</ai_chillDestination>
+      </building>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <rotatable>true</rotatable>
+    <statBases>
+      <MaxHitPoints>150</MaxHitPoints>
+      <WorkToBuild>1500</WorkToBuild>
+      <Flammability>0.0</Flammability>
+      <Beauty>-25</Beauty>
+      <Cleanliness>-100</Cleanliness>
+    </statBases>
+    <comps>
+      <li Class="DubsBadHygiene.CompProperties_Pipe">
+        <mode>Sewage</mode>
+      </li>
+      <li Class="DubsBadHygiene.CompProperties_SewageHandler">
+        <compClass>DubsBadHygiene.CompSewageOutlet</compClass>
+        <capacity>3200</capacity>
+        <priority>0</priority>
+      </li>
+      <li Class="DubsBadHygiene.CompProperties_Blockage"/>
+    </comps>
+    <researchPrerequisites>
+      <li>Plumbing</li>
+    </researchPrerequisites>
+    <placeWorkers>
+      <li>DubsBadHygiene.PlaceWorker_SewageArea</li>
+      <li>DubsBadHygiene.PlaceWorker_SewageGrid</li>
+    </placeWorkers>
+    <modExtensions>
+      <li Class="DubsBadHygiene.BuildWaterExt" />
+    </modExtensions>
+  </ThingDef>
+
+  <ThingDef ParentName="BasedHygieneMom">
+    <defName>SewageSepticTank</defName>
+    <label>Septic Tank</label>
+    <description>Slowly cleans sewage over time. Sewage is directed to septic tanks first. If it reaches full capacity then excess sewage is sent to sewage outlets.</description>
+    <graphicData>
+      <texPath>DBH/Things/Building/Sewage/SepticTank</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(2,2)</drawSize>
+    </graphicData>
+    <category>Building</category>
+    <tickerType>Normal</tickerType>
+    <canOverlapZones>false</canOverlapZones>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Standable</passability>
+    <blockWind>false</blockWind>
+    <castEdgeShadows>false</castEdgeShadows>
+    <pathCost>0</pathCost>
+    <size>(2,2)</size>
+    <stuffCategories>
+      <li>Metallic</li>
+      <li>Stony</li>
+	  <li>Ceramic</li>
+	  <li>Bricks</li>
+    </stuffCategories>
+    <costList>
+		<ComponentIndustrial>20</ComponentIndustrial>
+		<Mechanism>5</Mechanism>
+    </costList>
+    <costStuffCount>200</costStuffCount>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <rotatable>false</rotatable>
+    <statBases>
+      <MaxHitPoints>200</MaxHitPoints>
+      <WorkToBuild>2000</WorkToBuild>
+      <Flammability>0.0</Flammability>
+      <Beauty>-12</Beauty>
+      <Cleanliness>-100</Cleanliness>
+    </statBases>
+    <comps>
+      <li Class="DubsBadHygiene.CompProperties_Pipe">
+        <mode>Sewage</mode>
+      </li>
+      <li Class="DubsBadHygiene.CompProperties_SepticTank">
+        <TreatedPerDay>50</TreatedPerDay>
+        <capacity>500</capacity>
+        <priority>1</priority>
+      </li>
+    </comps>
+    <building>
+      <ai_chillDestination>false</ai_chillDestination>
+    </building>
+    <researchPrerequisites>
+      <li>SepticTanks</li>
+    </researchPrerequisites>
+  </ThingDef>
+  
+  <ThingDef ParentName="BasedHygieneMom">
+    <defName>SewageTreatment</defName>
+    <label>Sewage Treatment</label>
+    <description>Slowly cleans sewage over time. If it reaches full capacity then excess sewage is sent directly to sewage outlets without treatment.</description>
+    <graphicData>
+      <texPath>DBH/Things/Building/Sewage/SewageTreatment</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(5,5)</drawSize>
+    </graphicData>
+    <category>Building</category>
+    <tickerType>Normal</tickerType>
+    <drawerType>RealtimeOnly</drawerType>
+    <canOverlapZones>false</canOverlapZones>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <blockWind>false</blockWind>
+    <castEdgeShadows>false</castEdgeShadows>
+    <pathCost>60</pathCost>
+    <size>(5,5)</size>
+		<costList>
+		    <ElectronicComponents>2</ElectronicComponents>
+			<ComponentIndustrial>10</ComponentIndustrial>
+			<Mechanism>4</Mechanism>
+		</costList>
+		<stuffCategories>
+            <li>Metallic</li>
+            <li>Stony</li>
+	        <li>Ceramic</li>
+	        <li>Bricks</li>
+		</stuffCategories>
+		<costStuffCount>200</costStuffCount>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <rotatable>false</rotatable>
+    <statBases>
+      <MaxHitPoints>350</MaxHitPoints>
+      <WorkToBuild>5000</WorkToBuild>
+      <Flammability>0.0</Flammability>
+      <Beauty>-12</Beauty>
+      <Cleanliness>-100</Cleanliness>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Breakdownable"/>
+      <li Class="DubsBadHygiene.CompProperties_Pipe">
+        <mode>Sewage</mode>
+      </li>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>500</basePowerConsumption>
+      </li>
+      <li Class="DubsBadHygiene.CompProperties_SepticTank">
+        <compClass>DubsBadHygiene.CompSewageTreatment</compClass>
+        <TreatedPerDay>500</TreatedPerDay>
+        <capacity>10000</capacity>
+        <priority>2</priority>
+      </li>
+    </comps>
+    <building>
+      <soundAmbient>sewage_Ambience</soundAmbient>
+        <ai_chillDestination>false</ai_chillDestination>
+      </building>
+    <researchPrerequisites>
+      <li>SewageTreatment</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+  <ThingDef ParentName="BasedHygieneMom">
+    <defName>WaterTreatment</defName>
+    <label>Water Treatment</label>
+    <description>Cleans 99.99% of germs! Filters existing water in storage towers, and any water used by fixtures, eliminating the risk of disease</description>
+    <graphicData>
+      <texPath>DBH/Things/Building/Water/waterFiltration</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(2,2)</drawSize>
+    </graphicData>
+    <category>Building</category>
+    <tickerType>Normal</tickerType>
+    <canOverlapZones>false</canOverlapZones>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <blockWind>false</blockWind>
+    <castEdgeShadows>false</castEdgeShadows>
+    <pathCost>60</pathCost>
+    <size>(2,2)</size>
+		<stuffCategories>
+           <li>Metallic</li>
+           <li>Stony</li>
+	       <li>Ceramic</li>
+	       <li>Bricks</li>
+		</stuffCategories>
+		<costStuffCount>400</costStuffCount>
+		<costList>
+			<ComponentIndustrial>30</ComponentIndustrial>
+			<ElectronicComponents>10</ElectronicComponents>
+			<Mechanism>15</Mechanism>
+		</costList>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <rotatable>false</rotatable>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <WorkToBuild>2500</WorkToBuild>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Breakdownable"/>
+      <li Class="DubsBadHygiene.CompProperties_Pipe">
+        <mode>Sewage</mode>
+      </li>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>800</basePowerConsumption>
+      </li>
+      <li Class="DubsBadHygiene.CompProperties_WaterFiltration">
+      </li>
+    </comps>
+    <researchPrerequisites>
+      <li>WaterFiltration</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+
+  
+</Defs>

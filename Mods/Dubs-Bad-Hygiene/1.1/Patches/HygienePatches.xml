@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+  <Operation Class="PatchOperationSequence">
+    <success>Always</success>
+    <operations>
+      <li Class="DubsBadHygiene.PatchOperationThirstCheck">
+        <success>Invert</success>
+      </li>
+      <li Class="PatchOperationRemove">
+        <xpath>*/ThingDef[defName = "DBH_WaterBottle"]</xpath>
+      </li>
+    </operations>
+  </Operation>
+
+
+
+  <Operation Class="PatchOperationInsert">
+    <xpath>*/ThinkTreeDef[defName = "MainColonistBehaviorCore"]/thinkRoot[@Class="ThinkNode_Tagger"]/subNodes/li[@Class="ThinkNode_PrioritySorter"]/subNodes//li[2]</xpath>
+    <value>
+      <li Class="DubsBadHygiene.JobGiver_HaveWash"/>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationInsert">
+    <xpath>*/ThinkTreeDef[defName = "MainColonistBehaviorCore"]/thinkRoot[@Class="ThinkNode_Tagger"]/subNodes/li[@Class="ThinkNode_PrioritySorter"]/subNodes//li[2]</xpath>
+    <value>
+      <li Class="DubsBadHygiene.JobGiver_UseToilet"/>
+    </value>
+  </Operation>
+  
+  <Operation Class="PatchOperationInsert">
+    <xpath>*/ThinkTreeDef[defName = "MainColonistBehaviorCore"]/thinkRoot[@Class="ThinkNode_Tagger"]/subNodes/li[@Class="ThinkNode_PrioritySorter"]/subNodes//li[2]</xpath>
+    <value>
+      <li Class="DubsBadHygiene.JobGiver_DrinkWater"/>
+    </value>
+  </Operation>
+
+  
+  <!--hospitality-->
+
+  <Operation Class="PatchOperationSequence">
+    <success>Always</success>
+    <operations>
+      <li Class="PatchOperationTest">
+        <xpath>*/DutyDef[defName = "Relax"]</xpath>
+        <success>Always</success>
+      </li>
+      <li Class="PatchOperationInsert">
+        <xpath>*/DutyDef[defName = "Relax"]/thinkNode[@Class="ThinkNode_Priority"]/subNodes/li[@Class="Hospitality.ThinkNode_FilterGuestRooms"]/subNodes/li[@Class="ThinkNode_PrioritySorter"]/subNodes//li[1]</xpath>
+        <value>
+          <li Class="DubsBadHygiene.JobGiver_HaveWash"/>
+        </value>
+      </li>
+      <li Class="PatchOperationInsert">
+        <xpath>*/DutyDef[defName = "Relax"]/thinkNode[@Class="ThinkNode_Priority"]/subNodes/li[@Class="Hospitality.ThinkNode_FilterGuestRooms"]/subNodes/li[@Class="ThinkNode_PrioritySorter"]/subNodes//li[1]</xpath>
+        <value>
+          <li Class="DubsBadHygiene.JobGiver_UseToilet"/>
+        </value>
+      </li>
+      <li Class="PatchOperationInsert">
+        <xpath>*/DutyDef[defName = "Relax"]/thinkNode[@Class="ThinkNode_Priority"]/subNodes/li[@Class="Hospitality.ThinkNode_FilterGuestRooms"]/subNodes/li[@Class="ThinkNode_PrioritySorter"]/subNodes//li[1]</xpath>
+        <value>
+          <li Class="DubsBadHygiene.JobGiver_DrinkWater"/>
+        </value>
+      </li>
+    </operations>
+  </Operation>
+
+</Patch>
