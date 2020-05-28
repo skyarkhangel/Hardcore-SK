@@ -1002,10 +1002,11 @@
 	</ThingDef>
 	<!-- Alcohol Fermenting Barrel -->
 	<ThingDef ParentName="StandartBuilding">
-		<defName>FermentingBarrel</defName>
+		<!--<defName>FermentingBarrel</defName>-->
+		<defName>UniversalFermenter</defName>
 		<label>Alcohol Fermenting Barrel</label>
-		<description>A barrel of fermenting alcohol.</description>
-		<thingClass>Building</thingClass>
+		<description>A barrel for fermenting various things into other products.</description>
+		<thingClass>UniversalFermenter.Building_ColorCoded</thingClass>
 		<graphicData>
 			<texPath>Things/Building/Production/DrugStuff/barrel</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
@@ -1023,32 +1024,35 @@
 		<thingCategories>
 			<li>BuildingsProduction</li>
 		</thingCategories>
-		<fillPercent>0.65</fillPercent>
+		<fillPercent>0.55</fillPercent>
 		<pathCost>60</pathCost>
 		<statBases>
-			<WorkToBuild>1400</WorkToBuild>
-			<Mass>60</Mass>
+			<WorkToBuild>900</WorkToBuild>
+			<Mass>50</Mass>
 			<MaxHitPoints>100</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 		</statBases>
 		<stuffCategories>
 			<li>Woody</li>
 		</stuffCategories>
-		<costStuffCount>80</costStuffCount>
+		<costStuffCount>50</costStuffCount>
 		<costList>
-			<ComponentIndustrial>4</ComponentIndustrial>
+			<ComponentIndustrial>2</ComponentIndustrial>
 		</costList>
 		<size>(1,1)</size>
 		<rotatable>true</rotatable>
 		<designationCategory>Production</designationCategory>
 		<tickerType>Rare</tickerType>
 		<building>
-			<uninstallWork>450</uninstallWork>
+			<uninstallWork>150</uninstallWork>
 		</building>
 		<comps>
 			<li Class="CompProperties_Forbiddable"/>
-			<li Class="Kubouch.CompProperties_UniversalFermenter">
-				<products>
+			<li Class="UniversalFermenter.CompProperties_UniversalFermenter">
+				<showProductIcon>true</showProductIcon>
+				<barOffset>(0.0, 0.25)</barOffset>
+				<barScale>(1.0, 1.0)</barScale>
+				<processes>
 					<!-- Beer -->
 					<li>
 						<thingDef>Beer</thingDef>
@@ -1057,20 +1061,24 @@
 								<li>Wort</li>
 							</thingDefs>
 						</ingredientFilter>
-						<temperatureSafe>
-							<min>15</min>
-							<max>30</max>
-						</temperatureSafe>
-						<temperatureIdeal>
-							<min>20</min>
-							<max>22</max>
-						</temperatureIdeal>
-						<progressPerDegreePerTick>5</progressPerDegreePerTick>
-						<baseFermentationDuration>160000</baseFermentationDuration>
+						<usesTemperature>true</usesTemperature>
+						<temperatureSafe>-1.0~32.0</temperatureSafe>
+						<temperatureIdeal>7.0~32.0</temperatureIdeal>
+						<ruinedPerDegreePerHour>2.5</ruinedPerDegreePerHour>
+						<!-- percent per degree per hour -->
+						<speedBelowSafe>0.1</speedBelowSafe>
+						<speedAboveSafe>1.0</speedAboveSafe>
+						<processDays>6</processDays>
+						<!-- in days, 60000 ticks is a day -->
 						<maxCapacity>20</maxCapacity>
-						<speedLessThanSafe>0.5</speedLessThanSafe>
-						<speedMoreThanSafe>1</speedMoreThanSafe>
-						<efficiency>0.8</efficiency>
+						<efficiency>1.0</efficiency>
+						<sunFactor>1.0~1.0</sunFactor>
+						<rainFactor>1.0~1.0</rainFactor>
+						<snowFactor>1.0~1.0</snowFactor>
+						<windFactor>1.0~1.0</windFactor>
+						<graphicSuffix/>
+						<usesQuality>false</usesQuality>
+						<qualityDays>(1, 2, 3, 4, 5, 6, 7)</qualityDays>
 					</li>
 					<!-- Whisky -->
 					<li>
@@ -1080,20 +1088,24 @@
 								<li>grainmash</li>
 							</thingDefs>
 						</ingredientFilter>
-						<temperatureSafe>
-							<min>18</min>
-							<max>35</max>
-						</temperatureSafe>
-						<temperatureIdeal>
-							<min>22</min>
-							<max>24</max>
-						</temperatureIdeal>
-						<progressPerDegreePerTick>5</progressPerDegreePerTick>
-						<baseFermentationDuration>160000</baseFermentationDuration>
+						<usesTemperature>true</usesTemperature>
+						<temperatureSafe>2.0~35.0</temperatureSafe>
+						<temperatureIdeal>3.0~24.0</temperatureIdeal>
+						<ruinedPerDegreePerHour>2.5</ruinedPerDegreePerHour>
+						<!-- percent per degree per hour -->
+						<speedBelowSafe>0.1</speedBelowSafe>
+						<speedAboveSafe>1.0</speedAboveSafe>
+						<processDays>7.25</processDays>
+						<!-- in days, 60000 ticks is a day -->
 						<maxCapacity>20</maxCapacity>
-						<speedLessThanSafe>0.5</speedLessThanSafe>
-						<speedMoreThanSafe>1</speedMoreThanSafe>
-						<efficiency>0.5</efficiency>
+						<efficiency>0.4</efficiency>
+						<sunFactor>1.0~1.0</sunFactor>
+						<rainFactor>1.0~1.0</rainFactor>
+						<snowFactor>1.0~1.0</snowFactor>
+						<windFactor>1.0~1.0</windFactor>
+						<graphicSuffix/>
+						<usesQuality>false</usesQuality>
+						<qualityDays>(1, 2, 3, 4, 5, 6, 7)</qualityDays>
 					</li>
 					<!-- Saké -->
 					<li>
@@ -1103,20 +1115,24 @@
 								<li>sakemash</li>
 							</thingDefs>
 						</ingredientFilter>
-						<temperatureSafe>
-							<min>5</min>
-							<max>15</max>
-						</temperatureSafe>
-						<temperatureIdeal>
-							<min>9</min>
-							<max>10</max>
-						</temperatureIdeal>
-						<progressPerDegreePerTick>5</progressPerDegreePerTick>
-						<baseFermentationDuration>160000</baseFermentationDuration>
+						<usesTemperature>true</usesTemperature>
+						<temperatureSafe>2.0~20.0</temperatureSafe>
+						<temperatureIdeal>6.0~15.0</temperatureIdeal>
+						<ruinedPerDegreePerHour>2.5</ruinedPerDegreePerHour>
+						<!-- percent per degree per hour -->
+						<speedBelowSafe>0.1</speedBelowSafe>
+						<speedAboveSafe>1.0</speedAboveSafe>
+						<processDays>5.25</processDays>
+						<!-- in days, 60000 ticks is a day -->
 						<maxCapacity>20</maxCapacity>
-						<speedLessThanSafe>0.5</speedLessThanSafe>
-						<speedMoreThanSafe>1</speedMoreThanSafe>
-						<efficiency>0.4</efficiency>
+						<efficiency>0.7</efficiency>
+						<sunFactor>1.0~1.0</sunFactor>
+						<rainFactor>1.0~1.0</rainFactor>
+						<snowFactor>1.0~1.0</snowFactor>
+						<windFactor>1.0~1.0</windFactor>
+						<graphicSuffix/>
+						<usesQuality>false</usesQuality>
+						<qualityDays>(1, 2, 3, 4, 5, 6, 7)</qualityDays>
 					</li>
 					<!-- Cider -->
 					<li>
@@ -1126,20 +1142,24 @@
 								<li>cidermash</li>
 							</thingDefs>
 						</ingredientFilter>
-						<temperatureSafe>
-							<min>10</min>
-							<max>18</max>
-						</temperatureSafe>
-						<temperatureIdeal>
-							<min>12</min>
-							<max>15</max>
-						</temperatureIdeal>
-						<progressPerDegreePerTick>5</progressPerDegreePerTick>
-						<baseFermentationDuration>120000</baseFermentationDuration>
+						<usesTemperature>true</usesTemperature>
+						<temperatureSafe>7.0~22.0</temperatureSafe>
+						<temperatureIdeal>11.0~15.0</temperatureIdeal>
+						<ruinedPerDegreePerHour>2.5</ruinedPerDegreePerHour>
+						<!-- percent per degree per hour -->
+						<speedBelowSafe>0.1</speedBelowSafe>
+						<speedAboveSafe>1.0</speedAboveSafe>
+						<processDays>4.8</processDays>
+						<!-- in days, 60000 ticks is a day -->
 						<maxCapacity>20</maxCapacity>
-						<speedLessThanSafe>0.5</speedLessThanSafe>
-						<speedMoreThanSafe>1</speedMoreThanSafe>
-						<efficiency>0.4</efficiency>
+						<efficiency>0.5</efficiency>
+						<sunFactor>1.0~1.0</sunFactor>
+						<rainFactor>1.0~1.0</rainFactor>
+						<snowFactor>1.0~1.0</snowFactor>
+						<windFactor>1.0~1.0</windFactor>
+						<graphicSuffix/>
+						<usesQuality>false</usesQuality>
+						<qualityDays>(1, 2, 3, 4, 5, 6, 7)</qualityDays>
 					</li>
 					<!-- Rum -->
 					<li>
@@ -1149,20 +1169,24 @@
 								<li>rummash</li>
 							</thingDefs>
 						</ingredientFilter>
-						<temperatureSafe>
-							<min>30</min>
-							<max>45</max>
-						</temperatureSafe>
-						<temperatureIdeal>
-							<min>35</min>
-							<max>40</max>
-						</temperatureIdeal>
-						<progressPerDegreePerTick>5</progressPerDegreePerTick>
-						<baseFermentationDuration>130000</baseFermentationDuration>
+						<usesTemperature>true</usesTemperature>
+						<temperatureSafe>25.0~45.0</temperatureSafe>
+						<temperatureIdeal>30.0~38.0</temperatureIdeal>
+						<ruinedPerDegreePerHour>2.5</ruinedPerDegreePerHour>
+						<!-- percent per degree per hour -->
+						<speedBelowSafe>0.1</speedBelowSafe>
+						<speedAboveSafe>1.0</speedAboveSafe>
+						<processDays>4.5</processDays>
+						<!-- in days, 60000 ticks is a day -->
 						<maxCapacity>20</maxCapacity>
-						<speedLessThanSafe>0.5</speedLessThanSafe>
-						<speedMoreThanSafe>1</speedMoreThanSafe>
 						<efficiency>0.6</efficiency>
+						<sunFactor>1.0~1.0</sunFactor>
+						<rainFactor>1.0~1.0</rainFactor>
+						<snowFactor>1.0~1.0</snowFactor>
+						<windFactor>1.0~1.0</windFactor>
+						<graphicSuffix/>
+						<usesQuality>false</usesQuality>
+						<qualityDays>(1, 2, 3, 4, 5, 6, 7)</qualityDays>
 					</li>
 					<!-- Berrywine -->
 					<li>
@@ -1172,20 +1196,24 @@
 								<li>berrymash</li>
 							</thingDefs>
 						</ingredientFilter>
-						<temperatureSafe>
-							<min>10</min>
-							<max>40</max>
-						</temperatureSafe>
-						<temperatureIdeal>
-							<min>18</min>
-							<max>32</max>
-						</temperatureIdeal>
-						<progressPerDegreePerTick>5</progressPerDegreePerTick>
-						<baseFermentationDuration>100000</baseFermentationDuration>
+						<usesTemperature>true</usesTemperature>
+						<temperatureSafe>10.0~40.0</temperatureSafe>
+						<temperatureIdeal>18.0~32.0</temperatureIdeal>
+						<ruinedPerDegreePerHour>2.5</ruinedPerDegreePerHour>
+						<!-- percent per degree per hour -->
+						<speedBelowSafe>0.1</speedBelowSafe>
+						<speedAboveSafe>1.0</speedAboveSafe>
+						<processDays>5.8</processDays>
+						<!-- in days, 60000 ticks is a day -->
 						<maxCapacity>20</maxCapacity>
-						<speedLessThanSafe>0.5</speedLessThanSafe>
-						<speedMoreThanSafe>1</speedMoreThanSafe>
-						<efficiency>0.7</efficiency>
+						<efficiency>0.8</efficiency>
+						<sunFactor>1.0~1.0</sunFactor>
+						<rainFactor>1.0~1.0</rainFactor>
+						<snowFactor>1.0~1.0</snowFactor>
+						<windFactor>1.0~1.0</windFactor>
+						<graphicSuffix/>
+						<usesQuality>true</usesQuality>
+						<qualityDays>(1, 2, 3, 4, 5, 6, 7)</qualityDays>
 					</li>
 					<!-- Vodka -->
 					<li>
@@ -1195,20 +1223,24 @@
 								<li>vodkamash</li>
 							</thingDefs>
 						</ingredientFilter>
-						<temperatureSafe>
-							<min>40</min>
-							<max>65</max>
-						</temperatureSafe>
-						<temperatureIdeal>
-							<min>45</min>
-							<max>55</max>
-						</temperatureIdeal>
-						<progressPerDegreePerTick>5</progressPerDegreePerTick>
-						<baseFermentationDuration>140000</baseFermentationDuration>
+						<usesTemperature>true</usesTemperature>
+						<temperatureSafe>40.0~65.0</temperatureSafe>
+						<temperatureIdeal>45.0~55.0</temperatureIdeal>
+						<ruinedPerDegreePerHour>2.5</ruinedPerDegreePerHour>
+						<!-- percent per degree per hour -->
+						<speedBelowSafe>0.1</speedBelowSafe>
+						<speedAboveSafe>1.0</speedAboveSafe>
+						<processDays>4.8</processDays>
+						<!-- in days, 60000 ticks is a day -->
 						<maxCapacity>20</maxCapacity>
-						<speedLessThanSafe>0.5</speedLessThanSafe>
-						<speedMoreThanSafe>1</speedMoreThanSafe>
 						<efficiency>0.6</efficiency>
+						<sunFactor>1.0~1.0</sunFactor>
+						<rainFactor>1.0~1.0</rainFactor>
+						<snowFactor>1.0~1.0</snowFactor>
+						<windFactor>1.0~1.0</windFactor>
+						<graphicSuffix/>
+						<usesQuality>false</usesQuality>
+						<qualityDays>(1, 2, 3, 4, 5, 6, 7)</qualityDays>
 					</li>
 					<!-- Tequila -->
 					<li>
@@ -1218,20 +1250,24 @@
 								<li>tequilamash</li>
 							</thingDefs>
 						</ingredientFilter>
-						<temperatureSafe>
-							<min>18</min>
-							<max>45</max>
-						</temperatureSafe>
-						<temperatureIdeal>
-							<min>20</min>
-							<max>30</max>
-						</temperatureIdeal>
-						<progressPerDegreePerTick>5</progressPerDegreePerTick>
-						<baseFermentationDuration>180000</baseFermentationDuration>
+						<usesTemperature>true</usesTemperature>
+						<temperatureSafe>18.0~45.0</temperatureSafe>
+						<temperatureIdeal>20.0~30.0</temperatureIdeal>
+						<ruinedPerDegreePerHour>2.5</ruinedPerDegreePerHour>
+						<!-- percent per degree per hour -->
+						<speedBelowSafe>0.1</speedBelowSafe>
+						<speedAboveSafe>1.0</speedAboveSafe>
+						<processDays>5.6</processDays>
+						<!-- in days, 60000 ticks is a day -->
 						<maxCapacity>20</maxCapacity>
-						<speedLessThanSafe>0.5</speedLessThanSafe>
-						<speedMoreThanSafe>1</speedMoreThanSafe>
 						<efficiency>0.5</efficiency>
+						<sunFactor>1.0~1.0</sunFactor>
+						<rainFactor>1.0~1.0</rainFactor>
+						<snowFactor>1.0~1.0</snowFactor>
+						<windFactor>1.0~1.0</windFactor>
+						<graphicSuffix/>
+						<usesQuality>false</usesQuality>
+						<qualityDays>(1, 2, 3, 4, 5, 6, 7)</qualityDays>
 					</li>
 					<!-- Wine -->
 					<li>
@@ -1241,28 +1277,32 @@
 								<li>winemash</li>
 							</thingDefs>
 						</ingredientFilter>
-						<temperatureSafe>
-							<min>15</min>
-							<max>38</max>
-						</temperatureSafe>
-						<temperatureIdeal>
-							<min>20</min>
-							<max>30</max>
-						</temperatureIdeal>
-						<progressPerDegreePerTick>5</progressPerDegreePerTick>
-						<baseFermentationDuration>180000</baseFermentationDuration>
+						<usesTemperature>true</usesTemperature>
+						<temperatureSafe>15.0~38.0</temperatureSafe>
+						<temperatureIdeal>20.0~30.0</temperatureIdeal>
+						<ruinedPerDegreePerHour>2.5</ruinedPerDegreePerHour>
+						<!-- percent per degree per hour -->
+						<speedBelowSafe>0.1</speedBelowSafe>
+						<speedAboveSafe>1.0</speedAboveSafe>
+						<processDays>5.8</processDays>
+						<!-- in days, 60000 ticks is a day -->
 						<maxCapacity>20</maxCapacity>
-						<speedLessThanSafe>0.5</speedLessThanSafe>
-						<speedMoreThanSafe>1</speedMoreThanSafe>
 						<efficiency>0.6</efficiency>
+						<sunFactor>1.0~1.0</sunFactor>
+						<rainFactor>1.0~1.0</rainFactor>
+						<snowFactor>1.0~1.0</snowFactor>
+						<windFactor>1.0~1.0</windFactor>
+						<graphicSuffix/>
+						<usesQuality>true</usesQuality>
+						<qualityDays>(1, 2, 3, 4, 5, 6, 7)</qualityDays>
 					</li>
-				</products>
+				</processes>
 			</li>
 		</comps>
 		<researchPrerequisites>
 			<li>Brewing</li>
 		</researchPrerequisites>
-		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+		<constructionSkillPrerequisite>4</constructionSkillPrerequisite>
 	</ThingDef>
 	<!-- Jerky Drying Rack -->
 	<ThingDef ParentName="StandartBuilding">
@@ -1307,12 +1347,15 @@
 		<designationCategory>Production</designationCategory>
 		<tickerType>Rare</tickerType>
 		<building>
-			<uninstallWork>650</uninstallWork>
+			<uninstallWork>350</uninstallWork>
 		</building>
 		<comps>
 			<li Class="CompProperties_Forbiddable"/>
-			<li Class="Kubouch.CompProperties_UniversalFermenter">
-				<products>
+			<li Class="UniversalFermenter.CompProperties_UniversalFermenter">
+				<showProductIcon>true</showProductIcon>
+				<barOffset>(0.0, 0.25)</barOffset>
+				<barScale>(1.0, 1.0)</barScale>
+				<processes>
 					<!-- Jerky -->
 					<li>
 						<thingDef>MealJerky</thingDef>
@@ -1322,21 +1365,20 @@
 							</thingDefs>
 						</ingredientFilter>
 						<temperatureSafe>
-							<min>05</min>
+							<min>5</min>
 							<max>55</max>
 						</temperatureSafe>
 						<temperatureIdeal>
 							<min>25</min>
 							<max>40</max>
 						</temperatureIdeal>
-						<progressPerDegreePerTick>5.5</progressPerDegreePerTick>
-						<baseFermentationDuration>120000</baseFermentationDuration>
+						<processDays>3</processDays>
 						<maxCapacity>25</maxCapacity>
-						<speedLessThanSafe>0.6</speedLessThanSafe>
-						<speedMoreThanSafe>1</speedMoreThanSafe>
+						<speedBelowSafe>0.6</speedBelowSafe>
+						<speedAboveSafe>1</speedAboveSafe>
 						<efficiency>1</efficiency>
 					</li>
-				</products>
+				</processes>
 			</li>
 		</comps>
 		<constructionSkillPrerequisite>3</constructionSkillPrerequisite>
@@ -1387,8 +1429,11 @@
 			<uninstallWork>650</uninstallWork>
 		</building>
 		<comps>
-			<li Class="Kubouch.CompProperties_UniversalFermenter">
-				<products>
+			<li Class="UniversalFermenter.CompProperties_UniversalFermenter">
+				<showProductIcon>true</showProductIcon>
+				<barOffset>(0.0, 0.25)</barOffset>
+				<barScale>(1.0, 1.0)</barScale>
+				<processes>
 					<li>
 						<thingDef>DriedLeavesTobacco</thingDef>
 						<ingredientFilter>
@@ -1404,29 +1449,28 @@
 							<min>30</min>
 							<max>50</max>
 						</temperatureIdeal>
-						<progressPerDegreePerTick>0.00001</progressPerDegreePerTick>
-						<baseFermentationDuration>240000</baseFermentationDuration>
+						<processDays>4</processDays>
 						<maxCapacity>25</maxCapacity>
-						<speedLessThanSafe>0.05</speedLessThanSafe>
-						<speedMoreThanSafe>0.8</speedMoreThanSafe>
+						<speedBelowSafe>0.05</speedBelowSafe>
+						<speedAboveSafe>0.8</speedAboveSafe>
 						<efficiency>1</efficiency>
-						<sunRespect>
+						<sunFactor>
 							<min>0.75</min>
 							<max>1.2</max>
-						</sunRespect>
-						<rainRespect>
+						</sunFactor>
+						<rainFactor>
 							<min>1</min>
 							<max>0</max>
-						</rainRespect>
-						<snowRespect>
+						</rainFactor>
+						<snowFactor>
 							<min>1</min>
 							<max>0</max>
-						</snowRespect>
-						<windRespect>
+						</snowFactor>
+						<windFactor>
 							<min>1</min>
 							<max>1.2</max>
-						</windRespect>
-						<graphSuffix>_tobacco</graphSuffix>
+						</windFactor>
+						<graphicSuffix>_tobacco</graphicSuffix>
 					</li>					
 					<li>
 						<thingDef>DriedLeavesSmokeleaf</thingDef>
@@ -1443,29 +1487,28 @@
 							<min>30</min>
 							<max>50</max>
 						</temperatureIdeal>
-						<progressPerDegreePerTick>0.00001</progressPerDegreePerTick>
-						<baseFermentationDuration>240000</baseFermentationDuration>
+						<processDays>4</processDays>
 						<maxCapacity>25</maxCapacity>
-						<speedLessThanSafe>0.05</speedLessThanSafe>
-						<speedMoreThanSafe>0.8</speedMoreThanSafe>
+						<speedBelowSafe>0.05</speedBelowSafe>
+						<speedAboveSafe>0.8</speedAboveSafe>
 						<efficiency>1</efficiency>
-						<sunRespect>
+						<sunFactor>
 							<min>0.75</min>
 							<max>1.2</max>
-						</sunRespect>
-						<rainRespect>
+						</sunFactor>
+						<rainFactor>
 							<min>1</min>
 							<max>0</max>
-						</rainRespect>
-						<snowRespect>
+						</rainFactor>
+						<snowFactor>
 							<min>1</min>
 							<max>0</max>
-						</snowRespect>
-						<windRespect>
+						</snowFactor>
+						<windFactor>
 							<min>1</min>
 							<max>1.2</max>
-						</windRespect>
-						<graphSuffix>_smokeleaf</graphSuffix>
+						</windFactor>
+						<graphicSuffix>_smokeleaf</graphicSuffix>
 					</li>
 					<li>
 						<thingDef>driedfruit</thingDef>
@@ -1488,31 +1531,30 @@
 							<min>0</min>
 							<max>10</max>
 						</temperatureIdeal>
-						<progressPerDegreePerTick>0.00004</progressPerDegreePerTick>
-						<baseFermentationDuration>180000</baseFermentationDuration>
+						<processDays>3</processDays>
 						<maxCapacity>75</maxCapacity>
-						<speedLessThanSafe>0.05</speedLessThanSafe>
-						<speedMoreThanSafe>0.8</speedMoreThanSafe>
+						<speedBelowSafe>0.05</speedBelowSafe>
+						<speedAboveSafe>0.8</speedAboveSafe>
 						<efficiency>.08</efficiency>
-						<sunRespect>
+						<sunFactor>
 							<min>0.75</min>
 							<max>1.2</max>
-						</sunRespect>
-						<rainRespect>
+						</sunFactor>
+						<rainFactor>
 							<min>1</min>
 							<max>0</max>
-						</rainRespect>
-						<snowRespect>
+						</rainFactor>
+						<snowFactor>
 							<min>1</min>
 							<max>0</max>
-						</snowRespect>
-						<windRespect>
+						</snowFactor>
+						<windFactor>
 							<min>1</min>
 							<max>1.2</max>
-						</windRespect>
-						<graphSuffix>_smokeleaf</graphSuffix>
+						</windFactor>
+						<graphicSuffix>_smokeleaf</graphicSuffix>
 					</li>	
-				</products>
+				</processes>
 			</li>
 			<li Class="CompProperties_Forbiddable"/>
 		</comps>
@@ -2917,12 +2959,15 @@
 		<designationCategory>Production</designationCategory>
 		<tickerType>Rare</tickerType>
 		<building>
-			<uninstallWork>450</uninstallWork>
+			<uninstallWork>150</uninstallWork>
 		</building>
 		<comps>
 			<li Class="CompProperties_Forbiddable"/>
-			<li Class="Kubouch.CompProperties_UniversalFermenter">
-				<products>
+			<li Class="UniversalFermenter.CompProperties_UniversalFermenter">
+				<showProductIcon>true</showProductIcon>
+				<barOffset>(0.0, 0.25)</barOffset>
+				<barScale>(1.0, 1.0)</barScale>
+				<processes>
 					<li>
 						<thingDef>Fertilizer</thingDef>
 						<ingredientFilter>
@@ -2938,14 +2983,13 @@
 							<min>10</min>
 							<max>30</max>
 						</temperatureIdeal>
-						<progressPerDegreePerTick>5</progressPerDegreePerTick>
-						<baseFermentationDuration>160000</baseFermentationDuration>
+						<processDays>2.8</processDays>
 						<maxCapacity>10</maxCapacity>
-						<speedLessThanSafe>0.5</speedLessThanSafe>
-						<speedMoreThanSafe>1</speedMoreThanSafe>
+						<speedBelowSafe>0.5</speedBelowSafe>
+						<speedAboveSafe>1</speedAboveSafe>
 						<efficiency>1</efficiency>
 					</li>
-				</products>
+				</processes>
 			</li>
 		</comps>
 		<researchPrerequisites>
