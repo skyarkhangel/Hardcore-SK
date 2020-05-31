@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <DutyDef>
+    <defName>Relax</defName>
+    <alwaysShowWeapon>false</alwaysShowWeapon>
+    <thinkNode Class="ThinkNode_Priority">
+      <subNodes>
+		<!-- Insertion hook for modders -->
+		<li Class="ThinkNode_SubtreesByTag">
+		  <insertTag>Humanlike_PostDuty</insertTag>
+		</li>
+		
+        <!-- If we HAVE to keep lying down... -->
+        <li Class="ThinkNode_ConditionalMustKeepLyingDown">
+          <subNodes>
+            <!-- Do a queued job if possible (e.g. watch tv in bed) -->
+            <li Class="ThinkNode_QueuedJob">
+              <inBedOnly>true</inBedOnly>
+            </li>
+
+            <!-- Get joy -->
+            <li Class="ThinkNode_Tagger">
+              <tagToGive>SatisfyingNeeds</tagToGive>
+              <subNodes>
+                <li Class="JobGiver_GetJoyInBed" />
+              </subNodes>
+            </li>
+            
+            <!-- Keep lying down -->
+            <li Class="JobGiver_KeepLyingDown" />
+          </subNodes>
+        </li>
+
+        <!-- If we CAN keep lying down... -->
+        <li Class="Hospitality.ThinkNode_ConditionalShouldKeepLyingDown">
+          <subNodes>
+				<li Class="Hospitality.JobGiver_Sleep" />
+          </subNodes>
+        </li>
+
+		<li Class="Hospitality.ThinkNode_InGuestArea">
+		  <invert>true</invert>
+          <subNodes>
+			<li Class="Hospitality.JobGiver_GotoGuestArea"/>
+          </subNodes>
+		</li>
+		
+		<!-- Do stuff inside of guest area -->
+        <li Class="Hospitality.ThinkNode_FilterGuestRooms">
+          <subNodes>
+		  
+			<!-- Insertion hook for modders -->
+			<li Class="ThinkNode_SubtreesByTag">
+			  <insertTag>Humanlike_PreMain</insertTag>
+			</li>
+
+			<li Class="Hospitality.JobGiver_ClaimBed" />
+
+			<li Class="ThinkNode_Tagger">
+			  <tagToGive>RestingForMedicalReasons</tagToGive>
+			  <subNodes>
+				<li Class="JobGiver_PatientGoToBed" />
+			  </subNodes>
+			</li>
+
+			<li Class="ThinkNode_PrioritySorter">
+			  <subNodes>
+
+				<li Class="JobGiver_GetFood" />
+				<li Class="Hospitality.JobGiver_Sleep" />
+				<li Class="Hospitality.JobGiver_Relax" />            
+
+			  </subNodes>
+			</li>
+            
+			<li Class="Hospitality.ThinkNode_ConditionalWantsToHelp">
+			  <subNodes>
+				<li Class="JobGiver_Work" />
+			  </subNodes>
+			</li>
+			
+			<!-- Insertion hook for modders -->
+			<li Class="ThinkNode_SubtreesByTag">
+			  <insertTag>Humanlike_PostMain</insertTag>
+			</li>
+			
+			<li Class="ThinkNode_ConditionalRandom">
+			  <subNodes>
+				<li Class="JobGiver_StandAndBeSociallyActive" />
+			  </subNodes>
+			</li>
+			
+			<!-- Wander -->
+			<li Class="JobGiver_WanderColony">
+			  <maxDanger>None</maxDanger>
+			</li>
+          </subNodes>
+        </li>
+      </subNodes>
+    </thinkNode>
+  </DutyDef>
+
+  <DutyDef>
+    <defName>TakeWoundedGuest</defName>
+    <thinkNode Class="ThinkNode_Priority">
+      <subNodes>
+        <li Class="JobGiver_TakeWoundedGuest" />
+        <li Class="JobGiver_ExitMapBest">
+          <defaultLocomotion>Jog</defaultLocomotion>
+          <jobMaxDuration>500</jobMaxDuration>
+          <forceCanDig>false</forceCanDig>
+        </li>
+      </subNodes>
+    </thinkNode>
+  </DutyDef>
+
+</Defs>
