@@ -1,0 +1,536 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<!-- 발리스타 받침 -->
+	<ThingDef Name="RK_BaseArtilleryBuilding" ParentName="BuildingBase" Abstract="True">
+		<thingClass>Building_TurretGun</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Security/Ballista_Base</texPath>
+			<shaderType>CutoutComplex</shaderType>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(2,2)</drawSize>
+			<damageData>
+				<rect>(0.38,0.2,0.56375,0.8)</rect>
+				<cornerTL>Damage/Corner</cornerTL>
+			</damageData>
+			<shadowData>
+				<offset>(-0.13,-0.87,-0.1)</offset>
+				<volume>(0.5,0.4,1.05)</volume>
+			</shadowData>
+		</graphicData>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<altitudeLayer>Building</altitudeLayer>
+		<hasInteractionCell>True</hasInteractionCell>
+		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
+		<stealable>false</stealable>
+		<size>(3,2)</size>
+		<passability>PassThroughOnly</passability>
+		<pathCost>50</pathCost>
+		<fillPercent>0.4</fillPercent>
+		<thingCategories>
+			<li>BuildingsSecurity</li>
+		</thingCategories>
+		<stuffCategories>
+			<li>Woody</li>
+		</stuffCategories>
+		<tickerType>Normal</tickerType>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<designationCategory>Security</designationCategory>
+		<costStuffCount>240</costStuffCount>
+		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+		<costList>
+			<Steel>80</Steel>
+			<ComponentIndustrial>1</ComponentIndustrial>
+		</costList>
+		<inspectorTabs>
+			<li>ITab_Shells</li>
+		</inspectorTabs>
+		<comps>
+			<li Class="CompProperties_Forbiddable"/>
+			<li Class="CompProperties_Mannable">
+				<manWorkType>Violent</manWorkType>
+			</li>
+		</comps>
+		<statBases>
+			<MaxHitPoints>180</MaxHitPoints>
+			<Flammability>0.7</Flammability>
+			<WorkToBuild>1900</WorkToBuild>
+			<Mass>30</Mass>
+			<Beauty>-20</Beauty>
+			<AccuracyTouch>0.9</AccuracyTouch>
+			<AccuracyShort>0.8</AccuracyShort>
+			<AccuracyMedium>0.75</AccuracyMedium>
+			<AccuracyLong>0.70</AccuracyLong>
+			<RangedWeapon_Cooldown>0.1</RangedWeapon_Cooldown>
+		</statBases>
+		<building>
+			<turretBurstWarmupTime>3.0</turretBurstWarmupTime>
+			<turretBurstCooldownTime>7.0</turretBurstCooldownTime>
+			<buildingTags>
+				<li>RK_Artillery</li>
+			</buildingTags>
+		</building>
+		<placeWorkers>
+			<!-- <li>PlaceWorker_NotUnderRoof</li> -->
+			<li>PlaceWorker_TurretTop</li>
+		</placeWorkers>
+		<uiIconScale>1</uiIconScale>
+		<researchPrerequisites>
+			<li>IEDs</li>
+		</researchPrerequisites>
+	</ThingDef>
+	<!-- 발리스타 무기 -->
+	<ThingDef Name="RK_BaseArtilleryWeapon" Abstract="True">
+		<category>Item</category>
+		<thingClass>ThingWithComps</thingClass>
+		<label>ballista error</label>
+		<useHitPoints>false</useHitPoints>
+		<equipmentType>Primary</equipmentType>
+		<tickerType>Never</tickerType>
+		<techLevel>Industrial</techLevel>
+		<destroyOnDrop>True</destroyOnDrop>
+		<menuHidden>True</menuHidden>
+		<tradeability>None</tradeability>
+		<statBases>
+			<Mass>40</Mass>
+			<AccuracyTouch>0.9</AccuracyTouch>
+			<AccuracyShort>0.8</AccuracyShort>
+			<AccuracyMedium>0.75</AccuracyMedium>
+			<AccuracyLong>0.7</AccuracyLong>
+			<RangedWeapon_Cooldown>10</RangedWeapon_Cooldown>
+		</statBases>
+		<weaponTags>
+			<li>RK_Artillery</li>
+		</weaponTags>
+		<comps>
+			<li>
+				<compClass>CompEquippable</compClass>
+			</li>
+			<li Class="CompProperties_ChangeableProjectile" />
+		</comps>
+		<building>
+			<fixedStorageSettings>
+				<filter>
+					<categories>
+						<li>BallistaBolt</li>
+					</categories>
+				</filter>
+			</fixedStorageSettings>
+			<defaultStorageSettings>
+				<filter>
+					<categories>
+						<li>BallistaBolt</li>
+					</categories>
+					<disallowedThingDefs>
+					</disallowedThingDefs>
+				</filter>
+			</defaultStorageSettings>
+		</building>
+	</ThingDef>
+
+
+	<!--================ 직사 발리스타 ================-->
+	<ThingDef ParentName="RK_BaseArtilleryBuilding">
+		<defName>RK_Ballista_Strait_Body</defName>
+		<label>ballista</label>
+		<description>It is a machine that fires large arrows. It is designed to be easy to operate by Ratkin.</description>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<building>
+			<turretGunDef>RK_Turret_Ballista_Strait</turretGunDef>
+			<!-- <turretTopGraphicPath>Things/Building/Security/Ballista_Turret</turretTopGraphicPath> -->
+			<buildingTags>
+				<li>Ratkin_Artillery</li>
+			</buildingTags>
+		</building>
+		<uiIconPath>Things/Building/Security/Ballista_Turret</uiIconPath>
+		<uiIconScale>1</uiIconScale>
+	</ThingDef>
+
+	<ThingDef ParentName="RK_BaseArtilleryWeapon">
+		<defName>RK_Turret_Ballista_Strait</defName>
+		<label>ballista</label>
+		<description>ballista bolt launcher. accurate and long-ranged.</description>
+<!-- 		<graphicData>
+			<texPath>Things/Building/Security/Ballista_Turret</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData> -->
+		<weaponTags>
+			<li>Ratkin_Artillery</li>
+		</weaponTags>
+		<verbs>
+			<li>
+				<verbClass>Verb_Shoot</verbClass>
+				<hasStandardCommand>true</hasStandardCommand>
+				<warmupTime>15.0</warmupTime>
+				<forcedMissRadius>0</forcedMissRadius>
+				<minRange>3</minRange>
+				<range>40</range>
+				<burstShotCount>1</burstShotCount>
+				<soundCast>BallistaShot</soundCast>
+				<targetParams>
+					<canTargetLocations>true</canTargetLocations>
+				</targetParams>
+			</li>
+		</verbs>
+	</ThingDef>
+
+
+
+
+	<!--================ 발리스타 탄 기본 ================-->
+	<ThingCategoryDef>
+		<defName>BallistaBolt</defName>
+		<label>ballista bolt</label>
+		<parent>Manufactured</parent>
+		<iconPath>UI/Icons/BallistaBolt</iconPath>
+	</ThingCategoryDef>
+
+	<ThingDef Name="BallistaBoltBase" ParentName="ResourceBase" Abstract="True">
+		<soundInteract>Metal_Drop</soundInteract>
+		<soundDrop>Standard_Drop</soundDrop>
+		<tickerType>Normal</tickerType>
+		<stackLimit>75</stackLimit>
+		<techLevel>Medieval</techLevel>
+		<statBases>
+			<MaxHitPoints>60</MaxHitPoints>
+			<MarketValue>55</MarketValue>
+			<Mass>1.25</Mass>
+			<Flammability>1.0</Flammability>
+			<DeteriorationRate>1</DeteriorationRate>
+		</statBases>
+		<thingCategories>
+			<li>BallistaBolt</li>
+		</thingCategories>
+		<tradeTags>
+			<li>BallistaBolt</li>
+		</tradeTags>
+	</ThingDef>
+
+	<ThingDef Name="RK_MakeableBallistaBoltBase" ParentName="BallistaBoltBase" Abstract="True">
+		<recipeMaker>
+			<workSpeedStat>SmithingSpeed</workSpeedStat>
+			<effectWorking>Smith</effectWorking>
+			<soundWorking>Recipe_Machining</soundWorking>
+			<workAmount>250</workAmount>
+			<productCount>3</productCount>
+			<targetCountAdjustment>4</targetCountAdjustment>
+			<workSkill>Crafting</workSkill>
+			<recipeUsers Inherit="false">
+				<li>RK_FueledSmithy</li>
+				<li>RK_ElectricSmithy</li>
+			</recipeUsers>
+			<skillRequirements>
+				<Crafting>4</Crafting>
+			</skillRequirements>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef Name="BaseBolt" Abstract="True">
+		<category>Projectile</category>
+		<tickerType>Normal</tickerType>
+		<altitudeLayer>Projectile</altitudeLayer>
+		<thingClass>Bullet</thingClass>
+		<label>bullet</label>
+		<useHitPoints>False</useHitPoints>
+		<neverMultiSelect>True</neverMultiSelect>
+		<graphicData>
+			<shaderType>Transparent</shaderType>
+		</graphicData>
+	</ThingDef>
+
+	<!--================ 발리스타 탄 (일반) ================-->
+	<ThingDef ParentName="RK_MakeableBallistaBoltBase">
+		<defName>BallistaBolt_Normal</defName>
+		<label>ballista bolt (normal)</label>
+		<description>It is a ballista bolt. It will be hard to survive if hit by this big arrow.</description>
+		<graphicData>
+			<texPath>Things/Item/Resource/Ballista_Bolt_Normal</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<projectileWhenLoaded>Bullet_BallistaBolt_Normal</projectileWhenLoaded>
+		<costList>
+			<Steel>15</Steel>
+			<WoodLog>10</WoodLog>
+		</costList>
+		<recipeMaker>
+			<researchPrerequisite>IEDs</researchPrerequisite>
+		</recipeMaker>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseBolt">
+		<defName>Bullet_BallistaBolt_Normal</defName>
+		<label>ballista bolt (normal)</label>
+		<graphicData>
+			<texPath>Things/Projectile/Ballista_Bolt_Normal</texPath>
+			<drawSize>(2,2)</drawSize>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>TransparentPostLight</shaderType>
+		</graphicData>
+		<thingClass>NewRatkin.Projectile_BallistaBoltAP</thingClass>
+		<projectile Class="NewRatkin.ProjectileProperties_BallistaBoltAP">
+			<shockWaveDef>ShockWaveLight</shockWaveDef>
+			<maxPenetrationCount>2</maxPenetrationCount>
+			<damageReduceRate>0.4</damageReduceRate>
+			<damageDef>Crush</damageDef>
+			<damageAmountBase>40</damageAmountBase>
+			<armorPenetrationBase>0.40</armorPenetrationBase>
+			<stoppingPower>3</stoppingPower>
+			<speed>51</speed>
+			<explosionRadius>1.7</explosionRadius>
+			<alwaysFreeIntercept>true</alwaysFreeIntercept>
+			<flyOverhead>false</flyOverhead>
+			<soundHitThickRoof>Artillery_HitThickRoof</soundHitThickRoof>
+			<soundExplode>Shockwave</soundExplode>
+			<soundImpactAnticipate>Flying</soundImpactAnticipate>
+			<soundAmbient>MortarRound_Ambient</soundAmbient>
+		</projectile>
+	</ThingDef>
+
+	<!--================ 발리스타 탄 (중량) ================-->
+	<ThingDef ParentName="RK_MakeableBallistaBoltBase">
+		<defName>BallistaBolt_Heavy</defName>
+		<label>ballista bolt (HE)</label>
+		<description>It is a heavy ballista bolt. Increased the weight to increase impact.</description>
+		<graphicData>
+			<texPath>Things/Item/Resource/Ballista_Bolt_HE</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<projectileWhenLoaded>Bullet_BallistaBolt_HE</projectileWhenLoaded>
+		<costList>
+			<Steel>40</Steel>
+			<WoodLog>20</WoodLog>
+		</costList>		
+		<recipeMaker>
+			<researchPrerequisite>IEDIncendiary</researchPrerequisite>
+		</recipeMaker>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseBolt">
+		<defName>Bullet_BallistaBolt_HE</defName>
+		<label>ballista bolt (HE)</label>
+		<graphicData>
+			<texPath>Things/Projectile/Ballista_Bolt_HE</texPath>
+			<drawSize>(2,2)</drawSize>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>TransparentPostLight</shaderType>
+		</graphicData>
+		<thingClass>NewRatkin.Projectile_BallistaBoltAP</thingClass>
+		<projectile Class="NewRatkin.ProjectileProperties_BallistaBoltAP">
+			<shockWaveDef>ShockWaveHeavy</shockWaveDef>
+			<maxPenetrationCount>1</maxPenetrationCount>
+			<damageReduceRate>0</damageReduceRate>
+			<damageDef>Crush</damageDef>
+			<damageAmountBase>50</damageAmountBase>
+			<armorPenetrationBase>0.50</armorPenetrationBase>
+			<stoppingPower>6</stoppingPower>
+			<speed>40</speed>
+			<explosionRadius>2.5</explosionRadius>
+			<alwaysFreeIntercept>true</alwaysFreeIntercept>
+			<flyOverhead>false</flyOverhead>
+			<soundHitThickRoof>Artillery_HitThickRoof</soundHitThickRoof>
+			<soundExplode>Shockwave</soundExplode>
+			<soundImpactAnticipate>Flying</soundImpactAnticipate>
+			<soundAmbient>MortarRound_Ambient</soundAmbient>
+		</projectile>
+	</ThingDef>
+	<!--================ 발리스타 탄 (고관통) ================-->
+	<ThingDef ParentName="RK_MakeableBallistaBoltBase">
+		<defName>BallistaBolt_AP</defName>
+		<label>ballista bolt (AP)</label>
+		<description>The ballistic bolt has high penetration. It can penetrate multiple target in firing lines.</description>
+		<graphicData>
+			<texPath>Things/Item/Resource/Ballista_Bolt_AP</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<projectileWhenLoaded>Bullet_BallistaBolt_AP</projectileWhenLoaded>
+		<costList>
+			<Steel>30</Steel>
+			<WoodLog>30</WoodLog>
+		</costList>
+		<recipeMaker>
+			<researchPrerequisite>IEDIncendiary</researchPrerequisite>
+		</recipeMaker>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseBolt">
+		<defName>Bullet_BallistaBolt_AP</defName>
+		<label>ballista bolt (AP)</label>
+		<graphicData>
+			<texPath>Things/Projectile/Ballista_Bolt_AP</texPath>
+			<drawSize>(2,2)</drawSize>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>TransparentPostLight</shaderType>
+		</graphicData>
+		<thingClass>NewRatkin.Projectile_BallistaBoltAP</thingClass>
+		<projectile Class="NewRatkin.ProjectileProperties_BallistaBoltAP">
+			<shockWaveDef>ShockWaveLight</shockWaveDef>
+			<maxPenetrationCount>5</maxPenetrationCount>
+			<damageReduceRate>0.2</damageReduceRate>
+			<damageDef>Crush</damageDef>
+			<damageAmountBase>35</damageAmountBase>
+			<armorPenetrationBase>0.70</armorPenetrationBase>
+			<stoppingPower>3</stoppingPower>
+			<speed>70</speed>
+			<explosionRadius>1</explosionRadius>
+			<alwaysFreeIntercept>true</alwaysFreeIntercept>
+			<flyOverhead>false</flyOverhead>
+			<soundHitThickRoof>Artillery_HitThickRoof</soundHitThickRoof>
+			<soundExplode>Shockwave</soundExplode>
+			<soundImpactAnticipate>Flying</soundImpactAnticipate>
+			<soundAmbient>MortarRound_Ambient</soundAmbient>
+		</projectile>
+	</ThingDef>
+
+
+	<!-- 충격파 피해 정의 -->
+	<DamageDef Name="ShockWaveLight">
+		<defName>ShockWaveLight</defName>
+		<label>shockwave</label>
+		<workerClass>DamageWorker_AddInjury</workerClass>
+		<externalViolence>true</externalViolence>
+		<isExplosive>true</isExplosive>
+		<deathMessage>{0} has died in an shock wave.</deathMessage>
+		<hediff>Crack</hediff>
+		<hediffSolid>Crack</hediffSolid>
+		<harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
+		<impactSoundType>Blunt</impactSoundType>
+		<armorCategory>Blunt</armorCategory>
+		<minDamageToFragment>2</minDamageToFragment>
+		<defaultDamage>10</defaultDamage>
+		<defaultStoppingPower>2</defaultStoppingPower>
+		<defaultArmorPenetration>0.10</defaultArmorPenetration>
+		<buildingDamageFactor>4</buildingDamageFactor>
+		<plantDamageFactor>4</plantDamageFactor>
+		<explosionAffectOutsidePartsOnly>false</explosionAffectOutsidePartsOnly>
+		<explosionCellMote>Mote_ShockWave</explosionCellMote>		
+		<explosionColorCenter>(0.8, 0.8, 0.8,0.3)</explosionColorCenter>
+		<explosionColorEdge>(1, 1, 1, 0.1)</explosionColorEdge>
+		<soundExplosion>Shockwave</soundExplosion>
+		<combatLogRules>Damage_Bomb</combatLogRules>
+	</DamageDef>
+
+	<DamageDef Name="ShockWaveHeavy">
+		<defName>ShockWaveHeavy</defName>
+		<label>shockwave</label>
+		<workerClass>DamageWorker_AddInjury</workerClass>
+		<externalViolence>true</externalViolence>
+		<isExplosive>true</isExplosive>
+		<deathMessage>{0} has died in an shock wave.</deathMessage>
+		<hediff>Crack</hediff>
+		<hediffSolid>Crack</hediffSolid>
+		<harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
+		<impactSoundType>Blunt</impactSoundType>
+		<armorCategory>Blunt</armorCategory>
+		<minDamageToFragment>4</minDamageToFragment>
+		<defaultDamage>20</defaultDamage>
+		<defaultStoppingPower>4</defaultStoppingPower>
+		<defaultArmorPenetration>0.30</defaultArmorPenetration>
+		<buildingDamageFactor>4</buildingDamageFactor>
+		<plantDamageFactor>4</plantDamageFactor>
+		<explosionAffectOutsidePartsOnly>false</explosionAffectOutsidePartsOnly>
+		<explosionCellMote>Mote_ShockWave</explosionCellMote>		
+		<explosionColorCenter>(0.8, 0.8, 0.8,0.3)</explosionColorCenter>
+		<explosionColorEdge>(1, 1, 1, 0.1)</explosionColorEdge>
+		<soundExplosion>Shockwave</soundExplosion>
+		<combatLogRules>Damage_Bomb</combatLogRules>
+	</DamageDef>
+
+	<ThingDef ParentName="MoteBase">
+		<defName>Mote_ShockWave</defName>
+		<graphicData>
+			<texPath>Things/Mote/ShockWave</texPath>
+			<shaderType>TransparentPostLight</shaderType>
+		</graphicData>
+		<altitudeLayer>MoteOverhead</altitudeLayer>
+		<mote>
+			<solidTime>0</solidTime>
+			<fadeOutTime>0.2</fadeOutTime>
+		</mote>
+	</ThingDef>
+
+
+	<!-- 사운드 정의 -->
+	<SoundDef>
+		<defName>BallistaShot</defName>  
+		<context>MapOnly</context>
+		<eventNames />  
+		<maxSimultaneous>1</maxSimultaneous>  
+		<subSounds>
+			<li>
+				<grains>
+					<li Class="AudioGrain_Folder">
+						<clipFolderPath>Things/BallistaShot</clipFolderPath>
+					</li>
+				</grains>      
+				<pitchRange>
+					<min>1.4</min>        
+					<max>1.6</max>
+				</pitchRange>
+			</li>
+		</subSounds>
+	</SoundDef>
+	<SoundDef>
+		<defName>Flying</defName>  
+		<context>MapOnly</context>
+		<eventNames />  
+		<maxSimultaneous>1</maxSimultaneous>  
+		<subSounds>
+			<li>
+				<grains>
+					<li Class="AudioGrain_Folder">
+						<clipFolderPath>Things/Flying</clipFolderPath>
+					</li>
+				</grains>      
+				<volumeRange>
+					<min>28.82353</min>        
+					<max>37.05883</max>
+				</volumeRange>
+			</li>
+		</subSounds>
+	</SoundDef>
+	<SoundDef>
+		<defName>Shockwave</defName>  
+		<context>MapOnly</context>
+		<eventNames />  
+		<maxSimultaneous>1</maxSimultaneous>  
+		<subSounds>
+			<li>
+				<grains>
+					<li Class="AudioGrain_Folder">
+						<clipFolderPath>Things/Shockwave</clipFolderPath>
+					</li>
+				</grains>      
+				<volumeRange>
+					<min>64.70588</min>        
+					<max>67.05882</max>
+				</volumeRange>      
+				<pitchRange>
+					<min>0.8516304</min>        
+					<max>1.254348</max>
+				</pitchRange>
+			</li>
+		</subSounds>
+	</SoundDef>
+
+	<SoundDef>
+		<defName>Ballista_Impact</defName>  
+		<context>MapOnly</context>
+		<eventNames />  
+		<maxSimultaneous>1</maxSimultaneous>  
+		<subSounds>
+			<li>
+				<grains>
+					<li Class="AudioGrain_Folder">
+						<clipFolderPath>Things/Impact</clipFolderPath>
+					</li>
+				</grains>      
+				<volumeRange>
+					<min>64.70588</min>        
+					<max>67.05882</max>
+				</volumeRange>      
+				<pitchRange>
+					<min>0.8516304</min>        
+					<max>1.254348</max>
+				</pitchRange>
+			</li>
+		</subSounds>
+	</SoundDef>
+</Defs>
