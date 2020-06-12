@@ -14,6 +14,22 @@
 		<statBases>
 			<DeteriorationRate>2.0</DeteriorationRate>
 		</statBases>
+		<recipeMaker>
+			<workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+			<workSkillLearnPerTick>0.8</workSkillLearnPerTick>	  
+			<workSkill>Crafting</workSkill>
+			<workAmount>2500</workAmount>
+			<effectWorking>Smith</effectWorking>
+			<soundWorking>EPOEAssembling</soundWorking>
+			<unfinishedThingDef>UnfinishedHealthItemProsthetic</unfinishedThingDef>
+			<skillRequirements>
+				<Crafting>3</Crafting>
+			</skillRequirements>
+			<recipeUsers>
+				<li>TablePrimitiveProsthetic</li>
+				<li>TableBasicProsthetic</li>
+			</recipeUsers>
+		</recipeMaker>
 	</ThingDef>
 
 	<HediffDef Name="HediffBodyPartBase_Basic" Abstract="True">
@@ -26,6 +42,29 @@
 		</addedPartProps>
 		<priceImpact>true</priceImpact>
 	</HediffDef>
+
+
+	<RecipeDef Name="SurgeryInstallWoodenPartBase" ParentName="SurgeryInstallBodyPartArtificialBase" Abstract="True">
+		<workAmount>1500</workAmount>
+		<skillRequirements>
+			<Medicine>3</Medicine>
+		</skillRequirements>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>WoodLog</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>WoodLog</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+	</RecipeDef>
 
 	<!-- basic parts -->
 
@@ -46,6 +85,20 @@
 			<Mass>0.3</Mass>
 			<MaxHitPoints>25</MaxHitPoints>
 		</statBases>
+		<techHediffsTags>
+			<li>Common</li>
+		</techHediffsTags>
+		<stuffCategories>
+			<li>Fabric</li>
+			<li>Leathery</li>
+		</stuffCategories>
+		<costStuffCount>10</costStuffCount>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>4</Crafting>
+			</skillRequirements>
+		</recipeMaker>
 	</ThingDef>
 
 	<HediffDef ParentName="HediffBodyPartBase_Basic">
@@ -132,10 +185,19 @@
 			<drawSize>0.80</drawSize>
 		</graphicData>
 		<statBases>
-			<MarketValue>100</MarketValue>
 			<Mass>2</Mass>
 			<MaxHitPoints>50</MaxHitPoints>
 		</statBases>
+		<costList>
+			<ComponentMedieval>10</ComponentMedieval>
+			<Mechanism>2</Mechanism>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>3</Crafting>
+			</skillRequirements>
+		</recipeMaker>
 	</ThingDef>	
 
 	<HediffDef ParentName="HediffBodyPartBase_Basic">
@@ -228,10 +290,19 @@
 			<drawSize>0.80</drawSize>
 		</graphicData>
 		<statBases>
-			<MarketValue>100</MarketValue>
 			<Mass>0.3</Mass>
 			<MaxHitPoints>40</MaxHitPoints>
 		</statBases>
+		<costList>
+			<ComponentMedieval>8</ComponentMedieval>
+			<Mechanism>2</Mechanism>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>3</Crafting>
+			</skillRequirements>
+		</recipeMaker>
 	</ThingDef>
 
 	<HediffDef ParentName="HediffBodyPartBase_Basic">
@@ -309,26 +380,6 @@
 		<researchPrerequisite>Prosthetics</researchPrerequisite>
 	</RecipeDef>
 
-
-	<ThingDef ParentName="BodyPartBase_Basic">
-		<defName>PegLeg</defName>
-		<label>peg leg</label>
-		<description>Replaces a missing leg with a wooden one. Out of fashion but it does its job pretty well.</description>
-		<descriptionHyperlinks>
-			<RecipeDef>InstallPegLeg</RecipeDef>
-		</descriptionHyperlinks>
-		<graphicData>
-			<texPath>Things/Item/BodyPart/PegLeg</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
-			<drawSize>0.80</drawSize>
-		</graphicData>
-		<statBases>
-			<MarketValue>100</MarketValue>
-			<Mass>7</Mass>
-			<MaxHitPoints>60</MaxHitPoints>
-		</statBases>
-	</ThingDef>
-
 	<HediffDef ParentName="HediffBodyPartBase_Basic">
 		<defName>PegLeg</defName>
 		<label>peg leg</label>
@@ -343,132 +394,61 @@
 		<spawnThingOnRemoved>PegLeg</spawnThingOnRemoved>
 	</HediffDef>
 
-	<RecipeDef ParentName="SK_SurgeryFlesh">
+  <RecipeDef ParentName="SurgeryInstallWoodenPartBase">
 		<defName>InstallPegLeg</defName>
 		<label>Install Peg Leg</label>
 		<description>Installs a Peg Leg.</description>
-		<workerClass>Recipe_InstallArtificialBodyPart</workerClass>
 		<jobString>Installing Peg Leg.</jobString>
-		<workAmount>1350</workAmount>
-		<surgerySuccessChanceFactor>1.40</surgerySuccessChanceFactor>
-		<descriptionHyperlinks>
-			<ThingDef>PegLeg</ThingDef>
-		</descriptionHyperlinks>
-		<ingredients>
-			<li>
-				<filter>
-					<categories>
-						<li>Medicine</li>
-					</categories>
-				</filter>
-				<count>1</count>
-			</li>
-			<li>
-				<filter>
-					<thingDefs>
-						<li>PegLeg</li>
-					</thingDefs>
-				</filter>
-				<count>1</count>
-			</li>
-		</ingredients>
-		<fixedIngredientFilter>
-			<categories>
-				<li>Medicine</li>
-			</categories>
-			<thingDefs>
-				<li>PegLeg</li>
-			</thingDefs>
-		</fixedIngredientFilter>
 		<appliedOnFixedBodyParts>
 			<li>Leg</li>
 		</appliedOnFixedBodyParts>
 		<addsHediff>PegLeg</addsHediff>
-		<skillRequirements>
-			<Medicine>3</Medicine>
-		</skillRequirements>
 	</RecipeDef>
 
-
-	<ThingDef ParentName="BodyPartBase_Basic">
-		<defName>WoodenFoot</defName>
-		<label>wooden foot</label>
-		<description>Replaces missing feet with a wooden log. At least it's more comfortable than hopping around.</description>
-		<descriptionHyperlinks>
-			<RecipeDef>InstallWoodenFoot</RecipeDef>
-		</descriptionHyperlinks>
-		<graphicData>
-			<texPath>Things/Item/BodyPart/WoodenFoot</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
-			<drawSize>0.80</drawSize>
-		</graphicData>
-		<statBases>
-			<MarketValue>45</MarketValue>
-			<Mass>2</Mass>
-			<MaxHitPoints>55</MaxHitPoints>
-		</statBases>
-	</ThingDef>	
-
 	<HediffDef ParentName="HediffBodyPartBase_Basic">
-		<defName>WoodenFoot</defName>
-		<label>wooden foot</label>
-		<description>An installed wooden foot. At least it's more comfortable than hopping around.</description>
-		<labelNoun>a wooden foot</labelNoun>
-		<descriptionHyperlinks>
-			<ThingDef>WoodenFoot</ThingDef>
-		</descriptionHyperlinks>
+		<defName>WoodenHand</defName>
+		<label>wooden hand</label>
+		<labelNoun>a wooden hand</labelNoun>
+		<description>An installed wooden hand.</description>
 		<addedPartProps>
 			<partEfficiency>0.7</partEfficiency>
 		</addedPartProps>
 		<spawnThingOnRemoved>WoodenFoot</spawnThingOnRemoved>
 	</HediffDef>
 
-	<RecipeDef ParentName="SK_SurgeryFlesh">
+	<RecipeDef ParentName="SurgeryInstallWoodenPartBase">
+		<defName>InstallWoodenHand</defName>
+		<label>install wooden hand</label>
+		<description>Install a wooden hand.</description>
+		<jobString>Installing Wooden Foot.</jobString>
+		<appliedOnFixedBodyParts>
+			<li>Hand</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>WoodenHand</addsHediff>
+	</RecipeDef>
+
+	<HediffDef ParentName="HediffBodyPartBase_Basic">
+		<defName>WoodenFoot</defName>
+		<label>wooden foot</label>
+		<description>An installed wooden foot. At least it's more comfortable than hopping around.</description>
+		<labelNoun>a wooden foot</labelNoun>
+		<addedPartProps>
+			<partEfficiency>0.7</partEfficiency>
+		</addedPartProps>
+		<spawnThingOnRemoved>WoodenFoot</spawnThingOnRemoved>
+	</HediffDef>
+
+	<RecipeDef ParentName="SurgeryInstallWoodenPartBase">
 		<defName>InstallWoodenFoot</defName>
 		<label>Install Wooden Foot</label>
 		<description>Installs a Wooden Foot.</description>
 		<workerClass>Recipe_InstallArtificialBodyPart</workerClass>
 		<jobString>Installing Wooden Foot.</jobString>
-		<workAmount>1350</workAmount>
-		<surgerySuccessChanceFactor>1.40</surgerySuccessChanceFactor>
-		<descriptionHyperlinks>
-			<ThingDef>WoodenFoot</ThingDef>
-		</descriptionHyperlinks>
-		<ingredients>
-			<li>
-				<filter>
-					<categories>
-						<li>Medicine</li>
-					</categories>
-				</filter>
-				<count>1</count>
-			</li>
-			<li>
-				<filter>
-					<thingDefs>
-						<li>WoodenFoot</li>
-					</thingDefs>
-				</filter>
-				<count>1</count>
-			</li>
-		</ingredients>
-		<fixedIngredientFilter>
-			<categories>
-				<li>Medicine</li>
-			</categories>
-			<thingDefs>
-				<li>WoodenFoot</li>
-			</thingDefs>
-		</fixedIngredientFilter>
 		<appliedOnFixedBodyParts>
 			<li>Foot</li>
 		</appliedOnFixedBodyParts>
 		<addsHediff>WoodenFoot</addsHediff>
-		<skillRequirements>
-			<Medicine>2</Medicine>
-		</skillRequirements>
 	</RecipeDef>
-
 
 	<ThingDef ParentName="BodyPartBase_Basic">
 		<defName>CochlearImplant</defName>
@@ -487,6 +467,22 @@
 			<Mass>0.2</Mass>
 			<MaxHitPoints>25</MaxHitPoints>
 		</statBases>
+		<techHediffsTags>
+			<li>Common</li>
+		</techHediffsTags>
+		<stuffCategories>
+			<li>Fabric</li>
+		</stuffCategories>
+		<costStuffCount>10</costStuffCount>
+		<costList>
+			<ComponentMedieval>2</ComponentMedieval>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>3</Crafting>
+			</skillRequirements>
+		</recipeMaker>
 	</ThingDef>
 
 	<HediffDef ParentName="HediffBodyPartBase_Basic">
@@ -499,7 +495,7 @@
 			<ThingDef>CochlearImplant</ThingDef>
 		</descriptionHyperlinks>
 		<addedPartProps>
-			<partEfficiency>0.65</partEfficiency>
+			<partEfficiency>0.60</partEfficiency>
 		</addedPartProps>
 		<stages>
 			<li>
@@ -574,10 +570,20 @@
 			<drawSize>0.80</drawSize>
 		</graphicData>
 		<statBases>
-			<MarketValue>600</MarketValue>
 			<Mass>2</Mass>
 			<MaxHitPoints>30</MaxHitPoints>
 		</statBases>
+		<costList>
+			<ComponentIndustrial>6</ComponentIndustrial>
+			<ComponentMedieval>3</ComponentMedieval>
+			<Mechanism>4</Mechanism>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>6</Crafting>
+			</skillRequirements>
+		</recipeMaker>
 	</ThingDef>
 
 	<HediffDef ParentName="HediffBodyPartBase_Simple">
@@ -591,7 +597,7 @@
 		</descriptionHyperlinks>
 		<addedPartProps>
 			<solid>true</solid>
-			<partEfficiency>0.80</partEfficiency>
+			<partEfficiency>0.50</partEfficiency>
 		</addedPartProps>
 	</HediffDef>	
 
