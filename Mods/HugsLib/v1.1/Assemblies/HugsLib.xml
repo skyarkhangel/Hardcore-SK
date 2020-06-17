@@ -144,6 +144,98 @@
             and has not been seen and open the dialog with all available news items.</param>
             <returns>true, if there have been found news items that were not displayed before, and the dialog has been opened</returns>
         </member>
+        <member name="T:HugsLib.Patches.UIRoot_OnGUI_Patch">
+            <summary>
+            Hooks into the flow of the vanilla MonoBehavior.OnGUI()
+            This allows to take advantage of automatic UI scaling and prevents GUI updates during a loading screen.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.DebugWindowsOpener_Patch">
+            <summary>
+            Adds an entry point to draw and additional debug button on the toolbar.
+            The infix is necessary to catch the WidgetRow that the stock buttons are drawn to.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.DevToolStarterOnGUI_Patch">
+            <summary>
+            Extends the width of the immediate window the dev toolbar buttons are drawn to to accommodate an additional button
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.Game_FillComponents_Patch">
+            <summary>
+            Adds a hook for the early initialization of a Game.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.LanguageDatabase_Patch">
+            <summary>
+            Forces a game restart after a language change.
+            This is necessary to avoid creating problems for running mods caused by reloaded graphics and defs.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.Game_DeinitAndRemoveMap_Patch">
+            <summary>
+            Adds a hook for discarding maps.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.Dialog_Options_Patch">
+            <summary>
+            Replaces the "Mod Settings" button in the Options dialog with our own.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.EditWindow_Log_Patch">
+            <summary>
+            Adds extra buttons to the Log window.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.Game_FinalizeInit_Patch">
+            <summary>
+            Adds a hook to produce the WorldLoaded callback for ModBase mods.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.MapComponentUtility_MapGenerated_Patch">
+            <summary>
+            Adds a hook to produce the MapGenerated callback for ModBase mods.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.Map_ConstructComponents_Patch">
+            <summary>
+            Adds a hook to produce the MapComponentsInitializing callback for ModBase mods.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.Map_FinalizeInit_Patch">
+            <summary>
+            Adds a hook to produce the MapLoaded callback for ModBase mods.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.ModsConfig_RestartFromChangedMods_Patch">
+            <summary>
+            Restarts the game automatically, bypassing the message dialog, if changes in the mod configuration have been made and dev mode is on.
+            Holding Shift will prevent the restart, while allowing the config changes to still be saved.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.PlayDataLoader_Patch">
+            <summary>
+            Adds a hook to produce the DefsLoaded callback for ModBase mods.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.RootPlay_TestPlay_Patch">
+            <summary>
+            Adds an entry point during map quickstart for the quickstarter system.
+            Will replace the standard scenario and map size if the quickstarter is enabled.
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.Root_Patch">
+            <summary>
+            Hooks into the flow of the vanilla MonoBehavior.Update()
+            </summary>
+        </member>
+        <member name="T:HugsLib.Patches.Root_OnGUI_Patch">
+            <summary>
+            Hooks into the flow of the vanilla MonoBehavior.OnGUI().
+            Unlike the <see cref="T:HugsLib.Patches.UIRoot_OnGUI_Patch"/> patch, this hook also
+            allows to receive OnGUI events during loading screens. 
+            </summary>
+        </member>
         <member name="T:HugsLib.Quickstart.QuickstartStatusBox">
             <summary>
             Displays at game startup when the quickstarter is scheduled to run.
@@ -232,12 +324,6 @@
             <summary>
             Used to preserve the state of the Mod Settings window between multiple openings.
             State is not persisted between game restarts.
-            </summary>
-        </member>
-        <member name="T:HugsLib.Settings.Dialog_VanillaModSettings">
-            <summary>
-            Displays custom settings controls for mods that use the vanilla mod settings system.
-            The dialog shows the controls for a single mod only and is opened through Dialog_ModSettings.
             </summary>
         </member>
         <member name="T:HugsLib.Settings.Dialog_ModSettings">
@@ -646,92 +732,6 @@
             </summary>
             <param name="drawerDelegate">The delegate called each OnGUI to draw the widget.</param>
             <param name="align">The side of the WidgetRow this widget should be drawn into.</param>
-        </member>
-        <member name="T:HugsLib.Patches.DebugWindowsOpener_Patch">
-            <summary>
-            Adds an entry point to draw and additional debug button on the toolbar.
-            The infix is necessary to catch the WidgetRow that the stock buttons are drawn to.
-            </summary>
-        </member>
-        <member name="T:HugsLib.Patches.DevToolStarterOnGUI_Patch">
-            <summary>
-            Extends the width of the immediate window the dev toolbar buttons are drawn to to accommodate an additional button
-            </summary>
-        </member>
-        <member name="T:HugsLib.Patches.Game_FillComponents_Patch">
-            <summary>
-            Adds a hook for the early initialization of a Game.
-            </summary>
-        </member>
-        <member name="T:HugsLib.Patches.LanguageDatabase_Patch">
-            <summary>
-            Forces a game restart after a language change.
-            This is necessary to avoid creating problems for running mods caused by reloaded graphics and defs.
-            </summary>
-        </member>
-        <member name="T:HugsLib.Patches.Game_DeinitAndRemoveMap_Patch">
-            <summary>
-            Adds a hook for discarding maps.
-            </summary>
-        </member>
-        <member name="T:HugsLib.Patches.Dialog_Options_Patch">
-            <summary>
-            Replaces the "Mod Settings" button in the Options dialog with our own.
-            </summary>
-        </member>
-        <member name="T:HugsLib.Patches.EditWindow_Log_Patch">
-            <summary>
-            Adds extra buttons to the Log window.
-            </summary>
-        </member>
-        <member name="T:HugsLib.Patches.Game_FinalizeInit_Patch">
-            <summary>
-            Adds a hook to produce the WorldLoaded callback for ModBase mods.
-            </summary>
-        </member>
-        <member name="T:HugsLib.Patches.MapComponentUtility_MapGenerated_Patch">
-            <summary>
-            Adds a hook to produce the MapGenerated callback for ModBase mods.
-            </summary>
-        </member>
-        <member name="T:HugsLib.Patches.Map_ConstructComponents_Patch">
-            <summary>
-            Adds a hook to produce the MapComponentsInitializing callback for ModBase mods.
-            </summary>
-        </member>
-        <member name="T:HugsLib.Patches.Map_FinalizeInit_Patch">
-            <summary>
-            Adds a hook to produce the MapLoaded callback for ModBase mods.
-            </summary>
-        </member>
-        <member name="T:HugsLib.Patches.ModsConfig_RestartFromChangedMods_Patch">
-            <summary>
-            Restarts the game automatically, bypassing the message dialog, if changes in the mod configuration have been made and dev mode is on.
-            Holding Shift will prevent the restart, while allowing the config changes to still be saved.
-            </summary>
-        </member>
-        <member name="T:HugsLib.Patches.PlayDataLoader_Patch">
-            <summary>
-            Adds a hook to produce the DefsLoaded callback for ModBase mods.
-            </summary>
-        </member>
-        <member name="T:HugsLib.Patches.RootPlay_TestPlay_Patch">
-            <summary>
-            Adds an entry point during map quickstart for the quickstarter system.
-            Will replace the standard scenario and map size if the quickstarter is enabled.
-            </summary>
-        </member>
-        <member name="T:HugsLib.Patches.Root_Patch">
-            <summary>
-            Hooks into the flow of the vanilla MonoBehavior.Update()
-            </summary>
-        </member>
-        <member name="T:HugsLib.Patches.Root_OnGUI_Patch">
-            <summary>
-            Hooks into the flow of the vanilla MonoBehavior.OnGUI()
-            This allows to take advantage of automatic UI scaling (called after <see cref="M:Verse.UI.ApplyUIScale"/>)
-            and prevents GUI updates during a loading screen.
-            </summary>
         </member>
         <member name="T:HugsLib.Source.Settings.SettingHandleConvertibleUtility">
             <summary>
@@ -1491,6 +1491,12 @@
             Returns an existing UWO or creates a new one, adding it to the world.
             </summary>
             <typeparam name="T">Your custom type that extends UtilityWorldObject</typeparam>
+        </member>
+        <member name="T:RimWorld.Dialog_VanillaModSettings">
+            <summary>
+            Displays custom settings controls for mods that use the vanilla mod settings system.
+            The dialog shows the controls for a single mod only and is opened through Dialog_ModSettings.
+            </summary>
         </member>
     </members>
 </doc>
