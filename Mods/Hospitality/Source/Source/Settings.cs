@@ -21,6 +21,7 @@ namespace Hospitality
         public static SettingHandle<bool> disableArtAndCraft;
         public static SettingHandle<bool> disableOperations;
         public static SettingHandle<bool> disableMedical;
+        public static SettingHandle<bool> disableWarden;
         public static SettingHandle<bool> disableGuestsTab;
         public static SettingHandle<bool> useIcon;
         public static SettingHandle<bool> enableBuyNotification;
@@ -33,6 +34,7 @@ namespace Hospitality
             disableArtAndCraft = settings.GetHandle("disableArtAndCraft", "DisableArtAndCraft".Translate(), "DisableArtAndCraftDesc".Translate(), true);
             disableOperations = settings.GetHandle("disableOperations", "DisableOperations".Translate(), "DisableOperationsDesc".Translate(), true);
             disableMedical = settings.GetHandle("disableMedical", "DisableMedical".Translate(), "DisableMedicalDesc".Translate(), false);
+            disableWarden = settings.GetHandle("disableWarden", "DisableWarden".Translate(), "DisableWardenDesc".Translate(), false);
             disableGifts = settings.GetHandle("disableGifts", "DisableGifts".Translate(), "DisableGiftsDesc".Translate(), false);
             minGuestWorkSkill = settings.GetHandle("minGuestWorkSkill", "MinGuestWorkSkill".Translate(), "MinGuestWorkSkillDesc".Translate(), 7, WorkSkillLimits);
             minGuestGroupSize = settings.GetHandle("minGuestGroupSize", "MinGuestGroupSize".Translate(), "MinGuestGroupSizeDesc".Translate(), 1, GroupSizeLimitsMin);
