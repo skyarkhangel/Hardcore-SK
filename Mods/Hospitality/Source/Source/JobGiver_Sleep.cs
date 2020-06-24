@@ -10,11 +10,8 @@ namespace Hospitality
         {
             if (pawn.health.hediffSet.HasNaturallyHealingInjury() || HealthAIUtility.ShouldSeekMedicalRest(pawn)) return 6;
 
-            if (pawn.needs?.rest == null)
-            {
-                Log.Message(pawn.Name.ToStringShort + " needs no rest...");
-                return 0f;
-            }
+            if (pawn.needs?.rest == null) return 0f;
+
             float curLevel = pawn.needs.rest.CurLevel;
 
             int hourOfDay = GenLocalDate.HourOfDay(pawn);

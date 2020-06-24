@@ -159,7 +159,7 @@ namespace Hospitality
         {
             float requiredOpinion = GetMinRecruitOpinion(guest);
             return GetPawnsFromBase(guest.MapHeld).Where(p => p.royalty?.MostSeniorTitle != null && RelationsUtility.PawnsKnowEachOther(guest, p) && guest.relations.OpinionOf(p) >= requiredOpinion)
-                .Sum(pawn => pawn.royalty.MostSeniorTitle.def.seniority);
+                .Sum(pawn => pawn.royalty.MostSeniorTitle.def.seniority + 100); // seriority can be 0!
         }
 
         private static int GetRelationValue(Pawn pawn, Pawn guest)
@@ -199,7 +199,7 @@ namespace Hospitality
         public static int GetRoyalEnemiesSeniorityInColony(this Pawn guest)
         {
             return GetPawnsFromBase(guest.MapHeld).Where(p => p.royalty?.MostSeniorTitle != null && RelationsUtility.PawnsKnowEachOther(guest, p) && guest.relations.OpinionOf(p) <= MaxOpinionForEnemy)
-                .Sum(p => p.royalty.MostSeniorTitle.def.seniority);
+                .Sum(p => p.royalty.MostSeniorTitle.def.seniority + 100); // seniority can be 0!
         }
 
         public static int GetMinRecruitOpinion(this Pawn guest)
@@ -670,7 +670,7 @@ namespace Hospitality
         {
             var title = pawn.royalty?.MostSeniorTitle;
             if (title == null) return 100;
-            return title.def.seniority;
+            return title.def.seniority + 100; // seniority can be 0!
         }
 
         public static void EndorseColonists(Pawn recruiter, Pawn guest)
@@ -955,6 +955,18 @@ namespace Hospitality
         {
             lord.Map?.GetMapComponent()?.OnLordArrived(lord);
             MainTabWindowUtility.NotifyAllPawnTables_PawnsChanged();
+        }
+
+        private static readonly HediffDef hediffDeathAcidifier = DefDatabase<HediffDef>.GetNamedSilentFail("DeathAcidifier");
+
+        public static bool MayRecruitAtAll(this Pawn pawn)
+        {
+            return hediffDeathAcidifier == null || !pawn.health.hediffSet.HasHediff(hediffDeathAcidifier);
+        }
+
+        public static bool MayRecruitRightNow(this Pawn pawn)
+        {
+            return !pawn.InMentalState && pawn.CompGuest().arrived;
         }
     }
 }
