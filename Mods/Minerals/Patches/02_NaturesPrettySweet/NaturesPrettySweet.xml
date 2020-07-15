@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Patch>
+  
+
+  <!-- Replace blocks -->
+
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Nature's Pretty Sweet</li>
+    </mods>
+    <match Class="PatchOperationRemove">
+      <xpath>Defs/ThingDef[defName = "BlockLava"]</xpath>
+    </match>
+  </Operation>
+
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Nature's Pretty Sweet</li>
+    </mods>
+    <match Class="PatchOperationRemove">
+      <xpath>Defs/RecipeDef[defName = "MakeStoneBlocksLavaRock"]</xpath>
+    </match>
+  </Operation>
+  
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Nature's Pretty Sweet</li>
+    </mods>
+    <match Class="PatchOperationSetName">
+      <success>Always</success> <!-- MANDATORY due to vanilla bug -->
+      <xpath>Defs/TerrainDef/costList/BlockLava</xpath>
+      <name>ZF_BlocksBasalt</name>
+    </match>
+  </Operation>
+
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Nature's Pretty Sweet</li>
+    </mods>
+    <match Class="PatchOperationReplace">
+      <xpath>Defs/ThingDef[defName = "LavaRock"]/building/mineableThing</xpath>
+      <value>
+        <mineableThing>ZF_BlocksBasalt</mineableThing>
+      </value>
+    </match>
+  </Operation>
+  
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Nature's Pretty Sweet</li>
+    </mods>
+    <match Class="PatchOperationReplace">
+      <xpath>Defs/ThingDef[defName = "ChunkLava"]/butcherProducts/BlockLava</xpath>
+      <value>
+        <ZF_BlocksBasalt>20</ZF_BlocksBasalt>
+      </value>
+    </match>
+  </Operation>
+  
+  <!-- Replace terrains -->
+  
+  <!--
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Nature's Pretty Sweet</li>
+    </mods>
+    <match Class="PatchOperationReplace">
+      <xpath>Defs/ThingDef[defName = "Lava_Spring"]/comps/li[@Class = "NPS.CompProperties_SpringLava"]/dryTile</xpath>
+      <value>
+        <dryTile>ZF_BasaltBase_Rough</dryTile>
+      </value>
+    </match>
+  </Operation>
+
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Nature's Pretty Sweet</li>
+    </mods>
+    <match Class="PatchOperationReplace">
+      <xpath>Defs/ThingDef[defName = "Lava_Spring"]/comps/li[@Class = "NPS.CompProperties_SpringLava"]/spawnProp</xpath>
+      <value>
+        <spawnProp>LavaFlowBasalt</spawnProp>
+      </value>
+    </match>
+  </Operation>
+
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Nature's Pretty Sweet</li>
+    </mods>
+    <match Class="PatchOperationReplace">
+      <xpath>Defs/BiomeDef[defName = "VolcanicFlow"]/terrainsByFertility/li[terrain = "LavaRock_RoughHewn"]/terrain</xpath>
+      <value>
+        <terrain>ZF_BasaltBase_Rough</terrain>
+      </value>
+    </match>
+  </Operation>
+
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Nature's Pretty Sweet</li>
+    </mods>
+    <match Class="PatchOperationReplace">
+      <xpath>Defs/BiomeDef[defName = "VolcanicFlow"]/terrainPatchMakers/li/thresholds/li[terrain = "LavaRock_RoughHewn"]/terrain</xpath>
+      <value>
+        <terrain>ZF_BasaltBase_Rough</terrain>
+      </value>
+    </match>
+  </Operation>
+
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Nature's Pretty Sweet</li>
+    </mods>
+    <match Class="PatchOperationReplace">
+      <xpath>Defs/BiomeDef[defName = "Wasteland"]/terrainsByFertility/li[terrain = "LavaRock_RoughHewn"]/terrain</xpath>
+      <value>
+        <terrain>ZF_BasaltBase_Rough</terrain>
+      </value>
+    </match>
+  </Operation>
+  -->
+  
+  <!-- SK (?) terraforming -->
+  
+  <!--
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Nature's Pretty Sweet</li>
+    </mods>
+    <match Class="PatchOperationSequence">
+      <success>Normal</success>
+      <operations>
+
+        <li Class="PatchOperationReplace">
+          <xpath>Defs/ThingDef[defName = "Stone-RockyDirt"]/modExtensions/li[@Class="FertileFields.Terrain"]/above/li[.="LavaRock_RoughHewn"]</xpath>
+          <value>
+            <li>ZF_BasaltBase_Rough</li>
+          </value>
+        </li>           
+
+        <li Class="PatchOperationReplace">
+          <xpath>Defs/ThingDef[defName = "Stone-RockyDirt"]/modExtensions/li[@Class="FertileFields.Terrain"]/above/li[.="LavaRock_Smooth"]</xpath>
+          <value>
+            <li>ZF_BasaltBase_Smooth</li>
+          </value>
+        </li>           
+
+        <li Class="PatchOperationReplace">
+          <xpath>Defs/ThingDef[defName = "Stone-RockyDirt"]/modExtensions/li[@Class="FertileFields.Terrain"]/above/li[.="LavaRock_Rough"]</xpath>
+          <value>
+            <li>ZF_BasaltBase_Rough</li>
+          </value>
+        </li>           
+
+        <li Class="PatchOperationReplace">
+          <xpath>Defs/ThingDef[defName = "Stone-Topsoil"]/modExtensions/li[@Class="FertileFields.Terrain"]/above/li[.="LavaRock_Smooth"]</xpath>
+          <value>
+            <li>ZF_BasaltBase_Smooth</li>
+          </value>
+        </li>           
+        
+      </operations>
+    </match>
+  </Operation>
+  -->
+  
+  <!--
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Nature's Pretty Sweet</li>
+    </mods>
+    <match Class="PatchOperationReplace">
+      <xpath>Defs/ActiveTerrain.SpecialTerrain[defName = "Lava"]/modExtensions/li[@Class="NPS.TerrainWeatherReactions"]/freezeTerrain</xpath>
+      <value>
+        <freezeTerrain>ZF_BasaltBase_Rough</freezeTerrain>
+      </value>
+    </match>
+  </Operation>
+  -->
+
+</Patch>
