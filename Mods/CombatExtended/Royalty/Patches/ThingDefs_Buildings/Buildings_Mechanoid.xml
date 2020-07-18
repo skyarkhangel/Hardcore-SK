@@ -7,8 +7,8 @@
 		<xpath>Defs/ThingDef[defName="Defoliator"]/comps/li[@Class="CompProperties_Explosive"]/wickTicks</xpath>
 		<value>
 			<wickTicks>
-			  <min>180</min>
-			  <max>240</max>
+				<min>180</min>
+				<max>240</max>
 			</wickTicks>	
 		</value>
 	</Operation>
@@ -17,8 +17,8 @@
 		<xpath>Defs/ThingDef[defName="UnstablePowerCell"]/comps/li[@Class="CompProperties_Explosive"]/wickTicks</xpath>
 		<value>
 			<wickTicks>
-			  <min>180</min>
-			  <max>300</max>
+				<min>180</min>
+				<max>300</max>
 			</wickTicks>	
 		</value>
 	</Operation>
@@ -27,8 +27,8 @@
 		<xpath>Defs/ThingDef[defName="Turret_AutoMortar"]/comps/li[@Class="CompProperties_Explosive"]/wickTicks</xpath>
 		<value>
 			<wickTicks>
-			  <min>180</min>
-			  <max>240</max>
+				<min>180</min>
+				<max>240</max>
 			</wickTicks>	
 		</value>
 	</Operation>
@@ -45,13 +45,6 @@
 		</value>
 	</Operation>
 
-	<Operation Class="PatchOperationAdd">
-		<xpath>Defs/ThingDef[defName="Turret_AutoMiniTurret"]/statBases</xpath>
-		<value>
-			<AimingAccuracy>0.5</AimingAccuracy>
-		</value>
-	</Operation>
-
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/ThingDef[defName="Turret_AutoMiniTurret"]/statBases/ShootingAccuracyTurret</xpath>
 		<value>
@@ -60,20 +53,30 @@
 	</Operation>
 
 	<Operation Class="PatchOperationReplace">
-		<xpath>Defs/ThingDef[defName="Turret_AutoMiniTurret"]/statBases/Mass</xpath>
+		<xpath>Defs/ThingDef[defName="Turret_AutoMiniTurret"]/building/combatPower</xpath>
 		<value>
-			<Mass>25</Mass>
+			<combatPower>350</combatPower>
 		</value>
 	</Operation>
 
-	<Operation Class="PatchOperationRemove">
-		<xpath>Defs/ThingDef[defName="Turret_AutoMiniTurret"]/comps/li[@Class = "CompProperties_Explosive"]</xpath>
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Turret_AutoMiniTurret"]/statBases/Mass</xpath>
+		<value>
+			<Mass>150</Mass>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Turret_AutoMiniTurret"]/statBases/MaxHitPoints</xpath>
+		<value>
+			<MaxHitPoints>600</MaxHitPoints>
+		</value>
 	</Operation>
 
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/ThingDef[defName="Turret_AutoMiniTurret"]/fillPercent</xpath>
 		<value>
-			<fillPercent>0.65</fillPercent>
+			<fillPercent>1</fillPercent>
 		</value>
 	</Operation>
 
@@ -84,10 +87,73 @@
 		</value>
 	</Operation>
 
-	<Operation Class="PatchOperationReplace">
-		<xpath>Defs/ThingDef[defName="Turret_AutoMiniTurret"]/building/turretGunDef</xpath>
+	<Operation Class="PatchOperationRemove">
+		<xpath>Defs/ThingDef[defName="Gun_MiniTurretMech"]/verbs</xpath>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Gun_MiniTurretMech"]</xpath>
 		<value>
-			<turretGunDef>Gun_BlasterTurret</turretGunDef>
+			<verbs>
+				<li Class="CombatExtended.VerbPropertiesCE">
+					<recoilAmount>1.8</recoilAmount>
+					<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+					<hasStandardCommand>true</hasStandardCommand>
+					<defaultProjectile>Bullet_6x24mmCharged</defaultProjectile>
+					<ticksBetweenBurstShots>22</ticksBetweenBurstShots>
+					<warmupTime>0.75</warmupTime>
+					<range>50</range>
+					<burstShotCount>6</burstShotCount>
+					<soundCast>ShotChargeBlaster</soundCast>
+					<soundCastTail>GunTail_Heavy</soundCastTail>
+					<muzzleFlashScale>9</muzzleFlashScale>
+				</li>
+			</verbs>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Gun_MiniTurretMech"]/statBases</xpath>
+		<value>
+			<SightsEfficiency>1.0</SightsEfficiency>
+			<ShotSpread>0.17</ShotSpread>
+			<SwayFactor>1.90</SwayFactor>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Gun_MiniTurretMech"]/statBases/RangedWeapon_Cooldown</xpath>
+		<value>
+			<RangedWeapon_Cooldown>1.1</RangedWeapon_Cooldown>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+			<li Class="PatchOperationTest">
+				<xpath>Defs/ThingDef[defName="Gun_MiniTurretMech"]/comps</xpath>
+				<success>Invert</success>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/ThingDef[defName="Gun_MiniTurretMech"]</xpath>
+				<value>
+					<comps />
+				</value>
+			</li>
+		</operations>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Gun_MiniTurretMech"]/comps</xpath>
+		<value>
+			<li Class="CombatExtended.CompProperties_FireModes">
+				<aimedBurstShotCount>3</aimedBurstShotCount>
+				<aiUseBurstMode>FALSE</aiUseBurstMode>
+				<aiAimMode>Snapshot</aiAimMode>
+				<noSnapshot>true</noSnapshot>
+				<noSingleShot>true</noSingleShot>
+			</li>
 		</value>
 	</Operation>
 
@@ -100,13 +166,6 @@
 		</value>
 	</Operation>
 
-	<Operation Class="PatchOperationAdd">
-		<xpath>Defs/ThingDef[defName="Turret_AutoChargeBlaster"]/statBases</xpath>
-		<value>
-			<AimingAccuracy>0.5</AimingAccuracy>
-		</value>
-	</Operation>
-
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/ThingDef[defName="Turret_AutoChargeBlaster"]/statBases/ShootingAccuracyTurret</xpath>
 		<value>
@@ -115,36 +174,104 @@
 	</Operation>
 
 	<Operation Class="PatchOperationReplace">
-		<xpath>Defs/ThingDef[defName="Turret_AutoChargeBlaster"]/statBases/Mass</xpath>
+		<xpath>Defs/ThingDef[defName="Turret_AutoChargeBlaster"]/building/combatPower</xpath>
 		<value>
-			<Mass>25</Mass>
+			<combatPower>450</combatPower>
 		</value>
 	</Operation>
 
-	<Operation Class="PatchOperationRemove">
-		<xpath>Defs/ThingDef[defName="Turret_AutoChargeBlaster"]/comps/li[@Class = "CompProperties_Explosive"]</xpath>
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Turret_AutoChargeBlaster"]/statBases/Mass</xpath>
+		<value>
+			<Mass>250</Mass>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Turret_AutoChargeBlaster"]/statBases/MaxHitPoints</xpath>
+		<value>
+			<MaxHitPoints>1000</MaxHitPoints>
+		</value>
 	</Operation>
 
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/ThingDef[defName="Turret_AutoChargeBlaster"]/fillPercent</xpath>
 		<value>
-			<fillPercent>0.85</fillPercent>
+			<fillPercent>1</fillPercent>
 		</value>
 	</Operation>
 
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/ThingDef[defName="Turret_AutoChargeBlaster"]/building/turretBurstCooldownTime</xpath>
 		<value>
-			<turretBurstCooldownTime>1.1</turretBurstCooldownTime>
+			<turretBurstCooldownTime>1.3</turretBurstCooldownTime>
 		</value>
 	</Operation>
 
-	<Operation Class="PatchOperationReplace">
-		<xpath>Defs/ThingDef[defName="Turret_AutoChargeBlaster"]/building/turretGunDef</xpath>
+	<Operation Class="PatchOperationRemove">
+		<xpath>Defs/ThingDef[defName="Gun_ChargeBlasterHeavyTurret"]/verbs</xpath>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Gun_ChargeBlasterHeavyTurret"]</xpath>
 		<value>
-			<turretGunDef>Gun_ChargeBlasterHeavyTurret</turretGunDef>
+			<verbs>
+			<li Class="CombatExtended.VerbPropertiesCE">
+				<recoilAmount>1.9</recoilAmount>
+				<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+				<hasStandardCommand>true</hasStandardCommand>
+				<defaultProjectile>Bullet_12x64mmCharged</defaultProjectile>
+				<warmupTime>1.5</warmupTime>
+				<range>75</range>
+				<ticksBetweenBurstShots>6</ticksBetweenBurstShots>
+				<burstShotCount>10</burstShotCount>
+				<soundCast>Shot_ChargeBlaster</soundCast>
+				<soundCastTail>GunTail_Heavy</soundCastTail>
+				<muzzleFlashScale>9</muzzleFlashScale>
+			</li>
+			</verbs>
 		</value>
 	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Gun_ChargeBlasterHeavyTurret"]/statBases</xpath>
+		<value>
+			<SightsEfficiency>1</SightsEfficiency>
+			<ShotSpread>0.17</ShotSpread>
+			<SwayFactor>2.05</SwayFactor>
+			<RangedWeapon_Cooldown>1.5</RangedWeapon_Cooldown>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+			<li Class="PatchOperationTest">
+				<xpath>Defs/ThingDef[defName="Gun_ChargeBlasterHeavyTurret"]/comps</xpath>
+				<success>Invert</success>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/ThingDef[defName="Gun_ChargeBlasterHeavyTurret"]</xpath>
+				<value>
+					<comps />
+				</value>
+			</li>
+		</operations>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Gun_ChargeBlasterHeavyTurret"]/comps</xpath>
+		<value>
+			<li Class="CombatExtended.CompProperties_FireModes">
+				<aimedBurstShotCount>3</aimedBurstShotCount>
+				<aiUseBurstMode>FALSE</aiUseBurstMode>
+				<aiAimMode>Snapshot</aiAimMode>
+				<noSnapshot>true</noSnapshot>
+				<noSingleShot>true</noSingleShot>
+			</li>
+		</value>
+	</Operation>
+
 
 	<!-- ========== Auto Inferno Turret ========== -->
 
@@ -158,46 +285,111 @@
 	<Operation Class="PatchOperationAdd">
 		<xpath>Defs/ThingDef[defName="Turret_AutoInferno"]/statBases</xpath>
 		<value>
-			<AimingAccuracy>0.5</AimingAccuracy>
+			<AimingAccuracy>0.4</AimingAccuracy>
 		</value>
 	</Operation>
 
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/ThingDef[defName="Turret_AutoInferno"]/statBases/ShootingAccuracyTurret</xpath>
 		<value>
-			<ShootingAccuracyTurret>0.5</ShootingAccuracyTurret>
+			<ShootingAccuracyTurret>0.45</ShootingAccuracyTurret>
 		</value>
 	</Operation>
 
 	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Turret_AutoMiniTurret"]/building/combatPower</xpath>
+		<value>
+			<combatPower>350</combatPower>
+		</value>
+	</Operation>	
+
+	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/ThingDef[defName="Turret_AutoInferno"]/statBases/Mass</xpath>
 		<value>
-			<Mass>25</Mass>
+			<Mass>300</Mass>
 		</value>
 	</Operation>
 
-	<Operation Class="PatchOperationRemove">
-		<xpath>Defs/ThingDef[defName="Turret_AutoInferno"]/comps/li[@Class = "CompProperties_Explosive"]</xpath>
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Turret_AutoMiniTurret"]/statBases/MaxHitPoints</xpath>
+		<value>
+			<MaxHitPoints>600</MaxHitPoints>
+		</value>
 	</Operation>
 
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/ThingDef[defName="Turret_AutoInferno"]/fillPercent</xpath>
 		<value>
-			<fillPercent>0.85</fillPercent>
+			<fillPercent>1</fillPercent>
 		</value>
 	</Operation>
 
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/ThingDef[defName="Turret_AutoInferno"]/building/turretBurstCooldownTime</xpath>
 		<value>
-			<turretBurstCooldownTime>1.1</turretBurstCooldownTime>
+			<turretBurstCooldownTime>1.3</turretBurstCooldownTime>
 		</value>
 	</Operation>
 
-	<Operation Class="PatchOperationReplace">
-		<xpath>Defs/ThingDef[defName="Turret_AutoInferno"]/building/turretGunDef</xpath>
+
+	<Operation Class="PatchOperationRemove">
+		<xpath>Defs/ThingDef[defName="Gun_InfernoCannonTurret"]/verbs</xpath>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Gun_InfernoCannonTurret"]</xpath>
 		<value>
-			<turretGunDef>Gun_InfernoCannonTurret</turretGunDef>
+			<verbs>
+				<li Class="CombatExtended.VerbPropertiesCE">
+					<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+					<hasStandardCommand>true</hasStandardCommand>
+					<defaultProjectile>Bullet_80x256mmFuel_Thermobaric</defaultProjectile>
+					<warmupTime>3.7</warmupTime>
+					<!--<forcedMissRadius>5</forcedMissRadius>-->
+					<circularError>1.5</circularError>
+					<range>86</range>
+					<burstShotCount>1</burstShotCount>
+					<soundCast>InfernoCannon_Fire</soundCast>
+					<soundCastTail>GunTail_Light</soundCastTail>
+					<ai_AvoidFriendlyFireRadius>5</ai_AvoidFriendlyFireRadius>
+					<muzzleFlashScale>14</muzzleFlashScale>
+				</li>
+			</verbs>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Gun_InfernoCannonTurret"]/statBases</xpath>
+		<value>
+			<SightsEfficiency>0.7</SightsEfficiency>
+			<ShotSpread>0.2</ShotSpread>
+			<SwayFactor>4.5</SwayFactor>
+			<RangedWeapon_Cooldown>4.5</RangedWeapon_Cooldown>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+			<li Class="PatchOperationTest">
+				<xpath>Defs/ThingDef[defName="Gun_InfernoCannonTurret"]/comps</xpath>
+				<success>Invert</success>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/ThingDef[defName="Gun_InfernoCannonTurret"]</xpath>
+				<value>
+					<comps />
+				</value>
+			</li>
+		</operations>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Gun_InfernoCannonTurret"]/comps</xpath>
+		<value>
+			<li Class="CombatExtended.CompProperties_FireModes">
+				<aiAimMode>AimedShot</aiAimMode>
+			</li>
 		</value>
 	</Operation>
 
@@ -229,12 +421,12 @@
 	<Operation Class="PatchOperationAdd">
 		<xpath>Defs/ThingDef[defName="Turret_AutoMortar"]/comps</xpath>
 		<value>
-		  <li Class="CombatExtended.CompProperties_Fragments">
-			<fragments>
-				<Fragment_Large>5</Fragment_Large>
-				<Fragment_Small>20</Fragment_Small>
-			</fragments>
-		  </li>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Large>5</Fragment_Large>
+					<Fragment_Small>20</Fragment_Small>
+				</fragments>
+			</li>
 		</value>
 	</Operation>
 
@@ -253,14 +445,14 @@
 		<xpath>Defs/ThingDef[defName = "Artillery_AutoMortar"]</xpath>
 		<value>
 			<comps>
-			  <li Class="CombatExtended.CompProperties_Charges">
-			    <chargeSpeeds>
-			      <li>30</li>
-			      <li>50</li>
-			      <li>70</li>
-			      <li>90</li>
-			    </chargeSpeeds>
-			  </li>
+				<li Class="CombatExtended.CompProperties_Charges">
+					<chargeSpeeds>
+						<li>30</li>
+						<li>50</li>
+						<li>70</li>
+						<li>90</li>
+					</chargeSpeeds>
+				</li>
 			</comps>			  
 		</value>
 	</Operation>
@@ -276,26 +468,26 @@
 		<xpath>Defs/ThingDef[defName = "Artillery_AutoMortar"]/verbs</xpath>
 		<value>
 			<verbs>
-			  <li Class="CombatExtended.VerbPropertiesCE">
-			    <verbClass>CombatExtended.Verb_ShootMortarCE</verbClass>
-			    <forceNormalTimeSpeed>false</forceNormalTimeSpeed>
-			    <hasStandardCommand>true</hasStandardCommand>
-			    <defaultProjectile>Bullet_ChargeMortarShell</defaultProjectile>
-			    <warmupTime>11</warmupTime>
-			    <minRange>32</minRange>
-			    <range>700</range>
-			    <burstShotCount>1</burstShotCount>
-			    <soundCast>Mortar_LaunchA</soundCast>
-			    <muzzleFlashScale>16</muzzleFlashScale>
-			    <circularError>3</circularError>
-			    <indirectFirePenalty>0.4</indirectFirePenalty>
-			    <targetParams>
-			      <canTargetLocations>true</canTargetLocations>
-			    </targetParams>
-			  </li>
+				<li Class="CombatExtended.VerbPropertiesCE">
+					<verbClass>CombatExtended.Verb_ShootMortarCE</verbClass>
+					<forceNormalTimeSpeed>false</forceNormalTimeSpeed>
+					<hasStandardCommand>true</hasStandardCommand>
+					<defaultProjectile>Bullet_ChargeMortarShell</defaultProjectile>
+					<warmupTime>11</warmupTime>
+					<minRange>32</minRange>
+					<range>700</range>
+					<burstShotCount>1</burstShotCount>
+					<soundCast>Mortar_LaunchA</soundCast>
+					<muzzleFlashScale>16</muzzleFlashScale>
+					<circularError>3</circularError>
+					<indirectFirePenalty>0.4</indirectFirePenalty>
+					<targetParams>
+						<canTargetLocations>true</canTargetLocations>
+					</targetParams>
+				</li>
 			</verbs>
 		</value>
 	</Operation>
 
-	
+
 </Patch>	
