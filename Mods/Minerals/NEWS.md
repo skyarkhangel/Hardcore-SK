@@ -1,3 +1,14 @@
+## v1.3.0
+
+* **Now works with Vanilla Rimworld** as well as Hardcore SK
+* **Updated to Rimworld 1.1**
+* Nature's pretty sweet is now optional
+* Basalt is implemented independently of Nature's pretty sweet
+* Added compatibility with the Alpha Biomes mod
+* Fixed bug with which terrains were allowed for many rocks and minerals
+* Added setting to choose the number of rock types per map and changed the default from 2-3 to 1-4. 
+
+
 ## v1.2.0
 
 * Added small fossils in sedimentary rocks. They can be used for decorative flooring if MineralsCraft mod is used or sold.
