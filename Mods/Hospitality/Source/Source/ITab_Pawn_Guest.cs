@@ -101,23 +101,21 @@ namespace Hospitality
 
                 listingStandard.Gap(50);
 
-                var mayRecruitAtAll = !SelPawn.InMentalState && comp.arrived;
-
                 var rectSetDefault = new Rect(rect.xMax - buttonSize.x - 10, 160, buttonSize.x, buttonSize.y);
                 var rectSendHome = new Rect(rect.xMin - 10, 160, buttonSize.x, buttonSize.y);
-                DrawButton(() => SetAllDefaults(SelPawn), txtMakeDefault, rectSetDefault, txtMakeDefaultTooltip);
-                DrawButton(() => SendHomeDialog(SelPawn.GetLord()), txtSendAway, rectSendHome, txtSendAwayTooltip);
-                if (mayRecruitAtAll)
+                DrawButton(() => SetAllDefaults(SelPawn), txtMakeDefault, rectSetDefault, false, txtMakeDefaultTooltip);
+                DrawButton(() => SendHomeDialog(SelPawn.GetLord()), txtSendAway, rectSendHome, false, txtSendAwayTooltip);
+
+                var rectRecruitButton = new Rect(rect.xMin - 10 + 10 + buttonSize.x, 160, buttonSize.x, buttonSize.y);
+                if (friends >= friendsRequired)
                 {
-                    var rectRecruitButton = new Rect(rect.xMin - 10 + 10 + buttonSize.x, 160, buttonSize.x, buttonSize.y);
-                    if (friends >= friendsRequired)
-                    {
-                        DrawButton(() => RecruitDialog(SelPawn, false), txtRecruit, rectRecruitButton, txtRecruitTooltip);
-                    }
-                    else if (!isRoyal)
-                    {
-                        DrawButton(() => RecruitDialog(SelPawn, true), txtForceRecruit, rectRecruitButton, txtForceRecruitTooltip);
-                    }
+                    var disabled = !SelPawn.MayRecruitAtAll() || !SelPawn.MayRecruitRightNow();
+                    DrawButton(() => RecruitDialog(SelPawn, false), txtRecruit, rectRecruitButton, disabled, txtRecruitTooltip);
+                }
+                else if (!isRoyal)
+                {
+                    var disabled = !SelPawn.MayRecruitAtAll() || !SelPawn.MayRecruitRightNow();
+                    DrawButton(() => RecruitDialog(SelPawn, true), txtForceRecruit, rectRecruitButton, disabled, txtForceRecruitTooltip);
                 }
 
                 // Highlight defaults
@@ -184,13 +182,13 @@ namespace Hospitality
             }
         }
 
-        private static void DrawButton(Action action, string text, Rect rect, string tooltip =  null)
+        private static void DrawButton(Action action, string text, Rect rect, bool disabled, string tooltip = null)
         {
             if (!tooltip.NullOrEmpty())
             {
                 TooltipHandler.TipRegion(rect, tooltip);
             }
-            if (Widgets.ButtonText(rect, text))
+            if (Widgets.ButtonText(rect, text, !disabled, !disabled))
             {
                 SoundDefOf.Designate_DragStandard_Changed.PlayOneShotOnCamera();
 

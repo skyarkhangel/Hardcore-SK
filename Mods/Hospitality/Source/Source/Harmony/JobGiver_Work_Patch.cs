@@ -25,6 +25,7 @@ namespace Hospitality.Harmony
                 if (Settings.disableArtAndCraft.Value && IsArtOrCraft(giver.def.workType.workTags)) return false;
                 if (Settings.disableOperations.Value && IsOperation(giver)) return false;
                 if (Settings.disableMedical.Value && IsOperation(giver) || IsMedical(giver)) return false;
+                if (Settings.disableWarden.Value && IsWarden(giver)) return false;
                 if (IsFeeding(giver)) return false; // Too many problems with this (uses food from inventory, wrong food category, etc.
 
                 if (!pawn.GetVisitScore(out var score)) return false;
@@ -64,6 +65,12 @@ namespace Hospitality.Harmony
             {
                 return workGiver is WorkGiver_Tend;
             }
+
+            private static bool IsWarden(WorkGiver workGiver)
+            {
+                return workGiver is WorkGiver_Warden;
+            }
+
             private static bool IsFeeding(WorkGiver workGiver)
             {
                 return workGiver is WorkGiver_FeedPatient || workGiver is WorkGiver_Warden_Feed;

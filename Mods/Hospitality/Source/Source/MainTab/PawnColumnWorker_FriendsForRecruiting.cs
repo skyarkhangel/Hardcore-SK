@@ -17,14 +17,12 @@ namespace Hospitality.MainTab
         {
             if (!pawn.IsGuest()) return;
 
-            // Store cache
-            friendsShortCache = pawn.GetFriendsInColony();
-            friendsRequiredShortCache = GuestUtility.FriendsRequired(pawn.MapHeld) + pawn.GetEnemiesInColony();
+            UpdateCache(pawn);
 
             base.DoCell(rect, pawn, table);
 
             // Use cache - only get comp when we have enough friends
-            if (friendsShortCache >= friendsRequiredShortCache && MayRecruitAtAll(pawn))
+            if (friendsShortCache >= friendsRequiredShortCache && pawn.MayRecruitAtAll() && pawn.MayRecruitRightNow())
             {
                 var rect2 = rect;
                 rect2.x -= 4;
@@ -36,15 +34,9 @@ namespace Hospitality.MainTab
             else base.DoCell(rect, pawn, table);
         }
 
-        private static bool MayRecruitAtAll(Pawn pawn)
-        {
-            var comp = pawn.CompGuest();
-            var mayRecruitAtAll = !pawn.InMentalState && comp.arrived;
-            return mayRecruitAtAll;
-        }
-
         protected override string GetTextFor(Pawn pawn)
         {
+            if (!pawn.MayRecruitAtAll()) return "-";
             // Use cache
             return $"{friendsShortCache}/{friendsRequiredShortCache}";
         }
@@ -64,11 +56,17 @@ namespace Hospitality.MainTab
                 return -2147483648;
             }
 
-            friendsShortCache = pawn.GetFriendsInColony();
-            friendsRequiredShortCache = GuestUtility.FriendsRequired(pawn.MapHeld) + pawn.GetEnemiesInColony();
+            UpdateCache(pawn);
 
             if (friendsRequiredShortCache == 0) return -2147483648;
             return (int)(100f * friendsShortCache / friendsRequiredShortCache);
+        }
+
+        private void UpdateCache(Pawn pawn)
+        {
+            var isRoyal = pawn.royalty?.MostSeniorTitle != null;
+            friendsShortCache = isRoyal ? pawn.GetFriendsSeniorityInColony()/100 : pawn.GetFriendsInColony();
+            friendsRequiredShortCache = isRoyal ? (GuestUtility.RoyalFriendsSeniorityRequired(pawn) + pawn.GetRoyalEnemiesSeniorityInColony())/100 : GuestUtility.FriendsRequired(pawn.MapHeld) + pawn.GetEnemiesInColony();
         }
     }
 }

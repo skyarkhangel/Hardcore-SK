@@ -1,0 +1,985 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<!-- Surgery -->
+	<RecipeDef Abstract="True" Name="SK_SurgeryFlesh">
+		<effectWorking>Surgery</effectWorking>
+		<soundWorking>Recipe_Surgery</soundWorking>
+		<workSpeedStat>MedicalOperationSpeed</workSpeedStat>
+		<workSkill>Medicine</workSkill>
+		<workSkillLearnFactor>16</workSkillLearnFactor>
+		<surgerySuccessChanceFactor>0.9</surgerySuccessChanceFactor>
+		<deathOnFailedSurgeryChance>0.01</deathOnFailedSurgeryChance>
+	</RecipeDef>	
+	
+	<RecipeDef Name="SK_SurgeryInstallImplantBase" ParentName="SK_SurgeryFlesh" Abstract="True">
+		<workerClass>Recipe_InstallImplant</workerClass>
+		<workAmount>2500</workAmount>
+		<skillRequirements>
+			<Medicine>5</Medicine>
+		</skillRequirements>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+		</fixedIngredientFilter>
+	</RecipeDef>
+	
+	<!-- The surgery recipes to install parts in a pawn -->
+
+	<RecipeDef Name="SK_SurgeryInstallBodyPartArtificialBase" ParentName="SK_SurgeryInstallImplantBase" Abstract="True">
+		<workerClass>Recipe_InstallArtificialBodyPart</workerClass>
+	</RecipeDef>
+
+	<RecipeDef Name="SK_SurgeryInstallBodyPartNaturalBase" ParentName="SK_SurgeryInstallImplantBase" Abstract="True">
+		<workerClass>Recipe_InstallNaturalBodyPart</workerClass>
+	</RecipeDef>
+
+	
+	<!-- The surgery recipes to remove parts in a pawn -->
+
+	<RecipeDef Name="SK_SurgeryRemoveImplantBase" ParentName="SK_SurgeryFlesh" Abstract="True">
+		<workerClass>Recipe_RemoveImplant</workerClass>
+		<workAmount>2500</workAmount>
+		<isViolation>true</isViolation>
+		<skillRequirements>
+			<Medicine>5</Medicine>
+		</skillRequirements>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+		</fixedIngredientFilter>
+	</RecipeDef>
+	
+	<RecipeDef Name="SurgeryRepairScar" ParentName="SK_SurgeryFlesh" Abstract="True">
+		<workerClass>SK.Recipe_RemoveScarHediff</workerClass>
+		<workAmount>2500</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>MedicineUltratech</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>SyntheticSkin</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>MedicineUltratech</li>
+				<li>SyntheticSkin</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<skillRequirements>
+			<Medicine>7</Medicine>
+		</skillRequirements>
+		<appliedOnFixedBodyParts>
+			<li>Torso</li> 
+		</appliedOnFixedBodyParts>
+		<researchPrerequisite>HospitalBed</researchPrerequisite>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="SurgeryRepairScar">
+		<defName>RepairBurn</defName>
+		<label>cure burn</label>
+		<description>Cure a burn scar.</description>
+		<jobString>Mending burn scar.</jobString>
+		<removesHediff>Burn</removesHediff>
+		<successfullyRemovedHediffMessage>{0} has successfully cured {1}'s burn scar.</successfullyRemovedHediffMessage>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="SurgeryRepairScar">
+		<defName>RepairCut</defName>
+		<label>cure cut</label>
+		<description>Cure a cut scar.</description>
+		<jobString>Mending cut scar.</jobString>
+		<removesHediff>Cut</removesHediff>
+		<successfullyRemovedHediffMessage>{0} has successfully cured {1}'s cut scar.</successfullyRemovedHediffMessage>
+	</RecipeDef>
+		
+	<RecipeDef ParentName="SurgeryRepairScar">
+		<defName>RepairSurgicalCut</defName>
+		<label>cure surgical cut</label>
+		<description>Cure a surgical cut scar.</description>
+		<jobString>Mending surgical cut scar.</jobString>
+		<removesHediff>SurgicalCut</removesHediff>
+		<successfullyRemovedHediffMessage>{0} has successfully cured {1}'s surgical cut scar.</successfullyRemovedHediffMessage>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SurgeryRepairScar">
+		<defName>RepairScratch</defName>
+		<label>cure scratch</label>
+		<description>Cure a scratch scar.</description>
+		<jobString>Mending scratch scar.</jobString>
+		<removesHediff>Scratch</removesHediff>
+		<successfullyRemovedHediffMessage>{0} has successfully cured {1}'s scratch scar.</successfullyRemovedHediffMessage>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="SurgeryRepairScar">
+		<defName>RepairBite</defName>
+		<label>cure bite</label>
+		<description>Cure a bite scar.</description>
+		<jobString>Mending bite scar.</jobString>
+		<removesHediff>Bite</removesHediff>
+		<successfullyRemovedHediffMessage>{0} has successfully cured {1}'s bite scar.</successfullyRemovedHediffMessage>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="SurgeryRepairScar">
+		<defName>RepairStab</defName>
+		<label>cure stab</label>
+		<description>Cure a stab scar.</description>
+		<jobString>Mending stab scar.</jobString>
+		<removesHediff>Stab</removesHediff>
+		<successfullyRemovedHediffMessage>{0} has successfully cured {1}'s stab scar.</successfullyRemovedHediffMessage>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="SurgeryRepairScar">
+		<defName>RepairGunshot</defName>
+		<label>cure gunshot</label>
+		<description>Cure a gunshot scar.</description>
+		<jobString>Mending gunshot scar.</jobString>
+		<removesHediff>Gunshot</removesHediff>
+		<successfullyRemovedHediffMessage>{0} has successfully cured {1}'s gunshot scar.</successfullyRemovedHediffMessage>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SurgeryRepairScar">
+		<defName>RepairFrostbite</defName>
+		<label>cure frostbite</label>
+		<description>Cure a frostbite scar.</description>
+		<jobString>Mending frostbite scar.</jobString>
+		<removesHediff>Frostbite</removesHediff>
+		<successfullyRemovedHediffMessage>{0} has successfully cured {1}'s frostbite scar.</successfullyRemovedHediffMessage>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SurgeryRepairScar">
+		<defName>RepairChemicalBurn</defName>
+		<label>cure chemical burn</label>
+		<description>Cure a chemical burn scar.</description>
+		<jobString>Mending chemical burn scar.</jobString>
+		<removesHediff>ChemicalBurn</removesHediff>
+		<successfullyRemovedHediffMessage>{0} has successfully cured {1}'s chemical burn scar.</successfullyRemovedHediffMessage>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SurgeryRepairScar">
+		<defName>RepairShredded</defName>
+		<label>cure shredded</label>
+		<description>Cure a shredded scar.</description>
+		<jobString>Mending shredded scar.</jobString>
+		<removesHediff>Shredded</removesHediff>
+		<successfullyRemovedHediffMessage>{0} has successfully cured {1}'s shredded scar.</successfullyRemovedHediffMessage>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SurgeryRepairScar">
+		<defName>RepairCrush</defName>
+		<label>cure mangled crush scar</label>
+		<description>Cure a mangled scar.</description>
+		<jobString>Mending mangled scar.</jobString>
+		<removesHediff>Crush</removesHediff>
+		<successfullyRemovedHediffMessage>{0} has successfully cured {1}'s mangled scar.</successfullyRemovedHediffMessage>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="SurgeryRepairScar">
+		<defName>RepairCrack</defName>
+		<label>cure mangled crack scar</label>
+		<description>Cure a mangled scar.</description>
+		<jobString>Mending mangled scar.</jobString>
+		<removesHediff>Crack</removesHediff>
+		<successfullyRemovedHediffMessage>{0} has successfully cured {1}'s mangled scar.</successfullyRemovedHediffMessage>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="SurgeryRepairScar">
+		<defName>RepairBruise</defName>
+		<label>cure mangled bruise scar</label>
+		<description>Cure a mangled scar.</description>
+		<jobString>Mending mangled scar.</jobString>
+		<removesHediff>Bruise</removesHediff>
+		<successfullyRemovedHediffMessage>{0} has successfully cured {1}'s mangled scar.</successfullyRemovedHediffMessage>
+	</RecipeDef>
+	
+	
+	<RecipeDef Name="SurgeryBrainRepairScar" ParentName="SK_SurgeryFlesh" Abstract="True">
+		<surgerySuccessChanceFactor>0.75</surgerySuccessChanceFactor>
+		<deathOnFailedSurgeryChance>0.05</deathOnFailedSurgeryChance>
+		<workerClass>SK.Recipe_RemoveBrainScarHediff</workerClass>
+		<workAmount>3000</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>MedicineUltratech</li>
+					</thingDefs>
+				</filter>
+				<count>3</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>NeurocureFramework</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>MedicineUltratech</li>
+				<li>NeurocureFramework</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<skillRequirements>
+			<Medicine>13</Medicine>
+		</skillRequirements>
+		<appliedOnFixedBodyParts>
+			<li>Brain</li> 
+		</appliedOnFixedBodyParts>
+		<researchPrerequisite>BrainSurgery</researchPrerequisite>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="SurgeryBrainRepairScar">
+		<defName>RepairBrainBurn</defName>
+		<label>cure burn</label>
+		<description>Cure a burn scar.</description>
+		<jobString>Mending burn scar.</jobString>
+		<removesHediff>Burn</removesHediff>
+		<successfullyRemovedHediffMessage>{0} has successfully cured {1}'s burn scar.</successfullyRemovedHediffMessage>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="SurgeryBrainRepairScar">
+		<defName>RepairBrainCut</defName>
+		<label>cure cut</label>
+		<description>Cure a cut scar.</description>
+		<jobString>Mending cut scar.</jobString>
+		<removesHediff>Cut</removesHediff>
+		<successfullyRemovedHediffMessage>{0} has successfully cured {1}'s cut scar.</successfullyRemovedHediffMessage>
+	</RecipeDef>
+		
+	<RecipeDef ParentName="SurgeryBrainRepairScar">
+		<defName>RepairBrainSurgicalCut</defName>
+		<label>cure surgical cut</label>
+		<description>Cure a surgical cut scar.</description>
+		<jobString>Mending surgical cut scar.</jobString>
+		<removesHediff>SurgicalCut</removesHediff>
+		<successfullyRemovedHediffMessage>{0} has successfully cured {1}'s surgical cut scar.</successfullyRemovedHediffMessage>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SurgeryBrainRepairScar">
+		<defName>RepairBrainScratch</defName>
+		<label>cure scratch</label>
+		<description>Cure a scratch scar.</description>
+		<jobString>Mending scratch scar.</jobString>
+		<removesHediff>Scratch</removesHediff>
+		<successfullyRemovedHediffMessage>{0} has successfully cured {1}'s scratch scar.</successfullyRemovedHediffMessage>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="SurgeryBrainRepairScar">
+		<defName>RepairBrainBite</defName>
+		<label>cure bite</label>
+		<description>Cure a bite scar.</description>
+		<jobString>Mending bite scar.</jobString>
+		<removesHediff>Bite</removesHediff>
+		<successfullyRemovedHediffMessage>{0} has successfully cured {1}'s bite scar.</successfullyRemovedHediffMessage>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="SurgeryBrainRepairScar">
+		<defName>RepairBrainStab</defName>
+		<label>cure stab</label>
+		<description>Cure a stab scar.</description>
+		<jobString>Mending stab scar.</jobString>
+		<removesHediff>Stab</removesHediff>
+		<successfullyRemovedHediffMessage>{0} has successfully cured {1}'s stab scar.</successfullyRemovedHediffMessage>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="SurgeryBrainRepairScar">
+		<defName>RepairBrainGunshot</defName>
+		<label>cure gunshot</label>
+		<description>Cure a gunshot scar.</description>
+		<jobString>Mending gunshot scar.</jobString>
+		<removesHediff>Gunshot</removesHediff>
+		<successfullyRemovedHediffMessage>{0} has successfully cured {1}'s gunshot scar.</successfullyRemovedHediffMessage>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SurgeryBrainRepairScar">
+		<defName>RepairBrainFrostbite</defName>
+		<label>cure frostbite</label>
+		<description>Cure a frostbite scar.</description>
+		<jobString>Mending frostbite scar.</jobString>
+		<removesHediff>Frostbite</removesHediff>
+		<successfullyRemovedHediffMessage>{0} has successfully cured {1}'s frostbite scar.</successfullyRemovedHediffMessage>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SurgeryBrainRepairScar">
+		<defName>RepairBrainChemicalBurn</defName>
+		<label>cure chemical burn</label>
+		<description>Cure a chemical burn scar.</description>
+		<jobString>Mending chemical burn scar.</jobString>
+		<removesHediff>ChemicalBurn</removesHediff>
+		<successfullyRemovedHediffMessage>{0} has successfully cured {1}'s chemical burn scar.</successfullyRemovedHediffMessage>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SurgeryBrainRepairScar">
+		<defName>RepairBrainShredded</defName>
+		<label>cure shredded</label>
+		<description>Cure a shredded scar.</description>
+		<jobString>Mending shredded scar.</jobString>
+		<removesHediff>Shredded</removesHediff>
+		<successfullyRemovedHediffMessage>{0} has successfully cured {1}'s shredded scar.</successfullyRemovedHediffMessage>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SurgeryBrainRepairScar">
+		<defName>RepairBrainCrush</defName>
+		<label>cure mangled crush scar</label>
+		<description>Cure a mangled scar.</description>
+		<jobString>Mending mangled scar.</jobString>
+		<removesHediff>Crush</removesHediff>
+		<successfullyRemovedHediffMessage>{0} has successfully cured {1}'s mangled scar.</successfullyRemovedHediffMessage>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="SurgeryBrainRepairScar">
+		<defName>RepairBrainCrack</defName>
+		<label>cure mangled crack scar</label>
+		<description>Cure a mangled scar.</description>
+		<jobString>Mending mangled scar.</jobString>
+		<removesHediff>Crack</removesHediff>
+		<successfullyRemovedHediffMessage>{0} has successfully cured {1}'s mangled scar.</successfullyRemovedHediffMessage>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="SurgeryBrainRepairScar">
+		<defName>RepairBrainBruise</defName>
+		<label>cure mangled bruise scar</label>
+		<description>Cure a mangled scar.</description>
+		<jobString>Mending mangled scar.</jobString>
+		<removesHediff>Bruise</removesHediff>
+		<successfullyRemovedHediffMessage>{0} has successfully cured {1}'s mangled scar.</successfullyRemovedHediffMessage>
+	</RecipeDef>
+	
+	<!-- Cosmetic: Ear -->
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>RepairCosmeticEar</defName>
+		<label>Repair ear</label>
+		<description>Repair ear</description>
+		<workerClass>Recipe_InstallNaturalBodyPart</workerClass>
+		<jobString>Repairing ear</jobString>
+		<workAmount>3000</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>MedicineUltratech</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Biomatter</li>
+					</thingDefs>
+				</filter>
+				<count>20</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>SyntheticSkin</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>MedicineUltratech</li>
+				<li>SyntheticSkin</li>
+				<li>Biomatter</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<skillRequirements>
+			<Medicine>9</Medicine>
+		</skillRequirements>
+		<appliedOnFixedBodyParts>
+			<li>Ear</li>
+		</appliedOnFixedBodyParts>
+		<researchPrerequisite>VitalsMonitor</researchPrerequisite>
+	</RecipeDef>
+
+	<!-- Cosmetic: Nose -->
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>RepairCosmeticNose</defName>
+		<label>Repair nose</label>
+		<description>Repair nose</description>
+		<workerClass>Recipe_InstallNaturalBodyPart</workerClass>
+		<jobString>Repairing nose</jobString>
+		<workAmount>3000</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>MedicineUltratech</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Biomatter</li>
+					</thingDefs>
+				</filter>
+				<count>20</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>SyntheticSkin</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>SyntheticSkin</li>
+				<li>Biomatter</li>
+				<li>MedicineUltratech</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<skillRequirements>
+			<Medicine>10</Medicine>
+		</skillRequirements>
+		<appliedOnFixedBodyParts>
+			<li>Nose</li>
+		</appliedOnFixedBodyParts>
+		<researchPrerequisite>VitalsMonitor</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>RepairFinger</defName>
+		<label>Repair finger</label>
+		<description>Repair finger</description>
+		<workerClass>Recipe_InstallNaturalBodyPart</workerClass>
+		<jobString>Repairing finger</jobString>
+		<workAmount>2000</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>MedicineUltratech</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Biomatter</li>
+					</thingDefs>
+				</filter>
+				<count>15</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>SyntheticSkin</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>SyntheticSkin</li>
+				<li>Biomatter</li>
+				<li>MedicineUltratech</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<skillRequirements>
+			<Medicine>8</Medicine>
+		</skillRequirements>
+		<appliedOnFixedBodyParts>
+			<li>Finger</li>
+		</appliedOnFixedBodyParts>
+		<researchPrerequisite>VitalsMonitor</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>RepairToe</defName>
+		<label>Repair toe</label>
+		<description>Repair toe</description>
+		<workerClass>Recipe_InstallNaturalBodyPart</workerClass>
+		<jobString>Repairing toe</jobString>
+		<workAmount>2000</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>MedicineUltratech</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Biomatter</li>
+					</thingDefs>
+				</filter>
+				<count>15</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>SyntheticSkin</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>SyntheticSkin</li>
+				<li>Biomatter</li>
+				<li>MedicineUltratech</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<skillRequirements>
+			<Medicine>8</Medicine>
+		</skillRequirements>
+		<appliedOnFixedBodyParts>
+			<li>Toe</li>
+		</appliedOnFixedBodyParts>
+		<researchPrerequisite>VitalsMonitor</researchPrerequisite>
+	</RecipeDef>
+	
+	
+	<!-- Chronic: BadBack -->
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>CureChronicBadBack</defName>
+		<label>Cure bad back</label>
+		<description>Install a neuromuscular framework to repair a bad back.</description>
+		<workerClass>Recipe_RemoveHediff</workerClass>
+		<jobString>Curing bad back.</jobString>
+		<workAmount>8000</workAmount>
+		<successfullyRemovedHediffMessage>{0} has successfully healed {1}'s bad back.</successfullyRemovedHediffMessage>
+		<deathOnFailedSurgeryChance>0.05</deathOnFailedSurgeryChance>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>MedicineUltratech</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>NeuromuscularFramework</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>MedicineUltratech</li>
+				<li>NeuromuscularFramework</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<skillRequirements>
+			<Medicine>11</Medicine>
+		</skillRequirements>
+		<removesHediff>BadBack</removesHediff>
+		<appliedOnFixedBodyParts>
+			<li>Torso</li> 
+		</appliedOnFixedBodyParts>
+		<researchPrerequisite>SK_HospitalIV</researchPrerequisite>
+	</RecipeDef>
+	
+	
+	<!-- Chronic: Frail -->
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>CureChronicFrail</defName>
+		<label>Cure frail</label>
+		<description>Cure frail.</description>
+		<workerClass>Recipe_RemoveHediff</workerClass>
+		<jobString>Curing frail.</jobString>
+		<successfullyRemovedHediffMessage>{0} has successfully healed {1}'s frailty.</successfullyRemovedHediffMessage>
+		<workAmount>7000</workAmount>
+		<deathOnFailedSurgeryChance>0.1</deathOnFailedSurgeryChance>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>MedicineUltratech</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>NeuromuscularFramework</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>NeuromuscularFramework</li>
+				<li>MedicineUltratech</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<skillRequirements>
+			<Medicine>13</Medicine>
+		</skillRequirements>
+		<appliedOnFixedBodyParts>
+			<li>Torso</li> 
+		</appliedOnFixedBodyParts>
+		<removesHediff>Frail</removesHediff>
+		<researchPrerequisite>SK_HospitalIV</researchPrerequisite>
+	</RecipeDef>
+
+	<!-- Chronic: Cataract -->
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>CureChronicCataract</defName>
+		<label>Cure cataract</label>
+		<description>Cure cataract.</description>
+		<workerClass>Recipe_RemoveHediff</workerClass>
+		<jobString>Curing cataract.</jobString>
+		<workAmount>11000</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>MedicineUltratech</li>
+					</thingDefs>
+				</filter>
+				<count>3</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>MedicineUltratech</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<skillRequirements>
+			<Medicine>12</Medicine>
+		</skillRequirements>
+		<removesHediff>Cataract</removesHediff>
+		<researchPrerequisite>SK_HospitalIV</researchPrerequisite>
+	</RecipeDef>
+
+	<!-- Chronic: HearingLoss -->
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>CureChronicHearingLoss</defName>
+		<label>Cure hearing loss</label>
+		<description>Cure hearing loss.</description>
+		<workerClass>Recipe_RemoveHediff</workerClass>
+		<jobString>Curing hearing loss.</jobString>
+		<workAmount>12000</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>MedicineUltratech</li>
+					</thingDefs>
+				</filter>
+				<count>3</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>MedicineUltratech</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<skillRequirements>
+			<Medicine>10</Medicine>
+		</skillRequirements>
+		<removesHediff>HearingLoss</removesHediff>
+		<researchPrerequisite>SK_HospitalIV</researchPrerequisite>
+	</RecipeDef>
+	
+	<!-- Chronic: Dementia -->
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>CureChronicDementia</defName>
+		<label>Cure dementia</label>
+		<description>Install a neuro-cure framework to treat dementia.</description>
+		<workerClass>Recipe_RemoveHediff</workerClass>
+		<jobString>Curing dementia.</jobString>
+		<workAmount>11000</workAmount>
+		<successfullyRemovedHediffMessage>{0} has successfully treated {1}'s dementia.</successfullyRemovedHediffMessage>
+		<surgerySuccessChanceFactor>0.75</surgerySuccessChanceFactor>
+		<deathOnFailedSurgeryChance>0.05</deathOnFailedSurgeryChance>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>MedicineUltratech</li>
+					</thingDefs>
+				</filter>
+				<count>3</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>NeurocureFramework</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>NeurocureFramework</li>
+				<li>MedicineUltratech</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<skillRequirements>
+			<Medicine>14</Medicine>
+		</skillRequirements>
+		<removesHediff>Dementia</removesHediff>
+		<appliedOnFixedBodyParts>
+			<li>Brain</li> 
+		</appliedOnFixedBodyParts>
+		<researchPrerequisite>BrainSurgery</researchPrerequisite>
+	</RecipeDef>
+
+
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>CureMuscleParasites</defName>
+		<label>Cure muscle parasites</label>
+		<description>Cure muscle parasites.</description>
+		<workerClass>Recipe_RemoveHediff</workerClass>
+		<jobString>Curing muscle parasites.</jobString>
+		<workAmount>9000</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>5</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<disallowedThingDefs>
+				<li>MedicineHerbal</li>
+			</disallowedThingDefs>
+		</fixedIngredientFilter>
+		<skillRequirements>
+			<Medicine>12</Medicine>
+		</skillRequirements>
+		<removesHediff>MuscleParasites</removesHediff>
+		<researchPrerequisite>SK_HospitalIV</researchPrerequisite>
+	</RecipeDef>
+
+
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>CureGutWorms</defName>
+		<label>cure gut worms</label>
+		<description>Cure gut worms.</description>
+		<workerClass>Recipe_RemoveHediff</workerClass>
+		<jobString>Curing gut worms.</jobString>
+		<workAmount>8000</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>5</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<disallowedThingDefs>
+				<li>MedicineHerbal</li>
+			</disallowedThingDefs>
+		</fixedIngredientFilter>
+		<skillRequirements>
+			<Medicine>9</Medicine>
+		</skillRequirements>
+		<removesHediff>GutWorms</removesHediff>
+		<researchPrerequisite>VitalsMonitor</researchPrerequisite>
+	</RecipeDef>
+	
+	
+	<!-- Chronic: Alzheimers -->
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>CureChronicAlzheimers</defName>
+		<label>Cure alzheimers</label>
+		<description>Install a neuro-cure framework to treat alzheimers.</description>
+		<workerClass>Recipe_RemoveHediff</workerClass>
+		<jobString>Curing alzheimers.</jobString>
+		<workAmount>13000</workAmount>
+		<successfullyRemovedHediffMessage>{0} has successfully treated {1}'s alzheimers.</successfullyRemovedHediffMessage>
+		<surgerySuccessChanceFactor>0.75</surgerySuccessChanceFactor>
+		<deathOnFailedSurgeryChance>0.05</deathOnFailedSurgeryChance>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>MedicineUltratech</li>
+					</thingDefs>
+				</filter>
+				<count>3</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>NeurocureFramework</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>NeurocureFramework</li>
+				<li>MedicineUltratech</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<skillRequirements>
+			<Medicine>15</Medicine>
+		</skillRequirements>
+		<appliedOnFixedBodyParts>
+			<li>Brain</li> 
+		</appliedOnFixedBodyParts>
+		<removesHediff>Dementia</removesHediff>
+		<researchPrerequisite>BrainSurgery</researchPrerequisite>
+	</RecipeDef>
+	
+	
+	<!-- Chronic: Asthma -->
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>CureChronicAsthma</defName>
+		<label>Cure asthma</label>
+		<description>Cure asthma.</description>
+		<workerClass>Recipe_RemoveHediff</workerClass>
+		<jobString>Curing asthma.</jobString>
+		<workAmount>11000</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>MedicineUltratech</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>MedicineUltratech</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<skillRequirements>
+			<Medicine>12</Medicine>
+		</skillRequirements>
+		<removesHediff>Asthma</removesHediff>
+		<researchPrerequisite>VitalsMonitor</researchPrerequisite>
+	</RecipeDef>
+	
+	
+	<!-- Chronic: HeartArteryBlockage -->
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>CureChronicHeartArteryBlockage</defName>
+		<label>Cure artery blockage</label>
+		<description>Cure artery blockage.</description>
+		<workerClass>Recipe_RemoveHediff</workerClass>
+		<jobString>Curing artery blockage.</jobString>
+		<workAmount>9000</workAmount>
+		<deathOnFailedSurgeryChance>0.25</deathOnFailedSurgeryChance>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>MedicineUltratech</li>
+					</thingDefs>
+				</filter>
+				<count>3</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>MedicineUltratech</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<skillRequirements>
+			<Medicine>14</Medicine>
+		</skillRequirements>
+		<removesHediff>HeartArteryBlockage</removesHediff>
+		<researchPrerequisite>SK_HospitalIV</researchPrerequisite>
+	</RecipeDef>
+
+
+
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>InjectMedicine</defName>
+		<label>Inject anesthetic</label>
+		<description>Inject anesthetic medicine.</description>
+		<workerClass>Recipe_InstallImplant</workerClass>
+		<jobString>Injecting anesthetic medicine.</jobString>
+		<workAmount>1500</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Torso</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>AnestheticInjected</addsHediff>
+		<skillRequirements>
+			<Medicine>5</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>HospitalBed</researchPrerequisite>
+	</RecipeDef>
+
+</Defs>

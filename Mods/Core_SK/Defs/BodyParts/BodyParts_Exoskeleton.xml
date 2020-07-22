@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<ThingDef ParentName="BodyPartBase_Bionic">
+		<defName>ExoskeletonSuit</defName>
+		<label>exoskeleton suit</label>
+		<description>A high tech device made out of two components: a light skeletal structure to relieve the back and servomotors to make the user stronger.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>InstallExoskeletonSuit</RecipeDef>
+		</descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/CyberneticExoskeletonSuit</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<statBases>
+			<Mass>7</Mass>
+			<MaxHitPoints>180</MaxHitPoints>
+		</statBases>
+		<costList>
+			<CarbonAlloy>20</CarbonAlloy>
+			<ComponentSpacer>6</ComponentSpacer>
+			<ArtificialBone>10</ArtificialBone>
+			<SyntheticFibers>20</SyntheticFibers>
+			<BioMicrochips>1</BioMicrochips>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>15</Crafting>
+			</skillRequirements>
+		</recipeMaker>
+		<techHediffsTags>
+			<li>Futuristic</li>
+		</techHediffsTags>
+	</ThingDef>
+
+	<HediffDef ParentName="HediffBodyPartBase_BionicImplant">
+		<defName>ExoskeletonSuit</defName>
+		<label>exoskeleton suit</label>
+		<description>An installed exoskeleton. Greatly improves overall body perfomance.</description>
+		<labelNoun>an exoskeleton</labelNoun>
+		<descriptionHyperlinks>
+			<ThingDef>ExoskeletonSuit</ThingDef>
+		</descriptionHyperlinks>
+		<addedPartProps>
+			<partEfficiency>1.15</partEfficiency>
+		</addedPartProps>
+		<stages>
+			<li>
+				<statOffsets>
+					<CarryingCapacity>+25</CarryingCapacity>
+				</statOffsets>
+				<capMods>
+					<li>
+						<capacity>Manipulation</capacity>
+						<offset>0.2</offset>
+					</li>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>0.2</offset>
+					</li>
+				</capMods>
+			</li>	 
+		</stages>
+		<spawnThingOnRemoved>ExoskeletonSuit</spawnThingOnRemoved>
+		<tags>
+			<li>ExoskeletonSuit</li>
+		</tags>
+	</HediffDef>
+
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>InstallExoskeletonSuit</defName>
+		<label>Install Exoskeleton suit</label>
+		<description>Installs an Exoskeleton.</description>
+		<workerClass>Recipe_InstallImplant</workerClass>
+		<jobString>Installing Exoskeleton.</jobString>
+		<workAmount>2500</workAmount>
+		<descriptionHyperlinks>
+			<ThingDef>ExoskeletonSuit</ThingDef>
+		</descriptionHyperlinks>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ExoskeletonSuit</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>ExoskeletonSuit</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Torso</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>ExoskeletonSuit</addsHediff>
+		<skillRequirements>
+			<Medicine>18</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>SK_Cybernetics</researchPrerequisite>
+		<incompatibleWithHediffTags>
+			<li>ExoskeletonSuit</li>
+		</incompatibleWithHediffTags>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SK_SurgeryRemoveImplantBase">
+		<defName>RemoveExoskeletonSuit</defName>
+		<label>remove exoskeleton suit</label>
+		<description>Remove exoskeleton suit.</description>
+		<descriptionHyperlinks>
+			<ThingDef>ExoskeletonSuit</ThingDef>
+		</descriptionHyperlinks>
+		<jobString>Removing exoskeleton suit.</jobString>
+		<removesHediff>ExoskeletonSuit</removesHediff>
+	</RecipeDef>
+
+
+	<!-- Protective exoskeleton -->
+
+	<HediffDef ParentName="HediffBodyPartBase_CyberneticImplant">
+		<defName>ProtectiveExoskeleton</defName>
+		<label>protective exoskeleton</label>
+		<description>An installed protective exoskeleton.</description>
+		<hediffClass>Hediff_Implant</hediffClass>
+		<descriptionHyperlinks>
+			<ThingDef>ProtectiveExoskeleton</ThingDef>
+		</descriptionHyperlinks>
+		<addedPartProps>
+			<partEfficiency>1.15</partEfficiency>
+		</addedPartProps>
+		<stages>
+			<li> 
+				<statFactors>
+					<IncomingDamageFactor>0.80</IncomingDamageFactor>
+				</statFactors>
+				<statOffsets>
+					<CarryingCapacity>+25</CarryingCapacity>
+				</statOffsets>
+				<capMods>
+					<li>
+						<capacity>Manipulation</capacity>
+						<offset>0.15</offset>
+					</li>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>0.12</offset>
+					</li>
+				</capMods>
+			</li>
+		</stages>
+		<comps>
+			<li Class="HediffCompProperties_ReactOnDamage">
+				<damageDefIncoming>EMP</damageDefIncoming>
+				<createHediff>EMP_ProtectiveExoskeleton</createHediff>
+			</li>
+		</comps>
+		<spawnThingOnRemoved>ProtectiveExoskeleton</spawnThingOnRemoved>
+		<tags>
+			<li>ExoskeletonSuit</li>
+		</tags>
+	</HediffDef>
+
+	<ThingDef ParentName="BodyPartBase_Cybernetic">
+		<defName>ProtectiveExoskeleton</defName>
+		<label>protective exoskeleton</label>
+		<description>A high tech device made out of a light skeletal structure and servomotors to support itself and the damage mitigation system used to protect the user.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>InstallProtectiveExoskeleton</RecipeDef>
+		</descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/CyberneticExoskeletonSuit</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<statBases>
+			<Mass>12</Mass>
+			<MaxHitPoints>250</MaxHitPoints>
+		</statBases>
+		<costList>
+			<CarbonAlloy>30</CarbonAlloy>
+			<ComponentSpacer>10</ComponentSpacer>
+			<SyntheticFibers>25</SyntheticFibers>
+			<ArtificialBone>10</ArtificialBone>
+			<MAAI_Chip>1</MAAI_Chip>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>19</Crafting>
+			</skillRequirements>
+		</recipeMaker>
+		<techHediffsTags>
+			<li>Futuristic</li>
+		</techHediffsTags>
+	</ThingDef>
+
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>InstallProtectiveExoskeleton</defName>
+		<label>install protective exoskeleton</label>
+		<description>Installs protective exoskeleton.</description>
+		<descriptionHyperlinks>
+			<ThingDef>ProtectiveExoskeleton</ThingDef>
+		</descriptionHyperlinks>
+		<jobString>Installing protective exoskeleton.</jobString>
+		<workerClass>Recipe_InstallImplant</workerClass>
+		<workAmount>3500</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ProtectiveExoskeleton</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>ProtectiveExoskeleton</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Torso</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>ProtectiveExoskeleton</addsHediff>
+		<incompatibleWithHediffTags>
+			<li>ExoskeletonSuit</li>
+		</incompatibleWithHediffTags>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SK_SurgeryRemoveImplantBase">
+		<defName>RemoveProtectiveExoskeleton</defName>
+		<label>remove protective exoskeleton</label>
+		<description>Remove protective exoskeleton.</description>
+		<descriptionHyperlinks>
+			<ThingDef>ProtectiveExoskeleton</ThingDef>
+		</descriptionHyperlinks>
+		<jobString>Removing protective exoskeleton.</jobString>
+		<removesHediff>ProtectiveExoskeleton</removesHediff>
+	</RecipeDef>	
+
+</Defs>

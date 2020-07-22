@@ -1,0 +1,100 @@
+<Patch>
+
+    <!-- Plant Work Speed -->
+    <Operation Class="PatchOperationReplace">
+        <xpath>Defs/StatDef[defName="PlantWorkSpeed"]/label</xpath>
+        <value>
+            <label>plant sowing speed</label>
+        </value>
+    </Operation>
+
+    <Operation Class="PatchOperationReplace">
+        <xpath>Defs/StatDef[defName="PlantWorkSpeed"]/description</xpath>
+        <value>
+            <description>The speed at which this person sows plants.</description>
+        </value>
+    </Operation>
+
+    <!-- Construction Speed -->
+    <Operation Class="PatchOperationReplace">
+        <xpath>Defs/StatDef[defName="ConstructionSpeed"]/minValue</xpath>
+        <value>
+            <minValue>0</minValue>
+        </value>
+    </Operation>
+
+    <Operation Class="PatchOperationSequence">
+        <success>Always</success>
+        <operations>
+            <li Class="PatchOperationTest">
+                <xpath>Defs/StatDef[defName="ConstructionSpeed"]/parts</xpath>
+                <success>Invert</success>
+            </li>
+            <li Class="PatchOperationAdd">
+                <xpath>Defs/StatDef[defName="ConstructionSpeed"]</xpath>
+                <value>
+                    <parts/>
+                </value>
+            </li>
+        </operations>
+    </Operation>
+
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/StatDef[defName="ConstructionSpeed"]/parts</xpath>
+        <value>
+            <li Class="SurvivalToolsLite.StatPart_SurvivalTool">
+                <noToolStatFactorHardcore>0</noToolStatFactorHardcore>
+            </li>
+        </value>
+    </Operation>
+
+    <!-- Mining Speed -->
+    <Operation Class="PatchOperationReplace">
+        <xpath>Defs/StatDef[defName="MiningSpeed"]/description</xpath>
+        <value>
+            <description>The speed at which this person drills for deep resources or performs mining tasks other than digging at walls.</description>
+        </value>
+    </Operation>
+
+    <!-- Mining Yield -->
+    <Operation Class="PatchOperationReplace">
+        <xpath>Defs/StatDef[defName="MiningYield"]/label</xpath>
+        <value>
+            <label>mining yield (other)</label>
+        </value>
+    </Operation>
+
+    <Operation Class="PatchOperationReplace">
+        <xpath>Defs/StatDef[defName="MiningYield"]/description</xpath>
+        <value>
+            <description>The percentage of mined resources a miner will produce. This applies to deep drill mining. This doesn't affect the production rate of rock chunks.</description>
+        </value>
+    </Operation>
+	
+	
+    <Operation Class="PatchOperationSequence">
+        <success>Always</success>
+        <operations>
+            <li Class="PatchOperationTest">
+                <xpath>Defs/StatDef[defName="SmithingSpeed"]/parts</xpath>
+                <success>Invert</success>
+            </li>
+            <li Class="PatchOperationAdd">
+                <xpath>Defs/StatDef[defName="SmithingSpeed"]</xpath>
+                <value>
+                    <parts/>
+                </value>
+            </li>
+        </operations>
+    </Operation>
+	
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/StatDef[defName="SmithingSpeed"]/parts</xpath>
+        <value>
+            <li Class="SurvivalToolsLite.StatPart_SurvivalTool">
+				<noToolStatFactor>0.7</noToolStatFactor>
+            </li>
+        </value>
+    </Operation>
+
+</Patch>

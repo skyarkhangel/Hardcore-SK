@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+			<li Class="PatchOperationTest">
+				<xpath>Defs/ThinkTreeDef[defName='SatisfyBasicNeeds']/thinkRoot[@Class='ThinkNode_Tagger']/subNodes/li[@Class='ThinkNode_PrioritySorter']/subNodes</xpath>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/ThinkTreeDef[defName='SatisfyBasicNeeds']/thinkRoot[@Class='ThinkNode_Tagger']/subNodes/li[@Class='ThinkNode_PrioritySorter']/subNodes</xpath>
+				<order>Prepend</order>
+				<value>
+					<li Class="SK.Events.JobGiver_SuckBlood"/>
+					<li Class="SK.Events.JobGiver_Absorb"/>
+					<li Class="SK.JobGiver_SustenainceFromFire"/>
+					<li Class="SK.JobGiver_GetRestPawnBedOK"/>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+	
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+			<li Class="PatchOperationTest">
+				<xpath>Defs/ThinkTreeDef[defName='Animal']/thinkRoot[@Class='ThinkNode_Priority']/subNodes/li[@Class='ThinkNode_ConditionalOfPlayerFaction']/subNodes/li[@Class='ThinkNode_Tagger']/subNodes</xpath>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/ThinkTreeDef[defName='Animal']/thinkRoot[@Class='ThinkNode_Priority']/subNodes/li[@Class='ThinkNode_ConditionalOfPlayerFaction']/subNodes/li[@Class='ThinkNode_Tagger']/subNodes</xpath>
+				<order>Prepend</order>
+				<value>
+						<li Class="ThinkNode_ChancePerHour_Constant">
+							<mtbHours>1.5</mtbHours>
+							<subNodes>
+								<li Class="SK.JobGiver_Scratch" />
+							</subNodes>
+						</li>
+						<li Class="ThinkNode_ChancePerHour_Constant">
+							<mtbHours>2</mtbHours>
+							<subNodes>
+								<li Class="SK.JobGiver_CrazyTime" />
+							</subNodes>
+						</li>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+</Patch>
