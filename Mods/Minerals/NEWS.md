@@ -1,3 +1,9 @@
+## v1.3.1
+
+* Fixed mineral low spawn rate bug
+* Fixes dynamic mineral spawn bug
+* Added Musdtone
+
 ## v1.3.0
 
 * **Now works with Vanilla Rimworld** as well as Hardcore SK
