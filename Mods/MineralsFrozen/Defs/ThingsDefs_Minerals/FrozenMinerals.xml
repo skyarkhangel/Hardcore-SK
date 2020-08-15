@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Defs>
   
-  <ThingDef ParentName="DynamicMineralBase" Class="MineralsFrozen.ThingDef_IceStalagmite">
+  <ThingDef ParentName="FrozenMineralBase" Class="MineralsFrozen.ThingDef_IceStalagmite">
     <thingClass>MineralsFrozen.IceStalagmite</thingClass>
     <defName>IceStalagmite</defName>
     <label>Ice Stalagmite</label>
@@ -21,16 +21,16 @@
     </graphicData>
     <uiIconPath>Things/Mineral/IceStalagmite/IceStalagmiteA</uiIconPath>
     <fillPercent>0.2</fillPercent>
-    <hideAtSnowDepth>2</hideAtSnowDepth>
+    <hideAtSnowDepth>5</hideAtSnowDepth>
     <filthLeaving></filthLeaving>
     <!--How far away it can spawn from an existing location-->
     <!-- Even though it is a static crystal, the map initialization uses "reproduction" to make clusters-->
     <spawnRadius>4</spawnRadius>
     <!-- The probability that this mineral type will be spawned at all on a given map -->
-    <perMapProbability>0.7</perMapProbability>
+    <perMapProbability>1.0</perMapProbability>
     <!--For a given map, the minimum/maximum probablility a cluster will spawn for every possible location -->
     <minClusterProbability>0.001</minClusterProbability>
-    <maxClusterProbability>0.003</maxClusterProbability>
+    <maxClusterProbability>0.01</maxClusterProbability>
     <!-- How  many squares each cluster will be -->
     <minClusterSize>1</minClusterSize>
     <maxClusterSize>10</maxClusterSize>
@@ -65,6 +65,11 @@
       <li>MuddyIce</li>
       <li>Crashland_Wasteland</li>
   		<li>RockySoil</li>
+      <li>Water</li>
+      <li>ShallowWater</li>
+      <li>WaterShallow</li>
+      <li>DeepWater</li>
+      <li>WaterDeep</li>
     </allowedTerrains>
     <!-- Controls how extra clusters are added near assocaited ore-->
     <associatedOres>
@@ -96,22 +101,22 @@
     <!-- The size range -->
     <visualSizeRange>
       <min>0.2</min>
-      <max>1.0</max>
+      <max>1.1</max>
     </visualSizeRange>
     <visualClustering>0.2</visualClustering>
     <!-- between 0 and 1. 0 = uniform distribution, 1 = normal distribution -->
     <visualSpread>1.5</visualSpread>
     <visualSizeVariation>0.3</visualSizeVariation>
     <!-- The number of days it takes to grow at max growth speed -->
-    <growDays>4</growDays>
+    <growDays>5</growDays>
     <!-- Chance of spawning de novo each check -->
-    <spawnProb>0.7</spawnProb>
+    <spawnProb>0.00005</spawnProb>
     <!-- Can spawn on items, pawns, and plants-->
-    <canSpawnOnThings>true</canSpawnOnThings>
+    <canSpawnOnThings>false</canSpawnOnThings>
     <!-- Growth rate modifiers -->
     <tempGrowthRateModifer>
       <active>true</active>
-      <aboveMaxDecayRate>7</aboveMaxDecayRate>
+      <aboveMaxDecayRate>5</aboveMaxDecayRate>
       <maxStable>5</maxStable>
       <maxGrow>2</maxGrow>
       <idealGrow>-1</idealGrow>
@@ -123,16 +128,18 @@
     <randomlyDropResources>
       <li>
         <ResourceDefName>IceBlocks</ResourceDefName>
-        <DropProbability>1</DropProbability>
+        <DropProbability>2</DropProbability>
         <CountPerDrop>5</CountPerDrop>
       </li>
     </randomlyDropResources>
     <!-- If smaller than 1, it looks smaller in water -->
-    <submergedSize>0</submergedSize>
+    <submergedSize>1</submergedSize>
     <submergedRadius>1</submergedRadius>
+        <!-- What stage of map generation the thing is spawned during (chunks or plants) -->
+    <newMapGenStep>chunks</newMapGenStep>
   </ThingDef>
   
-  <ThingDef ParentName="DynamicMineralBase" Class="MineralsFrozen.ThingDef_DeepSnow">
+  <ThingDef ParentName="FrozenMineralBase" Class="MineralsFrozen.ThingDef_DeepSnow">
     <thingClass>MineralsFrozen.SnowDrift</thingClass>
     <defName>ZF_SmoothSnowDrift</defName>
     <label>Deep Snow</label>
@@ -155,7 +162,7 @@
       </damageData>
     </graphicData>
     <uiIconPath>Things/Mineral/SmoothSnowDrift/SmoothSnowDriftA</uiIconPath>
-    <hideAtSnowDepth>2</hideAtSnowDepth>
+    <hideAtSnowDepth>5</hideAtSnowDepth>
     <filthLeaving/>
     <!--How far away it can spawn from an existing location-->
     <!-- Even though it is a static crystal, the map initialization uses "reproduction" to make clusters-->
@@ -164,7 +171,7 @@
     <perMapProbability>1.0</perMapProbability>
     <!-- For a given map, the minimum/maximum probablility a cluster will spawn for every possible location -->
     <minClusterProbability>0.01</minClusterProbability>
-    <maxClusterProbability>0.25</maxClusterProbability>
+    <maxClusterProbability>0.1</maxClusterProbability>
     <!-- How  many squares each cluster will be -->
     <minClusterSize>1</minClusterSize>
     <maxClusterSize>1</maxClusterSize>
@@ -174,8 +181,8 @@
     <!-- How much initial sizes of individuals randomly vary -->
     <initialSizeVariation>.05</initialSizeVariation>
     <!-- Reproduction and death settings -->
-    <minReproductionSize>.3</minReproductionSize>
-    <reproduceProp>0.05</reproduceProp>
+    <minReproductionSize>.2</minReproductionSize>
+    <reproduceProp>0.01</reproduceProp>
     <deathProb>0.9</deathProb>
     <!-- The biomes this can appear in. The default is all ones known to mod-->
     <allowedBiomes Inherit="False">
@@ -198,8 +205,8 @@
     <maxMeshCount>15</maxMeshCount>
     <!-- The size range -->
     <visualSizeRange>
-      <min>0.5</min>
-      <max>2.0</max>
+      <min>0.7</min>
+      <max>2.3</max>
     </visualSizeRange>
     <visualClustering>0.5</visualClustering>
     <!-- between 0 and 1. 0 = uniform distribution, 1 = normal distribution -->
@@ -207,11 +214,11 @@
     <!-- 1 = everything appears within cell and can spawn at edge when visualClustering == 0 -->
     <visualSizeVariation>0.2</visualSizeVariation>
     <!-- The number of days it takes to grow at max growth speed -->
-    <growDays>0.5</growDays>
+    <growDays>2</growDays>
     <!-- Chance of spawning de novo each check -->
-    <spawnProb>0.8</spawnProb>
+    <spawnProb>0.0002</spawnProb>
     <!-- Can spawn on items, pawns, and plants-->
-    <canSpawnOnThings>true</canSpawnOnThings>
+    <canSpawnOnThings>false</canSpawnOnThings>
     <!-- Growth rate modifiers -->
     <tempGrowthRateModifer>
       <active>true</active>
@@ -219,8 +226,8 @@
       <maxStable>1</maxStable>
       <maxGrow>0.5</maxGrow>
       <idealGrow>-5</idealGrow>
-      <minGrow>-35</minGrow>
-      <minStable>-40</minStable>
+      <minGrow>-45</minGrow>
+      <minStable>-60</minStable>
       <belowMinDecayRate>0.1</belowMinDecayRate>
     </tempGrowthRateModifer>
     <rainGrowthRateModifer>
@@ -231,7 +238,7 @@
       <idealGrow>2.0</idealGrow>
       <minGrow>0.1</minGrow>
       <minStable>0.05</minStable>
-      <belowMinDecayRate>5</belowMinDecayRate>
+      <belowMinDecayRate>2</belowMinDecayRate>
     </rainGrowthRateModifer>
     <fertGrowthRateModifer>
       <active>true</active>
@@ -247,17 +254,17 @@
     <randomlyDropResources>
       <li>
         <ResourceDefName>SnowBlocks</ResourceDefName>
-        <DropProbability>1</DropProbability>
+        <DropProbability>2</DropProbability>
         <CountPerDrop>5</CountPerDrop>
       </li>
     </randomlyDropResources>
   </ThingDef>
   
-  <ThingDef ParentName="DynamicMineralBase" Class="MineralsFrozen.ThingDef_SnowDrift">
+  <ThingDef ParentName="FrozenMineralBase" Class="MineralsFrozen.ThingDef_SnowDrift">
     <thingClass>MineralsFrozen.SnowDrift</thingClass>
     <defName>ZF_SnowDrift</defName>
     <label>Snow Drift</label>
-    <description>A wind-blown pile of snow. Tends to accumulate next to buildings and trees when the temperature is very low. Hard to walk through, but pretty in a way. Can be mined for snow blocks.</description>
+    <description>A wind-blown pile of snow. Tends to accumulate next to buildings and mountains when the temperature is very low. Hard to walk through, but pretty in a way. Can be mined for snow blocks.</description>
     <altitudeLayer>Zone</altitudeLayer>
     <pathCost>200</pathCost>
     <statBases>
@@ -276,7 +283,7 @@
       </damageData>
     </graphicData>
     <uiIconPath>Things/Mineral/SnowDrift/SnowDriftA</uiIconPath>
-    <hideAtSnowDepth>2</hideAtSnowDepth>
+    <hideAtSnowDepth>5</hideAtSnowDepth>
     <filthLeaving/>
     <!--How far away it can spawn from an existing location-->
     <!-- Even though it is a static crystal, the map initialization uses "reproduction" to make clusters-->
@@ -319,7 +326,7 @@
     <maxMeshCount>1</maxMeshCount>
     <!-- The size range -->
     <visualSizeRange>
-      <min>2.0</min>
+      <min>1.5</min>
       <max>3.5</max>
     </visualSizeRange>
     <visualClustering>1.0</visualClustering>
@@ -328,20 +335,20 @@
     <!-- 1 = everything appears within cell and can spawn at edge when visualClustering == 0 -->
     <visualSizeVariation>0.1</visualSizeVariation>
     <!-- The number of days it takes to grow at max growth speed -->
-    <growDays>0.5</growDays>
+    <growDays>3</growDays>
     <!-- Chance of spawning de novo each check -->
-    <spawnProb>0.6</spawnProb>
+    <spawnProb>0.00005</spawnProb>
     <!-- Can spawn on items, pawns, and plants-->
-    <canSpawnOnThings>true</canSpawnOnThings>
+    <canSpawnOnThings>false</canSpawnOnThings>
     <!-- Growth rate modifiers -->
     <tempGrowthRateModifer>
       <active>true</active>
       <aboveMaxDecayRate>3</aboveMaxDecayRate>
       <maxStable>0</maxStable>
-      <maxGrow>-5</maxGrow>
+      <maxGrow>-10</maxGrow>
       <idealGrow>-30</idealGrow>
-      <minGrow>-100</minGrow>
-      <minStable>-110</minStable>
+      <minGrow>-120</minGrow>
+      <minStable>-150</minStable>
       <belowMinDecayRate>0</belowMinDecayRate>
     </tempGrowthRateModifer>
     <rainGrowthRateModifer>
@@ -352,23 +359,13 @@
       <idealGrow>2</idealGrow>
       <minGrow>0.2</minGrow>
       <minStable>0.1</minStable>
-      <belowMinDecayRate>5</belowMinDecayRate>
+      <belowMinDecayRate>2</belowMinDecayRate>
     </rainGrowthRateModifer>
-    <fertGrowthRateModifer>
-      <active>true</active>
-      <aboveMaxDecayRate>0</aboveMaxDecayRate>
-      <maxStable>6</maxStable>
-      <maxGrow>5</maxGrow>
-      <idealGrow>1.2</idealGrow>
-      <minGrow>-1</minGrow>
-      <minStable>-2</minStable>
-      <belowMinDecayRate>0</belowMinDecayRate>
-    </fertGrowthRateModifer>
     <!-- Other resources it might drop -->
     <randomlyDropResources>
       <li>
         <ResourceDefName>SnowBlocks</ResourceDefName>
-        <DropProbability>2</DropProbability>
+        <DropProbability>4</DropProbability>
         <CountPerDrop>5</CountPerDrop>
       </li>
     </randomlyDropResources>
