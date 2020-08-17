@@ -3,8 +3,6 @@
 	<!-- Feenix -->
 	<Verse.ThingDef ParentName="SK_AnimalThingBase">
 		<defName>Feenix</defName>
-		<thingClass>SK.Feenix</thingClass>
-		<!-- Tried thingClass Pawn, didn't work -->
 		<label>Feenix</label>
 		<description>Said to be fire incarnate, a single Feenix can lay waste to an entire colony. The leave a trail of flames wherever they go. Their hearts will continue to pulse with heat even after the creature has died.</description>
 		<tickerType>Normal</tickerType>
@@ -20,24 +18,28 @@
 			<ArmorRating_Sharp>4</ArmorRating_Sharp>
 			<MeleeDodgeChance>0.05</MeleeDodgeChance>
 			<MeleeCritChance>0</MeleeCritChance>
+			<GermResistance>0.45</GermResistance>
+			<GermContainment>0.15</GermContainment>
 		</statBases>
 		<verbs>
 			<li Class="CombatExtended.VerbPropertiesCE">
-				<recoilAmount>0.5</recoilAmount>
+				<recoilAmount>0.95</recoilAmount>
 				<verbClass>Verb_Shoot</verbClass>
-				<accuracyTouch>0.6</accuracyTouch>
-				<accuracyShort>0.8</accuracyShort>
-				<accuracyMedium>0.7</accuracyMedium>
-				<accuracyLong>0.4</accuracyLong>
+				<accuracyTouch>1</accuracyTouch>
+				<accuracyShort>1</accuracyShort>
+				<accuracyMedium>1</accuracyMedium>
+				<accuracyLong>1</accuracyLong>
 				<hasStandardCommand>true</hasStandardCommand>
 				<defaultProjectile>DragonFireBreathOmega</defaultProjectile>
 				<warmupTime>3</warmupTime>
-				<burstShotCount>24</burstShotCount>
+				<burstShotCount>18</burstShotCount>
 				<ticksBetweenBurstShots>3</ticksBetweenBurstShots>
 				<minRange>4</minRange>
 				<range>17</range>
 				<soundCast>FlameThrower</soundCast>
-				<muzzleFlashScale>4</muzzleFlashScale>
+				<muzzleFlashScale>0</muzzleFlashScale>
+				<!--Commanility determines how frequent this range verb is chosen.-->
+				<commonality>0.5</commonality>
 			</li>
 		</verbs>
 		<tools>
@@ -114,9 +116,15 @@
 					<max>1</max>
 				</eggCountRange>
 			</li>
+			<li Class="SK.CompProperties_Regeneration">
+				<rateInTicks>250</rateInTicks> <!-- frequency in ticks -->
+				<regenerationType>1</regenerationType> <!-- 1, 2 -->
+			</li>
+			<li Class="SK.CompProperties_Phoenix">
+				<rateInTicks>250</rateInTicks> <!-- frequency in ticks -->
+			</li>
 		</comps>
 		<race>
-			<thinkTreeMain>Feenix</thinkTreeMain>
 			<predator>true</predator>
 			<maxPreyBodySize>1.5</maxPreyBodySize>
 			<herdMigrationAllowed>false</herdMigrationAllowed>
@@ -167,6 +175,7 @@
 			<li Class="CombatExtended.RacePropertiesExtensionCE">
 				<bodyShape>Quadruped</bodyShape>
 			</li>
+			<li Class="SK.FireAnimalExtension"/>
 		</modExtensions>
 	</Verse.ThingDef>
 
@@ -234,7 +243,6 @@
 	<!-- Wyvern-->
 	<Verse.ThingDef ParentName="SK_AnimalThingBase">
 		<defName>GreenWyvern</defName>
-		<thingClass>SK.Feenix</thingClass>
 		<label>green wyvern</label>
 		<description>A large, volatile draconic predator. Unlike true dragons, wyverns are capable of flight using their modified arms rather than distinct wing appendages.</description>
 		<tickerType>Normal</tickerType>
@@ -250,24 +258,28 @@
 			<ArmorRating_Sharp>2.5</ArmorRating_Sharp>
 			<MeleeDodgeChance>0.05</MeleeDodgeChance>
 			<MeleeCritChance>0</MeleeCritChance>
+			<GermResistance>0.3</GermResistance>
+			<GermContainment>0.2</GermContainment>
 		</statBases>
 		<verbs>
 			<li Class="CombatExtended.VerbPropertiesCE">
-				<recoilAmount>0.5</recoilAmount>
+				<recoilAmount>0.95</recoilAmount>
 				<verbClass>Verb_Shoot</verbClass>
-				<accuracyTouch>0.6</accuracyTouch>
-				<accuracyShort>0.8</accuracyShort>
-				<accuracyMedium>0.7</accuracyMedium>
-				<accuracyLong>0.4</accuracyLong>
+				<accuracyTouch>1</accuracyTouch>
+				<accuracyShort>1</accuracyShort>
+				<accuracyMedium>1</accuracyMedium>
+				<accuracyLong>1</accuracyLong>
 				<hasStandardCommand>true</hasStandardCommand>
 				<defaultProjectile>DragonFireBreathAlpha</defaultProjectile>
 				<warmupTime>3</warmupTime>
-				<burstShotCount>20</burstShotCount>
+				<burstShotCount>16</burstShotCount>
 				<ticksBetweenBurstShots>3</ticksBetweenBurstShots>
 				<minRange>4</minRange>
-				<range>14</range>
+				<range>15</range>
 				<soundCast>FlameThrower</soundCast>
-				<muzzleFlashScale>4</muzzleFlashScale>
+				<muzzleFlashScale>0</muzzleFlashScale>
+				<!--Commanility determines how frequent this range verb is chosen.-->
+				<commonality>0.45</commonality>
 			</li>
 		</verbs>
 		<tools>
@@ -345,7 +357,6 @@
 			</li>
 		</comps>
 		<race>
-			<thinkTreeMain>Feenix</thinkTreeMain>
 			<predator>true</predator>
 			<maxPreyBodySize>1.5</maxPreyBodySize>
 			<herdMigrationAllowed>false</herdMigrationAllowed>
@@ -484,15 +495,17 @@
 			<ArmorRating_Sharp>2.5</ArmorRating_Sharp>
 			<MeleeDodgeChance>0.05</MeleeDodgeChance>
 			<MeleeCritChance>0</MeleeCritChance>
+			<GermResistance>1.0</GermResistance>
+			<GermContainment>1.0</GermContainment>
 		</statBases>
 		<verbs>
 			<li Class="CombatExtended.VerbPropertiesCE">
-				<recoilAmount>0.5</recoilAmount>
+				<recoilAmount>0.95</recoilAmount>
 				<verbClass>Verb_Shoot</verbClass>
-				<accuracyTouch>0.6</accuracyTouch>
-				<accuracyShort>0.8</accuracyShort>
-				<accuracyMedium>0.7</accuracyMedium>
-				<accuracyLong>0.4</accuracyLong>
+				<accuracyTouch>1</accuracyTouch>
+				<accuracyShort>1</accuracyShort>
+				<accuracyMedium>1</accuracyMedium>
+				<accuracyLong>1</accuracyLong>
 				<hasStandardCommand>true</hasStandardCommand>
 				<defaultProjectile>DragonCryo</defaultProjectile>
 				<warmupTime>3</warmupTime>
@@ -501,7 +514,9 @@
 				<minRange>4</minRange>
 				<range>12</range>
 				<soundCast>FlameThrower</soundCast>
-				<muzzleFlashScale>4</muzzleFlashScale>
+				<muzzleFlashScale>0</muzzleFlashScale>
+				<!--Commanility determines how frequent this range verb is chosen.-->
+				<commonality>0.3</commonality>
 			</li>
 		</verbs>
 		<tools>
@@ -697,24 +712,28 @@
 			<MarketValue>15000</MarketValue>
 			<MeleeDodgeChance>0.25</MeleeDodgeChance>
 			<MeleeCritChance>0</MeleeCritChance>
+			<GermResistance>0.33</GermResistance>
+			<GermContainment>0.2</GermContainment>
 		</statBases>
 		<verbs>
 			<li Class="CombatExtended.VerbPropertiesCE">
-				<recoilAmount>0.5</recoilAmount>
+				<recoilAmount>0.95</recoilAmount>
 				<verbClass>Verb_Shoot</verbClass>
-				<accuracyTouch>0.6</accuracyTouch>
-				<accuracyShort>0.8</accuracyShort>
-				<accuracyMedium>0.7</accuracyMedium>
-				<accuracyLong>0.4</accuracyLong>
+				<accuracyTouch>1</accuracyTouch>
+				<accuracyShort>1</accuracyShort>
+				<accuracyMedium>1</accuracyMedium>
+				<accuracyLong>1</accuracyLong>
 				<hasStandardCommand>true</hasStandardCommand>
 				<defaultProjectile>DragonFireBreathBeta</defaultProjectile>
 				<warmupTime>3</warmupTime>
-				<burstShotCount>20</burstShotCount>
+				<burstShotCount>17</burstShotCount>
 				<ticksBetweenBurstShots>3</ticksBetweenBurstShots>
 				<minRange>4</minRange>
 				<range>17</range>
 				<soundCast>FlameThrower</soundCast>
-				<muzzleFlashScale>4</muzzleFlashScale>
+				<muzzleFlashScale>0</muzzleFlashScale>
+				<!--Commanility determines how frequent this range verb is chosen.-->
+				<commonality>0.4</commonality>
 			</li>
 		</verbs>
 		<tools>
@@ -976,6 +995,8 @@
 			<MeatAmount>70</MeatAmount>
 			<MeleeDodgeChance>0.15</MeleeDodgeChance>
 			<MeleeCritChance>0</MeleeCritChance>
+			<GermResistance>0.4</GermResistance>
+			<GermContainment>0.2</GermContainment>
 		</statBases>
 		<tools>
 			<li Class="CombatExtended.ToolCE">
@@ -1164,10 +1185,7 @@
 		<race>FRaptor</race>
 		<combatPower>400</combatPower>
 		<ecoSystemWeight>0.9</ecoSystemWeight>
-		<wildGroupSize>
-			<min>1</min>
-			<max>3</max>
-		</wildGroupSize>
+		<wildGroupSize>1~3</wildGroupSize>
 		<lifeStages>
 			<li>
 				<label>Baby raptor</label>
@@ -1250,6 +1268,8 @@
 			<ArmorRating_Sharp>1.8</ArmorRating_Sharp>
 			<MeleeDodgeChance>0.05</MeleeDodgeChance>
 			<MeleeCritChance>0</MeleeCritChance>
+			<GermResistance>0.75</GermResistance>
+			<GermContainment>0.25</GermContainment>
 		</statBases>
 		<tickerType>Normal</tickerType>
 		<tools>
@@ -1298,6 +1318,15 @@
 				<armorPenetrationBlunt>12</armorPenetrationBlunt>
 			</li>
 		</tools>
+		<comps>
+			<li Class="SK.CompProperties_FilthProducer">
+				<filthType>Filth_AnimalFilth</filthType>
+				<ticksToCreateFilth>1500</ticksToCreateFilth>
+			</li>
+			<li Class="SK.CompProperties_Regeneration">
+				<rateInTicks>500</rateInTicks>
+			</li>
+		</comps>
 		<race>
 			<predator>true</predator>
 			<maxPreyBodySize>1.5</maxPreyBodySize>

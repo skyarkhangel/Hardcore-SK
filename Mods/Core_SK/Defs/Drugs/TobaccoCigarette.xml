@@ -1,10 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-
 	<ThingDef ParentName="VG_MakeableDrugBase">
 		<defName>TobaccoCigarette</defName>
 		<label>cigarette</label>
 		<description>Tobacco use can produce a dependency. Can be produced without equipment, at a crafting spot.</description>
+		<descriptionHyperlinks>
+			<HediffDef>NicotineHigh</HediffDef>
+			<HediffDef>NicotineTolerance</HediffDef>
+			<HediffDef>SmokeleafAddiction</HediffDef>
+			<HediffDef>Carcinoma</HediffDef>
+			<HediffDef>Asthma</HediffDef>
+		</descriptionHyperlinks>
 		<graphicData>
 			<texPath>Things/Item/Drug/Tobacco/RollCigarette</texPath>
 			<graphicClass>Graphic_StackCount</graphicClass>
@@ -81,17 +87,18 @@
 			</li>
 		</comps>
 	</ThingDef>
-
 	<HediffDef>
 		<defName>NicotineHigh</defName>
-		<hediffClass>HediffWithComps</hediffClass>
+		<hediffClass>Hediff_High</hediffClass>
 		<label>high on nicotine</label>
+		<description>I feel more confident after smoking.</description>
 		<defaultLabelColor>(1,0,0.5)</defaultLabelColor>
 		<scenarioCanAdd>true</scenarioCanAdd>
 		<maxSeverity>1.0</maxSeverity>
 		<comps>
 			<li Class="HediffCompProperties_SeverityPerDay">
 				<severityPerDay>-0.30</severityPerDay>
+				<showDaysToRecover>true</showDaysToRecover>
 			</li>
 		</comps>
 		<stages>
@@ -109,16 +116,15 @@
 				</capMods>
 				<statOffsets>
 					<MentalBreakThreshold>-0.1</MentalBreakThreshold>
-				</statOffsets>			  
+				</statOffsets>
 			</li>
 		</stages>
 	</HediffDef>
-
 	<ThoughtDef>
 		<defName>NicotineHigh</defName>
 		<workerClass>ThoughtWorker_Hediff</workerClass>
 		<hediff>NicotineHigh</hediff>
-		<validWhileDespawned>true</validWhileDespawned>	
+		<validWhileDespawned>true</validWhileDespawned>
 		<stages>
 			<li>
 				<label>high on nicotine</label>
@@ -127,16 +133,13 @@
 			</li>
 		</stages>
 	</ThoughtDef>
-
 	<!-- Nicotine addiction -->
-
 	<ChemicalDef>
 		<defName>Nicotine</defName>
 		<label>Nicotine</label>
 		<addictionHediff>NicotineAddiction</addictionHediff>
 		<toleranceHediff>NicotineTolerance</toleranceHediff>
 	</ChemicalDef>
-
 	<NeedDef ParentName="DrugAddictionNeedBase">
 		<defName>Chemical_Nicotine</defName>
 		<needClass>Need_Chemical</needClass>
@@ -144,13 +147,14 @@
 		<description>Because of a developed Nicotine dependence, this person needs to regularly consume the drug to avoid withdrawal symptoms.</description>
 		<listPriority>26</listPriority>
 	</NeedDef>
-
 	<HediffDef ParentName="DrugToleranceBase">
 		<defName>NicotineTolerance</defName>
 		<label>Nicotine tolerance</label>
+		<description>A built-up tolerance to nicotine. The more severe this tolerance is, the more nicotine it takes to get the same effect.</description>
 		<comps>
 			<li Class="HediffCompProperties_SeverityPerDay">
 				<severityPerDay>-0.015</severityPerDay>
+				<showDaysToRecover>true</showDaysToRecover>
 			</li>
 			<li Class="HediffCompProperties_DrugEffectFactor">
 				<chemical>Nicotine</chemical>
@@ -177,17 +181,18 @@
 			</li>
 		</hediffGivers>
 	</HediffDef>
-
 	<HediffDef ParentName="AddictionBase">
 		<defName>NicotineAddiction</defName>
 		<hediffClass>Hediff_Addiction</hediffClass>
 		<label>Nicotine dependence</label>
+		<description>A chemical addiction to nicotine. Long-term presence of nicotine has caused neurological adaptations at the cellular level, so the brain can no longer function properly without the drug.\nWithout regular doses of nicotine, withdrawal symptoms will begin. However, extended abstinence will force the brain to adapt back to its normal state, resolving the addiction.</description>
 		<causesNeed>Chemical_Nicotine</causesNeed>
 		<comps>
 			<li Class="HediffCompProperties_SeverityPerDay">
 				<severityPerDay>-0.02</severityPerDay>
+				<showDaysToRecover>true</showDaysToRecover>
 			</li>
-		</comps>			
+		</comps>
 		<stages>
 			<li>
 			</li>
@@ -201,11 +206,10 @@
 				</mentalStateGivers>
 				<statOffsets>
 					<MentalBreakThreshold>0.1</MentalBreakThreshold>
-				</statOffsets>		
+				</statOffsets>
 			</li>
 		</stages>
 	</HediffDef>
-
 	<ThoughtDef>
 		<defName>NicotineWithdrawal</defName>
 		<workerClass>ThoughtWorker_Hediff</workerClass>
@@ -221,5 +225,4 @@
 			</li>
 		</stages>
 	</ThoughtDef>
-
 </Defs>

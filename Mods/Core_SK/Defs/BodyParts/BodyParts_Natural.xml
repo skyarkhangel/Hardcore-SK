@@ -1,0 +1,765 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<ThingDef Name="BodyPartBase_Natural" ParentName="SK_BodyPartBase" Abstract="True">
+		<graphicData>
+			<texPath>Things/Item/BodyPart/Organ</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<thingCategories>
+			<li>BodyPartsNatural</li>
+		</thingCategories>
+		<tradeTags>
+			<li>TechHediff</li>
+		</tradeTags>
+		<statBases>
+			<DeteriorationRate>4.0</DeteriorationRate>
+		</statBases>		
+		<tickerType>Rare</tickerType>
+		<comps>
+			<li Class="CompProperties_Rottable">
+				<daysToRotStart>1</daysToRotStart>
+				<rotDestroys>true</rotDestroys>
+			</li>
+		</comps>
+	</ThingDef>
+	
+	<ThingDef Name="BodyPartBase_NaturalMakeable" ParentName="BodyPartBase_Natural" Abstract="True">
+		<recipeMaker>
+			<workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+			<workSkillLearnPerTick>0.8</workSkillLearnPerTick>	  
+			<workSkill>Crafting</workSkill>
+			<workAmount>2500</workAmount>
+			<effectWorking>Cook</effectWorking>
+			<soundWorking>Bodypart_growing</soundWorking>
+			<unfinishedThingDef>UnfinishedHealthItemProsthetic</unfinishedThingDef>
+			<skillRequirements>
+				<Medicine>13</Medicine>
+			</skillRequirements>
+			<recipeUsers>
+				<li>TableOrganvat</li>
+			</recipeUsers>
+		</recipeMaker>
+	</ThingDef>
+
+	<HediffDef Name="HediffBodyPartBase_Natural" Abstract="True">
+		<hediffClass>Hediff_AddedPart</hediffClass>
+		<isBad>false</isBad>
+		<defaultLabelColor>(0.5, 0.5, 0.9)</defaultLabelColor>
+		<priceImpact>true</priceImpact>
+	</HediffDef>
+
+	<RecipeDef Name="SurgeryNatural" ParentName="SK_SurgeryFlesh" Abstract="True">
+		<workerClass>Recipe_InstallNaturalBodyPart</workerClass>
+		<surgerySuccessChanceFactor>0.9</surgerySuccessChanceFactor>
+		<deathOnFailedSurgeryChance>0.05</deathOnFailedSurgeryChance>
+		<workAmount>3100</workAmount>
+	</RecipeDef>
+
+	<!-- Natural parts - can be harvested, or grown in the organ vat -->
+
+
+	<ThingDef ParentName="BodyPartBase_NaturalMakeable">
+		<defName>Eye</defName>
+		<label>Eye</label>
+		<description>A replacement eye that was either removed from a live body, or fabricated from BioMatter.</description>
+		<descriptionHyperlinks><RecipeDef>InstallNaturalEye</RecipeDef></descriptionHyperlinks>
+		<statBases>
+			<MarketValue>420</MarketValue>
+			<Mass>0.3</Mass>
+		</statBases>
+		<costList>
+			<Biomatter>35</Biomatter>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Medicine>13</Medicine>
+			</skillRequirements>
+		</recipeMaker>
+	</ThingDef>
+
+	<HediffDef ParentName="HediffBodyPartBase_Natural">
+		<defName>Eye</defName>
+		<label>eye</label>
+		<description>An installed biological eye.</description>
+		<descriptionHyperlinks><ThingDef>Eye</ThingDef></descriptionHyperlinks>
+		<addedPartProps>
+			<solid>true</solid>
+			<partEfficiency>1.0</partEfficiency>
+		</addedPartProps>
+		<spawnThingOnRemoved>Eye</spawnThingOnRemoved>
+	</HediffDef>
+
+	<RecipeDef ParentName="SurgeryNatural">
+		<defName>InstallNaturalEye</defName>
+		<label>Install Eye</label>
+		<description>Installs a natural Eye.</description>
+		<jobString>Installing Eye.</jobString>
+		<workAmount>2800</workAmount>
+		<descriptionHyperlinks><ThingDef>Eye</ThingDef></descriptionHyperlinks>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Eye</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>Eye</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Eye</li>
+		</appliedOnFixedBodyParts>
+		<skillRequirements>
+			<Medicine>10</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>VitalsMonitorI</researchPrerequisite>
+	</RecipeDef>
+
+	<ThingDef ParentName="BodyPartBase_NaturalMakeable">
+		<defName>Ear</defName>
+		<label>Ear</label>
+		<description>A replacement ear fabricated from BioMatter.</description>
+		<descriptionHyperlinks><RecipeDef>RepairCosmeticEar</RecipeDef></descriptionHyperlinks>
+		<statBases>
+			<MarketValue>410</MarketValue>
+			<Mass>0.3</Mass>
+		</statBases>
+		<costList>
+			<Biomatter>35</Biomatter>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Medicine>12</Medicine>
+			</skillRequirements>
+		</recipeMaker>
+	</ThingDef>
+
+	<ThingDef ParentName="BodyPartBase_NaturalMakeable">
+		<defName>Nose</defName>
+		<label>Nose</label>
+		<description>A replacement nose fabricated from BioMatter.</description>
+		<descriptionHyperlinks><RecipeDef>RepairCosmeticNose</RecipeDef></descriptionHyperlinks>
+		<statBases>
+			<MarketValue>504</MarketValue>
+			<Mass>0.3</Mass>
+		</statBases>
+		<costList>
+			<Biomatter>35</Biomatter>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Medicine>12</Medicine>
+			</skillRequirements>
+		</recipeMaker>
+	</ThingDef>
+
+	<ThingDef ParentName="BodyPartBase_NaturalMakeable">
+		<defName>Heart</defName>
+		<label>Heart</label>
+		<description>Supplies blood and oxygen to all parts of the body. Ready to find a new owner.</description>
+		<descriptionHyperlinks><RecipeDef>InstallNaturalHeart</RecipeDef></descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/Heart</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<statBases>
+			<MarketValue>650</MarketValue>
+			<Mass>2</Mass>
+		</statBases>
+		<costList>
+			<Biomatter>35</Biomatter>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Medicine>14</Medicine>
+			</skillRequirements>
+		</recipeMaker>
+	</ThingDef>
+
+	<HediffDef ParentName="HediffBodyPartBase_Natural">
+		<defName>Heart</defName>
+		<label>heart</label>
+		<description>An installed natural heart. Supplies blood and oxygen to all parts of the body. Ready to find a new owner.</description>
+		<descriptionHyperlinks><ThingDef>Heart</ThingDef></descriptionHyperlinks>
+		<addedPartProps>
+			<solid>true</solid>
+			<partEfficiency>1.0</partEfficiency>
+		</addedPartProps>
+		<spawnThingOnRemoved>Heart</spawnThingOnRemoved>
+	</HediffDef>
+
+	<RecipeDef ParentName="SurgeryNatural">
+		<defName>InstallNaturalHeart</defName>
+		<label>Install Heart</label>
+		<description>Installs a naturally grown Heart.</description>
+		<jobString>Installing Heart.</jobString>
+		<workAmount>3800</workAmount>
+		<surgerySuccessChanceFactor>0.8</surgerySuccessChanceFactor>
+		<deathOnFailedSurgeryChance>0.15</deathOnFailedSurgeryChance>
+		<descriptionHyperlinks><ThingDef>Heart</ThingDef></descriptionHyperlinks>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Heart</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>Heart</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Heart</li>
+		</appliedOnFixedBodyParts>
+		<skillRequirements>
+			<Medicine>13</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>VitalsMonitorI</researchPrerequisite>
+	</RecipeDef>
+
+
+	<ThingDef ParentName="BodyPartBase_NaturalMakeable">
+		<defName>Lung</defName>
+		<label>Lung</label>
+		<description>An essential part of the respiratory system.</description>
+		<descriptionHyperlinks><RecipeDef>InstallNaturalLung</RecipeDef></descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/Lungs</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<statBases>
+			<MarketValue>500</MarketValue>
+			<Mass>2</Mass>
+		</statBases>
+		<costList>
+			<Biomatter>35</Biomatter>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Medicine>13</Medicine>
+			</skillRequirements>
+		</recipeMaker>
+	</ThingDef>
+
+	<RecipeDef ParentName="SurgeryNatural">
+		<defName>InstallNaturalLung</defName>
+		<label>Install Lung</label>
+		<description>Installs a natural Lung.</description>
+		<jobString>Installing Lung.</jobString>
+		<workAmount>3200</workAmount>
+		<descriptionHyperlinks><ThingDef>Lung</ThingDef></descriptionHyperlinks>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Lung</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>Lung</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Lung</li>
+		</appliedOnFixedBodyParts>
+		<skillRequirements>
+			<Medicine>11</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>VitalsMonitorI</researchPrerequisite>
+	</RecipeDef>
+
+	<ThingDef ParentName="BodyPartBase_NaturalMakeable">
+		<defName>Liver</defName>
+		<label>Liver</label>
+		<description>Plays an important role in metabolism.</description>
+		<descriptionHyperlinks><RecipeDef>InstallNaturalLiver</RecipeDef></descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/Liver</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<statBases>
+			<MarketValue>504</MarketValue>
+			<Mass>2</Mass>
+		</statBases>
+		<costList>
+			<Biomatter>35</Biomatter>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Medicine>13</Medicine>
+			</skillRequirements>
+		</recipeMaker>
+	</ThingDef>	
+
+	<RecipeDef ParentName="SurgeryNatural">
+		<defName>InstallNaturalLiver</defName>
+		<label>Install Liver</label>
+		<description>Installs a natural Liver.</description>
+		<jobString>Installing Liver.</jobString>
+		<workAmount>3200</workAmount>
+		<descriptionHyperlinks><ThingDef>Liver</ThingDef></descriptionHyperlinks>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Liver</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>Liver</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Liver</li>
+		</appliedOnFixedBodyParts>
+		<skillRequirements>
+			<Medicine>11</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>VitalsMonitorI</researchPrerequisite>
+	</RecipeDef>
+
+	<ThingDef ParentName="BodyPartBase_NaturalMakeable">
+		<defName>Kidney</defName>
+		<label>Kidney</label>
+		<description>Filters and removes waste products from the blood.</description>
+		<descriptionHyperlinks><RecipeDef>InstallNaturalKidney</RecipeDef></descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/Kidney</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<statBases>
+			<MarketValue>420</MarketValue>
+			<Mass>2</Mass>
+		</statBases>
+		<costList>
+			<Biomatter>35</Biomatter>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Medicine>13</Medicine>
+			</skillRequirements>
+		</recipeMaker>
+	</ThingDef>
+
+	<RecipeDef ParentName="SurgeryNatural">
+		<defName>InstallNaturalKidney</defName>
+		<label>Install Kidney</label>
+		<description>Installs a natural Kidney.</description>
+		<jobString>Installing Kidney.</jobString>
+		<workAmount>3200</workAmount>
+		 <descriptionHyperlinks><ThingDef>Kidney</ThingDef></descriptionHyperlinks>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Kidney</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>Kidney</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Kidney</li>
+		</appliedOnFixedBodyParts>
+		<skillRequirements>
+			<Medicine>11</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>VitalsMonitorI</researchPrerequisite>
+	</RecipeDef>
+
+
+	<ThingDef ParentName="BodyPartBase_NaturalMakeable">
+		<defName>Stomach</defName>
+		<label>Stomach</label>
+		<description>Digests food and turns it into energy and nutrients.</description>
+		<descriptionHyperlinks><RecipeDef>InstallNaturalStomach</RecipeDef></descriptionHyperlinks>
+		<statBases>
+			<MarketValue>500</MarketValue>
+			<Mass>1</Mass>
+		</statBases>
+		<costList>
+			<Biomatter>35</Biomatter>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Medicine>13</Medicine>
+			</skillRequirements>
+		</recipeMaker>
+	</ThingDef>
+
+	<HediffDef ParentName="HediffBodyPartBase_Natural">
+		<defName>Stomach</defName>
+		<label>stomach</label>
+		<description>An installed natural stomach. Digests food and turns it into energy and nutrients.</description>
+		<descriptionHyperlinks><ThingDef>Stomach</ThingDef></descriptionHyperlinks>
+		<addedPartProps>
+			<solid>true</solid>
+			<partEfficiency>1.0</partEfficiency>
+		</addedPartProps>
+		<spawnThingOnRemoved>Stomach</spawnThingOnRemoved>
+	</HediffDef>
+
+	<RecipeDef ParentName="SurgeryNatural">
+		<defName>InstallNaturalStomach</defName>
+		<label>Install Stomach</label>
+		<description>Installs a natural Stomach.</description>
+		<jobString>Installing Stomach.</jobString>
+		<workAmount>3300</workAmount>
+		<descriptionHyperlinks><ThingDef>Stomach</ThingDef></descriptionHyperlinks>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Stomach</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>Stomach</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Stomach</li>
+		</appliedOnFixedBodyParts>
+		<skillRequirements>
+			<Medicine>10</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>VitalsMonitorI</researchPrerequisite>
+	</RecipeDef>
+
+
+	<ThingDef ParentName="BodyPartBase_Natural">
+		<defName>Jaw</defName>
+		<label>Jaw</label>
+		<description>A nice set of teeth for chewing food and talking.</description>
+		<descriptionHyperlinks><RecipeDef>InstallNaturalJaw</RecipeDef></descriptionHyperlinks>
+		<statBases>
+			<MarketValue>300</MarketValue>
+			<Mass>0.3</Mass>
+		</statBases>
+	</ThingDef>
+
+	<HediffDef ParentName="HediffBodyPartBase_Natural">
+		<defName>Jaw</defName>
+		<label>jaw</label>
+		<description>An installed natural stomach. A nice set of teeth for chewing food and talking.</description>
+		<descriptionHyperlinks><ThingDef>Jaw</ThingDef></descriptionHyperlinks>
+		<addedPartProps>
+			<solid>true</solid>
+			<partEfficiency>1.0</partEfficiency>
+		</addedPartProps>
+		<spawnThingOnRemoved>Jaw</spawnThingOnRemoved>
+	</HediffDef>
+
+	<RecipeDef ParentName="SurgeryNatural">
+		<defName>InstallNaturalJaw</defName>
+		<label>Install Jaw</label>
+		<description>Installs a natural Jaw.</description>
+		<jobString>Installing Jaw.</jobString>
+		<workAmount>2200</workAmount>
+		<descriptionHyperlinks><ThingDef>Jaw</ThingDef></descriptionHyperlinks>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Jaw</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>Jaw</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Jaw</li>
+		</appliedOnFixedBodyParts>
+		<skillRequirements>
+			<Medicine>8</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>VitalsMonitor</researchPrerequisite>
+	</RecipeDef>
+
+
+	<ThingDef ParentName="BodyPartBase_Natural">
+		<defName>Leg</defName>
+		<label>Leg</label>
+		<description>They're long meaty sticks that let you move around.</description>
+		<descriptionHyperlinks><RecipeDef>InstallNaturalLeg</RecipeDef></descriptionHyperlinks>
+		<statBases>
+			<MarketValue>510</MarketValue>
+			<Mass>7</Mass>
+		</statBases>
+	</ThingDef>
+
+	<HediffDef ParentName="HediffBodyPartBase_Natural">
+		<defName>Leg</defName>
+		<label>leg</label>
+		<description>An installed natural leg. They're long meaty sticks that let you move around.</description>
+		<descriptionHyperlinks><ThingDef>Leg</ThingDef></descriptionHyperlinks>
+		<addedPartProps>
+			<solid>true</solid>
+			<partEfficiency>1.0</partEfficiency>
+		</addedPartProps>
+		<spawnThingOnRemoved>Leg</spawnThingOnRemoved>
+	</HediffDef>
+
+	<RecipeDef ParentName="SurgeryNatural">
+		<defName>InstallNaturalLeg</defName>
+		<label>Install Leg</label>
+		<description>Installs a natural Leg.</description>
+		<jobString>Installing Leg.</jobString>
+		<workAmount>3600</workAmount>
+		<descriptionHyperlinks><ThingDef>Leg</ThingDef></descriptionHyperlinks>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Leg</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>Leg</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Leg</li>
+		</appliedOnFixedBodyParts>
+		<skillRequirements>
+			<Medicine>10</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>VitalsMonitorI</researchPrerequisite>
+	</RecipeDef>
+
+	<!--
+  <ThingDef ParentName="BodyPartBase_Natural">
+	<defName>Brain</defName>
+    <label>brain</label>
+	<description>Lets you know whos in charge</description>
+	<graphicPath>Things/Item/BodyPart/MedOrgan</graphicPath>
+	<graphicClass>Graphic_Single</graphicClass>
+	<statBases>
+	  <MarketValue>500</MarketValue>
+    </statBases>
+</ThingDef>
+-->
+
+	<ThingDef ParentName="BodyPartBase_Natural">
+		<defName>Arm</defName>
+		<label>Arm</label>
+		<description>Arms are like legs, except you can carry stuff with them.</description>
+		<descriptionHyperlinks><RecipeDef>InstallNaturalArm</RecipeDef></descriptionHyperlinks>
+		<statBases>
+			<MarketValue>520</MarketValue>
+			<Mass>4</Mass>
+		</statBases>
+	</ThingDef>
+
+	<HediffDef ParentName="HediffBodyPartBase_Natural">
+		<defName>Arm</defName>
+		<label>arm</label>
+		<description>An installed natural arm. Arms are like legs, except you can carry stuff with them.</description>
+		<descriptionHyperlinks><ThingDef>Arm</ThingDef></descriptionHyperlinks>
+		<addedPartProps>
+			<solid>true</solid>
+			<partEfficiency>1.0</partEfficiency>
+		</addedPartProps>
+		<spawnThingOnRemoved>Arm</spawnThingOnRemoved>
+	</HediffDef>
+
+	<RecipeDef ParentName="SurgeryNatural">
+		<defName>InstallNaturalArm</defName>
+		<label>Install Arm</label>
+		<description>Installs a natural Arm.</description>
+		<jobString>Installing Arm.</jobString>
+		<workAmount>3400</workAmount>
+		<descriptionHyperlinks><ThingDef>Arm</ThingDef></descriptionHyperlinks>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Arm</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>Arm</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Shoulder</li>
+		</appliedOnFixedBodyParts>
+		<skillRequirements>
+			<Medicine>10</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>VitalsMonitorI</researchPrerequisite> 
+	</RecipeDef>
+
+	<ThingDef ParentName="BodyPartBase_Natural">
+		<defName>Foot</defName>
+		<label>foot</label>
+		<description>The thing you can put shoes on.</description>
+		<statBases>
+			<MarketValue>420</MarketValue>
+			<Mass>2</Mass>
+		</statBases>
+	</ThingDef>
+
+	<ThingDef ParentName="BodyPartBase_Natural">
+		<defName>Hand</defName>
+		<label>hand</label>
+		<description>A man's best friend.</description>
+		<statBases>
+			<MarketValue>430</MarketValue>
+			<Mass>2</Mass>
+		</statBases>
+	</ThingDef>
+
+</Defs>

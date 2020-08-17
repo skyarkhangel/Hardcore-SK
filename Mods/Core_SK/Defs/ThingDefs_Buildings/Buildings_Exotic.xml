@@ -1,41 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-	<ThingDef ParentName="SK_BuildingBase" Name="MechShipPart" Abstract="True">
-		<thingClass>Building_CrashedShipPart</thingClass>
+	<ThingDef Abstract="True" Name="CrashedShipPartBase" ParentName="SK_BuildingBase">
 		<altitudeLayer>Building</altitudeLayer>
 		<pathCost>150</pathCost>
 		<blockWind>true</blockWind>
+		<receivesSignals>true</receivesSignals>
 		<passability>Impassable</passability>
-		<fillPercent>0.98</fillPercent>
+		<fillPercent>1</fillPercent>
 		<statBases>
 			<MarketValue>0</MarketValue>
 			<MaxHitPoints>1200</MaxHitPoints>
 			<Flammability>0</Flammability>
-			<Beauty>-100</Beauty>
+			<Beauty>-200</Beauty>
 		</statBases>
 		<tickerType>Normal</tickerType>
+		<rotatable>false</rotatable>
 		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
 		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<soundImpactDefault>BulletImpact_Metal</soundImpactDefault>
 		<drawerType>MapMeshOnly</drawerType>
 		<repairEffect>ConstructMetal</repairEffect>
 		<forceDebugSpawnable>true</forceDebugSpawnable>
+		<damageMultipliers>
+			<li>
+				<damageDef>Flame</damageDef>
+				<multiplier>0</multiplier>
+			</li>
+		</damageMultipliers>
 		<building>
+			<combatPower>250</combatPower>
 			<claimable>false</claimable>
-			<soundAmbient>CrashedShipPart_Ambience</soundAmbient>
 			<roofCollapseDamageMultiplier>0.2</roofCollapseDamageMultiplier>
 		</building>
 		<comps>
-			<li Class="CompProperties_SnowExpand" />
-			<li Class="CompProperties_SpawnerMechanoidsOnDamaged" />
+			<li Class="CompProperties_WakeUpDormant" />
 		</comps>
 	</ThingDef>
 
-	<ThingDef ParentName="MechShipPart">
-		<defName>CrashedPsychicEmanatorShipPart</defName>
-		<label>ancient ship part (psychic)</label>
-		<description>A mysterious crashed piece of a spaceship. It may contain exotic materials and computers. This one seems to be emanating psychic waves.</description>
-		<graphicData>
+	<!-- ========================= Psychic droner ========================= -->
+	<!-- Note this is a ConditionCauser -->
+
+
+	<ThingDef ParentName="CrashedShipPartBase">
+		<defName>PsychicDronerShipPart</defName>
+		<label>ship part (psychic droner)</label>
+		<description>An ancient ship part, torn off of a craft of unknown origin. It might be thousands of years old.\n\nThis one contains a psychic disturbance device. Using incomprehensible archotechnologies, it generates a psychic signal that drives people and animals mad within a wide radius around itself.</description>
+		<!-- 		<graphicData>
 			<texPath>Things/Building/Genstep/MechanoidShipIncoming</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<shaderType>CutoutComplex</shaderType>
@@ -43,27 +54,60 @@
 			<shadowData>
 				<volume>(3.5, 2, 3.5)</volume>
 			</shadowData>
+		</graphicData> -->
+		<graphicData>
+			<texPath>Things/Building/Exotic/CrashedShipPart</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(6,3)</drawSize>
+			<shadowData>
+				<volume>(0.9, 1.0, 0.9)</volume>
+			</shadowData>
+			<damageData>
+				<rect>(0.5, 0.1, 5, 2.8)</rect>
+			</damageData>
 		</graphicData>
+
 		<size>(6,6)</size>
-		<rotatable>false</rotatable>
 		<killedLeavings>
-			<Plasteel>280</Plasteel>
-			<SilverBar>140</SilverBar>
-			<ComponentSpacer>5</ComponentSpacer>
-			<ChunkSlagSteel>2</ChunkSlagSteel>
+			<ChunkSlagSteel>6</ChunkSlagSteel>
+			<ComponentSpacer>4</ComponentSpacer>
 			<AIPersonaCore>1</AIPersonaCore>
 		</killedLeavings>
 		<comps>
-			<li Class="CompProperties_PsychicDrone" />
+			<li Class="CompProperties_CausesGameCondition_PsychicEmanation">
+				<conditionDef>PsychicDroner</conditionDef>
+				<compClass>CompCauseGameCondition_PsychicEmanation</compClass>
+				<worldRange>1</worldRange>
+				<droneLevelIncreaseInterval>150000</droneLevelIncreaseInterval>
+				<droneLevel>2</droneLevel>
+			</li>
 			<li Class="CompProperties_AnimalInsanityPulser" />
 		</comps>
+		<building>
+			<soundAmbient>CrashedShipPart_Ambience</soundAmbient>
+		</building>
 	</ThingDef>
 
-	<ThingDef ParentName="MechShipPart">
-		<defName>CrashedPoisonShipPart</defName>
-		<label>ancient ship part (poison)</label>
-		<description>A mysterious crashed piece of a spaceship. It may contain exotic materials and computers. This one seems to be poisoning the ground around it.</description>
-		<graphicData>
+	<GameConditionDef>
+		<defName>PsychicDroner</defName>
+		<conditionClass>GameCondition_PsychicEmanation</conditionClass>
+		<label>psychic droner</label>
+		<description>A psychic droner tuned to the {0} gender is driving {0}s mad.</description>
+		<letterText>A psychic droner machine has begun affecting this region.</letterText>
+		<canBePermanent>false</canBePermanent>
+	</GameConditionDef>
+
+	<!-- =============================== Defoliator ship part ============================ -->
+
+	<ThingDef ParentName="CrashedShipPartBase">
+		<defName>DefoliatorShipPart</defName>
+		<label>ship part (defoliator)</label>
+		<description>An ancient ship part, torn off of a craft of unknown origin. It might be thousands of years old.\n\nThis one contains a device which annihilates plant life near itself without directly affecting flesh creatures. These kinds of weapons are sometimes scattered across farmlands or forests during land, to remove the enemy's food supply and hiding places without permanently ruining the territory. They're usually associated with orbital-drop mechanoid armies.</description>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<placeWorkers>
+			<li>PlaceWorker_ShowPlantHarmRadius</li>
+		</placeWorkers>
+		<!-- 		<graphicData>
 			<texPath>Things/Building/Genstep/MechanoidShipIncoming</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<shaderType>CutoutComplex</shaderType>
@@ -71,27 +115,34 @@
 			<shadowData>
 				<volume>(3.5, 2, 3.5)</volume>
 			</shadowData>
+		</graphicData> -->
+		<graphicData>
+			<texPath>Things/Building/Exotic/CrashedPoisonShipPart</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(6,3)</drawSize>
+			<shadowData>
+				<volume>(0.9, 1.0, 0.9)</volume>
+			</shadowData>
+			<damageData>
+				<rect>(0.5, 0.1, 5, 2.8)</rect>
+			</damageData>
 		</graphicData>
 		<size>(6,6)</size>
-		<rotatable>false</rotatable>
 		<killedLeavings>
-			<Plasteel>230</Plasteel>
-			<SilverBar>120</SilverBar>
-			<ChunkSlagSteel>2</ChunkSlagSteel>
-			<ComponentSpacer>5</ComponentSpacer>
+			<ChunkSlagSteel>6</ChunkSlagSteel>
+			<ComponentSpacer>4</ComponentSpacer>
 			<AIPersonaCore>1</AIPersonaCore>
 		</killedLeavings>
 		<comps>
 			<li Class="CompProperties_PlantHarmRadius">
 				<radiusPerDayCurve>
 					<points>
-						<li>0,5</li>
-						<li>1.5,18</li>
-						<li>6,40</li>
-						<li>20,100</li>
+						<li>0  , 5</li>
+						<li>1.5, 18</li>
+						<li>6  , 40</li>
+						<li>20 , 100</li>
 					</points>
 				</radiusPerDayCurve>
-				<harmFrequencyPerArea>0.015</harmFrequencyPerArea>
 			</li>
 		</comps>
 	</ThingDef>
@@ -108,7 +159,7 @@
 			<MaxHitPoints>300</MaxHitPoints>
 			<Flammability>0</Flammability>
 			<Beauty>-20</Beauty>
-			<WorkToBuild>8000</WorkToBuild>
+			<WorkToBuild>7000</WorkToBuild>
 		</statBases>
 		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
 		<killedLeavings>
@@ -155,7 +206,7 @@
 			<MaxHitPoints>300</MaxHitPoints>
 			<Flammability>0</Flammability>
 			<Beauty>-30</Beauty>
-			<WorkToBuild>18750</WorkToBuild>
+			<WorkToBuild>14000</WorkToBuild>
 		</statBases>
 		<killedLeavings>
 			<ChunkSlagSteel>5</ChunkSlagSteel>
@@ -241,13 +292,13 @@
 	</ThingDef>
 
 
-	<ThingDef ParentName="ShipParts" Name="GenstepArts" Abstract="True">
-		<thingClass>Building_Art</thingClass>
+	<ThingDef ParentName="SK_BuildingBase" Name="GenstepBuilding" Abstract="True">
+		<altitudeLayer>Building</altitudeLayer>
 		<statBases>
 			<MaxHitPoints>120</MaxHitPoints>
 			<Flammability>1</Flammability>
-			<Beauty>25</Beauty>
-			<WorkToBuild>36000</WorkToBuild>
+			<Beauty>5</Beauty>
+			<WorkToBuild>3000</WorkToBuild>
 		</statBases>
 		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
 		<rotatable>false</rotatable>
@@ -256,8 +307,19 @@
 		<passability>PassThroughOnly</passability>
 		<fillPercent>0.4</fillPercent>
 		<building>
+			<claimable>false</claimable>
 			<alwaysDeconstructible>true</alwaysDeconstructible>
 		</building>
+	</ThingDef>
+	
+	
+	<ThingDef ParentName="GenstepBuilding" Name="GenstepArts" Abstract="True">
+		<thingClass>Building_Art</thingClass>
+		<altitudeLayer>Building</altitudeLayer>
+		<statBases>
+			<Beauty>25</Beauty>
+			<WorkToBuild>20000</WorkToBuild>
+		</statBases>
 		<comps>
 			<li>
 				<compClass>CompQuality</compClass>
@@ -265,13 +327,40 @@
 			<li Class="CompProperties_Art">
 				<nameMaker>NamerArtSculpture</nameMaker>
 				<descriptionMaker>ArtDescription_Sculpture</descriptionMaker>
-			</li> 
+			</li>
+			<li Class="CompProperties_MeditationFocus">
+				<statDef>MeditationFocusStrength</statDef>
+				<focusTypes>
+					<li>Artistic</li>
+				</focusTypes>
+				<offsets>
+					<li Class="FocusStrengthOffset_Quality">
+						<curve>
+							<points>
+								<li>(0,0.02)</li>
+								<!-- awful -->
+								<li>(1,0.05)</li>
+								<!-- poor -->
+								<li>(2,0.06)</li>
+								<!-- normal -->
+								<li>(3,0.08)</li>
+								<!-- good -->
+								<li>(4,0.10)</li>
+								<!-- excellent -->
+								<li>(5,0.12)</li>
+								<!-- masterwork -->
+								<li>(6,0.15)</li>
+								<!-- legendary -->
+							</points>
+						</curve>
+					</li>
+				</offsets>
+			</li>
 		</comps>
 		<inspectorTabs>
 			<li>ITab_Art</li>
 		</inspectorTabs>
 	</ThingDef>
-
 
 	<ThingDef ParentName="GenstepArts">
 		<defName>Totem</defName>
@@ -288,10 +377,16 @@
 				<offset>(0,0,-0.60)</offset>
 			</shadowData>
 		</graphicData>
+		<uiIconScale>.5</uiIconScale>
+		<statBases>
+			<MeditationFocusStrength>0.14</MeditationFocusStrength>
+		</statBases>
 		<stuffCategories>
 			<li>WoodLogs</li>
 		</stuffCategories>
 		<costStuffCount>110</costStuffCount>
+		<designationCategory>Joy</designationCategory>
+		<maxTechLevelToBuild>Medieval</maxTechLevelToBuild>
 	</ThingDef>
 
 	<ThingDef ParentName="GenstepArts">
@@ -313,12 +408,211 @@
 			<MaxHitPoints>180</MaxHitPoints>
 			<Flammability>0</Flammability>
 			<Beauty>10</Beauty>
-			<WorkToBuild>13500</WorkToBuild>
+			<WorkToBuild>10000</WorkToBuild>
+			<MeditationFocusStrength>0.09</MeditationFocusStrength>
 		</statBases>
 		<stuffCategories>
 			<li>Stony</li>
 		</stuffCategories>
 		<costStuffCount>70</costStuffCount>
+		<designationCategory>Joy</designationCategory>
+		<maxTechLevelToBuild>Medieval</maxTechLevelToBuild>
+	</ThingDef>
+	
+	<ThingDef ParentName="GenstepBuilding">
+		<defName>HeadPike</defName>
+		<label>headpike</label>
+		<size>(1,1)</size>
+		<description>A head stuck on a pike, ooo scary.</description>
+		<graphicData>
+			<texPath>Things/Building/Genstep/Headpike</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(2,2)</drawSize>
+		</graphicData>
+		<uiIconScale>.5</uiIconScale>
+		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+		<defaultPlacingRot>North</defaultPlacingRot>
+		<rotatable>false</rotatable>
+		<passability>PassThroughOnly</passability>
+		<fillPercent>0.1</fillPercent>
+		<statBases>
+			<MaxHitPoints>30</MaxHitPoints>
+			<Flammability>1</Flammability>
+			<Beauty>-5</Beauty>
+			<WorkToBuild>300</WorkToBuild>
+			<Mass>15</Mass>
+			<MeditationFocusStrength>0.11</MeditationFocusStrength>
+		</statBases>
+		<costList>
+			<WoodLog>2</WoodLog>
+			<Corpse_Human>1</Corpse_Human> 
+		</costList> 
+		<comps>
+			<li Class="CompProperties_MeditationFocus">
+				<statDef>MeditationFocusStrength</statDef>
+				<focusTypes>
+					<li>Morbid</li>
+				</focusTypes>
+				<offsets>
+					<li Class="FocusStrengthOffset_GraveCorpseRelationship">
+						<offset>0.12</offset>
+					</li>
+				</offsets>
+			</li>
+		</comps>
+		<designationCategory>Joy</designationCategory>
+	</ThingDef>
+	
+	<ThingDef ParentName="GenstepBuilding">
+		<defName>AncientPowerPole</defName>
+		<label>ancient power pole</label>
+		<description>Part of a long gone power network. No longer functional.</description>
+		<graphicData>
+			<texPath>Things/Building/Genstep/Ruins/AncientPowerPole</texPath>
+			<graphicClass>Graphic_Random</graphicClass>
+			<drawSize>(5,5)</drawSize>
+			<shadowData>
+				<volume>(0.15, 0.10, 2.20)</volume>
+			</shadowData>
+		</graphicData>
+		<statBases>
+			<MaxHitPoints>300</MaxHitPoints>
+			<WorkToBuild>1200</WorkToBuild>
+		</statBases>
+		<fillPercent>0.25</fillPercent>
+		<passability>Impassable</passability>
+		<pathCost>150</pathCost>
+		<blockWind>true</blockWind>
+		<filthLeaving>Filth_RubbleBuilding</filthLeaving>
+		<rotatable>false</rotatable>
+		<costList>
+			<WoodLog>25</WoodLog>
+		</costList>
+		<building>
+			<isInert>true</isInert>
+			<ai_chillDestination>false</ai_chillDestination>
+		</building>
+	</ThingDef>
+
+	<ThingDef ParentName="GenstepBuilding">
+		<defName>ToxicSign</defName>
+		<label>toxic sign</label>
+		<description>Road sign warning of toxic danger from long ago.</description>
+		<graphicData>
+			<texPath>Things/Building/Genstep/Ruins/ToxicSign</texPath>
+			<graphicClass>Graphic_Random</graphicClass>
+			<drawSize>(1,1)</drawSize>
+			<shadowData>
+				<volume>(0.76,0.3,0.15)</volume>
+				<offset>(0,0,-0.39)</offset>
+			</shadowData>
+		</graphicData>
+		<statBases>
+			<MaxHitPoints>300</MaxHitPoints>
+			<WorkToBuild>800</WorkToBuild>
+		</statBases>
+		<fillPercent>0.25</fillPercent>
+		<passability>PassThroughOnly</passability>
+		<pathCost>100</pathCost>
+		<blockWind>true</blockWind>
+		<filthLeaving>Filth_RubbleBuilding</filthLeaving>
+		<rotatable>false</rotatable>
+		<costList>
+			<Plasteel>12</Plasteel>
+		</costList>
+		<building>
+			<isInert>true</isInert>
+			<ai_chillDestination>false</ai_chillDestination>
+		</building>
+	</ThingDef>
+
+	<ThingDef ParentName="GenstepBuilding">
+		<defName>ToxicBarrel</defName>
+		<label>toxic barrel</label>
+		<description>Barrel of toxic waste from long ago still doing damage to its environment.</description>
+		<graphicData>
+			<texPath>Things/Building/Genstep/Ruins/ToxicBarrel</texPath>
+			<graphicClass>Graphic_Random</graphicClass>
+			<drawSize>(1,1)</drawSize>
+			<shadowData>
+				<volume>(0.76,0.3,0.15)</volume>
+				<offset>(0,0,-0.39)</offset>
+			</shadowData>
+		</graphicData>
+		<statBases>
+			<MaxHitPoints>300</MaxHitPoints>
+			<WorkToBuild>2500</WorkToBuild>
+		</statBases>
+		<fillPercent>0.25</fillPercent>
+		<passability>PassThroughOnly</passability>
+		<pathCost>100</pathCost>
+		<blockWind>true</blockWind>
+		<filthLeaving>Filth_RubbleBuilding</filthLeaving>
+		<rotatable>false</rotatable>
+		<costList>
+			<Plasteel>20</Plasteel>
+			<Uranium>5</Uranium>
+		</costList>
+		<building>
+			<isInert>true</isInert>
+			<ai_chillDestination>false</ai_chillDestination>
+		</building>
+		<tickerType>Normal</tickerType>
+		<comps>
+			<li Class="CompProperties_Glower">
+				<glowRadius>3</glowRadius>
+				<glowColor>(71,128,70,0)</glowColor>
+			</li>
+			<li Class="SK.CompProperties_ApplyHediffAround">
+				<hediff>ToxicBuildup</hediff>
+				<radius>5</radius>
+				<severityToAdd>0.15</severityToAdd>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="GenstepBuilding">
+		<defName>APCWreck</defName>
+		<label>destroyed apc</label>
+		<description>Wreck of an ancient armoured military vehicle. No longer functional.</description>
+		<graphicData>
+			<texPath>Things/Building/Genstep/Ruins/APCWreck</texPath>
+			<graphicClass>Graphic_Random</graphicClass>
+			<drawSize>(5,3)</drawSize>
+			<shadowData>
+				<volume>(0.55, 0.30, 0.40)</volume>
+			</shadowData>
+		</graphicData>
+		<statBases>
+			<MaxHitPoints>3500</MaxHitPoints>
+			<WorkToBuild>8000</WorkToBuild>
+			<Flammability>0</Flammability>
+			<Beauty>-20</Beauty>
+		</statBases>
+		<fillPercent>0.7</fillPercent>
+		<passability>PassThroughOnly</passability>
+		<pathCost>100</pathCost>
+		<blockWind>true</blockWind>
+		<filthLeaving>Filth_RubbleBuilding</filthLeaving>
+		<rotatable>false</rotatable>
+		<size>(5,3)</size>
+		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+		<killedLeavings>
+			<ChunkSlagSteel>5</ChunkSlagSteel>
+		</killedLeavings>
+		<costList>
+			<ComponentIndustrial>10</ComponentIndustrial>
+			<Plasteel>150</Plasteel>
+			<Wire>65</Wire>
+			<ElectronicComponents>12</ElectronicComponents>
+			<Mechanism>15</Mechanism>
+		</costList>
+		<building>
+			<isInert>true</isInert>
+			<ai_chillDestination>false</ai_chillDestination>
+		</building>
+		<soundImpactDefault>BulletImpact_Metal</soundImpactDefault>
+		<drawerType>MapMeshOnly</drawerType>
 	</ThingDef>
 
 	<!--========================= Landed Skyfallers =============================-->
@@ -379,7 +673,7 @@
 		<size>(4,2)</size>
 		<rotatable>false</rotatable>
 		<statBases>
-			<WorkToBuild>750</WorkToBuild>
+			<WorkToBuild>600</WorkToBuild>
 		</statBases>
 		<comps>
 			<li Class="SK.CompLoot_Properties">
@@ -393,34 +687,6 @@
 				</lootCounters>
 			</li>
 		</comps>
-	</ThingDef>
-	
-	<ThingDef ParentName="SK_BuildingBase">
-		<defName>ArtefactFound_Artefact</defName>
-		<label>Mysterious Artefact</label>
-		<description>This is an object of an ancient civilisation. What might happen, if you activate it?</description>
-		<thingClass>SK.Events.Building_Artefact</thingClass>
-		<category>Building</category>
-		<graphicData>
-      		<texPath>Things/Building/Genstep/ArtefactFound/Artefact</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
-		</graphicData>
-		<altitudeLayer>FloorEmplacement</altitudeLayer>
-		<pathCost>20</pathCost>
-		<passability>Standable</passability>
-		<statBases>
-			<MaxHitPoints>30</MaxHitPoints>
-			<WorkToBuild>75</WorkToBuild>
-			<Flammability>0.0</Flammability>
-			<Beauty>3</Beauty>
-		</statBases>
-		<size>(1,1)</size>
-		<costList>
-			<Steel>36</Steel>
-		</costList>
-		<rotatable>false</rotatable>
-		<selectable>true</selectable>
-		<neverMultiSelect>true</neverMultiSelect>
 	</ThingDef>
 
 </Defs>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-  <RaidStrategyDef>
+  <RaidStrategyDef Name="ImmediateAttack">
     <defName>ImmediateAttack</defName>
     <workerClass>RaidStrategyWorker_ImmediateAttack</workerClass>
     <selectionWeightPerPointsCurve>
       <points>
-        <li>(300,1)</li>
-        <li>(700,0.5)</li>
+        <li>(300,1.5)</li>
+        <li>(700,1.15)</li>
       </points>
     </selectionWeightPerPointsCurve>
     <pointsFactorCurve>
@@ -30,14 +30,49 @@
     <letterLabelFriendly>Friendlies</letterLabelFriendly>
     <arrivalTextFriendly>They are moving in to help you immediately.</arrivalTextFriendly>
   </RaidStrategyDef>
+  
+  <RaidStrategyDef ParentName="ImmediateAttack">
+    <defName>ImmediateAttackFriendly</defName>
+    <workerClass>RaidStrategyWorker_ImmediateAttackFriendly</workerClass>
+    <pawnsCanBringFood>True</pawnsCanBringFood>
+  </RaidStrategyDef>
+  
+  <RaidStrategyDef>
+    <defName>ImmediateAttackSmart</defName>
+    <workerClass>RaidStrategyWorker_ImmediateAttackSmart</workerClass>
+    <selectionWeightPerPointsCurve>
+      <points>
+        <li>(300,0)</li>
+        <li>(700,1.25)</li>
+      </points>
+    </selectionWeightPerPointsCurve>
+    <pointsFactorCurve>
+      <points>
+        <li>0, 0.9</li>
+        <li>8000, 0.85</li>
+		<li>15000, 0.8</li>
+      </points>
+    </pointsFactorCurve>
+    <arriveModes>
+      <li>EdgeDrop</li>
+      <li>EdgeWalkIn</li>
+      <li>RandomDrop</li>
+      <li>EdgeDropGroups</li>
+      <li>EdgeWalkInGroups</li>
+    </arriveModes>
+    <letterLabelEnemy>Raid</letterLabelEnemy>
+    <arrivalTextEnemy>They are attacking immediately.\n\nWatch out - they appear to be unusually clever with their tactics. They'll avoid your turrets' fields of fire and notice some of your traps.</arrivalTextEnemy>
+    <letterLabelFriendly>Friendlies</letterLabelFriendly>
+    <arrivalTextFriendly>They are moving in to help you immediately.</arrivalTextFriendly>
+  </RaidStrategyDef>
 
   <RaidStrategyDef>
     <defName>StageThenAttack</defName>
     <workerClass>RaidStrategyWorker_StageThenAttack</workerClass>
     <selectionWeightPerPointsCurve>
       <points>
-        <li>(300,1)</li>
-        <li>(700,0.5)</li>
+        <li>(300,1.75)</li>
+        <li>(700,0.8)</li>
       </points>
     </selectionWeightPerPointsCurve>
     <pointsFactorCurve>
@@ -58,36 +93,6 @@
     <letterLabelFriendly>Friendlies</letterLabelFriendly>
     <arrivalTextFriendly>They will prepare for a while before moving in to help you.</arrivalTextFriendly>
   </RaidStrategyDef>
-
-  <RaidStrategyDef>
-    <defName>ImmediateAttackSmart</defName>
-    <workerClass>RaidStrategyWorker_ImmediateAttackSmart</workerClass>
-    <selectionWeightPerPointsCurve>
-      <points>
-        <li>(300,0)</li>
-        <li>(700,1)</li>
-      </points>
-    </selectionWeightPerPointsCurve>
-    <pointsFactorCurve>
-      <points>
-        <li>0, 0.9</li>
-        <li>8000, 0.85</li>
-		<li>15000, 0.8</li>
-      </points>
-    </pointsFactorCurve>
-    <arriveModes>
-      <li>EdgeDrop</li>
-      <li>EdgeWalkIn</li>
-      <li>CenterDrop</li>
-      <li>RandomDrop</li>
-      <li>EdgeDropGroups</li>
-      <li>EdgeWalkInGroups</li>
-    </arriveModes>
-    <letterLabelEnemy>Raid</letterLabelEnemy>
-    <arrivalTextEnemy>They are attacking immediately.\n\nWatch out - they appear to be unusually clever with their tactics. They'll avoid your turrets' fields of fire and notice some of your traps.</arrivalTextEnemy>
-    <letterLabelFriendly>Friendlies</letterLabelFriendly>
-    <arrivalTextFriendly>They are moving in to help you immediately.</arrivalTextFriendly>
-  </RaidStrategyDef>
   
   <RaidStrategyDef>
     <defName>ImmediateAttackSappers</defName>
@@ -96,9 +101,9 @@
     <selectionWeightPerPointsCurve>
       <points>
         <li>(300,  0.00)</li>
-        <li>(800,  1.5)</li>
-        <li>(1500, 2.25)</li>
-        <li>(3000, 3.00)</li>
+        <li>(800,  0.75)</li>
+        <li>(1500, 1.25)</li>
+        <li>(3000, 1.8)</li>
       </points>
     </selectionWeightPerPointsCurve>
     <pointsFactorCurve>
@@ -145,6 +150,29 @@
     <arrivalTextEnemy>It looks like they want to besiege the colony and pound you with mortars from a distance. You can try to wait them out - or go get them.</arrivalTextEnemy>
     <letterLabelFriendly>Friendlies</letterLabelFriendly>
     <arrivalTextFriendly>It looks like they want to use siege tactics to help you.</arrivalTextFriendly>
+  </RaidStrategyDef>
+  
+  <RaidStrategyDef>
+    <defName>SiegeMechanoid</defName>
+    <workerClass>RaidStrategyWorker_SiegeMechanoid</workerClass>
+    <pointsFactorCurve>
+      <points>
+        <li>0, 0.85</li>
+        <li>7000, 0.8</li>
+		<li>15000, 0.75</li>
+      </points>
+    </pointsFactorCurve>
+    <selectionWeightPerPointsCurve>
+      <points>
+        <li>(799,  0)</li>  <!-- Entirely disabled, random mech come from incident MechCluster -->
+    <!--    <li>(800,  0.15)</li>--> <!-- Besides ImmediateAttack, this is the only alternative for mechs -->
+      </points>
+    </selectionWeightPerPointsCurve>
+    <arriveModes>
+      <li>MechClusterDrop</li>
+    </arriveModes>
+    <letterLabelEnemy>Mechanoid Siege</letterLabelEnemy>
+    <arrivalTextEnemy>Rather than attack directly, the mechanoids are setting up a mech cluster near the colony. You must attack it to finally remove the threat.\n\nThe cluster will be initially dormant, so you can take time to decide how to attack it.\n\nIt may remain dormant until disturbed, or it may have a timer or proximity activators.\n\nEven dormant mech clusters aren't harmless. A dormant cluster may assemble mechanoid attackers from time to time, or have some broader negative effect that must be dealt with eventually.</arrivalTextEnemy>
   </RaidStrategyDef>
 
 </Defs>

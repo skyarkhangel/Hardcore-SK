@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<ThingDef ParentName="BaseMeleeWeapon_Sharp_Quality">
+		<defName>RK_MagicWand</defName>
+		<label>ratkin magic wand</label>
+		<description>충격에 민감한 랫킨제 요술봉입니다. 잠긴 문을 열거나 가구를 치울때 사용합니다. 제정신인 랫킨이라면 이걸 던지겠지만..</description>
+		<graphicData>
+			<texPath>Weapon/RK_Cleaner</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<tickerType>Normal</tickerType>
+		<techLevel>Industrial</techLevel>
+		<weaponTags Inherit="false">
+			<li>RK_Demoman</li>
+			<li>CE_OneHandedWeapon</li>
+		</weaponTags>
+		<costList>
+			<WoodLog>5</WoodLog>
+			<FSX>1</FSX>
+		</costList>
+		<statBases>
+			<WorkToMake>6000</WorkToMake>
+			<Mass>2</Mass>
+			<Bulk>3</Bulk>
+		</statBases>
+		<equippedStatOffsets>
+			<MeleeHitChance>5</MeleeHitChance>
+			<Suppressability>-0.5</Suppressability>
+		</equippedStatOffsets>
+		<equippedAngleOffset>-55</equippedAngleOffset>
+		<comps>
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>2</explosiveRadius>
+				<explosiveDamageType>DemoBomb</explosiveDamageType>
+			</li>
+		</comps>
+		<tools>
+			<li Class="CombatExtended.ToolCE">
+				<label>head</label>
+				<capacities>
+					<li>Kaboom</li>
+				</capacities>
+				<power>5</power>
+				<cooldownTime>1.5</cooldownTime>
+				<armorPenetrationSharp>5.3</armorPenetrationSharp>
+				<armorPenetrationBlunt>11.8</armorPenetrationBlunt>
+				<linkedBodyPartsGroup>Head</linkedBodyPartsGroup>
+			</li>
+			<li Class="CombatExtended.ToolCE">
+				<label>edge</label>
+				<capacities>
+					<li>Kaboom</li>
+				</capacities>
+				<power>5</power>
+				<cooldownTime>1.5</cooldownTime>
+				<armorPenetrationSharp>5.3</armorPenetrationSharp>
+				<armorPenetrationBlunt>11.8</armorPenetrationBlunt>
+				<linkedBodyPartsGroup>Stock</linkedBodyPartsGroup>
+			</li>
+		</tools>
+		<tradeability>Sellable</tradeability>
+		<recipeMaker Inherit="false">
+		</recipeMaker>
+		<thingCategories Inherit="false">
+			<li>RKMeleeWeapon</li>
+		</thingCategories>
+	</ThingDef>
+
+	<ToolCapacityDef>
+		<defName>Kaboom</defName>
+	</ToolCapacityDef>
+
+	<ManeuverDef>
+		<defName>RK_MeeleExplosion</defName>
+		<requiredCapacity>Kaboom</requiredCapacity>
+		<verb>
+			<verbClass>NewRatkin.Verb_MeleeAttackDamage</verbClass>
+			<meleeDamageDef>DemoBomb</meleeDamageDef>
+		</verb>
+		<logEntryDef>MeleeAttack</logEntryDef>
+		<combatLogRulesHit>Maneuver_Smash_MeleeHit</combatLogRulesHit>
+		<combatLogRulesDeflect>Maneuver_Smash_MeleeDeflect</combatLogRulesDeflect>
+		<combatLogRulesMiss>Maneuver_Smash_MeleeMiss</combatLogRulesMiss>
+		<combatLogRulesDodge>Maneuver_Smash_MeleeDodge</combatLogRulesDodge>
+	</ManeuverDef>
+
+	<DamageDef>
+		<defName>DemoBomb</defName>
+		<label>bomb</label>
+		<workerClass>DamageWorker_AddInjury</workerClass>
+		<externalViolence>true</externalViolence>
+		<isExplosive>true</isExplosive>
+		<deathMessage>{0} has died in an explosion.</deathMessage>
+		<hediff>Shredded</hediff>
+		<hediffSolid>Crack</hediffSolid>
+		<harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
+		<impactSoundType>Blunt</impactSoundType>
+		<armorCategory>Sharp</armorCategory>
+		<minDamageToFragment>15</minDamageToFragment>
+		<defaultDamage>25</defaultDamage>
+		<defaultStoppingPower>1</defaultStoppingPower>
+		<defaultArmorPenetration>0.60</defaultArmorPenetration>
+		<buildingDamageFactor>8</buildingDamageFactor>
+		<plantDamageFactor>4</plantDamageFactor>
+		<explosionAffectOutsidePartsOnly>false</explosionAffectOutsidePartsOnly>
+		<explosionHeatEnergyPerCell>5</explosionHeatEnergyPerCell>
+		<explosionCellMote>Mote_BlastDry</explosionCellMote>
+		<explosionColorCenter>(1, 0.5, 0.3)</explosionColorCenter>
+		<explosionColorEdge>(0.6, 0.5, 0.4)</explosionColorEdge>
+		<soundExplosion>Explosion_Bomb</soundExplosion>
+		<combatLogRules>Damage_Bomb</combatLogRules>
+	</DamageDef>
+</Defs>

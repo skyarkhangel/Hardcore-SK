@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<ThingDef ParentName="SK_BodyPartBase">
+		<defName>SenexiumImplant</defName>
+		<label>senexium implant</label>
+		<description>Age accelleration implant. Multiplies aging by 60.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>InstallSenexium</RecipeDef>		
+		</descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/Organ</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<techLevel>Spacer</techLevel>
+		<statBases>
+			<MarketValue>400</MarketValue>
+			<Mass>0.1</Mass>
+			<DeteriorationRate>0.5</DeteriorationRate>
+		</statBases>
+		<thingCategories>
+			<li>BodyPartsArtificial</li>
+		</thingCategories>
+		<costList>
+			<RawDevilstrand>20</RawDevilstrand>
+			<SyntheticFibers>5</SyntheticFibers>
+			<ComponentAdvanced>2</ComponentAdvanced>
+			<Electronics>2</Electronics>
+		</costList>
+		<recipeMaker>
+			<workSpeedStat>ElectronicCraftingSpeed</workSpeedStat>
+			<workSkillLearnPerTick>0.8</workSkillLearnPerTick>	  
+			<workSkill>Crafting</workSkill>
+			<workAmount>3500</workAmount>
+			<effectWorking>Smith</effectWorking>		
+			<soundWorking>EPOEAssembling</soundWorking>
+			<unfinishedThingDef>UnfinishedHealthItemBionic</unfinishedThingDef>
+			<recipeUsers>
+				<li>TableSynthetics</li>
+			</recipeUsers>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>14</Crafting>
+			</skillRequirements>
+		</recipeMaker>
+	</ThingDef>
+
+	<HediffDef>
+		<defName>SenexiumAccelleratedAging</defName>
+		<label>accellerated aging x60</label>
+		<description>An installed age accelleration implant. Multiplies aging by 60.</description>
+		<labelNoun>a accellerated aging</labelNoun>
+		<hediffClass>SK.Hediff_Senexium</hediffClass>
+		<defaultLabelColor>(0.3,0.65,0.55)</defaultLabelColor>
+		<initialSeverity>60</initialSeverity>
+		<isBad>false</isBad>
+		<descriptionHyperlinks>
+			<ThingDef>SenexiumImplant</ThingDef>
+		</descriptionHyperlinks>
+		<comps>
+			<li Class="HediffCompProperties_Disappears">
+				<disappearsAfterTicks>
+					<min>420000</min>
+					<max>480000</max>
+				</disappearsAfterTicks>
+			</li>
+		</comps>
+	</HediffDef>
+
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>InstallSenexium</defName>
+		<label>Install senexium</label>
+		<description>Installs senexium device.</description>
+		<workerClass>Recipe_InstallImplant</workerClass>
+		<jobString>Installing senexium device.</jobString>
+		<workAmount>2500</workAmount>
+		<surgerySuccessChanceFactor>0.99</surgerySuccessChanceFactor>
+		<deathOnFailedSurgeryChance>0.01</deathOnFailedSurgeryChance>
+		<descriptionHyperlinks>
+			<ThingDef>SenexiumImplant</ThingDef>
+		</descriptionHyperlinks>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>SenexiumImplant</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>SenexiumImplant</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Brain</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>SenexiumAccelleratedAging</addsHediff>
+		<workSkill>Medicine</workSkill>
+		<skillRequirements>
+			<Medicine>14</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>Bionics</researchPrerequisite>
+	</RecipeDef>
+
+</Defs>

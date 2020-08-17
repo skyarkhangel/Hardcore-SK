@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+	<HediffDef Name="HediffBodyPartBase_OrganicOptimizer" Abstract="True">
+		<defaultLabelColor>(244,210,131)</defaultLabelColor>
+		<hediffClass>HediffWithComps</hediffClass>
+		<isBad>false</isBad>
+		<initialSeverity>0.001</initialSeverity>
+		<maxSeverity>1.0</maxSeverity>
+		<priceImpact>true</priceImpact>
+	</HediffDef>
+
+	<ThingDef Name="BodyPartBase_OrganicOptimizer" ParentName="BodyPartBase_Synthetic" Abstract="True">
+		<techLevel>Spacer</techLevel>
+		<thingCategories Inherit="False">
+			<li>OrganicOptimizer</li>
+		</thingCategories>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/Joywire</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<recipeMaker>
+			<soundWorking>EPOEAssembling</soundWorking>
+			<skillRequirements>
+				<Crafting>12</Crafting>
+			</skillRequirements>
+			<researchPrerequisite>OrganicOptimizer</researchPrerequisite>
+		</recipeMaker>
+		<techHediffsTags Inherit="False">
+			<li>Advanced</li>
+		</techHediffsTags>
+	</ThingDef>
+
+	<RecipeDef Name="RecipeSurgeryOptimizer" ParentName="SK_SurgeryFlesh" Abstract="True">
+		<deathOnFailedSurgeryChance>0.02</deathOnFailedSurgeryChance>
+		<workerClass>Recipe_InstallImplant</workerClass>
+		<jobString>Optimizing natural body part.</jobString>
+		<workAmount>3000</workAmount>
+		<skillRequirements>
+			<Medicine>7</Medicine>
+		</skillRequirements>
+		<recipeUsers>
+			<li>Human</li>
+		</recipeUsers>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+		</fixedIngredientFilter>
+	</RecipeDef>
+
+	<!-- New EPOE hediffs -->
+
+	<!-- Organic optimizing nanobots -->
+
+	<HediffDef ParentName="HediffBodyPartBase_OrganicOptimizer">
+		<defName>OrganicOptimized</defName>
+		<label>optimized</label>
+		<description>An optimized natural body part using organic optimizing nanobots.</description>
+		<descriptionHyperlinks>
+			<ThingDef>OrganicOptimizingNanobots</ThingDef>
+		</descriptionHyperlinks>
+		<comps>
+			<li Class="HediffCompProperties_SeverityPerDay">
+				<severityPerDay>0.33</severityPerDay>
+			</li>
+		</comps>
+		<stages>
+			<li>
+				<label>Fresh</label>
+				<painFactor>1.25</painFactor>
+				<restFallFactorOffset>0.5</restFallFactorOffset>
+				<hungerRateFactorOffset>1</hungerRateFactorOffset>
+				<partEfficiencyOffset>-0.1</partEfficiencyOffset>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<setMax>0.1</setMax>
+					</li>
+				</capMods>
+			</li>
+			<li>
+				<label>Adapting</label>
+				<minSeverity>0.25</minSeverity>
+				<painFactor>1.25</painFactor>
+				<restFallFactorOffset>0.25</restFallFactorOffset>
+				<hungerRateFactorOffset>0.5</hungerRateFactorOffset>
+				<partEfficiencyOffset>-0.1</partEfficiencyOffset>
+			</li>
+			<li>
+				<label>Optimizing</label>
+				<minSeverity>0.75</minSeverity>
+				<partEfficiencyOffset>0.05</partEfficiencyOffset>
+			</li>
+			<li>
+				<minSeverity>0.99</minSeverity>
+				<partEfficiencyOffset>0.15</partEfficiencyOffset>
+			</li>
+		</stages>
+	</HediffDef>
+
+	<ThingDef ParentName="BodyPartBase_OrganicOptimizer">
+		<defName>OrganicOptimizingNanobots</defName>
+		<label>organic optimizing nanobots</label>
+		<description>Advanced nanobots which help bring out the full potential of the natural body. It takes 3 days for the process to complete, requiring more rest and a higher food intake. At the end of this grueling process the nanobots break down and dissolve, leaving no trace.\n\nThe average person will accept it, body purists will be delighted, while transhumanists utterly abhor it.\n\nPart efficiency increase when fully developed after 3 days: +15%</description>
+		<descriptionHyperlinks>
+			<RecipeDef>OrganicOptimizing</RecipeDef>
+		</descriptionHyperlinks>
+		<costList>
+			<ComponentSpacer>5</ComponentSpacer>
+			<BioMicrochips>1</BioMicrochips>
+			<Neutroamine>10</Neutroamine>
+			<Gold>1</Gold>
+		</costList>
+		<thingSetMakerTags>
+			<li>RewardStandardLowFreq</li>
+		</thingSetMakerTags>
+		<statBases>
+			<Mass>0.25</Mass>
+		</statBases>
+	</ThingDef>
+
+	<RecipeDef ParentName="RecipeSurgeryOptimizer">
+		<defName>OrganicOptimizing</defName>
+		<label>Optimize natural body part</label>
+		<description>Improve and bring out the potential of a natural body part with the organic optimizing nanobots, with the surgeon carefully monitoring the initial application and progress.</description>
+		<descriptionHyperlinks>
+			<ThingDef>OrganicOptimizingNanobots</ThingDef>
+		</descriptionHyperlinks>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>OrganicOptimizingNanobots</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>OrganicOptimizingNanobots</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Shoulder</li>
+			<li>Leg</li>
+			<li>Ear</li>
+			<li>Eye</li>
+			<li>Spine</li>
+			<li>Jaw</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>OrganicOptimized</addsHediff>
+	</RecipeDef>
+
+	<!-- Instinct optimizing nanobots -->
+
+	<ThingDef ParentName="BodyPartBase_OrganicOptimizer">
+		<defName>InstinctOptimizingNanobots</defName>
+		<label>instinct optimizing nanobots</label>
+		<description>Advanced nanobots which assist the the natural body with imprinting beneficial instinctual reaction sequences into the organic tissues. It takes 4 days for the full process to complete, requiring more rest and a higher food intake. At the end of this grueling process, the nanobots break down and dissolve, leaving no trace.
+Transhumanists utterly abhor this change. The mood penalty displayed in the information only applies to Transhumanists.
+
+Improvements when fully developed from the following body parts after 4 days:
+
+Eyes: +5% part efficiency, +2.5 shooting accuracy, -2.5% aim delay, +1 melee hit chance, +1 melee dodge chance.
+
+Hands: +5% part efficiency, +5% global work speed, +4 melee hit chance, -7.5% aim delay.
+
+Feet: +5% part efficiency, +0.1 c/s move speed, +5 melee dodge chance.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>InstinctOptimizingEyes</RecipeDef>
+			<RecipeDef>InstinctOptimizingHands</RecipeDef>
+			<RecipeDef>InstinctOptimizingFoot</RecipeDef>
+		</descriptionHyperlinks>
+		<costList>
+			<MAAI_Chip>1</MAAI_Chip>
+			<ComponentSpacer>8</ComponentSpacer>
+			<Neutroamine>10</Neutroamine>
+			<Silver>5</Silver>
+			<SyntheticFibers>6</SyntheticFibers>
+		</costList>
+		<thingSetMakerTags>
+			<li>RewardStandardLowFreq</li>
+		</thingSetMakerTags>
+		<statBases>
+			<Mass>0.25</Mass>
+		</statBases>
+	</ThingDef>
+
+	<RecipeDef Name="RecipeSurgeryInstinctOptimizer" ParentName="RecipeSurgeryOptimizer" Abstract="True">
+		<descriptionHyperlinks>
+			<ThingDef>InstinctOptimizingNanobots</ThingDef>
+		</descriptionHyperlinks>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>InstinctOptimizingNanobots</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>InstinctOptimizingNanobots</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+	</RecipeDef>
+
+	<!-- Eyes: Improved reactive pupil -->
+
+	<HediffDef ParentName="HediffBodyPartBase_OrganicOptimizer">
+		<defName>InstinctOptimizedEyes</defName>
+		<label>improved reactive pupil</label>
+		<description>The natural eyes are optimized using instinct optimizing nanobots.</description>
+		<descriptionHyperlinks>
+			<ThingDef>InstinctOptimizingNanobots</ThingDef>
+		</descriptionHyperlinks>
+		<comps>
+			<li Class="HediffCompProperties_SeverityPerDay">
+				<severityPerDay>0.25</severityPerDay>
+			</li>
+		</comps>
+		<stages>
+			<li>
+				<label>Fresh</label>
+				<painFactor>1.5</painFactor>
+				<restFallFactorOffset>0.5</restFallFactorOffset>
+				<hungerRateFactorOffset>0.5</hungerRateFactorOffset>
+				<partEfficiencyOffset>-0.1</partEfficiencyOffset>
+				<statOffsets>
+					<MentalBreakThreshold>0.06</MentalBreakThreshold>
+				</statOffsets>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<setMax>0.1</setMax>
+					</li>
+				</capMods>
+			</li>
+			<li>
+				<label>Adapting</label>
+				<minSeverity>0.20</minSeverity>
+				<painFactor>1.5</painFactor>
+				<restFallFactorOffset>0.25</restFallFactorOffset>
+				<hungerRateFactorOffset>0.25</hungerRateFactorOffset>
+				<statOffsets>
+					<MentalBreakThreshold>0.06</MentalBreakThreshold>
+				</statOffsets>
+			</li>
+			<li>
+				<label>Optimizing</label>
+				<minSeverity>0.75</minSeverity>
+				<statOffsets>
+					<MentalBreakThreshold>0.03</MentalBreakThreshold>
+				</statOffsets>
+			</li>
+			<li>
+				<minSeverity>0.99</minSeverity>
+				<partEfficiencyOffset>0.05</partEfficiencyOffset>
+				<statOffsets>
+					<MeleeHitChance>1</MeleeHitChance>
+					<MeleeDodgeChance>0.05</MeleeDodgeChance>
+					<MeleeCritChance>0.075</MeleeCritChance>
+					<MeleeParryChance>0.075</MeleeParryChance>
+					<AimingDelayFactor>-0.025</AimingDelayFactor>
+				</statOffsets>
+			</li>
+		</stages>
+	</HediffDef>
+
+	<RecipeDef ParentName="RecipeSurgeryInstinctOptimizer">
+		<defName>InstinctOptimizingEyes</defName>
+		<label>Improve reactive pupil</label>
+		<description>Improve the instinctual reaction of the eyes with instinct optimizing nanobots, improving hit and aim accuracy. The surgeon carefully monitoring the initial application and progress.</description>
+		<appliedOnFixedBodyParts>
+			<li>Eye</li>  
+		</appliedOnFixedBodyParts>
+		<addsHediff>InstinctOptimizedEyes</addsHediff>
+	</RecipeDef>
+
+	<!-- Hand: Improved hand reflex -->
+
+	<HediffDef ParentName="HediffBodyPartBase_OrganicOptimizer">
+		<defName>InstinctOptimizedHand</defName>
+		<label>improved hand reflex</label>
+		<description>The natural hands are optimized using instinct optimizing nanobots.</description>
+		<descriptionHyperlinks>
+			<ThingDef>InstinctOptimizingNanobots</ThingDef>
+		</descriptionHyperlinks>
+		<comps>
+			<li Class="HediffCompProperties_SeverityPerDay">
+				<severityPerDay>0.25</severityPerDay>
+			</li>
+		</comps>
+		<stages>
+			<li>
+				<label>Fresh</label>
+				<painFactor>1.5</painFactor>
+				<restFallFactorOffset>0.5</restFallFactorOffset>
+				<hungerRateFactorOffset>0.5</hungerRateFactorOffset>
+				<partEfficiencyOffset>-0.1</partEfficiencyOffset>
+				<statOffsets>
+					<WorkSpeedGlobal>-0.1</WorkSpeedGlobal>
+					<MentalBreakThreshold>0.04</MentalBreakThreshold>
+				</statOffsets>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<setMax>0.1</setMax>
+					</li>
+				</capMods>
+			</li>
+			<li>
+				<label>Adapting</label>
+				<minSeverity>0.20</minSeverity>
+				<painFactor>1.5</painFactor>
+				<restFallFactorOffset>0.25</restFallFactorOffset>
+				<hungerRateFactorOffset>0.25</hungerRateFactorOffset>
+				<statOffsets>
+					<WorkSpeedGlobal>-0.1</WorkSpeedGlobal>
+					<MentalBreakThreshold>0.04</MentalBreakThreshold>
+				</statOffsets>
+			</li>
+			<li>
+				<label>Optimizing</label>
+				<minSeverity>0.75</minSeverity>
+				<statOffsets>
+					<MentalBreakThreshold>0.02</MentalBreakThreshold>
+					<WorkSpeedGlobal>0.025</WorkSpeedGlobal>
+					<MeleeHitChance>2</MeleeHitChance>
+					<AimingDelayFactor>-0.025</AimingDelayFactor>
+					<MeleeCritChance>0.15</MeleeCritChance>
+					<MeleeParryChance>0.15</MeleeParryChance>
+				</statOffsets>
+			</li>
+			<li>
+				<minSeverity>0.99</minSeverity>
+				<partEfficiencyOffset>0.05</partEfficiencyOffset>
+				<statOffsets>
+					<WorkSpeedGlobal>0.05</WorkSpeedGlobal>
+					<MeleeHitChance>4</MeleeHitChance>
+					<AimingDelayFactor>-0.075</AimingDelayFactor>
+					<MeleeCritChance>0.2</MeleeCritChance>
+					<MeleeParryChance>0.2</MeleeParryChance>
+				</statOffsets>
+			</li>
+		</stages>
+	</HediffDef>
+
+	<RecipeDef ParentName="RecipeSurgeryInstinctOptimizer">
+		<defName>InstinctOptimizingHands</defName>
+		<label>Improve hand reflex</label>
+		<description>Improve the instinctual reaction of the hands with instinct optimizing nanobots, improving the speed of aiming, striking with a melee weapon and general repetative work. with the surgeon carefully monitoring the initial application and progress.</description>
+		<appliedOnFixedBodyParts>
+			<li>Hand</li> 
+		</appliedOnFixedBodyParts>
+		<addsHediff>InstinctOptimizedHand</addsHediff>
+	</RecipeDef>
+
+	<!-- Foot: nimble instinct -->
+
+	<HediffDef ParentName="HediffBodyPartBase_OrganicOptimizer">
+		<defName>InstinctOptimizedFoot</defName>
+		<label>nimble instinct</label>
+		<description>The natural foot are optimized using instinct optimizing nanobots.</description>
+		<descriptionHyperlinks>
+			<ThingDef>InstinctOptimizingNanobots</ThingDef>
+		</descriptionHyperlinks>
+		<comps>
+			<li Class="HediffCompProperties_SeverityPerDay">
+				<severityPerDay>0.25</severityPerDay>
+			</li>
+		</comps>
+		<stages>
+			<li>
+				<label>Fresh</label>
+				<painFactor>1.5</painFactor>
+				<restFallFactorOffset>0.5</restFallFactorOffset>
+				<hungerRateFactorOffset>0.5</hungerRateFactorOffset>
+				<partEfficiencyOffset>-0.1</partEfficiencyOffset>
+				<statOffsets>
+					<MoveSpeed>-0.1</MoveSpeed>
+					<MentalBreakThreshold>0.04</MentalBreakThreshold>
+				</statOffsets>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<setMax>0.1</setMax>
+					</li>
+				</capMods>
+			</li>
+			<li>
+				<label>Adapting</label>
+				<minSeverity>0.20</minSeverity>
+				<painFactor>1.5</painFactor>
+				<restFallFactorOffset>0.25</restFallFactorOffset>
+				<hungerRateFactorOffset>0.25</hungerRateFactorOffset>
+				<statOffsets>
+					<MoveSpeed>-0.1</MoveSpeed>
+					<MentalBreakThreshold>0.04</MentalBreakThreshold>
+				</statOffsets>
+			</li>
+			<li>
+				<label>Optimizing</label>
+				<minSeverity>0.75</minSeverity>
+				<statOffsets>
+					<MentalBreakThreshold>0.02</MentalBreakThreshold>
+					<MeleeDodgeChance>0.075</MeleeDodgeChance>
+				</statOffsets>
+			</li>
+			<li>
+				<minSeverity>0.99</minSeverity>
+				<partEfficiencyOffset>0.05</partEfficiencyOffset>
+				<statOffsets>
+					<MoveSpeed>0.1</MoveSpeed>
+					<MeleeDodgeChance>0.15</MeleeDodgeChance>
+				</statOffsets>
+			</li>
+		</stages>
+	</HediffDef>
+
+	<RecipeDef ParentName="RecipeSurgeryInstinctOptimizer">
+		<defName>InstinctOptimizingFoot</defName>
+		<label>Improve nimble instinct</label>
+		<description>Improve the instinctual reaction of the feet with instinct optimizing nanobots, improving the ability to dodge incoming melee attacks. The surgeon carefully monitoring the initial application and progress.</description>
+		<appliedOnFixedBodyParts>
+			<li>Foot</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>InstinctOptimizedFoot</addsHediff>
+	</RecipeDef>
+
+</Defs>

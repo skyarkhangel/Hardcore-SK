@@ -31,7 +31,7 @@
 		<description>Low-velocity shell designed to be fired from a mortar.</description>
 		<statBases>
 			<MaxHitPoints>200</MaxHitPoints>
-			<MarketValue>55</MarketValue>
+			<MarketValue>75</MarketValue>
 			<Mass>5.27</Mass>
 			<Bulk>8.17</Bulk>
 		</statBases>
@@ -63,7 +63,7 @@
 		<ammoClass>GrenadeHE</ammoClass>
 		<cookOffProjectile>Bullet_81mmMortarShell_HE</cookOffProjectile>
 		<statBases>
-			<MarketValue>55.09</MarketValue>
+			<MarketValue>74.29</MarketValue>
 			<Mass>5.27</Mass>
 			<Bulk>8.17</Bulk>
 		</statBases>
@@ -91,7 +91,7 @@
 		<ammoClass>GrenadeIncendiary</ammoClass>
 		<cookOffProjectile>Bullet_81mmMortarShell_Incendiary</cookOffProjectile>
 		<statBases>
-			<MarketValue>42.34</MarketValue>
+			<MarketValue>68.34</MarketValue>
 			<Mass>4.1</Mass>
 			<Bulk>10.01</Bulk>
 		</statBases>
@@ -125,16 +125,24 @@
 			<Mass>5.27</Mass>
 			<Bulk>8.17</Bulk>
 		</statBases>
-		<comps>
-			<li Class="CombatExtended.CompProperties_ExplosiveCE">
-				<explosionDamage>35</explosionDamage>
-				<explosionDamageDef>Bomb</explosionDamageDef>
-				<explosionRadius>5.5</explosionRadius>
-				<fragments>
-					<Fragment_Small>10</Fragment_Small>
-				</fragments>
-			</li>
-		</comps>
+    <comps>
+	  <li Class="CombatExtended.CompProperties_ExplosiveCE">
+		<explosionDamage>35</explosionDamage>
+		<explosionDamageDef>Bomb</explosionDamageDef>
+		<explosionRadius>5.5</explosionRadius>
+		<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+	  </li>
+		<!-- Vanilla values -->
+      <li Class="CompProperties_Explosive">
+        <explosiveRadius>11.9</explosiveRadius>
+        <explosiveDamageType>EMP</explosiveDamageType>
+    <!--<explosiveExpandPerStackcount>0.4</explosiveExpandPerStackcount>-->
+        <startWickHitPointsPercent>0.7</startWickHitPointsPercent>
+		<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+		<explodeOnKilled>True</explodeOnKilled>
+        <wickTicks>30~60</wickTicks>
+      </li>
+    </comps>
 	</ThingDef>
 
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="81mmMortarShellBaseCraftableBase">
@@ -149,7 +157,7 @@
 		<generateAllowChance>0</generateAllowChance>
 		<cookOffProjectile>Bullet_81mmMortarShell_FireFoam</cookOffProjectile>
 		<statBases>
-			<MarketValue>37.03</MarketValue>
+			<MarketValue>67.03</MarketValue>
 			<Mass>4.1</Mass>
 			<Bulk>13.34</Bulk>
 		</statBases>
@@ -169,6 +177,33 @@
 		</comps>
 	</ThingDef>
 
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="81mmMortarShellBaseCraftableBase">
+		<defName>Shell_Smoke</defName>
+		<label>81mm mortar shell (Smoke)</label>
+		<description>A shell that generates a cloud of smoke when detonated, obscuring incoming shots and preventing turrets from locking on. Can be fired from mortars or installed as a trap. Explodes when damaged.</description>
+		<graphicData>
+			<texPath>Things/Ammo/Mortar/Antigrain</texPath> <!--Add new texture. R1.1-->
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<ammoClass>Smoke</ammoClass>
+		<generateAllowChance>0</generateAllowChance>
+		<cookOffProjectile>Bullet_81mmMortarShell_Smoke</cookOffProjectile>
+		<statBases>
+			<MarketValue>67.03</MarketValue>
+			<Mass>4.1</Mass>
+			<Bulk>13.34</Bulk>
+		</statBases>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<explosionDamageDef>Smoke</explosionDamageDef>
+				<explosionRadius>9</explosionRadius>
+				<postExplosionSpawnThingDef>Gas_Smoke</postExplosionSpawnThingDef>
+				<postExplosionSpawnChance>1</postExplosionSpawnChance>
+				<postExplosionSpawnThingCount>1</postExplosionSpawnThingCount>
+			</li>
+		</comps>
+	</ThingDef>
+
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="81mmMortarShellBase">
 		<defName>Shell_AntigrainWarhead</defName>
 		<label>81mm mortar shell (Anti)</label>
@@ -182,7 +217,7 @@
 			<Bulk>6</Bulk>
 		</statBases>
 		<thingSetMakerTags>
-			<li>RewardSpecial</li>
+			<li>RewardStandardHighFreq</li>
 		</thingSetMakerTags>
 		<tradeTags>
 			<li>CE_AutoEnableTrade_Sellable</li>
@@ -197,8 +232,8 @@
 			</li>
 		</comps>
 	</ThingDef>
-	
-		<!-- ================== Projectiles ================== -->
+
+	<!-- ================== Projectiles ================== -->
 
 	<ThingDef Class="CombatExtended.AmmoDef"  Name="Base81mmMortarShell" ParentName="SK_BaseBullet" Abstract="true">
 		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
@@ -337,6 +372,32 @@
 			</li>
 		</comps>
 	</ThingDef>
+	
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base81mmMortarShell">
+		<defName>Bullet_81mmMortarShell_Smoke</defName>
+		<label>81mm mortar shell (Smoke)</label>
+		<graphicData>
+			<texPath>Things/Projectile/Mortar/Antigrain</texPath> <!--Add new texture. R1.1-->
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bomb</damageDef>
+			<damageAmountBase>80</damageAmountBase>
+			<explosionRadius>1</explosionRadius>
+			<!-- <armorPenetrationBase>1.4</armorPenetrationBase> -->
+			<armorPenetrationSharp>0</armorPenetrationSharp>
+			<armorPenetrationBlunt>0</armorPenetrationBlunt>
+			<soundExplode>Explosion_Smoke</soundExplode>
+			<postExplosionSpawnThingDef>Gas_Smoke</postExplosionSpawnThingDef>
+			<postExplosionSpawnChance>1</postExplosionSpawnChance>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<explosionRadius>7.1</explosionRadius>
+				<explosionDamageDef>Smoke</explosionDamageDef>
+			</li>
+		</comps>
+	</ThingDef>	
 
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base81mmMortarShell">
 		<defName>Bullet_81mmMortarShell_Antigrain</defName>
@@ -516,7 +577,7 @@
 			<li>
 				<filter>
 					<thingDefs>
-						<li>ComponentIndustrial</li>
+						<li>ElectronicComponents</li>
 					</thingDefs>
 				</filter>
 				<count>3</count>
@@ -530,7 +591,7 @@
 			</categories>
 			<thingDefs>
 				<li>Powder</li>
-				<li>ComponentIndustrial</li>
+				<li>ElectronicComponents</li>
 			</thingDefs>
 		</fixedIngredientFilter>
 		<products>

@@ -1,0 +1,707 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+	<HediffDef Name="HediffBodyPartBase_SyntheticImplant" Abstract="True">
+		<hediffClass>Hediff_Implant</hediffClass>
+		<isBad>false</isBad>
+		<defaultLabelColor>(0.5, 0.5, 0.9)</defaultLabelColor>
+		<priceImpact>true</priceImpact>
+	</HediffDef>
+
+	<ThingDef Name="BodyPartBase_BionicRibBase" ParentName="SK_BodyPartBase" Abstract="True">
+		<techLevel>Spacer</techLevel>
+		<thingCategories>
+			<li>SyntheticOrgans</li>
+		</thingCategories>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/MedicalRib</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<statBases>
+			<WorkToMake>14000</WorkToMake>
+			<DeteriorationRate>1.0</DeteriorationRate>
+			<MaxHitPoints>80</MaxHitPoints>
+		</statBases>
+		<tradeTags>
+			<li>TechHediff</li>
+		</tradeTags>
+		<techHediffsTags>
+			<li>Advanced</li>
+		</techHediffsTags>
+		<thingSetMakerTags>
+			<li>RewardStandardMidFreq</li>
+		</thingSetMakerTags>
+		<recipeMaker>
+			<workSpeedStat>SmithingSpeed</workSpeedStat>
+			<workSkillLearnPerTick>0.8</workSkillLearnPerTick>	  
+			<workSkill>Crafting</workSkill>
+			<workAmount>3550</workAmount>
+			<effectWorking>Smith</effectWorking>
+			<soundWorking>EPOEAssembling</soundWorking>
+			<unfinishedThingDef>UnfinishedHealthItemBionic</unfinishedThingDef>
+			<skillRequirements>
+				<Crafting>12</Crafting>
+			</skillRequirements>
+			<researchPrerequisite>Bionics</researchPrerequisite>
+			<recipeUsers>
+				<li>TableSynthetics</li>
+			</recipeUsers>
+		</recipeMaker>
+	</ThingDef>
+
+	<!-- Medical rib -->
+
+	<HediffDef ParentName="HediffBodyPartBase_SyntheticImplant">
+		<defName>MedicalRib</defName>
+		<label>medical rib</label>
+		<labelNoun>a medical rib</labelNoun>
+		<description>An installed medical rib implant.</description>
+		<descriptionHyperlinks>
+			<ThingDef>MedicalRib</ThingDef>
+		</descriptionHyperlinks>
+		<spawnThingOnRemoved>MedicalRib</spawnThingOnRemoved>
+		<hediffClass>Hediff_Implant</hediffClass>
+		<stages>
+			<li>
+				<capMods>
+					<li>
+						<capacity>BloodFiltration</capacity>
+						<offset>0.1</offset>
+					</li>
+				</capMods>
+			</li>	 
+		</stages>
+		<tags>
+			<li>MedicalRib</li>
+		</tags>
+	</HediffDef>
+
+	<ThingDef ParentName="BodyPartBase_BionicRibBase">
+		<defName>MedicalRib</defName>
+		<label>medical rib replacement</label>
+		<description>An artificial rib, equipped with little blood filters and antibiotics-dispensers to keep the user healthy.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>InstallMedicalRib</RecipeDef>
+		</descriptionHyperlinks>
+		<statBases>
+			<Mass>0.3</Mass>
+		</statBases>
+		<costList>
+			<ArtificialBone>1</ArtificialBone>
+			<ComponentAdvanced>2</ComponentAdvanced>
+			<Neutroamine>3</Neutroamine>
+			<Penoxycyline>10</Penoxycyline>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>11</Crafting>
+			</skillRequirements>
+		</recipeMaker>		
+	</ThingDef>
+
+
+	<RecipeDef ParentName="SK_SurgeryInstallImplantBase">
+		<defName>InstallMedicalRib</defName>
+		<label>install medical rib replacement</label>
+		<description>Installs a medical rib replacement.</description>
+		<workAmount>1700</workAmount>
+		<descriptionHyperlinks>
+			<ThingDef>MedicalRib</ThingDef>
+		</descriptionHyperlinks>
+		<jobString>Installing a medical rib replacement.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>MedicalRib</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>MedicalRib</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Ribcage</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>MedicalRib</addsHediff>
+		<incompatibleWithHediffTags>
+			<li>MedicalRib</li>
+		</incompatibleWithHediffTags>
+		<researchPrerequisite>Bionics</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SK_SurgeryRemoveImplantBase">
+		<defName>RemoveMedicalRib</defName>
+		<label>remove medical rib replacement</label>
+		<description>Remove a medical rib replacement.</description>
+		<descriptionHyperlinks>
+			<ThingDef>MedicalRib</ThingDef>
+		</descriptionHyperlinks>
+		<jobString>Removing rib replacement.</jobString>
+		<removesHediff>MedicalRib</removesHediff>
+	</RecipeDef>
+
+	<!-- Drugged rib -->
+
+	<HediffDef ParentName="HediffBodyPartBase_SyntheticImplant">
+		<defName>DruggedRib</defName>
+		<label>drugged rib</label>
+		<labelNoun>a drugged rib</labelNoun>
+		<description>An installed drugged rib implant.</description>
+		<descriptionHyperlinks>
+			<ThingDef>DruggedRib</ThingDef>
+		</descriptionHyperlinks>
+		<spawnThingOnRemoved>DruggedRib</spawnThingOnRemoved>
+		<hediffClass>Hediff_Implant</hediffClass>
+		<stages>
+			<li>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<offset>-0.05</offset>
+					</li>
+				</capMods>
+			</li>	 
+		</stages>
+		<tags>
+			<li>DruggedRib</li>
+		</tags>
+	</HediffDef>
+
+	<ThingDef ParentName="BodyPartBase_BionicRibBase">
+		<defName>DruggedRib</defName>
+		<label>drugged rib replacement</label>
+		<description>An artificial rib, equipped with little flake-dispensers to keep the user happy. Synthetic liver highly recommended.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>InstallDruggedRib</RecipeDef>
+		</descriptionHyperlinks>
+		<statBases>
+			<Mass>0.3</Mass>
+		</statBases>
+		<costList>
+			<ArtificialBone>1</ArtificialBone>
+			<ComponentAdvanced>3</ComponentAdvanced>
+			<Neutroamine>3</Neutroamine>
+			<Flake>10</Flake>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>11</Crafting>
+			</skillRequirements>
+		</recipeMaker>	
+	</ThingDef>
+
+	<RecipeDef ParentName="SK_SurgeryInstallImplantBase">
+		<defName>InstallDruggedRib</defName>
+		<label>install drugged rib</label>
+		<description>Installs a drugged rib.</description>
+		<workAmount>1700</workAmount>
+		<descriptionHyperlinks>
+			<ThingDef>DruggedRib</ThingDef>
+		</descriptionHyperlinks>
+		<jobString>Installing a drugged rib.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>DruggedRib</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>DruggedRib</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Ribcage</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>DruggedRib</addsHediff>
+		<incompatibleWithHediffTags>
+			<li>DruggedRib</li>
+		</incompatibleWithHediffTags>
+		<researchPrerequisite>Bionics</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SK_SurgeryRemoveImplantBase">
+		<defName>RemoveDruggedRib</defName>
+		<label>remove drugged rib replacement</label>
+		<description>Remove a drugged rib replacement.</description>
+		<descriptionHyperlinks>
+			<ThingDef>DruggedRib</ThingDef>
+		</descriptionHyperlinks>
+		<jobString>Removing rib replacement.</jobString>
+		<removesHediff>DruggedRib</removesHediff>
+	</RecipeDef>
+
+	<!-- Adrenaline rib -->
+
+	<HediffDef ParentName="HediffBodyPartBase_SyntheticImplant">
+		<defName>AdrenalineRib</defName>
+		<label>adrenaline rib</label>
+		<labelNoun>an adrenaline rib</labelNoun>
+		<description>An installed adrenaline rib implant.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AdrenalineRib</ThingDef>
+		</descriptionHyperlinks>
+		<spawnThingOnRemoved>AdrenalineRib</spawnThingOnRemoved>
+		<hediffClass>Hediff_Implant</hediffClass>
+		<stages>
+			<li>
+				<capMods>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>0.05</offset>
+					</li>
+				</capMods>
+			</li>
+		</stages>
+		<tags>
+			<li>AdrenalineRib</li>
+		</tags>
+	</HediffDef>
+
+	<ThingDef ParentName="BodyPartBase_BionicRibBase">
+		<defName>AdrenalineRib</defName>
+		<label>adrenaline rib replacement</label>
+		<description>An artificial rib, equipped with little adrenaline-dispensers to keep the user fit and awake.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>InstallAdrenalineRib</RecipeDef>
+		</descriptionHyperlinks>
+		<statBases>
+			<Mass>0.3</Mass>
+		</statBases>
+		<costList>
+			<ArtificialBone>1</ArtificialBone>
+			<ComponentAdvanced>3</ComponentAdvanced>
+			<Neutroamine>3</Neutroamine>
+			<Yayo>10</Yayo>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>11</Crafting>
+			</skillRequirements>
+		</recipeMaker>	
+	</ThingDef>
+
+	<RecipeDef ParentName="SK_SurgeryInstallImplantBase">
+		<defName>InstallAdrenalineRib</defName>
+		<label>install adrenaline rib</label>
+		<description>Installs an adrenaline rib.</description>
+		<workAmount>1700</workAmount>
+		<descriptionHyperlinks>
+			<ThingDef>AdrenalineRib</ThingDef>
+		</descriptionHyperlinks>
+		<jobString>Installing an adrenaline rib.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>AdrenalineRib</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>AdrenalineRib</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Ribcage</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>AdrenalineRib</addsHediff>
+		<incompatibleWithHediffTags>
+			<li>AdrenalineRib</li>
+		</incompatibleWithHediffTags>
+		<researchPrerequisite>Bionics</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SK_SurgeryRemoveImplantBase">
+		<defName>RemoveAdrenalineRib</defName>
+		<label>remove adrenaline rib replacement</label>
+		<description>Remove a adrenaline rib replacement.</description>
+		<descriptionHyperlinks>
+			<ThingDef>AdrenalineRib</ThingDef>
+		</descriptionHyperlinks>
+		<jobString>Removing rib replacement.</jobString>
+		<removesHediff>AdrenalineRib</removesHediff>
+	</RecipeDef>
+
+	<!-- Painkiller rib -->
+
+	<HediffDef ParentName="HediffBodyPartBase_SyntheticImplant">
+		<defName>PainkillerRib</defName>
+		<label>painkiller rib</label>
+		<labelNoun>a painkiller rib</labelNoun>
+		<description>An installed painkiller rib implant.</description>
+		<descriptionHyperlinks>
+			<ThingDef>PainkillerRib</ThingDef>
+		</descriptionHyperlinks>
+		<spawnThingOnRemoved>PainkillerRib</spawnThingOnRemoved>
+		<hediffClass>Hediff_Implant</hediffClass>
+		<stages>
+			<li>
+				<painOffset>-0.08</painOffset>
+				<painFactor>0.9</painFactor>
+			</li>
+		</stages>
+		<tags>
+			<li>PainkillerRib</li>
+		</tags>
+	</HediffDef>
+
+	<ThingDef ParentName="BodyPartBase_BionicRibBase">
+		<defName>PainkillerRib</defName>
+		<label>painkiller rib replacement</label>
+		<description>An artificial rib, equipped with little morphine-dispensers to numb the user's pain.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>InstallPainkillerRib</RecipeDef>
+		</descriptionHyperlinks>
+		<statBases>
+			<Mass>0.3</Mass>
+		</statBases>
+		<costList>
+			<ArtificialBone>1</ArtificialBone>
+			<ComponentAdvanced>3</ComponentAdvanced>
+			<Neutroamine>3</Neutroamine>
+			<GoJuice>5</GoJuice>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>11</Crafting>
+			</skillRequirements>
+		</recipeMaker>	
+	</ThingDef>
+
+	<RecipeDef ParentName="SK_SurgeryInstallImplantBase">
+		<defName>InstallPainkillerRib</defName>
+		<label>install painkiller rib</label>
+		<description>Installs a painkiller rib.</description>
+		<workAmount>1700</workAmount>
+		<descriptionHyperlinks>
+			<ThingDef>PainkillerRib</ThingDef>
+		</descriptionHyperlinks>
+		<jobString>Installing a painkiller rib.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>PainkillerRib</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>PainkillerRib</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Ribcage</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>PainkillerRib</addsHediff>
+		<incompatibleWithHediffTags>
+			<li>PainkillerRib</li>
+		</incompatibleWithHediffTags>
+		<researchPrerequisite>Bionics</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SK_SurgeryRemoveImplantBase">
+		<defName>RemovePainkillerRib</defName>
+		<label>remove painkiller rib replacement</label>
+		<description>Remove a painkiller rib replacement.</description>
+		<descriptionHyperlinks>
+			<ThingDef>PainkillerRib</ThingDef>
+		</descriptionHyperlinks>
+		<jobString>Removing rib replacement.</jobString>
+		<removesHediff>PainkillerRib</removesHediff>
+	</RecipeDef>
+
+	<!-- Heater rib -->
+
+	<HediffDef ParentName="HediffBodyPartBase_SyntheticImplant">
+		<defName>HeaterRib</defName>
+		<label>heating rib</label>
+		<description>An installed heater rib implant.</description>
+		<descriptionHyperlinks>
+			<ThingDef>HeaterRib</ThingDef>
+		</descriptionHyperlinks>
+		<spawnThingOnRemoved>HeaterRib</spawnThingOnRemoved>
+		<hediffClass>Hediff_Implant</hediffClass>
+		<stages>
+			<li>
+				<statOffsets>
+					<ComfyTemperatureMax>-2</ComfyTemperatureMax>
+					<ComfyTemperatureMin>-12.5</ComfyTemperatureMin>
+				</statOffsets>
+			</li>	 
+		</stages>
+		<tags>
+			<li>HeaterRib</li>
+		</tags>
+	</HediffDef>
+
+	<ThingDef ParentName="BodyPartBase_BionicRibBase">
+		<defName>HeaterRib</defName>
+		<label>heating rib replacement</label>
+		<description>An artificial rib, containing a micro-reactor powered, heat inducing spiral to warm the body from the inside.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>InstallHeaterRib</RecipeDef>
+		</descriptionHyperlinks>
+		<statBases>
+			<Mass>0.3</Mass>
+		</statBases>
+		<costList>
+			<ArtificialBone>2</ArtificialBone>
+			<ComponentAdvanced>3</ComponentAdvanced>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>11</Crafting>
+			</skillRequirements>
+		</recipeMaker>	
+	</ThingDef>
+
+	<RecipeDef ParentName="SK_SurgeryInstallImplantBase">
+		<defName>InstallHeaterRib</defName>
+		<label>install heating rib</label>
+		<description>Installs a heating rib.</description>
+		<workAmount>1700</workAmount>
+		<descriptionHyperlinks>
+			<ThingDef>HeaterRib</ThingDef>
+		</descriptionHyperlinks>
+		<jobString>Installing a heating rib.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>HeaterRib</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>HeaterRib</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Ribcage</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>HeaterRib</addsHediff>
+		<incompatibleWithHediffTags>
+			<li>HeaterRib</li>
+		</incompatibleWithHediffTags>
+		<researchPrerequisite>Bionics</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SK_SurgeryRemoveImplantBase">
+		<defName>RemoveHeaterRib</defName>
+		<label>remove heating rib replacement</label>
+		<description>Remove a heating rib replacement.</description>
+		<descriptionHyperlinks>
+			<ThingDef>HeaterRib</ThingDef>
+		</descriptionHyperlinks>
+		<jobString>Removing rib replacement.</jobString>
+		<removesHediff>HeaterRib</removesHediff>
+	</RecipeDef>
+
+	<!-- Cooler rib -->
+
+	<HediffDef ParentName="HediffBodyPartBase_SyntheticImplant">
+		<defName>CoolerRib</defName>
+		<label>cooling rib</label>
+		<description>An installed cooler rib implant.</description>
+		<descriptionHyperlinks>
+			<ThingDef>CoolerRib</ThingDef>
+		</descriptionHyperlinks>
+		<spawnThingOnRemoved>CoolerRib</spawnThingOnRemoved>
+		<hediffClass>Hediff_Implant</hediffClass>
+		<stages>
+			<li>
+				<statOffsets>
+					<ComfyTemperatureMax>12.5</ComfyTemperatureMax>
+					<ComfyTemperatureMin>2</ComfyTemperatureMin>
+				</statOffsets>
+			</li>
+		</stages>
+		<tags>
+			<li>CoolerRib</li>
+		</tags>
+	</HediffDef>
+
+	<ThingDef ParentName="BodyPartBase_BionicRibBase">
+		<defName>CoolerRib</defName>
+		<label>cooling rib replacement</label>
+		<description>An artificial rib with a micro coolant system, increasing the effectiveness of heat exchange via dermal exhausts.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>InstallCoolerRib</RecipeDef>
+		</descriptionHyperlinks>
+		<statBases>
+			<Mass>0.3</Mass>
+		</statBases>
+		<costList>
+			<ArtificialBone>2</ArtificialBone>
+			<ComponentAdvanced>3</ComponentAdvanced>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>11</Crafting>
+			</skillRequirements>
+		</recipeMaker>
+	</ThingDef>
+
+	<RecipeDef ParentName="SK_SurgeryInstallImplantBase">
+		<defName>InstallCoolerRib</defName>
+		<label>install cooling rib</label>
+		<description>Installs a cooling rib.</description>
+		<workAmount>1700</workAmount>
+		<descriptionHyperlinks>
+			<ThingDef>CoolerRib</ThingDef>
+		</descriptionHyperlinks>
+		<jobString>Installing a cooling rib.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>CoolerRib</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>CoolerRib</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Ribcage</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>CoolerRib</addsHediff>
+		<incompatibleWithHediffTags>
+			<li>CoolerRib</li>
+		</incompatibleWithHediffTags>
+		<researchPrerequisite>Bionics</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SK_SurgeryRemoveImplantBase">
+		<defName>RemoveCoolerRib</defName>
+		<label>remove cooling rib replacement</label>
+		<description>Remove a cooling rib replacement.</description>
+		<descriptionHyperlinks>
+			<ThingDef>CoolerRib</ThingDef>
+		</descriptionHyperlinks>
+		<jobString>Removing rib replacement.</jobString>
+		<removesHediff>CoolerRib</removesHediff>
+	</RecipeDef>
+
+	<!-- Coagulator rib -->
+
+	<HediffDef ParentName="HediffBodyPartBase_SyntheticImplant">
+		<defName>CoagulatorRib</defName>
+		<label>coagulator rib</label>
+		<description>An installed coagulator rib implant.</description>
+		<descriptionHyperlinks>
+			<ThingDef>CoagulatorRib</ThingDef>
+		</descriptionHyperlinks>
+		<spawnThingOnRemoved>CoagulatorRib</spawnThingOnRemoved>
+		<hediffClass>Hediff_Implant</hediffClass>
+		<stages>
+			<li>
+				<totalBleedFactor>0.9</totalBleedFactor>
+			</li>
+		</stages>
+		<tags>
+			<li>CoagulatorRib</li>
+		</tags>
+	</HediffDef>
+
+	<ThingDef ParentName="BodyPartBase_BionicRibBase">
+		<defName>CoagulatorRib</defName>
+		<label>coagulator rib replacement</label>
+		<description>An artificial rib, equipped with little coagulator-dispensers that responds to blood loss, which will make the blood clot easier, in an effort to reduce bleeding.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>InstallCoagulatorRib</RecipeDef>
+		</descriptionHyperlinks>
+		<statBases>
+			<Mass>0.3</Mass>
+		</statBases>
+		<costList>
+			<ArtificialBone>1</ArtificialBone>
+			<ComponentAdvanced>3</ComponentAdvanced>
+			<Neutroamine>3</Neutroamine>
+			<MedicineUltratech>5</MedicineUltratech>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>11</Crafting>
+			</skillRequirements>
+		</recipeMaker>
+	</ThingDef>
+
+
+	<RecipeDef ParentName="SK_SurgeryInstallImplantBase">
+		<defName>InstallCoagulatorRib</defName>
+		<label>install coagulator rib replacement</label>
+		<description>Installs a coagulator rib replacement.</description>
+		<workAmount>1700</workAmount>
+		<descriptionHyperlinks>
+			<ThingDef>CoagulatorRib</ThingDef>
+		</descriptionHyperlinks>
+		<jobString>Installing a coagulator rib replacement.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>CoagulatorRib</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>CoagulatorRib</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Ribcage</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>CoagulatorRib</addsHediff>
+		<incompatibleWithHediffTags>
+			<li>CoagulatorRib</li>
+		</incompatibleWithHediffTags>
+		<researchPrerequisite>Bionics</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SK_SurgeryRemoveImplantBase">
+		<defName>RemoveCoagulatorRib</defName>
+		<label>remove coagulator rib replacement</label>
+		<description>Remove a coagulator rib replacement.</description>
+		<descriptionHyperlinks>
+			<ThingDef>CoagulatorRib</ThingDef>
+		</descriptionHyperlinks>
+		<jobString>Removing rib replacement.</jobString>
+		<removesHediff>CoagulatorRib</removesHediff>
+	</RecipeDef>
+
+</Defs>

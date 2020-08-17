@@ -1,0 +1,1311 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<!-- Bionic parts -->
+
+	<ThingDef Name="BodyPartBase_Bionic" ParentName="SK_BodyPartBase" Abstract="True">
+		<techLevel>Spacer</techLevel>
+		<thingCategories>
+			<li>BodyPartsBionic</li>
+		</thingCategories>
+		<tradeTags>
+			<li>Bionic</li>
+		</tradeTags>
+		<techHediffsTags>
+			<li>Advanced</li>
+		</techHediffsTags>
+		<statBases>
+			<WorkToMake>16000</WorkToMake>
+			<DeteriorationRate>1.0</DeteriorationRate>
+			<MaxHitPoints>100</MaxHitPoints>
+		</statBases>
+		<thingSetMakerTags>
+			<li>RewardStandardMidFreq</li>
+		</thingSetMakerTags>
+		<recipeMaker>
+			<workSpeedStat>ElectronicCraftingSpeed</workSpeedStat>
+			<workSkillLearnPerTick>0.8</workSkillLearnPerTick>	  
+			<workSkill>Crafting</workSkill>
+			<workAmount>8000</workAmount>
+			<effectWorking>Smith</effectWorking>
+			<soundWorking>EPOEAssembling</soundWorking>
+			<unfinishedThingDef>UnfinishedHealthItemBionic</unfinishedThingDef>
+			<skillRequirements>
+				<Crafting>14</Crafting>
+			</skillRequirements>
+			<researchPrerequisite>SK_BionicsII</researchPrerequisite>
+			<recipeUsers>
+				<li>TableBionics</li>
+			</recipeUsers>
+		</recipeMaker>
+	</ThingDef>
+
+	<HediffDef Name="HediffBodyPartBase_Bionic" Abstract="True">
+		<hediffClass>Hediff_AddedPart</hediffClass>
+		<isBad>false</isBad>
+		<defaultLabelColor>(0.5, 0.5, 0.9)</defaultLabelColor>
+		<addedPartProps>
+			<solid>true</solid>
+			<betterThanNatural>true</betterThanNatural>
+		</addedPartProps>
+		<priceImpact>true</priceImpact>
+	</HediffDef>
+
+	<HediffDef Name="HediffBodyPartBase_MechanoidSpecial" Abstract="True">
+		<hediffClass>Hediff_AddedPart</hediffClass>
+		<isBad>false</isBad>
+		<defaultLabelColor>(148,117,14)</defaultLabelColor>
+		<priceImpact>true</priceImpact>
+	</HediffDef>
+
+	<HediffDef Name="HediffBodyPartBase_BionicImplant" Abstract="True">
+		<hediffClass>Hediff_Implant</hediffClass>
+		<defaultLabelColor>(0.65, 0.3, 0.9)</defaultLabelColor>
+		<isBad>false</isBad>
+		<addedPartProps>
+			<solid>true</solid>
+		</addedPartProps>
+		<priceImpact>true</priceImpact>
+	</HediffDef>
+
+	<ThingDef ParentName="BodyPartBase_Bionic">
+		<defName>BionicHand</defName>
+		<label>bionic hand</label>
+		<description>Allows the user to perform tasks even faster than with regular hands.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>InstallBionicHand</RecipeDef>
+		</descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/BionicHand</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<statBases>
+			<Mass>1</Mass>
+		</statBases>
+		<costList>
+			<ComponentAdvanced>4</ComponentAdvanced>
+			<Biomatter>25</Biomatter>
+			<SyntheticFibers>16</SyntheticFibers>
+			<ArtificialBone>2</ArtificialBone>
+			<Microchips>1</Microchips>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>15</Crafting>
+			</skillRequirements>
+		</recipeMaker>
+	</ThingDef>
+
+	<HediffDef ParentName="HediffBodyPartBase_Bionic">
+		<defName>BionicHand</defName>
+		<label>bionic hand</label>
+		<description>An installed bionic hand. Allows the user to perform tasks even faster than with regular hands.</description>
+		<labelNoun>a bionic hand</labelNoun>
+		<descriptionHyperlinks>
+			<ThingDef>BionicHand</ThingDef>
+		</descriptionHyperlinks>
+		<addedPartProps>
+			<partEfficiency>1.1</partEfficiency>
+		</addedPartProps>
+		<stages>
+			<li>
+				<capMods>
+					<li>
+						<capacity>Manipulation</capacity>
+						<offset>0.1</offset>
+					</li>
+				</capMods>
+			</li>	 
+		</stages>
+		<spawnThingOnRemoved>BionicHand</spawnThingOnRemoved>
+	</HediffDef>
+
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>InstallBionicHand</defName>
+		<label>Install Bionic Hand</label>
+		<description>Installs a Bionic Hand.</description>
+		<workerClass>Recipe_InstallArtificialBodyPart</workerClass>
+		<jobString>Installing Bionic Hand.</jobString>
+		<workAmount>3300</workAmount>
+		<descriptionHyperlinks>
+			<ThingDef>BionicHand</ThingDef>
+		</descriptionHyperlinks>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>BionicHand</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>BionicHand</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Hand</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>BionicHand</addsHediff>
+		<skillRequirements>
+			<Medicine>11</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>SK_BionicsII</researchPrerequisite>
+	</RecipeDef>
+
+	<ThingDef ParentName="BodyPartBase_Bionic">
+		<defName>BionicFoot</defName>
+		<label>bionic foot</label>
+		<description>This prosthesis grants faster walking without stumbling all the time.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>InstallBionicFoot</RecipeDef>
+		</descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/BionicFoot</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<statBases>
+			<Mass>0.2</Mass>
+		</statBases>
+		<costList>
+			<ComponentAdvanced>4</ComponentAdvanced>
+			<Biomatter>25</Biomatter>
+			<SyntheticFibers>16</SyntheticFibers>
+			<ArtificialBone>2</ArtificialBone>
+			<Microchips>1</Microchips>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>15</Crafting>
+			</skillRequirements>
+		</recipeMaker>
+	</ThingDef>
+
+	<HediffDef ParentName="HediffBodyPartBase_Bionic">
+		<defName>BionicFoot</defName>
+		<label>bionic Foot</label>
+		<description>An installed bionic Foot. Grants faster walking without stumbling all the time.</description>
+		<labelNoun>a bionic foot</labelNoun>
+		<descriptionHyperlinks>
+			<ThingDef>BionicFoot</ThingDef>
+		</descriptionHyperlinks>
+		<addedPartProps>
+			<partEfficiency>1.1</partEfficiency>
+		</addedPartProps>
+		<stages>
+			<li>
+				<capMods>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>0.08</offset>
+					</li>
+				</capMods>
+			</li>	 
+		</stages>
+		<spawnThingOnRemoved>BionicFoot</spawnThingOnRemoved>
+	</HediffDef>
+
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>InstallBionicFoot</defName>
+		<label>Install Bionic Foot</label>
+		<description>Installs Bionic Foot.</description>
+		<workerClass>Recipe_InstallArtificialBodyPart</workerClass>
+		<jobString>Installing Bionic Foot.</jobString>
+		<workAmount>3000</workAmount>
+		<descriptionHyperlinks>
+			<ThingDef>BionicFoot</ThingDef>
+		</descriptionHyperlinks>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>BionicFoot</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>BionicFoot</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Foot</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>BionicFoot</addsHediff>
+		<skillRequirements>
+			<Medicine>12</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>SK_BionicsII</researchPrerequisite>
+	</RecipeDef>
+
+
+	<ThingDef ParentName="BodyPartBase_Bionic">
+		<defName>BionicEar</defName>
+		<label>bionic ear implant</label>
+		<description>An advanced device that expands upon the basic functions of the ear drum.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>InstallBionicEar</RecipeDef>
+		</descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/BionicEar</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<statBases>
+			<Mass>0.2</Mass>
+		</statBases>
+		<costList>
+			<Biomatter>25</Biomatter>
+			<SyntheticFibers>7</SyntheticFibers>
+			<Paraffins>13</Paraffins>
+			<Microchips>1</Microchips>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>13</Crafting>
+			</skillRequirements>
+		</recipeMaker>
+	</ThingDef>
+
+	<HediffDef ParentName="HediffBodyPartBase_Bionic">
+		<defName>BionicEar</defName>
+		<label>bionic ear</label>
+		<description>An installed advanced device that expands upon the basic functions of the ear drum.</description>
+		<labelNoun>a bionic ear</labelNoun>
+		<descriptionHyperlinks>
+			<ThingDef>BionicEar</ThingDef>
+		</descriptionHyperlinks>
+		<addedPartProps>
+			<partEfficiency>1.1</partEfficiency>
+		</addedPartProps>
+		<stages>
+			<li>
+				<capMods>
+					<li>
+						<capacity>Hearing</capacity>
+						<offset>0.1</offset>
+					</li>
+				</capMods>
+			</li>	 
+		</stages>
+		<spawnThingOnRemoved>BionicEar</spawnThingOnRemoved>
+	</HediffDef>
+
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>InstallBionicEar</defName>
+		<label>Install Bionic Ear Implant</label>
+		<description>Installs a Bionic Ear Implant.</description>
+		<workerClass>Recipe_InstallArtificialBodyPart</workerClass>
+		<jobString>Installing a Bionic Ear Implant.</jobString>
+		<workAmount>2200</workAmount>
+		<descriptionHyperlinks>
+			<ThingDef>BionicEar</ThingDef>
+		</descriptionHyperlinks>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>BionicEar</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>BionicEar</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Ear</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>BionicEar</addsHediff>
+		<workSkill>Medicine</workSkill>
+		<skillRequirements>
+			<Medicine>12</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>SK_BionicsII</researchPrerequisite>
+	</RecipeDef>
+
+
+	<ThingDef ParentName="BodyPartBase_Bionic">
+		<defName>BionicJaw</defName>
+		<label>bionic jaw implant</label>
+		<description>Aside from a strong set of teeth, this also comes with a voice modulator.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>InstallBionicJaw</RecipeDef>
+		</descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/BionicJaw</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<statBases>
+			<Mass>0.5</Mass>
+		</statBases>
+		<costList>
+			<ComponentAdvanced>6</ComponentAdvanced>
+			<Biomatter>25</Biomatter>
+			<SyntheticFibers>6</SyntheticFibers>
+			<ArtificialBone>1</ArtificialBone>
+			<Microchips>1</Microchips>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>13</Crafting>
+			</skillRequirements>
+		</recipeMaker>
+	</ThingDef>
+
+	<HediffDef ParentName="HediffBodyPartBase_Bionic">
+		<defName>BionicJaw</defName>
+		<label>bionic jaw implant</label>
+		<description>An installed strong set of teeth, this also comes with a voice modulator.</description>
+		<labelNoun>a bionic jaw implant</labelNoun>
+		<descriptionHyperlinks>
+			<ThingDef>BionicJaw</ThingDef>
+		</descriptionHyperlinks>
+		<addedPartProps>
+			<partEfficiency>1.1</partEfficiency>
+		</addedPartProps>
+		<stages>
+			<li>
+				<capMods>
+					<li>
+						<capacity>Talking</capacity>
+						<offset>0.12</offset>
+					</li>
+				</capMods>
+			</li>	 
+		</stages>
+		<spawnThingOnRemoved>BionicJaw</spawnThingOnRemoved>
+	</HediffDef>
+
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>InstallBionicJaw</defName>
+		<label>Install Bionic Jaw Implant</label>
+		<description>Installs a Bionic Jaw Implant.</description>
+		<workerClass>Recipe_InstallArtificialBodyPart</workerClass>
+		<jobString>Installing a Bionic Jaw Implant.</jobString>
+		<workAmount>2200</workAmount>
+		<descriptionHyperlinks>
+			<ThingDef>BionicJaw</ThingDef>
+		</descriptionHyperlinks>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>BionicJaw</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>BionicJaw</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Jaw</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>BionicJaw</addsHediff>
+		<skillRequirements>
+			<Medicine>10</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>SK_BionicsII</researchPrerequisite>
+	</RecipeDef>
+
+
+
+	<ThingDef ParentName="BodyPartBase_Bionic">
+		<defName>BionicSpine</defName>
+		<label>bionic spine</label>
+		<description>This light and impressing device can replace a damaged spine.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>InstallBionicSpine</RecipeDef>
+		</descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/BionicSpine</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<statBases>
+			<Mass>4</Mass>
+			<MaxHitPoints>125</MaxHitPoints>
+		</statBases>
+		<costList>
+			<ComponentAdvanced>6</ComponentAdvanced>
+			<Biomatter>45</Biomatter>
+			<SyntheticFibers>25</SyntheticFibers>
+			<ArtificialBone>4</ArtificialBone>
+			<Microchips>1</Microchips>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>14</Crafting>
+			</skillRequirements>
+		</recipeMaker>
+	</ThingDef>
+
+
+	<HediffDef ParentName="HediffBodyPartBase_Bionic">
+		<defName>BionicSpine</defName>
+		<label>bionic spine</label>
+		<description>An installed light and impressing bionic spine.</description>
+		<labelNoun>a bionic spine</labelNoun>
+		<descriptionHyperlinks>
+			<ThingDef>BionicSpine</ThingDef>
+		</descriptionHyperlinks>
+		<addedPartProps>
+			<partEfficiency>1.1</partEfficiency>
+		</addedPartProps>
+		<stages>
+			<li>
+				<capMods>
+					<li>
+						<capacity>Manipulation</capacity>
+						<offset>0.10</offset>
+					</li>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>0.07</offset>
+					</li>
+				</capMods>
+			</li>	 
+		</stages>
+		<spawnThingOnRemoved>BionicSpine</spawnThingOnRemoved>
+	</HediffDef>
+
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>InstallBionicSpine</defName>
+		<label>Install Bionic Spine</label>
+		<description>Installs a Bionic Spine.</description>
+		<workerClass>Recipe_InstallArtificialBodyPart</workerClass>
+		<jobString>Installing a Bionic Spine.</jobString>
+		<workAmount>3900</workAmount>
+		<descriptionHyperlinks>
+			<ThingDef>BionicSpine</ThingDef>
+		</descriptionHyperlinks>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>BionicSpine</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>BionicSpine</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Spine</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>BionicSpine</addsHediff>
+		<skillRequirements>
+			<Medicine>13</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>SK_BionicsII</researchPrerequisite>
+	</RecipeDef>
+
+	<ThingDef ParentName="BodyPartBase_Bionic">
+		<defName>BionicEye</defName>
+		<label>bionic eye</label>
+		<description>Advanced piece of technology made not only to fully replace natural eye, but also to give supernatural vision abilities.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>InstallBionicEye</RecipeDef>
+		</descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/BionicEye</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<statBases>
+			<Mass>0.3</Mass>
+		</statBases>
+		<costList>
+			<Biomatter>20</Biomatter>
+			<SyntheticFibers>6</SyntheticFibers>
+			<Paraffins>15</Paraffins>
+			<ReinforcedGlass>10</ReinforcedGlass>
+			<Microchips>1</Microchips>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>13</Crafting>
+			</skillRequirements>
+		</recipeMaker>
+	</ThingDef>
+
+	<HediffDef ParentName="HediffBodyPartBase_Bionic">
+		<defName>BionicEye</defName>
+		<label>bionic eye</label>
+		<description>An installed bionic eye. Advanced piece of technology made not only to fully replace natural eye, but also to give supernatural vision abilities.</description>
+		<labelNoun>a bionic eye</labelNoun>		
+		<descriptionHyperlinks>
+			<ThingDef>BionicEye</ThingDef>
+		</descriptionHyperlinks>
+		<spawnThingOnRemoved>BionicEye</spawnThingOnRemoved>
+		<addedPartProps>
+			<solid>true</solid>
+			<partEfficiency>1.2</partEfficiency>
+			<betterThanNatural>true</betterThanNatural>
+		</addedPartProps>
+	</HediffDef>
+
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>InstallBionicEye</defName>
+		<label>Install Bionic Eye</label>
+		<description>Install a bionic eye.</description>
+		<workerClass>Recipe_InstallArtificialBodyPart</workerClass>
+		<jobString>Installing bionic eye.</jobString>
+		<workAmount>2300</workAmount>
+		<descriptionHyperlinks>
+			<ThingDef>BionicEye</ThingDef>
+		</descriptionHyperlinks>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>BionicEye</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>BionicEye</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Eye</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>BionicEye</addsHediff>
+		<workSkill>Medicine</workSkill>
+		<skillRequirements>
+			<Medicine>12</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>SK_BionicsII</researchPrerequisite>
+	</RecipeDef>
+
+	<ThingDef ParentName="BodyPartBase_Bionic">
+		<defName>BionicArm</defName>
+		<label>bionic arm</label>
+		<description>One of the most sophisticated arm replacements. It gives extreme strength to its user.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>InstallBionicArm</RecipeDef>
+		</descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/BionicArm</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<statBases>
+			<Mass>5</Mass>
+			<MaxHitPoints>150</MaxHitPoints>
+		</statBases>
+		<costList>
+			<ComponentAdvanced>5</ComponentAdvanced>
+			<Biomatter>30</Biomatter>
+			<SyntheticFibers>15</SyntheticFibers>
+			<ArtificialBone>5</ArtificialBone>
+			<Microchips>1</Microchips>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>15</Crafting>
+			</skillRequirements>
+		</recipeMaker>
+	</ThingDef>
+
+	<HediffDef ParentName="HediffBodyPartBase_Bionic">
+		<defName>BionicArm</defName>
+		<label>bionic arm</label>
+		<description>An installed bionic arm. One of the most sophisticated arm replacements. It gives extreme strength to its user.</description>
+		<labelNoun>a bionic arm</labelNoun>
+		<descriptionHyperlinks>
+			<ThingDef>BionicArm</ThingDef>
+		</descriptionHyperlinks>
+		<comps>
+			<li Class="HediffCompProperties_VerbGiver">
+				<tools>
+					<li Class="CombatExtended.ToolCE">
+						<label>fist</label>
+						<capacities>
+							<li>Blunt</li>
+						</capacities>
+						<power>14</power>
+						<cooldownTime>1.4</cooldownTime>
+						<armorPenetrationBlunt>1.688</armorPenetrationBlunt>
+						<soundMeleeHit>MeleeHit_BionicPunch</soundMeleeHit>
+						<soundMeleeMiss>MeleeMiss_BionicPunch</soundMeleeMiss>
+					</li>
+				</tools>
+			</li>
+		</comps>
+		<spawnThingOnRemoved>BionicArm</spawnThingOnRemoved>
+		<stages>
+			<li>
+				<capMods>
+					<li>
+						<capacity>Manipulation</capacity>
+						<offset>0.2</offset>
+					</li>
+				</capMods>
+			</li>
+		</stages>
+		<addedPartProps>
+
+			<solid>true</solid>
+			<partEfficiency>1.0</partEfficiency>
+		</addedPartProps>
+	</HediffDef>
+
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>InstallBionicArm</defName>
+		<label>Install Bionic Arm</label>
+		<description>Install a bionic arm.</description>
+		<workerClass>Recipe_InstallArtificialBodyPart</workerClass>
+		<jobString>Installing bionic arm.</jobString>
+		<workAmount>3200</workAmount>
+		<descriptionHyperlinks>
+			<ThingDef>BionicArm</ThingDef>
+		</descriptionHyperlinks>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>BionicArm</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>BionicArm</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Shoulder</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>BionicArm</addsHediff>
+		<skillRequirements>
+			<Medicine>12</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>SK_BionicsII</researchPrerequisite>
+	</RecipeDef>
+
+	<ThingDef ParentName="BodyPartBase_Bionic">
+		<defName>BionicLeg</defName>
+		<label>bionic leg</label>
+		<description>A Bionic Leg uses cutting-edge technology to give its owner extreme walking comfort and strength.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>InstallBionicLeg</RecipeDef>
+		</descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/BionicLeg</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<statBases>
+			<Mass>6</Mass>
+			<MaxHitPoints>150</MaxHitPoints>
+		</statBases>
+		<costList>
+			<ComponentAdvanced>6</ComponentAdvanced>
+			<Biomatter>40</Biomatter>
+			<SyntheticFibers>20</SyntheticFibers>
+			<ArtificialBone>5</ArtificialBone>
+			<Microchips>1</Microchips>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>15</Crafting>
+			</skillRequirements>
+		</recipeMaker>
+	</ThingDef>
+
+	<HediffDef ParentName="HediffBodyPartBase_Bionic">
+		<defName>BionicLeg</defName>
+		<label>bionic leg</label>
+		<description>An installed bionic leg. Uses cutting-edge technology to give its owner extreme walking comfort and strength.</description>
+		<labelNoun>a bionic leg</labelNoun>
+		<descriptionHyperlinks>
+			<ThingDef>BionicLeg</ThingDef>
+		</descriptionHyperlinks>
+		<spawnThingOnRemoved>BionicLeg</spawnThingOnRemoved>
+		<addedPartProps>			
+			<solid>true</solid>
+			<partEfficiency>1.0</partEfficiency>
+		</addedPartProps>
+		<stages>
+			<li>
+				<capMods>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>0.2</offset>
+					</li>
+				</capMods>
+			</li>
+		</stages>
+	</HediffDef>
+
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>InstallBionicLeg</defName>
+		<label>Install Bionic Leg</label>
+		<description>Install a bionic leg.</description>
+		<workerClass>Recipe_InstallArtificialBodyPart</workerClass>
+		<jobString>Installing bionic leg.</jobString>
+		<workAmount>3200</workAmount>
+		<descriptionHyperlinks>
+			<ThingDef>BionicLeg</ThingDef>
+		</descriptionHyperlinks>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>BionicLeg</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>BionicLeg</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Leg</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>BionicLeg</addsHediff>
+		<skillRequirements>
+			<Medicine>12</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>SK_BionicsII</researchPrerequisite>
+	</RecipeDef>
+
+
+	<ThingDef ParentName="BodyPartBase_Bionic">
+		<defName>PowerClaw</defName>
+		<label>power claw</label>
+		<description>Powerful hand replacement consisting of three deadly claws.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>InstallPowerClaw</RecipeDef>
+		</descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/PowerClaw</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<statBases>
+			<Mass>4</Mass>
+			<MaxHitPoints>150</MaxHitPoints>
+		</statBases>
+		<costList>
+			<ComponentAdvanced>7</ComponentAdvanced>
+			<Biomatter>35</Biomatter>
+			<SyntheticFibers>11</SyntheticFibers>
+			<ScytherBlade>2</ScytherBlade>
+			<Microchips>1</Microchips>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>15</Crafting>
+			</skillRequirements>
+		</recipeMaker>
+		<techHediffsTags>
+			<li>AdvancedWeapon</li>
+		</techHediffsTags>
+	</ThingDef>
+
+	<HediffDef ParentName="HediffBodyPartBase_MechanoidSpecial">
+		<defName>PowerClaw</defName>
+		<label>power claw</label>
+		<description>An installed powerful hand replacement consisting of three deadly claws.</description>
+		<labelNoun>a power claw</labelNoun>
+		<descriptionHyperlinks>
+			<ThingDef>PowerClaw</ThingDef>
+		</descriptionHyperlinks>
+		<comps>
+			<li Class="HediffCompProperties_VerbGiver">
+				<tools>
+					<li Class="CombatExtended.ToolCE">
+						<label>claw</label>
+						<capacities>
+							<li>Scratch</li>
+						</capacities>
+						<power>18</power>
+						<cooldownTime>1.5</cooldownTime>
+						<armorPenetrationSharp>0.8</armorPenetrationSharp>
+						<armorPenetrationBlunt>4</armorPenetrationBlunt>
+						<linkedBodyPartsGroup>Blade</linkedBodyPartsGroup>
+						<soundMeleeHit>Pawn_Melee_PowerClaw_Hit</soundMeleeHit>
+						<soundMeleeMiss>Pawn_Melee_PowerClaw_Miss</soundMeleeMiss>
+					</li>
+				</tools>
+			</li>
+		</comps>
+		<spawnThingOnRemoved>PowerClaw</spawnThingOnRemoved>
+		<addedPartProps>
+			<isGoodWeapon>true</isGoodWeapon>			
+			<solid>true</solid>
+			<partEfficiency>0.92</partEfficiency>
+		</addedPartProps>
+	</HediffDef>
+
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>InstallPowerClaw</defName>
+		<label>install power claw</label>
+		<description>Install a power claw.</description>
+		<workerClass>Recipe_InstallArtificialBodyPart</workerClass>
+		<jobString>Installing power claw.</jobString>
+		<workAmount>3100</workAmount>
+		<descriptionHyperlinks>
+			<ThingDef>PowerClaw</ThingDef>
+		</descriptionHyperlinks>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>PowerClaw</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>PowerClaw</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Hand</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>PowerClaw</addsHediff>
+		<skillRequirements>
+			<Medicine>11</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>Bionics</researchPrerequisite>
+	</RecipeDef>
+
+	<ThingDef ParentName="BodyPartBase_Bionic">
+		<defName>BrainStimulator</defName>
+		<label>brain stimulator</label>
+		<description>A small device that sends electric shocks to the brain to slightly boost consciousness and mobility.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>InstallBrainStimulator</RecipeDef>
+		</descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/LightReceptor</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<statBases>
+			<Mass>0.2</Mass>
+			<MaxHitPoints>35</MaxHitPoints>
+		</statBases>
+		<costList>
+			<ComponentAdvanced>3</ComponentAdvanced>
+			<Glass>12</Glass>
+			<SyntheticFibers>6</SyntheticFibers>
+			<Microchips>1</Microchips>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>12</Crafting>
+			</skillRequirements>
+			<recipeUsers Inherit="false">
+				<li>TableElectronics</li>
+			</recipeUsers>
+		</recipeMaker>
+	</ThingDef>
+
+	<HediffDef ParentName="HediffBodyPartBase_BionicImplant">
+		<defName>BrainStimulator</defName>
+		<label>brain stimulator</label>
+		<description>An installed small device that sends electric shocks to the brain to slightly boost consciousness and mobility.</description>
+		<labelNoun> a brain stimulator</labelNoun>
+		<descriptionHyperlinks>
+			<ThingDef>BrainStimulator</ThingDef>
+		</descriptionHyperlinks>
+		<defaultLabelColor>(0.65, 0.3, 0.9)</defaultLabelColor>
+		<addedPartProps>
+			<solid>true</solid>
+			<partEfficiency>0.7</partEfficiency>
+		</addedPartProps>
+		<stages>
+			<li>
+				<capMods>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>+0.07</offset>
+					</li>
+					<li>
+						<capacity>Manipulation</capacity>
+						<offset>+0.10</offset>
+					</li>
+					<li>
+						<capacity>Consciousness</capacity>
+						<offset>+0.12</offset>
+					</li>
+				</capMods>
+			</li>
+		</stages>
+		<spawnThingOnRemoved>BrainStimulator</spawnThingOnRemoved>
+	</HediffDef>
+
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>InstallBrainStimulator</defName>
+		<label>Install Brain Stimulator</label>
+		<description>Installs a Brain Stimulator.</description>
+		<workerClass>Recipe_InstallArtificialBodyPart</workerClass>
+		<jobString>Installing Brain Stimulator.</jobString>
+		<workAmount>3600</workAmount>
+		<descriptionHyperlinks>
+			<ThingDef>BrainStimulator</ThingDef>
+		</descriptionHyperlinks>
+		<deathOnFailedSurgeryChance>0.2</deathOnFailedSurgeryChance>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>BrainStimulator</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>BrainStimulator</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Brain</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>BrainStimulator</addsHediff>
+		<skillRequirements>
+			<Medicine>6</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>VitalsMonitor</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>RemoveBrainStimulator</defName>
+		<label>remove brain stimulator</label>
+		<description>Removes brain stimulator.</description>
+		<workerClass>Recipe_RemoveImplant</workerClass>
+		<jobString>Removing brain stimulator.</jobString>
+		<successfullyRemovedHediffMessage>{0} has successfully removed {1}'s brain stimulator.</successfullyRemovedHediffMessage>
+		<workAmount>3700</workAmount>
+		<removesHediff>BrainStimulator</removesHediff>
+		<deathOnFailedSurgeryChance>0.1</deathOnFailedSurgeryChance>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>5</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<disallowedThingDefs>
+				<li>MedicineHerbal</li>
+			</disallowedThingDefs>
+		</fixedIngredientFilter>
+		<skillRequirements>
+			<Medicine>6</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>BrainSurgery</researchPrerequisite>
+	</RecipeDef>
+
+
+	<ThingDef ParentName="BodyPartBase_Bionic">
+		<defName>AIChip</defName>
+		<label>AI Chip</label>
+		<description>Through special chemicals and electric shocks this little chip is able to significantly boost the users consciousness and mobility.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>InstallAIChip</RecipeDef>
+		</descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/Joywire</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<statBases>
+			<Mass>0.1</Mass>
+			<MaxHitPoints>35</MaxHitPoints>
+		</statBases>
+		<costList>
+			<CarbonAlloy>6</CarbonAlloy>
+			<Glass>10</Glass>
+			<SyntheticFibers>8</SyntheticFibers>
+			<BioMicrochips>1</BioMicrochips>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>12</Crafting>
+			</skillRequirements>
+			<recipeUsers Inherit="false">
+				<li>TableElectronics</li>
+			</recipeUsers>
+		</recipeMaker>
+	</ThingDef>
+
+	<HediffDef ParentName="HediffBodyPartBase_BionicImplant">
+		<defName>AIChip</defName>
+		<label>AI chip</label>
+		<description>An installed little chip is able to significantly boost the users consciousness and mobility.</description>
+		<labelNoun>an AI chip</labelNoun>
+		<descriptionHyperlinks>
+			<ThingDef>AIChip</ThingDef>
+		</descriptionHyperlinks>
+		<addedPartProps>
+			<solid>true</solid>
+			<partEfficiency>1.2</partEfficiency>
+		</addedPartProps>
+		<stages>
+			<li>
+				<capMods>
+					<li>
+						<capacity>Talking</capacity>
+						<offset>0.14</offset>
+					</li>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>0.07</offset>
+					</li>
+					<li>
+						<capacity>Manipulation</capacity>
+						<offset>0.15</offset>
+					</li>
+					<li>
+						<capacity>Consciousness</capacity>
+						<offset>0.20</offset>
+					</li>
+				</capMods>
+			</li>
+		</stages>
+		<spawnThingOnRemoved>AIChip</spawnThingOnRemoved>
+	</HediffDef>
+
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>InstallAIChip</defName>
+		<label>Install AI Chip</label>
+		<description>Installs an AI Chip.</description>
+		<workerClass>Recipe_InstallArtificialBodyPart</workerClass>
+		<jobString>Installing AI Chip.</jobString>
+		<workAmount>4600</workAmount>
+		<descriptionHyperlinks>
+			<ThingDef>AIChip</ThingDef>
+		</descriptionHyperlinks>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>AIChip</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>AIChip</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Brain</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>AIChip</addsHediff>
+		<skillRequirements>
+			<Medicine>15</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>SK_BionicsII</researchPrerequisite>
+	</RecipeDef>
+	
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>RemoveAIChip</defName>
+		<label>remove AI chip</label>
+		<description>Removes AI chip.</description>
+		<workerClass>Recipe_RemoveImplant</workerClass>
+		<jobString>Removing AI chip.</jobString>
+		<successfullyRemovedHediffMessage>{0} has successfully removed {1}'s AI chip.</successfullyRemovedHediffMessage>
+		<workAmount>3700</workAmount>
+		<removesHediff>AIChip</removesHediff>
+		<deathOnFailedSurgeryChance>0.1</deathOnFailedSurgeryChance>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>5</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<disallowedThingDefs>
+				<li>MedicineHerbal</li>
+			</disallowedThingDefs>
+		</fixedIngredientFilter>
+		<skillRequirements>
+			<Medicine>6</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>BrainSurgery</researchPrerequisite>
+	</RecipeDef>
+
+</Defs>

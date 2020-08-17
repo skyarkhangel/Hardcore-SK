@@ -25,14 +25,18 @@
 		<drawGUIOverlay>true</drawGUIOverlay>
 		<statBases>
 			<Mass>70</Mass>
-			<PsychicSensitivity>0</PsychicSensitivity>
+			<PsychicSensitivity>0.5</PsychicSensitivity>
 			<ToxicSensitivity>0</ToxicSensitivity>
 			<Flammability>0</Flammability>
 			<ComfyTemperatureMin>-80</ComfyTemperatureMin>
 			<ComfyTemperatureMax>450</ComfyTemperatureMax>
 			<MeatAmount>0</MeatAmount>
 			<SmokeSensitivity>0</SmokeSensitivity>
+			<ArmorRating_Heat>2.00</ArmorRating_Heat>
+			<GermResistance>1.0</GermResistance>
+			<GermContainment>1.0</GermContainment>
 		</statBases>
+		<receivesSignals>true</receivesSignals>
 		<race>
 			<fleshType>Mechanoid</fleshType>
 			<needsRest>false</needsRest>
@@ -42,6 +46,7 @@
 			<hediffGiverSets>
 				<li>MechanoidStandard</li>
 			</hediffGiverSets>
+			<bloodDef>Filth_MachineBits</bloodDef>
 		</race>
 		<comps>
 			<li>
@@ -52,6 +57,12 @@
 			</li>
 			<li>
 				<compClass>CombatExtended.CompInventory</compClass>
+			</li>			
+			<li Class="CompProperties_CanBeDormant" />
+			<li Class="CompProperties_WakeUpDormant">
+				<wakeUpOnDamage>true</wakeUpOnDamage>
+				<anyColonistCloseCheckRadius>30</anyColonistCloseCheckRadius>
+				<wakeUpSound>MechanoidsWakeUp</wakeUpSound>
 			</li>
 		</comps>
 	</Verse.ThingDef>
@@ -75,6 +86,7 @@
 			<MeleeCritChance>0.05</MeleeCritChance>
 			<MeleeParryChance>0.4</MeleeParryChance>
 			<MaxHitPoints>500</MaxHitPoints>
+			<PsychicSensitivity>0.75</PsychicSensitivity>
 		</statBases>
 		<tools>
 			<li Class="CombatExtended.ToolCE">
@@ -322,6 +334,99 @@
 			<soundMeleeHitPawn>Pawn_Melee_MechanoidSlash_HitPawn</soundMeleeHitPawn>
 			<soundMeleeHitBuilding>Pawn_Melee_MechanoidSlash_HitBuilding</soundMeleeHitBuilding>
 			<soundMeleeMiss>Pawn_Melee_MechanoidSlash_Miss</soundMeleeMiss>
+		</race>
+		<butcherProducts>
+			<TitaniumBar>4</TitaniumBar>
+			<DepletedUranium>5</DepletedUranium>
+			<CarbonAlloy>3</CarbonAlloy>
+		</butcherProducts>
+		<modExtensions>
+			<li Class="CombatExtended.RacePropertiesExtensionCE">
+				<bodyShape>Humanoid</bodyShape>
+			</li>
+		</modExtensions>
+	</Verse.ThingDef>
+
+	<!-- New 1.1 update mechanoid. Temp. based on Lancer -->
+	<Verse.ThingDef ParentName="SK_MechanoidThingBase">
+		<defName>Mech_Pikeman</defName>
+		<label>Pikeman</label>
+		<description>A clunky multi-legged combat mechanoid specialized as a long-range weapons platform. While effective at distance, it is weak in close-range fights and in melee combat.\n\nVeterans of mechanoid wars know that often, the safest place to be around a pikeman is touching it.</description>
+		<statBases>
+			<Mass>90</Mass>
+			<MoveSpeed>3.5</MoveSpeed>
+			<ArmorRating_Blunt>5</ArmorRating_Blunt>
+			<ArmorRating_Sharp>2.5</ArmorRating_Sharp>
+			<MeatAmount>30</MeatAmount>
+			<CarryWeight>120</CarryWeight>
+			<CarryBulk>60</CarryBulk>
+			<MaxHitPoints>200</MaxHitPoints>
+			<AimingAccuracy>1.0</AimingAccuracy>
+			<ShootingAccuracyPawn>2.6</ShootingAccuracyPawn>
+			<MeleeDodgeChance>0.1</MeleeDodgeChance>
+			<MeleeCritChance>0.15</MeleeCritChance>
+			<MeleeParryChance>0.22</MeleeParryChance>
+		</statBases>
+		<tools>
+			<li Class="CombatExtended.ToolCE">
+				<label>left fist</label>
+				<capacities>
+					<li>Blunt</li>
+				</capacities>
+				<power>5</power>
+				<cooldownTime>1.11</cooldownTime>
+				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+				<armorPenetrationSharp>0</armorPenetrationSharp>
+				<armorPenetrationBlunt>4.688</armorPenetrationBlunt>
+				<alwaysTreatAsWeapon>true</alwaysTreatAsWeapon>
+			</li>
+			<li Class="CombatExtended.ToolCE">
+				<label>right fist</label>
+				<capacities>
+					<li>Blunt</li>
+				</capacities>
+				<power>5</power>
+				<cooldownTime>1.11</cooldownTime>
+				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+				<armorPenetrationSharp>0</armorPenetrationSharp>
+				<armorPenetrationBlunt>4.688</armorPenetrationBlunt>
+				<alwaysTreatAsWeapon>true</alwaysTreatAsWeapon>
+			</li>
+			<li Class="CombatExtended.ToolCE">
+				<label>head</label>
+				<capacities>
+					<li>Blunt</li>
+				</capacities>
+				<power>5</power>
+				<cooldownTime>1.85</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<chanceFactor>0.2</chanceFactor>
+				<armorPenetrationSharp>0</armorPenetrationSharp>
+				<armorPenetrationBlunt>1.625</armorPenetrationBlunt>
+			</li>
+		</tools>
+		<race>
+			<intelligence>ToolUser</intelligence>
+			<thinkTreeMain>Mechanoid</thinkTreeMain>
+			<body>Scyther</body>
+			<baseBodySize>1.0</baseBodySize>
+			<baseHealthScale>2.8</baseHealthScale>
+			<lifeStageAges>
+				<li>
+					<def>MechanoidFullyFormed</def>
+					<minAge>0</minAge>
+					<soundWounded>Pawn_Mech_Pikeman_Wounded</soundWounded>
+					<soundDeath>Pawn_Mech_Pikeman_Death</soundDeath>
+					<soundCall>Pawn_Mech_Pikeman_Call</soundCall>
+				</li>
+			</lifeStageAges>
+			<soundCallIntervalRange>
+				<min>1000</min>
+				<max>2000</max>
+			</soundCallIntervalRange>
+			<soundMeleeHitPawn>Pawn_Melee_Punch_HitPawn</soundMeleeHitPawn>
+			<soundMeleeHitBuilding>Pawn_Melee_Punch_HitBuilding</soundMeleeHitBuilding>
+			<soundMeleeMiss>Pawn_Melee_Punch_Miss</soundMeleeMiss>
 		</race>
 		<butcherProducts>
 			<TitaniumBar>4</TitaniumBar>

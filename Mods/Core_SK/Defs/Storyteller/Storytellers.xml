@@ -6,16 +6,16 @@
 			<points>
 				<li>0,  8.0</li>
 				<li>1,  2.0</li>
-				<li>5,  1.0</li>
-				<li>9,  0.4</li>
-				<li>12, 0.0</li>
+				<li>4,  1.0</li>
+				<li>7,  0.35</li>
+				<li>11, 0.0</li>
 				<li>20,-1.0</li>
 			</points>
 		</populationIntentFactorFromPopCurve>
 		<populationIntentFactorFromPopAdaptDaysCurve>
 			<points>
 				<li>( 0, 0)</li>
-				<li>(10, 1.00)</li>
+				<li>( 8, 1)</li>
 			</points>
 		</populationIntentFactorFromPopAdaptDaysCurve>
 		<pointsFactorFromDaysPassed>
@@ -27,12 +27,13 @@
 		<adaptDaysMin>-60</adaptDaysMin>
 		<adaptDaysMax>100</adaptDaysMax>
 		<adaptDaysGameStartGraceDays>30</adaptDaysGameStartGraceDays>
+		<!-- only applies to adaptDays past 0 -->
 		<adaptDaysLossFromColonistLostByPostPopulation>
 			<points>
-				<li>( 0, 28)</li>
-				<!-- 28 days at normal pops; slightly lower at really high pop -->
-				<li>(12, 28)</li>
-				<li>(24, 24)</li>
+				<li>( 0, 30)</li>
+				<!-- 30 days at normal pops; lower at really high pop -->
+				<li>(11, 30)</li>
+				<li>(20, 20)</li>
 			</points>
 		</adaptDaysLossFromColonistLostByPostPopulation>
 		<adaptDaysLossFromColonistViolentlyDownedByPopulation>
@@ -40,30 +41,65 @@
 				<li>(1,  8)</li>
 				<li>(2,  6)</li>
 				<li>(3,  6)</li>
-				<li>(12, 5)</li>
+				<li>(11, 5)</li>
+				<li>(20, 3.5)</li>
 			</points>
 		</adaptDaysLossFromColonistViolentlyDownedByPopulation>
 		<adaptDaysGrowthRateCurve>
 			<points>
-				<li>(-30.01,6)</li>
-				<li>(-30,   3)</li>
-				<li>(-0.01, 3)</li>
-				<li>(0,     1)</li>
-				<li>(59.99, 1)</li>
-				<li>(60,    0.5)</li>
-				<li>(79.99, 0.5)</li>
-				<li>(80,   0.25)</li>
+				<li>(-30.01, 6)</li>
+				<!-- under: 8.00 -->
+				<li>(-30,    3)</li>
+				<!--   -30: 3.00 -->
+				<li>(-0.01,  3)</li>
+				<li>(0,      1)</li>
+				<!--     0: 1.00 -->
+				<li>(59.99,  1)</li>
+				<li>(60,     0.5)</li>
+				<!--    60: 0.50 -->
+				<li>(119.99, 0.5)</li>
+				<li>(120,    0.25)</li>
+				<!--  120: 0.25 -->
 			</points>
 		</adaptDaysGrowthRateCurve>
 		<pointsFactorFromAdaptDays>
 			<points>
-				<li>(-40, 0.40)</li>
+				<li>(-30, 0.40)</li>
+				<!-- recover in 10 days -->
 				<li>(  0, 0.80)</li>
+				<!-- start at     0.80  -->
+				<li>( 30, 1.00)</li>
+				<!-- 0.5 years to 1.00  -->
 				<li>( 60, 1.20)</li>
+				<!-- 0.5 years to 1.20  -->
 				<li>(120, 1.60)</li>
+				<!-- 2   years to 1.60  -->
+				<li>(180, 2.00)</li>
+				<!-- 4   years to 2.00  -->
 			</points>
 		</pointsFactorFromAdaptDays>
 		<comps>
+			<!-- Endgame - ship escape quest -->
+			<li Class="StorytellerCompProperties_SingleOnceFixed">
+				<fireAfterDaysPassed>20</fireAfterDaysPassed>
+				<incident>GiveQuest_EndGame_ShipEscape</incident>
+				<allowedTargetTags>
+					<li>World</li>
+				</allowedTargetTags>
+			</li>
+			<!-- Endgame - royal ascent quest (Royalty only) -->
+			<li Class="StorytellerCompProperties_RefiringUniqueQuest">
+				<minDaysPassed>35</minDaysPassed>
+				<refireEveryDays>22</refireEveryDays>
+				<incident MayRequire="Ludeon.RimWorld.Royalty">GiveQuest_EndGame_RoyalAscent</incident>
+				<allowedTargetTags>
+					<li>World</li>
+				</allowedTargetTags>
+				<enableIfAnyModActive>
+					<li>Ludeon.RimWorld.Royalty</li>
+				</enableIfAnyModActive>
+			</li>
+			<!-- Infestations from deep drilling -->
 			<li Class="StorytellerCompProperties_DeepDrillInfestation">
 				<baseMtbDaysPerDrill>200</baseMtbDaysPerDrill>
 				<allowedTargetTags>
@@ -73,11 +109,48 @@
 					<li>Map_RaidBeacon</li>
 				</allowedTargetTags>
 			</li>
+			<!-- Royalty intro quests -->
+			<li Class="StorytellerCompProperties_SingleOnceFixed">
+				<fireAfterDaysPassed>8</fireAfterDaysPassed>
+				<incident MayRequire="Ludeon.RimWorld.Royalty">GiveQuest_Intro_Wimp</incident>
+				<skipIfColonistHasMinTitle MayRequire="Ludeon.RimWorld.Royalty">Yeoman</skipIfColonistHasMinTitle>
+				<skipIfOnExtremeBiome>true</skipIfOnExtremeBiome>
+				<minColonistCount>3</minColonistCount>
+				<allowedTargetTags>
+					<li>World</li>
+				</allowedTargetTags>
+				<enableIfAnyModActive>
+					<li>Ludeon.RimWorld.Royalty</li>
+				</enableIfAnyModActive>
+			</li>
+			<li Class="StorytellerCompProperties_SingleOnceFixed">
+				<fireAfterDaysPassed>26</fireAfterDaysPassed>
+				<incident MayRequire="Ludeon.RimWorld.Royalty">GiveQuest_Intro_Deserter</incident>
+				<skipIfOnExtremeBiome>true</skipIfOnExtremeBiome>
+				<allowedTargetTags>
+					<li>World</li>
+				</allowedTargetTags>
+				<enableIfAnyModActive>
+					<li>Ludeon.RimWorld.Royalty</li>
+				</enableIfAnyModActive>
+			</li>
+			<!-- Royalty tribute collector -->
+			<li Class="StorytellerCompProperties_FactionInteraction">
+				<incident MayRequire="Ludeon.RimWorld.Royalty">CaravanArrivalTributeCollector</incident>
+				<minDaysPassed>20</minDaysPassed>
+				<baseIncidentsPerYear>2</baseIncidentsPerYear>
+				<minSpacingDays>30</minSpacingDays>
+				<allowedTargetTags>
+					<li>Map_PlayerHome</li>
+				</allowedTargetTags>
+				<enableIfAnyModActive>
+					<li>Ludeon.RimWorld.Royalty</li>
+				</enableIfAnyModActive>
+			</li>
 			<li Class="SK.Events.StorytellerCompProperties_SkyFall"/>
 			<li Class="SK.Events.StorytellerCompProperties_MoonFall"/>
 		</comps>
 	</StorytellerDef>
-
 
 	<StorytellerDef ParentName="SK_BaseStoryteller">
 		<defName>Cassandra</defName>
@@ -102,16 +175,18 @@
 					<li>Map_RaidBeacon</li>
 				</disallowedTargetTags>
 			</li>
-			<li Class="StorytellerCompProperties_OnOffCycle">
-				<category>RaidBeacon</category>
+			<li Class="StorytellerCompProperties_ThreatsGenerator">
 				<allowedTargetTags>
 					<li>Map_RaidBeacon</li>
 				</allowedTargetTags>
-				<onDays>1.0</onDays>
-				<offDays>0.5</offDays>
-				<minSpacingDays>0.04</minSpacingDays>
-				<applyRaidBeaconThreatMtbFactor>true</applyRaidBeaconThreatMtbFactor>
-				<numIncidentsRange>1~2</numIncidentsRange>
+				<parms>
+					<allowedThreats>Raids</allowedThreats>
+					<onDays>1.0</onDays>
+					<offDays>0.5</offDays>
+					<minSpacingDays>0.04</minSpacingDays>
+					<numIncidentsRange>1~2</numIncidentsRange>
+					<minThreatPoints>500</minThreatPoints>
+				</parms>
 			</li>
 			<li Class="StorytellerCompProperties_OnOffCycle">
 				<category>ThreatSmall</category>
@@ -126,14 +201,14 @@
 					</points>
 				</acceptPercentFactorPerThreatPointsCurve>
 			</li>
-			<!-- Home misc -->
+			<!-- Home misc incidents-->
 			<li Class="StorytellerCompProperties_CategoryMTB">
 				<category>Misc</category>
 				<allowedTargetTags>
 					<li>Map_PlayerHome</li>
 				</allowedTargetTags>
 				<minDaysPassed>5</minDaysPassed>
-				<mtbDays>3</mtbDays>
+				<mtbDays>4.8</mtbDays>
 			</li>
 			<li Class="StorytellerCompProperties_ShipChunkDrop"/>
 			<li Class="StorytellerCompProperties_Disease">
@@ -203,23 +278,45 @@
 					<li>Map_TempIncident</li>
 				</allowedTargetTags>
 			</li>
-			<!-- World -->
-			<li Class="StorytellerCompProperties_JourneyOffer"/>
-			<li Class="StorytellerCompProperties_OnOffCycle">
-				<category>WorldQuest</category>
+			<!-- Quests - non-Royalty -->
+			<li Class="StorytellerCompProperties_RandomQuest">
+				<category>GiveQuest</category>
 				<allowedTargetTags>
 					<li>World</li>
 				</allowedTargetTags>
-				<onDays>15</onDays>
-				<minSpacingDays>0.2</minSpacingDays>
+				<onDays>10</onDays>
+				<numIncidentsRange>1</numIncidentsRange>
+				<acceptFractionByDaysPassedCurve>
+					<points>
+						<li>(8, 0)</li>
+						<li>(15, 1)</li>
+					</points>
+				</acceptFractionByDaysPassedCurve>
+				<minSpacingDays>3</minSpacingDays>
+				<disableIfAnyModActive>
+					<li>Ludeon.RimWorld.Royalty</li>
+				</disableIfAnyModActive>
+			</li>
+			<!-- Quests - Royalty -->
+			<li Class="StorytellerCompProperties_RandomQuest">
+				<category>GiveQuest</category>
+				<allowedTargetTags>
+					<li>World</li>
+				</allowedTargetTags>
+				<onDays>12</onDays>
 				<numIncidentsRange>2</numIncidentsRange>
 				<acceptFractionByDaysPassedCurve>
 					<points>
-						<li>(5, 0)</li>
-						<li>(30, 1)</li>
+						<li>(8, 0)</li>
+						<li>(15, 1)</li>
 					</points>
 				</acceptFractionByDaysPassedCurve>
+				<minSpacingDays>3</minSpacingDays>
+				<enableIfAnyModActive>
+					<li>Ludeon.RimWorld.Royalty</li>
+				</enableIfAnyModActive>
 			</li>
+			<!-- World misc incidents-->
 			<li Class="StorytellerCompProperties_CategoryMTB">
 				<category>Misc</category>
 				<allowedTargetTags>
@@ -228,7 +325,7 @@
 				<minDaysPassed>15</minDaysPassed>
 				<mtbDays>15</mtbDays>
 			</li>
-			<!-- Orbital -->
+			<!-- Orbital trader -->
 			<li Class="StorytellerCompProperties_OnOffCycle">
 				<incident>OrbitalTraderArrival</incident>
 				<onDays>7</onDays>
@@ -265,16 +362,18 @@
 					<li>Map_RaidBeacon</li>
 				</disallowedTargetTags>
 			</li>
-			<li Class="StorytellerCompProperties_OnOffCycle">
-				<category>RaidBeacon</category>
+			<li Class="StorytellerCompProperties_ThreatsGenerator">
 				<allowedTargetTags>
 					<li>Map_RaidBeacon</li>
 				</allowedTargetTags>
-				<onDays>1.0</onDays>
-				<offDays>0.5</offDays>
-				<minSpacingDays>0.04</minSpacingDays>
-				<applyRaidBeaconThreatMtbFactor>true</applyRaidBeaconThreatMtbFactor>
-				<numIncidentsRange>1~2</numIncidentsRange>
+				<parms>
+					<allowedThreats>Raids</allowedThreats>
+					<onDays>1.0</onDays>
+					<offDays>0.5</offDays>
+					<minSpacingDays>0.04</minSpacingDays>
+					<numIncidentsRange>1~2</numIncidentsRange>
+					<minThreatPoints>500</minThreatPoints>
+				</parms>
 			</li>
 			<li Class="StorytellerCompProperties_OnOffCycle">
 				<category>ThreatSmall</category>
@@ -289,14 +388,14 @@
 					</points>
 				</acceptPercentFactorPerThreatPointsCurve>
 			</li>
-			<!-- Home misc -->
+			<!-- Home misc incidents -->
 			<li Class="StorytellerCompProperties_CategoryMTB">
 				<category>Misc</category>
 				<allowedTargetTags>
 					<li>Map_PlayerHome</li>
 				</allowedTargetTags>
 				<minDaysPassed>5</minDaysPassed>
-				<mtbDays>3</mtbDays>
+				<mtbDays>4.8</mtbDays>
 			</li>
 			<li Class="StorytellerCompProperties_ShipChunkDrop"/>
 			<li Class="StorytellerCompProperties_Disease">
@@ -366,23 +465,45 @@
 					<li>Map_TempIncident</li>
 				</allowedTargetTags>
 			</li>
-			<!-- World -->
-			<li Class="StorytellerCompProperties_JourneyOffer"/>
-			<li Class="StorytellerCompProperties_OnOffCycle">
-				<category>WorldQuest</category>
+			<!-- Quests - non-Royalty -->
+			<li Class="StorytellerCompProperties_RandomQuest">
+				<category>GiveQuest</category>
 				<allowedTargetTags>
 					<li>World</li>
 				</allowedTargetTags>
-				<onDays>15</onDays>
-				<minSpacingDays>0.2</minSpacingDays>
+				<onDays>10</onDays>
+				<numIncidentsRange>1</numIncidentsRange>
+				<acceptFractionByDaysPassedCurve>
+					<points>
+						<li>(8, 0)</li>
+						<li>(15, 1)</li>
+					</points>
+				</acceptFractionByDaysPassedCurve>
+				<minSpacingDays>3</minSpacingDays>
+				<disableIfAnyModActive>
+					<li>Ludeon.RimWorld.Royalty</li>
+				</disableIfAnyModActive>
+			</li>
+			<!-- Quests - Royalty -->
+			<li Class="StorytellerCompProperties_RandomQuest">
+				<category>GiveQuest</category>
+				<allowedTargetTags>
+					<li>World</li>
+				</allowedTargetTags>
+				<onDays>12</onDays>
 				<numIncidentsRange>2</numIncidentsRange>
 				<acceptFractionByDaysPassedCurve>
 					<points>
-						<li>(5, 0)</li>
-						<li>(30, 1)</li>
+						<li>(8, 0)</li>
+						<li>(15, 1)</li>
 					</points>
 				</acceptFractionByDaysPassedCurve>
+				<minSpacingDays>3</minSpacingDays>
+				<enableIfAnyModActive>
+					<li>Ludeon.RimWorld.Royalty</li>
+				</enableIfAnyModActive>
 			</li>
+			<!-- World misc incidents -->
 			<li Class="StorytellerCompProperties_CategoryMTB">
 				<category>Misc</category>
 				<allowedTargetTags>
@@ -391,7 +512,7 @@
 				<minDaysPassed>15</minDaysPassed>
 				<mtbDays>15</mtbDays>
 			</li>
-			<!-- Orbital -->
+			<!-- Orbital traders -->
 			<li Class="StorytellerCompProperties_OnOffCycle">
 				<incident>OrbitalTraderArrival</incident>
 				<onDays>7</onDays>
@@ -420,18 +541,18 @@
 					<li>Map_PlayerHome</li>
 				</allowedTargetTags>
 				<minDaysPassed>1</minDaysPassed>
-				<mtbDays>1.00</mtbDays>
+				<mtbDays>1.35</mtbDays>
 				<maxThreatBigIntervalDays>13</maxThreatBigIntervalDays>
 				<minIncChancePopulationIntentFactor>0.2</minIncChancePopulationIntentFactor>
 				<randomPointsFactorRange>0.5~1.5</randomPointsFactorRange>
 				<skipThreatBigIfRaidBeacon>true</skipThreatBigIfRaidBeacon>
 				<categoryWeights>
-					<Misc>5.2</Misc>
-					<ThreatBig>1.0</ThreatBig>
-					<OrbitalVisitor>1.0</OrbitalVisitor>
-					<FactionArrival>1.0</FactionArrival>
-					<ThreatSmall>0.7</ThreatSmall>
-					<ShipChunkDrop>0.5</ShipChunkDrop>
+					<Misc>3.5</Misc>
+					<ThreatBig>1.4</ThreatBig>
+					<OrbitalVisitor>1.1</OrbitalVisitor>
+					<FactionArrival>2.4</FactionArrival>
+					<ThreatSmall>0.6</ThreatSmall>
+					<ShipChunkDrop>0.22</ShipChunkDrop>
 				</categoryWeights>
 			</li>
 			<li Class="StorytellerCompProperties_Disease">
@@ -443,16 +564,18 @@
 				<minDaysPassed>0</minDaysPassed>
 			</li>
 			<!-- Home special threats -->
-			<li Class="StorytellerCompProperties_OnOffCycle">
-				<category>RaidBeacon</category>
+			<li Class="StorytellerCompProperties_ThreatsGenerator">
 				<allowedTargetTags>
 					<li>Map_RaidBeacon</li>
 				</allowedTargetTags>
-				<onDays>1.0</onDays>
-				<offDays>0.5</offDays>
-				<minSpacingDays>0.04</minSpacingDays>
-				<applyRaidBeaconThreatMtbFactor>true</applyRaidBeaconThreatMtbFactor>
-				<numIncidentsRange>1~2</numIncidentsRange>
+				<parms>
+					<allowedThreats>Raids</allowedThreats>
+					<onDays>1.0</onDays>
+					<offDays>0.5</offDays>
+					<minSpacingDays>0.04</minSpacingDays>
+					<numIncidentsRange>1~2</numIncidentsRange>
+					<minThreatPoints>500</minThreatPoints>
+				</parms>
 			</li>
 			<!-- Ally/neutral interaction -->
 			<li Class="StorytellerCompProperties_FactionInteraction">
@@ -486,23 +609,45 @@
 					<li>Map_TempIncident</li>
 				</allowedTargetTags>
 			</li>
-			<!-- World -->
-			<li Class="StorytellerCompProperties_JourneyOffer"/>
-			<li Class="StorytellerCompProperties_OnOffCycle">
-				<category>WorldQuest</category>
+			<!-- Quests - non-Royalty -->
+			<li Class="StorytellerCompProperties_RandomQuest">
+				<category>GiveQuest</category>
 				<allowedTargetTags>
 					<li>World</li>
 				</allowedTargetTags>
-				<onDays>30</onDays>
-				<minSpacingDays>0.2</minSpacingDays>
-				<numIncidentsRange>4</numIncidentsRange>
+				<onDays>10</onDays>
+				<numIncidentsRange>1</numIncidentsRange>
 				<acceptFractionByDaysPassedCurve>
 					<points>
-						<li>(5, 0)</li>
-						<li>(30, 1)</li>
+						<li>(8, 0)</li>
+						<li>(15, 1)</li>
 					</points>
 				</acceptFractionByDaysPassedCurve>
+				<minSpacingDays>0.2</minSpacingDays>
+				<disableIfAnyModActive>
+					<li>Ludeon.RimWorld.Royalty</li>
+				</disableIfAnyModActive>
 			</li>
+			<!-- Quests - Royalty -->
+			<li Class="StorytellerCompProperties_RandomQuest">
+				<category>GiveQuest</category>
+				<allowedTargetTags>
+					<li>World</li>
+				</allowedTargetTags>
+				<onDays>12</onDays>
+				<numIncidentsRange>1~3</numIncidentsRange>
+				<acceptFractionByDaysPassedCurve>
+					<points>
+						<li>(8, 0)</li>
+						<li>(15, 1)</li>
+					</points>
+				</acceptFractionByDaysPassedCurve>
+				<minSpacingDays>0.2</minSpacingDays>
+				<enableIfAnyModActive>
+					<li>Ludeon.RimWorld.Royalty</li>
+				</enableIfAnyModActive>
+			</li>
+			<!-- World misc incidents-->
 			<li Class="StorytellerCompProperties_CategoryMTB">
 				<category>Misc</category>
 				<allowedTargetTags>
@@ -525,7 +670,7 @@
 		<description>We all go a little crazy, do not we? Kara will play with you as long as it takes to see your exhausted body trembling with anger and frustration.</description>
 		<portraitLarge>Things/Storytellers/Kara</portraitLarge>
 		<portraitTiny>Things/Storytellers/KaraTiny</portraitTiny>
-		<listOrder>43</listOrder>
+		<listOrder>44</listOrder>
 		<comps>
 			<!-- Intro -->
 			<li Class="StorytellerCompProperties_ClassicIntro"/>
@@ -542,16 +687,18 @@
 					<li>Map_RaidBeacon</li>
 				</disallowedTargetTags>
 			</li>
-			<li Class="StorytellerCompProperties_OnOffCycle">
-				<category>RaidBeacon</category>
+			<li Class="StorytellerCompProperties_ThreatsGenerator">
 				<allowedTargetTags>
 					<li>Map_RaidBeacon</li>
 				</allowedTargetTags>
-				<onDays>1.0</onDays>
-				<offDays>0.5</offDays>
-				<minSpacingDays>0.04</minSpacingDays>
-				<applyRaidBeaconThreatMtbFactor>true</applyRaidBeaconThreatMtbFactor>
-				<numIncidentsRange>1~2</numIncidentsRange>
+				<parms>
+					<allowedThreats>Raids</allowedThreats>
+					<onDays>1.0</onDays>
+					<offDays>0.5</offDays>
+					<minSpacingDays>0.04</minSpacingDays>
+					<numIncidentsRange>1~2</numIncidentsRange>
+					<minThreatPoints>500</minThreatPoints>
+				</parms>
 			</li>
 			<li Class="StorytellerCompProperties_OnOffCycle">
 				<category>ThreatSmall</category>
@@ -566,7 +713,7 @@
 					</points>
 				</acceptPercentFactorPerThreatPointsCurve>
 			</li>
-			<!-- Home misc -->
+			<!-- Home misc incidents-->
 			<li Class="StorytellerCompProperties_CategoryMTB">
 				<category>Misc</category>
 				<allowedTargetTags>
@@ -594,8 +741,8 @@
 			</li>
 			<li Class="StorytellerCompProperties_FactionInteraction">
 				<incident>TraderCaravanArrival</incident>
-				<minDaysPassed>5</minDaysPassed>
-				<baseIncidentsPerYear>5</baseIncidentsPerYear>
+				<minDaysPassed>3</minDaysPassed>
+				<baseIncidentsPerYear>6</baseIncidentsPerYear>
 				<minSpacingDays>6</minSpacingDays>
 				<allowedTargetTags>
 					<li>Map_PlayerHome</li>
@@ -643,32 +790,54 @@
 					<li>Map_TempIncident</li>
 				</allowedTargetTags>
 			</li>
-			<!-- World -->
-			<li Class="StorytellerCompProperties_JourneyOffer"/>
-			<li Class="StorytellerCompProperties_OnOffCycle">
-				<category>WorldQuest</category>
+			<!-- Quests - non-Royalty -->
+			<li Class="StorytellerCompProperties_RandomQuest">
+				<category>GiveQuest</category>
 				<allowedTargetTags>
 					<li>World</li>
 				</allowedTargetTags>
-				<onDays>13</onDays>
-				<minSpacingDays>0.2</minSpacingDays>
+				<onDays>10</onDays>
+				<numIncidentsRange>1</numIncidentsRange>
+				<acceptFractionByDaysPassedCurve>
+					<points>
+						<li>(8, 0)</li>
+						<li>(15, 1)</li>
+					</points>
+				</acceptFractionByDaysPassedCurve>
+				<minSpacingDays>3</minSpacingDays>
+				<disableIfAnyModActive>
+					<li>Ludeon.RimWorld.Royalty</li>
+				</disableIfAnyModActive>
+			</li>
+			<!-- Quests - Royalty -->
+			<li Class="StorytellerCompProperties_RandomQuest">
+				<category>GiveQuest</category>
+				<allowedTargetTags>
+					<li>World</li>
+				</allowedTargetTags>
+				<onDays>12</onDays>
 				<numIncidentsRange>2</numIncidentsRange>
 				<acceptFractionByDaysPassedCurve>
 					<points>
-						<li>(5, 0)</li>
-						<li>(30, 1)</li>
+						<li>(8, 0)</li>
+						<li>(15, 1)</li>
 					</points>
 				</acceptFractionByDaysPassedCurve>
+				<minSpacingDays>3</minSpacingDays>
+				<enableIfAnyModActive>
+					<li>Ludeon.RimWorld.Royalty</li>
+				</enableIfAnyModActive>
 			</li>
+			<!-- World misc incidents-->
 			<li Class="StorytellerCompProperties_CategoryMTB">
 				<category>Misc</category>
 				<allowedTargetTags>
 					<li>World</li>
 				</allowedTargetTags>
-				<minDaysPassed>13</minDaysPassed>
-				<mtbDays>13</mtbDays>
+				<minDaysPassed>15</minDaysPassed>
+				<mtbDays>15</mtbDays>
 			</li>
-			<!-- Orbital -->
+			<!-- Orbital trader -->
 			<li Class="StorytellerCompProperties_OnOffCycle">
 				<incident>OrbitalTraderArrival</incident>
 				<onDays>7</onDays>
@@ -720,16 +889,18 @@
 				<minDaysPassed>0</minDaysPassed>
 			</li>
 			<!-- Home special threats -->
-			<li Class="StorytellerCompProperties_OnOffCycle">
-				<category>RaidBeacon</category>
+			<li Class="StorytellerCompProperties_ThreatsGenerator">
 				<allowedTargetTags>
 					<li>Map_RaidBeacon</li>
 				</allowedTargetTags>
-				<onDays>1.0</onDays>
-				<offDays>0.5</offDays>
-				<minSpacingDays>0.04</minSpacingDays>
-				<applyRaidBeaconThreatMtbFactor>true</applyRaidBeaconThreatMtbFactor>
-				<numIncidentsRange>1~2</numIncidentsRange>
+				<parms>
+					<allowedThreats>Raids</allowedThreats>
+					<onDays>1.0</onDays>
+					<offDays>0.5</offDays>
+					<minSpacingDays>0.04</minSpacingDays>
+					<numIncidentsRange>1~2</numIncidentsRange>
+					<minThreatPoints>500</minThreatPoints>
+				</parms>
 			</li>
 			<!-- Ally/neutral interaction -->
 			<li Class="StorytellerCompProperties_FactionInteraction">
@@ -763,30 +934,52 @@
 					<li>Map_TempIncident</li>
 				</allowedTargetTags>
 			</li>
-			<!-- World -->
-			<li Class="StorytellerCompProperties_JourneyOffer"/>
-			<li Class="StorytellerCompProperties_OnOffCycle">
-				<category>WorldQuest</category>
+			<!-- Quests - non-Royalty -->
+			<li Class="StorytellerCompProperties_RandomQuest">
+				<category>GiveQuest</category>
 				<allowedTargetTags>
 					<li>World</li>
 				</allowedTargetTags>
-				<onDays>30</onDays>
-				<minSpacingDays>0.2</minSpacingDays>
-				<numIncidentsRange>4</numIncidentsRange>
+				<onDays>10</onDays>
+				<numIncidentsRange>1</numIncidentsRange>
 				<acceptFractionByDaysPassedCurve>
 					<points>
-						<li>(5, 0)</li>
-						<li>(30, 1)</li>
+						<li>(8, 0)</li>
+						<li>(15, 1)</li>
 					</points>
 				</acceptFractionByDaysPassedCurve>
+				<minSpacingDays>0.2</minSpacingDays>
+				<disableIfAnyModActive>
+					<li>Ludeon.RimWorld.Royalty</li>
+				</disableIfAnyModActive>
 			</li>
+			<!-- Quests - Royalty -->
+			<li Class="StorytellerCompProperties_RandomQuest">
+				<category>GiveQuest</category>
+				<allowedTargetTags>
+					<li>World</li>
+				</allowedTargetTags>
+				<onDays>12</onDays>
+				<numIncidentsRange>1~3</numIncidentsRange>
+				<acceptFractionByDaysPassedCurve>
+					<points>
+						<li>(8, 0)</li>
+						<li>(15, 1)</li>
+					</points>
+				</acceptFractionByDaysPassedCurve>
+				<minSpacingDays>0.2</minSpacingDays>
+				<enableIfAnyModActive>
+					<li>Ludeon.RimWorld.Royalty</li>
+				</enableIfAnyModActive>
+			</li>
+			<!-- World misc incidents-->
 			<li Class="StorytellerCompProperties_CategoryMTB">
 				<category>Misc</category>
 				<allowedTargetTags>
 					<li>World</li>
 				</allowedTargetTags>
 				<minDaysPassed>1</minDaysPassed>
-				<mtbDays>12</mtbDays>
+				<mtbDays>15</mtbDays>
 			</li>
 			<!-- Triggered -->
 			<li Class="StorytellerCompProperties_Triggered">
@@ -802,7 +995,7 @@
 		<description>He will tell you the story of despair and hopelessness.</description>
 		<portraitLarge>Things/Storytellers/PrototypePZ</portraitLarge>
 		<portraitTiny>Things/Storytellers/PrototypePZTiny</portraitTiny>
-		<listOrder>50</listOrder>
+		<listOrder>46</listOrder>
 		<comps>
 			<!-- Home all -->
 			<li Class="StorytellerCompProperties_RandomMain">
@@ -833,16 +1026,18 @@
 				<minDaysPassed>0</minDaysPassed>
 			</li>
 			<!-- Home special threats -->
-			<li Class="StorytellerCompProperties_OnOffCycle">
-				<category>RaidBeacon</category>
+			<li Class="StorytellerCompProperties_ThreatsGenerator">
 				<allowedTargetTags>
 					<li>Map_RaidBeacon</li>
 				</allowedTargetTags>
-				<onDays>1.0</onDays>
-				<offDays>0.5</offDays>
-				<minSpacingDays>0.04</minSpacingDays>
-				<applyRaidBeaconThreatMtbFactor>true</applyRaidBeaconThreatMtbFactor>
-				<numIncidentsRange>1~2</numIncidentsRange>
+				<parms>
+					<allowedThreats>Raids</allowedThreats>
+					<onDays>1.0</onDays>
+					<offDays>0.5</offDays>
+					<minSpacingDays>0.04</minSpacingDays>
+					<numIncidentsRange>1~2</numIncidentsRange>
+					<minThreatPoints>500</minThreatPoints>
+				</parms>
 			</li>
 			<!-- Ally/neutral interaction -->
 			<li Class="StorytellerCompProperties_FactionInteraction">
@@ -876,23 +1071,45 @@
 					<li>Map_TempIncident</li>
 				</allowedTargetTags>
 			</li>
-			<!-- World -->
-			<li Class="StorytellerCompProperties_JourneyOffer"/>
-			<li Class="StorytellerCompProperties_OnOffCycle">
-				<category>WorldQuest</category>
+			<!-- Quests - non-Royalty -->
+			<li Class="StorytellerCompProperties_RandomQuest">
+				<category>GiveQuest</category>
 				<allowedTargetTags>
 					<li>World</li>
 				</allowedTargetTags>
-				<onDays>30</onDays>
-				<minSpacingDays>0.2</minSpacingDays>
-				<numIncidentsRange>4</numIncidentsRange>
+				<onDays>10</onDays>
+				<numIncidentsRange>1</numIncidentsRange>
 				<acceptFractionByDaysPassedCurve>
 					<points>
-						<li>(5, 0)</li>
-						<li>(30, 1)</li>
+						<li>(8, 0)</li>
+						<li>(15, 1)</li>
 					</points>
 				</acceptFractionByDaysPassedCurve>
+				<minSpacingDays>0.2</minSpacingDays>
+				<disableIfAnyModActive>
+					<li>Ludeon.RimWorld.Royalty</li>
+				</disableIfAnyModActive>
 			</li>
+			<!-- Quests - Royalty -->
+			<li Class="StorytellerCompProperties_RandomQuest">
+				<category>GiveQuest</category>
+				<allowedTargetTags>
+					<li>World</li>
+				</allowedTargetTags>
+				<onDays>12</onDays>
+				<numIncidentsRange>1~3</numIncidentsRange>
+				<acceptFractionByDaysPassedCurve>
+					<points>
+						<li>(8, 0)</li>
+						<li>(15, 1)</li>
+					</points>
+				</acceptFractionByDaysPassedCurve>
+				<minSpacingDays>0.2</minSpacingDays>
+				<enableIfAnyModActive>
+					<li>Ludeon.RimWorld.Royalty</li>
+				</enableIfAnyModActive>
+			</li>
+			<!-- World misc incidents-->
 			<li Class="StorytellerCompProperties_CategoryMTB">
 				<category>Misc</category>
 				<allowedTargetTags>
