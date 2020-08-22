@@ -32,23 +32,20 @@
 			</shadowData>
 		</graphicData>
 		<statBases>
-			<MaxHitPoints>80</MaxHitPoints>
-			<WorkToBuild>200</WorkToBuild>
+			<MaxHitPoints>20</MaxHitPoints>
+			<WorkToBuild>300</WorkToBuild>
 			<Flammability>0</Flammability>
 			<WorkTableWorkSpeedFactor>0.7</WorkTableWorkSpeedFactor>
-			<MeditationFocusStrength>0.08</MeditationFocusStrength>
+			<MeditationFocusStrength>0</MeditationFocusStrength>
 		</statBases>
 		<size>(1,1)</size>
-		<stuffCategories>
-			<li>Stony</li>
-			<li>Bricks</li>
-		</stuffCategories>
-		<costStuffCount>10</costStuffCount>
 		<soundImpactDefault>BulletImpact_Ground</soundImpactDefault>
 		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
 		<resourcesFractionWhenDeconstructed>0</resourcesFractionWhenDeconstructed>
 		<placeWorkers>
+			<li>PlaceWorker_PreventInteractionSpotOverlap</li>
 			<li>PlaceWorker_Heater</li>
+			<li>PlaceWorker_MeditationOffsetBuildingsNear</li>
 		</placeWorkers>
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
 		<comps>
@@ -91,12 +88,25 @@
 			<li Class="CompProperties_MeditationFocus">
 				<statDef>MeditationFocusStrength</statDef>
 				<focusTypes>
-					<li>Natural</li>
-					<li>Minimal</li>
+					<li>Flame</li>
 				</focusTypes>
 				<offsets>
 					<li Class="FocusStrengthOffset_Lit">
-						<offset>0.08</offset>
+						<offset>0.12</offset>
+					</li>
+					<li Class="FocusStrengthOffset_BuildingDefsLit">
+						<defs>
+							<li>Campfire</li>
+							<li>BowlLamp</li>
+							<li>Candle</li>
+							<li>TorchLamp</li>
+							<li MayRequire="Ludeon.RimWorld.Royalty">Brazier</li>
+						</defs>
+						<radius>9.9</radius>
+						<maxBuildings>8</maxBuildings>
+						<offsetPerBuilding>0.02</offsetPerBuilding>
+						<explanationKey>MeditationFocusPerFlame</explanationKey>
+						<explanationKeyAbstract>MeditationFocusPerFlameAbstract</explanationKeyAbstract>
 					</li>
 				</offsets>
 			</li>
@@ -114,6 +124,7 @@
 			<isMealSource>true</isMealSource>
 			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
 			<artificialForMeditationPurposes>false</artificialForMeditationPurposes>
+			<destroySound>BuildingDestroyed_Wood_Small</destroySound>
 		</building>
 	</ThingDef>
 
@@ -295,6 +306,9 @@
 			<ElectronicComponents>3</ElectronicComponents>
 			<Mechanism>3</Mechanism>
 		</costList>
+		<building>
+			<destroySound>BuildingDestroyed_Metal_Small</destroySound>
+		</building>
 		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
 		<placeWorkers>
 			<li>PlaceWorker_Heater</li>
@@ -570,6 +584,9 @@
 			<li>PlaceWorker_CoolerSimple</li>
 		</placeWorkers>
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<building>
+			<destroySound>BuildingDestroyed_Metal_Small</destroySound>
+		</building>
 		<comps>
 			<li Class="CompProperties_HeatPusher">
 				<compClass>CompHeatPusherPowered</compClass>
