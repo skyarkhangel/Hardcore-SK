@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<ThingDef Name="MassGraveBase" ParentName="BuildingBase" Abstract="True">
+		<thingClass>MassGraves.Building_MassGrave</thingClass>
+		<constructEffect>ConstructDirt</constructEffect>
+		<altitudeLayer>FloorEmplacement</altitudeLayer>
+		<useHitPoints>false</useHitPoints>
+		<description>A large hole for dumping bodies. It's not pretty but sometimes you have to make do.</description>
+		<tickerType>Rare</tickerType>
+		<canOverlapZones>false</canOverlapZones>
+		<passability>Standable</passability>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<building>
+			<ai_chillDestination>false</ai_chillDestination>
+			<expandHomeArea>false</expandHomeArea>
+			<isInert>true</isInert>
+			<preventDeteriorationInside>false</preventDeteriorationInside>
+			<haulToContainerDuration>500</haulToContainerDuration>
+			<artificialForMeditationPurposes>false</artificialForMeditationPurposes>
+			<fixedStorageSettings>
+				<filter>
+					<categories>
+						<li>Corpses</li>
+					</categories>
+				</filter>
+			</fixedStorageSettings>
+			<defaultStorageSettings>
+				<priority>Important</priority>
+				<filter>
+					<categories>
+						<li>CorpsesHumanlike</li>
+					</categories>
+					<specialFiltersToDisallow>
+						<li>AllowCorpsesColonist</li>
+					</specialFiltersToDisallow>
+				</filter>
+			</defaultStorageSettings>
+		</building>
+		<inspectorTabs>
+			<li>ITab_Storage</li>
+		</inspectorTabs>
+		<terrainAffordanceNeeded>Diggable</terrainAffordanceNeeded>
+		<designationCategory>Misc</designationCategory>
+		<comps>
+			<li Class="CompProperties_AssignableToPawn">
+				<drawAssignmentOverlay>false</drawAssignmentOverlay>
+				<compClass>CompAssignableToPawn_Grave</compClass>
+			</li>
+			<li Class="CompProperties_MeditationFocus">
+				<statDef>MeditationFocusStrength</statDef>
+				<focusTypes>
+					<li>Morbid</li>
+				</focusTypes>
+				<offsets>
+					<li Class="FocusStrengthOffset_GraveFull">
+						<offset>0.05</offset>
+					</li>
+					<li Class="FocusStrengthOffset_GraveCorpseRelationship">
+						<offset>0.05</offset>
+					</li>
+					<li Class="FocusStrengthOffset_NearbyGraves">
+						<defs>
+							<li>Grave</li>
+							<li>Sarcophagus</li>
+						</defs>
+						<radius>9.9</radius>
+						<maxBuildings>4</maxBuildings>
+						<offsetPerBuilding>0.01</offsetPerBuilding>
+						<focusPerFullGrave>0.01</focusPerFullGrave>
+						<explanationKey>MeditationFocusPerGrave</explanationKey>
+						<explanationKeyAbstract>MeditationFocusPerGraveAbstract</explanationKeyAbstract>
+					</li>
+				</offsets>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="MassGraveBase">
+		<defName>MassGrave</defName>
+		<label>mass grave</label>
+		<graphicData>
+			<texPath>Things/Building/Misc/MassGrave/MassGraveEmpty</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(3,3)</drawSize>
+		</graphicData>
+		<size>(3,3)</size>
+		<rotatable>false</rotatable>
+		<statBases>
+			<WorkToBuild>5000</WorkToBuild>
+			<MeditationFocusStrength>0.05</MeditationFocusStrength>
+		</statBases>
+		<building>
+			<fullGraveGraphicData>
+				<texPath>Things/Building/Misc/MassGrave/MassGraveFull</texPath>
+				<graphicClass>Graphic_Single</graphicClass>
+				<drawSize>(3,3)</drawSize>
+			</fullGraveGraphicData>
+		</building>
+	</ThingDef>
+
+	<ThingDef ParentName="MassGraveBase">
+		<defName>MassGraveAlt</defName>
+		<label>mass grave</label>
+		<graphicData>
+			<texPath>Things/Building/Misc/MassGraveAlt/GraveEmpty</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(6,3)</drawSize>
+		</graphicData>
+		<size>(5,2)</size>
+		<statBases>
+			<WorkToBuild>6000</WorkToBuild>
+			<MeditationFocusStrength>0.05</MeditationFocusStrength>
+		</statBases>
+		<building>
+			<fullGraveGraphicData>
+				<texPath>Things/Building/Misc/MassGraveAlt/GraveFull</texPath>
+				<graphicClass>Graphic_Multi</graphicClass>
+				<drawSize>(6,3)</drawSize>
+			</fullGraveGraphicData>
+		</building>
+	</ThingDef>
+</Defs>
