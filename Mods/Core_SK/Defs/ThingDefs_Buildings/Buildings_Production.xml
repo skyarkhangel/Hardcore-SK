@@ -278,7 +278,6 @@
 			<li>MakeTofu</li>
 			<li>Makesoymilk</li>
 			<li>Make_Kibble</li>
-			<li>Makecheese</li>
 			<li>MakeFruitYogurt</li>
 			<li>MakeFruitDrink</li>
 			<li>HalfCoconut</li>
@@ -405,7 +404,7 @@
 		<graphicData>
 			<texPath>Things/Building/Production/FoodStuff/oven</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
-			<drawSize>(3.1,1.9)</drawSize>
+			<drawSize>(2,2)</drawSize>
 			<shaderType>CutoutComplex</shaderType>
 			<shadowData>
 				<volume>(1.7, 0.5, 0.7)</volume>
@@ -438,7 +437,7 @@
 			<WorkTableWorkSpeedFactor>0.7</WorkTableWorkSpeedFactor>
 			<Mass>500</Mass>
 		</statBases>
-		<size>(2,1)</size>
+		<size>(2,2)</size>
 		<designationCategory>Production</designationCategory>
 		<interactionCellOffset>(1,0,-1)</interactionCellOffset>
 		<recipes>
@@ -606,7 +605,7 @@
 		<graphicData>
 			<texPath>Things/Building/Production/FoodStuff/Millstone</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
-			<drawSize>(2.1,2.1)</drawSize>
+			<drawSize>(1,1)</drawSize>
 			<drawRotated>false</drawRotated>
 			<shaderType>CutoutComplex</shaderType>
 			<shadowData>
@@ -1541,6 +1540,140 @@
 		<designationCategory>Production</designationCategory>
 		<constructionSkillPrerequisite>2</constructionSkillPrerequisite>
 	</ThingDef>
+	
+	<ThingDef ParentName="StandartBuilding">
+		<defName>CheeseBasin</defName>
+		<label>cheesemaking basin</label>
+		<thingClass>Building</thingClass>
+		<graphicData>
+			<texPath>Things/Building/CheeseBin</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(1,0.9)</drawSize>
+			<shaderType>CutoutComplex</shaderType>
+			<damageData>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+			</damageData>
+		</graphicData>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<thingCategories>
+			<li>BuildingsProduction</li>
+		</thingCategories>
+		<fillPercent>0.45</fillPercent>
+		<pathCost>60</pathCost>
+		<statBases>
+			<WorkToBuild>800</WorkToBuild>
+			<Mass>10</Mass>
+			<MaxHitPoints>100</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+		</statBases>
+		<description>Basin for creating cheese from milk.</description>
+		<stuffCategories>
+			<li>Woody</li>
+		</stuffCategories>
+		<costStuffCount>40</costStuffCount>
+		<costList>
+			<ComponentIndustrial>2</ComponentIndustrial>
+		</costList>
+		<size>(1,1)</size>
+		<building>
+			<uninstallWork>650</uninstallWork>
+		</building>
+		<comps>
+			<li Class="UniversalFermenter.CompProperties_UniversalFermenter">
+				<showProductIcon>true</showProductIcon>
+				<barOffset>(0.0, -0.25)</barOffset>
+				<barScale>(1.0, 1.0)</barScale>
+				<processes>
+					<li>
+						<thingDef>Cheese</thingDef>
+						<ingredientFilter>
+							<thingDefs>
+								<li>Milk</li>
+								<li>SoyMilk</li>
+							</thingDefs>
+						</ingredientFilter>
+						<temperatureSafe>
+							<min>0</min>
+							<max>25</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>10</min>
+							<max>20</max>
+						</temperatureIdeal>
+						<processDays>4</processDays>
+						<maxCapacity>50</maxCapacity>
+						<speedBelowSafe>0.05</speedBelowSafe>
+						<speedAboveSafe>0.5</speedAboveSafe>
+						<efficiency>0.5</efficiency>
+						<sunFactor>
+							<min>1</min>
+							<max>1</max>
+						</sunFactor>
+						<rainFactor>
+							<min>1</min>
+							<max>0</max>
+						</rainFactor>
+						<snowFactor>
+							<min>1</min>
+							<max>0</max>
+						</snowFactor>
+						<windFactor>
+							<min>1</min>
+							<max>1</max>
+						</windFactor>
+						<graphicSuffix>_cheese</graphicSuffix>
+					</li>
+					<li>
+						<thingDef>AgedCheese</thingDef>
+						<ingredientFilter>
+							<thingDefs>
+								<li>Milk</li>
+							</thingDefs>
+						</ingredientFilter>
+						<temperatureSafe>
+							<min>0</min>
+							<max>15</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>2</min>
+							<max>8</max>
+						</temperatureIdeal>
+						<processDays>9</processDays>
+						<maxCapacity>50</maxCapacity>
+						<speedBelowSafe>0.05</speedBelowSafe>
+						<speedAboveSafe>0.05</speedAboveSafe>
+						<efficiency>0.35</efficiency>
+						<sunFactor>
+							<min>1</min>
+							<max>1</max>
+						</sunFactor>
+						<rainFactor>
+							<min>1</min>
+							<max>0</max>
+						</rainFactor>
+						<snowFactor>
+							<min>1</min>
+							<max>0</max>
+						</snowFactor>
+						<windFactor>
+							<min>1</min>
+							<max>1</max>
+						</windFactor>
+						<graphicSuffix>_cheese</graphicSuffix>
+					</li>					
+				</processes>
+			</li>
+			<li Class="CompProperties_Forbiddable"/>
+		</comps>
+		<tickerType>Rare</tickerType>
+		<rotatable>false</rotatable>
+		<designationCategory>Production</designationCategory>
+		<constructionSkillPrerequisite>4</constructionSkillPrerequisite>
+	</ThingDef>
+
 
 
 	<ThingDef ParentName="WorkTable">
