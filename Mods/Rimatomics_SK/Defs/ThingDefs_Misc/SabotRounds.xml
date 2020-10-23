@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<ThingDef Name="SabotBase" ParentName="ResourceBase" Abstract="True">
+		<soundInteract>Metal_Drop</soundInteract>
+		<soundDrop>Standard_Drop</soundDrop>
+		<tickerType>Normal</tickerType>
+		<stackLimit>25</stackLimit>
+		<techLevel>Industrial</techLevel>
+		<statBases>
+			<MaxHitPoints>70</MaxHitPoints>
+			<MarketValue>10</MarketValue>
+			<Mass>3.5</Mass>
+			<Flammability>0</Flammability>
+			<DeteriorationRate>0.5</DeteriorationRate>
+		</statBases>
+		<thingCategories>
+			<li>SabotRounds</li>
+		</thingCategories>
+		<tradeTags>
+			<li>SabotRounds</li>
+		</tradeTags>
+	</ThingDef>
+
+	<ThingDef Name="MakeableSabotBase" ParentName="SabotBase" Abstract="True">
+		<recipeMaker>
+			<workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+			<effectWorking>ConstructMetal</effectWorking>
+			<soundWorking>Recipe_Machining</soundWorking>
+			<workAmount>800</workAmount>
+			<targetCountAdjustment>5</targetCountAdjustment>
+			<workSkill>Crafting</workSkill>
+			<recipeUsers>
+				<li>TableRimatomicsMachining</li>
+			</recipeUsers>
+			<skillRequirements>
+				<Crafting>10</Crafting>
+			</skillRequirements>
+		</recipeMaker>
+	</ThingDef>
+
+	<!-- STANDARD -->
+
+	<ThingDef ParentName="MakeableSabotBase">
+		<defName>RailgunSabot</defName>
+		<label>Sabot Round</label>
+		<description>A kinetic energy projectile fired from a railgun.</description>
+		<graphicData>
+			<texPath>Rimatomics/Things/Resources/sabot</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<projectileWhenLoaded>Bullet_Sabot</projectileWhenLoaded>
+		<costList>
+			<Steel>20</Steel>
+		</costList>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseBullet">
+		<defName>Bullet_Sabot</defName>
+		<label>Sabot Round</label>
+		<graphicData>
+			<texPath>Rimatomics/Things/Projectile/SabotRound</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>TransparentPostLight</shaderType>
+		</graphicData>
+		<thingClass>Projectile_Explosive</thingClass>
+		<projectile>
+			<damageDef>Bomb_Sabot</damageDef>
+			<speed>150</speed>
+			<explosionRadius>5.9</explosionRadius>
+			<flyOverhead>true</flyOverhead>
+			<soundHitThickRoof>Artillery_HitThickRoof</soundHitThickRoof>
+			<soundExplode>MortarBomb_Explode</soundExplode>
+			<soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
+			<soundAmbient>MortarRound_Ambient</soundAmbient>
+		</projectile>
+	</ThingDef>
+
+	<DamageDef ParentName="Bomb">
+		<defName>Bomb_Sabot</defName>
+		<workerClass>Rimatomics.GibbingWorker</workerClass>
+		<defaultDamage>65</defaultDamage>
+		<defaultStoppingPower>1.21</defaultStoppingPower>
+		<defaultArmorPenetration>1.12</defaultArmorPenetration>
+	</DamageDef>
+
+	<!-- DU Sabot -->
+
+	<ThingDef ParentName="MakeableSabotBase">
+		<defName>RailgunSabotDU</defName>
+		<label>DU Sabot Round</label>
+		<description>A kinetic energy projectile fired from a railgun, inert and safe to stockpile.</description>
+		<graphicData>
+			<texPath>Rimatomics/Things/Resources/sabot</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<tradeability>Sellable</tradeability>
+		<statBases>
+			<MarketValue>50</MarketValue>
+		</statBases>
+		<projectileWhenLoaded>Bullet_Sabot_DU</projectileWhenLoaded>
+		<costList>
+			<DepletedUraniumPellets>10</DepletedUraniumPellets>
+		</costList>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseBullet">
+		<defName>Bullet_Sabot_DU</defName>
+		<label>DU Sabot Round</label>
+		<graphicData>
+			<texPath>Rimatomics/Things/Projectile/SabotRound</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>TransparentPostLight</shaderType>
+		</graphicData>
+		<thingClass>Projectile_Explosive</thingClass>
+		<projectile>
+			<damageDef>Bomb_DUSabot</damageDef>
+			<speed>150</speed>
+			<explosionRadius>7.9</explosionRadius>
+			<explosionChanceToStartFire>0.22</explosionChanceToStartFire>
+			<explosionEffect>GiantExplosion</explosionEffect>
+			<flyOverhead>true</flyOverhead>
+			<soundHitThickRoof>Artillery_HitThickRoof</soundHitThickRoof>
+			<soundExplode>Explosion_GiantBomb</soundExplode>
+			<soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
+			<soundAmbient>MortarRound_Ambient</soundAmbient>
+		</projectile>
+	</ThingDef>
+
+
+	<DamageDef ParentName="Bomb">
+		<defName>Bomb_DUSabot</defName>
+		<workerClass>Rimatomics.GibbingWorker</workerClass>
+		<defaultDamage>86</defaultDamage>
+		<defaultStoppingPower>2.41</defaultStoppingPower>
+		<defaultArmorPenetration>2.32</defaultArmorPenetration>
+	</DamageDef>
+
+
+	<ThingDef ParentName="SkyfallerBase">
+		<defName>SabotRoundIncoming</defName>
+		<label>sabot incoming</label>
+		<size>(1, 1)</size>
+		<graphicData>
+			<texPath>Rimatomics/Things/Projectile/SabotRound</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>CutoutFlying</shaderType>
+		</graphicData>
+		<skyfaller>
+			<anticipationSound>IncomingArty</anticipationSound>
+			<anticipationSoundTicks>180</anticipationSoundTicks>
+			<rotateGraphicTowardsDirection>true</rotateGraphicTowardsDirection>
+			<explosionRadius>5.9</explosionRadius>
+			<explosionDamage>Bomb</explosionDamage>
+			<speed>1.1</speed>
+			<explosionDamageFactor>1</explosionDamageFactor>
+		</skyfaller>
+	</ThingDef>
+
+
+	<ThingDef ParentName="SkyfallerBase">
+		<defName>DUSabotRoundIncoming</defName>
+		<label>DU sabot incoming</label>
+		<size>(1, 1)</size>
+		<graphicData>
+			<texPath>Rimatomics/Things/Projectile/SabotRound</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>CutoutFlying</shaderType>
+		</graphicData>
+		<skyfaller>
+			<anticipationSound>IncomingArty</anticipationSound>
+			<anticipationSoundTicks>180</anticipationSoundTicks>
+			<rotateGraphicTowardsDirection>true</rotateGraphicTowardsDirection>
+			<explosionRadius>7.9</explosionRadius>
+			<explosionDamage>Bomb</explosionDamage>
+			<cameraShake>1</cameraShake>
+			<speed>1.1</speed>
+			<explosionDamageFactor>2</explosionDamageFactor>
+		</skyfaller>
+	</ThingDef>
+
+</Defs>
