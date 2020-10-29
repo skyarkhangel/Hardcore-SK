@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<RecipeDef>
+		<defName>MakeAntidoteSimple</defName>
+		<label>Make simple antidote</label>
+		<description>Make simple antidote from poison gland. Produces 1.</description>
+		<jobString>Making simple antidote</jobString>
+		<workSpeedStat>DrugCookingSpeed</workSpeedStat>
+		<effectWorking>Cook</effectWorking>
+		<soundWorking>Chemlab_Medicine_Drink</soundWorking>
+		<allowMixingIngredients>true</allowMixingIngredients>
+		<workAmount>500</workAmount>
+		<recipeUsers>
+			<li>TableKitchen</li>
+			<li>meditable</li>
+			<li>DrugLab</li>
+		</recipeUsers>
+		<targetCountAdjustment>1</targetCountAdjustment>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>MedicineHerbal</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>PoisonGland</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>PoisonGland</li>
+				<li>MedicineHerbal</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<AntidoteSimple>1</AntidoteSimple>
+		</products>
+		<skillRequirements>
+			<Medicine>1</Medicine>
+		</skillRequirements>
+		<workSkill>Medicine</workSkill>
+	</RecipeDef>
+
+	<RecipeDef>
+		<defName>MakeAntidoteSafe</defName>
+		<label>Make safe antidote</label>
+		<description>Make safe antidote from poison gland. Produces 1.</description>
+		<jobString>Making safe antidote</jobString>
+		<workSpeedStat>DrugCookingSpeed</workSpeedStat>
+		<effectWorking>Cook</effectWorking>
+		<soundWorking>Chemlab_Medicine_Drink</soundWorking>
+		<allowMixingIngredients>true</allowMixingIngredients>
+		<workAmount>900</workAmount>
+		<recipeUsers>
+			<li>meditable</li>
+			<li>DrugLab</li>
+		</recipeUsers>
+		<targetCountAdjustment>1</targetCountAdjustment>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Neutroamine</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>PoisonGland</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>PoisonGland</li>
+				<li>Neutroamine</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<AntidoteSafe>1</AntidoteSafe>
+		</products>
+		<skillRequirements>
+			<Medicine>7</Medicine>
+		</skillRequirements>
+		<workSkill>Medicine</workSkill>
+		<researchPrerequisite>DrugProduction</researchPrerequisite>
+	</RecipeDef>
+
+ 	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>EnterBasicAntidote</defName>
+		<label>Remove poison</label>
+		<description>Removes poison from the body. New poison can come from poisoned wounds.</description>
+		<jobString>Removing poison</jobString>
+		<workerClass>SK.Recipe_RemoveScarHediff</workerClass>
+		<workAmount>200</workAmount>
+		<hideBodyPartNames>true</hideBodyPartNames>
+		<targetsBodyPart>false</targetsBodyPart>
+		<surgerySuccessChanceFactor>2</surgerySuccessChanceFactor>
+		<ingredients>
+			<li>
+				<filter>
+				<thingDefs>
+					<li>AntidoteSimple</li>
+					<li>AntidoteSafe</li>
+				</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>AntidoteSimple</li>
+				<li>AntidoteSafe</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<removesHediff>VenomBuildup</removesHediff>
+ 	</RecipeDef>
+
+  	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>CurePoisonArrow</defName>
+		<label>Cure poison arrow hit</label>
+		<description>Completely heals a poisoned arrow hit</description>
+		<jobString>Removing poison arrow hit</jobString>
+		<workerClass>SK.Recipe_RemoveScarHediff</workerClass>
+		<workAmount>550</workAmount>
+		<surgerySuccessChanceFactor>2</surgerySuccessChanceFactor>
+		<ingredients>
+		<li>
+			<filter>
+			<thingDefs>
+				<li>AntidoteSimple</li>
+				<li>AntidoteSafe</li>
+			</thingDefs>
+			</filter>
+			<count>1</count>
+		</li>
+		<li>
+			<filter>
+			<thingDefs>
+				<li>MedicineHerbal</li>
+				<li>MedicineIndustrial</li>
+				<li>MedicineUltratech</li>
+			</thingDefs>
+			</filter>
+			<count>1</count>
+		</li>
+		</ingredients>
+		<fixedIngredientFilter>
+		<thingDefs>
+			<li>AntidoteSimple</li>
+			<li>AntidoteSafe</li>
+			<li>MedicineHerbal</li>
+			<li>MedicineIndustrial</li>
+			<li>MedicineUltratech</li>
+		</thingDefs>
+		</fixedIngredientFilter>
+		<removesHediff>VenomousArrow</removesHediff>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>CurePoisonScratch</defName>
+		<label>Cure poison scratch</label>
+		<description>Completely heals a poisoned scratch</description>
+		<jobString>Removing poison scratch</jobString>
+		<workerClass>SK.Recipe_RemoveScarHediff</workerClass>
+		<workAmount>350</workAmount>
+		<surgerySuccessChanceFactor>2</surgerySuccessChanceFactor>
+		<ingredients>
+		<li>
+			<filter>
+				<thingDefs>
+					<li>AntidoteSafe</li>
+				</thingDefs>
+			</filter>
+			<count>1</count>
+		</li>
+		<li>
+			<filter>
+				<thingDefs>
+					<li>MedicineIndustrial</li>
+					<li>MedicineUltratech</li>
+				</thingDefs>
+			</filter>
+			<count>1</count>
+		</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>AntidoteSafe</li>
+				<li>MedicineIndustrial</li>
+				<li>MedicineUltratech</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<removesHediff>VenomousScratch</removesHediff>
+  	</RecipeDef>
+
+   	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>CurePoisonBite</defName>
+		<label>Cure poison bite</label>
+		<description>Completely heals a poisoned bite</description>
+		<jobString>Removing poison bite</jobString>
+		<workerClass>SK.Recipe_RemoveScarHediff</workerClass>
+		<workAmount>550</workAmount>
+		<surgerySuccessChanceFactor>2</surgerySuccessChanceFactor>
+		<ingredients>
+		<li>
+			<filter>
+				<thingDefs>
+					<li>AntidoteSafe</li>
+				</thingDefs>
+			</filter>
+			<count>1</count>
+		</li>
+		<li>
+			<filter>
+				<thingDefs>
+					<li>MedicineIndustrial</li>
+					<li>MedicineUltratech</li>
+				</thingDefs>
+			</filter>
+			<count>1</count>
+		</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>AntidoteSafe</li>
+				<li>MedicineIndustrial</li>
+				<li>MedicineUltratech</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<removesHediff>VenomousBite</removesHediff>
+  	</RecipeDef>
+
+</Defs>
