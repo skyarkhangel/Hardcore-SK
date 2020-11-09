@@ -45,7 +45,7 @@ Delete all mods inside your Rimworld\Mods\ folder except "Core". (Deleteing of C
 Extract everything in the Hardcore-SK-master\Mods\ OR Hardcore-SK-Development\Mods\ folder into your Rimworlds\Mods\ folder, and overwrite any files if prompted.
 
 Master: is the stable version/branch of the modpack usually a version behind the latest Rimworld. 
-Development: Is the unstable or work in progress version that contains the latest fixes as well as bugs but is the most compatible version of the modpack for the latest version of rimworld)
+Development: Is the unstable or work in progress version that contains the latest fixes as well as bugs but is the most compatible version of the modpack for the latest version of rimworld
 
 3. Go to:
 
