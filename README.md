@@ -39,10 +39,13 @@ Download installer: http://hardcore-sk.ru/hardcore/installer/HSK-Launcher-1.6-Se
 ## Manual installation:
 
 1. Go to the folder you installed the game in. (*gamefolder*)    
-Delete all mods inside your Rimworld\Mods\ folder except "Core".
+Delete all mods inside your Rimworld\Mods\ folder except "Core". (Deleteing of Core is now obsolete with rimworld version 1.1 and greater)
 
 2. Open up the downloaded Hardcore sk project .zip file.
-Extract everything in the Hardcore-SK-master\Mods\ folder into your Rimworlds\Mods\ folder, and overwrite any files if prompted.
+Extract everything in the Hardcore-SK-master\Mods\ OR Hardcore-SK-Development\Mods\ folder into your Rimworlds\Mods\ folder, and overwrite any files if prompted.
+
+Master: is the stable version/branch of the modpack usually a version behind the latest Rimworld. 
+Development: Is the unstable or work in progress version that contains the latest fixes as well as bugs but is the most compatible version of the modpack for the latest version of rimworld
 
 3. Go to:
 
