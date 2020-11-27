@@ -82,9 +82,10 @@ namespace ExperimentalOptimizations
             h.Patch(AccessTools.Method(typeof(ImmunityRecord), nameof(ImmunityRecord.ImmunityTick)),
                 transpiler: new HarmonyMethod(typeof(ExperimentalOptimizations), nameof(CompensateReducedImmunityTick)));
 
-            h.Patch(
-                AccessTools.Method(typeof(Pawn_MindState), nameof(Pawn_MindState.MindStateTick)),
-                prefix: new HarmonyMethod(typeof(ExperimentalOptimizations), nameof(MindStateTick)) {priority = 999});
+            // problems with recruit prisoners: if (GenLocalDate.DayTick(this.pawn) == 0) { this.interactionsToday = 0; }
+            //h.Patch(
+            //    AccessTools.Method(typeof(Pawn_MindState), nameof(Pawn_MindState.MindStateTick)),
+            //    prefix: new HarmonyMethod(typeof(ExperimentalOptimizations), nameof(MindStateTick)) {priority = 999});
 
             // AlienRace
             CanEatMethod = AccessTools.Method($"AlienRace.RaceRestrictionSettings:CanEat");
