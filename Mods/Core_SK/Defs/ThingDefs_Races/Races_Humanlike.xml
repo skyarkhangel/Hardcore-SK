@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
 	<!-- HUMANOID BASE -->
-	<Verse.ThingDef Name="BaseHumanlikePawn" ParentName="SK_BasePawn" Abstract="True">
+	<ThingDef Name="BaseHumanlikePawn" ParentName="SK_BasePawn" Abstract="True">
 		<uiIconPath>Things/Pawn/Humanlike/UI/IconHuman</uiIconPath>
 		<statBases>
 			<MarketValue>1750</MarketValue>
@@ -260,7 +260,13 @@
 			<li>CureGutWorms</li>
 			<li>CureChronicAlzheimers</li>
 			<li>CureChronicAsthma</li>
-			<li>CureChronicHeartArteryBlockage</li>		
+			<li>CureChronicHeartArteryBlockage</li>	
+
+			<!--Cure poison-->
+			<li>EnterBasicAntidote</li> <!--Misc-->
+			<li>CurePoisonScratch</li>
+			<li>CurePoisonBite</li>
+			<li>CurePoisonArrow</li>
 
 			<!--Misc-->
 			<li>InjectMedicine</li>
@@ -273,15 +279,15 @@
 			<li>Euthanize</li>
 			<li>Anesthetize</li>
 			<li>CureScaria</li>
-			<li>CureBloodRot</li>
-			<li>CureAbasia</li>
+			<li MayRequire="Ludeon.RimWorld.Royalty">CureBloodRot</li>
+			<li MayRequire="Ludeon.RimWorld.Royalty">CureAbasia</li>
 		</recipes>
 		<comps>
 			<li Class="CombatExtended.CompProperties_Suppressable" />
 		</comps>
-	</Verse.ThingDef>
+	</ThingDef>
 	<!-- HUMAN -->
-	<Verse.ThingDef ParentName="BaseHumanlikePawn">
+	<ThingDef ParentName="BaseHumanlikePawn">
 		<defName>Human</defName>
 		<label>human</label>
 		<description>A baseline human, mostly unmodified by gene engineering and mostly unchanged by evolutionary pressures on non-Earth planets.</description>
@@ -305,6 +311,7 @@
 				</capacities>
 				<power>6</power>
 				<cooldownTime>1.26</cooldownTime>
+				<chanceFactor>0.5</chanceFactor>
 				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
 				<armorPenetrationBlunt>1</armorPenetrationBlunt>
 			</li>
@@ -315,6 +322,7 @@
 				</capacities>
 				<power>6</power>
 				<cooldownTime>1.26</cooldownTime>
+				<chanceFactor>0.5</chanceFactor>
 				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
 				<armorPenetrationBlunt>1</armorPenetrationBlunt>
 			</li>
@@ -360,7 +368,7 @@
 				<compClass>CombatExtended.CompPawnGizmo</compClass>
 			</li>
 		</comps>
-	</Verse.ThingDef>
+	</ThingDef>
 	<!-- NOVA -->
 	<AlienRace.ThingDef_AlienRace ParentName="BaseHumanlikePawn">
 		<thingClass>Pawn</thingClass>
@@ -416,7 +424,7 @@
 							<inFrontOfBody>true</inFrontOfBody>
 							<layerOffset>-0.25</layerOffset>
 							<drawnInBed>true</drawnInBed>
-							<useSkinColor>true</useSkinColor>
+							<colorChannel>skin</colorChannel>
 							<offsets>
 								<south>
 									<bodyTypes>
@@ -469,7 +477,7 @@
 							<inFrontOfBody>true</inFrontOfBody>
 							<layerOffset>-0.25</layerOffset>
 							<drawnInBed>true</drawnInBed>
-							<useSkinColor>true</useSkinColor>
+							<colorChannel>skin</colorChannel>
 							<offsets>
 								<south>
 									<bodyTypes>
@@ -516,57 +524,65 @@
 							</hiddenUnderApparelFor>
 						</li>
 					</bodyAddons>
-					<alienskincolorgen Class="ColorGenerator_Options">
-						<options>
-							<li>
-								<weight>5</weight>
-								<only>(0.70,0.78,0.88,1)</only>
-							</li>
-							<li>
-								<weight>5</weight>
-								<only>(0.71,0.82,0.87,1)</only>
-							</li>
-						</options>
-					</alienskincolorgen>
-					<alienhaircolorgen Class="ColorGenerator_Options">
-						<options>
-							<li>
-								<!-- White Blonde -->
-								<weight>5</weight>
-								<only>RGBA(1.0,0.96,0.88,1)</only>
-							</li>				
-							<li>
-								<!-- Light Blonde -->
-								<weight>5</weight>
-								<only>RGBA(0.9,0.81,0.66,1)</only>
-							</li>				
-							<li>
-								<!-- Bleached Blonde -->
-								<weight>5</weight>
-								<only>RGBA(0.86,0.82,0.73,1)</only>
-							</li>				
-							<li>
-								<!-- Brown -->
-								<weight>1</weight>
-								<only>RGBA(0.42,0.31,0.26,1)</only>
-							</li>
-							<li>
-								<!-- Dark Auburn -->
-								<weight>1</weight>
-								<only>RGBA(0.33,0.24,0.20,1)</only>
-							</li>
-							<li>
-								<!-- Light Red Hair -->
-								<weight>1</weight>
-								<only>RGBA(0.71,0.32,0.22,1)</only>
-							</li>
-							<li>
-								<!-- Silver -->
-								<weight>0.25</weight>
-								<only>RGBA(0.75,0.75,0.75,1)</only>
-							</li>
-						</options>
-					</alienhaircolorgen>
+					<colorChannels>
+						<li>
+							<name>skin</name>
+							<first Class="ColorGenerator_Options">
+								<options>
+									<li>
+										<weight>5</weight>
+										<only>(0.70,0.78,0.88,1)</only>
+									</li>
+									<li>
+										<weight>5</weight>
+										<only>(0.71,0.82,0.87,1)</only>
+									</li>
+								</options>
+							</first>
+						</li>
+						<li>
+							<name>hair</name>
+							<first Class="ColorGenerator_Options">
+								<options>
+									<li>
+										<!-- White Blonde -->
+										<weight>5</weight>
+										<only>RGBA(1.0,0.96,0.88,1)</only>
+									</li>				
+									<li>
+										<!-- Light Blonde -->
+										<weight>5</weight>
+										<only>RGBA(0.9,0.81,0.66,1)</only>
+									</li>				
+									<li>
+										<!-- Bleached Blonde -->
+										<weight>5</weight>
+										<only>RGBA(0.86,0.82,0.73,1)</only>
+									</li>				
+									<li>
+										<!-- Brown -->
+										<weight>1</weight>
+										<only>RGBA(0.42,0.31,0.26,1)</only>
+									</li>
+									<li>
+										<!-- Dark Auburn -->
+										<weight>1</weight>
+										<only>RGBA(0.33,0.24,0.20,1)</only>
+									</li>
+									<li>
+										<!-- Light Red Hair -->
+										<weight>1</weight>
+										<only>RGBA(0.71,0.32,0.22,1)</only>
+									</li>
+									<li>
+										<!-- Silver -->
+										<weight>0.25</weight>
+										<only>RGBA(0.75,0.75,0.75,1)</only>
+									</li>
+								</options>
+							</first>
+						</li>
+					</colorChannels>
 				</alienPartGenerator>
 			</generalSettings>
 			<hairSettings>
@@ -638,6 +654,7 @@
 				</capacities>
 				<power>7</power>
 				<cooldownTime>1.2</cooldownTime>
+				<chanceFactor>0.5</chanceFactor>
 				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
 				<armorPenetrationBlunt>1</armorPenetrationBlunt>
 			</li>
@@ -648,6 +665,7 @@
 				</capacities>
 				<power>7</power>
 				<cooldownTime>1.2</cooldownTime>
+				<chanceFactor>0.5</chanceFactor>
 				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
 				<armorPenetrationBlunt>1</armorPenetrationBlunt>
 			</li>
@@ -766,11 +784,19 @@
 						<chance>10</chance>
 					</li>
 				</forcedRaceTraitEntries>
-				<disallowedTraits>				
-					<li>AnnoyingVoice</li>
-					<li>CreepyBreathing</li>		
-					<li>Immunity</li>	
-					<li>Wimp</li>				
+				<disallowedTraits>		
+					<li>
+						<defName>AnnoyingVoice</defName>
+					</li>
+					<li>
+						<defName>CreepyBreathing</defName>
+					</li>
+					<li>
+						<defName>Immunity</defName>
+					</li>
+					<li>
+						<defName>Wimp</defName>
+					</li>
 				</disallowedTraits>
 				<alienPartGenerator>
 					<headOffset>(0,0)</headOffset>	
@@ -793,7 +819,7 @@
 							<inFrontOfBody>true</inFrontOfBody>
 							<layerOffset>-0.25</layerOffset>
 							<drawnInBed>true</drawnInBed>
-							<useSkinColor>true</useSkinColor>
+							<colorChannel>skin</colorChannel>
 							<offsets>
 								<south>
 									<bodyTypes>
@@ -846,7 +872,7 @@
 							<inFrontOfBody>true</inFrontOfBody>
 							<layerOffset>-0.25</layerOffset>
 							<drawnInBed>true</drawnInBed>
-							<useSkinColor>true</useSkinColor>
+							<colorChannel>skin</colorChannel>
 							<offsets>
 								<south>
 									<bodyTypes>
@@ -893,70 +919,78 @@
 							</hiddenUnderApparelFor>
 						</li>
 					</bodyAddons>
-					<alienskincolorgen Class="ColorGenerator_Options">
-						<options>
-							<li>
-								<weight>10</weight>
-								<only>RGBA(0.2988,0.2988,.2966,1)</only>
-							</li>
-							<li>
-								<weight>10</weight>
-								<only>RGBA(0.2688,0.2688,.2566,1)</only>
-							</li>
-							<li>
-								<weight>10</weight>
-								<only>RGBA(0.2388,0.2388,.2366,1)</only>
-							</li>
-							<li>
-								<weight>10</weight>
-								<only>RGBA(0.21388,0.2188,.2166,1)</only>
-							</li>
-						</options>
-					</alienskincolorgen>
-					<alienskinsecondcolorgen Class="ColorGenerator_Options">
-						<options>
-							<li>
-								<weight>10</weight>
-								<only>RGBA(0.2988,0.2988,.2966,1)</only>
-							</li>
-							<li>
-								<weight>10</weight>
-								<only>RGBA(0.2688,0.2688,.2566,1)</only>
-							</li>
-							<li>
-								<weight>10</weight>
-								<only>RGBA(0.2388,0.2388,.2366,1)</only>
-							</li>
-							<li>
-								<weight>10</weight>
-								<only>RGBA(0.21388,0.2188,.2166,1)</only>
-							</li>
-						</options>
-					</alienskinsecondcolorgen>
-					<alienhaircolorgen Class="ColorGenerator_Options">
-						<options>
-							<li>
-								<weight>20</weight>
-								<only>RGBA(0.95,0.95,0.95,1)</only>
-							</li>
-							<li>
-								<weight>50</weight>
-								<only>RGBA(1.0,0.98,1.0,1)</only>
-							</li>
-							<li>
-								<weight>10</weight>
-								<only>RGBA(0.961,0.95,1.0,1)</only>
-							</li>
-							<li>
-								<weight>5</weight>
-								<only>RGBA(0.92,0.92,0.92,1)</only>
-							</li>
-							<li>
-								<weight>70</weight>
-								<only>RGBA(1,1,1,1)</only>
-							</li>
-						</options>
-					</alienhaircolorgen>	
+					<colorChannels>
+						<li>
+							<name>skin</name>
+							<first Class="ColorGenerator_Options">
+								<options>
+									<li>
+										<weight>10</weight>
+										<only>RGBA(0.2988,0.2988,.2966,1)</only>
+									</li>
+									<li>
+										<weight>10</weight>
+										<only>RGBA(0.2688,0.2688,.2566,1)</only>
+									</li>
+									<li>
+										<weight>10</weight>
+										<only>RGBA(0.2388,0.2388,.2366,1)</only>
+									</li>
+									<li>
+										<weight>10</weight>
+										<only>RGBA(0.21388,0.2188,.2166,1)</only>
+									</li>
+								</options>
+							</first>
+							<second Class="ColorGenerator_Options">
+								<options>
+									<li>
+										<weight>10</weight>
+										<only>RGBA(0.2988,0.2988,.2966,1)</only>
+									</li>
+									<li>
+										<weight>10</weight>
+										<only>RGBA(0.2688,0.2688,.2566,1)</only>
+									</li>
+									<li>
+										<weight>10</weight>
+										<only>RGBA(0.2388,0.2388,.2366,1)</only>
+									</li>
+									<li>
+										<weight>10</weight>
+										<only>RGBA(0.21388,0.2188,.2166,1)</only>
+									</li>
+								</options>
+							</second>
+						</li>
+						<li>
+							<name>hair</name>
+							<first Class="ColorGenerator_Options">
+								<options>
+									<li>
+										<weight>20</weight>
+										<only>RGBA(0.95,0.95,0.95,1)</only>
+									</li>
+									<li>
+										<weight>50</weight>
+										<only>RGBA(1.0,0.98,1.0,1)</only>
+									</li>
+									<li>
+										<weight>10</weight>
+										<only>RGBA(0.961,0.95,1.0,1)</only>
+									</li>
+									<li>
+										<weight>5</weight>
+										<only>RGBA(0.92,0.92,0.92,1)</only>
+									</li>
+									<li>
+										<weight>70</weight>
+										<only>RGBA(1,1,1,1)</only>
+									</li>
+								</options>
+							</first>
+						</li>
+					</colorChannels>
 					<customDrawSize>(1.0,1.0)</customDrawSize>
 					<customPortraitDrawSize>(1.0,1.0)</customPortraitDrawSize>
 				</alienPartGenerator>
@@ -1047,6 +1081,7 @@
 				</capacities>
 				<power>7</power>
 				<cooldownTime>1.3</cooldownTime>
+				<chanceFactor>0.5</chanceFactor>
 				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
 				<armorPenetrationBlunt>1</armorPenetrationBlunt>
 				<surpriseAttack>
@@ -1065,6 +1100,7 @@
 				</capacities>
 				<power>7</power>
 				<cooldownTime>1.3</cooldownTime>
+				<chanceFactor>0.5</chanceFactor>
 				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
 				<armorPenetrationBlunt>1</armorPenetrationBlunt>
 				<surpriseAttack>
@@ -1172,8 +1208,9 @@
 				</capacities>
 				<power>8</power>
 				<cooldownTime>1.35</cooldownTime>
+				<chanceFactor>0.6</chanceFactor>
 				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
-				<armorPenetrationBlunt>1</armorPenetrationBlunt>
+				<armorPenetrationBlunt>2</armorPenetrationBlunt>
 			</li>
 			<li Class="CombatExtended.ToolCE">
 				<label>right fist</label>
@@ -1182,8 +1219,9 @@
 				</capacities>
 				<power>8</power>
 				<cooldownTime>1.35</cooldownTime>
+				<chanceFactor>0.6</chanceFactor>
 				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
-				<armorPenetrationBlunt>1</armorPenetrationBlunt>
+				<armorPenetrationBlunt>2</armorPenetrationBlunt>
 			</li>
 			<li Class="CombatExtended.ToolCE">
 				<label>teeth</label>
@@ -1207,7 +1245,7 @@
 				<cooldownTime>2.8</cooldownTime>
 				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
 				<chanceFactor>0.2</chanceFactor>
-				<armorPenetrationBlunt>1.2</armorPenetrationBlunt>
+				<armorPenetrationBlunt>2.4</armorPenetrationBlunt>
 				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
 			</li>
 		</tools>
@@ -1278,7 +1316,7 @@
 				</forcedRaceTraitEntries>
 				<maxDamageForSocialfight>6</maxDamageForSocialfight>
 				<alienPartGenerator>
-					<headOffset>(0,0)</headOffset>	
+					<headOffset>(0.0, -0.06)</headOffset>
 					<aliencrowntypes>
 						<li>Average_Normal</li>
 					</aliencrowntypes>
@@ -1297,7 +1335,9 @@
 								<Orassan_GeneWarrior>Things/Pawn/Humanlike/OrassanTails/OTailG</Orassan_GeneWarrior>
 							</backstoryGraphics>
 							<inFrontOfBody>true</inFrontOfBody>
-							<useSkinColor>true</useSkinColor>
+							<colorChannel>skin</colorChannel>
+							<!--<colorChannel>skin</colorChannel>-->
+							<drawnInBed>false</drawnInBed>
 							<offsets>
 								<south>
 									<bodyTypes>
@@ -1339,7 +1379,7 @@
 							<path>Things/Pawn/Humanlike/OrassanEars/EarLeft</path>
 							<bodyPart>left ear</bodyPart>
 							<inFrontOfBody>true</inFrontOfBody>
-							<useSkinColor>true</useSkinColor>
+							<colorChannel>skin</colorChannel>
 							<offsets>
 								<south>
 									<bodyTypes>
@@ -1402,7 +1442,7 @@
 							<path>Things/Pawn/Humanlike/OrassanEars/EarRight</path>
 							<bodyPart>right ear</bodyPart>
 							<inFrontOfBody>true</inFrontOfBody>
-							<useSkinColor>true</useSkinColor>
+							<colorChannel>skin</colorChannel>
 							<offsets>
 								<south>
 									<bodyTypes>
@@ -1461,38 +1501,43 @@
 							</hiddenUnderApparelFor>
 						</li>
 					</bodyAddons>
-					<alienskincolorgen Class="ColorGenerator_Options">
-						<options>
-							<li>
-								<weight>10</weight>
-								<only>RGBA(1.0,1.0,1.0,1)</only>
-							</li>
-							<li>
-								<weight>10</weight>
-								<only>RGBA(0.5,0.5,0.5,1)</only>
-							</li>
-							<li>
-								<weight>10</weight>
-								<only>RGBA(0.3,0.3,0.3,1)</only>
-							</li>
-							<li>
-								<weight>5</weight>
-								<only>RGBA(0.8,0.5,0.5,1)</only>
-							</li>
-							<li>
-								<weight>5</weight>
-								<only>RGBA(0.6,0.3,0.0,1)</only>
-							</li>
-							<li>
-								<weight>5</weight>
-								<only>RGBA(0.576,0.475,0.4,1)</only>
-							</li>
-							<li>
-								<weight>1</weight>
-								<only>RGBA(0.502,0.071,0.145,1)</only>
-							</li>
-						</options>
-					</alienskincolorgen>
+					<colorChannels>
+						<li>
+							<name>skin</name>
+							<first Class="ColorGenerator_Options">
+								<options>
+									<li>
+										<weight>10</weight>
+										<only>RGBA(1.0,1.0,1.0,1)</only>
+									</li>
+									<li>
+										<weight>10</weight>
+										<only>RGBA(0.5,0.5,0.5,1)</only>
+									</li>
+									<li>
+										<weight>10</weight>
+										<only>RGBA(0.3,0.3,0.3,1)</only>
+									</li>
+									<li>
+										<weight>5</weight>
+										<only>RGBA(0.8,0.5,0.5,1)</only>
+									</li>
+									<li>
+										<weight>5</weight>
+										<only>RGBA(0.6,0.3,0.0,1)</only>
+									</li>
+									<li>
+										<weight>5</weight>
+										<only>RGBA(0.576,0.475,0.4,1)</only>
+									</li>
+									<li>
+										<weight>1</weight>
+										<only>RGBA(0.502,0.071,0.145,1)</only>
+									</li>
+								</options>
+							</first>
+						</li>
+					</colorChannels>
 					<customDrawSize>(0.9, 0.9)</customDrawSize>
 					<customPortraitDrawSize>(.9, .9)</customPortraitDrawSize>
 				</alienPartGenerator>
@@ -1559,10 +1604,10 @@
 		<statBases>
 			<Mass>75</Mass>
 			<MarketValue>2500</MarketValue>
-			<MoveSpeed>5.9</MoveSpeed>
+			<MoveSpeed>6.0</MoveSpeed>
 			<Flammability>1.6</Flammability>
 			<ImmunityGainSpeed>1.1</ImmunityGainSpeed>
-			<ComfyTemperatureMin>-20</ComfyTemperatureMin>
+			<ComfyTemperatureMin>-22</ComfyTemperatureMin>
 			<ComfyTemperatureMax>26</ComfyTemperatureMax>
 			<LeatherAmount>30</LeatherAmount>
 			<MiningSpeed>0.95</MiningSpeed>
@@ -1599,6 +1644,7 @@
 				</capacities>
 				<power>7</power>
 				<cooldownTime>1.15</cooldownTime>
+				<chanceFactor>0.6</chanceFactor>
 				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
 				<armorPenetrationSharp>1.30</armorPenetrationSharp>
 				<armorPenetrationBlunt>1</armorPenetrationBlunt>
@@ -1610,6 +1656,7 @@
 				</capacities>
 				<power>7</power>
 				<cooldownTime>1.15</cooldownTime>
+				<chanceFactor>0.6</chanceFactor>
 				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
 				<armorPenetrationSharp>1.30</armorPenetrationSharp>
 				<armorPenetrationBlunt>1</armorPenetrationBlunt>
@@ -1621,6 +1668,7 @@
 				</capacities>
 				<power>10</power>
 				<cooldownTime>2.7</cooldownTime>
+				<chanceFactor>0.6</chanceFactor>
 				<linkedBodyPartsGroup>Tailblunt</linkedBodyPartsGroup>
 				<surpriseAttack>
 					<extraMeleeDamages>
@@ -1673,5 +1721,5 @@
 			</li>
 		</comps>
 	</AlienRace.ThingDef_AlienRace>
-	
+
 </Defs>

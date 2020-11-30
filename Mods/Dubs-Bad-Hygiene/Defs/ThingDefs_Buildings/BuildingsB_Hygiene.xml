@@ -1,0 +1,791 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+
+  <ThingDef Name="BasedHygieneMom" Abstract="True">
+    <category>Building</category>
+    <thingClass>Building</thingClass>
+    <soundImpactDefault>BulletImpact_Metal</soundImpactDefault>
+    <selectable>true</selectable>
+    <drawerType>MapMeshAndRealTime</drawerType>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+    <repairEffect>Repair</repairEffect>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <filthLeaving>Filth_RubbleBuilding</filthLeaving>
+    <designationCategory>Hygiene</designationCategory>
+    <passability>PassThroughOnly</passability>
+    <altitudeLayer>Building</altitudeLayer>
+    <tickerType>Normal</tickerType>
+    <statBases>
+      <SellPriceFactor>0.70</SellPriceFactor>
+    </statBases>
+  </ThingDef>
+
+
+  <ThingDef Name="BasedFixture" Abstract="True" ParentName="BasedHygieneMom">
+    <comps>
+      <li>
+        <compClass>CompColorable</compClass>
+      </li>
+      <li Class="CompProperties_Forbiddable"/>
+      <li Class="DubsBadHygiene.CompProperties_Pipe">
+        <mode>Sewage</mode>
+      </li>
+      <li Class="DubsBadHygiene.CompProperties_Blockage"/>
+    </comps>
+    <building>
+      <ai_chillDestination>false</ai_chillDestination>
+    </building>
+    <socialPropernessMatters>true</socialPropernessMatters>
+    <thingCategories>
+      <li>BuildingsHygiene</li>
+    </thingCategories>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <tickerType>Rare</tickerType>
+  </ThingDef>
+
+
+  <ThingDef ParentName="BasedHygieneMom">
+    <defName>ToiletStallDoor</defName>
+    <label>stall door</label>
+    <holdsRoof>false</holdsRoof>
+    <fillPercent>0.15</fillPercent>
+    <description>Thin door which only blocks line of sight to people using bathroom fixtures. Does not create new rooms or prevent heat loss.</description>
+    <thingClass>DubsBadHygiene.Building_StallDoor</thingClass>
+    <graphicData>
+      <texPath>DBH/Things/Building/StallDoorSimple_Mover</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <damageData>
+        <!--  no damage marks because they don't move with the door
+        <rect>(0,0.12,1,0.76)</rect>-->
+        <enabled>false</enabled>
+      </damageData>
+    </graphicData>
+    <uiIconPath>DBH/Things/Building/StallDoorSimple_UI</uiIconPath>
+    <designationHotKey>Misc1</designationHotKey>
+    <category>Building</category>
+    <altitudeLayer>DoorMoveable</altitudeLayer>
+    <useHitPoints>true</useHitPoints>
+    <stuffCategories>
+      <li>Metallic</li>
+      <li>Woody</li>
+    </stuffCategories>
+	<costStuffCount>5</costStuffCount>
+    <statBases>
+      <WorkToBuild>250</WorkToBuild>
+      <MaxHitPoints>250</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+    </statBases>
+    <passability>Standable</passability>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <tickerType>Normal</tickerType>
+    <rotatable>false</rotatable>
+    <staticSunShadowHeight>1.0</staticSunShadowHeight>
+    <blockLight>false</blockLight>
+    <drawerType>RealtimeOnly</drawerType>
+    <building>
+      <soundDoorOpenManual>StallDoor</soundDoorOpenManual>
+      <blueprintGraphicData>
+        <texPath>DBH/Things/Building/Door_Blueprint</texPath>
+      </blueprintGraphicData>
+      <blueprintClass>Blueprint_Door</blueprintClass>
+      <isEdifice>true</isEdifice>
+      <isInert>true</isInert>
+      <canPlaceOverWall>true</canPlaceOverWall>
+    </building>
+    <comps>
+      <li Class="CompProperties_Forbiddable"/>
+    </comps>
+    <placeWorkers>
+      <li>PlaceWorker_DoorLearnOpeningSpeed</li>
+    </placeWorkers>
+  </ThingDef>
+
+  <!--Low Tech Stuff-->
+
+  <ThingDef ParentName="BasedFixture">
+    <defName>PitLatrine</defName>
+    <label>latrine</label>
+    <description>A pit latrine that collects faeces in a hole in the ground. Must be emptied manually, or can be plumbed.</description>
+    <thingClass>DubsBadHygiene.Building_Latrine</thingClass>
+    <graphicData>
+      <texPath>DBH/Things/Building/Latrine</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <damageData>
+        <rect>(0.2,0.2,0.6,0.6)</rect>
+      </damageData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <statBases>
+      <MaxHitPoints>75</MaxHitPoints>
+      <WorkToBuild>800</WorkToBuild>
+      <Flammability>2.0</Flammability>
+      <Beauty>-5</Beauty>
+      <Cleanliness>-5</Cleanliness>
+      <Mass>5</Mass>
+    </statBases>
+    <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+    <fillPercent>0.15</fillPercent>
+    <stuffCategories>
+      <li>Metallic</li>
+      <li>Precious</li>
+      <li>Woody</li>
+      <li>Stony</li>
+      <li>Bricks</li>
+    </stuffCategories>
+    <costStuffCount>15</costStuffCount>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <pathCost>8</pathCost>
+    <rotatable>true</rotatable>
+    <placeWorkers>
+      <li>DubsBadHygiene.PlaceWorker_SewageGrid</li>
+    </placeWorkers>
+  </ThingDef>
+
+  <ThingDef ParentName="BasedHygieneMom">
+    <defName>PrimitiveWell</defName>
+    <label>primitive well</label>
+    <description>Accesses ground water. Water must be hauled to a water tub before it can be used for washing or drinking.</description>
+    <graphicData>
+      <texPath>DBH/Things/Building/Water/PrimitiveWell</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(2,2)</drawSize>
+      <drawRotated>false</drawRotated>
+    </graphicData>
+    <tickerType>Normal</tickerType>
+    <category>Building</category>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <blockWind>false</blockWind>
+    <castEdgeShadows>false</castEdgeShadows>
+    <pathCost>60</pathCost>
+    <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+    <stuffCategories>
+      <li>Woody</li>
+      <li>Stony</li>
+	  <li>Ceramic</li>
+	  <li>Bricks</li>
+    </stuffCategories>
+    <costStuffCount>25</costStuffCount>
+    <specialDisplayRadius>7.9</specialDisplayRadius>
+    <placeWorkers>
+      <li>DubsBadHygiene.PlaceWorker_WaterGrid</li>
+      <li>DubsBadHygiene.PlaceWorker_SewageGrid</li>
+    </placeWorkers>
+    <comps>
+      <li Class="DubsBadHygiene.CompProperties_WaterInlet">
+        <compClass>DubsBadHygiene.CompBaseWell</compClass>
+      </li>
+      <li Class="CompProperties_Forbiddable"/>
+    </comps>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <rotatable>false</rotatable>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <WorkToBuild>2000</WorkToBuild>
+      <Flammability>1.0</Flammability>
+    </statBases>
+    <socialPropernessMatters>true</socialPropernessMatters>
+  </ThingDef>
+
+  <ThingDef ParentName="BasedHygieneMom">
+    <defName>WashBucket</defName>
+    <label>water tub</label>
+    <description>Tub of water used for personal hygiene. Must be regularly refilled with fresh water. Can also be used for drinking if thirst is enabled.</description>
+    <thingClass>DubsBadHygiene.Building_washbucket</thingClass>
+    <graphicData>
+      <texPath>DBH/Things/Building/filthyBucket</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <damageData>
+        <rect>(0.2,0.2,0.6,0.6)</rect>
+      </damageData>
+    </graphicData>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsHygiene</li>
+    </thingCategories>
+    <altitudeLayer>Building</altitudeLayer>
+    <statBases>
+      <MaxHitPoints>75</MaxHitPoints>
+      <WorkToBuild>250</WorkToBuild>
+      <Flammability>1.0</Flammability>
+      <Beauty>-5</Beauty>
+      <Cleanliness>-5</Cleanliness>
+      <Mass>5</Mass>
+    </statBases>
+    <tickerType>Rare</tickerType>
+    <fillPercent>0.15</fillPercent>
+    <stuffCategories>
+      <li>Metallic</li>
+      <li>Woody</li>
+    </stuffCategories>
+    <costStuffCount>15</costStuffCount>
+    <passability>PassThroughOnly</passability>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <pathCost>8</pathCost>
+    <rotatable>false</rotatable>
+    <socialPropernessMatters>true</socialPropernessMatters>
+    <comps>
+      <li>
+        <compClass>CompColorable</compClass>
+      </li>
+      <li Class="CompProperties_Forbiddable"/>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="BasedHygieneMom">
+    <defName>LitterBox</defName>
+    <label>litter box</label>
+    <description>An indoor faeces and urine collection box for small animals.</description>
+    <thingClass>DubsBadHygiene.Building_Litterbox</thingClass>
+    <graphicData>
+      <texPath>DBH/Things/Building/LitterBox</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <damageData>
+        <rect>(0.2,0.2,0.6,0.6)</rect>
+      </damageData>
+    </graphicData>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsHygiene</li>
+    </thingCategories>
+    <altitudeLayer>Building</altitudeLayer>
+    <statBases>
+      <MaxHitPoints>75</MaxHitPoints>
+      <WorkToBuild>250</WorkToBuild>
+      <Flammability>1.0</Flammability>
+      <Beauty>-5</Beauty>
+      <Cleanliness>-5</Cleanliness>
+      <Mass>5</Mass>
+    </statBases>
+    <fillPercent>0.15</fillPercent>
+    <stuffCategories>
+      <li>Metallic</li>
+      <li>Woody</li>
+      <li>Stony</li>
+    </stuffCategories>
+    <tickerType>Never</tickerType>
+    <costStuffCount>15</costStuffCount>
+    <passability>PassThroughOnly</passability>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <pathCost>8</pathCost>
+    <rotatable>false</rotatable>
+    <socialPropernessMatters>true</socialPropernessMatters>
+    <designationCategory>Hygiene</designationCategory>
+    <comps>
+      <li>
+        <compClass>CompColorable</compClass>
+      </li>
+      <li Class="CompProperties_Forbiddable"/>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="BasedHygieneMom">
+    <defName>BurnPit</defName>
+    <label>burn pit</label>
+    <description>Eliminates fecal sludge by burning it as fuel. Can also be used for disposing of corpses or other detritus. Colonists may become sick if they spend too long near burning waste.</description>
+    <thingClass>DubsBadHygiene.Building_BurnPit</thingClass>
+    <category>Building</category>
+    <graphicData>
+      <texPath>DBH/Things/Building/Sewage/burnPit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawRotated>false</drawRotated>
+      <allowFlip>false</allowFlip>
+      <damageData>
+        <rect>(0.2,0,0.6,0.1)</rect>
+      </damageData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>50</pathCost>
+    <tickerType>Normal</tickerType>
+    <drawerType>RealtimeOnly</drawerType>
+    <fillPercent>0.20</fillPercent>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <WorkToBuild>200</WorkToBuild>
+      <Flammability>0</Flammability>
+    </statBases>
+    <selectable>true</selectable>
+    <stuffCategories>
+      <li>Stony</li>
+	  <li>Ceramic</li>
+	  <li>Bricks</li>
+    </stuffCategories>
+    <costStuffCount>50</costStuffCount>
+    <soundImpactDefault>BulletImpact_Ground</soundImpactDefault>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <resourcesFractionWhenDeconstructed>0</resourcesFractionWhenDeconstructed>
+    <placeWorkers>
+      <li>PlaceWorker_Heater</li>
+    </placeWorkers>
+    <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+    <comps>
+<!--       <li Class="CompProperties_Refuelable">
+        <fuelConsumptionRate>50.0</fuelConsumptionRate>
+        <fuelCapacity>250.0</fuelCapacity>
+        <fuelConsumptionPerTickInRain>0.0006</fuelConsumptionPerTickInRain>
+        <fuelFilter>
+          <thingDefs>
+            <li>FecalSludge</li>
+          </thingDefs>
+        </fuelFilter>
+      </li>
+      <li Class="CompProperties_HeatPusher">
+        <compClass>CompHeatPusherPowered</compClass>
+        <heatPerSecond>21</heatPerSecond>
+        <heatPushMaxTemperature>28</heatPushMaxTemperature>
+      </li> -->
+			<li Class="SK.CompFueled_Properties">
+				<operatingTemp>300</operatingTemp>
+				<fireDrawOffset>(0,0.5,0.275)</fireDrawOffset>
+				<smokeDrawOffset>(0,0,0.15)</smokeDrawOffset>
+				<fuelDrawOffset>(0,0.1,0.01)</fuelDrawOffset>
+				<fuelDrawScale>0.9</fuelDrawScale>
+				<smokesize>0.8</smokesize>
+				<fuelCapacity>250</fuelCapacity>
+				<burnFuelMultiplier>0.6</burnFuelMultiplier> <!-- <fuelConsumptionRate>50.0 ~ 0.5 burnFuelMultiplier-->
+				<canAutoBurn>true</canAutoBurn>
+				<effectOnWeather>true</effectOnWeather>
+				<smokeDensity>2</smokeDensity>
+				<fuelFilter>
+					<thingDefs>
+						<li>FecalSludge</li>
+					</thingDefs>
+				</fuelFilter>
+			</li>
+			<li Class="SK.CompProperties_HeatPusherAdvanced">
+				<compClass>SK.CompHeatPusherAdvanced</compClass>
+				<heatPerSecond>18</heatPerSecond>
+				<heatPushMaxTemperature>28</heatPushMaxTemperature>
+			</li>	
+      <li Class="CompProperties_Glower">
+        <glowRadius>8</glowRadius>
+        <glowColor>(252,187,113,0)</glowColor>
+      </li>
+    </comps>
+    <designationHotKey>Misc1</designationHotKey>
+    <hasInteractionCell>True</hasInteractionCell>
+    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
+    <recipes>
+      <li>CremateCorpse</li>
+      <li>BurnApparel</li>
+      <li>BurnDrugs</li>
+    </recipes>
+    <inspectorTabs>
+      <li>ITab_Bills</li>
+	  <li>SK.ITab_Fuel</li>
+    </inspectorTabs>
+    <building>
+      <heatPerTickWhileWorking>0.40</heatPerTickWhileWorking>
+      <spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+    </building>
+    <specialDisplayRadius>13.9</specialDisplayRadius>
+    <constructionSkillPrerequisite>3</constructionSkillPrerequisite>
+  </ThingDef>
+
+
+
+  <!--                Basins                      -->
+
+  <ThingDef ParentName="BasedFixture" Name="DubsDirtyBasinBase" Abstract="True">
+    <description>Clean and simple bathroom basin for keeping your hands clean after using the toilet.</description>
+    <thingClass>DubsBadHygiene.Building_basin</thingClass>
+    <graphicData>
+      <drawSize>(2,2)</drawSize>
+      <texPath>DBH/Things/Building/Toilets/basin</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <damageData>
+        <rect>(0.2,0.2,0.6,0.6)</rect>
+      </damageData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <statBases>
+      <MaxHitPoints>75</MaxHitPoints>
+      <WorkToBuild>550</WorkToBuild>
+      <Flammability>1.0</Flammability>
+      <Cleanliness>1</Cleanliness>
+      <Beauty>10</Beauty>
+      <Mass>5</Mass>
+    </statBases>
+    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
+    <hasInteractionCell>true</hasInteractionCell>
+    <fillPercent>0.15</fillPercent>
+    <passability>PassThroughOnly</passability>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <pathCost>8</pathCost>
+    <rotatable>true</rotatable>
+    <researchPrerequisites>
+      <li>Plumbing</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+  <ThingDef ParentName="DubsDirtyBasinBase">
+    <defName>Fountain</defName>
+    <label>fountain</label>
+    <description>A water fountain used for drinking and washing.</description>
+    <graphicData>
+      <drawSize>(2,2)</drawSize>
+      <graphicClass>Graphic_Single</graphicClass>
+      <texPath>DBH/Things/Building/fountain</texPath>
+    </graphicData>
+    <hasInteractionCell>false</hasInteractionCell>
+    <rotatable>false</rotatable>
+		<costList>
+	    	<Mechanism>1</Mechanism>
+			<ComponentIndustrial>4</ComponentIndustrial>
+		</costList>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Precious</li>
+			<li>Stony</li>
+			<li>Plastic</li>
+			<li>Ceramic</li>
+		</stuffCategories>
+		<costStuffCount>100</costStuffCount>
+    <researchPrerequisites>
+      <li>ModernFixtures</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+  <ThingDef ParentName="DubsDirtyBasinBase">
+    <defName>BasinStuff</defName>
+    <label>basin</label>
+		<costList>
+		    <Mechanism>1</Mechanism>
+			<ComponentIndustrial>4</ComponentIndustrial>
+		</costList>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Precious</li>
+			<li>Stony</li>
+			<li>Plastic</li>
+			<li>Ceramic</li>
+		</stuffCategories>
+		<costStuffCount>50</costStuffCount>
+    <researchPrerequisites>
+      <li>Plumbing</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+  <ThingDef ParentName="DubsDirtyBasinBase">
+    <defName>KitchenSink</defName>
+    <label>kitchen sink</label>
+    <description>Everything but a kitchen sink. Increases room cleanliness.</description>
+    <graphicData>
+      <drawSize>(4,2)</drawSize>
+      <texPath>DBH/Things/Building/kitchenSink</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <statBases>
+      <Cleanliness>5</Cleanliness>
+    </statBases>
+    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
+    <size>(3,1)</size>
+		<costList>
+			<ComponentIndustrial>8</ComponentIndustrial>
+			<Mechanism>1</Mechanism>
+		</costList>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Precious</li>
+			<li>Stony</li>
+			<li>Plastic</li>
+		</stuffCategories>
+		<costStuffCount>75</costStuffCount>
+    <designationCategory>Hygiene</designationCategory>
+    <researchPrerequisites>
+      <li>ModernFixtures</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+
+  <!-- Toilets -->
+  <ThingDef ParentName="BasedFixture" Name="DubsDirtyTerletBase" Abstract="True">
+    <description>Sanitation fixture used for the disposal of human urine and faeces.</description>
+    <thingClass>DubsBadHygiene.Building_toilet</thingClass>
+    <graphicData>
+      <texPath>DBH/Things/Building/Toilets/toilet</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <damageData>
+        <rect>(0.2,0.2,0.6,0.6)</rect>
+      </damageData>
+      <drawSize>(2,2)</drawSize>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <statBases>
+      <MaxHitPoints>75</MaxHitPoints>
+      <WorkToBuild>950</WorkToBuild>
+      <Flammability>1.0</Flammability>
+      <Beauty>1</Beauty>
+      <Comfort>0.1</Comfort>
+      <Mass>18</Mass>
+    </statBases>
+    <fillPercent>0.15</fillPercent>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <pathCost>8</pathCost>
+    <rotatable>true</rotatable>
+    <building>
+      <isSittable>true</isSittable>
+    </building>
+    <researchPrerequisites>
+      <li>ModernFixtures</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+  <ThingDef ParentName="DubsDirtyTerletBase">
+    <defName>ToiletStuff</defName>
+    <label>toilet</label>
+		<costList>
+		    <Mechanism>1</Mechanism>
+			<ComponentIndustrial>4</ComponentIndustrial>
+		</costList>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Precious</li>
+			<li>Stony</li>
+			<li>Plastic</li>
+			<li>Ceramic</li>
+		</stuffCategories>
+		<costStuffCount>50</costStuffCount>
+  </ThingDef>
+
+  <ThingDef ParentName="DubsDirtyTerletBase" Name="AdvTerletBase" Abstract="True">
+    <defName>ToiletAdv</defName>
+    <thingClass>DubsBadHygiene.Building_AdvToilet</thingClass>
+    <description>Twice as water efficient as a standard toilet. Provides the optimum multi-functional experience with automatic cleansing and deodorization.</description>
+    <graphicData>
+      <texPath>DBH/Things/Building/Toilets/toilet</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+    </graphicData>
+    <statBases>
+      <WorkToBuild>1950</WorkToBuild>
+      <Beauty>4</Beauty>
+      <Comfort>0.5</Comfort>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>75</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+    </comps>
+    <researchPrerequisites>
+      <li>AdvancedToilets</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+
+  <ThingDef ParentName="AdvTerletBase">
+    <defName>ToiletAdvStuff</defName>
+    <label>smart toilet</label>
+		<costList>
+			<ElectronicComponents>2</ElectronicComponents>
+			<Mechanism>1</Mechanism>
+			<ComponentIndustrial>4</ComponentIndustrial>
+		</costList>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Precious</li>
+			<li>Stony</li>
+			<li>Plastic</li>
+			<li>Ceramic</li>
+		</stuffCategories>
+		<costStuffCount>100</costStuffCount>
+  </ThingDef>
+
+
+  <!-- Baths -->
+  <ThingDef ParentName="BasedFixture" Name="DubsDirtyBathtubBase" Abstract="True">
+    <description>Slow to use and requires large amounts of water, but very comfortable. Can be heated by placing an adjacent campfire or log boiler, or via plumbed hot water tanks. Does not require a sewage outlet.</description>
+    <thingClass>DubsBadHygiene.Building_bath</thingClass>
+    <graphicData>
+      <drawSize>(2,3)</drawSize>
+      <texPath>DBH/Things/Building/Baths/bath</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <statBases>
+      <MaxHitPoints>75</MaxHitPoints>
+      <WorkToBuild>1300</WorkToBuild>
+      <Flammability>1.0</Flammability>
+      <Beauty>10</Beauty>
+      <Comfort>0.9</Comfort>
+      <JoyGainFactor>0.7</JoyGainFactor>
+      <Mass>50</Mass>
+    </statBases>
+    <fillPercent>0.15</fillPercent>
+    <size>(1, 2)</size>
+    <passability>PassThroughOnly</passability>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <pathCost>8</pathCost>
+    <rotatable>true</rotatable>
+    <researchPrerequisites>
+      <li>Plumbing</li>
+    </researchPrerequisites>
+    <tickerType>Normal</tickerType>
+    <modExtensions>
+      <li Class="DubsBadHygiene.BathHeaterExt">
+        <HeatSources>
+          <li>Campfire</li>
+          <li>LogBoiler</li>
+        </HeatSources>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+
+  <ThingDef ParentName="DubsDirtyBathtubBase">
+    <defName>BathtubStuff</defName>
+    <label>bathtub</label>
+		<costList>
+			<ComponentIndustrial>4</ComponentIndustrial>
+			<Mechanism>1</Mechanism>
+		</costList>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Precious</li>
+			<li>Stony</li>
+			<li>Plastic</li>
+			<li>Ceramic</li>
+		</stuffCategories>
+		<costStuffCount>75</costStuffCount>
+  </ThingDef>
+
+
+  <!-- Showers -->
+  <ThingDef ParentName="BasedFixture" Name="DubsDirtyShowerBase" Abstract="True">
+    <description>Simple shower. Requires water from water towers. Can be heated via plumbed hot water tanks. Does not require a sewage outlet.</description>
+    <thingClass>DubsBadHygiene.Building_Shower</thingClass>
+    <graphicData>
+      <drawSize>(2,2)</drawSize>
+      <texPath>DBH/Things/Building/Showers/shower</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <statBases>
+      <MaxHitPoints>75</MaxHitPoints>
+      <WorkToBuild>1300</WorkToBuild>
+      <Flammability>1.0</Flammability>
+      <Beauty>3</Beauty>
+      <Comfort>0.5</Comfort>
+      <Mass>20</Mass>
+    </statBases>
+    <fillPercent>0.15</fillPercent>
+    <passability>PassThroughOnly</passability>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <pathCost>8</pathCost>
+    <rotatable>true</rotatable>
+    <researchPrerequisites>
+      <li>ModernFixtures</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+
+  <ThingDef ParentName="DubsDirtyShowerBase">
+    <defName>ShowerStuff</defName>
+    <label>shower</label>
+    <statBases>
+      <WorkToBuild>1300</WorkToBuild>
+    </statBases>
+		<costList>
+			<ComponentIndustrial>4</ComponentIndustrial>
+			<Mechanism>1</Mechanism>
+		</costList>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Precious</li>
+			<li>Stony</li>
+			<li>Plastic</li>
+			<li>Ceramic</li>
+	   	    <li>Bricks</li>
+		</stuffCategories>
+		<costStuffCount>50</costStuffCount>
+  </ThingDef>
+
+  <ThingDef ParentName="DubsDirtyShowerBase">
+    <defName>ShowerSimple</defName>
+    <label>simple shower</label>
+    <graphicData>
+      <drawSize>(2,2)</drawSize>
+      <texPath>DBH/Things/Building/Showers/showerSimple</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+    </graphicData>
+    <statBases>
+      <WorkToBuild>800</WorkToBuild>
+    </statBases>
+		<costList>
+			<ComponentIndustrial>1</ComponentIndustrial>
+			<Mechanism>1</Mechanism>
+		</costList>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Precious</li>
+			<li>Stony</li>
+			<li>Plastic</li>
+			<li>Ceramic</li>
+	        <li>Bricks</li>			
+		</stuffCategories>
+		<costStuffCount>25</costStuffCount>
+  </ThingDef>
+
+
+  <ThingDef ParentName="DubsDirtyShowerBase">
+    <defName>ShowerAdvStuff</defName>
+    <label>power shower</label>
+    <description>Features a large 110mm 4-spray powered shower head to relax those aching muscles. Heats water on demand and doubles washing speed!</description>
+    <thingClass>DubsBadHygiene.Building_PowerShower</thingClass>
+    <graphicData>
+      <drawSize>(2,2)</drawSize>
+      <texPath>DBH/Things/Building/Showers/showerAdv</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+    </graphicData>
+    <statBases>
+      <Beauty>8</Beauty>
+      <Comfort>0.8</Comfort>
+      <WorkToBuild>3000</WorkToBuild>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>75</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+    </comps>
+		<costList>
+			<ElectronicComponents>2</ElectronicComponents>
+			<Mechanism>4</Mechanism>
+			<ComponentIndustrial>10</ComponentIndustrial>
+		</costList>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Precious</li>
+			<li>Stony</li>
+			<li>Plastic</li>
+			<li>Ceramic</li>
+	        <li>Bricks</li>			
+		</stuffCategories>
+		<costStuffCount>100</costStuffCount>
+    <researchPrerequisites>
+      <li>AdvancedShowers</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+</Defs>
