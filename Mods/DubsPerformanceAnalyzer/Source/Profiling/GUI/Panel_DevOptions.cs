@@ -12,19 +12,19 @@ using Verse;
 
 namespace Analyzer.Profiling
 {
+    public enum CurrentInput
+    {
+        Method,
+        MethodHarmony,
+        InternalMethod,
+        Type,
+        SubClasses,
+        TypeHarmony,
+        Assembly
+    }
+
     class Panel_DevOptions
     {
-        public enum CurrentInput
-        {
-            Method,
-            MethodHarmony,
-            InternalMethod,
-            Type,
-            SubClasses,
-            TypeHarmony,
-            Assembly
-        }
-
         public static CurrentInput input = CurrentInput.Method;
         public static Category patchType = Category.Update;
         public static string currentInput = "";
@@ -34,14 +34,41 @@ namespace Analyzer.Profiling
             DubGUI.CenterText(() => listing.Label("devoptions.heading".TranslateSimple()));
 
             listing.GapLine(6f);
-            
+
             DrawButtons(listing);
             var inputBarOffset = DisplayInputField(listing, winHeight);
             DisplaySelectionOptions(listing);
 
-            SearchBar.PopulateSearch(currentInput, input);
-            var searchBarRect = new Rect(listing.curX + inputBarOffset, listing.curY - Text.LineHeight, listing.ColumnWidth - inputBarOffset, (winHeight - listing.curY) - 18f);
-            SearchBar.DrawSearchBar(searchBarRect);
+            var x = listing.curX + inputBarOffset;
+            var y = listing.curY - Text.LineHeight;
+
+            var width = listing.ColumnWidth - inputBarOffset;
+            var height = (winHeight - listing.curY) - 18f;
+
+            var uiPoint = GUIUtility.GUIToScreenPoint(new Vector2(x, y));
+            var rect = new Rect(uiPoint, new Vector2(width, height));
+
+
+            Window_SearchBar.SetCurrentInput(input);
+            Window_SearchBar.UpdateSearchString(currentInput);
+
+            bool shouldExit;
+
+            lock (Window_SearchBar.sync)
+            {
+                shouldExit = Window_SearchBar.CheckShouldClose(new Rect(x, y, width, height)) || Window_SearchBar.cachedEntries.Count == 1 && Window_SearchBar.cachedEntries.First() == currentInput;
+            }
+
+            if (shouldExit) return;
+
+            // 0x7FFFFFFF is 011111 ... in binary, in effect takes only the positive component of the hash
+            Find.WindowStack.ImmediateWindow(currentInput.GetHashCode() & 0x7FFFFFFF, rect, WindowLayer.Super, () =>
+            {
+                GUI.color = Window_SearchBar.windowTransparency;
+                Window_SearchBar.DoWindowContents(rect.AtZero());
+                GUI.color = Color.white;
+            }, false);
+
         }
 
         public static void DrawButtons(Listing_Standard listing)
@@ -114,7 +141,7 @@ namespace Analyzer.Profiling
             {
                 var mousePos = Event.current.mousePosition;
                 // todo: mousePos.y is not relative to the current GUI scope or something, so the winHeight is wrong... 
-                if (mousePos.x < rect.x || mousePos.x > rect.x + rect.width || mousePos.y < rect.y || mousePos.y > winHeight)
+                if (mousePos.x < rect.x || mousePos.x > rect.x + rect.width || mousePos.y < rect.y || mousePos.y > rect.y + rect.height)
                 {
                     GUI.FocusControl(null);
                 } 
@@ -136,13 +163,6 @@ namespace Analyzer.Profiling
 
             DubGUI.OptionalBox(tickBox, "devoptions.patchtype.tick".TranslateSimple(), () => patchType = Category.Tick, patchType == Category.Tick);
             DubGUI.OptionalBox(updateBox, "devoptions.patchtype.update".TranslateSimple(), () => patchType = Category.Update, patchType == Category.Update);
-
-            // Enter will also patch the method
-            if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.KeypadEnter)
-            {
-                if (!string.IsNullOrEmpty(currentInput)) ExecutePatch();
-                Event.current.Use();
-            }
 
             if (Widgets.ButtonText(box, "Patch"))
             {
@@ -216,218 +236,6 @@ namespace Analyzer.Profiling
             catch (Exception e)
             {
                 ThreadSafeLogger.Error($"Failed to process input, failed with the error {e.Message}");
-            }
-        }
-
-        internal static class SearchBar
-        {
-            public static Rect viewFrustum;
-            public static Thread searchThread = null;
-            public static HashSet<string> cachedEntries = new HashSet<string>();
-            public static bool curSearching = false;
-            public static string prevInput = "";
-            public static object sync = new object();
-            private static float yHeigthCache = float.MaxValue;
-            private static Vector2 searchpos = Vector2.zero;
-            public static Listing_Standard listing = new Listing_Standard();
-
-            public static void PopulateSearch(string searchText, CurrentInput inputType)
-            {
-                bool active = false;
-                lock (sync)
-                {
-                    active = curSearching;
-                }
-
-                if (!active && prevInput != currentInput)
-                {
-                    switch (inputType)
-                    {
-                        case CurrentInput.Method:
-                        case CurrentInput.InternalMethod:
-                        case CurrentInput.MethodHarmony:
-                            searchThread = new Thread(() => PopulateSearchMethod(searchText));
-                            break;
-                        case CurrentInput.Type:
-                        case CurrentInput.TypeHarmony:
-                        case CurrentInput.SubClasses:
-                            searchThread = new Thread(() => PopulateSearchType(searchText));
-                            break;
-                        default:
-                            searchThread = new Thread(() => PopulateSearchAssembly(searchText));
-                            break;
-                    }
-
-                    searchThread.IsBackground = true;
-                    prevInput = currentInput;
-                    searchThread.Start();
-                }
-            }
-
-            private static void PopulateSearchMethod(string searchText)
-            {
-                if (searchText.Length <= 4) return;
-
-                searchText = searchText.ToLower();
-
-                lock (sync)
-                {
-                    curSearching = true;
-                }
-
-                HashSet<string> names = new HashSet<string>();
-
-                foreach (Type type in GenTypes.AllTypes)
-                {
-                    if (type.FullName.Contains("Cecil") || type.FullName.Contains("Analyzer")) continue;
-
-                    if (type.GetCustomAttribute<System.Runtime.CompilerServices.CompilerGeneratedAttribute>() == null)
-                    {
-
-                        foreach (MethodInfo meth in type.GetMethods())
-                        {
-                            if (meth.DeclaringType == type && !meth.IsSpecialName && !meth.IsAssembly && meth.HasMethodBody())
-                            {
-                                string strf = string.Concat(meth.DeclaringType, ":", meth.Name);
-                                string str = strf;
-                                if (str.ToLower()
-                                    .Contains(searchText))
-                                    names.Add(str);
-                            }
-                        }
-                    }
-                }
-
-
-                lock (sync)
-                {
-                    cachedEntries = names;
-                    curSearching = false;
-                }
-            }
-
-            private static void PopulateSearchType(string searchText)
-            {
-                if (searchText.Length <= 2) return;
-
-                searchText = searchText.ToLower();
-
-                lock (sync)
-                {
-                    curSearching = true;
-                }
-
-                HashSet<string> names = new HashSet<string>();
-                foreach (Type type in GenTypes.AllTypes)
-                {
-                    if (type.GetCustomAttribute<CompilerGeneratedAttribute>() == null)
-                    {
-                        var tyName = type.FullName;
-                        if (type.FullName.ToLower()
-                            .Contains(searchText) && !type.FullName.Contains("Analyzer"))
-                            names.Add(tyName);
-                    }
-                }
-
-                lock (sync)
-                {
-                    cachedEntries = names;
-                    curSearching = false;
-                }
-            }
-
-            private static void PopulateSearchAssembly(string searchText)
-            {
-                lock (sync)
-                {
-                    curSearching = true;
-                }
-
-                var names = new HashSet<string>();
-                foreach (string mod in ModInfoCache.AssemblyToModname.Values)
-                {
-                    var modname = mod;
-                    if (mod.ToLower()
-                        .Contains(searchText.ToLower()))
-                        names.Add(modname);
-                }
-
-                lock (sync)
-                {
-                    cachedEntries = names;
-                    curSearching = false;
-                }
-            }
-
-            public static void DrawSearchBar(Rect rect)
-            {
-                if (GUI.GetNameOfFocusedControl() != currentInput) return;
-
-                Rect innerRect = rect.AtZero();
-                innerRect.height = yHeigthCache;
-
-                viewFrustum = rect.AtZero();
-                viewFrustum.y += searchpos.y;
-
-                Widgets.BeginScrollView(rect, ref searchpos, innerRect, false);
-                GUI.BeginGroup(innerRect);
-                listing.Begin(innerRect);
-
-                float yHeight = 0;
-
-                Text.Anchor = TextAnchor.MiddleLeft;
-                Text.Font = GameFont.Tiny;
-
-
-                lock (sync)
-                {
-                    if (!(cachedEntries.Count == 1 && cachedEntries.First() == currentInput))
-                    {
-                        foreach (var entry in cachedEntries)
-                        {
-                            var r = listing.GetRect(Text.LineHeight);
-
-                            if (!r.Overlaps(viewFrustum))
-                            {
-                                yHeight += (r.height + 4f);
-                                continue;
-                            }
-
-                            if (Widgets.ButtonInvisible(r))
-                            {
-                                currentInput = entry;
-                            }
-
-                            Widgets.DrawBoxSolid(r, Modbase.Settings.GraphCol);
-
-                            if (Mouse.IsOver(r))
-                            {
-                                Widgets.DrawHighlight(r);
-                                if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Tab)
-                                {
-                                    currentInput = entry;
-                                    Event.current.Use();
-                                }
-
-                                GUI.DrawTexture(r.RightPartPixels(r.height), ResourceCache.GUI.enter);    
-                            }
-
-                            r.width = 2000;
-                            Widgets.Label(r, " " + entry);
-
-                            yHeight += 4f;
-                            yHeight += r.height;
-                        }
-                    }
-                }
-
-                yHeigthCache = yHeight;
-
-                listing.End();
-                GUI.EndGroup();
-                Widgets.EndScrollView();
-
-                DubGUI.ResetFont();
             }
         }
     }

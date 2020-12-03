@@ -8,11 +8,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using System.Xml;
 using UnityEngine;
 using Verse;
 
-namespace Analyzer
+namespace Analyzer 
 {
     public class Modbase : Mod
     {
@@ -26,10 +25,10 @@ namespace Analyzer
 
         // Major - Reworked functionality
         // Minor - New feature
-        // Build - New Change
+        // Build - Change Existing Feature
         // Revision - Hotfix
 
-        private static readonly Version analyzerVersion = new Version(1, 0, 1, 1);
+        private static readonly Version analyzerVersion = new Version(1, 1, 2, 3);
 
         public static bool isPatched = false;
 

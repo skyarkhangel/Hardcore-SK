@@ -282,7 +282,7 @@ namespace Analyzer.Profiling
             {
                 if (log.meth == null) return;
 
-                List<FloatMenuOption> options = RightClickDropDown(log).ToList();
+                var options = RightClickDropDown(log).ToList();
 
                 if(options.Count != 0) Find.WindowStack.Add(new FloatMenu(options));
             }
