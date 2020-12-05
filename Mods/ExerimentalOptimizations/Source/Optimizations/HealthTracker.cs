@@ -207,12 +207,35 @@ namespace ExperimentalOptimizations.Optimizations
             var code = instructions.ToList();
             if (code[3].opcode != OpCodes.Ldc_I4_1)
             {
-                Log.Warning($"Hediff_Pregnant_Tick_Transpiler failed!");
+                Log.Warning($"Hediff_Pregnant_Tick_Transpiler failed 1!");
                 return code;
             }
 
             // original: this.ageTicks++;
             code[3].opcode = OpCodes.Ldc_I4_5;
+
+            int idx = -1;
+            for (int i = 3 /*****/; i < code.Count; i++)
+            {
+                if (code[i].opcode == OpCodes.Add && code[i - 1].opcode == OpCodes.Div && code[i - 2].opcode == OpCodes.Mul && code[i - 3].opcode == OpCodes.Ldc_R4 && (float)code[i - 3].operand == 60000f)
+                {
+                    idx = i;
+                }
+            }
+
+            if (idx == -1)
+            {
+                Log.Warning($"Hediff_Pregnant_Tick_Transpiler failed 2!");
+                return code;
+            }
+
+            // original: this.GestationProgress += 1f / (this.pawn.RaceProps.gestationPeriodDays * 60000f);
+            code.InsertRange(idx, new []
+            {
+                new CodeInstruction(OpCodes.Ldc_R4, 5f),
+                new CodeInstruction(OpCodes.Mul),
+            });
+
             return code;
         }
 
