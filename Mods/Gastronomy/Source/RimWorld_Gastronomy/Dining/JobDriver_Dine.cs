@@ -63,7 +63,7 @@ namespace Gastronomy.Dining
             yield return waitForWaiter;
             yield return waitForMeal;
             yield return Toils_Misc.TakeItemFromInventoryToCarrier(pawn, MealIndex);
-            yield return Toils_Reserve.Reserve(MealIndex, 1, 1);
+            //yield return Toils_Reserve.Reserve(MealIndex, 1, 1);
             yield return Toils_Dining.TurnToEatSurface(SpotIndex, MealIndex);
             yield return Toils_Dining.WaitDuringDinner(SpotIndex, 100, 250);
             yield return Toils_Ingest.ChewIngestible(pawn, ChewDurationMultiplier, MealIndex, SpotIndex);

@@ -141,7 +141,7 @@ namespace Gastronomy.Dining
                 }
             }
 
-            Log.Error($"Tried to set dining spot {position} with an invalid spot position {chairPos}.");
+            Log.Warning($"Tried to set dining spot {position} with an invalid spot position {chairPos}.");
         }
 
         private SpotState GetSpotState(IntVec3 chairPos)
