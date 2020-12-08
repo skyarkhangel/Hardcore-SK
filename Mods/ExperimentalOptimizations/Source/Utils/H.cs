@@ -95,20 +95,25 @@ namespace ExperimentalOptimizations
             return method;
         }
 
+        public static HarmonyMethod HarmonyMethod(this Type type, string methodName, Type[] parameters = null, Type[] generics = null, int priority = Priority.Normal, string[] before = null, string[] after = null, bool? debug = null, bool warn = true)
+        {
+            var method = type.Method(methodName, parameters, generics, warn);
+            if (method == null)
+                return null;
+            return method.ToHarmonyMethod(priority, before, after, debug);
+        }
+
+        public static HarmonyMethod HarmonyMethod(this string typeColonMethodname, Type[] parameters = null, Type[] generics = null, int priority = Priority.Normal, string[] before = null, string[] after = null, bool? debug = null, bool warn = true)
+        {
+            var method = typeColonMethodname.Method(parameters, generics, warn);
+            if (method == null)
+                return null;
+            return method.ToHarmonyMethod(priority, before, after, debug);
+        }
+
         public static HarmonyMethod ToHarmonyMethod(this MethodInfo method, int priority = Priority.Normal, string[] before = null, string[] after = null, bool? debug = null)
         {
             return new HarmonyMethod(method, priority, before, after, debug);
-        }
-
-        public static HarmonyMethod ToHarmonyMethod(this string typeColonMethodname, Type[] parameters = null, Type[] generics = null, int priority = Priority.Normal, string[] before = null, string[] after = null, bool? debug = null, bool warn = true)
-        {
-            var method = AccessTools.Method(typeColonMethodname, parameters, generics);
-            if (method == null)
-            {
-                if (warn) Log.Error($"Method not found: {typeColonMethodname}");
-                return null;
-            }
-            return method.ToHarmonyMethod(priority, before, after, debug);
         }
 
         public static T InvokeStatic<T>(this MethodInfo method, params object[] args)
