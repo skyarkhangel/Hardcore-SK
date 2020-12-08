@@ -118,32 +118,35 @@ namespace ExperimentalOptimizations.Optimizations
     public class NeedsTracker
     {
         private static List<H.PatchInfo> Patches = new List<H.PatchInfo>();
+        private static float CompensateMult => Pawn_NeedsTracker_Settings.Pawn_NeedsTracker_Interval / 150f;
 
         public static void Init()
         {
-            var trans = typeof(NeedsTracker).Method(nameof(NeedsTrackerTick_Transpiler)).ToHarmonyMethod(priority: 999);
+            var nt = typeof(NeedsTracker);
+            var trans = nt.Method(nameof(NeedsTrackerTick_Transpiler)).ToHarmonyMethod(priority: 999);
 
             typeof(Pawn_NeedsTracker).Method(nameof(Pawn_NeedsTracker.NeedsTrackerTick)).Patch(ref Patches, transpiler: trans, autoPatch: false);
+            
             // joy
-            typeof(Need_Joy).Method(nameof(Need_Joy.NeedInterval)).Patch(ref Patches, transpiler: typeof(NeedsTracker).Method(nameof(RimWorld_Need_Joy_NeedInterval_Transpiler)).ToHarmonyMethod(), autoPatch: false);
+            typeof(Need_Joy).Method(nameof(Need_Joy.NeedInterval)).Patch(ref Patches, transpiler: nt.Method(nameof(RimWorld_Need_Joy_NeedInterval_Transpiler)).ToHarmonyMethod(), autoPatch: false);
             typeof(JoyToleranceSet).Method(nameof(JoyToleranceSet.NeedInterval)).Patch(ref Patches, transpiler: trans, autoPatch: false);
             // beauty, comfort, mood, roomsize
-            typeof(Need_Seeker).Method(nameof(Need_Seeker.NeedInterval)).Patch(ref Patches, transpiler: typeof(NeedsTracker).Method(nameof(RimWorld_Need_Seeker_NeedInterval_Transpiler)).ToHarmonyMethod(), autoPatch: false);
+            typeof(Need_Seeker).Method(nameof(Need_Seeker.NeedInterval)).Patch(ref Patches, transpiler: nt.Method(nameof(RimWorld_Need_Seeker_NeedInterval_Transpiler)).ToHarmonyMethod(), autoPatch: false);
             {
                 // mood fix
                 typeof(Thought_Memory).Method(nameof(Thought_Memory.ThoughtInterval)).Patch(ref Patches, transpiler: trans, autoPatch: false);
-                typeof(PawnObserver).Method(nameof(PawnObserver.ObserverInterval)).Patch(ref Patches, transpiler: typeof(NeedsTracker).Method(nameof(RimWorld_PawnObserver_ObserverInterval_Transpiler)).ToHarmonyMethod(), autoPatch: false);
+                typeof(PawnObserver).Method(nameof(PawnObserver.ObserverInterval)).Patch(ref Patches, transpiler: nt.Method(nameof(RimWorld_PawnObserver_ObserverInterval_Transpiler)).ToHarmonyMethod(), autoPatch: false);
             }
             // chemical
             typeof(Need_Chemical).Method(nameof(Need_Chemical.NeedInterval)).Patch(ref Patches, transpiler: trans, autoPatch: false);
-            typeof(Need_Chemical_Any).Method(nameof(Need_Chemical_Any.NeedInterval)).Patch(ref Patches, transpiler: typeof(NeedsTracker).Method(nameof(RimWorld_Need_Chemical_Any_NeedInterval_Transpiler)).ToHarmonyMethod(), autoPatch: false);
+            typeof(Need_Chemical_Any).Method(nameof(Need_Chemical_Any.NeedInterval)).Patch(ref Patches, transpiler: nt.Method(nameof(RimWorld_Need_Chemical_Any_NeedInterval_Transpiler)).ToHarmonyMethod(), autoPatch: false);
             // food
             typeof(Need_Food).Method(nameof(Need_Food.NeedInterval)).Patch(ref Patches, transpiler: trans, autoPatch: false);
             // outdoors
-            typeof(Need_Outdoors).Method(nameof(Need_Outdoors.NeedInterval)).Patch(ref Patches, transpiler: typeof(NeedsTracker).Method(nameof(RimWorld_Need_Outdoors_NeedInterval_Transpiler)).ToHarmonyMethod(), autoPatch: false);
+            typeof(Need_Outdoors).Method(nameof(Need_Outdoors.NeedInterval)).Patch(ref Patches, transpiler: nt.Method(nameof(RimWorld_Need_Outdoors_NeedInterval_Transpiler)).ToHarmonyMethod(), autoPatch: false);
             // rest
             typeof(Need_Rest).Method(nameof(Need_Rest.NeedInterval)).Patch(ref Patches, transpiler: trans, autoPatch: false);
-            typeof(Need_Rest).Method(nameof(Need_Rest.NeedInterval)).Patch(ref Patches, transpiler: typeof(NeedsTracker).Method(nameof(RimWorld_Need_Rest_NeedInterval_Transpiler)).ToHarmonyMethod(), autoPatch: false);
+            typeof(Need_Rest).Method(nameof(Need_Rest.NeedInterval)).Patch(ref Patches, transpiler: nt.Method(nameof(RimWorld_Need_Rest_NeedInterval_Transpiler)).ToHarmonyMethod(), autoPatch: false);
 
             // Dubs Hygiene
             {
@@ -153,15 +156,15 @@ namespace ExperimentalOptimizations.Optimizations
             }
             // Skynet
             {
-                "Skynet.Need_Energy:NeedInterval".Method(warn: false).Patch(ref Patches, transpiler: typeof(NeedsTracker).Method(nameof(Skynet_Need_Energy_NeedInterval_Transpiler)).ToHarmonyMethod(), autoPatch: false);
+                "Skynet.Need_Energy:NeedInterval".Method(warn: false).Patch(ref Patches, transpiler: nt.Method(nameof(Skynet_Need_Energy_NeedInterval_Transpiler)).ToHarmonyMethod(), autoPatch: false);
             }
             // Androids
             {
-                "Androids.Need_Energy:NeedInterval".Method(warn: false).Patch(ref Patches, transpiler: typeof(NeedsTracker).Method(nameof(Androids_Need_Energy_NeedInterval_Transpiler)).ToHarmonyMethod(), autoPatch: false);
+                "Androids.Need_Energy:NeedInterval".Method(warn: false).Patch(ref Patches, transpiler: nt.Method(nameof(Androids_Need_Energy_NeedInterval_Transpiler)).ToHarmonyMethod(), autoPatch: false);
             }
             // rjw
             {
-                "rjw.Need_Sex:NeedInterval".Method(warn: false).Patch(ref Patches, transpiler: typeof(NeedsTracker).Method(nameof(rjw_Need_Sex_NeedInterval_Transpiler)).ToHarmonyMethod(), autoPatch: false);
+                "rjw.Need_Sex:NeedInterval".Method(warn: false).Patch(ref Patches, transpiler: nt.Method(nameof(rjw_Need_Sex_NeedInterval_Transpiler)).ToHarmonyMethod(), autoPatch: false);
             }
         }
 
@@ -197,268 +200,73 @@ namespace ExperimentalOptimizations.Optimizations
             if (!ok) Log.Error("[Transpiler] Ldc_I4 or Ldc_R4 not found!");
         }
 
-        static IEnumerable<CodeInstruction> RimWorld_Need_Joy_NeedInterval_Transpiler(IEnumerable<CodeInstruction> instructions)
+        static IEnumerable<CodeInstruction> RimWorld_Need_Joy_NeedInterval_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator ilGen)
         {
-            var get_FallPerInterval = typeof(Need_Joy).Method("get_FallPerInterval");
-
-            var code = instructions.ToList();
-            int idx = -1;
-            for (int i = 0; i < code.Count; i++)
-            {
-                if (code[i].opcode == OpCodes.Call && code[i].operand == get_FallPerInterval)
-                {
-                    idx = i + 1;
-                }
-            }
-
-            if (idx == -1)
-            {
-                Log.Warning($"RimWorld_Need_Joy_Transpiler failed!");
-                return code;
-            }
-
-            // original: this.CurLevel -= this.FallPerInterval;
-            code.InsertRange(idx, new []
-            {
-                new CodeInstruction(OpCodes.Ldc_R4, Pawn_NeedsTracker_Settings.Pawn_NeedsTracker_Interval / 150f),
-                new CodeInstruction(OpCodes.Mul),
-            });
-            return code;
+            return new TranspilerFactory("Need_Joy.NeedInterval")
+                .Replace("call RimWorld.Need_Joy:get_FallPerInterval;sub", $"call RimWorld.Need_Joy:get_FallPerInterval;ldc.r4 {CompensateMult};mul;sub")
+                .Transpiler(ilGen, instructions);
         }
 
-        static IEnumerable<CodeInstruction> RimWorld_Need_Seeker_NeedInterval_Transpiler(IEnumerable<CodeInstruction> instructions)
+        static IEnumerable<CodeInstruction> RimWorld_Need_Seeker_NeedInterval_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator ilGen)
         {
-            var newCode = new List<CodeInstruction>();
-            var code = instructions.ToList();
-            int changes = 2;
-            for (int i = 0; i < code.Count; i++)
-            {
-                newCode.Add(code[i]);
-                if (code[i].opcode == OpCodes.Mul && code[i - 1].opcode == OpCodes.Ldc_R4 && (float)code[i - 1].operand == 0.06f)
-                {
-                    newCode.AddRange(new []
-                    {
-                        new CodeInstruction(OpCodes.Ldc_R4, Pawn_NeedsTracker_Settings.Pawn_NeedsTracker_Interval / 150f),
-                        new CodeInstruction(OpCodes.Mul),
-                    });
-                    changes--;
-                }
-            }
-
-            if (changes != 0)
-            {
-                Log.Warning($"RimWorld_Need_Seeker_NeedInterval_Transpiler failed!");
-                return code;
-            }
-
-            return newCode;
+            return new TranspilerFactory("Need_Seeker.NeedInterval")
+                .Replace("ldc.r4 0.06;mul", $"ldc.r4 0.06;mul;ldc.r4 {CompensateMult};mul", 2)
+                .Transpiler(ilGen, instructions);
         }
 
-        static IEnumerable<CodeInstruction> RimWorld_PawnObserver_ObserverInterval_Transpiler(IEnumerable<CodeInstruction> instructions)
+        static IEnumerable<CodeInstruction> RimWorld_PawnObserver_ObserverInterval_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator ilGen)
         {
-            var intervalsUntilObserve = AccessTools.Field(typeof(PawnObserver), nameof(PawnObserver.intervalsUntilObserve));
-
-            var code = instructions.ToList();
-            int idx = -1;
-            for (int i = 0; i < code.Count; i++)
-            {
-                if (code[i].opcode == OpCodes.Ldfld && code[i].operand == intervalsUntilObserve && code[i + 1].opcode == OpCodes.Ldc_I4_1)
-                {
-                    idx = i + 1;
-                }
-            }
-            
-            if (idx == -1)
-            {
-                Log.Warning($"RimWorld_PawnObserver_ObserverInterval_Transpiler failed!");
-                return code;
-            }
-
-            // original: this.intervalsUntilObserve--;
-            code[idx].opcode = OpCodes.Ldc_I4_5;
-            return code;
+            return new TranspilerFactory("PawnObserver.ObserverInterval")
+                .Replace("ldfld RimWorld.PawnObserver:intervalsUntilObserve;ldc.i4.1;sub", $"ldfld RimWorld.PawnObserver:intervalsUntilObserve;ldc.r4 {CompensateMult};conv.i4;sub")
+                .Transpiler(ilGen, instructions);
         }
 
-        static IEnumerable<CodeInstruction> RimWorld_Need_Chemical_Any_NeedInterval_Transpiler(IEnumerable<CodeInstruction> instructions)
+        static IEnumerable<CodeInstruction> RimWorld_Need_Chemical_Any_NeedInterval_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator ilGen)
         {
-            var get_FallPerInterval = typeof(Need_Chemical_Any).Method("get_FallPerNeedIntervalTick");
-
-            var code = instructions.ToList();
-            int idx = -1;
-            for (int i = 0; i < code.Count; i++)
-            {
-                if (code[i].opcode == OpCodes.Call && code[i].operand == get_FallPerInterval)
-                {
-                    idx = i + 1;
-                }
-            }
-
-            if (idx == -1)
-            {
-                Log.Warning($"RimWorld_Need_Chemical_Any_NeedInterval_Transpiler failed!");
-                return code;
-            }
-
-            // original: this.CurLevel -= this.FallPerInterval;
-            code.InsertRange(idx, new []
-            {
-                new CodeInstruction(OpCodes.Ldc_R4, Pawn_NeedsTracker_Settings.Pawn_NeedsTracker_Interval / 150f),
-                new CodeInstruction(OpCodes.Mul),
-            });
-            return code;
+            return new TranspilerFactory("Need_Chemical_Any.NeedInterval")
+                .Replace("call RimWorld.Need_Chemical_Any:get_FallPerNeedIntervalTick;sub", $"call RimWorld.Need_Chemical_Any:get_FallPerNeedIntervalTick;ldc.r4 {CompensateMult};mul;sub")
+                .Transpiler(ilGen, instructions);
         }
 
-        static IEnumerable<CodeInstruction> RimWorld_Need_Outdoors_NeedInterval_Transpiler(IEnumerable<CodeInstruction> instructions)
+        static IEnumerable<CodeInstruction> RimWorld_Need_Outdoors_NeedInterval_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator ilGen)
         {
-            var newCode = new List<CodeInstruction>();
-            var code = instructions.ToList();
-            int changes = 1;
-            for (int i = 0; i < code.Count; i++)
-            {
-                newCode.Add(code[i]);
-                if (code[i].opcode == OpCodes.Mul && code[i - 1].opcode == OpCodes.Ldc_R4 && (float)code[i - 1].operand == 0.0025f)
-                {
-                    newCode.AddRange(new []
-                    {
-                        new CodeInstruction(OpCodes.Ldc_R4, Pawn_NeedsTracker_Settings.Pawn_NeedsTracker_Interval / 150f),
-                        new CodeInstruction(OpCodes.Mul),
-                    });
-                    changes--;
-                }
-            }
-
-            if (changes != 0)
-            {
-                Log.Warning($"RimWorld_Need_Outdoors_NeedInterval_Transpiler failed!");
-                return code;
-            }
-
-            return newCode;
+            return new TranspilerFactory("Need_Outdoors.NeedInterval")
+                .Search("ldc.r4 0.0025;mul")
+                .Insert($"ldc.r4 {CompensateMult};mul")
+                .Transpiler(ilGen, instructions);
         }
 
-        static IEnumerable<CodeInstruction> RimWorld_Need_Rest_NeedInterval_Transpiler(IEnumerable<CodeInstruction> instructions)
+        static IEnumerable<CodeInstruction> RimWorld_Need_Rest_NeedInterval_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator ilGen)
         {
-            var newCode = new List<CodeInstruction>();
-            var code = instructions.ToList();
-            int changes = 1;
-            for (int i = 0; i < code.Count; i++)
-            {
-                newCode.Add(code[i]);
-                if (code[i].opcode == OpCodes.Ldc_R4 && (float)code[i].operand == 0.005714286f)
-                {
-                    newCode.AddRange(new []
-                    {
-                        new CodeInstruction(OpCodes.Ldc_R4, Pawn_NeedsTracker_Settings.Pawn_NeedsTracker_Interval / 150f),
-                        new CodeInstruction(OpCodes.Mul),
-                    });
-                    changes--;
-                }
-            }
-
-            if (changes != 0)
-            {
-                Log.Warning($"RimWorld_Need_Rest_NeedInterval_Transpiler failed!");
-                return code;
-            }
-
-            return newCode;
+            return new TranspilerFactory("Need_Rest.NeedInterval")
+                .Search("ldc.r4 0.005714286")
+                .Insert($"ldc.r4 {CompensateMult};mul")
+                .Transpiler(ilGen, instructions);
         }
 
-        static IEnumerable<CodeInstruction> Skynet_Need_Energy_NeedInterval_Transpiler(IEnumerable<CodeInstruction> instructions)
+        static IEnumerable<CodeInstruction> Skynet_Need_Energy_NeedInterval_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator ilGen)
         {
-            var Need_Energy = AccessTools.TypeByName("Skynet.Need_Energy");
-            var get_Drain = Need_Energy.Method("get_Drain");
-
-            var code = instructions.ToList();
-            int idx = -1;
-            for (int i = 0; i < code.Count; i++)
-            {
-                if (code[i].opcode == OpCodes.Call && code[i].operand == get_Drain)
-                {
-                    idx = i + 1;
-                }
-            }
-
-            if (idx == -1)
-            {
-                Log.Warning($"Skynet_Need_Energy_NeedInterval_Transpiler failed!");
-                return code;
-            }
-
-            // original: this.CurLevel -= this.Drain;
-            code.InsertRange(idx, new []
-            {
-                new CodeInstruction(OpCodes.Ldc_R4, Pawn_NeedsTracker_Settings.Pawn_NeedsTracker_Interval / 150f),
-                new CodeInstruction(OpCodes.Mul),
-            });
-            return code;
+            return new TranspilerFactory("Skynet.Need_Energy.NeedInterval")
+                .Replace("call Skynet.Need_Energy:get_Drain;sub", $"call Skynet.Need_Energy:get_Drain;ldc.r4 {CompensateMult};mul;sub")
+                .Transpiler(ilGen, instructions);
         }
 
-        static IEnumerable<CodeInstruction> Androids_Need_Energy_NeedInterval_Transpiler(IEnumerable<CodeInstruction> instructions)
+        static IEnumerable<CodeInstruction> Androids_Need_Energy_NeedInterval_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator ilGen)
         {
-            var newCode = new List<CodeInstruction>();
-            var code = instructions.ToList();
-            int changes = 2;
-            for (int i = 0; i < code.Count; i++)
-            {
-                newCode.Add(code[i]);
-                if (code[i].opcode == OpCodes.Ldc_R4 && (float)code[i].operand == 0.000833333354f)
-                {
-                    newCode.AddRange(new []
-                    {
-                        new CodeInstruction(OpCodes.Ldc_R4, Pawn_NeedsTracker_Settings.Pawn_NeedsTracker_Interval / 150f),
-                        new CodeInstruction(OpCodes.Mul),
-                    });
-                    changes--;
-                }
-                else if (code[i].opcode == OpCodes.Ldc_R4 && (float)code[i].operand == 0.0133333337f)
-                {
-                    newCode.AddRange(new []
-                    {
-                        new CodeInstruction(OpCodes.Ldc_R4, Pawn_NeedsTracker_Settings.Pawn_NeedsTracker_Interval / 150f),
-                        new CodeInstruction(OpCodes.Mul),
-                    });
-                    changes--;
-                }
-            }
-
-            if (changes != 0)
-            {
-                Log.Warning($"Androids_Need_Energy_NeedInterval_Transpiler failed!");
-                return code;
-            }
-
-            return newCode;
+            return new TranspilerFactory("Androids.Need_Energy.NeedInterval")
+                .Search("ldc.r4 0.000833333354;mul")
+                .Insert($"ldc.r4 {CompensateMult};mul")
+                .Search("ldc.r4 0.0133333337;add")
+                .Insert($"ldc.r4 {CompensateMult};mul")
+                .Transpiler(ilGen, instructions);
         }
         
-        static IEnumerable<CodeInstruction> rjw_Need_Sex_NeedInterval_Transpiler(IEnumerable<CodeInstruction> instructions)
+        static IEnumerable<CodeInstruction> rjw_Need_Sex_NeedInterval_Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator ilGen)
         {
-            var RJWSettings = AccessTools.TypeByName("rjw.RJWSettings");
-            var sexneed_decay_rate = AccessTools.Field(RJWSettings, "sexneed_decay_rate");
-
-            var code = instructions.ToList();
-            int idx = -1;
-            for (int i = 0; i < code.Count; i++)
-            {
-                if (code[i].opcode == OpCodes.Ldsfld && code[i].operand == sexneed_decay_rate)
-                {
-                    idx = i + 1;
-                }
-            }
-
-            if (idx == -1)
-            {
-                Log.Warning($"rjw_Need_Sex_NeedInterval_Transpiler failed!");
-                return code;
-            }
-
-            // original: this.CurLevel -= this.Drain;
-            code.InsertRange(idx, new []
-            {
-                new CodeInstruction(OpCodes.Ldc_R4, Pawn_NeedsTracker_Settings.Pawn_NeedsTracker_Interval / 150f),
-                new CodeInstruction(OpCodes.Mul),
-            });
-            return code;
+            return new TranspilerFactory("rjw.Need_Sex.NeedInterval")
+                .Search("ldsfld rjw.RJWSettings:sexneed_decay_rate;mul")
+                .Insert($"ldc.r4 {CompensateMult};mul")
+                .Transpiler(ilGen, instructions);
         }
     }
 }
