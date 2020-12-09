@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection.Emit;
 using HarmonyLib;
@@ -350,7 +351,7 @@ namespace ExperimentalOptimizations.Optimizations
                  */
             return new TranspilerFactory("HediffComp_VerbGiver.CompPostTick")
                 .Search("ldarg.0;ldarg.1;call Verse.HediffComp:CompPostTick(float&)")
-                .Insert("localvar int;label 0;br.s 1") // loop start
+                .Insert("localvar int;br.s 1;label 0") // loop start
                 .Search("callvirt Verse.VerbTracker:VerbsTick")
                 .Insert("ldloc 0;ldc.i4.1;add;stloc 0;label 1;ldloc 0;ldc.i4.5;blt.s 0")
                 .Transpiler(ilGen, instructions);

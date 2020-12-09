@@ -1,11 +1,12 @@
 ﻿using HarmonyLib;
 using RimWorld;
+using UnityEngine;
 using Verse;
 using Verse.AI;
 
 namespace ExperimentalOptimizations.Fix
 {
-    [FixOn(InitStage.ModInit)]
+    //[FixOn(InitStage.ModInit)]
     public class Vanilla_JobDriver_Wait_CheckForAutoAttack
     {
         public static void Patch()
@@ -18,7 +19,19 @@ namespace ExperimentalOptimizations.Fix
         private static bool CheckForAutoAttack(JobDriver_Wait __instance)
         {
             var p = __instance.pawn;
-            return p.IsHashIntervalTick(p.Faction == null || p.Faction.IsPlayer ? 40 : 120);
+            int interval = p.Faction == null || p.Faction.IsPlayer ? 40 : 120;
+            return (Time.frameCount + __instance.pawn.thingIDNumber.HashOffset()) % interval == 0;
         }
     }
+    /*
+    public static bool IsHashIntervalTick(this Thing t, int interval)
+	{
+		return t.HashOffsetTicks() % interval == 0;
+	}
+
+    public static int HashOffsetTicks(this Thing t)
+	{
+		return Find.TickManager.TicksGame + t.thingIDNumber.HashOffset();
+	}
+     */
 }
