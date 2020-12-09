@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace Gastronomy
 		private RestaurantDebt debts;
 		private RestaurantStock stock;
 
+		private int day;
+
 		public bool IsOpenedRightNow => openForBusiness && timetableOpen.CurrentAssignment(map);
 		public bool openForBusiness = true;
 
@@ -27,6 +30,8 @@ namespace Gastronomy
 		public bool allowColonists = true;
 
 		public float guestPricePercentage = 0.5f;
+
+		public event Action onNextDay;
 
 		public TimetableBool timetableOpen;
 
@@ -52,6 +57,7 @@ namespace Gastronomy
 			Scribe_Values.Look(ref openForBusiness, "openForBusiness", true);
 			Scribe_Values.Look(ref allowGuests, "allowGuests", true);
 			Scribe_Values.Look(ref allowColonists, "allowColonists", true);
+			Scribe_Values.Look(ref day, "day");
 			Scribe_Deep.Look(ref timetableOpen, "timetableOpen");
 			Scribe_Deep.Look(ref menu, "menu");
 			Scribe_Deep.Look(ref stock, "stock", this);
@@ -93,6 +99,18 @@ namespace Gastronomy
 			if ((GenTicks.TicksGame + map.uniqueID) % 500 == 0) stock.RareTick();
 			if ((GenTicks.TicksGame + map.uniqueID) % 500 == 250) orders.RareTick();
 			//Log.Message($"Stock: {stock.Select(s => s.def.label).ToCommaList(true)}");
+			if ((GenTicks.TicksGame + map.uniqueID) % 500 == 300) RareTick();
+		}
+
+		private void RareTick()
+		{
+			if (GenDate.DaysPassed > day && GenLocalDate.HourInteger(map) == 0) OnNextDay(GenDate.DaysPassed);
+		}
+
+		private void OnNextDay(int today)
+		{
+			day = today;
+			onNextDay?.Invoke();
 		}
 
 		public bool CanDineHere(Pawn pawn)

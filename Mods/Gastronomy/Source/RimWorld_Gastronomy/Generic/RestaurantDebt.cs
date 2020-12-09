@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using JetBrains.Annotations;
+using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -14,28 +16,52 @@ namespace Gastronomy
 		[NotNull] public ReadOnlyCollection<Debt> AllDebts => debts.AsReadOnly();
 		[NotNull] private RestaurantMenu Menu => Restaurant.Menu;
 		[NotNull] private RestaurantController Restaurant { get; }
+		public float incomeYesterday;
+		public float incomeToday;
 
 		public RestaurantDebt([NotNull] RestaurantController restaurant)
 		{
 			Restaurant = restaurant;
+			Restaurant.onNextDay += OnNextDay;
 		}
 
 		public void ExposeData()
 		{
 			Scribe_Collections.Look(ref debts, "debts", LookMode.Deep);
+			Scribe_Values.Look(ref incomeToday, "incomeToday");
+			Scribe_Values.Look(ref incomeYesterday, "incomeYesterday");
 			debts ??= new List<Debt>();
 		}
 
 		public void RareTick()
 		{
-			debts.RemoveAll(o => o.patron == null || o.amount == 0 || o.patron.Dead);
+			debts.RemoveAll(o => o.amount <= 0 || !CanHaveDebt(o.patron));
+		}
+
+		private void OnNextDay()
+		{
+			incomeYesterday = incomeToday;
+			incomeToday = 0;
+			if (incomeYesterday > 0)
+			{
+				Messages.Message("MessageIncomeToday".Translate(incomeYesterday.ToStringMoney()), MessageTypeDefOf.NeutralEvent);
+			}
 		}
 
 		public void Add(Thing meal, Pawn patron)
 		{
+			if (!CanHaveDebt(patron)) return;
+
 			var debt = GetOrCreateDebt(patron);
 
-			debt.amount += meal.def.GetPrice(Restaurant);
+			var price = meal.def.GetPrice(Restaurant);
+			debt.amount += price;
+			incomeToday += price;
+		}
+
+		private static bool CanHaveDebt(Pawn patron)
+		{
+			return patron != null && !patron.Dead && patron.Faction?.IsPlayer == false;
 		}
 
 		private Debt GetOrCreateDebt(Pawn patron)

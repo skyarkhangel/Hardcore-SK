@@ -75,7 +75,7 @@ namespace Gastronomy.TableTops
 
             if (showStats)
             {
-                var smallRect = new Rect(rect) {height = 9 * 24 + 20};
+                var smallRect = new Rect(rect) {height = 11 * 24 + 20};
                 rect.yMin += smallRect.height + 10;
 
                 DrawStats(smallRect);
@@ -142,6 +142,8 @@ namespace Gastronomy.TableTops
                 DrawOrders(listing, "TabRegisterNeedsServing".Translate(), ordersForServing);
                 DrawOrders(listing, "TabRegisterNeedsCooking".Translate(), ordersForCooking);
                 DrawStock(listing, "TabRegisterStocked".Translate(), stock);
+                listing.LabelDouble("TabRegisterEarnedYesterday".Translate(), Register.restaurant.Debts.incomeYesterday.ToStringMoney());
+                listing.LabelDouble("TabRegisterEarnedToday".Translate(), Register.restaurant.Debts.incomeToday.ToStringMoney());
                 DrawDebts(listing, "TabRegisterDebts".Translate(), debts);
 
                 //listing.LabelDouble("TabRegisterStocked".Translate(), stock.Sum(s=>s.stackCount).ToString(), stock.Select(s=>s.def).Distinct().Select(s=>s.label).ToCommaList());
