@@ -1,13 +1,69 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
 using Gastronomy.TableTops;
+using HarmonyLib;
 using JetBrains.Annotations;
 using RimWorld;
 using Verse;
 
 namespace Gastronomy.Dining
 {
+    /// <summary>
+    /// So we can call the base method on ThingWithComps and avoid whatever overrides it
+    /// </summary>
+    [HarmonyPatch(typeof(DiningSpot))]
+    static class ReplaceBaseMethods_Patch
+    {
+        [Conditional("DEBUG")]
+        static void DumpChanges(string methodName, IEnumerable<CodeInstruction> before, IEnumerable<CodeInstruction> after)
+        {
+            Log.Warning($"::: {methodName} Before :::");
+            foreach (var i in before) Log.Warning(i.ToString());
+            Log.Warning($"::: {methodName} After :::");
+            foreach (var i in after) Log.Warning(i.ToString());
+        }
+
+        [HarmonyPatch(nameof(DiningSpot.SpawnSetup))]
+        [HarmonyTranspiler]
+        static IEnumerable<CodeInstruction> SpawnSetup(IEnumerable<CodeInstruction> instructions)
+        {
+            var code = instructions.MethodReplacer(
+                AccessTools.Method(typeof(Building_NutrientPasteDispenser), nameof(Building_NutrientPasteDispenser.SpawnSetup)),
+                AccessTools.Method(typeof(ThingWithComps), nameof(ThingWithComps.SpawnSetup))
+            );
+            DumpChanges("SpawnSetup", instructions, code);
+            return code;
+        }
+
+        [HarmonyPatch(nameof(DiningSpot.DeSpawn))]
+        [HarmonyTranspiler]
+        static IEnumerable<CodeInstruction> DeSpawn(IEnumerable<CodeInstruction> instructions)
+        {
+            var code = instructions.MethodReplacer(
+                AccessTools.Method(typeof(Building), nameof(Building.DeSpawn)),
+                AccessTools.Method(typeof(ThingWithComps), nameof(ThingWithComps.DeSpawn))
+            );
+            DumpChanges("DeSpawn", instructions, code);
+            return code;
+        }
+
+        [HarmonyPatch(nameof(DiningSpot.Destroy))]
+        [HarmonyTranspiler]
+        static IEnumerable<CodeInstruction> Destroy(IEnumerable<CodeInstruction> instructions)
+        {
+            var code = instructions.MethodReplacer(
+                AccessTools.Method(typeof(Building), nameof(Building.Destroy)),
+                AccessTools.Method(typeof(ThingWithComps), nameof(ThingWithComps.Destroy))
+            );
+            DumpChanges("Destroy", instructions, code);
+            return code;
+        }
+    }
+
     public enum SpotState
     {
         Blocked = -1,
@@ -55,7 +111,8 @@ namespace Gastronomy.Dining
 
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
-            _ThingWithComps_Base.SpawnSetup.Base(this, map, respawningAfterLoad);
+            base.SpawnSetup(map, respawningAfterLoad);
+            //_ThingWithComps_Base.SpawnSetup.Base(this, map, respawningAfterLoad);
 
             if (!respawningAfterLoad)
             {
@@ -105,12 +162,14 @@ namespace Gastronomy.Dining
         public override void DeSpawn(DestroyMode mode = DestroyMode.Vanish)
         {
             RegisterUtility.OnDiningSpotRemoved(this);
-            _ThingWithComps_Base.DeSpawn.Base(this, mode);
+            //_ThingWithComps_Base.DeSpawn.Base(this, mode);
+            base.DeSpawn(mode);
         }
 
         public override void Destroy(DestroyMode mode = DestroyMode.Vanish)
         {
-            _ThingWithComps_Base.Destroy.Base(this, mode);
+            //_ThingWithComps_Base.Destroy.Base(this, mode);
+            base.Destroy(mode);
         }
 
         private void UpdateMesh()
