@@ -6,7 +6,7 @@ using Verse.AI;
 
 namespace ExperimentalOptimizations.Fix
 {
-    [FixOn(InitStage.ModInit)]
+    [FixOn(InitStage.StaticConstructorOnStartup)]
     public class Bubbler_Add_Patch
     {
         public static void Patch()
