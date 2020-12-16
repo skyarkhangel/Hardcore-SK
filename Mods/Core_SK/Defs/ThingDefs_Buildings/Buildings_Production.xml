@@ -122,6 +122,7 @@
 		<statBases>
 			<WorkToBuild>300</WorkToBuild>
 			<WorkTableWorkSpeedFactor>0.7</WorkTableWorkSpeedFactor>
+			<WorkTableEfficiencyFactor>0.7</WorkTableEfficiencyFactor>
 			<Mass>1</Mass>
 		</statBases>
 		<scatterableOnMapGen>false</scatterableOnMapGen>
@@ -360,7 +361,7 @@
 				<glowColor>(217,112,33,0)</glowColor>
 			</li>
 			<li Class="SK.CompFueled_Properties">
-				<operatingTemp>400</operatingTemp>
+				<operatingTemp>300</operatingTemp>
 				<fireDrawOffset>(0,0,0.1)</fireDrawOffset>
 				<smokeDrawOffset>(0,0,0.1)</smokeDrawOffset>
 				<fuelDrawOffset>(0,0,0.01)</fuelDrawOffset>
@@ -375,6 +376,7 @@
 						<li>Charcoal</li>
 						<li>Coal</li>
 						<li>Kindling</li>
+						<li>Tallow</li>
 					</thingDefs>
 					<categories>
 						<li>Wooden</li>
@@ -512,6 +514,101 @@
 			<li>SK_Craftsmanship</li>
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+	</ThingDef>
+	
+	<ThingDef ParentName="WorkTable">
+		<defName>ElectricOven</defName>
+		<label>electric oven</label>
+		<thingClass>SK.Building_WorkTable_HeatPushAdvanced</thingClass>
+		<description>An electric powered oven for baking things. Requires power.</description>
+		<graphicData>
+			<texPath>Things/Building/Production/FoodStuff/ElectricOven</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<shaderType>CutoutComplex</shaderType>
+			<drawSize>(1,1)</drawSize>
+			<shadowData>
+				<volume>(0.85, 1.0, 0.85)</volume>
+				<offset>(0,0,0)</offset>
+			</shadowData>
+			<damageData>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+			</damageData>
+		</graphicData>
+		<stuffCategories>
+			<li>StrongMetallic</li>
+		</stuffCategories>
+		<costStuffCount>100</costStuffCount>
+		<costList>
+			<ComponentIndustrial>10</ComponentIndustrial>
+			<ElectronicComponents>3</ElectronicComponents>
+			<Mechanism>3</Mechanism>
+		</costList>
+		<statBases>
+			<WorkToBuild>1600</WorkToBuild>
+			<MaxHitPoints>150</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<WorkTableWorkSpeedFactor>1.1</WorkTableWorkSpeedFactor>
+		</statBases>
+		<size>(1,1)</size>
+		<designationCategory>Production</designationCategory>
+		<recipes>
+			<li>MeltSugar</li>
+			<li>MakeCaramel</li>
+			<li>MakeTaffy</li>
+			<li>MakeCookies</li>
+			<li>MakeBread</li>
+			<li>MakePieBlueberry</li>
+			<li>MakeSweetBun</li>
+			<li>MakePizza</li>
+			<li>BakeCornbreadmuffin</li>
+			<li>BakeCornbread</li>
+			<li>MakeBasicCannedFood</li>
+			<li>MakeExtraCannedFood</li>
+			<li>MakeMetalCannedMeat_raw</li>
+			<li>MakeMetalCannedMeat_prime</li>
+		</recipes>
+		<tickerType>Normal</tickerType>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<shortCircuitInRain>true</shortCircuitInRain>
+				<basePowerConsumption>250</basePowerConsumption>
+			</li>
+			<li Class="SK.CompProperties_LowIdleDraw">
+				<compClass>SK.CompPowerLowIdleDraw</compClass>
+				<idlePowerFactor>0.1</idlePowerFactor>
+			</li>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusherPowered</compClass>
+				<heatPerSecond>7</heatPerSecond>
+				<heatPushMaxTemperature>35</heatPushMaxTemperature>
+			</li>
+			<li Class="CompProperties_AffectedByFacilities">
+				<linkableFacilities>
+					<li>CookingTools</li>
+				</linkableFacilities>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+			<li>
+				<compClass>CompReportWorkSpeed</compClass>
+			</li>
+		</comps>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+			<li>PlaceWorker_ReportWorkSpeedPenalties</li>
+		</placeWorkers>
+		<building>
+			<isMealSource>true</isMealSource>
+			<heatPerTickWhileWorking>0.6</heatPerTickWhileWorking>
+		</building>
+		<researchPrerequisites>
+			<li>AdvancedFabrication</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
 	</ThingDef>
 
 	<ThingDef ParentName="WorkTable">
@@ -1341,7 +1438,7 @@
 							<max>40</max>
 						</temperatureIdeal>
 						<processDays>3</processDays>
-						<maxCapacity>50</maxCapacity>
+						<maxCapacity>100</maxCapacity>
 						<speedBelowSafe>0.6</speedBelowSafe>
 						<speedAboveSafe>1</speedAboveSafe>
 						<efficiency>0.35</efficiency>
@@ -1510,7 +1607,7 @@
 							<max>50</max>
 						</temperatureIdeal>
 						<processDays>3</processDays>
-						<maxCapacity>35</maxCapacity>
+						<maxCapacity>45</maxCapacity>
 						<speedBelowSafe>0.05</speedBelowSafe>
 						<speedAboveSafe>0.8</speedAboveSafe>
 						<efficiency>0.35</efficiency>

@@ -65,6 +65,8 @@ namespace Gastronomy.Dining
             var canMove = getter.health.capacities.CapableOf(PawnCapacityDefOf.Moving);
             if (!canMove) return false;
 
+            if (getter.InMentalState) return false;
+
             return true;
         }
 

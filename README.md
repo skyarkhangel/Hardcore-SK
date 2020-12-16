@@ -90,7 +90,7 @@ SK Team:
 <br>
 <br>
 Special Thanks to:
-<br>SpoonShortage, Mrofa, Fluffy, Zhentar, Brrainz, Dubwise, Erdelf, Fotos, Greeny, Hunt3rKill3r, Lambert2191, Vursteen, Tuvia, Dunkhan, jnkyacc, Jalordon, Varmonger, funs777, olizit, Quelling, pongvin, zachary-foster, funs777, lex1975, evgeny-k, Moon, Leiarr, Glucocorticoid, Voker57, Pardonius, Sonsalt.
+<br>SpoonShortage, Mrofa, Fluffy, Zhentar, Brrainz, Dubwise, Erdelf, Fotos, Greeny, Hunt3rKill3r, Lambert2191, Vuursteen, Tuvia, Dunkhan, jnkyacc, Jalordon, Varmonger, funs777, olizit, Quelling, pongvin, zachary-foster, funs777, lex1975, evgeny-k, Moon, Leiarr, Glucocorticoid, Voker57, Pardonius, Sonsalt.
 
 <br>And to anyone else we might have missed!
 <br>
