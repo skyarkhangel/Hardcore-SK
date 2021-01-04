@@ -80,17 +80,17 @@ ____
 <br>
 SK Team:
 <br>Main dev. - Skyarkhangel
-<br>Co-ordinator - Rhyssia, Adenia
-<br>Discord stuff - Dzeniba, Ziemens, MightyGooga, GG, Sidfu, AnotherFireFox, Flonz, Szara Kryik
+<br>Co-ordinator - Zakhad, Sidfu, Dzeniba
+<br>Discord stuff - Ziemens, SomethingCrunchy (НечтоХрустящее), MightyGooga, GG, AnotherFireFox, Flonz, Szara Kryik, Ashardalon
 <br>Artists - cattleya ( https://www.patreon.com/cattleya ), Abhay, ApelAirplane
-<br>Coders - NotFood, Void, Zachary F
-<br>XML modders - Sidfu, ArpoMo6, AndreiAvinov (Kiri), SomethingCrunchy (НечтоХрустящее) 
+<br>Coders - Jeremy(PirateBY, TGC, NotFood, Void, Zachary F
+<br>XML modders - Sidfu, ArpoMo6, AndreiAvinov (Kiri), SomethingCrunchy (НечтоХрустящее), GuardianDll, Spaniard829 
 <br>Guide Writers - Murdantiks, Adenia, Soyaman, Tombomcbombo
 <br>Translators - Rey, Ivanzyfer, FaHT1k, mora145, totobrother, Desert Rain
 <br>
 <br>
 Special Thanks to:
-<br>SpoonShortage, Mrofa, Fluffy, Zhentar, Brrainz, Dubwise, Erdelf, Fotos, Greeny, Hunt3rKill3r, Lambert2191, Vursteen, Tuvia, Dunkhan, jnkyacc, Jalordon, Varmonger, funs777, olizit, Quelling, pongvin, zachary-foster, funs777, lex1975, evgeny-k, Moon, Leiarr, Glucocorticoid, Voker57, Pardonius, Sonsalt.
+<br>SpoonShortage, Mrofa, Fluffy, Zhentar, Brrainz, Dubwise, Erdelf, Greeny, Hunt3rKill3r, Lambert2191, Vuursteen, Tuvia, Dunkhan, jnkyacc, Jalordon, Varmonger, funs777, olizit, Quelling, pongvin, zachary-foster, funs777, lex1975, evgeny-k, Moon, Leiarr, Glucocorticoid, Voker57, Pardonius, Sonsalt, Jeremy(PirateBY), TGC, qwerty19106, Rhyssia, Adenia.
 
 <br>And to anyone else we might have missed!
 <br>

@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 	<!--============================== Lights ==============================-->
-	<ThingDef Abstract="True" Name="LampLEDBase" ParentName="SK_BuildingBase">
-		<altitudeLayer>Building</altitudeLayer>
-		<passability>PassThroughOnly</passability>
+	<ThingDef Abstract="True" Name="LampLEDBase" ParentName="LampBaseNoCat">
 		<fillPercent>0.20</fillPercent>
-		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
-		<rotatable>true</rotatable>
 		<graphicData>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
@@ -16,15 +12,7 @@
 		<statBases>
 			<MaxHitPoints>25</MaxHitPoints>
 			<WorkToBuild>150</WorkToBuild>
-			<Flammability>1.0</Flammability>
 		</statBases>
-		<minifiedDef>MinifiedThing</minifiedDef>
-		<building>
-			<uninstallWork>450</uninstallWork>
-		</building>
-		<thingCategories>
-			<li>BuildingsAccessories</li>
-		</thingCategories>
 		<researchPrerequisites>
 			<li>LEDTechnologyScience</li>
 		</researchPrerequisites>
@@ -158,8 +146,17 @@
 		<defName>StandingLampLEDsmall</defName>
 		<label>standing LED lamp (small)</label>
 		<description>A standing LED lamp that lights an small area. Requires 5 W.</description>
+		<thingClass>SK.Building_Lamp</thingClass>
 		<graphicData>
-			<texPath>Things/Building/Furniture/Lights/StandingLEDlampSmall</texPath>
+			<texPath>Things/Building/Furniture/Lights/lamp</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shadowData>
+				<volume>(0.3, 0.6, 0.3)</volume>
+				<offset>(0,0,-0.1)</offset>
+			</shadowData>
+			<damageData>
+				<rect>(0.2,0.2,0.6,0.6)</rect>
+			</damageData>
 		</graphicData>
 		<statBases>
 			<MaxHitPoints>80</MaxHitPoints>
@@ -193,8 +190,18 @@
 		<defName>StandingLampLEDnormal</defName>
 		<label>standing LED lamp (normal)</label>
 		<description>A standing LED lamp that lights an area. Requires 10 W.</description>
+		<thingClass>SK.Building_Lamp</thingClass>
 		<graphicData>
-			<texPath>Things/Building/Furniture/LampStanding</texPath>
+			<texPath>Things/Building/Furniture/Lights/lamp</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(1.15)</drawSize>
+			<shadowData>
+				<volume>(0.3, 0.6, 0.3)</volume>
+				<offset>(0,0,-0.1)</offset>
+			</shadowData>
+			<damageData>
+				<rect>(0.2,0.2,0.6,0.6)</rect>
+			</damageData>
 		</graphicData>
 		<statBases>
 			<MaxHitPoints>100</MaxHitPoints>
@@ -228,8 +235,18 @@
 		<defName>StandingLampLEDlarge</defName>
 		<label>standing LED lamp (large)</label>
 		<description>A standing LED lamp that lights an large area. Requires 15 W.</description>
+		<thingClass>SK.Building_Lamp</thingClass>
 		<graphicData>
-			<texPath>Things/Building/Production/LampSun</texPath>
+			<texPath>Things/Building/Furniture/Lights/lamp</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(1.3)</drawSize>
+			<shadowData>
+				<volume>(0.3, 0.6, 0.3)</volume>
+				<offset>(0,0,-0.1)</offset>
+			</shadowData>
+			<damageData>
+				<rect>(0.2,0.2,0.6,0.6)</rect>
+			</damageData>
 		</graphicData>
 		<statBases>
 			<MaxHitPoints>110</MaxHitPoints>
@@ -257,6 +274,71 @@
 				<glowColor>(217,217,217,0)</glowColor>
 			</li>
 		</comps>
+	</ThingDef>
+	
+	<ThingDef ParentName="SK_StandingLampLED">
+		<defName>CeilingLEDLamp</defName>
+		<label>ceiling LED lamp</label>
+		<thingClass>SK.Building_Lamp</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Furniture/Lights/CeilingLamp</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shadowData>
+				<volume>(0.2, 0.2, 0.2)</volume>
+				<offset>(0,0,0)</offset>
+			</shadowData>
+			<shaderType>Transparent</shaderType>
+		</graphicData>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<statBases>
+			<MaxHitPoints>35</MaxHitPoints>
+			<WorkToBuild>360</WorkToBuild>
+			<Beauty>10</Beauty>
+			<Bulk>7</Bulk>
+			<Mass>2</Mass>
+		</statBases>
+		<tickerType>Rare</tickerType>
+		<description>A ceiling LED lamp that lights an area. People need light to move and work at full speed. Must be placed under a roof. Requires 10 W.</description>
+		<costList>
+			<Plastic>10</Plastic>
+			<Glass>7</Glass>
+			<ComponentIndustrial>3</ComponentIndustrial>
+			<ElectronicComponents>2</ElectronicComponents>
+			<Electronics>1</Electronics>
+		</costList>
+		<building>
+			<uninstallWork>800</uninstallWork>
+			<isEdifice>false</isEdifice>
+			<canBuildNonEdificesUnder>true</canBuildNonEdificesUnder>
+		</building>
+		<clearBuildingArea>false</clearBuildingArea>
+		<comps>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>10</basePowerConsumption>
+				<shortCircuitInRain>true</shortCircuitInRain>
+				<soundPowerOn>Power_OnSmall</soundPowerOn>
+				<soundPowerOff>Power_OffSmall</soundPowerOff>
+			</li>
+			<li Class="CompProperties_Glower">
+				<glowRadius>9</glowRadius>
+				<glowColor>(217,217,208,0)</glowColor>
+			</li>
+			<li Class="SK.CompProperties_ColoredLight">
+				<compClass>SK.CompColoredLight</compClass>
+			</li>
+			<li Class="SK.CompProperties_RestrictedPlacement">
+				<compClass>SK.CompRestrictedPlacement</compClass>
+			</li>
+		</comps>
+		<placeWorkers>
+			<li>SK.PlaceWorker_OnlyUnderRoof</li>
+		</placeWorkers>
+		<filthLeaving>Filth_BrokenGlass</filthLeaving>
+		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+		<rotatable>false</rotatable>
+		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
 	</ThingDef>
 
 </Defs>
