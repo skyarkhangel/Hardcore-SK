@@ -88,10 +88,31 @@
 		</statBases>
 		<techLevel>Neolithic</techLevel>
 		<ingestible>
-			<foodType>Fluid, Processed</foodType>
+			<foodType>Plant, Processed</foodType>
 			<maxNumToIngestAtOnce>1</maxNumToIngestAtOnce>
 			<drugCategory>Medical</drugCategory>
 			<preferability>NeverForNutrition</preferability>
+			<ingestEffect>Smoke_Joint</ingestEffect>
+			<ingestHoldOffsetStanding>
+				<northDefault>
+					<offset>(0.27,0,0.08)</offset>
+					<behind>true</behind>
+				</northDefault>
+				<east>
+					<offset>(0.45,0,0.08)</offset>
+				</east>
+				<south>
+					<offset>(0.27,0,0.08)</offset>
+				</south>
+				<west>
+					<offset>(-0.50,0,0.08)</offset>
+					<flip>true</flip>
+				</west>
+			</ingestHoldOffsetStanding>
+			<ingestCommandString>Smoke {0}</ingestCommandString>
+			<ingestReportString>Smoking {0}.</ingestReportString>
+			<ingestReportStringEat>Consuming {0}.</ingestReportStringEat>
+			<useEatingSpeedStat>false</useEatingSpeedStat>
 			<outcomeDoers>
 				<li Class="IngestionOutcomeDoer_GiveHediff">
 					<hediffDef>Berserk_herb_high</hediffDef>
@@ -128,24 +149,13 @@
 		<isBad>false</isBad>
 		<comps>
 			<li Class="HediffCompProperties_SeverityPerDay">
-				<severityPerDay>-0.3</severityPerDay>
+				<severityPerDay>-0.6</severityPerDay>
 				<showDaysToRecover>true</showDaysToRecover>
 			</li>
 		</comps>
 		<stages>
 			<li>
-				<minSeverity>0.1</minSeverity>
-				<label>Berzerk return</label>
-				<painFactor>1</painFactor>
-				<capMods>
-					<li>
-						<capacity>Consciousness</capacity>
-						<offset>-0.35</offset>
-					</li>
-				</capMods>
-			</li>
-			<li>
-				<minSeverity>0.4</minSeverity>
+				<minSeverity>0.01</minSeverity>
 				<label>Berserk herb high</label>
 				<painFactor>0.5</painFactor>
 				<capMods>
@@ -157,14 +167,25 @@
 			</li>
 			<li>
 				<minSeverity>0.72</minSeverity>
-				<label>Berzerk pain</label>
-				<painFactor>1</painFactor>
+				<label>Berserk dangerous high</label>
+				<painFactor>0.5</painFactor>
 				<capMods>
 					<li>
 						<capacity>Consciousness</capacity>
-						<setMax>0.3</setMax>
+						<offset>0.3</offset>
 					</li>
 				</capMods>
+				<hediffGivers>
+					<li Class="HediffGiver_Random">
+						<hediff>HeartAttack</hediff>
+						<allowOnLodgers>false</allowOnLodgers>
+						<allowOnQuestRewardPawns>false</allowOnQuestRewardPawns>
+						<mtbDays>0.2</mtbDays>
+						<partsToAffect>
+							<li>Heart</li>
+						</partsToAffect>
+					</li>
+				</hediffGivers>
 			</li>
 		</stages>
 	</HediffDef>
