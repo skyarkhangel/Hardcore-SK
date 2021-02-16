@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<!-- 	<DesignatorDropdownGroupDef>
+		<defName>StandAloneFridgeDesignatorDropdownDef</defName>
+	</DesignatorDropdownGroupDef>
+	<DesignatorDropdownGroupDef>
+		<defName>WallFridgeDesignatorDropdownDef</defName>
+	</DesignatorDropdownGroupDef> -->
+
+	<ThingDef Name="FridgeBase" ParentName="SK_BuildingBase" Abstract="True">
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<thingClass>Building_Storage</thingClass>
+		<tradeTags>
+			<li>Furniture</li>
+		</tradeTags>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<fillPercent>0.45</fillPercent>
+		<castEdgeShadows>true</castEdgeShadows>
+		<thingCategories>
+			<li>BuildingsAccessories</li>
+		</thingCategories>
+		<building>
+			<uninstallWork>600</uninstallWork>
+			<preventDeteriorationInside>true</preventDeteriorationInside>
+			<preventDeteriorationOnTop>true</preventDeteriorationOnTop>
+			<ignoreStoredThingsBeauty>true</ignoreStoredThingsBeauty>
+			<fixedStorageSettings>
+				<filter>
+					<categories>
+						<li>AnimalProductRaw</li>
+						<li>Corpses</li>
+						<li>Drugs</li>
+						<li>EggsFertilized</li>
+						<li>EggsUnfertilized</li>
+						<li>Foods</li>
+						<li>Medicine</li>
+						<li>PlantMatter</li>
+						<li>PlantFoodRaw</li>
+						<li>BodyParts</li>
+					</categories>
+					<thingDefs>
+						<li>MintLeaves</li>
+						<li>Hypericum</li>
+						<li>WildRose</li>
+						<li>aloe</li>
+						<li>RawTea</li>
+						<li>RawTobacco</li>
+					</thingDefs>
+					<specialFiltersToDisallow>
+						<li>AllowRotten</li>
+					</specialFiltersToDisallow>
+				</filter>
+			</fixedStorageSettings>
+			<defaultStorageSettings>
+				<priority>Important</priority>
+				<filter>
+					<categories>
+						<li>FoodMeals</li>
+					</categories>
+					<disallowedThingDefs>
+						<li>MealSurvivalPack</li>
+					</disallowedThingDefs>
+				</filter>
+			</defaultStorageSettings>
+		</building>
+		<comps>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_Glower">
+				<glowRadius>2.5</glowRadius>
+				<glowColor>(89,188,255,0)</glowColor>
+			</li>
+			<li Class="RimFridge.CompProperties_Refrigerator"> 
+				<drinksBestCold>
+					<li>Beer</li>
+				</drinksBestCold>
+				<findAllRottableForFilters>true</findAllRottableForFilters>
+			</li>
+		</comps>
+		<inspectorTabs>
+			<li>ITab_Storage</li>
+			<li>LWM.DeepStorage.ITab_DeepStorage_Inventory</li>
+		</inspectorTabs>
+		<designationHotKey>Misc12</designationHotKey>
+		<description>Rottable things stored in this will not spoil.</description>
+		<tickerType>Rare</tickerType>
+		<designationCategory>LWM_DS_Storage</designationCategory>
+		<placeWorkers>
+			<li>PlaceWorker_Heater</li>
+		</placeWorkers>
+		<researchPrerequisites>
+			<li>SK_StorageIII</li>
+			<!-- <li>AirConditioning</li> -->
+		</researchPrerequisites>
+		<surfaceType>Item</surfaceType>
+		<staticSunShadowHeight>0.5</staticSunShadowHeight>
+		<pathCost>60</pathCost>
+		<drawPlaceWorkersWhileSelected>false</drawPlaceWorkersWhileSelected>
+		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+	</ThingDef>
+
+	<ThingDef ParentName="FridgeBase">
+		<defName>RimFridge_SingleRefrigerator</defName>
+		<label>Single Refrigerator</label>
+		<!-- <designatorDropdown>StandAloneFridgeDesignatorDropdownDef</designatorDropdown> -->
+		<graphicData>
+			<texPath>Things/Building/Temperature/Fridge/SingleFridge</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(3,3)</drawSize>
+		</graphicData>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Plastic</li>
+		</stuffCategories>
+		<costStuffCount>40</costStuffCount>
+		<costList>
+			<Rubber>15</Rubber>
+			<Plastic>10</Plastic>
+			<ComponentIndustrial>5</ComponentIndustrial>
+			<Electronics>2</Electronics>
+		</costList>
+		<statBases>
+			<Mass>30</Mass>
+			<MaxHitPoints>100</MaxHitPoints>
+			<WorkToBuild>450</WorkToBuild>
+			<Flammability>1.0</Flammability>
+		</statBases>
+		<size>(1,1)</size>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>80</basePowerConsumption>
+			</li>
+			<li Class="RimFridge.CompProperties_SecondLayer">
+				<graphicData>
+					<texPath>Things/Building/Temperature/Fridge/SingleFridgeLid</texPath>
+					<graphicClass>Graphic_Multi</graphicClass>
+					<shaderType>Transparent</shaderType>
+					<drawSize>(3,3)</drawSize>
+				</graphicData>
+				<altitudeLayer>Projectile</altitudeLayer>
+			</li>
+			<li Class='LWM.DeepStorage.Properties'>
+				<minNumberStacks>2</minNumberStacks>
+				<maxNumberStacks>4</maxNumberStacks>
+				<maxMassOfStoredItem>100</maxMassOfStoredItem>
+				<minTimeStoringTakes>5</minTimeStoringTakes>
+				<additionalTimeEachStack>24</additionalTimeEachStack>
+				<!-- More things mean more time to lower them into position -->
+				<additionalTimeEachDef>6</additionalTimeEachDef>
+				<!-- Got to sort things! -->
+				<overlayType>SumOfAllItems</overlayType>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="FridgeBase">
+		<defName>RimFridge_Refrigerator</defName>
+		<label>Dual Refrigerator</label>
+		<!-- <designatorDropdown>StandAloneFridgeDesignatorDropdownDef</designatorDropdown> -->
+		<graphicData>
+			<texPath>Things/Building/Temperature/Fridge/DualFridge</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(4,3)</drawSize>
+		</graphicData>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Plastic</li>
+		</stuffCategories>
+		<costStuffCount>75</costStuffCount>
+		<costList>
+			<Rubber>25</Rubber>
+			<Plastic>20</Plastic>
+			<ComponentIndustrial>10</ComponentIndustrial>
+			<Electronics>3</Electronics>
+		</costList>
+		<statBases>
+			<Mass>20</Mass>
+			<MaxHitPoints>100</MaxHitPoints>
+			<WorkToBuild>650</WorkToBuild>
+			<Flammability>1.0</Flammability>
+		</statBases>
+		<size>(2,1)</size>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>140</basePowerConsumption>
+			</li>
+			<li Class="RimFridge.CompProperties_SecondLayer">
+				<graphicData>
+					<texPath>Things/Building/Temperature/Fridge/DualFridgeLid</texPath>
+					<graphicClass>Graphic_Multi</graphicClass>
+					<shaderType>Transparent</shaderType>
+					<drawSize>(4,3)</drawSize>
+				</graphicData>
+				<altitudeLayer>Projectile</altitudeLayer>
+			</li>
+			<li Class='LWM.DeepStorage.Properties'>
+				<minNumberStacks>2</minNumberStacks>
+				<maxNumberStacks>4</maxNumberStacks>
+				<maxMassOfStoredItem>100</maxMassOfStoredItem>
+				<minTimeStoringTakes>5</minTimeStoringTakes>
+				<additionalTimeEachStack>24</additionalTimeEachStack>
+				<!-- More things mean more time to lower them into position -->
+				<additionalTimeEachDef>6</additionalTimeEachDef>
+				<!-- Got to sort things! -->
+				<overlayType>SumOfAllItems</overlayType>
+			</li>
+		</comps>
+	</ThingDef>
+
+
+	<ThingDef ParentName="FridgeBase">
+		<defName>RimFridge_QuadRefrigerator</defName>
+		<label>Quad Refrigerator</label>
+		<!-- <designatorDropdown>StandAloneFridgeDesignatorDropdownDef</designatorDropdown> -->
+		<graphicData>
+			<texPath>Things/Building/Temperature/Fridge/QuadFridge</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(4,4)</drawSize>
+		</graphicData>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Plastic</li>
+		</stuffCategories>
+		<costStuffCount>125</costStuffCount>
+		<costList>
+			<Rubber>38</Rubber>
+			<Plastic>30</Plastic>
+			<ComponentIndustrial>15</ComponentIndustrial>
+			<Electronics>5</Electronics>
+		</costList>
+		<statBases>
+			<Mass>70</Mass>
+			<MaxHitPoints>100</MaxHitPoints>
+			<WorkToBuild>1000</WorkToBuild>
+			<Flammability>1.0</Flammability>
+		</statBases>
+		<size>(2,2)</size>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>260</basePowerConsumption>
+			</li>
+			<li Class="RimFridge.CompProperties_SecondLayer">
+				<graphicData>
+					<texPath>Things/Building/Temperature/Fridge/QuadFridgeLid</texPath>
+					<graphicClass>Graphic_Multi</graphicClass>
+					<shaderType>Transparent</shaderType>
+					<drawSize>(4,4)</drawSize>
+				</graphicData>
+				<altitudeLayer>Projectile</altitudeLayer>
+			</li>
+			<li Class='LWM.DeepStorage.Properties'>
+				<minNumberStacks>2</minNumberStacks>
+				<maxNumberStacks>4</maxNumberStacks>
+				<maxMassOfStoredItem>100</maxMassOfStoredItem>
+				<minTimeStoringTakes>5</minTimeStoringTakes>
+				<additionalTimeEachStack>24</additionalTimeEachStack>
+				<!-- More things mean more time to lower them into position -->
+				<additionalTimeEachDef>6</additionalTimeEachDef>
+				<!-- Got to sort things! -->
+				<overlayType>SumOfAllItems</overlayType>
+			</li>
+		</comps>
+	</ThingDef>	
+
+</Defs>

@@ -3,24 +3,35 @@
 
 	<!-- Special sub-humanlike factions -->
 
-	<FactionDef>
+	<FactionDef ParentName="SK_FactionBase">
 		<defName>Mechanoid</defName>
 		<label>Mechanoid hive</label>
 		<description>A hive of ancient self-replicating machines.</description>
 		<pawnSingular>mechanoid</pawnSingular>
 		<pawnsPlural>mechanoids</pawnsPlural>
 		<requiredCountAtGameStart>1</requiredCountAtGameStart>
-		<fixedName>a mechanoid hive</fixedName>
+		<factionNameMaker>NamerFactionMechanoid</factionNameMaker>
+		<factionIconPath>World/WorldObjects/Expanding/Sites/MechCluster</factionIconPath>
 		<raidCommonalityFromPointsCurve>
 			<points>
 				<li>(0, 0.1)</li>
 				<li>(5000, 0.3)</li>
 				<li>(7000, 0.6)</li>
-				<li>(10000, 1.15)</li>
-				<li>(15000, 1.35)</li>
-				<li>(20000, 1.50)</li>
+				<li>(10000, 1.0)</li>
+				<li>(15000, 1.15)</li>
+				<li>(20000, 1.35)</li>
 			</points>
 		</raidCommonalityFromPointsCurve>
+		<raidLootMaker>MechanoidRaidLootMaker</raidLootMaker>
+		<raidLootValueFromPointsCurve>
+			<points>
+				<li>(35,     8)</li>
+				<li>(100,   60)</li>
+				<li>(1000, 250)</li>
+				<li>(2000, 400)</li>
+				<li>(4000, 500)</li>
+			</points>
+		</raidLootValueFromPointsCurve>
 		<maxPawnCostPerTotalPointsCurve>
 			<points>
 				<li>(100000,20000)</li>
@@ -29,10 +40,12 @@
 		<humanlikeFaction>false</humanlikeFaction>
 		<hidden>true</hidden>
 		<autoFlee>false</autoFlee>
+		<canSiege>false</canSiege>
 		<canUseAvoidGrid>true</canUseAvoidGrid>
 		<techLevel>Ultra</techLevel>
 		<earliestRaidDays>160</earliestRaidDays>
 		<permanentEnemy>true</permanentEnemy>
+		<hostileToFactionlessHumanlikes>true</hostileToFactionlessHumanlikes>
 		<pawnGroupMakers>
 			<li>
 				<kindDef>Combat</kindDef>
@@ -41,6 +54,7 @@
 					<Mech_Crawler>85</Mech_Crawler>
 					<Mech_Lancer>70</Mech_Lancer>
 					<Mech_Scyther>60</Mech_Scyther>
+					<Mech_Pikeman>51</Mech_Pikeman>
 					<Mech_Centipede>50</Mech_Centipede>
 					<Mech_HGScyther>45</Mech_HGScyther>
 					<Mech_SniperLancer>41</Mech_SniperLancer>
@@ -64,15 +78,9 @@
 				<options>
 					<Mech_Lancer>70</Mech_Lancer>
 					<Mech_Scyther>60</Mech_Scyther>
+					<Mech_Pikeman>55</Mech_Pikeman>
 					<Mech_HGScyther>50</Mech_HGScyther>
 					<Mech_SniperLancer>40</Mech_SniperLancer>
-				</options>
-			</li>
-			<li>
-				<kindDef>Combat</kindDef>
-				<commonality>25</commonality>
-				<options>
-					<Mech_Crawler>85</Mech_Crawler>
 				</options>
 			</li>
 			<li>
@@ -84,11 +92,22 @@
 				</options>
 			</li>
 		</pawnGroupMakers>
-		<homeIconPath>World/WorldObjects/DefaultSettlement</homeIconPath>
-		<allowedArrivalTemperatureRange>
-			<min>-150</min>
-			<max>200</max>
-		</allowedArrivalTemperatureRange>
+		<settlementTexturePath>World/WorldObjects/DefaultSettlement</settlementTexturePath>
+		<allowedArrivalTemperatureRange>-150~200</allowedArrivalTemperatureRange>
 	</FactionDef>
+
+	<ThingSetMakerDef>
+		<defName>MechanoidRaidLootMaker</defName>
+		<root Class="ThingSetMaker_MarketValue">
+			<fixedParams>
+				<filter>
+					<thingDefs>
+						<li>Plasteel</li>
+						<li>ComponentSpacer</li>
+					</thingDefs>
+				</filter>
+			</fixedParams>
+		</root>
+	</ThingSetMakerDef>
 
 </Defs>

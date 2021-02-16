@@ -7,17 +7,20 @@
 		<thingClass>Building_Art</thingClass>
 		<altitudeLayer>Building</altitudeLayer>
 		<passability>PassThroughOnly</passability>
-		<fillPercent>0.98</fillPercent>
+		<fillPercent>0.9</fillPercent>
 		<pathCost>70</pathCost>
-		<castEdgeShadows>true</castEdgeShadows>
 		<useHitPoints>true</useHitPoints>
 		<minifiedDef>MinifiedThing</minifiedDef>
 		<thingCategories>
 			<li>BuildingsArt</li>
 		</thingCategories>
+		<thingSetMakerTags>
+			<li>RewardStandardLowFreq</li>
+		</thingSetMakerTags>
 		<statBases>
 			<Flammability>1.0</Flammability>
 			<SellPriceFactor>1.10</SellPriceFactor>
+			<MeditationFocusStrength>0.0</MeditationFocusStrength>
 		</statBases>
 		<comps>
 			<li>
@@ -28,18 +31,90 @@
 				<descriptionMaker>ArtDescription_Sculpture</descriptionMaker>
 				<canBeEnjoyedAsArt>true</canBeEnjoyedAsArt>
 			</li>
+			<li Class="CompProperties_MeditationFocus">
+				<statDef>MeditationFocusStrength</statDef>
+				<focusTypes>
+					<li>Artistic</li>
+				</focusTypes>
+				<offsets>
+					<li Class="FocusStrengthOffset_Quality">
+						<curve>
+							<points>
+								<li>(0,0.12)</li>
+								<!-- awful -->
+								<li>(1,0.16)</li>
+								<!-- poor -->
+								<li>(2,0.20)</li>
+								<!-- normal -->
+								<li>(3,0.22)</li>
+								<!-- good -->
+								<li>(4,0.24)</li>
+								<!-- excellent -->
+								<li>(5,0.26)</li>
+								<!-- masterwork -->
+								<li>(6,0.28)</li>
+								<!-- legendary -->
+							</points>
+						</curve>
+					</li>
+					<li Class="FocusStrengthOffset_BuildingDefsWithQuality">
+						<defs>
+							<li>SculptureSmall</li>
+							<li>SculptureLarge</li>
+							<li>SculptureGrand</li>
+							<li>MuffaloArt</li>
+							<li>QueenArt</li>
+							<li>NymphArt</li>
+							<li>GreenyArt</li>
+							<li>WolfArt</li>
+							<li>DragonArt</li>
+							<li>ZeonArt</li>							
+							<li>DecorativeUrnSmall</li>
+							<li>SmallPottery</li>
+						</defs>
+						<radius>9.9</radius>
+						<maxBuildings>8</maxBuildings>
+						<focusPerQuality>
+							<points>
+								<li>(0,0.0)</li>
+								<!-- awful -->
+								<li>(1,0.0)</li>
+								<!-- poor -->
+								<li>(2,0.01)</li>
+								<!-- normal -->
+								<li>(3,0.01)</li>
+								<!-- good -->
+								<li>(4,0.01)</li>
+								<!-- excellent -->
+								<li>(5,0.02)</li>
+								<!-- masterwork -->
+								<li>(6,0.02)</li>
+								<!-- legendary -->
+							</points>
+						</focusPerQuality>
+						<explanationKey>MeditationFocusPerSculpture</explanationKey>
+						<explanationKeyAbstract>MeditationFocusPerSculptureAbstract</explanationKeyAbstract>
+					</li>
+				</offsets>
+			</li>
 		</comps>
+		<placeWorkers>
+			<li>PlaceWorker_MeditationOffsetBuildingsNear</li>
+		</placeWorkers>
 		<building>
 			<uninstallWork>600</uninstallWork>
 		</building>
 		<inspectorTabs>
 			<li>ITab_Art</li>
 		</inspectorTabs>
+		<tradeTags>
+			<li>Art</li>
+		</tradeTags>
 	</ThingDef>
 
 	<ThingDef ParentName="AdvanceArtBase" Name="SK_SculptureBase" Abstract="True">
 		<recipeMaker>
-			<workSpeedStat>SculptingSpeed</workSpeedStat>
+			<workSpeedStat>GeneralLaborSpeed</workSpeedStat>
 			<workSkill>Artistic</workSkill>
 			<unfinishedThingDef>UnfinishedSculpture</unfinishedThingDef>
 			<effectWorking>Sculpt</effectWorking>
@@ -454,7 +529,7 @@
 		<statBases>
 			<MaxHitPoints>50</MaxHitPoints>
 			<Beauty>4</Beauty>
-			<WorkToBuild>1000</WorkToBuild>
+			<WorkToBuild>600</WorkToBuild>
 			<MarketValue>0</MarketValue>
 		</statBases>
 		<comps>
@@ -467,7 +542,86 @@
 			<expandHomeArea>false</expandHomeArea>
 			<repairable>false</repairable>
 			<isInert>true</isInert>
+			<artificialForMeditationPurposes>false</artificialForMeditationPurposes>
 		</building>
 	</ThingDef>
-
+	
+	
+	<ThingDef ParentName="SK_SculptureBase">
+		<defName>CatArt</defName>
+		<label>cat sculpture</label>
+		<uiIconPath>Things/Building/Art/CatArt</uiIconPath>
+		<description>Sculpture of cat. Meow.</description>
+		<graphicData>
+			<graphicClass>Graphic_Single</graphicClass>
+			<texPath>Things/Building/Art/CatArt</texPath>
+			<drawSize>(1,1.1)</drawSize>
+		</graphicData>
+		<fillPercent>0.5</fillPercent>
+		<rotatable>false</rotatable>
+		<statBases>
+			<MaxHitPoints>170</MaxHitPoints>
+			<Beauty>70</Beauty>
+			<WorkToMake>10000</WorkToMake>
+			<Bulk>45</Bulk>
+			<Mass>30</Mass>
+		</statBases>
+		<size>(1,1)</size>
+		<stuffCategories>
+			<li>Precious</li>
+			<li>Woody</li>
+			<li>Stony</li>
+			<li>Ceramic</li>
+		</stuffCategories>
+		<costStuffCount>80</costStuffCount>
+	</ThingDef>
+	
+	
+	
+	
+	<ThingDef ParentName="SK_SculptureBase">
+		<defName>GlowstoneArt</defName>
+		<label>glowstone sculpture</label>
+		<uiIconPath>Things/Building/Art/GlowstoneArt_menuIcon</uiIconPath>
+		<description>This stunning statue is made from beautifully cut glowstone, it is perfectly crystal shaped and it emits a bright light.</description>
+		<graphicData>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>CutoutComplex</shaderType>
+			<shadowData>
+				<volume>(0, 0, 0)</volume>
+			</shadowData>
+			<texPath>Things/Building/Art/GlowstoneArt</texPath>
+			<drawSize>(2.1,3)</drawSize>
+		</graphicData>
+		<fillPercent>0.5</fillPercent>
+		<rotatable>false</rotatable>
+		<comps>
+			<li Class="CompProperties_Glower">
+				<glowRadius>13</glowRadius>
+				<glowColor>(180,197,215,0)</glowColor>
+			</li>
+		</comps>
+		<statBases>
+			<MaxHitPoints>130</MaxHitPoints>
+			<Beauty>85</Beauty>
+			<WorkToMake>60000</WorkToMake>
+			<Bulk>80</Bulk>
+			<Mass>50</Mass>
+		</statBases>
+		<size>(2,2)</size>
+		<stuffCategories>
+			<li>StrongMetallic</li>
+			<li>Precious</li>
+			<li>Woody</li>
+			<li>Stony</li>
+			<li>Bricks</li>
+			<li>Ceramic</li>
+		</stuffCategories>
+		<costStuffCount>90</costStuffCount>
+		<costList>
+			<Glowstone>180</Glowstone>
+		</costList>
+	</ThingDef>
+	
+	
 </Defs>
