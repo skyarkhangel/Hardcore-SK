@@ -188,8 +188,7 @@
 		</stuffCategories>
 		<costStuffCount>95</costStuffCount>
 		<costList>
-			<ComponentMedieval>6</ComponentMedieval>
-			<Mechanism>2</Mechanism>
+			<ComponentMedieval>8</ComponentMedieval>
 		</costList>
 		<minifiedDef>MinifiedThing</minifiedDef>
 		<thingCategories>
@@ -361,7 +360,7 @@
 				<glowColor>(217,112,33,0)</glowColor>
 			</li>
 			<li Class="SK.CompFueled_Properties">
-				<operatingTemp>400</operatingTemp>
+				<operatingTemp>300</operatingTemp>
 				<fireDrawOffset>(0,0,0.1)</fireDrawOffset>
 				<smokeDrawOffset>(0,0,0.1)</smokeDrawOffset>
 				<fuelDrawOffset>(0,0,0.01)</fuelDrawOffset>
@@ -376,6 +375,7 @@
 						<li>Charcoal</li>
 						<li>Coal</li>
 						<li>Kindling</li>
+						<li>Tallow</li>
 					</thingDefs>
 					<categories>
 						<li>Wooden</li>
@@ -514,6 +514,101 @@
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
 	</ThingDef>
+	
+	<ThingDef ParentName="WorkTable">
+		<defName>ElectricOven</defName>
+		<label>electric oven</label>
+		<thingClass>SK.Building_WorkTable_HeatPushAdvanced</thingClass>
+		<description>An electric powered oven for baking things. Requires power.</description>
+		<graphicData>
+			<texPath>Things/Building/Production/FoodStuff/ElectricOven</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<shaderType>CutoutComplex</shaderType>
+			<drawSize>(1,1)</drawSize>
+			<shadowData>
+				<volume>(0.85, 1.0, 0.85)</volume>
+				<offset>(0,0,0)</offset>
+			</shadowData>
+			<damageData>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+			</damageData>
+		</graphicData>
+		<stuffCategories>
+			<li>StrongMetallic</li>
+		</stuffCategories>
+		<costStuffCount>100</costStuffCount>
+		<costList>
+			<ComponentIndustrial>10</ComponentIndustrial>
+			<ElectronicComponents>3</ElectronicComponents>
+			<Mechanism>3</Mechanism>
+		</costList>
+		<statBases>
+			<WorkToBuild>1600</WorkToBuild>
+			<MaxHitPoints>150</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<WorkTableWorkSpeedFactor>1.1</WorkTableWorkSpeedFactor>
+		</statBases>
+		<size>(1,1)</size>
+		<designationCategory>Production</designationCategory>
+		<recipes>
+			<li>MeltSugar</li>
+			<li>MakeCaramel</li>
+			<li>MakeTaffy</li>
+			<li>MakeCookies</li>
+			<li>MakeBread</li>
+			<li>MakePieBlueberry</li>
+			<li>MakeSweetBun</li>
+			<li>MakePizza</li>
+			<li>BakeCornbreadmuffin</li>
+			<li>BakeCornbread</li>
+			<li>MakeBasicCannedFood</li>
+			<li>MakeExtraCannedFood</li>
+			<li>MakeMetalCannedMeat_raw</li>
+			<li>MakeMetalCannedMeat_prime</li>
+		</recipes>
+		<tickerType>Normal</tickerType>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<shortCircuitInRain>true</shortCircuitInRain>
+				<basePowerConsumption>400</basePowerConsumption>
+			</li>
+			<li Class="SK.CompProperties_LowIdleDraw">
+				<compClass>SK.CompPowerLowIdleDraw</compClass>
+				<idlePowerFactor>0.1</idlePowerFactor>
+			</li>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusherPowered</compClass>
+				<heatPerSecond>4</heatPerSecond>
+				<heatPushMaxTemperature>35</heatPushMaxTemperature>
+			</li>
+			<li Class="CompProperties_AffectedByFacilities">
+				<linkableFacilities>
+					<li>CookingTools</li>
+				</linkableFacilities>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+			<li>
+				<compClass>CompReportWorkSpeed</compClass>
+			</li>
+		</comps>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+			<li>PlaceWorker_ReportWorkSpeedPenalties</li>
+		</placeWorkers>
+		<building>
+			<isMealSource>true</isMealSource>
+			<heatPerTickWhileWorking>0.65</heatPerTickWhileWorking>
+		</building>
+		<researchPrerequisites>
+			<li>AdvancedFabrication</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+	</ThingDef>
 
 	<ThingDef ParentName="WorkTable">
 		<defName>CandyTable</defName>
@@ -573,7 +668,7 @@
 			</li>
 			<li Class="CompProperties_HeatPusher">
 				<compClass>CompHeatPusherPowered</compClass>
-				<heatPerSecond>10</heatPerSecond>
+				<heatPerSecond>2.5</heatPerSecond>
 				<heatPushMaxTemperature>35</heatPushMaxTemperature>
 			</li>
 			<li Class="CompProperties_AffectedByFacilities">
@@ -590,7 +685,7 @@
 			<li>PlaceWorker_ReportWorkSpeedPenalties</li>
 		</placeWorkers>
 		<building>
-			<heatPerTickWhileWorking>0.25</heatPerTickWhileWorking>
+			<heatPerTickWhileWorking>0.3</heatPerTickWhileWorking>
 			<uninstallWork>1150</uninstallWork>
 		</building>
 		<researchPrerequisites>
@@ -1328,10 +1423,17 @@
 					<!-- Jerky -->
 					<li>
 						<thingDef>MealJerky</thingDef>
+						<processType>Multiple</processType>
 						<ingredientFilter>
 							<categories>
 								<li>MeatRaw</li>
 							</categories>
+							<disallowedThingDefs>
+								<li>Meat_Human</li>
+								<li>SaltedMeat</li>
+								<li>Tofu</li>
+								<li>soylentgreen</li>
+							</disallowedThingDefs>
 						</ingredientFilter>
 						<temperatureSafe>
 							<min>10</min>
@@ -1341,11 +1443,11 @@
 							<min>25</min>
 							<max>40</max>
 						</temperatureIdeal>
-						<processDays>3</processDays>
+						<processDays>2</processDays>
 						<maxCapacity>100</maxCapacity>
 						<speedBelowSafe>0.6</speedBelowSafe>
 						<speedAboveSafe>1</speedAboveSafe>
-						<efficiency>0.35</efficiency>
+						<efficiency>1</efficiency>
 						<sunFactor>
 							<min>0.75</min>
 							<max>1.2</max>
@@ -1421,6 +1523,7 @@
 				<processes>
 					<li>
 						<thingDef>DriedLeavesTobacco</thingDef>
+						<processType>Multiple</processType>
 						<ingredientFilter>
 							<thingDefs>
 								<li>RawTobacco</li>
@@ -1434,7 +1537,7 @@
 							<min>30</min>
 							<max>50</max>
 						</temperatureIdeal>
-						<processDays>4</processDays>
+						<processDays>3</processDays>
 						<maxCapacity>25</maxCapacity>
 						<speedBelowSafe>0.05</speedBelowSafe>
 						<speedAboveSafe>0.8</speedAboveSafe>
@@ -1456,9 +1559,11 @@
 							<max>1.2</max>
 						</windFactor>
 						<graphicSuffix>_tobacco</graphicSuffix>
-					</li>					
+					</li>		
+
 					<li>
 						<thingDef>DriedLeavesSmokeleaf</thingDef>
+						<processType>Multiple</processType>
 						<ingredientFilter>
 							<thingDefs>
 								<li>SmokeleafLeaves</li>
@@ -1495,26 +1600,28 @@
 						</windFactor>
 						<graphicSuffix>_smokeleaf</graphicSuffix>
 					</li>
+					
 					<li>
 						<thingDef>driedfruit</thingDef>
+						<processType>Multiple</processType>
 						<ingredientFilter>
 							<categories>
 								<li>FruitFoodRaw</li>
 							</categories>
 						</ingredientFilter>
 						<temperatureSafe>
-							<min>8</min>
+							<min>5</min>
 							<max>80</max>
 						</temperatureSafe>
 						<temperatureIdeal>
 							<min>18</min>
 							<max>50</max>
 						</temperatureIdeal>
-						<processDays>3</processDays>
+						<processDays>2</processDays>
 						<maxCapacity>45</maxCapacity>
 						<speedBelowSafe>0.05</speedBelowSafe>
 						<speedAboveSafe>0.8</speedAboveSafe>
-						<efficiency>0.35</efficiency>
+						<efficiency>1</efficiency>
 						<sunFactor>
 							<min>0.75</min>
 							<max>1.2</max>
@@ -1643,7 +1750,7 @@
 							<min>2</min>
 							<max>8</max>
 						</temperatureIdeal>
-						<processDays>9</processDays>
+						<processDays>8</processDays>
 						<maxCapacity>50</maxCapacity>
 						<speedBelowSafe>0.05</speedBelowSafe>
 						<speedAboveSafe>0.05</speedAboveSafe>
@@ -1676,7 +1783,86 @@
 		<constructionSkillPrerequisite>4</constructionSkillPrerequisite>
 	</ThingDef>
 
-
+	<ThingDef ParentName="StandartBuilding">
+		<defName>SilagePile</defName>
+		<label>Silage Pile</label>
+		<thingClass>Building</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Production/SilagePile</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(4,4)</drawSize>
+			<shadowData>
+				<volume>(0, 0, 0)</volume>
+				<offset>(0,0,0)</offset>
+			</shadowData>
+			<damageData>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+			</damageData>
+		</graphicData>
+		<fillPercent>0.01</fillPercent>
+		<pathCost>60</pathCost>
+		<statBases>
+			<WorkToBuild>2200</WorkToBuild>
+			<MaxHitPoints>300</MaxHitPoints>
+			<Flammability>0.0</Flammability>
+		</statBases>
+		<description>Huge pile where plant matter is fermented into silage.</description>
+		<size>(4,4)</size>
+		<comps>
+			<li Class="UniversalFermenter.CompProperties_UniversalFermenter">
+				<showProductIcon>false</showProductIcon>
+				<barOffset>(0.0, 0.25)</barOffset>
+				<barScale>(1.0, 1.0)</barScale>
+				<processes>
+					<li>
+						<thingDef>Silage</thingDef>
+						<processType>Multiple</processType>
+						<ingredientFilter>
+							<thingDefs>
+								<li>Hay</li>
+								<li>RawCorn</li>
+								<li>RawRice</li>
+								<li>Rawwheat</li>
+							</thingDefs>
+						</ingredientFilter>
+						<temperatureSafe>
+							<min>-273</min>
+							<max>1000</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>20</min>
+							<max>50</max>
+						</temperatureIdeal>
+						<sunFactor>
+							<min>0.75</min>
+							<max>1.35</max>
+						</sunFactor>
+						<rainFactor>
+							<min>1</min>
+							<max>0.5</max>
+						</rainFactor>
+						<processDays>20</processDays>
+						<maxCapacity>5000</maxCapacity>
+						<speedBelowSafe>0.05</speedBelowSafe>
+						<speedAboveSafe>0.8</speedAboveSafe>
+						<efficiency>0.3</efficiency>
+						<graphicSuffix>_hay</graphicSuffix>
+					</li>
+				</processes>
+			</li>
+			<li Class="CompProperties_Forbiddable"/>
+		</comps>
+		<placeWorkers>
+			<li>PlaceWorker_NotUnderRoof</li>
+		</placeWorkers>
+		<tickerType>Rare</tickerType>
+		<rotatable>false</rotatable>
+		<constructionSkillPrerequisite>2</constructionSkillPrerequisite>
+		<designationCategory>Misc</designationCategory>
+	</ThingDef>
 
 	<ThingDef ParentName="WorkTable">
 		<defName>DrugLab</defName>
@@ -2172,7 +2358,7 @@
 			</li>
 			<li Class="CompProperties_HeatPusher">
 				<compClass>CompHeatPusherPowered</compClass>
-				<heatPerSecond>25</heatPerSecond>
+				<heatPerSecond>4</heatPerSecond>
 				<heatPushMaxTemperature>45</heatPushMaxTemperature>
 			</li>
 			<li>
@@ -2181,7 +2367,7 @@
 		</comps>
 		<building>
 			<uninstallWork>1450</uninstallWork>
-			<heatPerTickWhileWorking>0.75</heatPerTickWhileWorking>
+			<heatPerTickWhileWorking>0.9</heatPerTickWhileWorking>
 		</building>
 		<placeWorkers>
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
@@ -3079,6 +3265,7 @@
 				<processes>
 					<li>
 						<thingDef>Fertilizer</thingDef>
+						<processType>Multiple</processType>
 						<ingredientFilter>
 							<thingDefs>
 								<li>Compost</li>
