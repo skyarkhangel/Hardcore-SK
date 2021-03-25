@@ -1760,7 +1760,7 @@
     </Operation>
 	
 	
-	<Operation Class="PatchOperationReplace">
+<!-- 	<Operation Class="PatchOperationReplace">
         <xpath>Defs/ThingDef[defName="Plant_MotherAmbrosiaLGE"]/graphicData/texPath</xpath>
         <value>
 			<texPath>Things/reskinPlants/Plant/Ambrosia/Ambrosia</texPath>
@@ -1777,7 +1777,7 @@
         <value>
 			<immatureGraphicPath>Things/reskinPlants/Plant/Ambrosia/Ambrosia_Immature</immatureGraphicPath>
         </value>
-    </Operation>
+    </Operation> -->
 	
 	
 	<Operation Class="PatchOperationReplace">
@@ -1986,18 +1986,42 @@
     </Operation>
 	
 	<!-- ===================================== Anima tree =============================== -->
-	<Operation Class="PatchOperationReplace">
-        <xpath>Defs/ThingDef[defName="Plant_TreeAnima"]/graphicData/texPath</xpath>
-        <value>
-			<texPath>Things/reskinPlants/Plant/AnimaTree/AnimaTree</texPath>
-        </value>
-    </Operation>
-	<Operation Class="PatchOperationReplace">
-        <xpath>Defs/ThingDef[defName="Plant_TreeAnima"]/plant/visualSizeRange</xpath>
-        <value>
-			<visualSizeRange>1.5~2.5</visualSizeRange>
-        </value>
-    </Operation>
+	
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+			<li Class="PatchOperationFindMod">
+				<mods>
+					<li>Ludeon.RimWorld.Royalty</li>
+				</mods>
+				<success>Normal</success>
+			</li>
+			<li Class="PatchOperationReplace">
+				<xpath>Defs/ThingDef[defName="Plant_TreeAnima"]/graphicData/texPath</xpath>
+				<value>
+					<texPath>Things/Plant/reskinPlants/AnimaTree/AnimaTree</texPath>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+	
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+			<li Class="PatchOperationFindMod">
+				<mods>
+					<li>Ludeon.RimWorld.Royalty</li>
+				</mods>
+				<success>Normal</success>
+			</li>
+			<li Class="PatchOperationReplace">
+				<xpath>Defs/ThingDef[defName="Plant_TreeAnima"]/plant/visualSizeRange</xpath>
+				<value>
+					<visualSizeRange>1.5~2.5</visualSizeRange>
+				</value>
+			</li>
+		</operations>
+	</Operation>
 
 		<!--
 		<Operation Class="PatchOperationAdd">
@@ -2009,28 +2033,48 @@
 		-->
 		
 	<Operation Class="PatchOperationSequence">
-		<!-- check for worn graphics and if none found, add one -->
 		<success>Always</success>
 		<operations>
-			<li Class="PatchOperationTest">
-				<xpath>Defs/ThingDef[defName="Plant_TreeAnima"]/plant/immatureGraphicPath</xpath>
-				<success>Invert</success>
+			<li Class="PatchOperationFindMod">
+				<mods>
+					<li>Ludeon.RimWorld.Royalty</li>
+				</mods>
+				<success>Normal</success>
 			</li>
-			<li Class="PatchOperationAdd">
-				<xpath>Defs/ThingDef[defName="Plant_TreeAnima"]/plant</xpath>
+			<li Class="PatchOperationSequence">
+				<success>Always</success>
+				<operations>
+					<li Class="PatchOperationTest">
+						<xpath>Defs/ThingDef[defName="Plant_TreeAnima"]/plant/immatureGraphicPath</xpath>
+						<success>Invert</success>
+					</li>
+					<li Class="PatchOperationAdd">
+						<xpath>Defs/ThingDef[defName="Plant_TreeAnima"]/plant</xpath>
+						<value>
+							<immatureGraphicPath>Things/Plant/reskinPlants/AnimaTree/AnimaTree_Immature</immatureGraphicPath>
+						</value>
+					</li>
+				</operations>
+			</li>
+		</operations>
+	</Operation>
+	
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+			<li Class="PatchOperationFindMod">
+				<mods>
+					<li>Ludeon.RimWorld.Royalty</li>
+				</mods>
+				<success>Normal</success>
+			</li>
+			<li Class="PatchOperationReplace">
+				<xpath>Defs/ThingDef[defName="Plant_GrassAnima"]/graphicData/texPath</xpath>
 				<value>
-					<immatureGraphicPath>Things/reskinPlants/Plant/AnimaTree/AnimaTree_Immature</immatureGraphicPath>
+					<texPath>Things/Plant/reskinPlants/AnimaTreeGrass/AnimaTreeGrass</texPath>
 				</value>
 			</li>
 		</operations>
-	</Operation>		
-	
-	
-	<Operation Class="PatchOperationReplace">
-        <xpath>Defs/ThingDef[defName="Plant_GrassAnima"]/graphicData/texPath</xpath>
-        <value>
-			<texPath>Things/reskinPlants/Plant/AnimaTreeGrass/AnimaTreeGrass</texPath>
-        </value>
-    </Operation>
+	</Operation>
 	
 </Patch>
