@@ -36,11 +36,6 @@ Requirements:
 
 Download installer: http://hardcore-sk.ru/hardcore/installer/HSK-Launcher-1.6-Setup.exe
 
-It will ask for the RimWorld executable location.
-
-For Windows users:
-- Steam usually stores it in `C:\Program Files (x86)\Steam\steamapps\common\RimWorld\RimWorldWin64.exe`
-
 ## Manual installation:
 
 1. Go to the folder you installed the game in. (*gamefolder*)    
