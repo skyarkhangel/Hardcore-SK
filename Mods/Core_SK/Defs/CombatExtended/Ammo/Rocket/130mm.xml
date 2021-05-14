@@ -51,19 +51,19 @@
 			<graphicClass>Graphic_StackCount</graphicClass>
 		</graphicData>
 		<statBases>
-			<MarketValue>120</MarketValue>
+			<MarketValue>180</MarketValue>
 		</statBases>
 		<ammoClass>RocketFrag</ammoClass>
 		<cookOffProjectile>Bullet_130mmRocketMissile</cookOffProjectile>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
-				<explosionDamage>70</explosionDamage>
-				<explosionDamageDef>Bomb</explosionDamageDef>
-				<explosionRadius>3.8</explosionRadius>
-				<fragRange>12</fragRange>
-				<soundExplode>Explosion_GiantBomb</soundExplode>
+				<explosionDamage>215</explosionDamage>
+				<explosionDamageDef>Thermobaric</explosionDamageDef>
+				<explosionRadius>5</explosionRadius>
+				<fragRange>10</fragRange>
 				<fragments>
-					<Fragment_RocketFrag>400</Fragment_RocketFrag>
+					<Fragment_Large>50</Fragment_Large>
+					<Fragment_Small>70</Fragment_Small>
 				</fragments>
 			</li>
 		</comps>
@@ -71,19 +71,21 @@
 
 	<!-- ================== Projectiles ================== -->
 
-	<ThingDef Name="Base130mmRocketMissile" ParentName="BaseRocketLauncher" Abstract="true">
+  <ThingDef Class="CombatExtended.AmmoDef" Name="Base130mmRocketMissile" ParentName="BaseRocketLauncher" Abstract="true">
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
 		<graphicData>
 			<shaderType>TransparentPostLight</shaderType>
 		</graphicData>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
-			<speed>100</speed>
+			<speed>80</speed>
 			<soundExplode>Explosion</soundExplode>
 			<flyOverhead>true</flyOverhead>
 			<soundAmbient>RocketPropelledLoop_Small</soundAmbient>
+			<gravityFactor>10</gravityFactor>
 		</projectile>
 	</ThingDef>
 
-	<ThingDef ParentName="Base130mmRocketMissile">
+  <ThingDef Class="CombatExtended.AmmoDef" ParentName="Base130mmRocketMissile">
 		<defName>Bullet_130mmRocketMissile</defName>
 		<label>130mm HE Rocket missile</label>
 		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
@@ -92,24 +94,26 @@
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
-			<damageDef>Bomb</damageDef>
-			<damageAmountBase>250</damageAmountBase>
-			<explosionRadius>3</explosionRadius>
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>270</damageAmountBase>
+			<explosionRadius>2</explosionRadius>
 			<explosionChanceToStartFire>0.22</explosionChanceToStartFire>
 			<explosionEffect>GiantExplosion</explosionEffect>
 			<soundExplode>Explosion_GiantBomb</soundExplode>
-			<armorPenetrationBase>2.2</armorPenetrationBase>
+			<armorPenetrationSharp>0</armorPenetrationSharp>
+			<armorPenetrationBlunt>0</armorPenetrationBlunt>
 			<ai_IsIncendiary>true</ai_IsIncendiary>
-			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
 		</projectile>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
-				<explosionDamage>70</explosionDamage>
-				<explosionDamageDef>Bomb</explosionDamageDef>
-				<explosionRadius>4.5</explosionRadius>
-				<fragRange>15</fragRange>
+				<explosionDamage>215</explosionDamage>
+				<explosionDamageDef>Thermobaric</explosionDamageDef>
+				<explosionRadius>5</explosionRadius>
+				<fragRange>10</fragRange>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
 				<fragments>
-					<Fragment_RocketFrag>400</Fragment_RocketFrag>
+					<Fragment_Large>50</Fragment_Large>
+					<Fragment_Small>70</Fragment_Small>
 				</fragments>
 			</li>
 		</comps>
@@ -123,6 +127,7 @@
 		<description>Craft 130mm Rocket missiles.</description>
 		<jobString>Making 130mm Rocket missiles.</jobString>
 		<workAmount>2000</workAmount>
+		<targetCountAdjustment>5</targetCountAdjustment>
 		<ingredients>
 			<li>
 				<filter>
@@ -144,7 +149,7 @@
 			<li>
 				<filter>
 					<thingDefs>
-						<li>Fuel</li>
+						<li>Chemfuel</li>
 					</thingDefs>
 				</filter>
 				<count>32</count>
@@ -173,7 +178,7 @@
 				<li>HeavyBar</li>
 			</categories>
 			<thingDefs>
-				<li>Fuel</li>
+				<li>Chemfuel</li>
 				<li>Napalm</li>
 				<li>Powder</li>
 				<li>Electronics</li>

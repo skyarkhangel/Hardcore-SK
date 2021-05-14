@@ -121,7 +121,7 @@
     </ThingDef>
 	
     <!-- INFERNO CANNON -->
-    <Verse.ThingDef ParentName="BaseGun_Other">
+    <ThingDef ParentName="BaseGun_Other">
         <defName>Gun_InfernoCannon</defName>
         <label>Mech. Inferno Cannon</label>
         <description>Incendiary-shot mini-artillery device. Mechanoid-built.</description>
@@ -157,14 +157,20 @@
                 <verbClass>CombatExtended.Verb_ShootCE</verbClass>
                 <hasStandardCommand>true</hasStandardCommand>
                 <defaultProjectile>Bullet_80x256mmFuel_Thermobaric</defaultProjectile>
+				<ai_IsBuildingDestroyer>true</ai_IsBuildingDestroyer>
+                <ai_AvoidFriendlyFireRadius>5</ai_AvoidFriendlyFireRadius>
                 <warmupTime>3.5</warmupTime>
 				<!--<forcedMissRadius>5</forcedMissRadius>-->
 				<circularError>1.5</circularError>
-                <range>86</range>
+                <range>75</range>
                 <burstShotCount>1</burstShotCount>
                 <soundCast>InfernoCannon_Fire</soundCast>
                 <soundCastTail>GunTail_Light</soundCastTail>
                 <muzzleFlashScale>14</muzzleFlashScale>
+                <targetParams>
+                    <canTargetLocations>true</canTargetLocations>
+                </targetParams>
+				<onlyManualCast>true</onlyManualCast>
             </li>
         </verbs>
         <comps>
@@ -177,7 +183,7 @@
                 <ammoSet>AmmoSet_80x256mmFuel</ammoSet>
             </li>
         </comps>
-    </Verse.ThingDef>
+    </ThingDef>
 	
 	<!-- LASER PULSER -->
     <ThingDef ParentName="BaseGun_Other">
@@ -219,7 +225,7 @@
                 <defaultProjectile>Bullet_Laserbeam</defaultProjectile>
                 <warmupTime>1.0</warmupTime>
                 <range>59</range>
-                <ticksBetweenBurstShots>15</ticksBetweenBurstShots>
+                <ticksBetweenBurstShots>35</ticksBetweenBurstShots>
                 <burstShotCount>3</burstShotCount>
                 <soundCast>LaserBeam</soundCast>
                 <soundCastTail>GunTail_Medium</soundCastTail>
@@ -278,7 +284,7 @@
                 <hasStandardCommand>true</hasStandardCommand>
                 <defaultProjectile>Bullet_Laserbeam</defaultProjectile>
                 <warmupTime>0.90</warmupTime>
-                <ticksBetweenBurstShots>15</ticksBetweenBurstShots>
+                <ticksBetweenBurstShots>35</ticksBetweenBurstShots>
                 <burstShotCount>6</burstShotCount>
                 <range>55</range>
                 <soundCast>ShotLaser</soundCast>
@@ -393,11 +399,11 @@
         </thingCategories>
         <verbs>
             <li Class="CombatExtended.VerbPropertiesCE">
-                <recoilAmount>1.35</recoilAmount>
+                <recoilAmount>1.75</recoilAmount>
                 <verbClass>CombatExtended.Verb_ShootCE</verbClass>
                 <hasStandardCommand>true</hasStandardCommand>
                 <defaultProjectile>Bullet_15x65mmDiffusingCharged_Buck</defaultProjectile>
-                <ticksBetweenBurstShots>5</ticksBetweenBurstShots>
+                <ticksBetweenBurstShots>42</ticksBetweenBurstShots>
                 <warmupTime>0.75</warmupTime>
                 <range>45</range>
                 <burstShotCount>3</burstShotCount>
@@ -418,10 +424,9 @@
             </li>
         </comps>
     </ThingDef>
-	
-	
+
     <!-- RAILGUN -->
-    <Verse.ThingDef ParentName="BaseGun_Other">
+    <ThingDef ParentName="BaseGun_Other">
         <defName>Gun_ChargeLance</defName>
         <label>Extraterrestrial Railgun</label>
         <description>Charged-shot rail-assisted lance weapon. Fires a single charged shot at high velocity.</description>
@@ -475,6 +480,63 @@
                 <ammoSet>AmmoSet_RailRay</ammoSet>
             </li>
         </comps>
-    </Verse.ThingDef>
-	
+    </ThingDef>
+
+    <!-- Needlegun -->
+    <ThingDef ParentName="BaseGun_Other">
+        <defName>Gun_Needle</defName>
+        <label>needle gun</label>
+        <description>A long-range weapon used by mechanoids. Named after its needle-like projectiles, it fires single shots with great accuracy. While it does less damage than charge weapons, it can reach over very long distances.</description>
+        <graphicData>
+            <texPath>Things/Weapons/Mechanoid/NeedleGun</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+        </graphicData>
+        <statBases>
+            <MaxHitPoints>500</MaxHitPoints>
+            <MarketValue>1400</MarketValue>
+            <SightsEfficiency>1.7</SightsEfficiency>
+            <ShotSpread>0.01</ShotSpread>
+            <SwayFactor>1.5</SwayFactor>
+            <RangedWeapon_Cooldown>1.8</RangedWeapon_Cooldown>
+            <Bulk>12.3</Bulk>
+            <Mass>7.8</Mass>
+        </statBases>
+        <soundInteract>Interact_ChargeRifle</soundInteract>
+        <tradeability>None</tradeability>
+        <techLevel>Spacer</techLevel>
+        <destroyOnDrop>True</destroyOnDrop>
+        <menuHidden>True</menuHidden>
+        <weaponTags>
+            <li>Mneedle</li>
+	    <li>MechanoidGunLongRange</li>
+            <li>CE_AI_Rifle</li>
+        </weaponTags>
+        <thingCategories>
+            <li>Futuristic</li>
+        </thingCategories>
+        <verbs>
+            <li Class="CombatExtended.VerbPropertiesCE">
+                <verbClass>CombatExtended.Verb_ShootCE</verbClass>
+                <hasStandardCommand>true</hasStandardCommand>
+                <defaultProjectile>Bullet_9x44mmCharged</defaultProjectile>
+                <warmupTime>2</warmupTime>
+                <range>68</range>
+                <burstShotCount>1</burstShotCount>
+                <soundCast>Shot_NeedleGun</soundCast>
+                <soundCastTail>GunTail_Heavy</soundCastTail>
+                <muzzleFlashScale>9</muzzleFlashScale>
+            </li>
+        </verbs>
+        <comps>
+            <li Class="CombatExtended.CompProperties_FireModes">
+                <aiAimMode>AimedShot</aiAimMode>
+            </li>
+            <li Class="CombatExtended.CompProperties_AmmoUser">
+                <magazineSize>3</magazineSize>
+                <reloadTime>2.5</reloadTime>
+                <ammoSet>AmmoSet_9x44mmCharged</ammoSet>
+            </li>
+        </comps>
+    </ThingDef>
+
 </Defs>

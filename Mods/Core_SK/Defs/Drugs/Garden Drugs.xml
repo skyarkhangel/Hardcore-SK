@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <Defs>
-
-
 	<ThingDef ParentName="VG_MakeableDrugBase">
 		<defName>VG_Ibuprofen</defName>
 		<label>Painstopper</label>
@@ -43,17 +41,14 @@
 			<li Class="CompProperties_Drug">
 				<addictiveness>0</addictiveness>
 				<listOrder>1000</listOrder>
-				<overdoseSeverityOffset>
-					<min>0.08</min>
-					<max>0.14</max>
-				</overdoseSeverityOffset>
+				<overdoseSeverityOffset>0.08~0.14</overdoseSeverityOffset>
 			</li>
 		</comps>
-	</ThingDef>  
-
+	</ThingDef>
 	<HediffDef>
 		<defName>IbuprofenHigh</defName>
-		<hediffClass>HediffWithComps</hediffClass>
+		<description>Pain reduced by ibuprofen</description>
+		<hediffClass>Hediff_High</hediffClass>
 		<label>Ibuprofen</label>
 		<defaultLabelColor>(1,0,0.5)</defaultLabelColor>
 		<scenarioCanAdd>true</scenarioCanAdd>
@@ -62,6 +57,7 @@
 		<comps>
 			<li Class="HediffCompProperties_SeverityPerDay">
 				<severityPerDay>-0.3</severityPerDay>
+				<showDaysToRecover>true</showDaysToRecover>
 			</li>
 		</comps>
 		<stages>
@@ -72,40 +68,141 @@
 			</li>
 		</stages>
 	</HediffDef>
-
-	<RecipeDef>
-		<defName>VG_BulkIbuprofen</defName>
-		<label>make four Ibuprofen</label>
-		<description>Make bulk Ibuprofen from Neutroamine.</description>
-		<jobString>Crafting Ibuprofen.</jobString>
-		<workSpeedStat>DrugSynthesisSpeed</workSpeedStat>
-		<workSkill>Medicine</workSkill>
-		<workAmount>3000</workAmount>
-		<ingredients>
-			<li>
-				<filter>
-					<thingDefs>
-						<li>Neutroamine</li>
-					</thingDefs>
-				</filter>
-				<count>4</count>
+	
+	
+	
+	<ThingDef ParentName="VG_MakeableDrugBase">
+		<defName>Berserk_herb</defName>
+		<label>Berserk herb</label>
+		<description>Heavy drug for blocking pain, usually uses at fight.</description>
+		<graphicData>
+			<texPath>Things/Item/Drug/Berserk</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<rotatable>false</rotatable>
+		<statBases>
+			<WorkToMake>200</WorkToMake>
+			<MarketValue>13</MarketValue>
+			<Mass>0.1</Mass>
+			<Bulk>0.1</Bulk>
+			<Nutrition>0.01</Nutrition>
+		</statBases>
+		<techLevel>Neolithic</techLevel>
+		<ingestible>
+			<foodType>Plant, Processed</foodType>
+			<maxNumToIngestAtOnce>1</maxNumToIngestAtOnce>
+			<drugCategory>Medical</drugCategory>
+			<preferability>NeverForNutrition</preferability>
+			<ingestEffect>Smoke_Joint</ingestEffect>
+			<ingestHoldOffsetStanding>
+				<northDefault>
+					<offset>(0.27,0,0.08)</offset>
+					<behind>true</behind>
+				</northDefault>
+				<east>
+					<offset>(0.45,0,0.08)</offset>
+				</east>
+				<south>
+					<offset>(0.27,0,0.08)</offset>
+				</south>
+				<west>
+					<offset>(-0.50,0,0.08)</offset>
+					<flip>true</flip>
+				</west>
+			</ingestHoldOffsetStanding>
+			<ingestCommandString>Smoke {0}</ingestCommandString>
+			<ingestReportString>Smoking {0}.</ingestReportString>
+			<ingestReportStringEat>Consuming {0}.</ingestReportStringEat>
+			<useEatingSpeedStat>false</useEatingSpeedStat>
+			<outcomeDoers>
+				<li Class="IngestionOutcomeDoer_GiveHediff">
+					<hediffDef>Berserk_herb_high</hediffDef>
+					<severity>0.7</severity>
+				</li>
+			</outcomeDoers>
+		</ingestible>
+		<recipeMaker>
+			<recipeUsers>
+				<li>CraftingSpot</li>
+				<li>DrugLab</li>
+			</recipeUsers>
+		</recipeMaker>
+		<costList>
+			<MedicineHerbal>3</MedicineHerbal>
+			<PsychoidLeaves>3</PsychoidLeaves>
+		</costList>
+		<comps>
+			<li Class="CompProperties_Drug">
+				<addictiveness>0</addictiveness>
+				<isCombatEnhancingDrug>true</isCombatEnhancingDrug>
+				<listOrder>1000</listOrder>
+				<overdoseSeverityOffset>0.08~0.14</overdoseSeverityOffset>
 			</li>
-		</ingredients>
-		<fixedIngredientFilter>
-			<thingDefs>
-				<li>Neutroamine</li>
-			</thingDefs>
-		</fixedIngredientFilter>
-		<products>
-			<VG_Ibuprofen>4</VG_Ibuprofen>
-		</products>
-		<skillRequirements>
-			<Medicine>10</Medicine>
-		</skillRequirements>	
-		<recipeUsers>
-			<li>DrugLab</li>
-		</recipeUsers>
-		<researchPrerequisite>SK_MedicineIII</researchPrerequisite>
-	</RecipeDef>
-
+		</comps>
+	</ThingDef>
+	<HediffDef>
+		<defName>Berserk_herb_high</defName>
+		<description>Berserk herb</description>
+		<hediffClass>Hediff_High</hediffClass>
+		<label>Berserk herb</label>
+		<defaultLabelColor>(1,0.5,0)</defaultLabelColor>
+		<scenarioCanAdd>true</scenarioCanAdd>
+		<maxSeverity>1.0</maxSeverity>
+		<isBad>false</isBad>
+		<comps>
+			<li Class="HediffCompProperties_SeverityPerDay">
+				<severityPerDay>-0.6</severityPerDay>
+				<showDaysToRecover>true</showDaysToRecover>
+			</li>
+		</comps>
+		<stages>
+			<li>
+				<minSeverity>0.01</minSeverity>
+				<label>Berserk herb high</label>
+				<painFactor>0.67</painFactor>
+				<statOffsets>
+					<Suppressability>-0.25</Suppressability>
+				</statOffsets>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<offset>0.15</offset>
+					</li>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>0.15</offset>
+					</li>
+				</capMods>
+			</li>
+			<li>
+				<minSeverity>0.72</minSeverity>
+				<label>Berserk dangerous high</label>
+				<painFactor>0.5</painFactor>
+				<statOffsets>
+					<Suppressability>-0.5</Suppressability>
+				</statOffsets>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<offset>0.3</offset>
+					</li>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>0.3</offset>
+					</li>
+				</capMods>
+				<hediffGivers>
+					<li Class="HediffGiver_Random">
+						<hediff>HeartAttack</hediff>
+						<allowOnLodgers>false</allowOnLodgers>
+						<allowOnQuestRewardPawns>false</allowOnQuestRewardPawns>
+						<mtbDays>0.2</mtbDays>
+						<partsToAffect>
+							<li>Heart</li>
+						</partsToAffect>
+					</li>
+				</hediffGivers>
+			</li>
+		</stages>
+	</HediffDef>
 </Defs>

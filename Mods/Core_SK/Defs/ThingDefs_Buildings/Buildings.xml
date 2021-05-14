@@ -17,19 +17,15 @@
 		<damageMultipliers>
 			<li>
 				<damageDef>Bomb</damageDef>
-				<multiplier>1.3</multiplier>
+				<multiplier>1.0</multiplier>
 			</li>
 			<li>
 				<damageDef>Thermobaric</damageDef>
-				<multiplier>1.8</multiplier>
+				<multiplier>1.2</multiplier>
 			</li>
 			<li>
 				<damageDef>Bullet</damageDef>
 				<multiplier>0.5</multiplier>
-			</li>
-			<li>
-				<damageDef>Fragment</damageDef>
-				<multiplier>0.3</multiplier>
 			</li>
 			<li>
 				<damageDef>Dart</damageDef>
@@ -56,16 +52,8 @@
 				<multiplier>0.1</multiplier>
 			</li>
 			<li>
-				<damageDef>ArmorPiercing</damageDef>
-				<multiplier>0.8</multiplier>
-			</li>
-			<li>
 				<damageDef>LaserBurn</damageDef>
 				<multiplier>1.0</multiplier>
-			</li>
-			<li>
-				<damageDef>AntiMateriel</damageDef>
-				<multiplier>1.5</multiplier>
 			</li>
 			<li>
 				<damageDef>Optic</damageDef>
@@ -81,11 +69,11 @@
 			</li>
 			<li>
 				<damageDef>Blunt</damageDef>
-				<multiplier>0.7</multiplier>
+				<multiplier>1.2</multiplier>
 			</li>
 			<li>
 				<damageDef>Cut</damageDef>
-				<multiplier>0.55</multiplier>
+				<multiplier>0.7</multiplier>
 			</li>
 			<li>
 				<damageDef>Bite</damageDef>
@@ -113,6 +101,11 @@
 	<ThingDef Name="BenchBaseNoShadows" ParentName="SK_BuildingBase" Abstract="True">
 		<castEdgeShadows>false</castEdgeShadows>
 		<canOverlapZones>false</canOverlapZones>
+		<building>
+			<buildingTags>
+				<li>Production</li>
+			</buildingTags>
+		</building>
 	</ThingDef>
 
 	<ThingDef Name="SK_BenchBase" ParentName="BenchBaseNoShadows" Abstract="True">
@@ -142,8 +135,9 @@
 		</graphicData>
 		<building>
 			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
-			<workSpeedPenaltyOutdoors>true</workSpeedPenaltyOutdoors>
-			<workSpeedPenaltyTemperature>true</workSpeedPenaltyTemperature>
+			<buildingTags>
+				<li>Production</li>
+			</buildingTags>
 		</building>
 		<surfaceType>Item</surfaceType>
 		<size>(1,1)</size>
@@ -153,13 +147,9 @@
 		<inspectorTabs>
 			<li>ITab_Bills</li>
 		</inspectorTabs>
-	</ThingDef>
-
-	<!-- Outdoors Worktable Base -->
-	<ThingDef Name="BuildingBaseOutside" ParentName="WorkTable" Abstract="True">
-		<building>
-			<workSpeedPenaltyOutdoors>false</workSpeedPenaltyOutdoors>
-		</building>
+		<placeWorkers>
+			<li>PlaceWorker_PreventInteractionSpotOverlap</li>
+		</placeWorkers>
 	</ThingDef>
 
 	<ThingDef Name="BuildingFueled" ParentName="WorkTable" Abstract="True">
@@ -211,6 +201,9 @@
 		<size>(1,1)</size>
 		<canOverlapZones>false</canOverlapZones>
 		<minifiedDef>MinifiedThing</minifiedDef>
+		<building>
+			<uninstallWork>700</uninstallWork>
+		</building>
 		<thingCategories>
 			<li>BuildingsProduction</li>
 		</thingCategories>
@@ -223,10 +216,6 @@
 	</ThingDef>
 
 	<ThingDef Name="ResearchBase" ParentName="StandartBuilding" Abstract="True">
-		<building>
-			<workSpeedPenaltyOutdoors>true</workSpeedPenaltyOutdoors>
-			<workSpeedPenaltyTemperature>true</workSpeedPenaltyTemperature>
-		</building>
 		<canOverlapZones>false</canOverlapZones>
 		<surfaceType>Item</surfaceType>
 		<hasInteractionCell>true</hasInteractionCell>
@@ -250,6 +239,9 @@
 		</statBases>
 		<designationCategory>Furniture</designationCategory>
 		<minifiedDef>MinifiedThing</minifiedDef>
+		<building>
+			<uninstallWork>700</uninstallWork>
+		</building>
 		<thingCategories>
 			<li>BuildingsFurniture</li>
 		</thingCategories>
@@ -275,5 +267,33 @@
 			<li>ITab_Art</li>
 		</inspectorTabs>
 	</ThingDef>
+
+	<ThingDef Name="SK_ArtableFurnitureRegardlessOfQualityBase" ParentName="SK_FurnitureWithQualityBase" Abstract="True">
+		<comps>
+			<li Class="CompProperties_Art">
+				<nameMaker>NamerArtFurniture</nameMaker>
+				<descriptionMaker>ArtDescription_Furniture</descriptionMaker>
+				<minQualityForArtistic>Awful</minQualityForArtistic>
+			</li>
+		</comps>
+		<inspectorTabs>
+			<li>ITab_Art</li>
+		</inspectorTabs>
+	</ThingDef>
+
+
+
+<ThingDef Name="UniversalFermenterBase" ParentName="StandartBuilding" Abstract="True">
+        <thingClass>UniversalFermenter.Building_UF</thingClass>
+        <tickerType>Normal</tickerType>
+        <graphicData>
+            <graphicClass>Graphic_Single</graphicClass>
+        </graphicData>
+        <inspectorTabs>
+            <li>UniversalFermenter.ITab_UFBills</li>
+            <li>UniversalFermenter.ITab_UFContents</li>
+        </inspectorTabs>
+    </ThingDef>
+
 
 </Defs>

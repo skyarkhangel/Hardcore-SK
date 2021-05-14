@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
 	<ThingDef ParentName="WorkTableFueled">
@@ -9,7 +9,7 @@
 			<texPath>Things/Building/Production/FoodStuff/grill</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
 			<shaderType>CutoutComplex</shaderType>
-			<drawSize>(2,2)</drawSize>
+			<drawSize>(1,1)</drawSize>
 			<shadowData>
 				<volume>(0.85, 0.5, 0.85)</volume>
 				<offset>(0,0,-0.1)</offset>
@@ -22,34 +22,26 @@
 			</damageData>
 		</graphicData>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>RuggedMetallic</li>
 		</stuffCategories>
-		<costStuffCount>25</costStuffCount>
+		<costStuffCount>35</costStuffCount>
 		<costList>
-			<ComponentIndustrial>4</ComponentIndustrial>
+			<ComponentMedieval>4</ComponentMedieval>
 		</costList>
 		<statBases>
-			<WorkToBuild>1200</WorkToBuild>
+			<WorkToBuild>800</WorkToBuild>
 			<MaxHitPoints>110</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<WorkTableWorkSpeedFactor>0.8</WorkTableWorkSpeedFactor>
 			<Mass>3</Mass>
 		</statBases>
 		<size>(1,1)</size>
+		<fillPercent>0.3</fillPercent>
 		<minifiedDef>MinifiedThing</minifiedDef>
 		<thingCategories>
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<designationCategory>Production</designationCategory>
-		<recipes>
-			<li>CookRoastedMeat</li>
-			<li>MakeVegetables</li>
-			<li>MakeRoastwMushrooms</li>
-			<li>Make_Pemmican</li>
-			<li>MakeBurgerCheese</li>
-			<li>MakeCheeseGrilled</li>
-			<li>BakePotato</li>
-		</recipes>
 		<comps>
 			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_AffectedByFacilities">
@@ -57,8 +49,8 @@
 					<li>CookingTools</li>
 				</linkableFacilities>
 			</li>
-			<li Class="SK.CompProperties_HeatPusherExt">
-				<compClass>SK.CompHeatPusherExt</compClass>
+			<li Class="SK.CompProperties_HeatPusherAdvanced">
+				<compClass>SK.CompHeatPusherAdvanced</compClass>
 				<heatPerSecond>14</heatPerSecond>
 				<heatPushMaxTemperature>18</heatPushMaxTemperature>
 			</li>
@@ -68,12 +60,15 @@
 			</li>
 			<li Class="SK.CompFueled_Properties">
 				<operatingTemp>400</operatingTemp>
-				<fireDrawOffset>(0,0,0.1)</fireDrawOffset>
+				<fireDrawOffset>(0,0,0)</fireDrawOffset>
 				<smokeDrawOffset>(0,0,0.1)</smokeDrawOffset>
 				<fuelDrawOffset>(0,0,0.01)</fuelDrawOffset>
 				<fuelDrawScale>0.7</fuelDrawScale>
 				<fuelCapacity>10</fuelCapacity>
+				<burnFuelMultiplier>1.3</burnFuelMultiplier>
 				<effectOnWeather>true</effectOnWeather>
+				<smokeEnabled>true</smokeEnabled>
+				<smokeDensity>1</smokeDensity>
 				<fuelFilter>
 					<thingDefs>
 						<li>Charcoal</li>
@@ -95,6 +90,7 @@
 		</placeWorkers>
 		<building>
 			<isMealSource>true</isMealSource>
+			<uninstallWork>350</uninstallWork>
 		</building>
 		<researchPrerequisites>
 			<li>SK_Technology</li>
@@ -111,10 +107,6 @@
 			<texPath>Things/Building/Production/ButcherStuff/CuttingPlace</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<drawSize>(1,1)</drawSize>
-			<shadowData>
-				<volume>(0.85, 0.5, 0.85)</volume>
-				<offset>(0,0,-0.1)</offset>
-			</shadowData>
 			<damageData>
 				<cornerTL>Damage/Corner</cornerTL>
 				<cornerTR>Damage/Corner</cornerTR>
@@ -128,8 +120,9 @@
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>400</WorkToBuild>
+			<WorkToBuild>300</WorkToBuild>
 			<WorkTableWorkSpeedFactor>0.7</WorkTableWorkSpeedFactor>
+			<WorkTableEfficiencyFactor>0.7</WorkTableEfficiencyFactor>
 			<Mass>1</Mass>
 		</statBases>
 		<scatterableOnMapGen>false</scatterableOnMapGen>
@@ -138,15 +131,19 @@
 		<designationCategory>Production</designationCategory>
 		<passability>Standable</passability>
 		<building>
+			<uninstallWork>150</uninstallWork>
 			<sowTag>SupportPlantsOnly</sowTag>
 			<canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
 			<ai_chillDestination>false</ai_chillDestination>
+			<artificialForMeditationPurposes>false</artificialForMeditationPurposes>
+			<buildingTags>
+				<li>Production</li>
+			</buildingTags>
 		</building>
 		<recipes>
 			<li>ButcherCorpseFlesh</li>
 			<li>MakeHerbMedicine</li>
 			<li>Make_Kibble</li>
-			<li>CookMealSalad</li>
 		</recipes>
 		<comps>
 			<li Class="CompProperties_AffectedByFacilities">
@@ -154,11 +151,15 @@
 					<li>CookingTools</li>
 				</linkableFacilities>
 			</li>
+			<li>
+				<compClass>CompReportWorkSpeed</compClass>
+			</li>
 		</comps>
 		<placeWorkers>
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
+			<li>PlaceWorker_ReportWorkSpeedPenalties</li>
 		</placeWorkers>
-	</ThingDef>	
+	</ThingDef>
 
 	<ThingDef ParentName="WorkTable">
 		<defName>TableButcher</defName>
@@ -181,21 +182,20 @@
 			</damageData>
 		</graphicData>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>Woody</li>
 			<li>Stony</li>
 			<li>Bricks</li>
 		</stuffCategories>
-		<costStuffCount>65</costStuffCount>
+		<costStuffCount>60</costStuffCount>
 		<costList>
-			<ComponentIndustrial>6</ComponentIndustrial>
-			<Mechanism>2</Mechanism>
+			<ComponentMedieval>8</ComponentMedieval>
 		</costList>
 		<minifiedDef>MinifiedThing</minifiedDef>
 		<thingCategories>
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>1100</WorkToBuild>
+			<WorkToBuild>800</WorkToBuild>
 			<MaxHitPoints>140</MaxHitPoints>
 			<Flammability>0</Flammability>
 			<Mass>500</Mass>
@@ -203,11 +203,13 @@
 		<size>(1,1)</size>
 		<designationCategory>Production</designationCategory>
 		<pathCost>60</pathCost>
+		<building>
+			<uninstallWork>650</uninstallWork>
+		</building>
 		<recipes>
 			<li>ButcherCorpseFlesh</li>
 			<li>MakeHerbMedicine</li>
 			<li>Make_Kibble</li>
-			<li>CookMealSalad</li>
 		</recipes>
 		<comps>
 			<li Class="CompProperties_AffectedByFacilities">
@@ -217,9 +219,6 @@
 			</li>
 		</comps>
 		<designationHotKey>Misc1</designationHotKey>
-		<placeWorkers>
-			<li>PlaceWorker_ShowFacilitiesConnections</li>
-		</placeWorkers>
 		<researchPrerequisites>
 			<li>SK_Agriculture</li>
 		</researchPrerequisites>
@@ -234,7 +233,7 @@
 			<texPath>Things/Building/Production/ButcherStuff/CuttingBench</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
 			<shaderType>CutoutComplex</shaderType>
-			<drawSize>(4,2)</drawSize>
+			<drawSize>(3,1)</drawSize>
 			<shadowData>
 				<volume>(2.8, 1.0, 0.85)</volume>
 				<offset>(0,0,0)</offset>
@@ -247,12 +246,12 @@
 			</damageData>
 		</graphicData>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>StrongMetallic</li>
 			<li>Woody</li>
 		</stuffCategories>
-		<costStuffCount>70</costStuffCount>
+		<costStuffCount>115</costStuffCount>
 		<costList>
-			<ComponentIndustrial>8</ComponentIndustrial>
+			<ComponentMedieval>8</ComponentMedieval>
 			<Mechanism>2</Mechanism>
 		</costList>
 		<fillPercent>0.5</fillPercent>
@@ -261,7 +260,7 @@
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>1100</WorkToBuild>
+			<WorkToBuild>800</WorkToBuild>
 			<MaxHitPoints>140</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Mass>500</Mass>
@@ -270,15 +269,16 @@
 		<designationCategory>Production</designationCategory>
 		<pathCost>60</pathCost>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
+		<building>
+			<uninstallWork>1150</uninstallWork>
+		</building>
 		<recipes>
 			<li>ButcherCorpseFlesh</li>
 			<li>MakeHerbMedicine</li>
 			<li>MakeTofu</li>
+			<li>Makecheese</li>
 			<li>Makesoymilk</li>
 			<li>Make_Kibble</li>
-			<li>CookMealSalad</li>
-			<li>MakeSaladwMushrooms</li>
-			<li>Makecheese</li>
 			<li>MakeFruitYogurt</li>
 			<li>MakeFruitDrink</li>
 			<li>HalfCoconut</li>
@@ -312,7 +312,7 @@
 		<graphicData>
 			<texPath>Things/Building/Production/FoodStuff/Stove</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
-			<drawSize>(3.1,1.9)</drawSize>
+			<drawSize>(2,1)</drawSize>
 			<shaderType>CutoutComplex</shaderType>
 			<shadowData>
 				<volume>(1.7, 0.5, 0.7)</volume>
@@ -326,15 +326,15 @@
 			</damageData>
 		</graphicData>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>StrongMetallic</li>
 		</stuffCategories>
-		<costStuffCount>95</costStuffCount>
+		<costStuffCount>125</costStuffCount>
 		<costList>
-			<ComponentIndustrial>10</ComponentIndustrial>
+			<ComponentMedieval>10</ComponentMedieval>
 			<Mechanism>5</Mechanism>
 		</costList>
 		<statBases>
-			<WorkToBuild>2000</WorkToBuild>
+			<WorkToBuild>1200</WorkToBuild>
 			<MaxHitPoints>180</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<WorkTableWorkSpeedFactor>0.9</WorkTableWorkSpeedFactor>
@@ -342,20 +342,7 @@
 		<size>(2,1)</size>
 		<designationCategory>Production</designationCategory>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
-		<recipes>
-			<li>CookRoastedMeat</li>
-			<li>MakeVegetables</li>
-			<li>MakeBurgerCheese</li>
-			<li>MakeCheeseGrilled</li>
-			<li>CookMealSimple</li>
-			<li>CookMealFine</li>
-			<li>CookMealLavish</li>
-			<li>CookMealLuxury</li>
-			<li>MakeStewMushrooms</li>
-			<li>MakeRoastwMushrooms</li>
-			<li>Make_Pemmican</li>
-			<li>BakePotato</li>
-		</recipes>
+		<fillPercent>0.6</fillPercent>
 		<comps>
 			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_AffectedByFacilities">
@@ -363,8 +350,8 @@
 					<li>CookingTools</li>
 				</linkableFacilities>
 			</li>
-			<li Class="SK.CompProperties_HeatPusherExt">
-				<compClass>SK.CompHeatPusherExt</compClass>
+			<li Class="SK.CompProperties_HeatPusherAdvanced">
+				<compClass>SK.CompHeatPusherAdvanced</compClass>
 				<heatPerSecond>17</heatPerSecond>
 				<heatPushMaxTemperature>25</heatPushMaxTemperature>
 			</li>
@@ -373,22 +360,26 @@
 				<glowColor>(217,112,33,0)</glowColor>
 			</li>
 			<li Class="SK.CompFueled_Properties">
-				<operatingTemp>400</operatingTemp>
+				<operatingTemp>300</operatingTemp>
 				<fireDrawOffset>(0,0,0.1)</fireDrawOffset>
 				<smokeDrawOffset>(0,0,0.1)</smokeDrawOffset>
 				<fuelDrawOffset>(0,0,0.01)</fuelDrawOffset>
 				<fuelDrawScale>0.7</fuelDrawScale>
 				<fuelCapacity>30</fuelCapacity>
+				<burnFuelMultiplier>0.9</burnFuelMultiplier>
 				<effectOnWeather>true</effectOnWeather>
+				<smokeEnabled>true</smokeEnabled>
+				<smokeDensity>1</smokeDensity>
 				<fuelFilter>
 					<thingDefs>
 						<li>Charcoal</li>
 						<li>Coal</li>
 						<li>Kindling</li>
+						<li>Tallow</li>
 					</thingDefs>
 					<categories>
 						<li>Wooden</li>
-					</categories>  
+					</categories>
 				</fuelFilter>
 			</li>
 			<li>
@@ -415,7 +406,7 @@
 		<graphicData>
 			<texPath>Things/Building/Production/FoodStuff/oven</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
-			<drawSize>(3.1,1.9)</drawSize>
+			<drawSize>(2,2)</drawSize>
 			<shaderType>CutoutComplex</shaderType>
 			<shadowData>
 				<volume>(1.7, 0.5, 0.7)</volume>
@@ -432,22 +423,23 @@
 			<li>Stony</li>
 			<li>Bricks</li>
 		</stuffCategories>
-		<costStuffCount>130</costStuffCount>
+		<costStuffCount>170</costStuffCount>
 		<costList>
-			<ComponentIndustrial>5</ComponentIndustrial>
+			<ComponentMedieval>5</ComponentMedieval>
 		</costList>
 		<minifiedDef>MinifiedThing</minifiedDef>
+		<fillPercent>0.6</fillPercent>
 		<thingCategories>
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>3000</WorkToBuild>
+			<WorkToBuild>2000</WorkToBuild>
 			<MaxHitPoints>280</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<WorkTableWorkSpeedFactor>0.7</WorkTableWorkSpeedFactor>
 			<Mass>500</Mass>
 		</statBases>
-		<size>(2,1)</size>
+		<size>(2,2)</size>
 		<designationCategory>Production</designationCategory>
 		<interactionCellOffset>(1,0,-1)</interactionCellOffset>
 		<recipes>
@@ -473,8 +465,8 @@
 					<li>CookingTools</li>
 				</linkableFacilities>
 			</li>
-			<li Class="SK.CompProperties_HeatPusherExt">
-				<compClass>SK.CompHeatPusherExt</compClass>
+			<li Class="SK.CompProperties_HeatPusherAdvanced">
+				<compClass>SK.CompHeatPusherAdvanced</compClass>
 				<heatPerSecond>18</heatPerSecond>
 				<heatPushMaxTemperature>24</heatPushMaxTemperature>
 			</li>
@@ -489,7 +481,10 @@
 				<fuelDrawOffset>(0,0,0.01)</fuelDrawOffset>
 				<fuelDrawScale>0.7</fuelDrawScale>
 				<fuelCapacity>30</fuelCapacity>
+				<burnFuelMultiplier>0.85</burnFuelMultiplier>
 				<effectOnWeather>true</effectOnWeather>
+				<smokeEnabled>true</smokeEnabled>
+				<smokeDensity>2</smokeDensity>
 				<fuelFilter>
 					<thingDefs>
 						<li>Charcoal</li>
@@ -512,11 +507,107 @@
 		<building>
 			<isMealSource>true</isMealSource>
 			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+			<uninstallWork>1250</uninstallWork>
 		</building>
 		<researchPrerequisites>
 			<li>SK_Craftsmanship</li>
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+	</ThingDef>
+	
+	<ThingDef ParentName="WorkTable">
+		<defName>ElectricOven</defName>
+		<label>electric oven</label>
+		<thingClass>SK.Building_WorkTable_HeatPushAdvanced</thingClass>
+		<description>An electric powered oven for baking things. Requires power.</description>
+		<graphicData>
+			<texPath>Things/Building/Production/FoodStuff/ElectricOven</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<shaderType>CutoutComplex</shaderType>
+			<drawSize>(1,1)</drawSize>
+			<shadowData>
+				<volume>(0.85, 1.0, 0.85)</volume>
+				<offset>(0,0,0)</offset>
+			</shadowData>
+			<damageData>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+			</damageData>
+		</graphicData>
+		<stuffCategories>
+			<li>StrongMetallic</li>
+		</stuffCategories>
+		<costStuffCount>100</costStuffCount>
+		<costList>
+			<ComponentIndustrial>10</ComponentIndustrial>
+			<ElectronicComponents>3</ElectronicComponents>
+			<Mechanism>3</Mechanism>
+		</costList>
+		<statBases>
+			<WorkToBuild>1600</WorkToBuild>
+			<MaxHitPoints>150</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<WorkTableWorkSpeedFactor>1.1</WorkTableWorkSpeedFactor>
+		</statBases>
+		<size>(1,1)</size>
+		<designationCategory>Production</designationCategory>
+		<recipes>
+			<li>MeltSugar</li>
+			<li>MakeCaramel</li>
+			<li>MakeTaffy</li>
+			<li>MakeCookies</li>
+			<li>MakeBread</li>
+			<li>MakePieBlueberry</li>
+			<li>MakeSweetBun</li>
+			<li>MakePizza</li>
+			<li>BakeCornbreadmuffin</li>
+			<li>BakeCornbread</li>
+			<li>MakeBasicCannedFood</li>
+			<li>MakeExtraCannedFood</li>
+			<li>MakeMetalCannedMeat_raw</li>
+			<li>MakeMetalCannedMeat_prime</li>
+		</recipes>
+		<tickerType>Normal</tickerType>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<shortCircuitInRain>true</shortCircuitInRain>
+				<basePowerConsumption>400</basePowerConsumption>
+			</li>
+			<li Class="SK.CompProperties_LowIdleDraw">
+				<compClass>SK.CompPowerLowIdleDraw</compClass>
+				<idlePowerFactor>0.1</idlePowerFactor>
+			</li>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusherPowered</compClass>
+				<heatPerSecond>4</heatPerSecond>
+				<heatPushMaxTemperature>35</heatPushMaxTemperature>
+			</li>
+			<li Class="CompProperties_AffectedByFacilities">
+				<linkableFacilities>
+					<li>CookingTools</li>
+				</linkableFacilities>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+			<li>
+				<compClass>CompReportWorkSpeed</compClass>
+			</li>
+		</comps>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+			<li>PlaceWorker_ReportWorkSpeedPenalties</li>
+		</placeWorkers>
+		<building>
+			<isMealSource>true</isMealSource>
+			<heatPerTickWhileWorking>0.65</heatPerTickWhileWorking>
+		</building>
+		<researchPrerequisites>
+			<li>AdvancedFabrication</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
 	</ThingDef>
 
 	<ThingDef ParentName="WorkTable">
@@ -540,9 +631,9 @@
 			</damageData>
 		</graphicData>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>StrongMetallic</li>
 		</stuffCategories>
-		<costStuffCount>95</costStuffCount>
+		<costStuffCount>135</costStuffCount>
 		<costList>
 			<ComponentIndustrial>10</ComponentIndustrial>
 			<ElectronicComponents>5</ElectronicComponents>
@@ -552,7 +643,7 @@
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>4500</WorkToBuild>
+			<WorkToBuild>3100</WorkToBuild>
 			<MaxHitPoints>220</MaxHitPoints>
 			<Flammability>0</Flammability>
 			<Mass>500</Mass>
@@ -577,7 +668,7 @@
 			</li>
 			<li Class="CompProperties_HeatPusher">
 				<compClass>CompHeatPusherPowered</compClass>
-				<heatPerSecond>10</heatPerSecond>
+				<heatPerSecond>2.5</heatPerSecond>
 				<heatPushMaxTemperature>35</heatPushMaxTemperature>
 			</li>
 			<li Class="CompProperties_AffectedByFacilities">
@@ -594,7 +685,8 @@
 			<li>PlaceWorker_ReportWorkSpeedPenalties</li>
 		</placeWorkers>
 		<building>
-			<heatPerTickWhileWorking>0.25</heatPerTickWhileWorking>
+			<heatPerTickWhileWorking>0.3</heatPerTickWhileWorking>
+			<uninstallWork>1150</uninstallWork>
 		</building>
 		<researchPrerequisites>
 			<li>Fabrication</li>
@@ -610,7 +702,7 @@
 		<graphicData>
 			<texPath>Things/Building/Production/FoodStuff/Millstone</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
-			<drawSize>(2.1,2.1)</drawSize>
+			<drawSize>(1,1)</drawSize>
 			<drawRotated>false</drawRotated>
 			<shaderType>CutoutComplex</shaderType>
 			<shadowData>
@@ -628,7 +720,76 @@
 			<li>Stony</li>
 			<li>Bricks</li>
 		</stuffCategories>
+		<costStuffCount>70</costStuffCount>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<thingCategories>
+			<li>BuildingsProduction</li>
+		</thingCategories>
+		<statBases>
+			<WorkToBuild>300</WorkToBuild>
+			<MaxHitPoints>210</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<Mass>50</Mass>
+		</statBases>
+		<size>(1,1)</size>
+		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
+		<recipes>
+			<li>MakeFlour</li>
+			<li>MakeSugar</li>
+			<li>CraftCornmeal</li>
+		</recipes>
+		<designationCategory>Production</designationCategory>
+		<building>
+			<uninstallWork>750</uninstallWork>
+		</building>
+		<comps>
+			<li Class="CompProperties_AffectedByFacilities">
+				<linkableFacilities>
+					<li>CookingTools</li>
+				</linkableFacilities>
+			</li>
+			<li>
+				<compClass>CompReportWorkSpeed</compClass>
+			</li>
+		</comps>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+			<li>PlaceWorker_ReportWorkSpeedPenalties</li>
+		</placeWorkers>
+		<constructionSkillPrerequisite>4</constructionSkillPrerequisite>
+	</ThingDef>
+	<ThingDef ParentName="WorkTable">
+		<defName>MillElectric</defName>
+		<label>Electric Mill</label>
+		<description>The electric grinding mechanism is driven by a powerful electric motor, which allows an excellent grinding throughput.</description>
+		<graphicData>
+			<texPath>Things/Building/Production/FoodStuff/MillElectric</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(1,1)</drawSize>
+			<drawRotated>false</drawRotated>
+			<shaderType>CutoutComplex</shaderType>
+			<shadowData>
+				<volume>(0.8, 0.5, 0.8)</volume>
+				<offset>(0,0,0)</offset>
+			</shadowData>
+			<damageData>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+			</damageData>
+		</graphicData>
+		<stuffCategories>
+			<li>StrongMetallic</li>
+			<li>Plastic</li>
+		</stuffCategories>
 		<costStuffCount>50</costStuffCount>
+		<costList>
+			<Rubber>45</Rubber>
+			<Glass>25</Glass>
+			<ComponentIndustrial>8</ComponentIndustrial>
+			<Mechanism>5</Mechanism>
+		</costList>
 		<minifiedDef>MinifiedThing</minifiedDef>
 		<thingCategories>
 			<li>BuildingsProduction</li>
@@ -647,11 +808,21 @@
 			<li>CraftCornmeal</li>
 		</recipes>
 		<designationCategory>Production</designationCategory>
+		<building>
+			<uninstallWork>750</uninstallWork>
+		</building>
 		<comps>
 			<li Class="CompProperties_AffectedByFacilities">
 				<linkableFacilities>
 					<li>CookingTools</li>
 				</linkableFacilities>
+			</li>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>300</basePowerConsumption>
+				<shortCircuitInRain>true</shortCircuitInRain>
+				<soundPowerOn>Power_OnSmall</soundPowerOn>
+				<soundPowerOff>Power_OffSmall</soundPowerOff>
 			</li>
 			<li>
 				<compClass>CompReportWorkSpeed</compClass>
@@ -661,9 +832,11 @@
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
 			<li>PlaceWorker_ReportWorkSpeedPenalties</li>
 		</placeWorkers>
-		<constructionSkillPrerequisite>4</constructionSkillPrerequisite>
+		<researchPrerequisites>
+			<li>SK_MachiningII</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>9</constructionSkillPrerequisite>
 	</ThingDef>
-
 	<ThingDef ParentName="StandartBuilding">
 		<defName>NutrientPasteDispenser</defName>
 		<label>nutrient paste dispenser</label>
@@ -688,17 +861,19 @@
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>6250</WorkToBuild>
+			<WorkToBuild>4150</WorkToBuild>
 			<MaxHitPoints>210</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Mass>500</Mass>
 		</statBases>
 		<description>Synthesizes nutrient paste from organic ingredients. It consumes less ingredients and time than any other meal production method, but nobody likes eating nutrient paste. Requires power.</description>
 		<building>
+			<uninstallWork>350</uninstallWork>
 			<isMealSource>true</isMealSource>
 			<wantsHopperAdjacent>true</wantsHopperAdjacent>
 			<nutritionCostPerDispense>0.8</nutritionCostPerDispense>
 			<soundDispense>DispensePaste</soundDispense>
+			<forceShowRoomStats>true</forceShowRoomStats>
 		</building>
 		<comps>
 			<li Class="CompProperties_Power">
@@ -711,14 +886,17 @@
 		</comps>
 		<size>(2,1)</size>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>StrongMetallic</li>
 		</stuffCategories>
-		<costStuffCount>105</costStuffCount>
+		<costStuffCount>125</costStuffCount>
 		<costList>
 			<Glass>50</Glass>
 			<ElectronicComponents>5</ElectronicComponents>
 			<Mechanism>5</Mechanism>
 		</costList>
+		<placeWorkers>
+			<li>PlaceWorker_PreventInteractionSpotOverlap</li>
+		</placeWorkers>
 		<socialPropernessMatters>true</socialPropernessMatters>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
 		<hasInteractionCell>true</hasInteractionCell>
@@ -743,13 +921,13 @@
 			<drawSize>(2,2)</drawSize>
 		</graphicData>
 		<statBases>
-			<WorkToBuild>450</WorkToBuild>
+			<WorkToBuild>250</WorkToBuild>
 			<MaxHitPoints>100</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Mass>30</Mass>
 		</statBases>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>StrongMetallic</li>
 		</stuffCategories>
 		<costStuffCount>20</costStuffCount>
 		<costList>
@@ -812,16 +990,16 @@
 			<li>Stony</li>
 			<li>Bricks</li>
 		</stuffCategories>
-		<costStuffCount>60</costStuffCount>
+		<costStuffCount>120</costStuffCount>
 		<costList>
-			<WoodLog>40</WoodLog>
+			<WoodLog>50</WoodLog>
 		</costList>
 		<minifiedDef>MinifiedThing</minifiedDef>
 		<thingCategories>
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>2500</WorkToBuild>
+			<WorkToBuild>1300</WorkToBuild>
 			<MaxHitPoints>180</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<WorkTableWorkSpeedFactor>0.6</WorkTableWorkSpeedFactor>
@@ -830,6 +1008,10 @@
 		<size>(2,1)</size>
 		<designationCategory>Production</designationCategory>
 		<interactionCellOffset>(1,0,-1)</interactionCellOffset>
+		<fillPercent>0.5</fillPercent>
+		<building>
+			<uninstallWork>1250</uninstallWork>
+		</building>
 		<comps>
 			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_AffectedByFacilities">
@@ -837,8 +1019,8 @@
 					<li>CookingTools</li>
 				</linkableFacilities>
 			</li>
-			<li Class="SK.CompProperties_HeatPusherExt">
-				<compClass>SK.CompHeatPusherExt</compClass>
+			<li Class="SK.CompProperties_HeatPusherAdvanced">
+				<compClass>SK.CompHeatPusherAdvanced</compClass>
 				<heatPerSecond>19</heatPerSecond>
 				<heatPushMaxTemperature>28</heatPushMaxTemperature>
 			</li>
@@ -853,7 +1035,10 @@
 				<fuelDrawOffset>(0,0,0.01)</fuelDrawOffset>
 				<fuelDrawScale>0.7</fuelDrawScale>
 				<fuelCapacity>30</fuelCapacity>
+				<burnFuelMultiplier>1</burnFuelMultiplier>
 				<effectOnWeather>true</effectOnWeather>
+				<smokeEnabled>true</smokeEnabled>
+				<smokeDensity>1</smokeDensity>
 				<fuelFilter>
 					<thingDefs>
 						<li>Charcoal</li>
@@ -862,7 +1047,7 @@
 					</thingDefs>
 					<categories>
 						<li>Wooden</li>
-					</categories>  
+					</categories>
 				</fuelFilter>
 			</li>
 			<li>
@@ -898,21 +1083,21 @@
 			</damageData>
 		</graphicData>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>StrongMetallic</li>
 			<li>Plastic</li>
 		</stuffCategories>
-		<costStuffCount>110</costStuffCount>
+		<costStuffCount>130</costStuffCount>
 		<costList>
-			<ElectronicComponents>3</ElectronicComponents>
-			<ComponentIndustrial>8</ComponentIndustrial>
-			<Mechanism>5</Mechanism>
+			<ElectronicComponents>5</ElectronicComponents>
+			<ComponentIndustrial>10</ComponentIndustrial>
+			<Mechanism>8</Mechanism>
 		</costList>
 		<minifiedDef>MinifiedThing</minifiedDef>
 		<thingCategories>
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>3750</WorkToBuild>
+			<WorkToBuild>1750</WorkToBuild>
 			<MaxHitPoints>160</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Mass>500</Mass>
@@ -921,6 +1106,7 @@
 		<designationCategory>Production</designationCategory>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
 		<building>
+			<uninstallWork>750</uninstallWork>
 			<heatPerTickWhileWorking>0.5</heatPerTickWhileWorking>
 		</building>
 		<tickerType>Normal</tickerType>
@@ -957,11 +1143,11 @@
 		<constructionSkillPrerequisite>9</constructionSkillPrerequisite>
 	</ThingDef>
 	<!-- Alcohol Fermenting Barrel -->
-	<ThingDef ParentName="StandartBuilding">
-		<defName>FermentingBarrel</defName>
+	<ThingDef ParentName="UniversalFermenterBase">
+		<!--<defName>FermentingBarrel</defName>-->
+		<defName>UniversalFermenter</defName>
 		<label>Alcohol Fermenting Barrel</label>
-		<description>A barrel of fermenting alcohol.</description>
-		<thingClass>Building</thingClass>
+		<description>A barrel for fermenting various things into other products.</description>
 		<graphicData>
 			<texPath>Things/Building/Production/DrugStuff/barrel</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
@@ -979,249 +1165,210 @@
 		<thingCategories>
 			<li>BuildingsProduction</li>
 		</thingCategories>
-		<fillPercent>0.65</fillPercent>
+		<fillPercent>0.55</fillPercent>
 		<pathCost>60</pathCost>
 		<statBases>
-			<WorkToBuild>2500</WorkToBuild>
-			<Mass>60</Mass>
+			<WorkToBuild>900</WorkToBuild>
+			<Mass>50</Mass>
 			<MaxHitPoints>100</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 		</statBases>
 		<stuffCategories>
 			<li>Woody</li>
 		</stuffCategories>
-		<costStuffCount>80</costStuffCount>
+		<costStuffCount>50</costStuffCount>
 		<costList>
-			<ComponentIndustrial>4</ComponentIndustrial>
+			<ComponentMedieval>2</ComponentMedieval>
 		</costList>
 		<size>(1,1)</size>
 		<rotatable>true</rotatable>
 		<designationCategory>Production</designationCategory>
 		<tickerType>Rare</tickerType>
+		<building>
+			<uninstallWork>150</uninstallWork>
+		</building>
 		<comps>
 			<li Class="CompProperties_Forbiddable"/>
-			<li Class="Kubouch.CompProperties_UniversalFermenter">
-				<products>
+			<li Class="UniversalFermenter.CompProperties_UniversalFermenter">
+				<showProductIcon>true</showProductIcon>
+				<barOffset>(0.0, 0.25)</barOffset>
+				<barScale>(1.0, 1.0)</barScale>
+				<slotsCount>1</slotsCount>
+				<processes>
 					<!-- Beer -->
 					<li>
-						<thingDef>Beer</thingDef>
-						<ingredientFilter>
-							<thingDefs>
-								<li>Wort</li>
-							</thingDefs>
-						</ingredientFilter>
-						<temperatureSafe>
-							<min>15</min>
-							<max>30</max>
-						</temperatureSafe>
-						<temperatureIdeal>
-							<min>20</min>
-							<max>22</max>
-						</temperatureIdeal>
-						<progressPerDegreePerTick>5</progressPerDegreePerTick>
-						<baseFermentationDuration>160000</baseFermentationDuration>
-						<maxCapacity>20</maxCapacity>
-						<speedLessThanSafe>0.5</speedLessThanSafe>
-						<speedMoreThanSafe>1</speedMoreThanSafe>
-						<efficiency>0.8</efficiency>
+						<recipeDef>Make_Beer</recipeDef>
+						<usesTemperature>true</usesTemperature>
+						<temperatureSafe>-1.0~32.0</temperatureSafe>
+						<temperatureIdeal>7.0~32.0</temperatureIdeal>
+						<ruinedPerDegreePerHour>2.5</ruinedPerDegreePerHour>
+						<!-- percent per degree per hour -->
+						<speedBelowSafe>0.1</speedBelowSafe>
+						<speedAboveSafe>1.0</speedAboveSafe>
+						<processDays>6</processDays>
+						<!-- in days, 60000 ticks is a day -->
+						<sunFactor>1.0~1.0</sunFactor>
+						<rainFactor>1.0~1.0</rainFactor>
+						<snowFactor>1.0~1.0</snowFactor>
+						<windFactor>1.0~1.0</windFactor>
+						<graphicSuffix/>
 					</li>
 					<!-- Whisky -->
 					<li>
-						<thingDef>whisky</thingDef>
-						<ingredientFilter>
-							<thingDefs>
-								<li>grainmash</li>
-							</thingDefs>
-						</ingredientFilter>
-						<temperatureSafe>
-							<min>18</min>
-							<max>35</max>
-						</temperatureSafe>
-						<temperatureIdeal>
-							<min>22</min>
-							<max>24</max>
-						</temperatureIdeal>
-						<progressPerDegreePerTick>5</progressPerDegreePerTick>
-						<baseFermentationDuration>160000</baseFermentationDuration>
-						<maxCapacity>20</maxCapacity>
-						<speedLessThanSafe>0.5</speedLessThanSafe>
-						<speedMoreThanSafe>1</speedMoreThanSafe>
-						<efficiency>0.5</efficiency>
+						<recipeDef>Make_Whisky</recipeDef>
+						<usesTemperature>true</usesTemperature>
+						<temperatureSafe>2.0~35.0</temperatureSafe>
+						<temperatureIdeal>3.0~24.0</temperatureIdeal>
+						<ruinedPerDegreePerHour>2.5</ruinedPerDegreePerHour>
+						<!-- percent per degree per hour -->
+						<speedBelowSafe>0.1</speedBelowSafe>
+						<speedAboveSafe>1.0</speedAboveSafe>
+						<processDays>7.25</processDays>
+						<!-- in days, 60000 ticks is a day -->
+						<sunFactor>1.0~1.0</sunFactor>
+						<rainFactor>1.0~1.0</rainFactor>
+						<snowFactor>1.0~1.0</snowFactor>
+						<windFactor>1.0~1.0</windFactor>
+						<graphicSuffix/>
 					</li>
 					<!-- Saké -->
 					<li>
-						<thingDef>saki</thingDef>
-						<ingredientFilter>
-							<thingDefs>
-								<li>sakemash</li>
-							</thingDefs>
-						</ingredientFilter>
-						<temperatureSafe>
-							<min>5</min>
-							<max>15</max>
-						</temperatureSafe>
-						<temperatureIdeal>
-							<min>9</min>
-							<max>10</max>
-						</temperatureIdeal>
-						<progressPerDegreePerTick>5</progressPerDegreePerTick>
-						<baseFermentationDuration>160000</baseFermentationDuration>
-						<maxCapacity>20</maxCapacity>
-						<speedLessThanSafe>0.5</speedLessThanSafe>
-						<speedMoreThanSafe>1</speedMoreThanSafe>
-						<efficiency>0.4</efficiency>
+						<recipeDef>Make_Sake</recipeDef>
+						<usesTemperature>true</usesTemperature>
+						<temperatureSafe>2.0~20.0</temperatureSafe>
+						<temperatureIdeal>6.0~15.0</temperatureIdeal>
+						<ruinedPerDegreePerHour>2.5</ruinedPerDegreePerHour>
+						<!-- percent per degree per hour -->
+						<speedBelowSafe>0.1</speedBelowSafe>
+						<speedAboveSafe>1.0</speedAboveSafe>
+						<processDays>5.25</processDays>
+						<!-- in days, 60000 ticks is a day -->
+						<sunFactor>1.0~1.0</sunFactor>
+						<rainFactor>1.0~1.0</rainFactor>
+						<snowFactor>1.0~1.0</snowFactor>
+						<windFactor>1.0~1.0</windFactor>
+						<graphicSuffix/>
 					</li>
 					<!-- Cider -->
 					<li>
-						<thingDef>cider</thingDef>
-						<ingredientFilter>
-							<thingDefs>
-								<li>cidermash</li>
-							</thingDefs>
-						</ingredientFilter>
-						<temperatureSafe>
-							<min>10</min>
-							<max>18</max>
-						</temperatureSafe>
-						<temperatureIdeal>
-							<min>12</min>
-							<max>15</max>
-						</temperatureIdeal>
-						<progressPerDegreePerTick>5</progressPerDegreePerTick>
-						<baseFermentationDuration>120000</baseFermentationDuration>
-						<maxCapacity>20</maxCapacity>
-						<speedLessThanSafe>0.5</speedLessThanSafe>
-						<speedMoreThanSafe>1</speedMoreThanSafe>
-						<efficiency>0.4</efficiency>
+						<recipeDef>Make_Cider</recipeDef>
+						<usesTemperature>true</usesTemperature>
+						<temperatureSafe>7.0~22.0</temperatureSafe>
+						<temperatureIdeal>11.0~15.0</temperatureIdeal>
+						<ruinedPerDegreePerHour>2.5</ruinedPerDegreePerHour>
+						<!-- percent per degree per hour -->
+						<speedBelowSafe>0.1</speedBelowSafe>
+						<speedAboveSafe>1.0</speedAboveSafe>
+						<processDays>4.8</processDays>
+						<!-- in days, 60000 ticks is a day -->
+						<sunFactor>1.0~1.0</sunFactor>
+						<rainFactor>1.0~1.0</rainFactor>
+						<snowFactor>1.0~1.0</snowFactor>
+						<windFactor>1.0~1.0</windFactor>
+						<graphicSuffix/>
 					</li>
 					<!-- Rum -->
 					<li>
-						<thingDef>rum</thingDef>
-						<ingredientFilter>
-							<thingDefs>
-								<li>rummash</li>
-							</thingDefs>
-						</ingredientFilter>
-						<temperatureSafe>
-							<min>30</min>
-							<max>45</max>
-						</temperatureSafe>
-						<temperatureIdeal>
-							<min>35</min>
-							<max>40</max>
-						</temperatureIdeal>
-						<progressPerDegreePerTick>5</progressPerDegreePerTick>
-						<baseFermentationDuration>130000</baseFermentationDuration>
-						<maxCapacity>20</maxCapacity>
-						<speedLessThanSafe>0.5</speedLessThanSafe>
-						<speedMoreThanSafe>1</speedMoreThanSafe>
-						<efficiency>0.6</efficiency>
+						<recipeDef>Make_Rum</recipeDef>
+						<usesTemperature>true</usesTemperature>
+						<temperatureSafe>25.0~45.0</temperatureSafe>
+						<temperatureIdeal>30.0~38.0</temperatureIdeal>
+						<ruinedPerDegreePerHour>2.5</ruinedPerDegreePerHour>
+						<!-- percent per degree per hour -->
+						<speedBelowSafe>0.1</speedBelowSafe>
+						<speedAboveSafe>1.0</speedAboveSafe>
+						<processDays>4.5</processDays>
+						<!-- in days, 60000 ticks is a day -->
+						<sunFactor>1.0~1.0</sunFactor>
+						<rainFactor>1.0~1.0</rainFactor>
+						<snowFactor>1.0~1.0</snowFactor>
+						<windFactor>1.0~1.0</windFactor>
+						<graphicSuffix/>
 					</li>
 					<!-- Berrywine -->
 					<li>
-						<thingDef>strawberrywine</thingDef>
-						<ingredientFilter>
-							<thingDefs>
-								<li>berrymash</li>
-							</thingDefs>
-						</ingredientFilter>
-						<temperatureSafe>
-							<min>10</min>
-							<max>40</max>
-						</temperatureSafe>
-						<temperatureIdeal>
-							<min>18</min>
-							<max>32</max>
-						</temperatureIdeal>
-						<progressPerDegreePerTick>5</progressPerDegreePerTick>
-						<baseFermentationDuration>100000</baseFermentationDuration>
-						<maxCapacity>20</maxCapacity>
-						<speedLessThanSafe>0.5</speedLessThanSafe>
-						<speedMoreThanSafe>1</speedMoreThanSafe>
-						<efficiency>0.7</efficiency>
+						<recipeDef>Make_Berrywine</recipeDef>
+						<usesTemperature>true</usesTemperature>
+						<temperatureSafe>10.0~40.0</temperatureSafe>
+						<temperatureIdeal>18.0~32.0</temperatureIdeal>
+						<ruinedPerDegreePerHour>2.5</ruinedPerDegreePerHour>
+						<!-- percent per degree per hour -->
+						<speedBelowSafe>0.1</speedBelowSafe>
+						<speedAboveSafe>1.0</speedAboveSafe>
+						<processDays>5.8</processDays>
+						<!-- in days, 60000 ticks is a day -->
+						<sunFactor>1.0~1.0</sunFactor>
+						<rainFactor>1.0~1.0</rainFactor>
+						<snowFactor>1.0~1.0</snowFactor>
+						<windFactor>1.0~1.0</windFactor>
+						<graphicSuffix/>
 					</li>
 					<!-- Vodka -->
 					<li>
-						<thingDef>vodka</thingDef>
-						<ingredientFilter>
-							<thingDefs>
-								<li>vodkamash</li>
-							</thingDefs>
-						</ingredientFilter>
-						<temperatureSafe>
-							<min>40</min>
-							<max>65</max>
-						</temperatureSafe>
-						<temperatureIdeal>
-							<min>45</min>
-							<max>55</max>
-						</temperatureIdeal>
-						<progressPerDegreePerTick>5</progressPerDegreePerTick>
-						<baseFermentationDuration>140000</baseFermentationDuration>
-						<maxCapacity>20</maxCapacity>
-						<speedLessThanSafe>0.5</speedLessThanSafe>
-						<speedMoreThanSafe>1</speedMoreThanSafe>
-						<efficiency>0.6</efficiency>
+						<recipeDef>Make_Vodka</recipeDef>
+						<usesTemperature>true</usesTemperature>
+						<temperatureSafe>40.0~65.0</temperatureSafe>
+						<temperatureIdeal>45.0~55.0</temperatureIdeal>
+						<ruinedPerDegreePerHour>2.5</ruinedPerDegreePerHour>
+						<!-- percent per degree per hour -->
+						<speedBelowSafe>0.1</speedBelowSafe>
+						<speedAboveSafe>1.0</speedAboveSafe>
+						<processDays>4.8</processDays>
+						<!-- in days, 60000 ticks is a day -->
+						<sunFactor>1.0~1.0</sunFactor>
+						<rainFactor>1.0~1.0</rainFactor>
+						<snowFactor>1.0~1.0</snowFactor>
+						<windFactor>1.0~1.0</windFactor>
+						<graphicSuffix/>
 					</li>
 					<!-- Tequila -->
 					<li>
-						<thingDef>tequila</thingDef>
-						<ingredientFilter>
-							<thingDefs>
-								<li>tequilamash</li>
-							</thingDefs>
-						</ingredientFilter>
-						<temperatureSafe>
-							<min>18</min>
-							<max>45</max>
-						</temperatureSafe>
-						<temperatureIdeal>
-							<min>20</min>
-							<max>30</max>
-						</temperatureIdeal>
-						<progressPerDegreePerTick>5</progressPerDegreePerTick>
-						<baseFermentationDuration>180000</baseFermentationDuration>
-						<maxCapacity>20</maxCapacity>
-						<speedLessThanSafe>0.5</speedLessThanSafe>
-						<speedMoreThanSafe>1</speedMoreThanSafe>
-						<efficiency>0.5</efficiency>
+						<recipeDef>Make_Tequila</recipeDef>
+						<usesTemperature>true</usesTemperature>
+						<temperatureSafe>18.0~45.0</temperatureSafe>
+						<temperatureIdeal>20.0~30.0</temperatureIdeal>
+						<ruinedPerDegreePerHour>2.5</ruinedPerDegreePerHour>
+						<!-- percent per degree per hour -->
+						<speedBelowSafe>0.1</speedBelowSafe>
+						<speedAboveSafe>1.0</speedAboveSafe>
+						<processDays>5.6</processDays>
+						<!-- in days, 60000 ticks is a day -->
+						<sunFactor>1.0~1.0</sunFactor>
+						<rainFactor>1.0~1.0</rainFactor>
+						<snowFactor>1.0~1.0</snowFactor>
+						<windFactor>1.0~1.0</windFactor>
+						<graphicSuffix/>
 					</li>
 					<!-- Wine -->
 					<li>
-						<thingDef>Wine</thingDef>
-						<ingredientFilter>
-							<thingDefs>
-								<li>winemash</li>
-							</thingDefs>
-						</ingredientFilter>
-						<temperatureSafe>
-							<min>15</min>
-							<max>38</max>
-						</temperatureSafe>
-						<temperatureIdeal>
-							<min>20</min>
-							<max>30</max>
-						</temperatureIdeal>
-						<progressPerDegreePerTick>5</progressPerDegreePerTick>
-						<baseFermentationDuration>180000</baseFermentationDuration>
-						<maxCapacity>20</maxCapacity>
-						<speedLessThanSafe>0.5</speedLessThanSafe>
-						<speedMoreThanSafe>1</speedMoreThanSafe>
-						<efficiency>0.6</efficiency>
+						<recipeDef>Make_Wine</recipeDef>
+						<usesTemperature>true</usesTemperature>
+						<temperatureSafe>15.0~38.0</temperatureSafe>
+						<temperatureIdeal>20.0~30.0</temperatureIdeal>
+						<ruinedPerDegreePerHour>2.5</ruinedPerDegreePerHour>
+						<!-- percent per degree per hour -->
+						<speedBelowSafe>0.1</speedBelowSafe>
+						<speedAboveSafe>1.0</speedAboveSafe>
+						<processDays>5.8</processDays>
+						<!-- in days, 60000 ticks is a day -->
+						<sunFactor>1.0~1.0</sunFactor>
+						<rainFactor>1.0~1.0</rainFactor>
+						<snowFactor>1.0~1.0</snowFactor>
+						<windFactor>1.0~1.0</windFactor>
+						<graphicSuffix/>
 					</li>
-				</products>
+				</processes>
 			</li>
 		</comps>
 		<researchPrerequisites>
 			<li>Brewing</li>
 		</researchPrerequisites>
-		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+		<constructionSkillPrerequisite>4</constructionSkillPrerequisite>
 	</ThingDef>
 	<!-- Jerky Drying Rack -->
-	<ThingDef ParentName="StandartBuilding">
+	<ThingDef ParentName="UniversalFermenterBase">
 		<defName>JerkyRack</defName>
 		<label>Jerky Drying Rack</label>
-		<thingClass>Building</thingClass>
 		<description>A rack with meat prepared for drying into jerky.</description>
 		<graphicData>
 			<texPath>Things/Building/Production/JerkyRack</texPath>
@@ -1243,7 +1390,7 @@
 		<fillPercent>0.4</fillPercent>
 		<pathCost>60</pathCost>
 		<statBases>
-			<WorkToBuild>2500</WorkToBuild>
+			<WorkToBuild>1400</WorkToBuild>
 			<Mass>60</Mass>
 			<MaxHitPoints>100</MaxHitPoints>
 			<Flammability>1.0</Flammability>
@@ -1251,52 +1398,95 @@
 		<stuffCategories>
 			<li>Woody</li>
 		</stuffCategories>
-		<costStuffCount>50</costStuffCount>
+		<costStuffCount>60</costStuffCount>
 		<costList>
-			<ComponentIndustrial>1</ComponentIndustrial>
+			<ComponentMedieval>2</ComponentMedieval>
 		</costList>
 		<size>(2,1)</size>
 		<rotatable>false</rotatable>
 		<designationCategory>Production</designationCategory>
 		<tickerType>Rare</tickerType>
+		<building>
+			<uninstallWork>350</uninstallWork>
+		</building>
 		<comps>
 			<li Class="CompProperties_Forbiddable"/>
-			<li Class="Kubouch.CompProperties_UniversalFermenter">
-				<products>
+			<li Class="UniversalFermenter.CompProperties_UniversalFermenter">
+				<showProductIcon>true</showProductIcon>
+				<barOffset>(0.0, 0.25)</barOffset>
+				<barScale>(1.0, 1.0)</barScale>
+				<slotsCount>10</slotsCount>
+				<processes>
 					<!-- Jerky -->
 					<li>
-						<thingDef>MealJerky</thingDef>
-						<ingredientFilter>
-							<thingDefs>
-								<li>SaltedMeat</li>
-							</thingDefs>
-						</ingredientFilter>
+						<recipeDef>Make_Jekry</recipeDef>
 						<temperatureSafe>
-							<min>05</min>
+							<min>10</min>
 							<max>55</max>
 						</temperatureSafe>
 						<temperatureIdeal>
 							<min>25</min>
 							<max>40</max>
 						</temperatureIdeal>
-						<progressPerDegreePerTick>5.5</progressPerDegreePerTick>
-						<baseFermentationDuration>120000</baseFermentationDuration>
-						<maxCapacity>25</maxCapacity>
-						<speedLessThanSafe>0.6</speedLessThanSafe>
-						<speedMoreThanSafe>1</speedMoreThanSafe>
-						<efficiency>1</efficiency>
+						<processDays>2</processDays>
+						<speedBelowSafe>0.6</speedBelowSafe>
+						<speedAboveSafe>1</speedAboveSafe>
+						<sunFactor>
+							<min>0.75</min>
+							<max>1.2</max>
+						</sunFactor>
+						<rainFactor>
+							<min>1</min>
+							<max>0</max>
+						</rainFactor>
+						<snowFactor>
+							<min>1</min>
+							<max>0</max>
+						</snowFactor>
+						<windFactor>
+							<min>1</min>
+							<max>1.2</max>
+						</windFactor>
 					</li>
-				</products>
+					<li>
+						<recipeDef>Make_Jekry_x5</recipeDef>
+						<slotsRequired>5</slotsRequired>
+						<temperatureSafe>
+							<min>10</min>
+							<max>55</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>25</min>
+							<max>40</max>
+						</temperatureIdeal>
+						<processDays>2</processDays>
+						<speedBelowSafe>0.6</speedBelowSafe>
+						<speedAboveSafe>1</speedAboveSafe>
+						<sunFactor>
+							<min>0.75</min>
+							<max>1.2</max>
+						</sunFactor>
+						<rainFactor>
+							<min>1</min>
+							<max>0</max>
+						</rainFactor>
+						<snowFactor>
+							<min>1</min>
+							<max>0</max>
+						</snowFactor>
+						<windFactor>
+							<min>1</min>
+							<max>1.2</max>
+						</windFactor>
+					</li>
+				</processes>
 			</li>
 		</comps>
-		<constructionSkillPrerequisite>3</constructionSkillPrerequisite>
+		<constructionSkillPrerequisite>2</constructionSkillPrerequisite>
 	</ThingDef>
-
-
-	<ThingDef ParentName="StandartBuilding">
+	<ThingDef ParentName="UniversalFermenterBase">
 		<defName>DryingRack</defName>
 		<label>drying rack</label>
-		<thingClass>Building</thingClass>
 		<graphicData>
 			<texPath>Things/Building/Production/LeafDryingRack</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
@@ -1319,30 +1509,33 @@
 		<fillPercent>0.45</fillPercent>
 		<pathCost>60</pathCost>
 		<statBases>
-			<WorkToBuild>1600</WorkToBuild>
+			<WorkToBuild>800</WorkToBuild>
 			<Mass>20</Mass>
 			<MaxHitPoints>100</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 		</statBases>
-		<description>Drying rack used for drying smokeleaf and tobacco leaves.</description>
+		<description>Drying rack used for drying berries, smokeleaf and tobacco leaves.</description>
 		<stuffCategories>
 			<li>Woody</li>
 		</stuffCategories>
-		<costStuffCount>40</costStuffCount>
+		<costStuffCount>60</costStuffCount>
 		<costList>
-			<ComponentIndustrial>1</ComponentIndustrial>
+			<ComponentMedieval>2</ComponentMedieval>
 		</costList>
 		<size>(2,1)</size>
+		<building>
+			<uninstallWork>650</uninstallWork>
+		</building>
 		<comps>
-			<li Class="Kubouch.CompProperties_UniversalFermenter">
-				<products>
+			<li Class="UniversalFermenter.CompProperties_UniversalFermenter">
+				<showProductIcon>true</showProductIcon>
+				<barOffset>(0.0, 0.25)</barOffset>
+				<barScale>(1.0, 1.0)</barScale>
+				<slotsCount>10</slotsCount>
+				<processes>
 					<li>
-						<thingDef>DriedLeavesTobacco</thingDef>
-						<ingredientFilter>
-							<thingDefs>
-								<li>RawTobacco</li>
-							</thingDefs>
-						</ingredientFilter>
+						<recipeDef>Make_Tobacco</recipeDef>
+						<slotsRequired>2</slotsRequired>
 						<temperatureSafe>
 							<min>0</min>
 							<max>65</max>
@@ -1351,125 +1544,543 @@
 							<min>30</min>
 							<max>50</max>
 						</temperatureIdeal>
-						<progressPerDegreePerTick>0.00001</progressPerDegreePerTick>
-						<baseFermentationDuration>240000</baseFermentationDuration>
-						<maxCapacity>25</maxCapacity>
-						<speedLessThanSafe>0.05</speedLessThanSafe>
-						<speedMoreThanSafe>0.8</speedMoreThanSafe>
-						<efficiency>1</efficiency>
-						<sunRespect>
+						<processDays>3</processDays>
+						<speedBelowSafe>0.05</speedBelowSafe>
+						<speedAboveSafe>0.8</speedAboveSafe>
+						<sunFactor>
 							<min>0.75</min>
 							<max>1.2</max>
-						</sunRespect>
-						<rainRespect>
+						</sunFactor>
+						<rainFactor>
 							<min>1</min>
 							<max>0</max>
-						</rainRespect>
-						<snowRespect>
+						</rainFactor>
+						<snowFactor>
 							<min>1</min>
 							<max>0</max>
-						</snowRespect>
-						<windRespect>
+						</snowFactor>
+						<windFactor>
 							<min>1</min>
 							<max>1.2</max>
-						</windRespect>
-						<graphSuffix>_tobacco</graphSuffix>
-					</li>					
-					<li>
-						<thingDef>DriedLeavesSmokeleaf</thingDef>
-						<ingredientFilter>
-							<thingDefs>
-								<li>SmokeleafLeaves</li>
-							</thingDefs>
-						</ingredientFilter>						
-						<temperatureSafe>
-							<min>0</min>
-							<max>65</max>
-						</temperatureSafe>
-						<temperatureIdeal>
-							<min>30</min>
-							<max>50</max>
-						</temperatureIdeal>
-						<progressPerDegreePerTick>0.00001</progressPerDegreePerTick>
-						<baseFermentationDuration>240000</baseFermentationDuration>
-						<maxCapacity>25</maxCapacity>
-						<speedLessThanSafe>0.05</speedLessThanSafe>
-						<speedMoreThanSafe>0.8</speedMoreThanSafe>
-						<efficiency>1</efficiency>
-						<sunRespect>
-							<min>0.75</min>
-							<max>1.2</max>
-						</sunRespect>
-						<rainRespect>
-							<min>1</min>
-							<max>0</max>
-						</rainRespect>
-						<snowRespect>
-							<min>1</min>
-							<max>0</max>
-						</snowRespect>
-						<windRespect>
-							<min>1</min>
-							<max>1.2</max>
-						</windRespect>
-						<graphSuffix>_smokeleaf</graphSuffix>
+						</windFactor>
+						<graphicSuffix>_tobacco</graphicSuffix>
 					</li>
 					<li>
-						<thingDef>driedfruit</thingDef>
-						<ingredientFilter>
-							<thingDefs>
-								<li>RawBerries</li>
-								<li>Rawapple</li>
-								<li>Rawbanana</li>
-								<li>Raworange</li>
-								<li>Rawpeach</li>
-								<li>Rawgrape</li>
-								<li>RawCoconut</li>
-							</thingDefs>
-						</ingredientFilter>
+						<recipeDef>Make_Tobacco_x5</recipeDef>
+						<slotsRequired>10</slotsRequired>
 						<temperatureSafe>
-							<min>6</min>
-							<max>32</max>
+							<min>0</min>
+							<max>65</max>
 						</temperatureSafe>
 						<temperatureIdeal>
-							<min>0</min>
-							<max>10</max>
+							<min>30</min>
+							<max>50</max>
 						</temperatureIdeal>
-						<progressPerDegreePerTick>0.00004</progressPerDegreePerTick>
-						<baseFermentationDuration>180000</baseFermentationDuration>
-						<maxCapacity>75</maxCapacity>
-						<speedLessThanSafe>0.05</speedLessThanSafe>
-						<speedMoreThanSafe>0.8</speedMoreThanSafe>
-						<efficiency>.08</efficiency>
-						<sunRespect>
+						<processDays>3</processDays>
+						<speedBelowSafe>0.05</speedBelowSafe>
+						<speedAboveSafe>0.8</speedAboveSafe>
+						<sunFactor>
 							<min>0.75</min>
 							<max>1.2</max>
-						</sunRespect>
-						<rainRespect>
+						</sunFactor>
+						<rainFactor>
 							<min>1</min>
 							<max>0</max>
-						</rainRespect>
-						<snowRespect>
+						</rainFactor>
+						<snowFactor>
 							<min>1</min>
 							<max>0</max>
-						</snowRespect>
-						<windRespect>
+						</snowFactor>
+						<windFactor>
 							<min>1</min>
 							<max>1.2</max>
-						</windRespect>
-						<graphSuffix>_smokeleaf</graphSuffix>
-					</li>	
-				</products>
+						</windFactor>
+						<graphicSuffix>_tobacco</graphicSuffix>
+					</li>
+					<li>
+						<recipeDef>Make_Smokeleaf</recipeDef>
+						<slotsRequired>2</slotsRequired>
+						<temperatureSafe>
+							<min>0</min>
+							<max>65</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>30</min>
+							<max>50</max>
+						</temperatureIdeal>
+						<processDays>4</processDays>
+						<speedBelowSafe>0.05</speedBelowSafe>
+						<speedAboveSafe>0.8</speedAboveSafe>
+						<sunFactor>
+							<min>0.75</min>
+							<max>1.2</max>
+						</sunFactor>
+						<rainFactor>
+							<min>1</min>
+							<max>0</max>
+						</rainFactor>
+						<snowFactor>
+							<min>1</min>
+							<max>0</max>
+						</snowFactor>
+						<windFactor>
+							<min>1</min>
+							<max>1.2</max>
+						</windFactor>
+						<graphicSuffix>_smokeleaf</graphicSuffix>
+					</li>
+					<li>
+						<recipeDef>Make_Smokeleaf_x5</recipeDef>
+						<slotsRequired>10</slotsRequired>
+						<temperatureSafe>
+							<min>0</min>
+							<max>65</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>30</min>
+							<max>50</max>
+						</temperatureIdeal>
+						<processDays>4</processDays>
+						<speedBelowSafe>0.05</speedBelowSafe>
+						<speedAboveSafe>0.8</speedAboveSafe>
+						<sunFactor>
+							<min>0.75</min>
+							<max>1.2</max>
+						</sunFactor>
+						<rainFactor>
+							<min>1</min>
+							<max>0</max>
+						</rainFactor>
+						<snowFactor>
+							<min>1</min>
+							<max>0</max>
+						</snowFactor>
+						<windFactor>
+							<min>1</min>
+							<max>1.2</max>
+						</windFactor>
+						<graphicSuffix>_smokeleaf</graphicSuffix>
+					</li>
+					<li>
+						<recipeDef>Make_DriedFruit</recipeDef>
+						<temperatureSafe>
+							<min>5</min>
+							<max>80</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>18</min>
+							<max>50</max>
+						</temperatureIdeal>
+						<processDays>2</processDays>
+						<speedBelowSafe>0.05</speedBelowSafe>
+						<speedAboveSafe>0.8</speedAboveSafe>
+						<sunFactor>
+							<min>0.75</min>
+							<max>1.2</max>
+						</sunFactor>
+						<rainFactor>
+							<min>1</min>
+							<max>0</max>
+						</rainFactor>
+						<snowFactor>
+							<min>1</min>
+							<max>0</max>
+						</snowFactor>
+						<windFactor>
+							<min>1</min>
+							<max>1.2</max>
+						</windFactor>
+						<graphicSuffix>_smokeleaf</graphicSuffix>
+					</li>
+					<li>
+						<recipeDef>Make_DriedFruit_x5</recipeDef>
+						<slotsRequired>5</slotsRequired>
+						<temperatureSafe>
+							<min>5</min>
+							<max>80</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>18</min>
+							<max>50</max>
+						</temperatureIdeal>
+						<processDays>2</processDays>
+						<speedBelowSafe>0.05</speedBelowSafe>
+						<speedAboveSafe>0.8</speedAboveSafe>
+						<sunFactor>
+							<min>0.75</min>
+							<max>1.2</max>
+						</sunFactor>
+						<rainFactor>
+							<min>1</min>
+							<max>0</max>
+						</rainFactor>
+						<snowFactor>
+							<min>1</min>
+							<max>0</max>
+						</snowFactor>
+						<windFactor>
+							<min>1</min>
+							<max>1.2</max>
+						</windFactor>
+						<graphicSuffix>_smokeleaf</graphicSuffix>
+					</li>
+				</processes>
 			</li>
 			<li Class="CompProperties_Forbiddable"/>
 		</comps>
 		<tickerType>Rare</tickerType>
 		<rotatable>true</rotatable>
 		<designationCategory>Production</designationCategory>
-		<constructionSkillPrerequisite>3</constructionSkillPrerequisite>
+		<constructionSkillPrerequisite>2</constructionSkillPrerequisite>
 	</ThingDef>
-
-
+	<ThingDef ParentName="UniversalFermenterBase">
+		<defName>CheeseBasin</defName>
+		<label>cheesemaking basin</label>
+		<graphicData>
+			<texPath>Things/Building/CheeseBin</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(1,0.9)</drawSize>
+			<shaderType>CutoutComplex</shaderType>
+			<damageData>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+			</damageData>
+		</graphicData>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<thingCategories>
+			<li>BuildingsProduction</li>
+		</thingCategories>
+		<fillPercent>0.45</fillPercent>
+		<pathCost>60</pathCost>
+		<statBases>
+			<WorkToBuild>800</WorkToBuild>
+			<Mass>10</Mass>
+			<MaxHitPoints>100</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+		</statBases>
+		<description>Basin for creating cheese from milk.</description>
+		<stuffCategories>
+			<li>Woody</li>
+		</stuffCategories>
+		<costStuffCount>40</costStuffCount>
+		<costList>
+			<ComponentMedieval>2</ComponentMedieval>
+		</costList>
+		<size>(1,1)</size>
+		<building>
+			<uninstallWork>650</uninstallWork>
+		</building>
+		<comps>
+			<li Class="UniversalFermenter.CompProperties_UniversalFermenter">
+				<showProductIcon>true</showProductIcon>
+				<barOffset>(0.0, -0.25)</barOffset>
+				<barScale>(1.0, 1.0)</barScale>
+				<slotsCount>10</slotsCount>
+				<processes>
+					<li>
+						<recipeDef>Make_Cheese</recipeDef>
+						<temperatureSafe>
+							<min>0</min>
+							<max>30</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>10</min>
+							<max>25</max>
+						</temperatureIdeal>
+						<processDays>4</processDays>
+						<speedBelowSafe>0.05</speedBelowSafe>
+						<speedAboveSafe>0.5</speedAboveSafe>
+						<sunFactor>
+							<min>1</min>
+							<max>1</max>
+						</sunFactor>
+						<rainFactor>
+							<min>1</min>
+							<max>0</max>
+						</rainFactor>
+						<snowFactor>
+							<min>1</min>
+							<max>0</max>
+						</snowFactor>
+						<windFactor>
+							<min>1</min>
+							<max>1</max>
+						</windFactor>
+						<graphicSuffix>_cheese</graphicSuffix>
+					</li>
+					<li>
+						<recipeDef>Make_Cheese_x5</recipeDef>
+						<slotsRequired>5</slotsRequired>
+						<temperatureSafe>
+							<min>0</min>
+							<max>30</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>10</min>
+							<max>25</max>
+						</temperatureIdeal>
+						<processDays>4</processDays>
+						<speedBelowSafe>0.05</speedBelowSafe>
+						<speedAboveSafe>0.5</speedAboveSafe>
+						<sunFactor>
+							<min>1</min>
+							<max>1</max>
+						</sunFactor>
+						<rainFactor>
+							<min>1</min>
+							<max>0</max>
+						</rainFactor>
+						<snowFactor>
+							<min>1</min>
+							<max>0</max>
+						</snowFactor>
+						<windFactor>
+							<min>1</min>
+							<max>1</max>
+						</windFactor>
+						<graphicSuffix>_cheese</graphicSuffix>
+					</li>
+					<li>
+						<recipeDef>Make_AgedCheese</recipeDef>
+						<slotsRequired>5</slotsRequired>
+						<temperatureSafe>
+							<min>0</min>
+							<max>15</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>2</min>
+							<max>8</max>
+						</temperatureIdeal>
+						<processDays>8</processDays>
+						<speedBelowSafe>0.05</speedBelowSafe>
+						<speedAboveSafe>0.05</speedAboveSafe>
+						<sunFactor>
+							<min>1</min>
+							<max>1</max>
+						</sunFactor>
+						<rainFactor>
+							<min>1</min>
+							<max>0</max>
+						</rainFactor>
+						<snowFactor>
+							<min>1</min>
+							<max>0</max>
+						</snowFactor>
+						<windFactor>
+							<min>1</min>
+							<max>1</max>
+						</windFactor>
+						<graphicSuffix>_cheese</graphicSuffix>
+					</li>
+					<li>
+						<recipeDef>Make_AgedCheese_x5</recipeDef>
+						<slotsRequired>5</slotsRequired>
+						<temperatureSafe>
+							<min>0</min>
+							<max>15</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>2</min>
+							<max>8</max>
+						</temperatureIdeal>
+						<processDays>8</processDays>
+						<speedBelowSafe>0.05</speedBelowSafe>
+						<speedAboveSafe>0.05</speedAboveSafe>
+						<sunFactor>
+							<min>1</min>
+							<max>1</max>
+						</sunFactor>
+						<rainFactor>
+							<min>1</min>
+							<max>0</max>
+						</rainFactor>
+						<snowFactor>
+							<min>1</min>
+							<max>0</max>
+						</snowFactor>
+						<windFactor>
+							<min>1</min>
+							<max>1</max>
+						</windFactor>
+						<graphicSuffix>_cheese</graphicSuffix>
+					</li>
+				</processes>
+			</li>
+			<li Class="CompProperties_Forbiddable"/>
+		</comps>
+		<tickerType>Rare</tickerType>
+		<rotatable>true</rotatable>
+		<designationCategory>Production</designationCategory>
+		<constructionSkillPrerequisite>4</constructionSkillPrerequisite>
+	</ThingDef>
+	<ThingDef ParentName="UniversalFermenterBase">
+		<defName>SilagePile</defName>
+		<label>Silage Pile</label>
+		<graphicData>
+			<texPath>Things/Building/Production/SilagePile</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(4,4)</drawSize>
+			<shadowData>
+				<volume>(0, 0, 0)</volume>
+				<offset>(0,0,0)</offset>
+			</shadowData>
+			<damageData>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+			</damageData>
+		</graphicData>
+		<fillPercent>0.01</fillPercent>
+		<pathCost>60</pathCost>
+		<statBases>
+			<WorkToBuild>2200</WorkToBuild>
+			<MaxHitPoints>300</MaxHitPoints>
+			<Flammability>0.0</Flammability>
+		</statBases>
+		<description>Huge pile where plant matter is fermented into silage.</description>
+		<size>(4,4)</size>
+		<comps>
+			<li Class="UniversalFermenter.CompProperties_UniversalFermenter">
+				<showProductIcon>false</showProductIcon>
+				<barOffset>(0.0, 0.25)</barOffset>
+				<barScale>(1.0, 1.0)</barScale>
+				<slotsCount>30</slotsCount>
+				<processes>
+					<li>
+						<recipeDef>Make_Silage</recipeDef>
+						<temperatureSafe>
+							<min>-273</min>
+							<max>1000</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>20</min>
+							<max>50</max>
+						</temperatureIdeal>
+						<sunFactor>
+							<min>0.75</min>
+							<max>1.35</max>
+						</sunFactor>
+						<rainFactor>
+							<min>1</min>
+							<max>0.5</max>
+						</rainFactor>
+						<processDays>20</processDays>
+						<speedBelowSafe>0.05</speedBelowSafe>
+						<speedAboveSafe>0.8</speedAboveSafe>
+						<graphicSuffix>_hay</graphicSuffix>
+					</li>
+				</processes>
+			</li>
+			<li Class="CompProperties_Forbiddable"/>
+		</comps>
+		<placeWorkers>
+			<li>PlaceWorker_NotUnderRoof</li>
+		</placeWorkers>
+		<tickerType>Rare</tickerType>
+		<rotatable>true</rotatable>
+		<constructionSkillPrerequisite>2</constructionSkillPrerequisite>
+		<designationCategory>Production</designationCategory>
+		
+	</ThingDef>
+		<ThingDef ParentName="UniversalFermenterBase">
+		<defName>Saltpeter_pit</defName>
+		<label>Saltpeter Pit</label>
+		<graphicData>
+			<texPath>Things/Building/Production/SaltpeterPit/Saltpeter_pit</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(2,2)</drawSize>
+			<shadowData>
+				<volume>(0, 0, 0)</volume>
+				<offset>(0,0,0)</offset>
+			</shadowData>
+			<damageData>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+			</damageData>
+		</graphicData>
+		<fillPercent>0.01</fillPercent>
+		<pathCost>60</pathCost>
+		<statBases>
+			<WorkToBuild>8200</WorkToBuild>
+			<MaxHitPoints>300</MaxHitPoints>
+			<Flammability>0.0</Flammability>
+			<Beauty>-50</Beauty>
+			<Cleanliness>-100</Cleanliness>
+		</statBases>
+		<description>Saltpeter pit.</description>
+		<size>(2,2)</size>
+		<comps>
+			<li Class="UniversalFermenter.CompProperties_UniversalFermenter">
+				<showProductIcon>true</showProductIcon>
+				<barOffset>(0.0, 0.25)</barOffset>
+				<barScale>(1.0, 1.0)</barScale>
+				<slotsCount>10</slotsCount>
+				<processes>
+					<li>
+						<recipeDef>Make_Nitre_Body</recipeDef>
+						<temperatureSafe>
+							<min>10</min>
+							<max>30</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>10</min>
+							<max>30</max>
+						</temperatureIdeal>
+						<ruinedPerDegreePerHour>0</ruinedPerDegreePerHour>
+						<scaleToMeatAmount>true</scaleToMeatAmount>
+						<scaleToMeatAmountBase>127</scaleToMeatAmountBase>
+						<processDays>10</processDays>
+						<speedBelowSafe>0.05</speedBelowSafe>
+						<speedAboveSafe>0.8</speedAboveSafe>
+						<graphicSuffix>_closed</graphicSuffix>
+					</li>
+					<li>
+						<recipeDef>Make_Nitre_Mush</recipeDef>
+						<temperatureSafe>
+							<min>10</min>
+							<max>30</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>10</min>
+							<max>30</max>
+						</temperatureIdeal>
+						<ruinedPerDegreePerHour>0</ruinedPerDegreePerHour>
+						<processDays>10</processDays>
+						<speedBelowSafe>0.05</speedBelowSafe>
+						<speedAboveSafe>0.8</speedAboveSafe>
+						<graphicSuffix>_closed</graphicSuffix>
+					</li>
+					<li MayRequire="Dubwise.DubsBadHygiene">
+						<recipeDef>Make_Nitre_Fecal</recipeDef>
+						<temperatureSafe>
+							<min>10</min>
+							<max>30</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>10</min>
+							<max>30</max>
+						</temperatureIdeal>
+						<ruinedPerDegreePerHour>0</ruinedPerDegreePerHour>
+						<processDays>10</processDays>
+						<speedBelowSafe>0.01</speedBelowSafe>
+						<speedAboveSafe>0.8</speedAboveSafe>
+						<graphicSuffix>_closed</graphicSuffix>
+					</li>
+				</processes>
+			</li>
+			<li Class="CompProperties_Forbiddable"/>
+		</comps>
+		<tickerType>Rare</tickerType>
+		<rotatable>true</rotatable>
+		<constructionSkillPrerequisite>2</constructionSkillPrerequisite>
+		<designationCategory>Production</designationCategory>
+	</ThingDef>
+	
 	<ThingDef ParentName="WorkTable">
 		<defName>DrugLab</defName>
 		<label>drug lab</label>
@@ -1491,22 +2102,22 @@
 			</damageData>
 		</graphicData>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>StrongMetallic</li>
 			<li>Woody</li>
 		</stuffCategories>
-		<costStuffCount>120</costStuffCount>
+		<costStuffCount>150</costStuffCount>
 		<costList>
 			<Rubber>45</Rubber>
 			<Glass>25</Glass>
 			<ComponentIndustrial>8</ComponentIndustrial>
-			<Mechanism>3</Mechanism>
+			<Mechanism>5</Mechanism>
 		</costList>
 		<minifiedDef>MinifiedThing</minifiedDef>
 		<thingCategories>
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>3500</WorkToBuild>
+			<WorkToBuild>1700</WorkToBuild>
 			<MaxHitPoints>150</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Mass>500</Mass>
@@ -1514,6 +2125,9 @@
 		<size>(2,1)</size>
 		<designationCategory>Production</designationCategory>
 		<interactionCellOffset>(1,0,-1)</interactionCellOffset>
+		<building>
+			<uninstallWork>950</uninstallWork>
+		</building>
 		<comps>
 			<li Class="CompProperties_AffectedByFacilities">
 				<linkableFacilities>
@@ -1535,7 +2149,6 @@
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>12</constructionSkillPrerequisite>
 	</ThingDef>
-
 	<ThingDef ParentName="WorkTable">
 		<defName>TableCoffee</defName>
 		<label>coffee machine</label>
@@ -1558,9 +2171,9 @@
 			</damageData>
 		</graphicData>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>StrongMetallic</li>
 		</stuffCategories>
-		<costStuffCount>40</costStuffCount>
+		<costStuffCount>70</costStuffCount>
 		<costList>
 			<Plastic>40</Plastic>
 			<ElectronicComponents>3</ElectronicComponents>
@@ -1573,7 +2186,7 @@
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>2500</WorkToBuild>
+			<WorkToBuild>1400</WorkToBuild>
 			<MaxHitPoints>100</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Mass>20</Mass>
@@ -1601,6 +2214,7 @@
 		</comps>
 		<building>
 			<heatPerTickWhileWorking>0.1</heatPerTickWhileWorking>
+			<uninstallWork>250</uninstallWork>
 		</building>
 		<researchPrerequisites>
 			<li>SK_TropicalCropsIII</li>
@@ -1611,7 +2225,6 @@
 		</placeWorkers>
 		<constructionSkillPrerequisite>11</constructionSkillPrerequisite>
 	</ThingDef>
-
 	<ThingDef ParentName="WorkTable">
 		<defName>TableSawmillHand</defName>
 		<label>hand sawmill</label>
@@ -1629,16 +2242,13 @@
 		<stuffCategories>
 			<li>WoodLogs</li>
 		</stuffCategories>
-		<costStuffCount>80</costStuffCount>
-		<costList>
-			<ComponentIndustrial>6</ComponentIndustrial>
-		</costList>
+		<costStuffCount>120</costStuffCount>
 		<minifiedDef>MinifiedThing</minifiedDef>
 		<thingCategories>
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>1200</WorkToBuild>
+			<WorkToBuild>700</WorkToBuild>
 			<MaxHitPoints>170</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Cleanliness>-3</Cleanliness>
@@ -1647,6 +2257,9 @@
 		<size>(2,1)</size>
 		<designationCategory>Production</designationCategory>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
+		<building>
+			<uninstallWork>1250</uninstallWork>
+		</building>
 		<recipes>
 			<li>MakeWoodPlanks_Hand</li>
 			<li>MakeRedWoodPlanks_Hand</li>
@@ -1671,14 +2284,13 @@
 		</placeWorkers>
 		<constructionSkillPrerequisite>3</constructionSkillPrerequisite>
 	</ThingDef>
-
-
 	<ThingDef ParentName="BuildingFueled">
 		<defName>TableFurnace</defName>
 		<label>furnace</label>
 		<description>A furnace used for smelting basic metal ores into metal alloys. Can make metal cans and produce charcoal from logs. Can be fueled by Kindling, Coal, Charcoal, Peat and wooden stuff.</description>
 		<graphicData>
 			<texPath>Things/Building/Production/NeolithicProduction/Furnace</texPath>
+			<shaderType>CutoutComplex</shaderType>
 			<graphicClass>Graphic_Multi</graphicClass>
 			<drawSize>(3,3)</drawSize>
 			<shadowData>
@@ -1696,13 +2308,13 @@
 			<li>Stony</li>
 			<li>Bricks</li>
 		</stuffCategories>
-		<costStuffCount>160</costStuffCount>
+		<costStuffCount>240</costStuffCount>
 		<minifiedDef>MinifiedThing</minifiedDef>
 		<thingCategories>
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>4800</WorkToBuild>
+			<WorkToBuild>3000</WorkToBuild>
 			<MaxHitPoints>280</MaxHitPoints>
 			<Flammability>0</Flammability>
 			<Cleanliness>-8</Cleanliness>
@@ -1712,6 +2324,10 @@
 		<size>(3,3)</size>
 		<designationCategory>Production</designationCategory>
 		<interactionCellOffset>(0,0,-2)</interactionCellOffset>
+		<fillPercent>0.7</fillPercent>
+		<building>
+			<uninstallWork>1450</uninstallWork>
+		</building>
 		<recipes>
 			<li>MakeCharcoal_Hand</li>
 			<li>MakeTinBars_Hand</li>
@@ -1723,7 +2339,6 @@
 			<li>MakeSilverBars_Hand</li>
 			<li>MakeGlassBatch</li>
 			<li>MakeGlass</li>
-			<li>MakeMetalCan</li>
 		</recipes>
 		<comps>
 			<li Class="CompProperties_Flickable"/>
@@ -1736,17 +2351,20 @@
 				<glowRadius>3</glowRadius>
 				<glowColor>(217,112,33,0)</glowColor>
 			</li>
-			<li Class="SK.CompProperties_HeatPusherExt">
-				<compClass>SK.CompHeatPusherExt</compClass>
+			<li Class="SK.CompProperties_HeatPusherAdvanced">
+				<compClass>SK.CompHeatPusherAdvanced</compClass>
 				<heatPerSecond>25</heatPerSecond>
 				<heatPushMaxTemperature>27</heatPushMaxTemperature>
 			</li>
 			<li Class="SK.CompFueled_Properties">
 				<operatingTemp>500</operatingTemp>
-				<fireDrawOffset>(0,0.1,-0.65)</fireDrawOffset>
+				<fireDrawOffset>(0.52,0.1,-0.55)</fireDrawOffset>
 				<smokeDrawOffset>(0.5,-0.1,1.5)</smokeDrawOffset>
 				<fuelDrawOffset>(0,0.1,-0.8)</fuelDrawOffset>
 				<fuelCapacity>40</fuelCapacity>
+				<burnFuelMultiplier>0.6</burnFuelMultiplier>
+				<effectOnWeather>false</effectOnWeather>
+				<smokeDensity>1</smokeDensity>
 				<fuelFilter>
 					<thingDefs>
 						<li>Coal</li>
@@ -1756,7 +2374,7 @@
 					</thingDefs>
 					<categories>
 						<li>Wooden</li>
-					</categories>  
+					</categories>
 				</fuelFilter>
 			</li>
 			<li>
@@ -1772,16 +2390,15 @@
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
 	</ThingDef>
-
-
 	<ThingDef ParentName="BuildingFueled">
 		<defName>Kiln</defName>
 		<label>kiln</label>
-		<description>An improvised kiln used to produce clay bricks, burning apparel and used as crematorium. Can be fueled by Kindling, Coal, Charcoal, Peat and wooden stuff.</description>
+		<description>An improvised kiln used to produce clay bricks, burning apparel and used as crematorium. Can be fueled by Kindling, Coal, Charcoal, Peat and wooden stuff. After researching chemistry it allow to make rubber from raw caoutchouc.</description>
 		<graphicData>
 			<texPath>Things/Building/Production/NeolithicProduction/Kiln</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
 			<drawSize>(3,3)</drawSize>
+			<shaderType>CutoutComplex</shaderType>
 			<shadowData>
 				<volume>(2.3, 2.6, 2.3)</volume>
 			</shadowData>
@@ -1791,29 +2408,35 @@
 			<li>Stony</li>
 			<li>Bricks</li>
 		</stuffCategories>
-		<costStuffCount>160</costStuffCount>
+		<costStuffCount>230</costStuffCount>
 		<minifiedDef>MinifiedThing</minifiedDef>
 		<thingCategories>
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>4800</WorkToBuild>
+			<WorkToBuild>3000</WorkToBuild>
 			<MaxHitPoints>270</MaxHitPoints>
 			<Flammability>0</Flammability>
 			<Cleanliness>-8</Cleanliness>
 			<Mass>500</Mass>
 		</statBases>
-		<pathCost>90</pathCost>		
+		<pathCost>90</pathCost>
 		<size>(3,3)</size>
+		<fillPercent>0.9</fillPercent>
 		<designationCategory>Production</designationCategory>
 		<interactionCellOffset>(0,0,-2)</interactionCellOffset>
 		<recipes>
+			<li>SmeltWeapon</li>
 			<li>MakeCharcoal_Hand</li>
 			<li>CremateCorpse</li>
 			<li>BurnApparel</li>
 			<li>BurnDrugs</li>
 			<li>BurnThings</li>
+			<li>VulcanizeRubber</li>
 		</recipes>
+		<building>
+			<uninstallWork>1850</uninstallWork>
+		</building>
 		<comps>
 			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_AffectedByFacilities">
@@ -1821,8 +2444,8 @@
 					<li>ToolCabinet</li>
 				</linkableFacilities>
 			</li>
-			<li Class="SK.CompProperties_HeatPusherExt">
-				<compClass>SK.CompHeatPusherExt</compClass>
+			<li Class="SK.CompProperties_HeatPusherAdvanced">
+				<compClass>SK.CompHeatPusherAdvanced</compClass>
 				<heatPerSecond>20</heatPerSecond>
 				<heatPushMaxTemperature>25</heatPushMaxTemperature>
 			</li>
@@ -1832,10 +2455,14 @@
 			</li>
 			<li Class="SK.CompFueled_Properties">
 				<operatingTemp>500</operatingTemp>
+				<drawfirefuel>false</drawfirefuel>
 				<fireDrawOffset>(0,0.1,-0.65)</fireDrawOffset>
 				<smokeDrawOffset>(0.5,-0.1,1.5)</smokeDrawOffset>
 				<fuelDrawOffset>(0,0.1,-0.8)</fuelDrawOffset>
 				<fuelCapacity>30</fuelCapacity>
+				<burnFuelMultiplier>0.6</burnFuelMultiplier>
+				<effectOnWeather>false</effectOnWeather>
+				<smokeDensity>2</smokeDensity>
 				<fuelFilter>
 					<thingDefs>
 						<li>Coal</li>
@@ -1845,7 +2472,7 @@
 					</thingDefs>
 					<categories>
 						<li>Wooden</li>
-					</categories>  
+					</categories>
 				</fuelFilter>
 			</li>
 			<li>
@@ -1861,7 +2488,6 @@
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>4</constructionSkillPrerequisite>
 	</ThingDef>
-
 	<ThingDef Class="SK.ThingDef_AnimatedWorktable" ParentName="WorkTable">
 		<defName>GlassworkTable</defName>
 		<label>glassworks table</label>
@@ -1869,6 +2495,7 @@
 		<graphicData>
 			<texPath>Things/Building/Production/GlassWorkingTable/GlassWorkingTabll_off</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
+			<shaderType>CutoutComplex</shaderType>
 			<drawSize>(3,3)</drawSize>
 			<shadowData>
 				<volume>(2.7, 1.0, 0.85)</volume>
@@ -1881,16 +2508,14 @@
 				<cornerBR>Damage/Corner</cornerBR>
 			</damageData>
 		</graphicData>
-		
 		<FramePath>Things/Building/Production/GlassWorkingTable/GlassWorkingTabll_anim</FramePath>
 		<AnimationType>revert</AnimationType>
 		<FrameCount>4</FrameCount>
 		<multispeed>12</multispeed>
-
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>RuggedMetallic</li>
 		</stuffCategories>
-		<costStuffCount>110</costStuffCount>
+		<costStuffCount>130</costStuffCount>
 		<costList>
 			<ComponentIndustrial>10</ComponentIndustrial>
 			<Mechanism>8</Mechanism>
@@ -1900,7 +2525,7 @@
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>3100</WorkToBuild>
+			<WorkToBuild>1600</WorkToBuild>
 			<MaxHitPoints>180</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Cleanliness>-6</Cleanliness>
@@ -1941,7 +2566,7 @@
 			</li>
 			<li Class="CompProperties_HeatPusher">
 				<compClass>CompHeatPusherPowered</compClass>
-				<heatPerSecond>25</heatPerSecond>
+				<heatPerSecond>4</heatPerSecond>
 				<heatPushMaxTemperature>45</heatPushMaxTemperature>
 			</li>
 			<li>
@@ -1949,7 +2574,8 @@
 			</li>
 		</comps>
 		<building>
-			<heatPerTickWhileWorking>0.75</heatPerTickWhileWorking>
+			<uninstallWork>1450</uninstallWork>
+			<heatPerTickWhileWorking>0.9</heatPerTickWhileWorking>
 		</building>
 		<placeWorkers>
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
@@ -1960,8 +2586,6 @@
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>9</constructionSkillPrerequisite>
 	</ThingDef>
-
-
 	<ThingDef ParentName="WorkTable">
 		<defName>LeatherworkerTable</defName>
 		<label>leatherworker table</label>
@@ -1969,7 +2593,8 @@
 		<graphicData>
 			<texPath>Things/Building/Production/TableTailorNeolithic/TableTailorNeolithic</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
-			<drawSize>(3.4,1.2)</drawSize>
+			<shaderType>CutoutComplex</shaderType>
+			<drawSize>(3,1)</drawSize>
 			<shadowData>
 				<volume>(2.7, 1.0, 0.85)</volume>
 				<offset>(0,0,0)</offset>
@@ -1985,23 +2610,29 @@
 			<li>Stony</li>
 			<li>Bricks</li>
 		</stuffCategories>
-		<costStuffCount>80</costStuffCount>
+		<costStuffCount>110</costStuffCount>
 		<minifiedDef>MinifiedThing</minifiedDef>
 		<thingCategories>
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>2250</WorkToBuild>
+			<WorkToBuild>1250</WorkToBuild>
 			<MaxHitPoints>170</MaxHitPoints>
 			<Flammability>0</Flammability>
 			<Cleanliness>-6</Cleanliness>
 			<Beauty>-2</Beauty>
-			<WorkTableWorkSpeedFactor>0.2</WorkTableWorkSpeedFactor>
+			<WorkTableWorkSpeedFactor>0.6</WorkTableWorkSpeedFactor>
 			<Mass>500</Mass>
 		</statBases>
 		<size>(3,1)</size>
 		<designationCategory>Production</designationCategory>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
+		<building>
+			<uninstallWork>1450</uninstallWork>
+		</building>
+		<recipes>
+			<li>MakeLinen</li>
+		</recipes>
 		<comps>
 			<li Class="CompProperties_AffectedByFacilities">
 				<linkableFacilities>
@@ -2019,7 +2650,6 @@
 		</placeWorkers>
 		<constructionSkillPrerequisite>3</constructionSkillPrerequisite>
 	</ThingDef>
-
 	<ThingDef ParentName="WorkTable">
 		<defName>HandTailoringBench</defName>
 		<label>tailor's bench</label>
@@ -2040,12 +2670,12 @@
 			</damageData>
 		</graphicData>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>StrongMetallic</li>
 			<li>Woody</li>
 		</stuffCategories>
-		<costStuffCount>100</costStuffCount>
+		<costStuffCount>120</costStuffCount>
 		<costList>
-			<ComponentIndustrial>10</ComponentIndustrial>
+			<ComponentMedieval>10</ComponentMedieval>
 			<Mechanism>5</Mechanism>
 		</costList>
 		<minifiedDef>MinifiedThing</minifiedDef>
@@ -2053,7 +2683,7 @@
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>3250</WorkToBuild>
+			<WorkToBuild>2150</WorkToBuild>
 			<MaxHitPoints>150</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Cleanliness>-5</Cleanliness>
@@ -2063,6 +2693,9 @@
 		<size>(3,1)</size>
 		<designationCategory>Production</designationCategory>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
+		<building>
+			<uninstallWork>1450</uninstallWork>
+		</building>
 		<comps>
 			<li Class="CompProperties_AffectedByFacilities">
 				<linkableFacilities>
@@ -2083,7 +2716,6 @@
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
 	</ThingDef>
-
 	<ThingDef ParentName="WorkTable">
 		<defName>ElectricTailoringBench</defName>
 		<label>electric tailoring bench</label>
@@ -2105,9 +2737,9 @@
 			</damageData>
 		</graphicData>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>StrongMetallic</li>
 		</stuffCategories>
-		<costStuffCount>140</costStuffCount>
+		<costStuffCount>150</costStuffCount>
 		<costList>
 			<ComponentIndustrial>15</ComponentIndustrial>
 			<Electronics>4</Electronics>
@@ -2118,7 +2750,7 @@
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>9250</WorkToBuild>
+			<WorkToBuild>6250</WorkToBuild>
 			<MaxHitPoints>210</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Cleanliness>-4</Cleanliness>
@@ -2128,7 +2760,8 @@
 		<designationCategory>Production</designationCategory>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
 		<building>
-			<unpoweredWorkTableWorkSpeedFactor>0.25</unpoweredWorkTableWorkSpeedFactor>
+			<uninstallWork>1450</uninstallWork>
+			<unpoweredWorkTableWorkSpeedFactor>0.6</unpoweredWorkTableWorkSpeedFactor>
 		</building>
 		<tickerType>Normal</tickerType>
 		<comps>
@@ -2166,7 +2799,6 @@
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
 	</ThingDef>
-
 	<ThingDef ParentName="WorkTable">
 		<defName>TableLoom</defName>
 		<label>tailor's loom</label>
@@ -2187,21 +2819,21 @@
 			</damageData>
 		</graphicData>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>StrongMetallic</li>
 			<li>Woody</li>
 		</stuffCategories>
-		<costStuffCount>115</costStuffCount>
+		<costStuffCount>125</costStuffCount>
 		<costList>
-			<ComponentIndustrial>10</ComponentIndustrial>
+			<ComponentMedieval>10</ComponentMedieval>
 			<ElectronicComponents>3</ElectronicComponents>
-			<Mechanism>3</Mechanism>
+			<Mechanism>6</Mechanism>
 		</costList>
 		<minifiedDef>MinifiedThing</minifiedDef>
 		<thingCategories>
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>5850</WorkToBuild>
+			<WorkToBuild>3850</WorkToBuild>
 			<MaxHitPoints>170</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Cleanliness>-3</Cleanliness>
@@ -2210,18 +2842,9 @@
 		<size>(2,1)</size>
 		<designationCategory>Production</designationCategory>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
-		<recipes>
-			<li>Make_Patchleather</li>
-			<li>MakeCloth</li>
-			<li>MakeLinen</li>
-			<li>MakeSynthreadCloth</li>
-			<li>MakeDevilstrand</li>
-			<li>MakeHyperweaveCloth</li>
-			<li>MakeKevlar</li>
-			<li>MakeHempCloth</li>
-		</recipes>
 		<building>
-			<unpoweredWorkTableWorkSpeedFactor>0.2</unpoweredWorkTableWorkSpeedFactor>
+			<uninstallWork>1450</uninstallWork>
+			<unpoweredWorkTableWorkSpeedFactor>0.6</unpoweredWorkTableWorkSpeedFactor>
 		</building>
 		<tickerType>Normal</tickerType>
 		<comps>
@@ -2254,9 +2877,8 @@
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
 			<li>PlaceWorker_ReportWorkSpeedPenalties</li>
 		</placeWorkers>
-		<constructionSkillPrerequisite>11</constructionSkillPrerequisite>
+		<constructionSkillPrerequisite>7</constructionSkillPrerequisite>
 	</ThingDef>
-
 	<ThingDef ParentName="WorkTable">
 		<defName>TableMending</defName>
 		<label>mending workbench</label>
@@ -2283,15 +2905,15 @@
 			<Mechanism>5</Mechanism>
 		</costList>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>RuggedMetallic</li>
 		</stuffCategories>
-		<costStuffCount>115</costStuffCount>
+		<costStuffCount>135</costStuffCount>
 		<minifiedDef>MinifiedThing</minifiedDef>
 		<thingCategories>
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>6500</WorkToBuild>
+			<WorkToBuild>4500</WorkToBuild>
 			<MaxHitPoints>220</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Cleanliness>-5</Cleanliness>
@@ -2301,7 +2923,8 @@
 		<designationCategory>Production</designationCategory>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
 		<building>
-			<unpoweredWorkTableWorkSpeedFactor>0.3</unpoweredWorkTableWorkSpeedFactor>
+			<uninstallWork>1250</uninstallWork>
+			<unpoweredWorkTableWorkSpeedFactor>0.6</unpoweredWorkTableWorkSpeedFactor>
 		</building>
 		<comps>
 			<li Class="CompProperties_Power">
@@ -2318,6 +2941,7 @@
 					</thingDefs>
 				</fuelFilter>
 				<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+				<showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
 			</li>
 			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_AffectedByFacilities">
@@ -2346,7 +2970,6 @@
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>10</constructionSkillPrerequisite>
 	</ThingDef>
-
 	<ThingDef ParentName="WorkTable">
 		<defName>FabricationBench</defName>
 		<label>hand assembling workbench</label>
@@ -2354,6 +2977,7 @@
 		<graphicData>
 			<texPath>Things/Building/Production/fas</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
+			<shaderType>CutoutComplex</shaderType>
 			<drawSize>(2,1)</drawSize>
 			<shadowData>
 				<volume>(1.7, 0.5, 0.7)</volume>
@@ -2368,18 +2992,15 @@
 		</graphicData>
 		<size>(2,1)</size>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>RuggedMetallic</li>
 		</stuffCategories>
-		<costStuffCount>125</costStuffCount>
-		<costList>
-			<WoodPlank>50</WoodPlank>
-		</costList>
+		<costStuffCount>145</costStuffCount>
 		<minifiedDef>MinifiedThing</minifiedDef>
 		<thingCategories>
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>4800</WorkToBuild>
+			<WorkToBuild>2800</WorkToBuild>
 			<MaxHitPoints>200</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Cleanliness>-12</Cleanliness>
@@ -2387,12 +3008,6 @@
 		</statBases>
 		<designationCategory>Production</designationCategory>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
-		<recipes>
-			<li>Make_ComponentIndustrial</li>
-			<li>MakeWires_Hand</li>
-			<li>MakeSimpleMechanism_Hand</li>
-			<li>MakeAdvMechanism_Hand</li>
-		</recipes>
 		<tickerType>Normal</tickerType>
 		<comps>
 			<li Class="CompProperties_Flickable"/>
@@ -2416,16 +3031,15 @@
 			</li>
 		</comps>
 		<building>
-			<unpoweredWorkTableWorkSpeedFactor>0.3</unpoweredWorkTableWorkSpeedFactor>
+			<uninstallWork>1450</uninstallWork>
+			<unpoweredWorkTableWorkSpeedFactor>0.6</unpoweredWorkTableWorkSpeedFactor>
 		</building>
 		<placeWorkers>
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
 			<li>PlaceWorker_ReportWorkSpeedPenalties</li>
 		</placeWorkers>
-		<constructionSkillPrerequisite>7</constructionSkillPrerequisite>
+		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
 	</ThingDef>
-
-
 	<ThingDef ParentName="WorkTableFueled">
 		<defName>FueledSmithy</defName>
 		<label>blacksmith</label>
@@ -2446,22 +3060,24 @@
 				<cornerBR>Damage/Corner</cornerBR>
 			</damageData>
 		</graphicData>
+		<uiIconPath>Things/Building/Production/NeolithicProduction/Blacksmith_south</uiIconPath>
+		<defaultPlacingRot>South</defaultPlacingRot>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>RuggedMetallic</li>
 			<li>Stony</li>
 			<li>Bricks</li>
 		</stuffCategories>
-		<costStuffCount>120</costStuffCount>
+		<costStuffCount>220</costStuffCount>
 		<costList>
-			<ComponentIndustrial>8</ComponentIndustrial>
-			<Mechanism>6</Mechanism>
+			<ComponentMedieval>12</ComponentMedieval>
+			<Mechanism>8</Mechanism>
 		</costList>
 		<minifiedDef>MinifiedThing</minifiedDef>
 		<thingCategories>
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>3000</WorkToBuild>
+			<WorkToBuild>1700</WorkToBuild>
 			<MaxHitPoints>250</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Cleanliness>-12</Cleanliness>
@@ -2470,7 +3086,11 @@
 		<pathCost>90</pathCost>
 		<size>(3,3)</size>
 		<designationCategory>Production</designationCategory>
-		<interactionCellOffset>(0,0,1)</interactionCellOffset>
+		<interactionCellOffset>(0,0,2)</interactionCellOffset>
+		<fillPercent>0.85</fillPercent>
+		<building>
+			<uninstallWork>1450</uninstallWork>
+		</building>
 		<comps>
 			<li Class="CompProperties_AffectedByFacilities">
 				<linkableFacilities>
@@ -2479,8 +3099,8 @@
 				</linkableFacilities>
 			</li>
 			<li Class="CompProperties_Flickable"/>
-			<li Class="SK.CompProperties_HeatPusherExt">
-				<compClass>SK.CompHeatPusherExt</compClass>
+			<li Class="SK.CompProperties_HeatPusherAdvanced">
+				<compClass>SK.CompHeatPusherAdvanced</compClass>
 				<heatPerSecond>30</heatPerSecond>
 				<heatPushMaxTemperature>45</heatPushMaxTemperature>
 			</li>
@@ -2495,7 +3115,9 @@
 				<fuelDrawOffset>(0,0.1,-0.2)</fuelDrawOffset>
 				<fuelDrawScale>1.3</fuelDrawScale>
 				<fuelCapacity>30</fuelCapacity>
-				<effectOnWeather>true</effectOnWeather>
+				<burnFuelMultiplier>0.4</burnFuelMultiplier>
+				<effectOnWeather>false</effectOnWeather>
+				<smokeDensity>2</smokeDensity>
 				<fuelFilter>
 					<thingDefs>
 						<li>Coal</li>
@@ -2519,7 +3141,6 @@
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
 	</ThingDef>
-
 	<ThingDef ParentName="WorkTable">
 		<defName>TableStonecutterNeolithic</defName>
 		<label>stonecutter's bench</label>
@@ -2527,9 +3148,10 @@
 		<graphicData>
 			<graphicClass>Graphic_Multi</graphicClass>
 			<texPath>Things/Building/Production/TableStonecutter/Neolithic/TableStonecutterNeolithic</texPath>
-			<drawSize>(3,1)</drawSize>
+			<shaderType>CutoutComplex</shaderType>
+			<drawSize>(2,1)</drawSize>
 			<shadowData>
-				<volume>(2.7, 1.0, 0.85)</volume>
+				<volume>(1.7, 1.0, 0.85)</volume>
 				<offset>(0,0,0)</offset>
 			</shadowData>
 			<damageData>
@@ -2542,23 +3164,27 @@
 		<stuffCategories>
 			<li>Stony</li>
 			<li>Bricks</li>
+			<li>WoodLogs</li>
 		</stuffCategories>
-		<costStuffCount>70</costStuffCount>
+		<costStuffCount>160</costStuffCount>
 		<minifiedDef>MinifiedThing</minifiedDef>
 		<thingCategories>
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>1800</WorkToBuild>
+			<WorkToBuild>1100</WorkToBuild>
 			<MaxHitPoints>210</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Cleanliness>-13</Cleanliness>
 			<WorkTableWorkSpeedFactor>0.4</WorkTableWorkSpeedFactor>
 			<Mass>500</Mass>
 		</statBases>
-		<size>(3,1)</size>
+		<size>(2,1)</size>
 		<designationCategory>Production</designationCategory>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
+		<building>
+			<uninstallWork>1450</uninstallWork>
+		</building>
 		<comps>
 			<li>
 				<compClass>CompReportWorkSpeed</compClass>
@@ -2569,7 +3195,6 @@
 		</placeWorkers>
 		<constructionSkillPrerequisite>3</constructionSkillPrerequisite>
 	</ThingDef>
-
 	<ThingDef ParentName="WorkTable">
 		<defName>TableStonecutter</defName>
 		<label>hand machining table</label>
@@ -2591,12 +3216,12 @@
 			</damageData>
 		</graphicData>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>StrongMetallic</li>
 			<li>Woody</li>
 		</stuffCategories>
-		<costStuffCount>110</costStuffCount>
+		<costStuffCount>140</costStuffCount>
 		<costList>
-			<ComponentIndustrial>10</ComponentIndustrial>
+			<ComponentMedieval>10</ComponentMedieval>
 			<Mechanism>5</Mechanism>
 		</costList>
 		<altitudeLayer>Building</altitudeLayer>
@@ -2607,7 +3232,7 @@
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>2800</WorkToBuild>
+			<WorkToBuild>1500</WorkToBuild>
 			<MaxHitPoints>210</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Cleanliness>-11</Cleanliness>
@@ -2621,14 +3246,8 @@
 		<hasInteractionCell>True</hasInteractionCell>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
 		<surfaceType>Item</surfaceType>
-		<recipes>
-			<li>MakeCrushedStone_Hand</li>
-			<li>MakeSand_Hand</li>
-			<li>MakeCrushedStone_Hand_Chunk</li>
-			<li>MakeSand_Hand_Chunk</li>
-			<li>MakeReinforcedConcrete_Hand</li>
-		</recipes>
 		<building>
+			<uninstallWork>1450</uninstallWork>
 			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
 			<heatPerTickWhileWorking>0.5</heatPerTickWhileWorking>
 		</building>
@@ -2653,8 +3272,6 @@
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
 	</ThingDef>
-
-
 	<ThingDef ParentName="WorkTable">
 		<defName>TableSculpting</defName>
 		<label>sculptor's table</label>
@@ -2662,7 +3279,8 @@
 		<graphicData>
 			<texPath>Things/Building/Production/SculptureTable/SculpturalTable</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
-			<drawSize>(3,3)</drawSize>
+			<drawSize>(3,1)</drawSize>
+			<shaderType>CutoutComplex</shaderType>
 			<shadowData>
 				<volume>(2.7, 1.0, 0.85)</volume>
 				<offset>(0,0,0)</offset>
@@ -2675,19 +3293,22 @@
 			</damageData>
 		</graphicData>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>StrongMetallic</li>
 		</stuffCategories>
-		<costStuffCount>110</costStuffCount>
+		<costStuffCount>135</costStuffCount>
 		<costList>
-			<ComponentIndustrial>10</ComponentIndustrial>
+			<ComponentMedieval>10</ComponentMedieval>
 			<Mechanism>5</Mechanism>
 		</costList>
 		<minifiedDef>MinifiedThing</minifiedDef>
+		<building>
+			<uninstallWork>1450</uninstallWork>
+		</building>
 		<thingCategories>
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>4500</WorkToBuild>
+			<WorkToBuild>2800</WorkToBuild>
 			<MaxHitPoints>210</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Cleanliness>-7</Cleanliness>
@@ -2717,8 +3338,6 @@
 		</placeWorkers>
 		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
 	</ThingDef>
-
-
 	<ThingDef ParentName="WorkTable">
 		<defName>ConcreteMixer</defName>
 		<label>hand concrete mixer</label>
@@ -2739,9 +3358,9 @@
 			</damageData>
 		</graphicData>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>StrongMetallic</li>
 		</stuffCategories>
-		<costStuffCount>125</costStuffCount>
+		<costStuffCount>135</costStuffCount>
 		<costList>
 			<ComponentIndustrial>5</ComponentIndustrial>
 			<Mechanism>5</Mechanism>
@@ -2751,7 +3370,7 @@
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>3500</WorkToBuild>
+			<WorkToBuild>1600</WorkToBuild>
 			<MaxHitPoints>180</MaxHitPoints>
 			<Flammability>0.5</Flammability>
 			<Beauty>-40</Beauty>
@@ -2764,6 +3383,9 @@
 		<recipes>
 			<li>MixConcrete</li>
 		</recipes>
+		<building>
+			<uninstallWork>950</uninstallWork>
+		</building>
 		<comps>
 			<li Class="CompProperties_AffectedByFacilities">
 				<linkableFacilities>
@@ -2784,15 +3406,14 @@
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
 	</ThingDef>
-
-	<ThingDef ParentName="StandartBuilding">
+	<ThingDef ParentName="UniversalFermenterBase">
 		<defName>CompostBarrel</defName>
 		<label>compost barrel</label>
 		<description>A compost barrel will convert 10 compost into 10 fertilizer.</description>
-		<thingClass>Building</thingClass>
 		<graphicData>
 			<texPath>Things/Building/CompostBarrel</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
+			<shaderType>CutoutComplex</shaderType>
 			<shadowData>
 				<volume>(0.6, 0.7, 0.6)</volume>
 				<offset>(0,0,0)</offset>
@@ -2806,34 +3427,36 @@
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>2500</WorkToBuild>
+			<WorkToBuild>1700</WorkToBuild>
 			<Mass>10</Mass>
 			<MaxHitPoints>100</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Cleanliness>-8</Cleanliness>
 		</statBases>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>StrongMetallic</li>
 			<li>Woody</li>
 		</stuffCategories>
-		<costStuffCount>80</costStuffCount>
+		<costStuffCount>75</costStuffCount>
 		<costList>
-			<ComponentIndustrial>1</ComponentIndustrial>
+			<ComponentMedieval>2</ComponentMedieval>
 		</costList>
 		<rotatable>true</rotatable>
 		<designationCategory>Production</designationCategory>
 		<tickerType>Rare</tickerType>
+		<building>
+			<uninstallWork>150</uninstallWork>
+		</building>
 		<comps>
 			<li Class="CompProperties_Forbiddable"/>
-			<li Class="Kubouch.CompProperties_UniversalFermenter">
-				<products>
+			<li Class="UniversalFermenter.CompProperties_UniversalFermenter">
+				<showProductIcon>true</showProductIcon>
+				<barOffset>(0.0, 0.25)</barOffset>
+				<barScale>(1.0, 1.0)</barScale>
+				<slotsCount>10</slotsCount>
+				<processes>
 					<li>
-						<thingDef>Fertilizer</thingDef>
-						<ingredientFilter>
-							<thingDefs>
-								<li>Compost</li>
-							</thingDefs>
-						</ingredientFilter>
+						<recipeDef>Make_Fertilizer</recipeDef>
 						<temperatureSafe>
 							<min>-1</min>
 							<max>49</max>
@@ -2842,14 +3465,26 @@
 							<min>10</min>
 							<max>30</max>
 						</temperatureIdeal>
-						<progressPerDegreePerTick>5</progressPerDegreePerTick>
-						<baseFermentationDuration>160000</baseFermentationDuration>
-						<maxCapacity>10</maxCapacity>
-						<speedLessThanSafe>0.5</speedLessThanSafe>
-						<speedMoreThanSafe>1</speedMoreThanSafe>
-						<efficiency>1</efficiency>
+						<processDays>2.8</processDays>
+						<speedBelowSafe>0.5</speedBelowSafe>
+						<speedAboveSafe>1</speedAboveSafe>
 					</li>
-				</products>
+					<li>
+						<recipeDef>Make_Fertilizer_x5</recipeDef>
+						<slotsRequired>5</slotsRequired>
+						<temperatureSafe>
+							<min>-1</min>
+							<max>49</max>
+						</temperatureSafe>
+						<temperatureIdeal>
+							<min>10</min>
+							<max>30</max>
+						</temperatureIdeal>
+						<processDays>2.8</processDays>
+						<speedBelowSafe>0.5</speedBelowSafe>
+						<speedAboveSafe>1</speedAboveSafe>
+					</li>
+				</processes>
 			</li>
 		</comps>
 		<researchPrerequisites>
@@ -2857,7 +3492,6 @@
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>3</constructionSkillPrerequisite>
 	</ThingDef>
-
 	<ThingDef ParentName="WorkTable">
 		<defName>CraftingSpot</defName>
 		<label>craftsman table</label>
@@ -2865,7 +3499,8 @@
 		<graphicData>
 			<texPath>Things/Building/Production/TableHunter/TableHunter</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
-			<drawSize>(3.4,1.3)</drawSize>
+			<shaderType>CutoutComplex</shaderType>
+			<drawSize>(3,1)</drawSize>
 			<shadowData>
 				<volume>(2.7, 1.0, 0.85)</volume>
 				<offset>(0,0,0)</offset>
@@ -2882,7 +3517,7 @@
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>2250</WorkToBuild>
+			<WorkToBuild>1250</WorkToBuild>
 			<MaxHitPoints>160</MaxHitPoints>
 			<Flammability>0</Flammability>
 			<Cleanliness>-4</Cleanliness>
@@ -2894,13 +3529,10 @@
 			<li>Stony</li>
 			<li>Bricks</li>
 		</stuffCategories>
-		<costStuffCount>80</costStuffCount>
+		<costStuffCount>120</costStuffCount>
 		<size>(3,1)</size>
 		<designationCategory>Production</designationCategory>
 		<passability>Standable</passability>
-		<recipes>
-			<li>SmeltWeapon</li>
-		</recipes>
 		<comps>
 			<li Class="CompProperties_AffectedByFacilities">
 				<linkableFacilities>
@@ -2912,13 +3544,19 @@
 				<compClass>CompReportWorkSpeed</compClass>
 			</li>
 		</comps>
+		<building>
+			<uninstallWork>70</uninstallWork>
+			<artificialForMeditationPurposes>false</artificialForMeditationPurposes>
+			<buildingTags>
+				<li>Production</li>
+			</buildingTags>
+		</building>
 		<designationHotKey>Misc1</designationHotKey>
 		<placeWorkers>
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
 			<li>PlaceWorker_ReportWorkSpeedPenalties</li>
 		</placeWorkers>
 	</ThingDef>
-
 	<ThingDef ParentName="WorkTable">
 		<defName>WeaponCraftingWorkTable</defName>
 		<label>weapon crafting workbench</label>
@@ -2939,10 +3577,10 @@
 			</damageData>
 		</graphicData>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>RuggedMetallic</li>
 			<li>Woody</li>
 		</stuffCategories>
-		<costStuffCount>130</costStuffCount>
+		<costStuffCount>140</costStuffCount>
 		<costList>
 			<ComponentIndustrial>15</ComponentIndustrial>
 			<ElectronicComponents>6</ElectronicComponents>
@@ -2953,7 +3591,7 @@
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>6000</WorkToBuild>
+			<WorkToBuild>4000</WorkToBuild>
 			<MaxHitPoints>210</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Cleanliness>-8</Cleanliness>
@@ -2962,9 +3600,6 @@
 		<size>(3,1)</size>
 		<designationCategory>Production</designationCategory>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
-		<recipes>
-			<li>SmeltWeapon</li>
-		</recipes>
 		<tickerType>Normal</tickerType>
 		<comps>
 			<li Class="CompProperties_Flickable"/>
@@ -2990,6 +3625,9 @@
 				<compClass>CompReportWorkSpeed</compClass>
 			</li>
 		</comps>
+		<building>
+			<uninstallWork>1450</uninstallWork>
+		</building>
 		<researchPrerequisites>
 			<li>Gunsmithing</li>
 		</researchPrerequisites>
@@ -2999,8 +3637,6 @@
 		</placeWorkers>
 		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
 	</ThingDef>
-
-
 	<ThingDef ParentName="WorkTable">
 		<defName>AdvWeaponCraftingWorkTable</defName>
 		<label>advanced weapon crafting workbench</label>
@@ -3021,9 +3657,9 @@
 			</damageData>
 		</graphicData>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>RuggedMetallic</li>
 		</stuffCategories>
-		<costStuffCount>150</costStuffCount>
+		<costStuffCount>160</costStuffCount>
 		<costList>
 			<Rubber>55</Rubber>
 			<ComponentIndustrial>15</ComponentIndustrial>
@@ -3035,7 +3671,7 @@
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>9500</WorkToBuild>
+			<WorkToBuild>6500</WorkToBuild>
 			<MaxHitPoints>250</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Cleanliness>-7</Cleanliness>
@@ -3044,9 +3680,6 @@
 		<size>(3,1)</size>
 		<designationCategory>Production</designationCategory>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
-		<recipes>
-			<li>SmeltWeapon</li>
-		</recipes>
 		<tickerType>Normal</tickerType>
 		<comps>
 			<li Class="CompProperties_AffectedByFacilities">
@@ -3072,6 +3705,9 @@
 				<compClass>CompReportWorkSpeed</compClass>
 			</li>
 		</comps>
+		<building>
+			<uninstallWork>1450</uninstallWork>
+		</building>
 		<researchPrerequisites>
 			<li>BlowbackOperation</li>
 		</researchPrerequisites>
@@ -3081,8 +3717,6 @@
 		</placeWorkers>
 		<constructionSkillPrerequisite>12</constructionSkillPrerequisite>
 	</ThingDef>
-
-
 	<ThingDef ParentName="WorkTable">
 		<defName>AmmoBench</defName>
 		<label>ammo crafting table</label>
@@ -3104,9 +3738,9 @@
 			</damageData>
 		</graphicData>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>RuggedMetallic</li>
 		</stuffCategories>
-		<costStuffCount>145</costStuffCount>
+		<costStuffCount>165</costStuffCount>
 		<costList>
 			<ComponentIndustrial>10</ComponentIndustrial>
 			<Mechanism>10</Mechanism>
@@ -3116,7 +3750,7 @@
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>7500</WorkToBuild>
+			<WorkToBuild>5500</WorkToBuild>
 			<MaxHitPoints>240</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Cleanliness>-6</Cleanliness>
@@ -3154,7 +3788,8 @@
 			</li>
 		</comps>
 		<building>
-			<unpoweredWorkTableWorkSpeedFactor>0.3</unpoweredWorkTableWorkSpeedFactor>
+			<uninstallWork>1450</uninstallWork>
+			<unpoweredWorkTableWorkSpeedFactor>0.6</unpoweredWorkTableWorkSpeedFactor>
 		</building>
 		<researchPrerequisites>
 			<li>Fabrication</li>
@@ -3165,7 +3800,6 @@
 		</placeWorkers>
 		<constructionSkillPrerequisite>10</constructionSkillPrerequisite>
 	</ThingDef>
-
 	<ThingDef ParentName="WorkTable">
 		<defName>HeavyArmsBench</defName>
 		<label>heavy arms lathe</label>
@@ -3187,9 +3821,9 @@
 			</damageData>
 		</graphicData>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>RuggedMetallic</li>
 		</stuffCategories>
-		<costStuffCount>150</costStuffCount>
+		<costStuffCount>170</costStuffCount>
 		<costList>
 			<ComponentIndustrial>15</ComponentIndustrial>
 			<Mechanism>15</Mechanism>
@@ -3199,7 +3833,7 @@
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>7500</WorkToBuild>
+			<WorkToBuild>5500</WorkToBuild>
 			<MaxHitPoints>220</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Cleanliness>-6</Cleanliness>
@@ -3231,6 +3865,9 @@
 				<compClass>CompReportWorkSpeed</compClass>
 			</li>
 		</comps>
+		<building>
+			<uninstallWork>1450</uninstallWork>
+		</building>
 		<researchPrerequisites>
 			<li>IEDIncendiary</li>
 		</researchPrerequisites>
@@ -3240,18 +3877,16 @@
 		</placeWorkers>
 		<constructionSkillPrerequisite>14</constructionSkillPrerequisite>
 	</ThingDef>
-
 	<!-- ========================= EPOE ==========================-->
-
 	<ThingDef ParentName="WorkTable">
 		<defName>TablePrimitiveProsthetic</defName>
 		<label>primitive prosthetics bench</label>
 		<description>A workbench equipped for production of basic prosthetics.</description>
 		<graphicData>
-			<texPath>Things/Building/Production/TableCraftsman/Neolithic/TableCraftsmanNeolithic</texPath>
+			<texPath>Things/Building/Production/TableHunter/TableHunter</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
 			<shaderType>CutoutComplex</shaderType>
-			<drawSize>(3.4,1.3)</drawSize>
+			<drawSize>(3,1)</drawSize>
 			<shadowData>
 				<volume>(2.7, 1.0, 0.85)</volume>
 				<offset>(0,0,0)</offset>
@@ -3274,7 +3909,7 @@
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>5700</WorkToBuild>
+			<WorkToBuild>3700</WorkToBuild>
 			<MaxHitPoints>130</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Cleanliness>-6</Cleanliness>
@@ -3283,24 +3918,19 @@
 		<size>(3,1)</size>
 		<designationCategory>Production</designationCategory>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
-		<recipes>
-			<li>CreateEyePatch</li>
-			<li>CreateHookHand</li>
-			<li>CreatePegLeg</li>
-			<li>CreateWoodenFoot</li>
-			<li>makelifesupport</li>
-		</recipes>
 		<comps>
 			<li>
 				<compClass>CompReportWorkSpeed</compClass>
 			</li>
 		</comps>
+		<building>
+			<uninstallWork>1450</uninstallWork>
+		</building>
 		<placeWorkers>
 			<li>PlaceWorker_ReportWorkSpeedPenalties</li>
 		</placeWorkers>
 		<constructionSkillPrerequisite>3</constructionSkillPrerequisite>
 	</ThingDef>
-
 	<ThingDef ParentName="WorkTable">
 		<defName>TableBasicProsthetic</defName>
 		<label>prosthetics workbench</label>
@@ -3322,10 +3952,10 @@
 			</damageData>
 		</graphicData>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>StrongMetallic</li>
 			<li>Woody</li>
 		</stuffCategories>
-		<costStuffCount>90</costStuffCount>
+		<costStuffCount>120</costStuffCount>
 		<costList>
 			<ComponentIndustrial>12</ComponentIndustrial>
 			<Mechanism>8</Mechanism>
@@ -3335,7 +3965,7 @@
 			<li>BuildingsProduction</li>
 		</thingCategories>
 		<statBases>
-			<WorkToBuild>5700</WorkToBuild>
+			<WorkToBuild>3700</WorkToBuild>
 			<MaxHitPoints>140</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Cleanliness>-3</Cleanliness>
@@ -3344,23 +3974,9 @@
 		<size>(2,1)</size>
 		<designationCategory>Production</designationCategory>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
-		<recipes>
-			<li>CreatePegLeg</li>
-			<li>CreateHookHand</li>
-			<li>CreateEyePatch</li>
-			<li>CreateDenture</li>
-			<li>CreateWoodenFoot</li>
-			<li>CreateSimpleProstheticLeg</li>
-			<li>CreateSimpleProstheticArm</li>
-			<li>CreateSimpleProstheticHand</li>
-			<li>CreateSimpleProstheticFoot</li>
-			<li>CreateArtificialPelvis</li>
-			<li>CreateArtificialNose</li>
-			<li>CreateGlassEye</li>
-			<li>CreateCochlearImplant</li>
-		</recipes>
 		<building>
-			<unpoweredWorkTableWorkSpeedFactor>0.3</unpoweredWorkTableWorkSpeedFactor>
+			<uninstallWork>850</uninstallWork>
+			<unpoweredWorkTableWorkSpeedFactor>0.6</unpoweredWorkTableWorkSpeedFactor>
 		</building>
 		<researchPrerequisites>
 			<li>Prosthetics</li>
@@ -3371,7 +3987,6 @@
 			<li Class="CompProperties_Breakdownable"/>
 			<li Class="CompProperties_AffectedByFacilities">
 				<linkableFacilities>
-
 					<li>Small_ToolCabinet</li>
 					<li>PodChair</li>
 				</linkableFacilities>
@@ -3397,10 +4012,7 @@
 		</placeWorkers>
 		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
 	</ThingDef>
-
-
 	<!--============================ Resource rocks ===============================-->
-
 	<ThingDef ParentName="WorkTable">
 		<defName>VG_SaltMine</defName>
 		<label>salt mine</label>
@@ -3419,7 +4031,7 @@
 		</graphicData>
 		<altitudeLayer>FloorEmplacement</altitudeLayer>
 		<statBases>
-			<WorkToBuild>4500</WorkToBuild>
+			<WorkToBuild>2500</WorkToBuild>
 		</statBases>
 		<scatterableOnMapGen>false</scatterableOnMapGen>
 		<useHitPoints>False</useHitPoints>
@@ -3432,5 +4044,4 @@
 			<canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
 		</building>
 	</ThingDef>
-
 </Defs>

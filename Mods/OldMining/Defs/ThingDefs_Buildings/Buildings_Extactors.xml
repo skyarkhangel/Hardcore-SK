@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<ThingDef ParentName="StandartBuilding">
+		<defName>Extractor</defName>
+		<label>mine extractor</label>
+		<description>The mine extractor digs deep into the ground to extract metal ores and rocks. Must be placed on a Deposits of Minerals. Requires power.</description>
+		<thingClass>SK.OldMining.Building_Extractor</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Production/MinerExtractor/mining_off</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(3,3)</drawSize>
+			<shadowData>
+				<volume>(2.7, 1.0, 2.7)</volume>
+				<offset>(0,0,0)</offset>
+			</shadowData>
+			<damageData>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+			</damageData>
+		</graphicData>
+		<passability>Impassable</passability>
+		<canOverlapZones>false</canOverlapZones>
+		<hasInteractionCell>True</hasInteractionCell>
+		<interactionCellOffset>(0,0,-2)</interactionCellOffset>
+		<statBases>
+			<WorkToBuild>9500</WorkToBuild>
+			<MaxHitPoints>300</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<Beauty>-60</Beauty>
+			<Cleanliness>-20</Cleanliness>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>2500</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusherPowered</compClass>
+				<heatPerSecond>25</heatPerSecond>
+				<heatPushMaxTemperature>1500</heatPushMaxTemperature>
+			</li>
+			<li Class="CompProperties_Glower">
+				<glowRadius>4</glowRadius>
+				<glowColor>(255,0,0,0)</glowColor>
+			</li>
+			<li Class="SK.CompProperties_RestrictedPlacement">
+				<compClass>SK.CompRestrictedPlacement</compClass>
+				<restrictedThing>
+					<li>MineralDeposits</li>
+				</restrictedThing>
+			</li>
+			<li Class="SK.OldMining.CompProperties_LifespanDebris">
+				<lifespanTicks>2500000</lifespanTicks>
+			</li>
+			<li Class="CompProperties_CreatesInfestations" />
+			<li Class="CompProperties_Flickable"/>
+		</comps>
+		<size>(3,3)</size>
+		<stuffCategories>
+			<li>RuggedMetallic</li>
+		</stuffCategories>
+		<costStuffCount>145</costStuffCount>
+		<costList>
+			<ReinforcedConcrete>40</ReinforcedConcrete>
+			<ComponentIndustrial>15</ComponentIndustrial>
+			<Mechanism>8</Mechanism>
+			<ElectronicComponents>8</ElectronicComponents>
+		</costList>
+		<placeWorkers>
+			<li>SK.PlaceWorker_OnlyOnThing</li>
+		</placeWorkers>
+		<building>
+			<deconstructible>true</deconstructible>
+		</building>
+		<killedLeavings>
+			<ChunkSlagSteel>6</ChunkSlagSteel>
+		</killedLeavings>
+		<designationCategory>Production</designationCategory>
+		<researchPrerequisites>
+			<li>DeepDrilling</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>11</constructionSkillPrerequisite>
+		<modExtensions>
+			<li Class="SK.MineExtractorExtension">
+				<MineTimeBase>25000</MineTimeBase>
+				<MineSpeedMultiplier>1</MineSpeedMultiplier>
+				<MineSizeinCells>9</MineSizeinCells> <!-- 9, 16, 25.. -->
+				<FramePath>Things/Building/Production/MinerExtractor/mining_work</FramePath>
+				<FramePath2>Things/Building/Production/MinerExtractor/mining_down</FramePath2>
+				<FrameCount>6</FrameCount>
+				<multispeed>5</multispeed>
+				<FrameCount2>6</FrameCount2>
+				<multispeed2>10</multispeed2>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+
+
+	<ThingDef ParentName="StandartBuilding">
+		<defName>ExtractorDebris</defName>
+		<label>exhausted mine extractor</label>
+		<description>This mine extractor will no longer produce resources and should be deconstructed.</description>
+		<thingClass>Building</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Production/MinerExtractor/mining_off</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(3,3)</drawSize>
+			<shadowData>
+				<volume>(2.7, 1.0, 2.7)</volume>
+				<offset>(0,0,0)</offset>
+			</shadowData>
+			<damageData>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+			</damageData>
+		</graphicData>
+		<passability>Impassable</passability>
+		<statBases>
+			<WorkToBuild>18500</WorkToBuild>
+			<MaxHitPoints>1000</MaxHitPoints>
+			<Flammability>0</Flammability>
+			<Beauty>-200</Beauty>
+			<Cleanliness>-20</Cleanliness>
+		</statBases>
+		<costList>
+			<ReinforcedConcrete>40</ReinforcedConcrete>
+			<ComponentIndustrial>15</ComponentIndustrial>
+			<Mechanism>8</Mechanism>
+			<ElectronicComponents>8</ElectronicComponents>
+		</costList>
+		<tickerType>Normal</tickerType>
+		<size>(3,3)</size>
+		<building>
+			<deconstructible>true</deconstructible>
+		</building>
+		<killedLeavings>
+			<ChunkSlagSteel>6</ChunkSlagSteel>
+		</killedLeavings>
+		<canOverlapZones>false</canOverlapZones>
+		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+	</ThingDef>
+
+
+	<ThingDef ParentName="StandartBuilding">
+		<defName>RareExtractor</defName>
+		<label>advanced mine extractor</label>
+		<description>The advanced mine extractor digs deep into the ground to extract rare metal ores. Must be placed on a Deposits of Rare Minerals. Requires power.</description>
+		<thingClass>SK.OldMining.Building_RareExtractor</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Production/AdvancedExtractor/adv_mining_off</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(5,5)</drawSize>
+			<shadowData>
+				<volume>(4.5, 2, 4.5)</volume>
+				<offset>(0,0,0)</offset>
+			</shadowData>
+		</graphicData>
+		<passability>Impassable</passability>
+		<fillPercent>1</fillPercent>
+		<hasInteractionCell>True</hasInteractionCell>
+		<interactionCellOffset>(1,0,-3)</interactionCellOffset>
+		<statBases>
+			<WorkToBuild>18500</WorkToBuild>
+			<MaxHitPoints>300</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<Beauty>-60</Beauty>
+			<Cleanliness>-15</Cleanliness>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>4000</basePowerConsumption>
+			</li>
+			<li Class="SK.CompProperties_RestrictedPlacement">
+				<compClass>SK.CompRestrictedPlacement</compClass>
+				<restrictedThing>
+					<li>RareMineralDeposits</li>
+				</restrictedThing>
+			</li>
+			<li Class="CompProperties_Glower">
+				<glowRadius>5</glowRadius>
+				<glowColor>(255,0,0,0)</glowColor>
+			</li>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusherPowered</compClass>
+				<heatPerSecond>30</heatPerSecond>
+				<heatPushMaxTemperature>1500</heatPushMaxTemperature>
+			</li>
+			<li Class="SK.OldMining.CompProperties_LifespanDebrisRare">
+				<lifespanTicks>2500000</lifespanTicks>
+			</li>
+			<li Class="CompProperties_CreatesInfestations" />
+			<li Class="CompProperties_Flickable"/>
+		</comps>
+		<size>(5,5)</size>
+		<stuffCategories>
+			<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>160</costStuffCount>
+		<costList>
+			<ReinforcedConcrete>50</ReinforcedConcrete>
+			<ComponentIndustrial>15</ComponentIndustrial>
+			<Mechanism>10</Mechanism>
+			<Electronics>4</Electronics>
+		</costList>
+		<placeWorkers>
+			<li>SK.PlaceWorker_OnlyOnThing</li>
+		</placeWorkers>
+		<building>
+			<deconstructible>true</deconstructible>
+		</building>
+		<killedLeavings>
+			<ChunkSlagSteel>6</ChunkSlagSteel>
+		</killedLeavings>
+		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+		<designationCategory>Production</designationCategory>
+		<researchPrerequisites>
+			<li>GroundPenetratingScanner</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>14</constructionSkillPrerequisite>
+		<modExtensions>
+			<li Class="SK.MineAdvancedExtractorExtension">
+				<MineTimeBase>25000</MineTimeBase>
+				<MineSpeedMultiplier>0.7</MineSpeedMultiplier>
+				<MineSizeinCells>16</MineSizeinCells> <!-- 9, 16, 25.. -->
+				<FramePath>Things/Building/Production/AdvancedExtractor/adv_mining_work</FramePath>
+				<FrameCount>15</FrameCount>
+				<multispeed>6</multispeed>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+
+	<ThingDef ParentName="StandartBuilding">
+		<defName>ExtractorDebrisRare</defName>
+		<label>exhausted advanced mine extractor</label>
+		<description>This mine extractor will no longer produce resources and should be deconstructed.</description>
+		<thingClass>Building</thingClass>
+		<graphicData>
+			<texPath>Things/Building/Production/AdvancedExtractor/adv_mining_off</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(5,5)</drawSize>
+			<shadowData>
+				<volume>(4.5, 2, 4.5)</volume>
+				<offset>(0,0,0)</offset>
+			</shadowData>
+		</graphicData>
+		<rotatable>false</rotatable>
+		<passability>Impassable</passability>
+		<fillPercent>1</fillPercent>
+		<statBases>
+			<WorkToBuild>18500</WorkToBuild>
+			<MaxHitPoints>1000</MaxHitPoints>
+			<Flammability>0</Flammability>
+			<Beauty>-200</Beauty>
+			<Cleanliness>-20</Cleanliness>
+		</statBases>
+		<costList>
+			<ReinforcedConcrete>50</ReinforcedConcrete>
+			<ComponentIndustrial>15</ComponentIndustrial>
+			<Mechanism>10</Mechanism>
+			<Electronics>4</Electronics>
+		</costList>
+		<tickerType>Normal</tickerType>
+		<size>(5,5)</size>
+		<building>
+			<deconstructible>true</deconstructible>
+		</building>
+		<killedLeavings>
+			<ChunkSlagSteel>6</ChunkSlagSteel>
+		</killedLeavings>
+		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+		<castEdgeShadows>false</castEdgeShadows>
+	</ThingDef>
+
+</Defs>

@@ -2,7 +2,7 @@
 <Defs>
 	
     <!-- RL T9 BURNING SUN-->
-    <Verse.ThingDef ParentName="BaseGun_Heavy">
+    <ThingDef ParentName="BaseGun_Heavy">
         <defName>Gun_IncendiaryLauncher</defName>
         <label>RL T9 Burning Sun</label>
         <description>Incendiary bolt launcher. Starts fires.</description>
@@ -21,6 +21,7 @@
             <Mass>7</Mass>
             <WorkToMake>39500</WorkToMake>
         </statBases>
+		<generateCommonality>0.7</generateCommonality>
         <weaponTags>
             <li>RKT1</li>
             <li>Glaunchers</li>
@@ -34,10 +35,6 @@
         <thingCategories>
             <li>Glaunchers</li>
         </thingCategories>
-        <equippedStatOffsets>
-            <MoveSpeed>-0.37</MoveSpeed>
-            <WorkSpeedGlobal>-0.25</WorkSpeedGlobal>
-        </equippedStatOffsets>
         <verbs>
             <li Class="CombatExtended.VerbPropertiesCE">
                 <verbClass>CombatExtended.Verb_ShootCE</verbClass>
@@ -45,10 +42,12 @@
 				<!--<forcedMissRadius>1.5</forcedMissRadius>-->
 				<circularError>0.5</circularError>
                 <defaultProjectile>Bullet_30x64mmFuel_Incendiary</defaultProjectile>
-                <ai_AvoidFriendlyFireRadius>3</ai_AvoidFriendlyFireRadius>
+				<ai_IsBuildingDestroyer>true</ai_IsBuildingDestroyer>
+                <ai_AvoidFriendlyFireRadius>4</ai_AvoidFriendlyFireRadius>
+				<minRange>4</minRange>
                 <warmupTime>1.3</warmupTime>
                 <burstShotCount>1</burstShotCount>
-                <range>40</range>
+                <range>52</range>
                 <soundCast>Shot_IncendiaryLauncher</soundCast>
                 <soundCastTail>GunTail_Medium</soundCastTail>
                 <muzzleFlashScale>14</muzzleFlashScale>
@@ -68,17 +67,86 @@
                 <reloadTime>4</reloadTime>
                 <ammoSet>AmmoSet_30x64mmFuel</ammoSet>
             </li>
-            <li Class="WHands.WhandCompProps">
-                <MainHand>(-0.3,0.3,-0.05)</MainHand>
-                <SecHand>(0.2,0,-0.05)</SecHand>
-            </li>
         </comps>
         <smeltProducts>
             <Heavy_Component>1</Heavy_Component>
-            <Weapon_Parts>6</Weapon_Parts>
+            <Weapon_Parts>5</Weapon_Parts>
 			<Plastic>4</Plastic>
         </smeltProducts>
-    </Verse.ThingDef>
+    </ThingDef>
+    <!-- M79 GL -->
+    <ThingDef ParentName="BaseGun_Heavy">
+        <defName>Gun_M79GL</defName>
+        <label>M79 GL</label>
+        <description>A launcher type weapon that fires 40mm concussive grenades.</description>
+        <graphicData>
+            <texPath>Things/Weapons/M79</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+        </graphicData>
+        <soundInteract>Interact_Rifle</soundInteract>
+        <statBases>
+            <MarketValue>1450</MarketValue>
+            <SightsEfficiency>1</SightsEfficiency>
+            <ShotSpread>0.17</ShotSpread>
+            <SwayFactor>1.8</SwayFactor>
+            <RangedWeapon_Cooldown>1.75</RangedWeapon_Cooldown>
+            <Bulk>8.1</Bulk>
+            <Mass>3.6</Mass>
+        </statBases>
+        <weaponTags>
+            <li>GLT1</li>
+            <li>Glaunchers</li>
+            <li>CE_AI_Rifle</li>
+            <li>CE_AI_Launcher</li>
+        </weaponTags>
+        <thingCategories>
+            <li>Glaunchers</li>
+        </thingCategories>
+		<generateCommonality>0.7</generateCommonality>
+        <verbs>
+            <li Class="CombatExtended.VerbPropertiesCE">
+                <verbClass>CombatExtended.Verb_ShootCE</verbClass>
+                <hasStandardCommand>true</hasStandardCommand>
+                <defaultProjectile>Bullet_40x46mmGrenade_HE</defaultProjectile>
+                <warmupTime>1.52</warmupTime>
+                <ai_IsBuildingDestroyer>true</ai_IsBuildingDestroyer>
+                <ai_AvoidFriendlyFireRadius>5</ai_AvoidFriendlyFireRadius>
+				<minRange>4</minRange>
+                <noiseRadius>4</noiseRadius>
+				<!--<forcedMissRadius>2</forcedMissRadius>-->
+				<circularError>0.75</circularError>
+                <range>36</range>
+                <!-- grenades at 12.9 -->
+                <targetParams>
+                    <canTargetLocations>true</canTargetLocations>
+                </targetParams>
+                <soundCast>RF_ShotMilkorMGL</soundCast>
+                <soundCastTail>GunTail_Heavy</soundCastTail>
+                <muzzleFlashScale>14</muzzleFlashScale>
+				<onlyManualCast>true</onlyManualCast>
+            </li>
+        </verbs>
+        <comps>
+            <li Class="CombatExtended.CompProperties_FireModes">
+                <aiUseBurstMode>FALSE</aiUseBurstMode>
+                <aiAimMode>AimedShot</aiAimMode>
+            </li>
+            <li Class="CombatExtended.CompProperties_AmmoUser">
+                <magazineSize>1</magazineSize>
+                <reloadTime>2.5</reloadTime>
+                <ammoSet>AmmoSet_40x46mmGrenade</ammoSet>
+            </li>
+        </comps>
+		<modExtensions>
+		  <li Class="CombatExtended.GunDrawExtension">
+			<DrawSize>0.9</DrawSize>
+		  </li>
+		</modExtensions>
+        <smeltProducts>
+            <Rifle_Component>1</Rifle_Component>
+            <Weapon_Parts>2</Weapon_Parts>
+        </smeltProducts>
+    </ThingDef>
     <!-- MILKOR MGL -->
     <ThingDef ParentName="BaseGun_Heavy">
         <defName>Gun_MilkorMGL</defName>
@@ -95,9 +163,10 @@
             <ShotSpread>0.15</ShotSpread>
             <SwayFactor>1.7</SwayFactor>
             <RangedWeapon_Cooldown>1.5</RangedWeapon_Cooldown>
-            <Bulk>6.60</Bulk>
+            <Bulk>8.60</Bulk>
             <Mass>4.10</Mass>
         </statBases>
+		<generateCommonality>0.7</generateCommonality>
         <weaponTags>
             <li>RKT1</li>
             <li>Glaunchers</li>
@@ -110,10 +179,6 @@
         <thingCategories>
             <li>Glaunchers</li>
         </thingCategories>
-        <equippedStatOffsets>
-            <MoveSpeed>-0.42</MoveSpeed>
-            <WorkSpeedGlobal>-0.21</WorkSpeedGlobal>
-        </equippedStatOffsets>
         <verbs>
             <li Class="CombatExtended.VerbPropertiesCE">
                 <verbClass>CombatExtended.Verb_ShootCE</verbClass>
@@ -121,11 +186,12 @@
                 <defaultProjectile>Bullet_40x46mmGrenade_HE</defaultProjectile>
                 <warmupTime>1.27</warmupTime>
                 <ai_IsBuildingDestroyer>true</ai_IsBuildingDestroyer>
-                <ai_AvoidFriendlyFireRadius>4</ai_AvoidFriendlyFireRadius>
+                <ai_AvoidFriendlyFireRadius>5</ai_AvoidFriendlyFireRadius>
+				<minRange>4</minRange>
                 <noiseRadius>4</noiseRadius>
 				<!--<forcedMissRadius>2</forcedMissRadius>-->
 				<circularError>0.75</circularError>
-                <range>40</range>
+                <range>52</range>
                 <!-- grenades at 12.9 -->
                 <targetParams>
                     <canTargetLocations>true</canTargetLocations>
@@ -146,14 +212,10 @@
                 <reloadTime>5.50</reloadTime>
                 <ammoSet>AmmoSet_40x46mmGrenade</ammoSet>
             </li>
-            <li Class="WHands.WhandCompProps">
-                <MainHand>(-0.225,0.3,-0.08625)</MainHand>
-                <SecHand>(-0.25,0,-0.125)</SecHand>
-            </li>
         </comps>
         <smeltProducts>
             <Heavy_Component>1</Heavy_Component>
-            <Weapon_Parts>9</Weapon_Parts>
+            <Weapon_Parts>5</Weapon_Parts>
 			<Plastic>5</Plastic>
         </smeltProducts>
     </ThingDef>
@@ -169,13 +231,14 @@
         <soundInteract>InteractPTUR</soundInteract>
         <statBases>
             <MarketValue>2300</MarketValue>
-            <SightsEfficiency>1.4</SightsEfficiency>
+            <SightsEfficiency>1.5</SightsEfficiency>
             <ShotSpread>0.1</ShotSpread>
-            <SwayFactor>1.50</SwayFactor>
+            <SwayFactor>1.5</SwayFactor>
             <RangedWeapon_Cooldown>1.8</RangedWeapon_Cooldown>
-            <Bulk>8.50</Bulk>
-            <Mass>7.00</Mass>
+            <Bulk>8.5</Bulk>
+            <Mass>7</Mass>
         </statBases>
+		<generateCommonality>0.7</generateCommonality>
         <weaponTags>
             <li>RKT2</li>
             <li>Launchers</li>
@@ -188,10 +251,6 @@
         <thingCategories>
             <li>Launchers</li>
         </thingCategories>
-        <equippedStatOffsets>
-            <MoveSpeed>-0.5</MoveSpeed>
-            <WorkSpeedGlobal>-0.25</WorkSpeedGlobal>
-        </equippedStatOffsets>
         <verbs>
             <li Class="CombatExtended.VerbPropertiesCE">
                 <verbClass>CombatExtended.Verb_ShootCE</verbClass>
@@ -201,9 +260,10 @@
 				<circularError>1</circularError>
                 <ai_IsBuildingDestroyer>true</ai_IsBuildingDestroyer>
                 <ai_AvoidFriendlyFireRadius>6</ai_AvoidFriendlyFireRadius>
-                <warmupTime>2.2</warmupTime>
+                <warmupTime>2</warmupTime>
                 <noiseRadius>8</noiseRadius>
-                <range>50</range>
+				<minRange>5</minRange>
+                <range>65</range>
                 <!-- grenades at 12.9 -->
                 <targetParams>
                     <canTargetLocations>true</canTargetLocations>
@@ -222,15 +282,12 @@
             </li>
             <li Class="CombatExtended.CompProperties_AmmoUser">
                 <magazineSize>1</magazineSize>
-                <reloadTime>4.20</reloadTime>
+                <reloadTime>4</reloadTime>
                 <ammoSet>AmmoSet_RPG7Grenade</ammoSet>
-            </li>
-            <li Class="WHands.WhandCompProps">
-                <MainHand>(-0.1,0.3,-0.1)</MainHand>
             </li>
         </comps>
         <smeltProducts>
-            <Launcher_Component>2</Launcher_Component>
+            <Launcher_Component>1</Launcher_Component>
             <Weapon_Parts>5</Weapon_Parts>
 			<Plastic>5</Plastic>
         </smeltProducts>
@@ -249,12 +306,13 @@
             <SightsEfficiency>1.6</SightsEfficiency>
             <ShotSpread>0.1</ShotSpread>
             <SwayFactor>1.4</SwayFactor>
-            <RangedWeapon_Cooldown>1.85</RangedWeapon_Cooldown>
-            <Bulk>9.80</Bulk>
-            <Mass>7.70</Mass>
+            <RangedWeapon_Cooldown>1.8</RangedWeapon_Cooldown>
+            <Bulk>10</Bulk>
+            <Mass>8</Mass>
         </statBases>
         <soundInteract>InteractPTUR</soundInteract>
         <destroyOnDrop>false</destroyOnDrop>
+		<generateCommonality>0.7</generateCommonality>
         <weaponTags>
             <li>RKT2</li>
             <li>Launchers</li>
@@ -267,10 +325,6 @@
         <thingCategories>
             <li>Launchers</li>
         </thingCategories>
-        <equippedStatOffsets>
-            <MoveSpeed>-0.5</MoveSpeed>
-            <WorkSpeedGlobal>-0.25</WorkSpeedGlobal>
-        </equippedStatOffsets>
         <verbs>
             <li Class="CombatExtended.VerbPropertiesCE">
                 <verbClass>CombatExtended.Verb_ShootCE</verbClass>
@@ -278,11 +332,12 @@
                 <defaultProjectile>Bullet_RPG7Grenade_HEAT</defaultProjectile>
                 <ai_IsBuildingDestroyer>true</ai_IsBuildingDestroyer>
                 <ai_AvoidFriendlyFireRadius>6</ai_AvoidFriendlyFireRadius>
-                <warmupTime>2.1</warmupTime>
+				<minRange>5</minRange>
+                <warmupTime>2.2</warmupTime>
 				<!--<forcedMissRadius>2</forcedMissRadius>-->
 				<circularError>0.75</circularError>
                 <noiseRadius>8</noiseRadius>
-                <range>50</range>
+                <range>70</range>
                 <!-- grenades at 12.9 -->
                 <targetParams>
                     <canTargetLocations>true</canTargetLocations>
@@ -301,16 +356,12 @@
             </li>
             <li Class="CombatExtended.CompProperties_AmmoUser">
                 <magazineSize>1</magazineSize>
-                <reloadTime>4.50</reloadTime>
+                <reloadTime>4.5</reloadTime>
                 <ammoSet>AmmoSet_RPG7Grenade</ammoSet>
-            </li>
-            <li Class="WHands.WhandCompProps">
-                <MainHand>(-0.225,0.3,-0.1)</MainHand>
-                <SecHand>(0.225,0,-0.05)</SecHand>
             </li>
         </comps>
         <smeltProducts>
-            <Launcher_Component>2</Launcher_Component>
+            <Launcher_Component>1</Launcher_Component>
             <Weapon_Parts>6</Weapon_Parts>
 			<Plastic>5</Plastic>
         </smeltProducts>
@@ -318,22 +369,23 @@
     <!-- M72 LAW -->
     <ThingDef ParentName="BaseGun_Heavy">
         <defName>Gun_LAW</defName>
-        <label>M72 LAW</label>
-        <description>Anti tank rocket launcher, with special armor piercing penetration rocket.</description>
+        <label>M72R LAW</label>
+        <description>A reloadable version of ancient single shot anti tank rocket launcher, with special armor piercing penetration rocket.</description>
         <graphicData>
             <texPath>Things/Weapons/LAW</texPath>
             <graphicClass>Graphic_Single</graphicClass>
         </graphicData>
         <soundInteract>InteractPTUR</soundInteract>
         <statBases>
-            <MarketValue>2800</MarketValue>
-            <SightsEfficiency>1.8</SightsEfficiency>
-            <ShotSpread>0.1</ShotSpread>
-            <SwayFactor>1.3</SwayFactor>
-            <RangedWeapon_Cooldown>1.95</RangedWeapon_Cooldown>
-            <Bulk>10.60</Bulk>
-            <Mass>8.20</Mass>
+            <MarketValue>1800</MarketValue>
+            <SightsEfficiency>1.05</SightsEfficiency>
+            <ShotSpread>0.15</ShotSpread>
+            <SwayFactor>1.5</SwayFactor>
+            <RangedWeapon_Cooldown>1.5</RangedWeapon_Cooldown>
+            <Bulk>6</Bulk>
+            <Mass>4</Mass>
         </statBases>
+		<generateCommonality>0.7</generateCommonality>
         <weaponTags>
             <li>RKT2</li>
             <li>Launchers</li>
@@ -347,21 +399,18 @@
         <thingCategories>
             <li>Launchers</li>
         </thingCategories>
-        <equippedStatOffsets>
-            <MoveSpeed>-0.6</MoveSpeed>
-            <WorkSpeedGlobal>-0.3</WorkSpeedGlobal>
-        </equippedStatOffsets>
         <verbs>
             <li Class="CombatExtended.VerbPropertiesCE">
                 <verbClass>CombatExtended.Verb_ShootCE</verbClass>
                 <hasStandardCommand>true</hasStandardCommand>
-                <ai_IsBuildingDestroyer>true</ai_IsBuildingDestroyer>
                 <defaultProjectile>Bullet_M72LAW</defaultProjectile>
+				<ai_IsBuildingDestroyer>true</ai_IsBuildingDestroyer>
                 <ai_AvoidFriendlyFireRadius>6</ai_AvoidFriendlyFireRadius>
-                <warmupTime>2.35</warmupTime>
-				<!--<forcedMissRadius>1.5</forcedMissRadius>-->
-				<circularError>0.5</circularError>
-                <range>65</range>
+				<minRange>5</minRange>
+                <warmupTime>1</warmupTime>
+				<!--<forcedMissRadius>3</forcedMissRadius>-->
+				<circularError>1</circularError>
+                <range>72</range>
                 <targetParams>
                     <canTargetLocations>true</canTargetLocations>
                 </targetParams>
@@ -379,22 +428,18 @@
             </li>
             <li Class="CombatExtended.CompProperties_AmmoUser">
                 <magazineSize>1</magazineSize>
-                <reloadTime>4.50</reloadTime>
+                <reloadTime>20</reloadTime>
                 <ammoSet>AmmoSet_M72LAW</ammoSet>
-            </li>
-            <li Class="WHands.WhandCompProps">
-                <MainHand>(-0.225,0.3,-0.1)</MainHand>
-                <SecHand>(0.225,0,-0.05)</SecHand>
             </li>
         </comps>
         <smeltProducts>
-            <Launcher_Component>2</Launcher_Component>
-            <Weapon_Parts>5</Weapon_Parts>
+            <Launcher_Component>1</Launcher_Component>
+            <Weapon_Parts>3</Weapon_Parts>
 			<Plastic>6</Plastic>
         </smeltProducts>
     </ThingDef>
     <!-- R3 DOOMSDAY RL -->
-    <Verse.ThingDef ParentName="BaseGun_Heavy">
+    <ThingDef ParentName="BaseGun_Heavy">
         <defName>Gun_DoomsdayRocket</defName>
         <label>R3 Doomsday Rocket Launcher</label>
         <description>A skynets doomsday rocket launcher.</description>
@@ -408,10 +453,11 @@
             <SightsEfficiency>1.6</SightsEfficiency>
             <ShotSpread>0.1</ShotSpread>
             <SwayFactor>2.3</SwayFactor>
-            <RangedWeapon_Cooldown>2.1</RangedWeapon_Cooldown>
-            <Bulk>9.90</Bulk>
-            <Mass>7.85</Mass>
+            <RangedWeapon_Cooldown>2.5</RangedWeapon_Cooldown>
+            <Bulk>10</Bulk>
+            <Mass>8</Mass>
         </statBases>
+		<generateCommonality>0.7</generateCommonality>
         <weaponTags>
             <li>RKT3</li>
             <li>Launchers</li>
@@ -423,10 +469,7 @@
             <li>Launchers</li>
         </thingCategories>
         <tradeability>Sellable</tradeability>
-        <equippedStatOffsets>
-            <MoveSpeed>-0.55</MoveSpeed>
-            <WorkSpeedGlobal>-0.27</WorkSpeedGlobal>
-        </equippedStatOffsets>
+		<techLevel>Spacer</techLevel>
         <verbs>
             <li Class="CombatExtended.VerbPropertiesCE">
                 <verbClass>CombatExtended.Verb_ShootCE</verbClass>
@@ -434,9 +477,11 @@
                 <defaultProjectile>Bullet_RPG7Grenade_HEAT</defaultProjectile>
 				<!--<forcedMissRadius>3.5</forcedMissRadius>-->
 				<circularError>1.3</circularError>
-                <warmupTime>2.45</warmupTime>
+                <warmupTime>2.5</warmupTime>
                 <ai_AvoidFriendlyFireRadius>6</ai_AvoidFriendlyFireRadius>
-                <range>55</range>
+				<ai_IsBuildingDestroyer>true</ai_IsBuildingDestroyer>
+				<minRange>5</minRange>
+                <range>70</range>
                 <soundCast>InfernoCannon_Fire</soundCast>
                 <soundCastTail>GunTail_Heavy</soundCastTail>
                 <targetParams>
@@ -456,19 +501,15 @@
                 <reloadTime>6.00</reloadTime>
                 <ammoSet>AmmoSet_RPG7Grenade</ammoSet>
             </li>
-            <li Class="WHands.WhandCompProps">
-                <MainHand>(-0.25,0.3,-0.0825)</MainHand>
-                <SecHand>(0.225,0,-0.05)</SecHand>
-            </li>
         </comps>
         <smeltProducts>
-            <Launcher_Component>2</Launcher_Component>
-            <Weapon_Parts>8</Weapon_Parts>
+            <Launcher_Component>1</Launcher_Component>
+            <Weapon_Parts>4</Weapon_Parts>
 			<Plastic>7</Plastic>
         </smeltProducts>
-    </Verse.ThingDef>
+    </ThingDef>
 	<!-- R3 BRL -->
-    <Verse.ThingDef ParentName="BaseGun_Heavy">
+    <ThingDef ParentName="BaseGun_Heavy">
         <defName>Gun_TripleRocket</defName>
         <label>R3 Blast-Rocket Launcher</label>
         <description>A single-use rocket launcher that fires 3 projectiles in quick succession.</description>
@@ -479,19 +520,17 @@
         <soundInteract>InteractPTUR</soundInteract>
         <statBases>
             <MarketValue>6000</MarketValue>
-            <SightsEfficiency>1.6</SightsEfficiency>
+            <SightsEfficiency>1.5</SightsEfficiency>
             <ShotSpread>0.1</ShotSpread>
-            <SwayFactor>0.6</SwayFactor>
-            <RangedWeapon_Cooldown>2.2</RangedWeapon_Cooldown>
-            <Bulk>9.95</Bulk>
-            <Mass>8.95</Mass>
+            <SwayFactor>1.5</SwayFactor>
+            <RangedWeapon_Cooldown>2.3</RangedWeapon_Cooldown>
+            <Bulk>10</Bulk>
+            <Mass>9</Mass>
         </statBases>
         <tradeability>Sellable</tradeability>
-        <equippedStatOffsets>
-            <MoveSpeed>-0.68</MoveSpeed>
-            <WorkSpeedGlobal>-0.27</WorkSpeedGlobal>
-        </equippedStatOffsets>
         <destroyOnDrop>false</destroyOnDrop>
+		<techLevel>Spacer</techLevel>
+		<generateCommonality>0.7</generateCommonality>
         <thingCategories>
             <li>Futuristic</li>
         </thingCategories>
@@ -507,11 +546,12 @@
                 <defaultProjectile>Bullet_RPG7Grenade_HEAT</defaultProjectile>
 				<!--<forcedMissRadius>3</forcedMissRadius>-->
 				<circularError>1</circularError>
-                <warmupTime>2.50</warmupTime>
-                <ai_AvoidFriendlyFireRadius>7</ai_AvoidFriendlyFireRadius>
-                <range>50</range>
-                <burstShotCount>3</burstShotCount>
-                <ticksBetweenBurstShots>20</ticksBetweenBurstShots>
+                <warmupTime>2.5</warmupTime>
+				<ai_IsBuildingDestroyer>true</ai_IsBuildingDestroyer>
+                <ai_AvoidFriendlyFireRadius>6</ai_AvoidFriendlyFireRadius>
+				<minRange>6</minRange>
+                <range>70</range>
+                <burstShotCount>1</burstShotCount>
                 <soundCast>InfernoCannon_Fire</soundCast>
                 <soundCastTail>GunTail_Heavy</soundCastTail>
                 <targetParams>
@@ -528,13 +568,9 @@
             </li>
             <li Class="CombatExtended.CompProperties_AmmoUser">
                 <magazineSize>3</magazineSize>
-                <reloadTime>7.30</reloadTime>
+                <reloadTime>10</reloadTime>
                 <ammoSet>AmmoSet_RPG7Grenade</ammoSet>
             </li>
-            <li Class="WHands.WhandCompProps">
-                <MainHand>(-0.25,0.3,-0.0825)</MainHand>
-                <SecHand>(0.225,0,-0.05)</SecHand>
-            </li>
         </comps>
-    </Verse.ThingDef>
+    </ThingDef>
 </Defs>

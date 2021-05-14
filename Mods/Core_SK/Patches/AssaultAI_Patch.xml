@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Patch>
+
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+			<li Class="PatchOperationRemove">
+				<xpath>Defs/DutyDef[defName = "AssaultColony"]/thinkNode/subNodes</xpath>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/DutyDef[defName = "AssaultColony"]/thinkNode</xpath>
+				<value>
+					<subNodes>
+						<li Class="JobGiver_TakeCombatEnhancingDrug" />
+						<li Class="JobGiver_AIFightEnemies">
+							<targetAcquireRadius>75</targetAcquireRadius>
+							<targetKeepRadius>78</targetKeepRadius>
+							<needLOSToAcquireNonPawnTargets>true</needLOSToAcquireNonPawnTargets>
+						</li>
+						<li Class="SkyMind.JobGiver_SiegeAI" />
+						<li Class="JobGiver_AITrashColonyClose" />
+						<li Class="JobGiver_AIGotoNearestHostile" />
+					</subNodes>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/DutyDef[defName = "HuntEnemiesIndividual"]/thinkNode/subNodes/li[@Class="JobGiver_AITrashBuildingsDistant"]</xpath>
+		<value>
+			<li Class="SkyMind.JobGiver_SiegeAI" />
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationRemove">
+		<xpath>Defs/DutyDef[defName = "Sapper"]/thinkNode/subNodes/li[@Class="JobGiver_AITrashBuildingsDistant"]</xpath>
+	</Operation>
+	
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/DutyDef[defName = "Sapper"]/thinkNode/subNodes/li[@Class="JobGiver_AISapper"]</xpath>
+		<value>
+			<li Class="SkyMind.JobGiver_SiegeAI" />
+		</value>
+	</Operation>
+
+</Patch>

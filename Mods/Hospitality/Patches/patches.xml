@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<!-- Add peaceful groupmaker for empire -->
+	<Operation Class="PatchOperationFindMod">
+	  <mods>
+		<li>Royalty</li>
+	  </mods>
+      <match Class="PatchOperationAdd">
+        <xpath>/Defs/FactionDef[defName = "Empire"]/pawnGroupMakers</xpath>
+        <value>
+		  <li>
+			<kindDef>Peaceful</kindDef>
+			<options>
+			  <Villager>3</Villager>
+			  <Empire_Fighter_Trooper>10</Empire_Fighter_Trooper>
+			  <Empire_Fighter_Cataphract>2</Empire_Fighter_Cataphract>
+			  <Empire_Fighter_Janissary>3</Empire_Fighter_Janissary>
+			  <Empire_Fighter_Champion>4</Empire_Fighter_Champion>
+			</options>
+		  </li>
+        </value>
+	  </match>
+	</Operation>
+	
+	<!-- Massochists won't suffer from these, because wth -->
+	<Operation Class="PatchOperationConditional">
+		<!-- Do we already have nullifyingTraits? -->
+		<xpath>/Defs/ThoughtDef[defName = "AteWithoutTable" or defName = "SleptOutside" or defName = "SleptOnGround" or defName = "SleptInCold" or defName = "SleptInHeat"]/nullifyingTraits</xpath>
+		<!-- No? Add them fresh -->
+		<nomatch Class="PatchOperationAdd">
+			<xpath>/Defs/ThoughtDef[defName = "AteWithoutTable" or defName = "SleptOutside" or defName = "SleptOnGround" or defName = "SleptInCold" or defName = "SleptInHeat"]</xpath>
+			<value>
+				<nullifyingTraits>
+					<li>Masochist</li>
+				</nullifyingTraits>
+			</value>
+		</nomatch>
+		<!-- Yes? Add to them -->
+		<match Class="PatchOperationAdd">
+			<xpath>/Defs/ThoughtDef[defName = "AteWithoutTable" or defName = "SleptOutside" or defName = "SleptOnGround" or defName = "SleptInCold" or defName = "SleptInHeat"]/nullifyingTraits</xpath>
+			<value>
+				<li>Masochist</li>
+			</value>
+		</match>
+	</Operation>
+</Patch>

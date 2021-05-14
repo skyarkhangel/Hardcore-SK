@@ -61,9 +61,10 @@
 			<graphicClass>Graphic_StackCount</graphicClass>
 		</graphicData>
 		<statBases>
-			<MarketValue>1.52</MarketValue>
+			<MarketValue>10.52</MarketValue>
 		</statBases>
 		<ammoClass>IncendiaryFuel</ammoClass>
+		<generateAllowChance>0.2</generateAllowChance>
 	</ThingDef>
 
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="30x64mmFuelBase">
@@ -74,7 +75,7 @@
 			<graphicClass>Graphic_StackCount</graphicClass>
 		</graphicData>
 		<statBases>
-			<MarketValue>2.16</MarketValue>
+			<MarketValue>20.16</MarketValue>
 		</statBases>
 		<ammoClass>ThermobaricFuel</ammoClass>
 	</ThingDef>
@@ -90,12 +91,12 @@
 			<MarketValue>0.61</MarketValue>
 		</statBases>
 		<ammoClass>FoamFuel</ammoClass>
-
+		<generateAllowChance>0</generateAllowChance>
 	</ThingDef>
 
 	<!-- ================== Projectiles ================== -->
 
-	<ThingDef Name="Base30x64mmFuelBullet" ParentName="SK_BaseBullet" Abstract="true">
+	<ThingDef Class="CombatExtended.AmmoDef" Name="Base30x64mmFuelBullet" ParentName="SK_BaseBullet" Abstract="true">
 		<graphicData>
 			<texPath>Things/Projectile/InfernoCannonShot</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
@@ -107,53 +108,60 @@
 		</projectile>
 	</ThingDef>
 
-	<ThingDef ParentName="Base30x64mmFuelBullet">
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base30x64mmFuelBullet">
 		<defName>Bullet_30x64mmFuel_Incendiary</defName>
 		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
 		<label>incendiary bolt</label>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
-			<damageDef>Flame</damageDef>
-			<damageAmountBase>15</damageAmountBase>
-			<explosionRadius>1.5</explosionRadius>
-			<preExplosionSpawnThingDef>Filth_Fuel</preExplosionSpawnThingDef>
-			<armorPenetrationBase>0.55</armorPenetrationBase>
-			<ai_IsIncendiary>true</ai_IsIncendiary>
-		</projectile>
-	</ThingDef>
-
-	<ThingDef ParentName="Base30x64mmFuelBullet">
-		<defName>Bullet_30x64mmFuel_Thermobaric</defName>
-		<label>thermobaric bolt</label>
-		<projectile Class="CombatExtended.ProjectilePropertiesCE">
-			<explosionRadius>1.5</explosionRadius>
-			<damageDef>Thermobaric</damageDef>
-			<damageAmountBase>25</damageAmountBase>
-			<soundExplode>MortarBomb_Explode</soundExplode>
-			<armorPenetrationBase>0.6</armorPenetrationBase>
+			<damageDef>PrometheumFlame</damageDef>
+			<damageAmountBase>60</damageAmountBase>
+			<explosionRadius>2.5</explosionRadius>
+			<preExplosionSpawnThingDef>FilthPrometheum</preExplosionSpawnThingDef>
+			<preExplosionSpawnChance>0.15</preExplosionSpawnChance>
+			<!-- <armorPenetrationBase>0.55</armorPenetrationBase> -->
+			<armorPenetrationSharp>0</armorPenetrationSharp>
+			<armorPenetrationBlunt>0</armorPenetrationBlunt>
 			<ai_IsIncendiary>true</ai_IsIncendiary>
 		</projectile>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
-				<explosionDamage>25</explosionDamage>
-				<explosionDamageDef>Thermobaric</explosionDamageDef>
-				<explosionRadius>2.5</explosionRadius>
-				<soundExplode>MortarBomb_Explode</soundExplode>
+				<explosionDamage>35</explosionDamage>
+				<explosionDamageDef>Bomb</explosionDamageDef>
+				<explosionRadius>1.5</explosionRadius>
 				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
 			</li>
 		</comps>
 	</ThingDef>
 
-	<ThingDef ParentName="Base30x64mmFuelBullet">
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base30x64mmFuelBullet">
+		<defName>Bullet_30x64mmFuel_Thermobaric</defName>
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		<label>thermobaric bolt</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<explosionRadius>2</explosionRadius>
+			<damageDef>Thermobaric</damageDef>
+			<damageAmountBase>80</damageAmountBase>
+			<soundExplode>MortarBomb_Explode</soundExplode>
+			<!-- <armorPenetrationBase>0.6</armorPenetrationBase> -->
+			<armorPenetrationSharp>0</armorPenetrationSharp>
+			<armorPenetrationBlunt>0</armorPenetrationBlunt>
+			<ai_IsIncendiary>true</ai_IsIncendiary>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base30x64mmFuelBullet">
 		<defName>Bullet_30x64mmFuel_Foam</defName>
 		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
 		<label>foam bolt</label>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<damageDef>Extinguish</damageDef>
-			<damageAmountBase>50</damageAmountBase>
+			<damageAmountBase>60</damageAmountBase>
 			<explosionRadius>5.0</explosionRadius>
 			<postExplosionSpawnThingDef>Filth_FireFoam</postExplosionSpawnThingDef>
 			<preExplosionSpawnChance>1</preExplosionSpawnChance>
-			<armorPenetrationBase>0.65</armorPenetrationBase>
+			<!-- <armorPenetrationBase>0.65</armorPenetrationBase> -->
+			<armorPenetrationSharp>0</armorPenetrationSharp>
+			<armorPenetrationBlunt>0</armorPenetrationBlunt>
 		</projectile>
 	</ThingDef>
 
@@ -273,27 +281,29 @@
 				<filter>
 					<thingDefs>
 						<li>Powder</li>
+						<li>FSX</li>
 					</thingDefs>
 				</filter>
-				<count>10</count>
+				<count>6</count>
 			</li>
 			<li>
 				<filter>
 					<categories>
-						<li>MeatRaw</li>
+						<li>Chemical</li>
 					</categories>
 				</filter>
-				<count>15</count>
+				<count>6</count>
 			</li>
 		</ingredients>
 		<fixedIngredientFilter>
 			<categories>
 				<li>SLDBar</li>
 				<li>USLDBar</li>
-				<li>MeatRaw</li>
+				<li>Chemical</li>
 			</categories>
 			<thingDefs>
 				<li>Powder</li>
+				<li>FSX</li>
 			</thingDefs>
 		</fixedIngredientFilter>
 		<products>

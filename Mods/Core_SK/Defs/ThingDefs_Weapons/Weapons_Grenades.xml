@@ -14,7 +14,7 @@
 			<MaxHitPoints>100</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<DeteriorationRate>2</DeteriorationRate>
-			<SellPriceFactor>0.5</SellPriceFactor>
+			<SellPriceFactor>0.70</SellPriceFactor>
 			<Bulk>0.40</Bulk>
 			<Mass>0.70</Mass>
 		</statBases>
@@ -33,13 +33,13 @@
 	<ThingDef Class="CombatExtended.AmmoDef" Name="BaseGrenadeEquipment" ParentName="BaseEquipment" Abstract="True">
 		<thingClass>CombatExtended.AmmoThing</thingClass>
 		<stackLimit>75</stackLimit>
-    <statBases>
-      <Mass>0.5</Mass>
-    </statBases>
-    <weaponTags>
-      <li>CE_AI_Grenade</li>
-      <li>CE_OneHandedWeapon</li>
-    </weaponTags>
+		<statBases>
+			<Mass>0.5</Mass>
+		</statBases>
+		<weaponTags>
+			<li>CE_AI_Grenade</li>
+			<li>CE_OneHandedWeapon</li>
+		</weaponTags>
 		<tickerType>Normal</tickerType>
 		<resourceReadoutPriority>First</resourceReadoutPriority>
 	</ThingDef>
@@ -57,7 +57,7 @@
 			<shaderType>Transparent</shaderType>
 		</graphicData>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
-			<speed>15</speed>
+			<speed>8</speed>
 			<flyOverhead>false</flyOverhead>
 		</projectile>
 	</ThingDef>
@@ -71,19 +71,24 @@
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
-			<explosionRadius>1.5</explosionRadius>
-			<damageDef>Bomb</damageDef>
-			<damageAmountBase>50</damageAmountBase>
-			<explosionDelay>170</explosionDelay>
+			<explosionRadius>1</explosionRadius>
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>170</damageAmountBase>
+			<explosionDelay>190</explosionDelay>
 			<dropsCasings>true</dropsCasings>
 			<casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
-			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<speed>8</speed>
+			<soundExplode>Explosion_Bomb</soundExplode>
 		</projectile>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<explosionDamage>130</explosionDamage>
+				<explosionDamageDef>Bomb</explosionDamageDef>
+				<explosionRadius>1.5</explosionRadius>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
 				<fragRange>4.0</fragRange>
 				<fragments>
-					<Fragment_GrenadeFrag>110</Fragment_GrenadeFrag>
+					<Fragment_GrenadeFrag>60</Fragment_GrenadeFrag>
 				</fragments>
 			</li>
 		</comps>
@@ -100,19 +105,20 @@
 		<soundInteract>Interact_Grenade</soundInteract>
 		<techLevel>Industrial</techLevel>
 		<statBases>
+			<Mass>0.6</Mass>
+			<Bulk>1.0</Bulk>
 			<MarketValue>40.0</MarketValue>
 			<SightsEfficiency>0.6</SightsEfficiency>
 			<RangedWeapon_Cooldown>0.5</RangedWeapon_Cooldown>
 		</statBases>
 		<equippedStatOffsets>
-			<MoveSpeed>-0.12</MoveSpeed>
-			<WorkSpeedGlobal>-0.05</WorkSpeedGlobal>
+			<MoveSpeed>-0.01</MoveSpeed>
+			<WorkSpeedGlobal>-0.01</WorkSpeedGlobal>
 		</equippedStatOffsets>
 		<weaponTags>
 			<li>GrenadeDestructive</li>
 			<li>GrenadeTierTwo</li>
 			<li>CE_AI_Grenade</li>
-			<li>CE_OneHandedWeapon</li>
 		</weaponTags>
 		<thingCategories>
 			<li>Grenades</li>
@@ -123,11 +129,10 @@
 				<verbClass>CombatExtended.Verb_ShootCEOneUse</verbClass>
 				<hasStandardCommand>true</hasStandardCommand>
 				<range>12</range>
-				<!--<forcedMissRadius>1.2</forcedMissRadius>-->
 				<minRange>5</minRange>
 				<warmupTime>1.20</warmupTime>
 				<noiseRadius>4</noiseRadius>
-				<ai_AvoidFriendlyFireRadius>3</ai_AvoidFriendlyFireRadius>
+				<ai_AvoidFriendlyFireRadius>5</ai_AvoidFriendlyFireRadius>
 				<ai_IsBuildingDestroyer>true</ai_IsBuildingDestroyer>
 				<soundCast>ThrowGrenade</soundCast>
 				<targetParams>
@@ -136,24 +141,23 @@
 				<defaultProjectile>Proj_GrenadeFrag</defaultProjectile>
 				<onlyManualCast>true</onlyManualCast>
 				<ignorePartialLoSBlocker>false</ignorePartialLoSBlocker>
-				<rangedFireRulepack>Combat_RangedFire_Thrown</rangedFireRulepack>
 			</li>
 		</verbs>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
-				<explosionDamage>40</explosionDamage>
+				<explosionDamage>120</explosionDamage>
 				<explosionDamageDef>Bomb</explosionDamageDef>
 				<explosionRadius>1.5</explosionRadius>
+				<fragRange>4.0</fragRange>
 				<fragments>
-					<Fragment_GrenadeFrag>130</Fragment_GrenadeFrag>
+					<Fragment_GrenadeFrag>60</Fragment_GrenadeFrag>
 				</fragments>
-			</li>
-			<li Class="WHands.WhandCompProps">
-				<MainHand>(-0.1,0.3,0)</MainHand>
 			</li>
 		</comps>
 		<smeltProducts>
-			<Weapon_Parts>1</Weapon_Parts>
+			<Plasteel>4</Plasteel>
+			<Powder>2</Powder>
+			<ComponentIndustrial>1</ComponentIndustrial>
 		</smeltProducts>
 	</ThingDef>
 
@@ -167,18 +171,22 @@
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
-			<explosionRadius>1.5</explosionRadius>
-			<damageDef>Bomb</damageDef>
-			<damageAmountBase>25</damageAmountBase>
-			<explosionDelay>160</explosionDelay>
-			<dropsCasings>false</dropsCasings>
-			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<explosionRadius>1</explosionRadius>
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>140</damageAmountBase>
+			<explosionDelay>180</explosionDelay>
+			<speed>7</speed>
+			<soundExplode>Explosion_Bomb</soundExplode>
 		</projectile>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<explosionDamage>90</explosionDamage>
+				<explosionDamageDef>Bomb</explosionDamageDef>
+				<explosionRadius>2</explosionRadius>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
 				<fragRange>4.0</fragRange>
 				<fragments>
-					<Fragment_GrenadeFrag>40</Fragment_GrenadeFrag>
+					<Fragment_GrenadeFrag>30</Fragment_GrenadeFrag>
 				</fragments>
 			</li>
 		</comps>
@@ -193,22 +201,23 @@
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<soundInteract>Interact_BeatFire</soundInteract>
-		<techLevel>Industrial</techLevel>
+		<techLevel>Neolithic</techLevel>
 		<tradeability>Sellable</tradeability>
 		<statBases>
+			<Mass>0.8</Mass>
+			<Bulk>1.5</Bulk>
 			<MarketValue>8</MarketValue>
 			<SightsEfficiency>0.45</SightsEfficiency>
 			<RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
 		</statBases>
 		<equippedStatOffsets>
-			<MoveSpeed>-0.16</MoveSpeed>
-			<WorkSpeedGlobal>-0.07</WorkSpeedGlobal>
+			<MoveSpeed>-0.01</MoveSpeed>
+			<WorkSpeedGlobal>-0.01</WorkSpeedGlobal>
 		</equippedStatOffsets>
 		<weaponTags>
 			<li>GrenadeDestructive</li>
 			<li>Norbhammar</li>
 			<li>CE_AI_Grenade</li>
-			<li>CE_OneHandedWeapon</li>
 		</weaponTags>
 		<thingCategories>
 			<li>Grenades</li>
@@ -219,8 +228,7 @@
 				<verbClass>CombatExtended.Verb_ShootCEOneUse</verbClass>
 				<hasStandardCommand>true</hasStandardCommand>
 				<range>11</range>
-				<minRange>4</minRange>
-				<!--<forcedMissRadius>1.2</forcedMissRadius>-->
+				<minRange>3</minRange>
 				<warmupTime>1.50</warmupTime>
 				<noiseRadius>3</noiseRadius>
 				<ai_AvoidFriendlyFireRadius>3</ai_AvoidFriendlyFireRadius>
@@ -232,24 +240,23 @@
 				<defaultProjectile>Proj_Norbhammer</defaultProjectile>
 				<onlyManualCast>true</onlyManualCast>
 				<ignorePartialLoSBlocker>false</ignorePartialLoSBlocker>
-				<rangedFireRulepack>Combat_RangedFire_Thrown</rangedFireRulepack>
 			</li>
 		</verbs>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
-				<explosionDamage>30</explosionDamage>
+				<explosionDamage>90</explosionDamage>
 				<explosionDamageDef>Bomb</explosionDamageDef>
-				<explosionRadius>1.4</explosionRadius>
+				<explosionRadius>2</explosionRadius>
+				<fragRange>4.0</fragRange>
 				<fragments>
-					<Fragment_GrenadeFrag>70</Fragment_GrenadeFrag>
+					<Fragment_GrenadeFrag>30</Fragment_GrenadeFrag>
 				</fragments>
-			</li>
-			<li Class="WHands.WhandCompProps">
-				<MainHand>(-0.1,0.3,0)</MainHand>
 			</li>
 		</comps>
 		<smeltProducts>
-			<ComponentIndustrial>1</ComponentIndustrial>
+			<Bronze>3</Bronze>
+			<ComponentMedieval>2</ComponentMedieval>
+			<FSX>1</FSX>
 		</smeltProducts>
 	</ThingDef>
 	<!-- MOLOTOV -->
@@ -262,14 +269,15 @@
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
-			<explosionRadius>1.3</explosionRadius>
+			<explosionRadius>1.5</explosionRadius>
 			<damageDef>Flame</damageDef>
-			<damageAmountBase>20</damageAmountBase>
+			<damageAmountBase>15</damageAmountBase>
 			<preExplosionSpawnThingDef>Filth_Fuel</preExplosionSpawnThingDef>
 			<preExplosionSpawnChance>1</preExplosionSpawnChance>
 			<ai_IsIncendiary>true</ai_IsIncendiary>
-			<explosionDelay>135</explosionDelay>
+			<explosionDelay>145</explosionDelay>
 			<dropsCasings>false</dropsCasings>
+			<speed>8</speed>
 		</projectile>
 	</ThingDef>
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BaseGrenadeEquipment">
@@ -284,20 +292,22 @@
 		</graphicData>
 		<soundInteract>Interact_MolotovCocktail</soundInteract>
 		<techLevel>Industrial</techLevel>
+		<generateAllowChance>0.5</generateAllowChance>
 		<statBases>
+			<Mass>0.5</Mass>
+			<Bulk>1.0</Bulk>
 			<MarketValue>15</MarketValue>
 			<SightsEfficiency>0.35</SightsEfficiency>
 			<RangedWeapon_Cooldown>0.65</RangedWeapon_Cooldown>
 		</statBases>
 		<equippedStatOffsets>
-			<MoveSpeed>-0.15</MoveSpeed>
-			<WorkSpeedGlobal>-0.07</WorkSpeedGlobal>
+			<MoveSpeed>-0.01</MoveSpeed>
+			<WorkSpeedGlobal>-0.01</WorkSpeedGlobal>
 		</equippedStatOffsets>
 		<weaponTags>
 			<li>GrenadeDestructive</li>
 			<li>GrenadeTierOne</li>
 			<li>CE_AI_Grenade</li>
-			<li>CE_OneHandedWeapon</li>
 		</weaponTags>
 		<thingCategories>
 			<li>Grenades</li>
@@ -307,9 +317,8 @@
 				<label>throw molotov</label>
 				<verbClass>CombatExtended.Verb_ShootCEOneUse</verbClass>
 				<hasStandardCommand>true</hasStandardCommand>
-				<!--<forcedMissRadius>1.2</forcedMissRadius>-->
 				<range>11</range>
-				<minRange>4</minRange>
+				<minRange>2</minRange>
 				<warmupTime>1.20</warmupTime>
 				<noiseRadius>4</noiseRadius>
 				<ai_AvoidFriendlyFireRadius>3</ai_AvoidFriendlyFireRadius>
@@ -321,24 +330,21 @@
 				<defaultProjectile>Proj_GrenadeMolotov</defaultProjectile>
 				<onlyManualCast>true</onlyManualCast>
 				<ignorePartialLoSBlocker>false</ignorePartialLoSBlocker>
-				<rangedFireRulepack>Combat_RangedFire_Thrown</rangedFireRulepack>
 			</li>
 		</verbs>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
-				<explosionDamage>1</explosionDamage>
+				<explosionDamage>15</explosionDamage>
 				<explosionDamageDef>Flame</explosionDamageDef>
-				<explosionRadius>0.5</explosionRadius>
+				<explosionRadius>1.5</explosionRadius>
 				<preExplosionSpawnThingDef>Filth_Fuel</preExplosionSpawnThingDef>
 				<preExplosionSpawnChance>1</preExplosionSpawnChance>
 			</li>
-			<li Class="WHands.WhandCompProps">
-				<MainHand>(-0.1,0.3,-0.2)</MainHand>
-			</li>
 		</comps>
 		<smeltProducts>
-			<Glass>1</Glass>
-			<Fuel>1</Fuel>
+			<Glass>3</Glass>
+			<Cloth>3</Cloth>
+			<Napalm>1</Napalm>
 		</smeltProducts>
 	</ThingDef>
 	<!-- EMP -->
@@ -352,10 +358,11 @@
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<explosionRadius>3</explosionRadius>
 			<damageDef>EMP</damageDef>
-			<damageAmountBase>80</damageAmountBase>
-			<explosionDelay>160</explosionDelay>
+			<damageAmountBase>110</damageAmountBase>
+			<explosionDelay>180</explosionDelay>
 			<dropsCasings>true</dropsCasings>
 			<casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
+			<speed>8</speed>
 		</projectile>
 	</ThingDef>
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BaseGrenadeEquipment">
@@ -370,19 +377,21 @@
 		</graphicData>
 		<soundInteract>Interact_Grenade</soundInteract>
 		<techLevel>Industrial</techLevel>
+		<generateAllowChance>0</generateAllowChance>
 		<statBases>
+			<Mass>0.4</Mass>
+			<Bulk>1.0</Bulk>
 			<MarketValue>60</MarketValue>
 			<SightsEfficiency>0.6</SightsEfficiency>
 			<RangedWeapon_Cooldown>0.5</RangedWeapon_Cooldown>
 		</statBases>
 		<equippedStatOffsets>
-			<MoveSpeed>-0.11</MoveSpeed>
-			<WorkSpeedGlobal>-0.04</WorkSpeedGlobal>
+			<MoveSpeed>-0.01</MoveSpeed>
+			<WorkSpeedGlobal>-0.01</WorkSpeedGlobal>
 		</equippedStatOffsets>
 		<weaponTags>
 			<li>GrenadeEMP</li>
 			<li>CE_AI_Grenade</li>
-			<li>CE_OneHandedWeapon</li>
 		</weaponTags>
 		<thingCategories>
 			<li>Grenades</li>
@@ -392,9 +401,8 @@
 				<label>throw EMP grenade</label>
 				<verbClass>CombatExtended.Verb_ShootCEOneUse</verbClass>
 				<hasStandardCommand>true</hasStandardCommand>
-				<!--<forcedMissRadius>1.2</forcedMissRadius>-->
 				<range>12</range>
-				<minRange>4</minRange>
+				<minRange>3</minRange>
 				<warmupTime>1.30</warmupTime>
 				<noiseRadius>4</noiseRadius>
 				<ai_AvoidFriendlyFireRadius>2</ai_AvoidFriendlyFireRadius>
@@ -406,22 +414,20 @@
 				<defaultProjectile>Proj_GrenadeEMP</defaultProjectile>
 				<onlyManualCast>true</onlyManualCast>
 				<ignorePartialLoSBlocker>false</ignorePartialLoSBlocker>
-				<rangedFireRulepack>Combat_RangedFire_Thrown</rangedFireRulepack>
 			</li>
 		</verbs>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
-				<explosionDamage>60</explosionDamage>
+				<explosionDamage>110</explosionDamage>
 				<explosionDamageDef>EMP</explosionDamageDef>
 				<explosionRadius>3</explosionRadius>
 				<soundExplode>Explosion_Stun</soundExplode>
 			</li>
-			<li Class="WHands.WhandCompProps">
-				<MainHand>(-0.1,0.3,0)</MainHand>
-			</li>
 		</comps>
 		<smeltProducts>
-			<Weapon_Parts>1</Weapon_Parts>
+			<Plasteel>5</Plasteel>
+			<ComponentIndustrial>2</ComponentIndustrial>
+			<ElectronicComponents>1</ElectronicComponents>
 		</smeltProducts>
 	</ThingDef>
 
@@ -437,10 +443,11 @@
 			<explosionRadius>3.5</explosionRadius>
 			<damageDef>Stun</damageDef>
 			<damageAmountBase>50</damageAmountBase>
-			<explosionDelay>110</explosionDelay>
+			<explosionDelay>130</explosionDelay>
 			<soundExplode>Explosion_Stun</soundExplode>
 			<dropsCasings>true</dropsCasings>
 			<casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
+			<speed>8</speed>
 		</projectile>
 	</ThingDef>
 
@@ -456,19 +463,16 @@
 		<soundInteract>Interact_Grenade</soundInteract>
 		<techLevel>Industrial</techLevel>
 		<statBases>
-			<MarketValue>40</MarketValue>
-			<SightsEfficiency>0.6</SightsEfficiency>
-			<RangedWeapon_Cooldown>0.5</RangedWeapon_Cooldown>
+			<Mass>0.236</Mass>
+			<Bulk>0.61</Bulk>
+			<MarketValue>30</MarketValue>
+			<SightsEfficiency>0.65</SightsEfficiency>
+			<RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
 		</statBases>
 		<weaponTags>
 			<li>CE_GrenadeFlashbang</li>
 			<li>CE_AI_Nonlethal</li>
-			<li>CE_OneHandedWeapon</li>
 		</weaponTags>
-		<equippedStatOffsets>
-			<MoveSpeed>-0.12</MoveSpeed>
-			<WorkSpeedGlobal>-0.05</WorkSpeedGlobal>
-		</equippedStatOffsets>
 		<thingCategories>
 			<li>Grenades</li>
 		</thingCategories>
@@ -477,7 +481,6 @@
 				<label>throw flashbang grenade</label>
 				<verbClass>CombatExtended.Verb_ShootCEOneUse</verbClass>
 				<hasStandardCommand>true</hasStandardCommand>
-				<!--<forcedMissRadius>1.2</forcedMissRadius>-->
 				<range>12</range>
 				<minRange>4</minRange>
 				<warmupTime>1.10</warmupTime>
@@ -491,7 +494,6 @@
 				<defaultProjectile>Proj_GrenadeFlashbang</defaultProjectile>
 				<onlyManualCast>true</onlyManualCast>
 				<ignorePartialLoSBlocker>true</ignorePartialLoSBlocker>
-				<rangedFireRulepack>Combat_RangedFire_Thrown</rangedFireRulepack>
 			</li>
 		</verbs>
 		<comps>
@@ -503,7 +505,9 @@
 			</li>
 		</comps>
 		<smeltProducts>
-			<Weapon_Parts>1</Weapon_Parts>
+			<Plasteel>3</Plasteel>
+			<Powder>1</Powder>
+			<ComponentIndustrial>1</ComponentIndustrial>
 		</smeltProducts>
 	</ThingDef>
 
@@ -518,12 +522,13 @@
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<explosionRadius>2</explosionRadius>
 			<damageDef>Flame</damageDef>
-			<damageAmountBase>30</damageAmountBase>
-			<explosionDelay>160</explosionDelay>
-			<postExplosionSpawnThingDef>Filth_Fuel</postExplosionSpawnThingDef>
+			<damageAmountBase>20</damageAmountBase>
+			<explosionDelay>180</explosionDelay>
+			<preExplosionSpawnThingDef>Filth_Fuel</preExplosionSpawnThingDef>
 			<ai_IsIncendiary>true</ai_IsIncendiary>
 			<dropsCasings>true</dropsCasings>
 			<casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
+			<speed>8</speed>
 		</projectile>
 	</ThingDef>
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BaseGrenadeEquipment">
@@ -537,20 +542,22 @@
 		</graphicData>
 		<soundInteract>Interact_Grenade</soundInteract>
 		<techLevel>Industrial</techLevel>
+		<generateAllowChance>0.3</generateAllowChance>
 		<statBases>
+			<Mass>0.7</Mass>
+			<Bulk>1.55</Bulk>
 			<MarketValue>40</MarketValue>
 			<SightsEfficiency>0.5</SightsEfficiency>
 			<RangedWeapon_Cooldown>0.65</RangedWeapon_Cooldown>
 		</statBases>
 		<equippedStatOffsets>
-			<MoveSpeed>-0.13</MoveSpeed>
-			<WorkSpeedGlobal>-0.06</WorkSpeedGlobal>
+			<MoveSpeed>-0.01</MoveSpeed>
+			<WorkSpeedGlobal>-0.01</WorkSpeedGlobal>
 		</equippedStatOffsets>
 		<weaponTags>
 			<li>GrenadeDestructive</li>
 			<li>GrenadeTierTwo</li>
 			<li>CE_AI_Grenade</li>
-			<li>CE_OneHandedWeapon</li>
 		</weaponTags>
 		<thingCategories>
 			<li>Grenades</li>
@@ -561,8 +568,7 @@
 				<verbClass>CombatExtended.Verb_ShootCEOneUse</verbClass>
 				<hasStandardCommand>true</hasStandardCommand>
 				<range>12</range>
-				<minRange>4</minRange>
-				<!--<forcedMissRadius>1.2</forcedMissRadius>-->
+				<minRange>3</minRange>
 				<warmupTime>1.20</warmupTime>
 				<noiseRadius>4</noiseRadius>
 				<ai_AvoidFriendlyFireRadius>4</ai_AvoidFriendlyFireRadius>
@@ -574,19 +580,15 @@
 				<defaultProjectile>Proj_GrenadeFlame</defaultProjectile>
 				<onlyManualCast>true</onlyManualCast>
 				<ignorePartialLoSBlocker>false</ignorePartialLoSBlocker>
-				<rangedFireRulepack>Combat_RangedFire_Thrown</rangedFireRulepack>
 			</li>
 		</verbs>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
-				<explosionDamage>1</explosionDamage>
+				<explosionDamage>70</explosionDamage>
 				<explosionDamageDef>Flame</explosionDamageDef>
-				<explosionRadius>0.6</explosionRadius>
+				<explosionRadius>2</explosionRadius>
 				<preExplosionSpawnThingDef>Filth_Fuel</preExplosionSpawnThingDef>
 				<preExplosionSpawnChance>1</preExplosionSpawnChance>
-			</li>
-			<li Class="WHands.WhandCompProps">
-				<MainHand>(-0.1,0.3,0)</MainHand>
 			</li>
 		</comps>
 		<smeltProducts>
@@ -604,14 +606,23 @@
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
-			<explosionRadius>3.5</explosionRadius>
-			<damageDef>Bomb</damageDef>
-			<damageAmountBase>55</damageAmountBase>
-			<explosionDelay>170</explosionDelay>
+			<explosionRadius>1</explosionRadius>
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>240</damageAmountBase>
+			<explosionDelay>195</explosionDelay>
 			<dropsCasings>true</dropsCasings>
 			<casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
-			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<speed>8</speed>
+			<soundExplode>Explosion_Bomb</soundExplode>
 		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<explosionDamage>160</explosionDamage>
+				<explosionDamageDef>Bomb</explosionDamageDef>
+				<explosionRadius>3.5</explosionRadius>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			</li>
+		</comps>
 	</ThingDef>
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BaseGrenadeEquipment">
 		<defName>Weapon_GrenadePlasma</defName>
@@ -623,21 +634,22 @@
 			<graphicClass>Graphic_StackCount</graphicClass>
 		</graphicData>
 		<soundInteract>Interact_Grenade</soundInteract>
-		<techLevel>Industrial</techLevel>
+		<techLevel>Spacer</techLevel>
 		<statBases>
+			<Mass>0.55</Mass>
+			<Bulk>1.3</Bulk>
 			<MarketValue>60</MarketValue>
 			<SightsEfficiency>0.7</SightsEfficiency>
 			<RangedWeapon_Cooldown>0.75</RangedWeapon_Cooldown>
 		</statBases>
 		<equippedStatOffsets>
-			<MoveSpeed>-0.11</MoveSpeed>
-			<WorkSpeedGlobal>-0.04</WorkSpeedGlobal>
+			<MoveSpeed>-0.01</MoveSpeed>
+			<WorkSpeedGlobal>-0.01</WorkSpeedGlobal>
 		</equippedStatOffsets>
 		<weaponTags>
 			<li>GrenadeDestructive</li>
 			<li>GrenadeTierFour</li>
 			<li>CE_AI_Grenade</li>
-			<li>CE_OneHandedWeapon</li>
 		</weaponTags>
 		<thingCategories>
 			<li>Grenades</li>
@@ -652,7 +664,7 @@
 				<warmupTime>1.20</warmupTime>
 				<noiseRadius>4</noiseRadius>
 				<ai_AvoidFriendlyFireRadius>5</ai_AvoidFriendlyFireRadius>
-				<minRange>5</minRange>
+				<minRange>4</minRange>
 				<ai_IsBuildingDestroyer>true</ai_IsBuildingDestroyer>
 				<soundCast>ThrowGrenade</soundCast>
 				<targetParams>
@@ -666,12 +678,9 @@
 		</verbs>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
-				<explosionDamage>55</explosionDamage>
+				<explosionDamage>160</explosionDamage>
 				<explosionDamageDef>Bomb</explosionDamageDef>
 				<explosionRadius>3.5</explosionRadius>
-			</li>
-			<li Class="WHands.WhandCompProps">
-				<MainHand>(-0.1,0.3,0)</MainHand>
 			</li>
 		</comps>
 		<smeltProducts>
@@ -688,19 +697,24 @@
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
-			<explosionRadius>2</explosionRadius>
-			<damageDef>Bomb</damageDef>
-			<damageAmountBase>70</damageAmountBase>
-			<explosionDelay>180</explosionDelay>
+			<explosionRadius>1</explosionRadius>
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>220</damageAmountBase>
+			<explosionDelay>200</explosionDelay>
 			<dropsCasings>true</dropsCasings>
 			<casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
-			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<speed>8</speed>
+			<soundExplode>Explosion_Bomb</soundExplode>
 		</projectile>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<explosionDamage>180</explosionDamage>
+				<explosionDamageDef>Thermobaric</explosionDamageDef>
+				<explosionRadius>2.0</explosionRadius>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
 				<fragRange>4.0</fragRange>
 				<fragments>
-					<Fragment_GrenadeFrag>135</Fragment_GrenadeFrag>
+					<Fragment_GrenadeFrag>50</Fragment_GrenadeFrag>
 				</fragments>
 			</li>
 		</comps>
@@ -715,21 +729,22 @@
 			<graphicClass>Graphic_StackCount</graphicClass>
 		</graphicData>
 		<soundInteract>Interact_Grenade</soundInteract>
-		<techLevel>Industrial</techLevel>
+		<techLevel>Spacer</techLevel>
 		<statBases>
+			<Mass>0.6</Mass>
+			<Bulk>1.25</Bulk>
 			<MarketValue>70.0</MarketValue>
 			<SightsEfficiency>0.65</SightsEfficiency>
 			<RangedWeapon_Cooldown>0.6</RangedWeapon_Cooldown>
 		</statBases>
 		<equippedStatOffsets>
-			<MoveSpeed>-0.11</MoveSpeed>
-			<WorkSpeedGlobal>-0.04</WorkSpeedGlobal>
+			<MoveSpeed>-0.01</MoveSpeed>
+			<WorkSpeedGlobal>-0.01</WorkSpeedGlobal>
 		</equippedStatOffsets>
 		<weaponTags>
 			<li>GrenadeDestructive</li>
 			<li>GrenadeTierFour</li>
 			<li>CE_AI_Grenade</li>
-			<li>CE_OneHandedWeapon</li>
 		</weaponTags>
 		<thingCategories>
 			<li>Grenades</li>
@@ -740,7 +755,7 @@
 				<verbClass>CombatExtended.Verb_ShootCEOneUse</verbClass>
 				<hasStandardCommand>true</hasStandardCommand>
 				<range>12</range>
-				<minRange>5</minRange>
+				<minRange>4</minRange>
 				<!--<forcedMissRadius>1.2</forcedMissRadius>-->
 				<warmupTime>1.20</warmupTime>
 				<noiseRadius>4</noiseRadius>
@@ -753,20 +768,17 @@
 				<defaultProjectile>Proj_GrenadeFusion</defaultProjectile>
 				<onlyManualCast>true</onlyManualCast>
 				<ignorePartialLoSBlocker>false</ignorePartialLoSBlocker>
-				<rangedFireRulepack>Combat_RangedFire_Thrown</rangedFireRulepack>
 			</li>
 		</verbs>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
-				<explosionDamage>60</explosionDamage>
-				<explosionDamageDef>Bomb</explosionDamageDef>
+				<explosionDamage>180</explosionDamage>
+				<explosionDamageDef>Thermobaric</explosionDamageDef>
 				<explosionRadius>2</explosionRadius>
+				<fragRange>4.0</fragRange>
 				<fragments>
-					<Fragment_GrenadeFrag>135</Fragment_GrenadeFrag>
+					<Fragment_GrenadeFrag>50</Fragment_GrenadeFrag>
 				</fragments>
-			</li>
-			<li Class="WHands.WhandCompProps">
-				<MainHand>(-0.1,0.3,0)</MainHand>
 			</li>
 		</comps>
 		<smeltProducts>
@@ -784,12 +796,21 @@
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
-			<explosionRadius>1.5</explosionRadius>
-			<damageDef>Bomb</damageDef>
-			<damageAmountBase>40</damageAmountBase>
-			<explosionDelay>135</explosionDelay>
-			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<explosionRadius>1</explosionRadius>
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>110</damageAmountBase>
+			<explosionDelay>155</explosionDelay>
+			<speed>7</speed>
+			<soundExplode>Explosion_Bomb</soundExplode>
 		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<explosionDamage>110</explosionDamage>
+				<explosionDamageDef>Bomb</explosionDamageDef>
+				<explosionRadius>2.5</explosionRadius>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			</li>
+		</comps>
 	</ThingDef>
 
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BaseGrenadeEquipment">
@@ -802,10 +823,13 @@
 			<graphicClass>Graphic_StackCount</graphicClass>
 		</graphicData>
 		<soundInteract>Interact_Grenade</soundInteract>
-		<techLevel>Industrial</techLevel>
+		<techLevel>Neolithic</techLevel>
+		<stackLimit>25</stackLimit>
 		<statBases>
+			<Mass>1.5</Mass>
+			<Bulk>4.72</Bulk>
 			<MarketValue>5.25</MarketValue>
-			<SightsEfficiency>0.45</SightsEfficiency>
+			<SightsEfficiency>0.65</SightsEfficiency>
 			<RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
 		</statBases>
 		<weaponTags>
@@ -823,6 +847,7 @@
 				<range>10.0</range>
 				<warmupTime>1.35</warmupTime>
 				<noiseRadius>4</noiseRadius>
+				<minRange>2</minRange>
 				<ai_AvoidFriendlyFireRadius>3</ai_AvoidFriendlyFireRadius>
 				<ai_IsBuildingDestroyer>true</ai_IsBuildingDestroyer>
 				<soundCast>ThrowGrenade</soundCast>
@@ -832,16 +857,20 @@
 				<defaultProjectile>Proj_GrenadeStickBomb</defaultProjectile>
 				<onlyManualCast>true</onlyManualCast>
 				<ignorePartialLoSBlocker>true</ignorePartialLoSBlocker>
-				<rangedFireRulepack>Combat_RangedFire_Thrown</rangedFireRulepack>
 			</li>
 		</verbs>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
-				<explosionDamage>25</explosionDamage>
+				<explosionDamage>110</explosionDamage>
 				<explosionDamageDef>Bomb</explosionDamageDef>
 				<explosionRadius>1.5</explosionRadius>
 			</li>
 		</comps>
+		<smeltProducts>
+			<Cloth>3</Cloth>
+			<ComponentMedieval>2</ComponentMedieval>
+			<FSX>1</FSX>
+		</smeltProducts>
 	</ThingDef>
 
 
@@ -857,11 +886,13 @@
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<explosionRadius>4</explosionRadius>
 			<damageDef>Smoke</damageDef>
-			<explosionDelay>120</explosionDelay>
+			<explosionDelay>130</explosionDelay>
 			<postExplosionSpawnThingDef>Gas_Smoke</postExplosionSpawnThingDef>
-			<preExplosionSpawnChance>1</preExplosionSpawnChance>
+			<postExplosionSpawnChance>1</postExplosionSpawnChance>
+			<postExplosionSpawnThingCount>1</postExplosionSpawnThingCount>
 			<dropsCasings>true</dropsCasings>
 			<casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
+			<speed>8</speed>
 		</projectile>
 	</ThingDef>
 
@@ -877,6 +908,8 @@
 		<soundInteract>Interact_Grenade</soundInteract>
 		<techLevel>Industrial</techLevel>
 		<statBases>
+			<Mass>0.5</Mass>
+			<Bulk>1.05</Bulk>
 			<MarketValue>4.85</MarketValue>
 			<SightsEfficiency>0.45</SightsEfficiency>
 			<RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
@@ -893,7 +926,6 @@
 				<label>throw smoke grenade</label>
 				<verbClass>CombatExtended.Verb_ShootCEOneUse</verbClass>
 				<hasStandardCommand>true</hasStandardCommand>
-				<!--<forcedMissRadius>1.2</forcedMissRadius>-->
 				<range>10</range>
 				<warmupTime>1.20</warmupTime>
 				<noiseRadius>4</noiseRadius>
@@ -905,17 +937,21 @@
 				<defaultProjectile>Proj_GrenadeSmoke</defaultProjectile>
 				<onlyManualCast>true</onlyManualCast>
 				<ignorePartialLoSBlocker>true</ignorePartialLoSBlocker>
-				<rangedFireRulepack>Combat_RangedFire_Thrown</rangedFireRulepack>
 			</li>
 		</verbs>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
 				<explosionDamageDef>Smoke</explosionDamageDef>
-				<explosionRadius>3.5</explosionRadius>
+				<explosionRadius>4</explosionRadius>
 				<postExplosionSpawnThingDef>Gas_Smoke</postExplosionSpawnThingDef>
 				<preExplosionSpawnChance>1</preExplosionSpawnChance>
 			</li>
 		</comps>
+		<smeltProducts>
+			<Plasteel>5</Plasteel>
+			<Plastic>2</Plastic>
+			<ComponentIndustrial>2</ComponentIndustrial>
+		</smeltProducts>
 	</ThingDef>
 
 	<!-- ==================== Firefoam grenade ========================== -->
@@ -936,6 +972,7 @@
 			<preExplosionSpawnChance>1</preExplosionSpawnChance>
 			<dropsCasings>true</dropsCasings>
 			<casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
+			<speed>8</speed>
 		</projectile>
 	</ThingDef>
 
@@ -951,6 +988,8 @@
 		<soundInteract>Interact_Grenade</soundInteract>
 		<techLevel>Industrial</techLevel>
 		<statBases>
+			<Mass>0.5</Mass>
+			<Bulk>1.05</Bulk>
 			<MarketValue>4.85</MarketValue>
 			<SightsEfficiency>0.45</SightsEfficiency>
 			<RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
@@ -966,7 +1005,6 @@
 				<label>throw firefoam grenade</label>
 				<verbClass>CombatExtended.Verb_ShootCEOneUse</verbClass>
 				<hasStandardCommand>true</hasStandardCommand>
-				<!--<forcedMissRadius>1.2</forcedMissRadius>-->
 				<range>10</range>
 				<warmupTime>1.40</warmupTime>
 				<noiseRadius>4</noiseRadius>
@@ -978,7 +1016,6 @@
 				<defaultProjectile>Proj_GrenadeFirefoam</defaultProjectile>
 				<onlyManualCast>true</onlyManualCast>
 				<ignorePartialLoSBlocker>true</ignorePartialLoSBlocker>
-				<rangedFireRulepack>Combat_RangedFire_Thrown</rangedFireRulepack>
 			</li>
 		</verbs>
 		<comps>
@@ -990,6 +1027,12 @@
 				<postExplosionSpawnThingCount>3</postExplosionSpawnThingCount>
 			</li>
 		</comps>
+		<smeltProducts>
+			<Plasteel>4</Plasteel>
+			<Plastic>1</Plastic>
+			<Powder>1</Powder>
+			<ComponentIndustrial>1</ComponentIndustrial>
+		</smeltProducts>
 	</ThingDef>	
 
 </Defs>

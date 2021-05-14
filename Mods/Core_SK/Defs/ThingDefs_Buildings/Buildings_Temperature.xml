@@ -31,23 +31,22 @@
 				<volume>(0.5, 0.5, 0.5)</volume>
 			</shadowData>
 		</graphicData>
+		<fillPercent>0.1</fillPercent>
 		<statBases>
-			<MaxHitPoints>80</MaxHitPoints>
-			<WorkToBuild>200</WorkToBuild>
+			<MaxHitPoints>20</MaxHitPoints>
+			<WorkToBuild>300</WorkToBuild>
 			<Flammability>0</Flammability>
 			<WorkTableWorkSpeedFactor>0.7</WorkTableWorkSpeedFactor>
+			<MeditationFocusStrength>0</MeditationFocusStrength>
 		</statBases>
 		<size>(1,1)</size>
-		<stuffCategories>
-			<li>Stony</li>
-			<li>Bricks</li>
-		</stuffCategories>
-		<costStuffCount>10</costStuffCount>
 		<soundImpactDefault>BulletImpact_Ground</soundImpactDefault>
 		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
 		<resourcesFractionWhenDeconstructed>0</resourcesFractionWhenDeconstructed>
 		<placeWorkers>
+			<li>PlaceWorker_PreventInteractionSpotOverlap</li>
 			<li>PlaceWorker_Heater</li>
+			<li>PlaceWorker_MeditationOffsetBuildingsNear</li>
 		</placeWorkers>
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
 		<comps>
@@ -58,8 +57,8 @@
 				<glowRadius>8</glowRadius>
 				<glowColor>(252,187,113,0)</glowColor>
 			</li>
-			<li Class="SK.CompProperties_HeatPusherExt">
-				<compClass>SK.CompHeatPusherExt</compClass>
+			<li Class="SK.CompProperties_HeatPusherAdvanced">
+				<compClass>SK.CompHeatPusherAdvanced</compClass>
 				<heatPerSecond>18</heatPerSecond>
 				<heatPushMaxTemperature>30</heatPushMaxTemperature>
 			</li>
@@ -70,14 +69,17 @@
 				<fuelDrawOffset>(0,0.1,0.01)</fuelDrawOffset>
 				<fuelDrawScale>0.7</fuelDrawScale>
 				<fuelCapacity>10</fuelCapacity>
+				<burnFuelMultiplier>1</burnFuelMultiplier>
 				<smokesize>0.3</smokesize>
 				<canAutoBurn>true</canAutoBurn>
-				<effectOnWeather>true</effectOnWeather>				
+				<effectOnWeather>true</effectOnWeather>
+				<smokeDensity>2</smokeDensity>
 				<fuelFilter>
 					<thingDefs>
 						<li>Charcoal</li>
 						<li>Coal</li>
 						<li>Kindling</li>
+						<li>Tallow</li>
 					</thingDefs>
 					<categories>
 						<li>Wooden</li>
@@ -85,23 +87,47 @@
 					</categories>  
 				</fuelFilter>
 			</li>
+			<li Class="CompProperties_MeditationFocus">
+				<statDef>MeditationFocusStrength</statDef>
+				<focusTypes>
+					<li>Flame</li>
+				</focusTypes>
+				<offsets>
+					<li Class="FocusStrengthOffset_Lit">
+						<offset>0.12</offset>
+					</li>
+					<li Class="FocusStrengthOffset_BuildingDefsLit">
+						<defs>
+							<li>Campfire</li>
+							<li>BowlLamp</li>
+							<li>Candle</li>
+							<li>TorchLamp</li>
+							<li MayRequire="Ludeon.RimWorld.Royalty">Brazier</li>
+						</defs>
+						<radius>9.9</radius>
+						<maxBuildings>8</maxBuildings>
+						<offsetPerBuilding>0.02</offsetPerBuilding>
+						<explanationKey>MeditationFocusPerFlame</explanationKey>
+						<explanationKeyAbstract>MeditationFocusPerFlameAbstract</explanationKeyAbstract>
+					</li>
+				</offsets>
+			</li>
 		</comps>
 		<designationCategory>Temperature</designationCategory>
 		<designationHotKey>Misc1</designationHotKey>
 		<recipes>
-			<li>BurnApparelCampfire</li>
+			<li>CremateCorpse</li>
+			<li>BurnApparel</li>
 			<li>BurnDrugs</li>
-			<li>Make_Pemmican</li>
-			<li>BakePotato</li>
-			<li>CookRoastedMeat</li>
+			<li>BurnThings</li>
 			<li>MakeCharcoal_Hand</li>
-			<li>CremateCorpseCampfire</li>
-			<li>BurnThingsCampfire</li>
 		</recipes>
 		<building>
 			<isMealSource>true</isMealSource>
+			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+			<artificialForMeditationPurposes>false</artificialForMeditationPurposes>
+			<destroySound>BuildingDestroyed_Wood_Small</destroySound>
 		</building>
-		<constructionSkillPrerequisite>1</constructionSkillPrerequisite>
 	</ThingDef>
 
 	<ThingDef ParentName="BurnerFueled">
@@ -120,11 +146,11 @@
 		<altitudeLayer>Building</altitudeLayer>
 		<passability>PassThroughOnly</passability>
 		<pathCost>70</pathCost>
-		<fillPercent>1</fillPercent>
+		<fillPercent>0.6</fillPercent>
 		<castEdgeShadows>true</castEdgeShadows>
 		<statBases>
 			<MaxHitPoints>310</MaxHitPoints>
-			<WorkToBuild>2500</WorkToBuild>
+			<WorkToBuild>1500</WorkToBuild>
 			<Flammability>0</Flammability>
 		</statBases>
 		<tickerType>Normal</tickerType>
@@ -133,14 +159,14 @@
 		<stuffCategories>
 			<li>Stony</li>
 			<li>Bricks</li>
-			<li>Metallic</li>
+			<li>StrongMetallic</li>
 		</stuffCategories>
 		<costStuffCount>120</costStuffCount>
 		<comps>
 			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_Breakdownable"/>
-			<li Class="SK.CompProperties_HeatPusherExt">
-				<compClass>SK.CompHeatPusherExt</compClass>
+			<li Class="SK.CompProperties_HeatPusherAdvanced">
+				<compClass>SK.CompHeatPusherAdvanced</compClass>
 				<heatPerSecond>40</heatPerSecond>
 				<heatPushMaxTemperature>50</heatPushMaxTemperature>
 			</li>
@@ -154,7 +180,10 @@
 				<smokeDrawOffset>(0,-0.1,0.85)</smokeDrawOffset>
 				<smokesize>0.5</smokesize>
 				<fuelCapacity>30</fuelCapacity>
+				<burnFuelMultiplier>1.1</burnFuelMultiplier>
 				<effectOnWeather>true</effectOnWeather>
+				<smokeEnabled>true</smokeEnabled>
+				<smokeDensity>1</smokeDensity>
 				<fuelFilter>
 					<thingDefs>
 						<li>Coal</li>
@@ -165,7 +194,7 @@
 					<categories>
 						<li>Wooden</li>
 						<li>Woody</li>
-					</categories>  
+					</categories>
 				</fuelFilter>
 			</li>
 		</comps>
@@ -198,7 +227,7 @@
 		<description>Heated flooring tiles that utilize conductive wires and convection heating to warm a room.</description>
 		<statBases>
 			<MaxHitPoints>80</MaxHitPoints>
-			<WorkToBuild>100</WorkToBuild>
+			<WorkToBuild>70</WorkToBuild>
 			<Flammability>1.0</Flammability>
 		</statBases>
 		<selectable>false</selectable>
@@ -264,14 +293,14 @@
 		<fillPercent>0.4</fillPercent>
 		<canOverlapZones>false</canOverlapZones>
 		<statBases>
-			<WorkToBuild>1000</WorkToBuild>
+			<WorkToBuild>600</WorkToBuild>
 			<MaxHitPoints>100</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 		</statBases>
 		<tickerType>Rare</tickerType>
 		<description>An electrical device that converts electricity into heat. It can automatically turn itself on or off to reach a specific target temperature.</description>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>StrongMetallic</li>
 		</stuffCategories>
 		<costStuffCount>50</costStuffCount>
 		<costList>
@@ -279,6 +308,9 @@
 			<ElectronicComponents>3</ElectronicComponents>
 			<Mechanism>3</Mechanism>
 		</costList>
+		<building>
+			<destroySound>BuildingDestroyed_Metal_Small</destroySound>
+		</building>
 		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
 		<placeWorkers>
 			<li>PlaceWorker_Heater</li>
@@ -319,7 +351,7 @@
 			<graphicClass>Graphic_Multi</graphicClass>
 		</graphicData>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>StrongMetallic</li>
 		</stuffCategories>
 		<costStuffCount>75</costStuffCount>
 		<costList>
@@ -332,7 +364,7 @@
 			<canPlaceOverWall>true</canPlaceOverWall>
 		</building>
 		<statBases>
-			<WorkToBuild>1800</WorkToBuild>
+			<WorkToBuild>1100</WorkToBuild>
 			<MaxHitPoints>100</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Beauty>-6</Beauty>
@@ -402,13 +434,13 @@
 			<drawSize>(2,2)</drawSize>
 		</graphicData>
 		<statBases>
-			<WorkToBuild>5000</WorkToBuild>
+			<WorkToBuild>3000</WorkToBuild>
 			<MaxHitPoints>250</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Beauty>-20</Beauty>
 		</statBases>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>StrongMetallic</li>
 		</stuffCategories>
 		<costStuffCount>150</costStuffCount>
 		<costList>
@@ -476,14 +508,14 @@
 		<fillPercent>0.4</fillPercent>
 		<size>(2,2)</size>
 		<statBases>
-			<WorkToBuild>5000</WorkToBuild>
+			<WorkToBuild>3000</WorkToBuild>
 			<MaxHitPoints>150</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 		</statBases>
 		<tickerType>Normal</tickerType>
 		<description>A industrial geothermal heater that collects and controls the heat from a steam geyser. It is self-balanced and can heat up a large indoor area to a comfortable temperature.</description>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>RuggedMetallic</li>
 		</stuffCategories>
 		<costStuffCount>200</costStuffCount>
 		<costList>
@@ -540,11 +572,11 @@
 		<fillPercent>0.40</fillPercent>
 		<statBases>
 			<MaxHitPoints>80</MaxHitPoints>
-			<WorkToBuild>200</WorkToBuild>
+			<WorkToBuild>120</WorkToBuild>
 			<Flammability>0</Flammability>
 		</statBases>
 		<costList>
-			<WoodPlank>50</WoodPlank>
+			<ComponentMedieval>20</ComponentMedieval>
 		</costList>
 		<soundImpactDefault>BulletImpact_Ground</soundImpactDefault>
 		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
@@ -554,15 +586,95 @@
 			<li>PlaceWorker_CoolerSimple</li>
 		</placeWorkers>
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<building>
+			<destroySound>BuildingDestroyed_Metal_Small</destroySound>
+		</building>
 		<comps>
 			<li Class="CompProperties_HeatPusher">
 				<compClass>CompHeatPusherPowered</compClass>
 				<heatPerSecond>-13</heatPerSecond>
 				<heatPushMinTemperature>15</heatPushMinTemperature>
 			</li>
-			<li Class="CompProperties_Lifespan">
-				<lifespanTicks>300000</lifespanTicks>
+            <li Class="CompProperties_Refuelable">
+              <fuelConsumptionRate>10.0</fuelConsumptionRate>
+              <fuelCapacity>50.0</fuelCapacity>
+                  <fuelFilter>
+                   <thingDefs>
+                      <li>WoodLog</li>
+                   </thingDefs>
+                 </fuelFilter>
+                 <initialFuelPercent>1</initialFuelPercent>
+                 <showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+             </li>
+		</comps>
+		<designationCategory>Temperature</designationCategory>	
+		<researchPrerequisites>
+			<li>PassiveCooler</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>2</constructionSkillPrerequisite>
+	</ThingDef>
+	
+	
+		<ThingDef ParentName="SK_BuildingBase">
+		<defName>ColdstonePassiveCooler</defName>
+		<label>coldstone passive cooler</label>
+		<description>A traditional unpowered cooler that works by water evaporation. While it's not strong enough to refridgerate food, it can help survive a heat wave. This version uses cold stone to do the cooling for places with limited timber.</description>
+		<graphicData>
+			<texPath>Things/Building/Misc/PassiveCooler</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawRotated>false</drawRotated>
+			<allowFlip>false</allowFlip>
+			<shadowData>
+				<volume>(0.9,0.3,0.9)</volume>
+			</shadowData>
+			<damageData>
+				<rect>(0.2,0,0.6,0.1)</rect>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<canOverlapZones>false</canOverlapZones>
+		<pathCost>50</pathCost>
+		<constructEffect>ConstructDirt</constructEffect>
+		<tickerType>Normal</tickerType>
+		<drawerType>RealtimeOnly</drawerType>
+		<fillPercent>0.40</fillPercent>
+		<statBases>
+			<MaxHitPoints>80</MaxHitPoints>
+			<WorkToBuild>120</WorkToBuild>
+			<Flammability>0</Flammability>
+		</statBases>
+		<costList>
+			<ComponentMedieval>20</ComponentMedieval>
+		</costList>
+		<soundImpactDefault>BulletImpact_Ground</soundImpactDefault>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+		<resourcesFractionWhenDeconstructed>0</resourcesFractionWhenDeconstructed>
+		<placeWorkers>
+			<li>PlaceWorker_CoolerSimple</li>
+		</placeWorkers>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<building>
+			<destroySound>BuildingDestroyed_Metal_Small</destroySound>
+		</building>
+		<comps>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusherPowered</compClass>
+				<heatPerSecond>-13</heatPerSecond>
+				<heatPushMinTemperature>15</heatPushMinTemperature>
 			</li>
+            <li Class="CompProperties_Refuelable">
+                <fuelConsumptionRate>0.25</fuelConsumptionRate>
+                <fuelCapacity>1.0</fuelCapacity>
+                  <fuelFilter>
+                   <thingDefs>
+                      <li>Coldstone</li>
+                   </thingDefs>
+                 </fuelFilter>
+                 <initialFuelPercent>1</initialFuelPercent>
+                 <showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+      </li>
 		</comps>
 		<designationCategory>Temperature</designationCategory>	
 		<researchPrerequisites>
@@ -595,17 +707,17 @@
 		<staticSunShadowHeight>1.0</staticSunShadowHeight>
 		<statBases>
 			<Flammability>0</Flammability>
-			<WorkToBuild>2200</WorkToBuild>
+			<WorkToBuild>1200</WorkToBuild>
 			<MaxHitPoints>500</MaxHitPoints>
 			<Cleanliness>-10</Cleanliness>
 		</statBases>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>StrongMetallic</li>
 		</stuffCategories>
 		<costStuffCount>85</costStuffCount>
 		<costList>
 			<Coldstone>15</Coldstone>
-			<ComponentIndustrial>8</ComponentIndustrial>
+			<ComponentMedieval>8</ComponentMedieval>
 			<Mechanism>4</Mechanism>
 		</costList>
 		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
@@ -621,10 +733,11 @@
 					</thingDefs>
 				</fuelFilter>
 				<destroyOnNoFuel>false</destroyOnNoFuel>
+				<showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
 			</li>
 			<li Class="SK.CompProperties_ColdPusher">
-				<ColdPerSecond>-20</ColdPerSecond>
-				<ColdPushMinTemperature>-5</ColdPushMinTemperature>
+				<ColdPerSecond>-30</ColdPerSecond>
+				<ColdPushMinTemperature>-3</ColdPushMinTemperature>
 			</li>
 			<li Class="CompProperties_Breakdownable"/>
 		</comps>
@@ -636,7 +749,7 @@
 			<li>EnthalpicCooling</li>
 		</researchPrerequisites>
 		<designationCategory>Temperature</designationCategory>
-		<constructionSkillPrerequisite>1</constructionSkillPrerequisite>
+		<constructionSkillPrerequisite>4</constructionSkillPrerequisite>
 	</ThingDef>
 
 	<ThingDef ParentName="SK_BuildingBase">
@@ -656,14 +769,14 @@
 		<blockLight>true</blockLight>
 		<canOverlapZones>false</canOverlapZones>
 		<statBases>
-			<WorkToBuild>1600</WorkToBuild>
+			<WorkToBuild>1000</WorkToBuild>
 			<MaxHitPoints>100</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Beauty>-3</Beauty>
 		</statBases>
 		<tickerType>Rare</tickerType>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>StrongMetallic</li>
 		</stuffCategories>
 		<costStuffCount>40</costStuffCount>
 		<costList>
@@ -733,14 +846,14 @@
 		<blockLight>true</blockLight>
 		<canOverlapZones>false</canOverlapZones>
 		<statBases>
-			<WorkToBuild>2800</WorkToBuild>
+			<WorkToBuild>1600</WorkToBuild>
 			<MaxHitPoints>100</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Beauty>-6</Beauty>
 		</statBases>
 		<tickerType>Rare</tickerType>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>StrongMetallic</li>
 		</stuffCategories>
 		<costStuffCount>70</costStuffCount>
 		<costList>
@@ -799,7 +912,7 @@
 			<drawSize>(3,1)</drawSize>
 		</graphicData>
 		<statBases>
-			<WorkToBuild>7000</WorkToBuild>
+			<WorkToBuild>4000</WorkToBuild>
 			<MaxHitPoints>250</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Beauty>-12</Beauty>
@@ -874,7 +987,7 @@
 		<castEdgeShadows>true</castEdgeShadows>
 		<staticSunShadowHeight>1.0</staticSunShadowHeight>
 		<statBases>
-			<WorkToBuild>1700</WorkToBuild>
+			<WorkToBuild>700</WorkToBuild>
 			<MaxHitPoints>100</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 		</statBases>
@@ -882,7 +995,7 @@
 		<description>A simple vent for equalizing the temperature between two rooms without allowing people to walk between them.</description>
 		<size>(1,1)</size>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>StrongMetallic</li>
 		</stuffCategories>
 		<costStuffCount>35</costStuffCount>
 		<costList>
@@ -953,7 +1066,7 @@
 		</thingCategories>
 		<statBases>
 			<MaxHitPoints>100</MaxHitPoints>
-			<WorkToBuild>2600</WorkToBuild>
+			<WorkToBuild>1700</WorkToBuild>
 			<Mass>5</Mass>
 			<Flammability>1.0</Flammability>
 			<Beauty>-5</Beauty>
@@ -962,13 +1075,16 @@
 		<description>Displays the current ambient temperature and can be configured to provide temperature based alerts. Does not require power.</description>
 		<size>(1,1)</size>
 		<stuffCategories>
-			<li>Metallic</li>
+			<li>StrongMetallic</li>
 		</stuffCategories>
 		<costStuffCount>25</costStuffCount>
 		<costList>
 			<ComponentIndustrial>5</ComponentIndustrial>
 			<ElectronicComponents>2</ElectronicComponents>
 		</costList>
+		<building>
+			<uninstallWork>150</uninstallWork>
+		</building>
 		<comps>
 			<li Class="CompProperties_TempControl">
 				<energyPerSecond>0</energyPerSecond>

@@ -1,0 +1,619 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingDef Name="BasedRimefellerMom" Abstract="True">
+		<category>Building</category>
+		<thingClass>Building</thingClass>
+		<soundImpactDefault>BulletImpact_Metal</soundImpactDefault>
+		<selectable>true</selectable>
+		<drawerType>MapMeshAndRealTime</drawerType>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<repairEffect>Repair</repairEffect>
+		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+		<filthLeaving>Filth_RubbleBuilding</filthLeaving>
+		<designationCategory>Rimefeller</designationCategory>
+		<passability>PassThroughOnly</passability>
+		<altitudeLayer>Building</altitudeLayer>
+		<tickerType>Normal</tickerType>
+		<statBases>
+			<SellPriceFactor>0.70</SellPriceFactor>
+		</statBases>
+	</ThingDef>
+
+	<ThingDef Abstract="True" Name="BaseWellHead" ParentName="BuildingNaturalBase">
+		<defName>OilWellHead</defName>
+		<label>Oil Well Head</label>
+		<description>Abandoned oil well, when left unused the pressure will rise back to full over time. Place a derrick directly over the well to continue using it. The drilling process requires colonist access to the oil well.</description>
+		<thingClass>Rimefeller.Building_WellHead</thingClass>
+		<graphicData>
+			<texPath>Rimefeller/Things/Building/Wellhead</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>Transparent</shaderType>
+			<drawSize>(1,1)</drawSize>
+		</graphicData>
+		<altitudeLayer>Floor</altitudeLayer>
+		<rotatable>false</rotatable>
+		<destroyable>true</destroyable>
+		<useHitPoints>true</useHitPoints>
+		<tickerType>Normal</tickerType>
+		<selectable>true</selectable>
+		<size>(1,1)</size>
+		<neverOverlapFloors>false</neverOverlapFloors>
+		<blockPlants>true</blockPlants>
+		<building>
+			<isEdifice>false</isEdifice>
+			<claimable>true</claimable>
+			<deconstructible>true</deconstructible>
+		</building>
+		<statBases>
+			<MaxHitPoints>300</MaxHitPoints>
+			<WorkToBuild>9000</WorkToBuild>
+			<Flammability>4.0</Flammability>
+		</statBases>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>    
+	</ThingDef>
+
+	<ThingDef ParentName="BaseWellHead">
+		<defName>OilWellHead</defName>
+		<label>Oil Well Head</label>
+		<placeWorkers>
+			<li>Rimefeller.PlaceWorker_WellHead</li>
+		</placeWorkers>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseWellHead">
+		<defName>DeepOilWellHead</defName>
+		<label>Deep Oil Well Head</label>
+		<placeWorkers>
+			<li>Rimefeller.PlaceWorker_DeepWellHead</li>
+		</placeWorkers>
+	</ThingDef>
+
+	<ThingDef Name="BasedWell" ParentName="BasedRimefellerMom"  Abstract="True">
+		<graphicData>
+			<texPath>Rimefeller/Things/Building/OilDerrick</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(4,7)</drawSize>
+			<drawRotated>false</drawRotated>
+		</graphicData>
+		<size>(3,3)</size>
+		<category>Building</category>
+		<tickerType>Normal</tickerType>
+		<!--<drawerType>RealtimeOnly</drawerType>-->
+		<altitudeLayer>BuildingOnTop</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<blockWind>true</blockWind>
+		<castEdgeShadows>false</castEdgeShadows>
+		<pathCost>60</pathCost>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+		<rotatable>false</rotatable>
+		<statBases>
+			<MaxHitPoints>100</MaxHitPoints>
+			<WorkToBuild>9000</WorkToBuild>
+			<Flammability>4.0</Flammability>
+		</statBases>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>1000</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Glower">
+				<glowRadius>6</glowRadius>
+				<glowColor>(252,187,113,0)</glowColor>
+			</li>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusherPowered</compClass>
+				<heatPerSecond>8</heatPerSecond>
+			</li>
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>7</explosiveRadius>
+				<explosiveDamageType>Flame</explosiveDamageType>
+				<destroyThingOnExplosionSize>1</destroyThingOnExplosionSize>
+				<startWickHitPointsPercent>0.333</startWickHitPointsPercent>
+				<preExplosionSpawnThingDef>Filth_Fuel</preExplosionSpawnThingDef>
+				<preExplosionSpawnChance>1</preExplosionSpawnChance>
+				<wickTicks>
+					<min>70</min>
+					<max>150</max>
+				</wickTicks>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="BasedWell">
+		<defName>OilWell</defName>
+		<label>Oil Well</label>
+		<description>Extracts oil from underground reservoirs, requires a resource console to view the oil grid!</description>
+		<stuffCategories>
+			<li>RuggedMetallic</li>
+		</stuffCategories>
+		<costStuffCount>140</costStuffCount>
+		<costList>
+			<ComponentIndustrial>12</ComponentIndustrial>
+			<Mechanism>6</Mechanism>
+			<ReinforcedConcrete>30</ReinforcedConcrete>
+		</costList>
+		<comps>
+			<li Class="Rimefeller.CompProperties_OilDerrick">
+				<Deep>false</Deep>
+				<TicksPerSteel>2000</TicksPerSteel>
+				<SteelCost>110</SteelCost>
+			</li>
+			<li Class="CompProperties_Refuelable">
+				<fuelLabel>Pipe</fuelLabel>
+				<fuelGizmoLabel>Pipe stockpile</fuelGizmoLabel>
+				<fuelCapacity>20.0</fuelCapacity>
+				<showFuelGizmo>true</showFuelGizmo>
+				<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+				<outOfFuelMessage>Cannot drill: Needs more pipe</outOfFuelMessage>
+				<fuelIconPath>UI/Overlays/Barrel</fuelIconPath>
+				<fuelFilter>
+					<thingDefs>
+						<li>Pipe</li>
+					</thingDefs>
+				</fuelFilter>
+			</li>
+		</comps>
+		<researchPrerequisites>
+			<li>OilDrilling</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>10</constructionSkillPrerequisite>
+		<placeWorkers>
+			<li>Rimefeller.PlaceWorker_WellHead</li>
+		</placeWorkers>
+	</ThingDef>
+
+	<ThingDef ParentName="BasedWell">
+		<defName>DeepOilWell</defName>
+		<label>Deep Oil Well</label>
+		<graphicData>
+			<texPath>Rimefeller/Things/Building/OilDerrickDeep</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(4,7)</drawSize>
+			<drawRotated>false</drawRotated>
+		</graphicData>
+		<description>Extracts oil from underground reservoirs, requires a ground radar to view the deep oil grid!</description>
+		<stuffCategories>
+			<li>RuggedMetallic</li>
+		</stuffCategories>
+		<costStuffCount>170</costStuffCount>
+		<costList>
+			<ComponentIndustrial>15</ComponentIndustrial>
+			<Mechanism>8</Mechanism>
+			<ReinforcedConcrete>30</ReinforcedConcrete>
+		</costList>
+		<comps>
+			<li Class="Rimefeller.CompProperties_OilDerrick">
+				<Deep>true</Deep>
+				<TicksPerSteel>3000</TicksPerSteel>
+				<SteelCost>220</SteelCost>
+			</li>
+			<li Class="CompProperties_Refuelable">
+				<fuelLabel>Pipe</fuelLabel>
+				<fuelGizmoLabel>Pipe stockpile</fuelGizmoLabel>
+				<fuelCapacity>20.0</fuelCapacity>
+				<showFuelGizmo>true</showFuelGizmo>
+				<consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+				<outOfFuelMessage>Cannot drill: Needs more pipe</outOfFuelMessage>
+				<fuelIconPath>UI/Overlays/Barrel</fuelIconPath>
+				<fuelFilter>
+					<thingDefs>
+						<li>Pipe</li>
+					</thingDefs>
+				</fuelFilter>
+			</li>
+		</comps>
+		<researchPrerequisites>
+			<li>DeepOilWells</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>15</constructionSkillPrerequisite>
+		<placeWorkers>
+			<li>Rimefeller.PlaceWorker_DeepWellHead</li>
+		</placeWorkers>
+	</ThingDef>
+
+
+	<ThingDef ParentName="BasedRimefellerMom">
+		<defName>OilStorage</defName>
+		<label>Crude oil storage</label>
+		<description>Stores crude oil from wells.</description>
+		<graphicData>
+			<texPath>Rimefeller/Things/Building/OilStorage</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(4,4)</drawSize>
+			<damageData>
+				<rect>(0.05,0.05,0.95,0.95)</rect>
+			</damageData>
+		</graphicData>
+		<size>(3,3)</size>
+		<rotatable>false</rotatable>
+		<pathCost>180</pathCost>
+		<comps>
+
+			<li Class="Rimefeller.CompProperties_StorageTank">
+				<StorageCap>10000</StorageCap>
+				<Contents>Oil</Contents>
+			</li>
+			<li Class="CompProperties_Explosive">
+				<compClass>Rimefeller.CompExplosiveTank</compClass>
+				<explosiveRadius>14</explosiveRadius>
+				<explosiveDamageType>Flame</explosiveDamageType>
+				<destroyThingOnExplosionSize>4</destroyThingOnExplosionSize>
+				<startWickHitPointsPercent>0.333</startWickHitPointsPercent>
+				<preExplosionSpawnThingDef>Filth_Fuel</preExplosionSpawnThingDef>
+				<preExplosionSpawnChance>1</preExplosionSpawnChance>
+				<wickTicks>
+					<min>70</min>
+					<max>150</max>
+				</wickTicks>
+			</li>
+		</comps>
+		<stuffCategories>
+			<li>RuggedMetallic</li>
+		</stuffCategories>
+		<costStuffCount>100</costStuffCount>
+		<costList>
+			<ComponentIndustrial>4</ComponentIndustrial>
+		</costList>
+		<statBases>
+			<MaxHitPoints>150</MaxHitPoints>
+			<WorkToBuild>9000</WorkToBuild>
+			<Flammability>4.0</Flammability>
+		</statBases>
+		<researchPrerequisites>
+			<li>OilDrilling</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+	</ThingDef>
+
+	<ThingDef ParentName="BasedRimefellerMom">
+		<defName>FuelStorage</defName>
+		<label>Chemfuel storage</label>
+		<description>Stores chemfuel produced by crude crackers, chemfuel can be pumped to connected chemfuel hoppers</description>
+		<graphicData>
+			<texPath>Rimefeller/Things/Building/chemTank</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(5,3)</drawSize>
+			<damageData>
+				<rect>(0.05,0.05,0.95,0.95)</rect>
+			</damageData>
+		</graphicData>
+		<size>(4,2)</size>
+		<rotatable>true</rotatable>
+		<pathCost>180</pathCost>
+		<comps>
+
+			<li Class="Rimefeller.CompProperties_StorageTank">
+				<StorageCap>10000</StorageCap>
+				<Contents>Fuel</Contents>
+			</li>
+			<li Class="CompProperties_Explosive">
+				<compClass>Rimefeller.CompExplosiveTank</compClass>
+				<explosiveRadius>18</explosiveRadius>
+				<explosiveDamageType>Flame</explosiveDamageType>
+				<destroyThingOnExplosionSize>4</destroyThingOnExplosionSize>
+				<startWickHitPointsPercent>0.333</startWickHitPointsPercent>
+				<preExplosionSpawnThingDef>Filth_Fuel</preExplosionSpawnThingDef>
+				<preExplosionSpawnChance>1</preExplosionSpawnChance>
+				<wickTicks>
+					<min>120</min>
+					<max>250</max>
+				</wickTicks>
+			</li>
+		</comps>
+		<stuffCategories>
+			<li>RuggedMetallic</li>
+		</stuffCategories>
+		<costStuffCount>100</costStuffCount>
+		<costList>
+			<ComponentIndustrial>4</ComponentIndustrial>
+		</costList>
+		<statBases>
+			<MaxHitPoints>150</MaxHitPoints>
+			<WorkToBuild>9000</WorkToBuild>
+			<Flammability>4.0</Flammability>
+		</statBases>
+		<researchPrerequisites>
+			<li>SK_Petrochemistry</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+	</ThingDef>
+
+	<ThingDef ParentName="BasedRimefellerMom">
+		<defName>ResourceConsole</defName>
+		<label>Resource Console</label>
+		<description>Manned computer console required to operate crude crackers and refineries</description>
+		<thingClass>Rimefeller.Building_ResourceConsole</thingClass>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<thingCategories>
+			<li>Oil</li>
+		</thingCategories>
+		<graphicData>
+			<texPath>Rimefeller/Things/Building/Console</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<shaderType>CutoutComplex</shaderType>
+			<drawSize>(3.5,2.5)</drawSize>
+			<damageData>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+			</damageData>
+		</graphicData>
+		<size>(3,2)</size>
+		<stuffCategories>
+			<li>StrongMetallic</li>
+		</stuffCategories>
+		<costStuffCount>115</costStuffCount>
+		<costList>
+			<ComponentIndustrial>12</ComponentIndustrial>
+			<ElectronicComponents>5</ElectronicComponents>
+			<Mechanism>5</Mechanism>
+		</costList>
+		<canOverlapZones>false</canOverlapZones>
+		<castEdgeShadows>false</castEdgeShadows>
+		<staticSunShadowHeight>0.20</staticSunShadowHeight>
+		<inspectorTabs>
+			<li>Rimefeller.ITab_ResourceConsole</li>
+		</inspectorTabs>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>150</pathCost>
+		<tickerType>Normal</tickerType>
+		<statBases>
+			<MaxHitPoints>250</MaxHitPoints>
+			<WorkToBuild>5000</WorkToBuild>
+			<Flammability>1.0</Flammability>
+			<ResearchSpeedFactor>1.0</ResearchSpeedFactor>
+			<Mass>30</Mass>
+		</statBases>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>175</basePowerConsumption>
+				<shortCircuitInRain>true</shortCircuitInRain>
+			</li>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_Flickable"/>
+		</comps>
+		<fillPercent>0.5</fillPercent>
+		<interactionCellIcon>DiningChair</interactionCellIcon>
+		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
+		<hasInteractionCell>true</hasInteractionCell>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<constructionSkillPrerequisite>7</constructionSkillPrerequisite>
+		<researchPrerequisites>
+			<li>OilDrilling</li>
+		</researchPrerequisites>
+	</ThingDef>
+
+
+	<ThingDef ParentName="BasedRimefellerMom">
+		<defName>CrudeCracker</defName>
+		<label>Crude Cracker</label>
+		<description>Cracks crude oil into chemfuel which must be stored on connected chemfuel tanks, chemfuel can be pumped to connected chemfuel hoppers</description>
+		<graphicData>
+			<texPath>Rimefeller/Things/Building/OilRefinery</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(6,6)</drawSize>
+		</graphicData>
+		<category>Building</category>
+		<tickerType>Normal</tickerType>
+		<canOverlapZones>false</canOverlapZones>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<blockWind>true</blockWind>
+		<castEdgeShadows>true</castEdgeShadows>
+		<pathCost>100</pathCost>
+		<size>(6,6)</size>
+		<stuffCategories>
+			<li>RuggedMetallic</li>
+		</stuffCategories>
+		<costStuffCount>450</costStuffCount>
+		<costList>
+			<ReinforcedConcrete>60</ReinforcedConcrete>
+			<ComponentIndustrial>20</ComponentIndustrial>
+			<ElectronicComponents>10</ElectronicComponents>
+			<Mechanism>10</Mechanism>
+		</costList>
+		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+		<rotatable>false</rotatable>
+		<statBases>
+			<MaxHitPoints>150</MaxHitPoints>
+			<WorkToBuild>20000</WorkToBuild>
+			<Flammability>4.0</Flammability>
+			<Beauty>-12</Beauty>
+			<Cleanliness>-100</Cleanliness>
+		</statBases>
+		<comps>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>1200</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusherPowered</compClass>
+				<heatPerSecond>15</heatPerSecond>
+			</li>
+			<li Class="Rimefeller.CompProperties_CrudeCracker">
+				<GizmoLabel>Power mode</GizmoLabel>
+				<ProducedPerSecond>0.25</ProducedPerSecond>
+			</li>
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>8</explosiveRadius>
+				<explosiveDamageType>Flame</explosiveDamageType>
+				<destroyThingOnExplosionSize>2</destroyThingOnExplosionSize>
+				<startWickHitPointsPercent>0.333</startWickHitPointsPercent>
+				<preExplosionSpawnThingDef>Filth_Fuel</preExplosionSpawnThingDef>
+				<preExplosionSpawnChance>1</preExplosionSpawnChance>
+				<wickTicks>
+					<min>170</min>
+					<max>250</max>
+				</wickTicks>
+			</li>
+		</comps>
+		<building>
+			<ai_chillDestination>false</ai_chillDestination>
+		</building>
+		<researchPrerequisites>
+			<li>SK_Petrochemistry</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>12</constructionSkillPrerequisite>
+	</ThingDef>
+
+	<ThingDef ParentName="BasedRimefellerMom">
+		<defName>FuelPowerplant</defName>
+		<label>chemfuel powerplant</label>
+		<description>Produces power by consuming chemfuel. Must be piped into chemfuel storage tanks.</description>
+		<graphicData>
+			<texPath>Rimefeller/Things/Building/FuelGenerator</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(3,3)</drawSize>
+		</graphicData>
+		<category>Building</category>
+		<tickerType>Normal</tickerType>
+		<canOverlapZones>false</canOverlapZones>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<blockWind>true</blockWind>
+		<castEdgeShadows>false</castEdgeShadows>
+		<pathCost>180</pathCost>
+		<size>(2,2)</size>
+		<stuffCategories>
+			<li>RuggedMetallic</li>
+		</stuffCategories>
+		<costStuffCount>250</costStuffCount>
+		<costList>
+			<Rubber>40</Rubber>
+			<ReinforcedConcrete>12</ReinforcedConcrete>
+			<ComponentIndustrial>6</ComponentIndustrial>
+			<Mechanism>5</Mechanism>
+		</costList>
+		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+		<rotatable>false</rotatable>
+		<statBases>
+			<MaxHitPoints>150</MaxHitPoints>
+			<WorkToBuild>9000</WorkToBuild>
+			<Flammability>4.0</Flammability>
+			<Beauty>-12</Beauty>
+			<Cleanliness>-100</Cleanliness>
+			<Mass>65</Mass>
+		</statBases>
+		<comps>
+			<li Class="Rimefeller.CompProperties_Pipe"/>
+			<li Class="Rimefeller.CompProperties_PowerPlant">
+				<compClass>Rimefeller.FuelPowerplant</compClass>
+				<basePowerConsumption>-3000</basePowerConsumption>
+				<FuelRate>35</FuelRate>
+				<transmitsPower>true</transmitsPower>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusherPowered</compClass>
+				<heatPerSecond>12</heatPerSecond>
+			</li>
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>8</explosiveRadius>
+				<explosiveDamageType>Flame</explosiveDamageType>
+				<destroyThingOnExplosionSize>2</destroyThingOnExplosionSize>
+				<startWickHitPointsPercent>0.333</startWickHitPointsPercent>
+				<preExplosionSpawnThingDef>Filth_Fuel</preExplosionSpawnThingDef>
+				<preExplosionSpawnChance>1</preExplosionSpawnChance>
+				<wickTicks>
+					<min>170</min>
+					<max>250</max>
+				</wickTicks>
+			</li>
+		</comps>
+		<building>
+			<ai_chillDestination>false</ai_chillDestination>
+		</building>
+		<designationCategory>Power</designationCategory>
+		<researchPrerequisites>
+			<li>SK_ConvectionalIII</li>
+			<li>SK_Petrochemistry</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>10</constructionSkillPrerequisite>
+	</ThingDef>
+
+	<ThingDef ParentName="BasedRimefellerMom">
+		<defName>LargeFuelPowerplant</defName>
+		<label>Large chemfuel powerplant</label>
+		<description>Produces power by consuming chemfuel. Must be piped into chemfuel storage tanks.</description>
+		<graphicData>
+			<texPath>Rimefeller/Things/Building/FuelGenerator</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(4,6)</drawSize>
+		</graphicData>
+		<category>Building</category>
+		<tickerType>Normal</tickerType>
+		<canOverlapZones>false</canOverlapZones>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<blockWind>true</blockWind>
+		<castEdgeShadows>false</castEdgeShadows>
+		<pathCost>180</pathCost>
+		<size>(3,5)</size>
+		<stuffCategories>
+			<li>RuggedMetallic</li>
+		</stuffCategories>
+		<costStuffCount>700</costStuffCount>
+		<costList>
+			<Rubber>100</Rubber>
+			<ReinforcedConcrete>60</ReinforcedConcrete>
+			<ComponentIndustrial>12</ComponentIndustrial>
+			<Mechanism>9</Mechanism>
+		</costList>
+		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+		<rotatable>true</rotatable>
+		<statBases>
+			<MaxHitPoints>250</MaxHitPoints>
+			<WorkToBuild>27000</WorkToBuild>
+			<Flammability>4.0</Flammability>
+			<Beauty>-22</Beauty>
+			<Cleanliness>-100</Cleanliness>
+		</statBases>
+		<comps>
+			<li Class="Rimefeller.CompProperties_Pipe"/>
+			<li Class="Rimefeller.CompProperties_PowerPlant">
+				<compClass>Rimefeller.BigFuelPowerplant</compClass>
+				<basePowerConsumption>-8000</basePowerConsumption>
+				<FuelRate>85</FuelRate>
+				<transmitsPower>true</transmitsPower>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusherPowered</compClass>
+				<heatPerSecond>42</heatPerSecond>
+			</li>
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>8</explosiveRadius>
+				<explosiveDamageType>Flame</explosiveDamageType>
+				<destroyThingOnExplosionSize>2</destroyThingOnExplosionSize>
+				<startWickHitPointsPercent>0.333</startWickHitPointsPercent>
+				<preExplosionSpawnThingDef>Filth_Fuel</preExplosionSpawnThingDef>
+				<preExplosionSpawnChance>1</preExplosionSpawnChance>
+				<wickTicks>
+					<min>170</min>
+					<max>250</max>
+				</wickTicks>
+			</li>
+		</comps>
+		<building>
+			<ai_chillDestination>false</ai_chillDestination>
+		</building>
+		<designationCategory>Power</designationCategory>
+		<researchPrerequisites>
+			<li>SK_ConvectionalIV</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>10</constructionSkillPrerequisite>
+	</ThingDef>
+
+</Defs>
