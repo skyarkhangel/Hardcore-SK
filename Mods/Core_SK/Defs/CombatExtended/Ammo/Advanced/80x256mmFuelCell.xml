@@ -23,15 +23,16 @@
 	<ThingDef Class="CombatExtended.AmmoDef" Name="80x256mmFuelBase" ParentName="AmmoBase" Abstract="True">
 		<description>Large fuel container for incendiary shot cannons.</description>
 		<statBases>
-			<Mass>3.0</Mass>
-			<Bulk>8</Bulk>
+			<Mass>2.0</Mass>
+			<Bulk>5</Bulk>
 		</statBases>
-		<tradeability>Sellable</tradeability>
-		<destroyOnDrop>False</destroyOnDrop>
 		<thingCategories>
 			<li>Ammo80x256mmFuelCell</li>
 		</thingCategories>
 		<stackLimit>25</stackLimit>
+		<tradeTags>
+			<li>CE_AutoEnableTrade_Sellable</li>
+		</tradeTags>
 	</ThingDef>
 
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="80x256mmFuelBase">
@@ -45,14 +46,16 @@
 			<MarketValue>28.98</MarketValue>
 		</statBases>
 		<ammoClass>ThermobaricFuel</ammoClass>
+		<detonateProjectile>Bullet_80x256mmFuel_Thermobaric</detonateProjectile>
 		<comps>
-			<li Class="CombatExtended.CompProperties_ExplosiveCE">
-				<explosionDamageDef>Thermobaric</explosionDamageDef>
-				<explosionDamage>155</explosionDamage>
-				<explosionRadius>4</explosionRadius>
-				<preExplosionSpawnThingDef>Filth_Fuel</preExplosionSpawnThingDef>
-				<preExplosionSpawnChance>0.5</preExplosionSpawnChance>
-				<soundExplode>MortarIncendiary_Explode</soundExplode>
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>2</explosiveRadius>
+				<explosiveDamageType>Thermobaric</explosiveDamageType>
+				<explosiveExpandPerStackcount>0.15</explosiveExpandPerStackcount>
+				<startWickHitPointsPercent>0.33</startWickHitPointsPercent>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+				<explodeOnKilled>True</explodeOnKilled>
+				<wickTicks>60~300</wickTicks>
 			</li>
 		</comps>
 	</ThingDef>
@@ -62,38 +65,27 @@
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="SK_BaseBullet">
 		<defName>Bullet_80x256mmFuel_Thermobaric</defName>
 		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
-		<label>inferno cannon shell</label>
+		<label>80x256mm fuel shell (Thermobaric)</label>
 		<graphicData>
 			<texPath>Things/Projectile/InfernoCannonShot</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<shaderType>TransparentPostLight</shaderType>
 		</graphicData>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
-			<damageDef>Flame</damageDef>
-			<damageAmountBase>90</damageAmountBase>
+			<damageDef>Thermobaric</damageDef>
+			<damageAmountBase>245</damageAmountBase>
 			<speed>60</speed>
 			<flyOverhead>false</flyOverhead>
-			<explosionRadius>4</explosionRadius>
+			<explosionRadius>4.5</explosionRadius>
 			<preExplosionSpawnThingDef>Filth_Fuel</preExplosionSpawnThingDef>
 			<preExplosionSpawnChance>0.5</preExplosionSpawnChance>
 			<soundExplode>MortarIncendiary_Explode</soundExplode>
 			<soundHitThickRoof>Artillery_HitThickRoof</soundHitThickRoof>
 			<soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
 			<soundAmbient>MortarRound_Ambient</soundAmbient>
+			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
 			<ai_IsIncendiary>true</ai_IsIncendiary>
-			<!-- <armorPenetrationBase>1.2</armorPenetrationBase> -->
-			<armorPenetrationSharp>0</armorPenetrationSharp>
-			<armorPenetrationBlunt>0</armorPenetrationBlunt>
 		</projectile>
-		<comps>
-			<li Class="CombatExtended.CompProperties_ExplosiveCE">
-				<explosionDamage>155</explosionDamage>
-				<explosionDamageDef>Bomb</explosionDamageDef>
-				<explosionRadius>2.5</explosionRadius>
-				<fragRange>5.0</fragRange>
-				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
-			</li>
-		</comps>
 	</ThingDef>
 
 	<!-- ==================== Recipes ========================== -->

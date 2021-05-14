@@ -41,6 +41,14 @@
 		<cookOffSpeed>0.2</cookOffSpeed>
 		<cookOffFlashScale>30</cookOffFlashScale>
 		<cookOffTailSound>ShellCookOff_Ambient</cookOffTailSound>
+		<comps>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Large>22</Fragment_Large>
+					<Fragment_Small>36</Fragment_Small>
+				</fragments>
+			</li>
+		</comps>
 	</ThingDef>
 
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="90mmCannonShellBase">
@@ -55,19 +63,7 @@
 			<MarketValue>87.83</MarketValue>
 		</statBases>
 		<ammoClass>RocketHEAT</ammoClass>
-		<cookOffProjectile>Bullet_90mmCannonShell_HEAT</cookOffProjectile>
-		<comps>
-			<li Class="CombatExtended.CompProperties_ExplosiveCE">
-				<explosionDamage>258</explosionDamage>
-				<explosionDamageDef>Bomb</explosionDamageDef>
-				<explosionRadius>1</explosionRadius>
-				<fragRange>10</fragRange>
-				<fragments>
-					<Fragment_Large>22</Fragment_Large>
-					<Fragment_Small>36</Fragment_Small>
-				</fragments>
-			</li>
-		</comps>
+		<detonateProjectile>Bullet_90mmCannonShell_HEAT</detonateProjectile>
 	</ThingDef>
 
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="90mmCannonShellBase">
@@ -81,19 +77,7 @@
 			<MarketValue>88.98</MarketValue>
 		</statBases>
 		<ammoClass>GrenadeHE</ammoClass>
-		<cookOffProjectile>Bullet_90mmCannonShell_HE</cookOffProjectile>
-		<comps>
-			<li Class="CombatExtended.CompProperties_ExplosiveCE">
-				<explosionDamage>152</explosionDamage>
-				<explosionDamageDef>Bomb</explosionDamageDef>
-				<explosionRadius>2.5</explosionRadius>
-				<fragRange>10</fragRange>
-				<fragments>
-					<Fragment_Large>53</Fragment_Large>
-					<Fragment_Small>96</Fragment_Small>
-				</fragments>
-			</li>
-		</comps>
+		<detonateProjectile>Bullet_90mmCannonShell_HE</detonateProjectile>
 	</ThingDef>
 
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="90mmCannonShellBase">
@@ -108,24 +92,12 @@
 		</statBases>
 		<ammoClass>GrenadeEMP</ammoClass>
 		<generateAllowChance>0</generateAllowChance>
-		<cookOffProjectile>Bullet_90mmCannonShell_EMP</cookOffProjectile>
-		<comps>
-			<li Class="CombatExtended.CompProperties_ExplosiveCE">
-				<explosionDamage>142</explosionDamage>
-				<explosionDamageDef>Bomb</explosionDamageDef>
-				<explosionRadius>1.5</explosionRadius>
-				<fragRange>10</fragRange>
-				<fragments>
-					<Fragment_Large>22</Fragment_Large>
-				</fragments>
-			</li>
-		</comps>
+		<detonateProjectile>Bullet_90mmCannonShell_EMP</detonateProjectile>
 	</ThingDef>
 
 	<!-- ================== Projectiles ================== -->
 
 	<ThingDef Class="CombatExtended.AmmoDef" Name="Base90mmCannonShell" ParentName="SK_BaseBullet" Abstract="true">
-		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
 		<graphicData>
 			<shaderType>TransparentPostLight</shaderType>
 		</graphicData>
@@ -146,26 +118,25 @@
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
-			<damageDef>Bomb</damageDef>
+			<damageDef>Bullet</damageDef>
 			<damageAmountBase>258</damageAmountBase>
 			<explosionRadius>1.3</explosionRadius>
 			<soundExplode>MortarBomb_Explode</soundExplode>
-			<!-- <armorPenetrationBase>2.3</armorPenetrationBase> -->
 			<armorPenetrationSharp>500</armorPenetrationSharp>
 			<armorPenetrationBlunt>38.005</armorPenetrationBlunt>
-			<ai_IsIncendiary>true</ai_IsIncendiary>
 		</projectile>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
-				<explosionDamage>60</explosionDamage>
-				<explosionDamageDef>Bomb</explosionDamageDef>
-				<explosionRadius>2.8</explosionRadius>
-				<fragRange>10</fragRange>
+				<damageAmountBase>140</damageAmountBase>
+				<explosiveDamageType>Bomb</explosiveDamageType>
+				<explosiveRadius>2.8</explosiveRadius>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			</li>
+			<li Class="CombatExtended.CompProperties_Fragments">
 				<fragments>
 					<Fragment_Large>22</Fragment_Large>
 					<Fragment_Small>36</Fragment_Small>
 				</fragments>
-				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
 			</li>
 		</comps>
 	</ThingDef>
@@ -173,24 +144,21 @@
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base90mmCannonShell">
 		<defName>Bullet_90mmCannonShell_HE</defName>
 		<label>90mm cannon shell (HE)</label>
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
 		<graphicData>
 			<texPath>Things/Projectile/Cannon/HE</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<damageDef>Bomb</damageDef>
-			<damageAmountBase>180</damageAmountBase>
-			<explosionRadius>2.5</explosionRadius>
+			<damageAmountBase>200</damageAmountBase>
+			<explosionRadius>2.4</explosionRadius>
 			<soundExplode>MortarBomb_Explode</soundExplode>
-			<!-- <armorPenetrationBase>1.8</armorPenetrationBase> -->
-			<armorPenetrationSharp>0</armorPenetrationSharp>
-			<armorPenetrationBlunt>0</armorPenetrationBlunt>
+			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
 			<ai_IsIncendiary>true</ai_IsIncendiary>
 		</projectile>
 		<comps>
-			<li Class="CombatExtended.CompProperties_ExplosiveCE">
-				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
-				<fragRange>10</fragRange>
+			<li Class="CombatExtended.CompProperties_Fragments">
 				<fragments>
 					<Fragment_Large>35</Fragment_Large>
 					<Fragment_Small>55</Fragment_Small>
@@ -202,6 +170,7 @@
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base90mmCannonShell">
 		<defName>Bullet_90mmCannonShell_EMP</defName>
 		<label>90mm cannon shell (EMP)</label>
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
 		<graphicData>
 			<texPath>Things/Projectile/Cannon/EMP</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
@@ -210,17 +179,15 @@
 			<damageDef>Bomb</damageDef>
 			<damageAmountBase>130</damageAmountBase>
 			<explosionRadius>1</explosionRadius>
-			<!-- <armorPenetrationBase>1.8</armorPenetrationBase> -->
-			<armorPenetrationSharp>0</armorPenetrationSharp>
-			<armorPenetrationBlunt>0</armorPenetrationBlunt>
 			<soundExplode>Explosion_EMP</soundExplode>
 		</projectile>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
-				<explosionRadius>6</explosionRadius>
-				<explosionDamageDef>EMP</explosionDamageDef>
-				<explosionDamage>120</explosionDamage>
-				<fragRange>10</fragRange>
+				<explosiveRadius>6</explosiveRadius>
+				<explosiveDamageType>EMP</explosiveDamageType>
+				<damageAmountBase>120</damageAmountBase>
+			</li>
+			<li Class="CombatExtended.CompProperties_Fragments">
 				<fragments>
 					<Fragment_Small>12</Fragment_Small>
 				</fragments>
