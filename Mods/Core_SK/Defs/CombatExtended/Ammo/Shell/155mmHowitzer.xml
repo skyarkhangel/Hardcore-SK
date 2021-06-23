@@ -17,6 +17,7 @@
 			<Ammo_155mmHowitzerShell_HE>Bullet_155mmHowitzerShell_HE</Ammo_155mmHowitzerShell_HE>
 			<Ammo_155mmHowitzerShell_EMP>Bullet_155mmHowitzerShell_EMP</Ammo_155mmHowitzerShell_EMP>
 		</ammoTypes>
+		<isMortarAmmoSet>true</isMortarAmmoSet>
 	</CombatExtended.AmmoSetDef>
 
 	<!-- ==================== Ammo ========================== -->
@@ -33,14 +34,23 @@
 		</tradeTags>
 		<statBases>
 			<MaxHitPoints>200</MaxHitPoints>
-			<Mass>28</Mass>
-			<Bulk>28</Bulk>
+			<Mass>46.7</Mass>
+			<Bulk>65.67</Bulk>
 			<Flammability>1</Flammability>
 		</statBases>
 		<cookOffSound>MortarBomb_Explode</cookOffSound>
 		<cookOffSpeed>0.2</cookOffSpeed>
 		<cookOffFlashScale>30</cookOffFlashScale>
 		<cookOffTailSound>ShellCookOff_Ambient</cookOffTailSound>
+		<isMortarAmmo>true</isMortarAmmo>
+		<comps>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Large>75</Fragment_Large>
+					<Fragment_Small>65</Fragment_Small>
+				</fragments>
+			</li>
+		</comps>
 	</ThingDef>
 
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="155mmHowitzerShellBase">
@@ -55,20 +65,7 @@
 			<MarketValue>210</MarketValue>
 		</statBases>
 		<ammoClass>GrenadeHE</ammoClass>
-		<cookOffProjectile>Bullet_155mmHowitzerShell_HE</cookOffProjectile>
-		<comps>
-			<li Class="CombatExtended.CompProperties_ExplosiveCE">
-				<explosionDamage>220</explosionDamage>
-				<explosionDamageDef>Bomb</explosionDamageDef>
-				<explosionRadius>4</explosionRadius>
-				<soundExplode>Explosion_GiantBomb</soundExplode>
-				<fragRange>12</fragRange>
-				<fragments>
-					<Fragment_Large>75</Fragment_Large>
-					<Fragment_Small>65</Fragment_Small>
-				</fragments>
-			</li>
-		</comps>
+		<detonateProjectile>Bullet_155mmHowitzerShell_HE</detonateProjectile>
 	</ThingDef>
 
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="155mmHowitzerShellBase">
@@ -84,12 +81,17 @@
 		</statBases>
 		<ammoClass>GrenadeEMP</ammoClass>
 		<generateAllowChance>0</generateAllowChance>
-		<cookOffProjectile>Bullet_155mmHowitzerShell_EMP</cookOffProjectile>
+		<detonateProjectile>Bullet_155mmHowitzerShell_EMP</detonateProjectile>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
-				<explosionDamage>45</explosionDamage>
-				<explosionDamageDef>Bomb</explosionDamageDef>
-				<explosionRadius>6.5</explosionRadius>
+				<damageAmountBase>175</damageAmountBase>
+				<explosiveDamageType>Bomb</explosiveDamageType>
+				<explosiveRadius>2</explosiveRadius>
+			</li>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Small>22</Fragment_Small>
+				</fragments>
 			</li>
 		</comps>
 	</ThingDef>
@@ -121,22 +123,17 @@
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<damageDef>Bomb</damageDef>
 			<damageAmountBase>220</damageAmountBase>
-			<explosionRadius>3</explosionRadius>
+			<explosionRadius>4</explosionRadius>
 			<explosionChanceToStartFire>0.22</explosionChanceToStartFire>
 			<explosionEffect>GiantExplosion</explosionEffect>
 			<soundHitThickRoof>Artillery_HitThickRoof</soundHitThickRoof>
 			<soundExplode>Explosion_GiantBomb</soundExplode>
 			<soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
 			<soundAmbient>MortarRound_Ambient</soundAmbient>
-			<!-- <armorPenetrationBase>2.7</armorPenetrationBase> -->
-			<armorPenetrationSharp>0</armorPenetrationSharp>
-			<armorPenetrationBlunt>0</armorPenetrationBlunt>
 			<ai_IsIncendiary>true</ai_IsIncendiary>
 		</projectile>
 		<comps>
-			<li Class="CombatExtended.CompProperties_ExplosiveCE">
-				<fragRange>12</fragRange>
-				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<li Class="CombatExtended.CompProperties_Fragments">
 				<fragments>
 					<Fragment_Large>75</Fragment_Large>
 					<Fragment_Small>65</Fragment_Small>
@@ -156,17 +153,19 @@
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<damageDef>Bomb</damageDef>
 			<damageAmountBase>190</damageAmountBase>
-			<explosionRadius>2.2</explosionRadius>
-			<!-- <armorPenetrationBase>2.4</armorPenetrationBase> -->
-			<armorPenetrationSharp>0</armorPenetrationSharp>
-			<armorPenetrationBlunt>0</armorPenetrationBlunt>
+			<explosionRadius>2</explosionRadius>
 			<soundExplode>Explosion_EMP</soundExplode>
 		</projectile>
 		<comps>
 			<li Class="CombatExtended.CompProperties_ExplosiveCE">
-				<explosionRadius>9</explosionRadius>
-				<explosionDamageDef>EMP</explosionDamageDef>
-				<explosionDamage>160</explosionDamage>
+				<explosiveRadius>10</explosiveRadius>
+				<explosiveDamageType>EMP</explosiveDamageType>
+				<damageAmountBase>160</damageAmountBase>
+			</li>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Small>19</Fragment_Small>
+				</fragments>
 			</li>
 		</comps>
 	</ThingDef>

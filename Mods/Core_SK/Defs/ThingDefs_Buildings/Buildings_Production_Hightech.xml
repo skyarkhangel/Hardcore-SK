@@ -719,9 +719,6 @@
 		<size>(3,1)</size>
 		<designationCategory>Production</designationCategory>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
-		<inspectorTabs>
-			<li>ITab_Bills</li>
-		</inspectorTabs>
 		<tickerType>Normal</tickerType>
 		<comps>
 			<li Class="CompProperties_Power">
@@ -1620,7 +1617,7 @@
 		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
 	</ThingDef> -->
 
-	<ThingDef ParentName="WorkTable">
+	<ThingDef ParentName="UniversalFermenterBase">
 		<defName>BiofuelRefinery</defName>
 		<label>bio refinery</label>
 		<description>Refines biological matter like wood or plant matter into chemfuel.</description>
@@ -1655,11 +1652,42 @@
 			<ElectronicComponents>5</ElectronicComponents>
 			<Mechanism>8</Mechanism>
 		</costList>
-		<tickerType>Normal</tickerType>
 		<comps>
+		<li Class="UniversalFermenter.CompProperties_UniversalFermenter">
+				<showProductIcon>true</showProductIcon>
+				<barOffset>(0.0, 0.25)</barOffset>
+				<barScale>(1.0, 1.0)</barScale>
+				<slotsCount>10</slotsCount>
+				<processes>
+					<li>
+						<recipeDef>Make_ChemfuelFromWood</recipeDef>
+						<ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>5</ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>
+						<usesTemperature>false</usesTemperature>
+						<processDays>1.5</processDays>
+					</li>
+					<li>
+						<recipeDef>Make_ChemfuelFromOrganics</recipeDef>
+						<ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>5</ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>
+						<usesTemperature>false</usesTemperature>
+						<processDays>1.5</processDays>
+					</li>
+					<li MayRequire="Dubwise.DubsBadHygiene">
+						<recipeDef>Make_FertilizerFromBiosolids</recipeDef>
+						<ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>5</ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>
+						<usesTemperature>false</usesTemperature>
+						<processDays>1.5</processDays>
+					</li>
+					<li MayRequire="Dubwise.DubsBadHygiene">
+						<recipeDef>Make_ChemfuelFromFecalSludge</recipeDef>
+						<ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>5</ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>
+						<usesTemperature>false</usesTemperature>
+						<processDays>1.5</processDays>
+					</li>
+			</processes>
+		</li>
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerTrader</compClass>
-				<basePowerConsumption>700</basePowerConsumption>
+				<basePowerConsumption>900</basePowerConsumption>
 				<shortCircuitInRain>true</shortCircuitInRain>
 			</li>
 			<li Class="SK.CompProperties_LowIdleDraw">
@@ -2195,10 +2223,10 @@
 		<constructionSkillPrerequisite>12</constructionSkillPrerequisite>
 	</ThingDef>
 
-	<ThingDef Class="SK.ThingDef_AnimatedWorktable" ParentName="WorkTable">
+	
+	<ThingDef Class="SK.ThingDef_AnimatedWorktable" ParentName="UniversalFermenterBase">
 		<defName>TableOrganvat</defName>
 		<label>organ vat</label>
-		<thingClass>SK.Building_AnimatedWorktable</thingClass>
 		<description>A large vat used to turn human corpses into biomatter and grow natural replacement organs. Requires power.</description>
 		<graphicData>
 			<texPath>Things/Building/Production/TableOrganvat/TableOrganvat2x2_off</texPath>
@@ -2238,23 +2266,89 @@
 		</statBases>
 		<size>(2,2)</size>
 		<designationCategory>Production</designationCategory>
-		<interactionCellOffset>(1,0,-1)</interactionCellOffset>
-		<recipes>
-			<li>ExtractBiomatterCorpse</li>
-			<li>ExtractBiomatterAnimal</li>
-		</recipes>
-		<tickerType>Normal</tickerType>
 		<comps>
-			<li Class="CompProperties_AffectedByFacilities">
-				<linkableFacilities>
-					<li>Small_ToolCabinet</li>
-					<li>PodChair</li>
-				</linkableFacilities>
+			<li Class="UniversalFermenter.CompProperties_UniversalFermenter">
+				<showProductIcon>true</showProductIcon>
+				<barOffset>(0.0, 0.25)</barOffset>
+				<barScale>(1.0, 1.0)</barScale>
+				<slotsCount>10</slotsCount>
+				<processes>
+					<li>
+						<recipeDef>ExtractBiomatterCorpse</recipeDef>
+						<ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>1</ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>
+						<usesTemperature>false</usesTemperature>
+						<scaleToMeatAmount>true</scaleToMeatAmount>
+						<scaleToMeatAmountBase>127</scaleToMeatAmountBase>
+						<processDays>1.5</processDays>
+					</li>
+					<li>
+						<recipeDef>Grow_Eye</recipeDef>
+						<ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>1</ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>
+						<usesTemperature>false</usesTemperature>
+						<processDays>1.5</processDays>
+					</li>
+					<li>
+						<recipeDef>Grow_Nose</recipeDef>
+						<ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>1</ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>
+						<usesTemperature>false</usesTemperature>
+						<processDays>1.5</processDays>
+					</li>
+					<li>
+						<recipeDef>Grow_Heart</recipeDef>
+						<ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>1</ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>
+						<usesTemperature>false</usesTemperature>
+						<processDays>1.5</processDays>
+					</li>
+					<li>
+						<recipeDef>Grow_Lung</recipeDef>
+						<ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>1</ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>
+						<usesTemperature>false</usesTemperature>
+						<processDays>1.5</processDays>
+					</li>
+					<li>
+						<recipeDef>Grow_Liver</recipeDef>
+						<ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>1</ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>
+						<usesTemperature>false</usesTemperature>
+						<processDays>1.5</processDays>
+					</li>
+					<li>
+						<recipeDef>Grow_Kidney</recipeDef>
+						<ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>1</ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>
+						<usesTemperature>false</usesTemperature>
+						<processDays>1.5</processDays>
+					</li>
+					<li>
+						<recipeDef>Grow_Stomach</recipeDef>
+						<ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>1</ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>
+						<usesTemperature>false</usesTemperature>
+						<processDays>1.5</processDays>
+					</li>
+					<!--
+					<li>
+						<recipeDef>Grow_Jaw</recipeDef>
+						<ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>1</ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>
+						<usesTemperature>false</usesTemperature>
+						<processDays>1.5</processDays>
+					</li>
+					<li>
+						<recipeDef>Grow_Leg</recipeDef>
+						<ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>1</ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>
+						<usesTemperature>false</usesTemperature>
+						<processDays>1.5</processDays>
+					</li>
+					<li>
+						<recipeDef>Grow_Arm</recipeDef>
+						<ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>1</ruinedIfNoPowerOrNoFuelOrFlickedOffPerHour>
+						<usesTemperature>false</usesTemperature>
+						<processDays>1.5</processDays>
+					</li>
+					-->
+				</processes>
 			</li>
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerTrader</compClass>
 				<shortCircuitInRain>true</shortCircuitInRain>
-				<basePowerConsumption>450</basePowerConsumption>
+				<basePowerConsumption>700</basePowerConsumption>
 				<soundPowerOn>Power_OnSmall</soundPowerOn>
 				<soundPowerOff>Power_OffSmall</soundPowerOff>
 			</li>
@@ -2264,20 +2358,13 @@
 			</li>
 			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_Breakdownable"/>
-			<li>
-				<compClass>CompReportWorkSpeed</compClass>
-			</li>
 		</comps>
 		<researchPrerequisites>
 			<li>SK_MedicineIII</li>
 		</researchPrerequisites>
-		<placeWorkers>
-			<li>PlaceWorker_ShowFacilitiesConnections</li>
-			<li>PlaceWorker_ReportWorkSpeedPenalties</li>
-		</placeWorkers>
-		<constructionSkillPrerequisite>13</constructionSkillPrerequisite>
+		<constructionSkillPrerequisite>14</constructionSkillPrerequisite>
 	</ThingDef>
-
+<!--
 	<ThingDef ParentName="WorkTable">
 		<defName>BioRefinery</defName>
 		<label>bio-refinery</label>
@@ -2338,7 +2425,7 @@
 			<li>BiofuelRefining</li>
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>14</constructionSkillPrerequisite>
-	</ThingDef>
+	</ThingDef>	-->
 
 	<ThingDef ParentName="WorkTable">
 		<defName>MechWeaponCraftingWorkTable</defName>
