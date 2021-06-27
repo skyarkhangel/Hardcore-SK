@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+    <Operation Class="PatchOperationFindMod">
+    <mods>
+        <li>A Dog Said... Animal Prosthetics</li>
+    </mods>
+    <match Class="PatchOperationSequence">
+        <operations>
+            <li Class="PatchOperationRemove">
+                <xpath>Defs/ResearchProjectDef[
+                defName="SimpleAnimalProsthetics" or
+                defName="AnimalBionics" or
+                defName="AnimalHeal"
+                ]</xpath>
+            </li>
+
+            <li Class="PatchOperationAdd">
+                <xpath>Defs</xpath>
+                <value>
+                    <ResearchProjectDef ParentName="PrimitiveBase">
+                        <defName>Animal_B1</defName>
+                        <label>Simple animal prostheses</label>
+                        <description>Healing for your animals!</description>
+                        <baseCost>150</baseCost>
+                        <techLevel>Medieval</techLevel>
+                        <prerequisites>
+                            <li>Animal_A2</li>
+                            <li>Clinical_B1</li>
+                        </prerequisites>
+                        <researchViewX>5.00</researchViewX>
+                        <researchViewY>51.00</researchViewY>
+                        <tab>Animal_SK</tab>
+                    </ResearchProjectDef>
+                </value>
+            </li>
+            <li Class="PatchOperationAdd">
+                <xpath>Defs/ResearchProjectDef[defName="Animal_C1"]/prerequisites</xpath>
+                <value>
+                    <li>Animal_B1</li>
+                </value>
+            </li>
+            <li Class="PatchOperationAdd">
+                <xpath>Defs</xpath>
+                <value>
+                    <ResearchProjectDef ParentName="MedievalBase">
+                        <defName>Animal_C2</defName>
+                        <label>Bionics for animals</label>
+                        <description>Your muffalo lost his legs? Dont worry, now you can fix that!</description>
+                        <baseCost>500</baseCost>
+                        <techLevel>Industrial</techLevel>
+                        <prerequisites>
+                            <li>Animal_C1</li>
+                        </prerequisites>
+                        <researchViewX>8.00</researchViewX>
+                        <researchViewY>51.00</researchViewY>
+                        <tab>Animal_SK</tab>
+                    </ResearchProjectDef>
+                </value>
+            </li>
+            <li Class="PatchOperationAdd">
+                <xpath>Defs</xpath>
+                <value>
+                    <ResearchProjectDef ParentName="MedievalBase">
+                        <defName>Animal_D1</defName>
+                        <label>Animal Healing</label>
+                        <description>Learn to heal old wounds on animals</description>
+                        <baseCost>800</baseCost>
+                        <techLevel>Spacer</techLevel>
+                        <prerequisites>
+                            <li>Animal_C2</li>
+                        </prerequisites>
+                        <researchViewX>17.00</researchViewX>
+                        <researchViewY>51.00</researchViewY>
+                        <tab>Animal_SK</tab>
+                    </ResearchProjectDef>
+                </value>
+            </li>
+
+            <li Class="PatchOperationReplace">
+                <xpath>Defs/RecipeDef[@Name="OldWoundsAnimal"]/researchPrerequisite</xpath>
+                <value>
+                    <researchPrerequisite>Animal_B1</researchPrerequisite>
+                </value>
+            </li>
+            <li Class="PatchOperationReplace">
+                <xpath>Defs/ThingDef[defName="TableAnimalProsthetics"]/researchPrerequisites</xpath>
+                <value>
+                    <researchPrerequisites>
+                        <li>Animal_C2</li>
+                    </researchPrerequisites>
+                </value>
+            </li>
+            <li Class="PatchOperationReplace">
+                <xpath>Defs/ThingDef[@Name="BodyPartProstheticBaseADS"]/recipeMaker/researchPrerequisite</xpath>
+                <value>
+                    <researchPrerequisite>Animal_C2</researchPrerequisite>
+                </value>
+            </li>
+            <li Class="PatchOperationReplace">
+                <xpath>Defs/ThingDef[@Name="BodyPartBionicBaseADS"]/recipeMaker/researchPrerequisite</xpath>
+                <value>
+                    <researchPrerequisite>Animal_D1</researchPrerequisite>
+                </value>
+            </li>
+        </operations>
+    </match>
+    </Operation>
+
+</Patch>
