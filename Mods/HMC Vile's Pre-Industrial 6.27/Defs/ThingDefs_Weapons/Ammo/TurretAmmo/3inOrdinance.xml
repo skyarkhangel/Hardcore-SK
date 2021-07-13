@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+		<ThingCategoryDef>
+		<defName>Ammo3inCannon</defName>
+		<label>3-in cannon shell</label>
+		<parent>AmmoShells</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberCannon</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_3inCannon</defName>
+		<label>3-in cannon shells</label>
+		<ammoTypes>
+			<Ammo_3inCannon_Canister>Bullet_3inCannon_Canister</Ammo_3inCannon_Canister>
+			<Ammo_3inCannon_Shell>Bullet_3inCannon_Shell</Ammo_3inCannon_Shell>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+	
+	<!-- ==================== Ammo SHELL ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="Vile3inCannonBase" ParentName="AmmoBase" Abstract="True">
+		<description>A small black powder cannon shell.</description>
+		<thingCategories>
+			<li>Ammo3inCannon</li>
+		</thingCategories>
+		<stackLimit>50</stackLimit>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting_TableMachining</li>
+		</tradeTags>
+		<statBases>
+			<MaxHitPoints>150</MaxHitPoints>
+			<Mass>4.3</Mass>
+			<Bulk>5</Bulk>
+		</statBases>
+		<cookOffSound>MortarBomb_Explode</cookOffSound>
+		<cookOffSpeed>0.2</cookOffSpeed>
+		<cookOffFlashScale>30</cookOffFlashScale>
+		<cookOffTailSound>ShellCookOff_Ambient</cookOffTailSound>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Vile3inCannonBase">
+		<defName>Ammo_3inCannon_Shell</defName>
+		<label>3-in cannon explosive shell</label>
+		<graphicData>
+			<texPath>Things/Ammunition/3inOrdinance_Shell</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>10</MarketValue>
+		</statBases>
+		<ammoClass>GrenadeHE</ammoClass>
+		<cookOffProjectile>Bullet_3inCannon_Shell</cookOffProjectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<damageAmountBase>50</damageAmountBase>
+				<explosiveDamageType>Bomb</explosiveDamageType>
+				<explosiveRadius>2</explosiveRadius>
+			</li>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Large>25</Fragment_Large>
+					<Fragment_Small>50</Fragment_Small>
+				</fragments>
+			</li>
+		</comps>
+	</ThingDef>
+	
+		<!-- ==================== Ammo CANISTER ========================== -->
+
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="3inCanisterBase" ParentName="SmallAmmoBase" Abstract="True">
+		<description>Like a shotgun, but much bigger and the pellets are musket balls.</description>
+		<statBases>
+			<Mass>0.05</Mass>
+			<Bulk>0.07</Bulk>
+		</statBases>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting</li>
+		</tradeTags>
+		<thingCategories>
+			<li>Ammo3inCannon</li>
+		</thingCategories>
+		<stackLimit>50</stackLimit>
+		<comps>
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>0.7</explosiveRadius>
+				<explosiveDamageType>Flame</explosiveDamageType>
+				<explosiveExpandPerStackcount>0.01</explosiveExpandPerStackcount>
+				<startWickHitPointsPercent>0.333</startWickHitPointsPercent>
+				<wickTicks>
+					<min>5</min>
+					<max>10</max>
+				</wickTicks>
+			</li>
+		</comps>
+	</ThingDef>
+	
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="3inCanisterBase">
+		<defName>Ammo_3inCannon_Canister</defName>
+		<label>3-in Canister Shot</label>
+		<graphicData>
+			<texPath>Things/Ammunition/3inOrdinance_Canister</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>1.0</MarketValue>
+		</statBases>
+		<ammoClass>BuckShot</ammoClass>
+		<cookOffProjectile>Bullet_69Musket_Lead</cookOffProjectile>
+	</ThingDef>
+	
+	<!-- ================== Projectiles SHELL ================== -->
+	
+	<ThingDef Class="CombatExtended.AmmoDef" Name="Base3inCannonShell" ParentName="SK_BaseBullet" Abstract="true">
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		<graphicData>
+			<shaderType>TransparentPostLight</shaderType>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>125</speed>
+			<soundExplode>MortarBomb_Explode</soundExplode>
+			<flyOverhead>false</flyOverhead>
+		</projectile>
+	</ThingDef>
+	
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base3inCannonShell">
+		<defName>Bullet_3inCannon_Shell</defName>
+		<label>3-in Explosive Shell</label>
+		<graphicData>
+			<texPath>Things/Projectile/Projectile_BPShell</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bomb</damageDef>
+			<damageAmountBase>80</damageAmountBase>
+			<explosionRadius>2</explosionRadius>
+			<soundExplode>MortarBomb_Explode</soundExplode>
+			<!-- <armorPenetrationBase>1.8</armorPenetrationBase> -->
+			<armorPenetrationSharp>0</armorPenetrationSharp>
+			<armorPenetrationBlunt>0</armorPenetrationBlunt>
+			<ai_IsIncendiary>true</ai_IsIncendiary>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Large>24</Fragment_Large>
+					<Fragment_Small>12</Fragment_Small>
+				</fragments>
+			</li>
+		</comps>
+	</ThingDef>
+	
+	<!-- ================== Projectiles CANISTER ================== -->
+	
+	
+<ThingDef Class="CombatExtended.AmmoDef" Name="Base3inCannonCanister" ParentName="SK_BaseBullet" Abstract="true">
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bullet</damageDef>
+			<speed>30</speed>
+			<dropsCasings>False</dropsCasings>
+		</projectile>
+	</ThingDef>
+
+<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base3inCannonCanister">
+		<defName>Bullet_3inCannon_Canister</defName>
+		<label>Canister Pellet</label>
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_Small</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageAmountBase>24</damageAmountBase>
+			<pelletCount>60</pelletCount>
+			<armorPenetrationSharp>7</armorPenetrationSharp>
+			<armorPenetrationBlunt>30</armorPenetrationBlunt>
+			<spreadMult>28</spreadMult>
+			<gravityFactor>4</gravityFactor>
+		</projectile>
+	</ThingDef>
+	
+	
+	<!-- ============= RECIPES =============-->
+	
+	<!-- === EXPLOSIVE SHELL FORGES ==-->
+	<RecipeDef ParentName="AmmoRecipeBlackPowderBase">
+		<defName>MakeAmmo_3inCannon_Shell</defName>
+		<label>make 3-in explosive shell</label>
+		<description>Craft 3-in explosive shell.</description>
+		<jobString>Making 3-in explosive shell.</jobString>
+		<targetCountAdjustment>1</targetCountAdjustment>
+		<workAmount>800</workAmount>
+		<unfinishedThingDef>UnfinishedBalls</unfinishedThingDef>
+		<ingredients>
+				<li>
+				<filter>
+					<categories>
+						<li>SLDBar</li>
+					</categories>
+				</filter>
+				<count>5</count>
+			</li>
+			<li>
+				<filter>
+					<categories>
+						<li>Woody</li>
+					</categories>
+				</filter>
+				<count>5</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Powder</li>
+					</thingDefs>
+				</filter>
+				<count>8</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>SLDBar</li>
+				<li>Woody</li>
+			</categories>
+			<thingDefs>
+				<li>Powder</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_3inCannon_Shell>3</Ammo_3inCannon_Shell>
+		</products>
+		<researchPrerequisite>Field_Guns</researchPrerequisite> <!-- Throwing Weapons -->
+	</RecipeDef>
+	
+	
+	<!-- === CANNISTER SHOT FORGED === -->
+	<RecipeDef ParentName="AmmoRecipeBlackPowderBase">
+		<defName>MakeAmmo_3inCannon_Canister</defName>
+		<label>make 3-in canister shot</label>
+		<description>Craft 3-in canister shot.</description>
+		<jobString>Making 3-in canister shot.</jobString>
+		<targetCountAdjustment>1</targetCountAdjustment>
+		<workAmount>600</workAmount>
+		<unfinishedThingDef>UnfinishedBalls</unfinishedThingDef>
+		<ingredients>
+				<li>
+				<filter>
+					<thingDefs>
+						<li>LeadBar</li>
+					</thingDefs>
+				</filter>
+				<count>5</count>
+			</li>
+			<li>
+				<filter>
+					<categories>
+						<li>Woody</li>
+					</categories>
+				</filter>
+				<count>5</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Powder</li>
+					</thingDefs>
+				</filter>
+				<count>8</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Woody</li>
+			</categories>
+			<thingDefs>
+				<li>Powder</li>
+				<li>LeadBar</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_3inCannon_Canister>3</Ammo_3inCannon_Canister>
+		</products>
+		<researchPrerequisites>
+			<li>Field_Guns</li>
+		</researchPrerequisites>
+	</RecipeDef>
+	
+	
+	
+
+
+
+
+</Defs>
