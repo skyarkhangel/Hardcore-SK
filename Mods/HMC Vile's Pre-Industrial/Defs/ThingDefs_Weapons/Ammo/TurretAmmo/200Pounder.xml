@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+		<ThingCategoryDef>
+		<defName>Ammo200Pounder</defName>
+		<label>200-Pounder</label>
+		<parent>AmmoShells</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberCannon</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_200Pounder</defName>
+		<label>200-lb cannon shells</label>
+		<ammoTypes>
+			<Ammo_200Pounder_Shell>Bullet_200Pounder_Shell</Ammo_200Pounder_Shell>
+			<Ammo_200Pounder_GreekFire>Bullet_200Pounder_GreekFire</Ammo_200Pounder_GreekFire>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+	
+	<!-- ==================== Ammo SHELL ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="Vile200PounderBase" ParentName="AmmoBase" Abstract="True">
+		<description>A large black powder cannon shell.</description>
+		<thingCategories>
+			<li>Ammo200Pounder</li>
+		</thingCategories>
+		<stackLimit>6</stackLimit>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting_TableMachining</li>
+		</tradeTags>
+		<statBases>
+			<MaxHitPoints>200</MaxHitPoints>
+			<Mass>20</Mass>
+			<Bulk>20</Bulk>
+		</statBases>
+		<cookOffSound>MortarBomb_Explode</cookOffSound>
+		<cookOffSpeed>0.2</cookOffSpeed>
+		<cookOffFlashScale>30</cookOffFlashScale>
+		<cookOffTailSound>ShellCookOff_Ambient</cookOffTailSound>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Vile200PounderBase">
+		<defName>Ammo_200Pounder_Shell</defName>
+		<label>200-Pound shell</label>
+		<graphicData>
+			<texPath>Things/Ammunition/200Pounder_Shell</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>20</MarketValue>
+		</statBases>
+		<ammoClass>GrenadeHE</ammoClass>
+		<cookOffProjectile>Bullet_3inCannon_Shell</cookOffProjectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<damageAmountBase>180</damageAmountBase>
+				<explosiveDamageType>Bomb</explosiveDamageType>
+				<explosiveRadius>4</explosiveRadius>
+			</li>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Large>40</Fragment_Large>
+					<Fragment_Small>20</Fragment_Small>
+				</fragments>
+			</li>
+		</comps>
+	</ThingDef>
+	
+	
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Vile200PounderBase">
+		<defName>Ammo_200Pounder_GreekFire</defName>
+		<label>200-lb Greek Fire Incendiary Shell</label>
+		<graphicData>
+			<texPath>Things/Ammunition/200Pounder_GreekFire</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<ammoClass>GrenadeIncendiary</ammoClass>
+		<cookOffProjectile>Bullet_81mmMortarShell_Incendiary</cookOffProjectile>
+		<statBases>
+			<MarketValue>40</MarketValue>
+			<Mass>20</Mass>
+			<Bulk>20</Bulk>
+		</statBases>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<explosiveDamageType>PrometheumFlame</explosiveDamageType>
+				<damageAmountBase>40</damageAmountBase>
+				<explosiveRadius>3.5</explosiveRadius>
+				<!--<preExplosionSpawnThingDef>FilthPrometheum</preExplosionSpawnThingDef>
+				<preExplosionSpawnChance>0.5</preExplosionSpawnChance>
+				<soundExplode>MortarIncendiary_Explode</soundExplode>-->
+			</li>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Small>30</Fragment_Small>
+				</fragments>
+			</li>
+		</comps>
+	</ThingDef>
+	
+	
+	<!-- ================== Projectiles SHELL ================== -->
+	
+  <ThingDef Class="CombatExtended.AmmoDef" Name="Base200Pounder" ParentName="SK_BaseBullet" Abstract="true">
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		<graphicData>
+			<shaderType>TransparentPostLight</shaderType>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>50</speed>
+			<soundExplode>MortarBomb_Explode</soundExplode>
+			<flyOverhead>true</flyOverhead>
+			<dropsCasings>true</dropsCasings>
+			<casingMoteDefname>Mote_BigShell</casingMoteDefname>
+			<gravityFactor>12</gravityFactor>
+		</projectile>
+	</ThingDef>
+	
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base200Pounder">
+		<defName>Bullet_200Pounder_Shell</defName>
+		<label>200-lb Explosive Shell</label>
+		<graphicData>
+			<texPath>Things/Projectile/Projectile_BPShell_Large</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bomb</damageDef>
+			<damageAmountBase>180</damageAmountBase>
+			<explosionRadius>3</explosionRadius>
+			<explosionChanceToStartFire>0.15</explosionChanceToStartFire>
+			<explosionEffect>GiantExplosion</explosionEffect>
+			<soundHitThickRoof>Artillery_HitThickRoof</soundHitThickRoof>
+			<soundExplode>Explosion_GiantBomb</soundExplode>
+			<soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
+			<soundAmbient>MortarRound_Ambient</soundAmbient>
+			<!-- <armorPenetrationBase>2.7</armorPenetrationBase> -->
+			<armorPenetrationSharp>0</armorPenetrationSharp>
+			<armorPenetrationBlunt>0</armorPenetrationBlunt>
+			<ai_IsIncendiary>true</ai_IsIncendiary>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Large>50</Fragment_Large>
+					<!--<Fragment_Small>40</Fragment_Small>-->
+				</fragments>
+			</li>
+		</comps>
+	</ThingDef>
+	
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base200Pounder">
+		<defName>Bullet_200Pounder_GreekFire</defName>
+		<label>200-lb Greek Fire Incendiary Shell</label>
+		<graphicData>
+			<texPath>Things/Projectile/Projectile_BPShell</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>PrometheumFlame</damageDef>
+			<damageAmountBase>40</damageAmountBase>
+			<explosionRadius>5</explosionRadius>
+			<!-- <armorPenetrationBase>1.4</armorPenetrationBase> -->
+			<explosionChanceToStartFire>1</explosionChanceToStartFire>
+			<explosionEffect>GiantExplosion</explosionEffect>
+			
+			
+			<armorPenetrationSharp>0</armorPenetrationSharp>
+			<armorPenetrationBlunt>0</armorPenetrationBlunt>
+			<preExplosionSpawnThingDef>Filth_Fuel</preExplosionSpawnThingDef>
+			<preExplosionSpawnChance>1</preExplosionSpawnChance>
+			<soundExplode>MortarIncendiary_Explode</soundExplode>
+			<ai_IsIncendiary>true</ai_IsIncendiary>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<explosiveRadius>4.5</explosiveRadius>
+				<explosiveDamageType>PrometheumFlame</explosiveDamageType>
+				<damageAmountBase>50</damageAmountBase>
+			</li>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Small>10</Fragment_Small>
+				</fragments>
+			</li>
+		</comps>
+	</ThingDef>
+	
+<!-- ==========RECIPES========= -->
+	
+	<!-- == 200Shell Forges == -->
+	<RecipeDef ParentName="AmmoRecipeBlackPowderBase">
+		<defName>MakeAmmo_200Pounder_Shell</defName>
+		<label>make 200-lb explosive shell x3</label>
+		<description>Craft 200-lb explosive shell.</description>
+		<jobString>Making 200-lb explosive shell.</jobString>
+		<targetCountAdjustment>1</targetCountAdjustment>
+		<workAmount>1200</workAmount>
+		<unfinishedThingDef>UnfinishedBalls</unfinishedThingDef>
+		<ingredients>
+				<li>
+				<filter>
+					<categories>
+						<li>SLDBar</li>
+					</categories>
+				</filter>
+				<count>20</count>
+			</li>
+			<li>
+				<filter>
+					<categories>
+						<li>Woody</li>
+					</categories>
+				</filter>
+				<count>10</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Powder</li>
+					</thingDefs>
+				</filter>
+				<count>10</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>SLDBar</li>
+				<li>Woody</li>
+			</categories>
+			<thingDefs>
+				<li>Powder</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_200Pounder_Shell>3</Ammo_200Pounder_Shell>
+		</products>
+		<researchPrerequisite>Siege_Artillery</researchPrerequisite> <!-- Construction I -->
+	</RecipeDef>
+	
+
+	
+	<!-- == GREEKFIRE FORGED == -->
+	<RecipeDef ParentName="AmmoRecipeBlackPowderBase">
+		<defName>MakeAmmo_200Pounder_GreekFire</defName>
+		<label>make 200-lb greek fire shell x3</label>
+		<description>Craft 200-lb greek fire shell.</description>
+		<jobString>Making 200-lb greek fire shell.</jobString>
+		<targetCountAdjustment>1</targetCountAdjustment>
+		<workAmount>1200</workAmount>
+		<unfinishedThingDef>UnfinishedBalls</unfinishedThingDef>
+		<ingredients>
+				<li>
+				<filter>
+					<categories>
+						<li>SLDBar</li>
+					</categories>
+				</filter>
+				<count>20</count>
+			</li>
+			<li>
+				<filter>
+					<categories>
+						<li>Woody</li>
+					</categories>
+				</filter>
+				<count>10</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>FSX</li>
+					</thingDefs>
+				</filter>
+				<count>5</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Powder</li>
+					</thingDefs>
+				</filter>
+				<count>10</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>SLDBar</li>
+				<li>Woody</li>
+			</categories>
+			<thingDefs>
+				<li>FSX</li>
+				<li>Powder</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_200Pounder_GreekFire>3</Ammo_200Pounder_GreekFire>
+		</products>
+		<researchPrerequisite>Siege_Artillery</researchPrerequisite> <!-- Construction I -->
+	</RecipeDef>
+
+
+
+
+</Defs>

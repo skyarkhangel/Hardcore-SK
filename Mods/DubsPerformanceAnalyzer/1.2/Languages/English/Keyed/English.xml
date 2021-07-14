@@ -16,8 +16,13 @@
 	<tab.modder.desc>Methods which have been added by modders via Analyzer.xml</tab.modder.desc>
 
 	<!--Settings-->
+  	<settings.Overrides>Overrides</settings.Overrides>
+  	<settings.Disabling>Disabling</settings.Disabling>
+  	<settings.Optimizations>Optimizations</settings.Optimizations>
 	<settings.performance>Performance Options</settings.performance>
 	<settings.developer>Developer Options</settings.developer>
+  	<settings.debuglog>Enable log without debug mode</settings.debuglog>
+    <settings.showicon>Show the main tab icon on the bottom bar</settings.showicon>
 
 	<settings.wiki>Analyzer Wiki</settings.wiki>
 	<settings.discord>Dubs Discord</settings.discord>
@@ -91,6 +96,9 @@
 	
 	<!-- Tick -->
 
+  	<entry.tick.jobdrivertick>Job driver tick</entry.tick.jobdrivertick>
+  	<entry.tick.jobdrivertick.tooltip>A detoured profiler for the whole job driver tick including the cost of ticking each individual driver</entry.tick.jobdrivertick.tooltip>
+
   	<entry.tick.single>Single Tick</entry.tick.single>
 	<entry.tick.single.tooltip>A variety of tick methods, including; World, History, FilthMonitor, Storyteller</entry.tick.single.tooltip>
 
@@ -122,16 +130,16 @@
 	<entry.tick.room.tooltip>The method which is responsible for the updating of room stats</entry.tick.room.tooltip>
 
 	<entry.tick.thinknodes>ThinkNodes</entry.tick.thinknodes>
-	<entry.tick.thinknodes.tooltip>ThinkNodes are related to how pawns decide what they are doing</entry.tick.thinknodes.tooltip>
+	<entry.tick.thinknodes.tooltip>ThinkNodes are basically sets of general job givers filtered in an ai tree, like satisfying needs, optimizing apparel, fleeing, work is all combined in a single JobGiver_Work which can be individually profiled by looking at the Work Giver profiler tab</entry.tick.thinknodes.tooltip>
 
 	<entry.tick.things>Tick Things</entry.tick.things>
 	<entry.tick.things.tooltip>Profiles the ticking methods of various things on the map</entry.tick.things.tooltip>
 
-	<entry.tick.jobgiver>Job Giver</entry.tick.jobgiver>
-	<entry.tick.jobgiver.tooltip>Job Giver shows jobs which pro-actively seek out work to be done. For example. Fermenting barrels looking for incregredients, bills looking for resources, etc</entry.tick.jobgiver.tooltip>
+	<entry.tick.jobgiver>Work Giver</entry.tick.jobgiver>
+	<entry.tick.jobgiver.tooltip>Work Giver is only jobs done for work, that means all the jobs listed in the Work tab, this does not include jobs run by the ai for things like satisfying needs or optimizing apparel, those can be found in the ThinkNodes profile tab</entry.tick.jobgiver.tooltip>
 
 	<entry.tick.jobgiverd>Job Giver (Detoured)</entry.tick.jobgiverd>
-	<entry.tick.jobgiverd.tooltip>Job Giver shows jobs which pro-actively seek out work to be done. For example. Fermenting barrels looking for incregredients, bills looking for resources, etc</entry.tick.jobgiverd.tooltip>
+	<entry.tick.jobgiverd.tooltip>Job Giver shows jobs which pro-actively seek out work to be done. For example. Fermenting barrels looking for ingredients, bills looking for resources, etc</entry.tick.jobgiverd.tooltip>
 
 	<entry.tick.world>World Tick</entry.tick.world>
 	<entry.tick.world.tooltip>Tick methods for various world entries, such as; WorldPawns, Factions, Caravans</entry.tick.world.tooltip>
@@ -139,7 +147,7 @@
 	<!-- Update  -->
 
 	<entry.update.alert>Alerts</entry.update.alert>
-	<entry.update.alert.tooltip>The recalculate and draw methos for Alerts</entry.update.alert.tooltip>
+	<entry.update.alert.tooltip>The recalculate and draw methods for Alerts</entry.update.alert.tooltip>
 
 	<entry.update.dynamicdraw>Draw Dynamic Things</entry.update.dynamicdraw>
 	<entry.update.dynamicdraw.tooltip>The draw method for things which are drawn via the DynamicDrawManager</entry.update.dynamicdraw.tooltip>
@@ -158,6 +166,9 @@
 
 	<entry.update.mapcomponent>Map Component Update</entry.update.mapcomponent>
 	<entry.update.mapcomponent.tooltip>The Update method for Map Components</entry.update.mapcomponent.tooltip>
+
+	<entry.update.transpilermethods>Harmony Transpiled Methods</entry.update.transpilermethods>
+	<entry.update.transpilermethods.tooltip>Profiles entire methods that have transpiler patches, doesn't show the impact of individual changes, only the whole method, a transpiler might change how often some code in a method runs, not just call extra methods, use to compare how a method runs before and after adding a mod that patches it</entry.update.transpilermethods.tooltip>
 
 	<entry.update.sectionlayer.thingsdrawlayer>Draw Printed Things</entry.update.sectionlayer.thingsdrawlayer>
 	<entry.update.sectionlayer.thingsdrawlayer.tooltip>Profile how long each thing takes to print</entry.update.sectionlayer.thingsdrawlayer.tooltip>
@@ -197,6 +208,8 @@
 
 	<!-- Performance Patches -->
 
+  <FixEverything>Fix Everything</FixEverything>
+
 	<performance.alertsoverride>Disable Alerts individually</performance.alertsoverride>
 	<performance.alertsoverride.tooltip>Choose to disable expensive alerts</performance.alertsoverride.tooltip>
 
@@ -209,8 +222,8 @@
 	<performance.lordnotifydamage>Remove some stutters for raid AI</performance.lordnotifydamage>
 	<performance.lordnotifydamage.tooltip>Removes a redundant damage-notification check from the Lord toils 'LordToil_AssaultColony' and 'LordToil_AssaultColonySappers'</performance.lordnotifydamage.tooltip>
 
-	<performance.killaudio>Remove in-game music</performance.killaudio>
-	<performance.killaudio.tooltip>Destructively prefixes the 'MusicManagerPlay:MusicUpdate' function</performance.killaudio.tooltip>
+	<performance.killaudio>Disable in-game music</performance.killaudio>
+	<performance.killaudio.tooltip>Prevent music player bugs by destructively prefixing the 'MusicManagerPlay:MusicUpdate' function</performance.killaudio.tooltip>
 
 	<performance.buildingrepair>Optimize the repair job</performance.buildingrepair>
 	<performance.buildingrepair.tooltip>Removes objects that are not repairable or do not have hitpoints (which the Type 'ListerBuildingsRepairable' does not filter out)</performance.buildingrepair.tooltip>
@@ -218,17 +231,17 @@
 	<performance.roof>Optimize roof jobgiver</performance.roof>
 	<performance.roof.tooltip>Caches when roofs are removed / need replacing, and preventing the jobgiver from running when no state has changed</performance.roof.tooltip>
 
-	<performance.wallsnconduits>Optimize rendering for walls and conduits</performance.wallsnconduits>
+	<performance.wallsnconduits>Optimize drawing for walls and conduits</performance.wallsnconduits>
 	<performance.wallsnconduits.tooltip>Set the mesh draw type for walls and conduits to 'MapMeshOnly'</performance.wallsnconduits.tooltip>
 
 	<performance.compdeepdrill>Optimize deep drills</performance.compdeepdrill>
 	<performance.compdeepdrill.tooltip>Skips a check for the 'correct' stone under a drill, improves performance of drills when using pawns with high mining</performance.compdeepdrill.tooltip>
 
-	<performance.tempcache>Remove some stutters on raid generation</performance.tempcache>
-	<performance.tempcache.tooltip>Caches temperature lookups in the same tick, removing some overhead from raid generation</performance.tempcache.tooltip>
+	<performance.tempcache>Cache ComfortableTemperatureRange</performance.tempcache>
+	<performance.tempcache.tooltip>Caches safe temperature range once per tick, reducing excess cpu load from spamming it for things like pathfinding</performance.tempcache.tooltip>
 
-	<performance.zoom>Reduce stutters while zooming</performance.zoom>
-	<performance.zoom.tooltip>Lowers the target tps when zooming in order to stabilize fps</performance.zoom.tooltip>
+	<performance.zoom>Reduce stutters while panning</performance.zoom>
+	<performance.zoom.tooltip>Lowers the target tps when panning to reduce stuttering</performance.zoom.tooltip>
 
 	<performance.drawlabelsfix>Optimize pawn labels</performance.drawlabelsfix>
 	<performance.drawlabelsfix.tooltip>Optimize the drawing of pawn and animal names in-map</performance.drawlabelsfix.tooltip>
@@ -239,10 +252,10 @@
 
 	<!-- Fixes -->
 
-	<fix.fixmodremoval>Fix mod removal, may solve grey screen issue</fix.fixmodremoval>
+  <fix.fixmodremoval>Fix mod removal, may solve grey screen issue</fix.fixmodremoval>
 	<fix.fixmodremoval.tooltip>This fixes the area manager trying to loop through null area classes from missing mods</fix.fixmodremoval.tooltip>
 
-	<fix.faction>Cleans up factions from removed mods</fix.faction>
+	<fix.faction>Fix missing mod factions</fix.faction>
 	<fix.faction.tooltip>Removes all references to deleted factions in world objects. This will solve issues when removing factions mid-save</fix.faction.tooltip>
 
 </LanguageData>

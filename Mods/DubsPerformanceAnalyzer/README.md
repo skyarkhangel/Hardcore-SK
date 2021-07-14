@@ -34,6 +34,9 @@ This will (if possible) show you the mod, and the assembly that the method is at
 
 ## Common Offenders
 
+#### TickList.Tick
+This is the overaching method which calls all 'Tick' methods in the game. Inside this method, is all work which executes on tick, to find where this time is being spent, its recommended to look in the 'Pawn Tick' or 'Tick Things' category. Both of which offer a more fine grain look into *what* is ticking and taking large amounts of time. It is similar to Frame Time in this regard.
+
 #### Pawn.Tick
 
 Pawn Tick is the 'tick' method for Pawns, it is responsible for all updates specific to the pawn. For example, pawns finding jobs, pathfinding etc. The individual methods which are called within Pawn:Tick are profiled in the entry 'Pawn Tick'. You can also right click the log, and press 'Profile the Internal Methods of', which will show you the methods which are called within Pawn:Tick
