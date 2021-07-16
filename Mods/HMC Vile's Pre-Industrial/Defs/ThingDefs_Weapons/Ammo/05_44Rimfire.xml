@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	
+
+	<ThingCategoryDef>
+		<defName>Ammo44Rimfire</defName>
+		<label>.44 Rimfire</label>
+		<parent>AmmoBlackPowderCartridge</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberRifle</iconPath>
+	</ThingCategoryDef>
+	
+
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_44Rimfire</defName>
+		<label>.44 Rimfire</label>
+		<ammoTypes>
+			<Ammo_44Rimfire>Bullet_44Rimfire</Ammo_44Rimfire>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="44RimfireBase" ParentName="SmallAmmoBase" Abstract="True">
+		<description>Lead bullet with the charge protected in a metal jacket.</description>
+		<statBases>
+			<Mass>0.013</Mass>
+			<Bulk>0.04</Bulk>
+		</statBases>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting</li>
+		</tradeTags>
+		<thingCategories>
+			<li>Ammo5070Govt</li>
+		</thingCategories>
+		<comps>
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>0.45</explosiveRadius>
+				<explosiveDamageType>Flame</explosiveDamageType>
+				<explosiveExpandPerStackcount>0.01</explosiveExpandPerStackcount>
+				<startWickHitPointsPercent>0.333</startWickHitPointsPercent>
+				<wickTicks>
+					<min>5</min>
+					<max>10</max>
+				</wickTicks>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="44RimfireBase">
+		<defName>Ammo_44Rimfire</defName>
+		<label>.44 Rimfire</label>
+		<graphicData>
+			<texPath>Things/Ammunition/44Rimfire</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>0.6</MarketValue>
+		</statBases>
+		<ammoClass>LeadBall</ammoClass>
+		<cookOffProjectile>Bullet_44Rimfire</cookOffProjectile>
+	</ThingDef>
+	
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="Base44Rimfire" ParentName="SK_BaseBullet" Abstract="true">
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_Small</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bullet</damageDef>
+			<speed>95</speed>
+			<dropsCasings>True</dropsCasings>
+		</projectile>
+	</ThingDef>
+
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base44Rimfire">
+		<defName>Bullet_44Rimfire</defName>
+		<label>.44 Rimfire</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageAmountBase>14</damageAmountBase>
+			<!-- <armorPenetrationBase>0.53</armorPenetrationBase> -->
+			<armorPenetrationSharp>5</armorPenetrationSharp>
+			<armorPenetrationBlunt>15</armorPenetrationBlunt>
+		</projectile>
+	</ThingDef>
+
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef ParentName="AmmoRecipeBlackPowderBase">
+		<defName>MakeAmmo_44Rimfire</defName>
+		<label>make .44 Rimfire x40</label>
+		<description>Craft 40 .44 Rimfire rounds.</description>
+		<jobString>Making .44 Rimfire rounds.</jobString>
+		<workAmount>600</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>SLDBar</li>
+						<li>USLDBar</li>
+					</categories>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>LeadBar</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Powder</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>SLDBar</li>
+				<li>USLDBar</li>
+			</categories>
+			<thingDefs>
+				<li>LeadBar</li>
+				<li>Powder</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_44Rimfire>40</Ammo_44Rimfire>
+		</products>
+		<skillRequirements>
+			<Crafting>4</Crafting>
+		</skillRequirements>
+		<workSkill>Crafting</workSkill>
+		<workSkillLearnFactor>0.8</workSkillLearnFactor>
+		<researchPrerequisite>Muskets_B3</researchPrerequisite> <!-- Technology -->
+
+	</RecipeDef>
+
+</Defs>
