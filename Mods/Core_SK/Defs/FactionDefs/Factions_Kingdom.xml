@@ -16,27 +16,12 @@
 		<autoFlee>true</autoFlee>
 		<leaderTitle>king</leaderTitle>
 		<earliestRaidDays>25</earliestRaidDays>
-		<royalFavorLabel>royal favor</royalFavorLabel>
-		<royalFavorIconPath>UI/Icons/RoyalFavor</royalFavorIconPath>
 		<leaderForceGenerateNewPawn>true</leaderForceGenerateNewPawn>
-		<factionNameMaker>NamerFactionEmpire</factionNameMaker>
+		<factionNameMaker>NamerFactionKingdom</factionNameMaker>
 		<settlementNameMaker>NamerSettlementOutlander</settlementNameMaker>
 		<pawnNameMaker>NamerPersonEmpireEN</pawnNameMaker>
 		<pawnNameMakerFemale>NamerPersonEmpireFemaleEN</pawnNameMakerFemale>
 		<factionIconPath>World/WorldObjects/Expanding/Kingdom</factionIconPath>	
-		<permanentEnemyToEveryoneExcept>
-			<li>OutlanderCivil</li>
-			<li>TribeCivil</li>
-			<li>PlayerTribe</li>
-			<li>PlayerColony</li>
-			<li>Ancients</li>	  
-			<li>PlayerNova</li>
-			<li>PlayerExiled</li>
-			<li>PlayerNorbal</li>
-			<li>PlayerSurvivor</li>
-			<li>OrassanPlayerColony</li>
-			<li>NuclearColonySurvivor</li>
-		</permanentEnemyToEveryoneExcept>
 		<techLevel>Medieval</techLevel>
 		<raidCommonalityFromPointsCurve>
 			<points>
@@ -48,7 +33,7 @@
 				<li>(10000, 0.4)</li>
 			</points>
 		</raidCommonalityFromPointsCurve>
-		<raidLootMaker>TribeRaidLootMaker</raidLootMaker>
+		<raidLootMaker>MedievalRaidLootMaker</raidLootMaker>
 		<maxPawnCostPerTotalPointsCurve>
 			<points>
 				<li>(0, 120)</li>
@@ -66,6 +51,14 @@
 			</li>
 			<li>
 				<categories>
+					<li>ImperialCommon</li>
+					<li>ImperialFighter</li>
+					<li>ImperialRoyal</li>
+				</categories>
+				<commonality>0.5</commonality>
+			</li>
+			<li>
+				<categories>
 					<li>Pirate</li>
 				</categories>
 				<commonality>0.15</commonality>
@@ -74,7 +67,14 @@
 		<hairTags>
 			<li>Rural</li>
 			<li>Norbal</li>
+			<li>Soldier</li>
+			<li>Royalty</li>
 		</hairTags>
+		<naturalColonyGoodwill>
+			<min>-50</min>
+			<max>25</max>
+		</naturalColonyGoodwill>
+		<startingGoodwill>-25</startingGoodwill>
 		<colorSpectrum>
 			<li>(0.64, 0.42, 0.36)</li>
 			<li>(0.47, 0.5, 0.91)</li>
@@ -93,25 +93,8 @@
 		<fixedLeaderKinds>
 			<li>KingdomHessian</li>
 		</fixedLeaderKinds>
-		<royalTitleTags>
-			<li>KingdomTitle</li>
-		</royalTitleTags>
 		<allowedArrivalTemperatureRange>-35~40</allowedArrivalTemperatureRange>
 		<settlementTexturePath>World/WorldObjects/DefaultSettlement</settlementTexturePath>
-		<royalTitleInheritanceWorkerClass>RoyalTitleInheritanceWorker</royalTitleInheritanceWorkerClass>
-		<royalTitleInheritanceRelations>
-			<li>Child</li>
-			<li>Grandchild</li>
-			<li>GreatGrandchild</li>
-			<li>NephewOrNiece</li>
-			<li>Spouse</li>
-			<li>Sibling</li>
-			<li>HalfSibling</li>
-			<li>Cousin</li>
-			<li>Parent</li>
-			<li>UncleOrAunt</li>
-		</royalTitleInheritanceRelations>
-		<minTitleForBladelinkWeapons>KnightKingdom</minTitleForBladelinkWeapons>
 		<apparelStuffFilter>
 			<categories>
 				<li>Leathers</li>
@@ -187,78 +170,24 @@
 		</pawnGroupMakers>
 	</FactionDef>
 
-	<!-- =============================== Names =============================== -->
-
-	<RulePackDef>
-		<defName>NamerFactionKingdom</defName>
-		<include>
-			<li>EmpireNameUtility</li>
-		</include>
-		<rulePack>
-			<rulesStrings>
-				<li>r_name(p=2)->[Kingdom] of [ofThing]</li>
-				<li>r_name(p=2)->The [Kingdom] of [ofThing]</li>
-				<li>r_name->The Exodus [Kingdom]</li>
-				<li>r_name->The Refugee [Kingdom]</li>
-				<li>r_name->The Broken [Kingdom]</li>
-				<li>r_name->The Shattered [Kingdom]</li>
-				<li>r_name->The Fallen [Kingdom]</li>
-				<li>r_name->The [Color] [Kingdom]</li>
-
-				<li>Kingdom(p=4)->Kingdom</li>
-				<li>Kingdom->Commonwealth</li>
-				<li>Kingdom->Dominion</li>
-				<li>Kingdom->Sovereignty</li>
-
-				<li>ofThing(p=4)->[WordImperial]</li>
-				<li>ofThing->the Sun</li>
-				<li>ofThing->the Moon</li>
-				<li>ofThing->the Universe</li>
-				<li>ofThing->God</li>
-				<li>ofThing->Perfection</li>
-				<li>ofThing->Eternity</li>
-				<li>ofThing->the Spirit</li>
-			</rulesStrings>
-		</rulePack>
-	</RulePackDef>
-
-	<RulePackDef>
-		<defName>NamerSettlementKingdom</defName>
-		<include>
-			<li>EmpireNameUtility</li>
-		</include>
-		<rulePack>
-			<rulesStrings>
-				<li>r_name->[townname_wordgen]</li>
-				<li>r_name->[townname_fixed]</li>
-
-				<li>townname_wordgen->[WordImperial]</li>
-				<li>townname_wordgen->[WordImperial][townend]</li>
-				<li>townend(p=3)->ium</li>
-				<li>townend(p=3)->ior</li>
-				<li>townend(p=3)->polis</li>
-				<li>townend->nor</li>
-				<li>townend->lan</li>
-				<li>townend->lax</li>
-				<li>townend->lix</li>
-				<li>townend->lin</li>
-				<li>townend->lian</li>
-				<li>townend->phrum</li>
-				<li>townend->phor</li>
-				<li>townend->teor</li>
-				<li>townend->ople</li>
-				<li>townend->opium</li>
-				<li>townend->or</li>
-				<li>townend->aetor</li>
-				<li>townend->aeum</li>
-				<li>townend->aetium</li>
-				<li>townend->am</li>
-				<li>townend->aeum</li>
-			</rulesStrings>
-			<rulesFiles>
-				<li>townname_fixed->Names/EmpireTown</li>
-			</rulesFiles>
-		</rulePack>
-	</RulePackDef>
+	<ThingSetMakerDef>
+		<defName>MedievalRaidLootMaker</defName>
+		<root Class="ThingSetMaker_MarketValue">
+			<fixedParams>
+				<filter>
+					<thingDefs>
+						<li>Silver</li>
+						<li>Gold</li>
+						<li>ComponentMedieval</li>
+						<li>HerbMedicine</li>
+						<li>SmokeleafJoint</li>
+						<li>Berserk_herb</li>
+						<li>Beer</li>
+						<li>Pemmican</li>
+					</thingDefs>
+				</filter>
+			</fixedParams>
+		</root>
+	</ThingSetMakerDef>
 
 </Defs>
