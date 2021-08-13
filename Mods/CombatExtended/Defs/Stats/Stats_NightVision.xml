@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- ================================== Pawn's stat =======================================-->
+
+  <StatDef>
+    <defName>NightVisionEfficiency</defName> 
+    <label>night vision efficiency</label>
+    <description>A measure of the creature's overall ability to overcome the effects of darkness for the purpose of making ranged attacks based on apparel, implants, and their natural abilities.</description>
+    <category>PawnCombat</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <displayPriorityInCategory>70</displayPriorityInCategory>
+    <toStringStyle>PercentZero</toStringStyle>
+    <showIfUndefined>true</showIfUndefined>    
+    <minValue>0</minValue>
+    <maxValue>1.0</maxValue>
+    <parts>
+      <li Class="CombatExtended.StatPart_StatMaxima">           
+        <apparelStat>NightVisionEfficiency_Apparel</apparelStat>
+        <sumApparelsStat>false</sumApparelsStat>
+        <weaponStat>NightVisionEfficiency_Weapon</weaponStat>
+        <sumImplantsStat>true</sumImplantsStat>
+        <implantStat>NightVisionEfficiency_Implant</implantStat>        
+        <priority>1000</priority>     
+      </li>
+    </parts>         
+  </StatDef>
+
+  <!-- ================================== Bases - (Parts only) =======================================-->
+
+  <StatDef Name="BaseNightVisionPart" Abstract="true">    
+    <minValue>0</minValue>
+    <maxValue>1.0</maxValue>    
+    <hideAtValue>0</hideAtValue>    
+    <defaultBaseValue>0</defaultBaseValue>
+    <toStringStyle>PercentZero</toStringStyle>
+    <showIfUndefined>false</showIfUndefined>    
+  </StatDef>  
+
+  <!-- ================================== Implants =======================================-->
+
+  <StatDef ParentName="BaseNightVisionPart">
+    <defName>NightVisionEfficiency_Implant</defName>	  
+    <label>implant night vision efficiency</label>    
+    <description>The effect of artifical implants on a creature's ability to overcome the effects of darkness for the purpose of making ranged attacks.</description>
+    <category>PawnCombat</category>    
+  </StatDef>
+
+  <!-- ================================== Apparel/Equipment - base =======================================-->
+  
+  <StatDef Name="EquipmentNightVisionBase" ParentName="BaseNightVisionPart" Abstract="true">        
+    <parts>
+      <li Class="StatPart_Quality">
+          <factorAwful>0.50</factorAwful>
+          <factorPoor>0.65</factorPoor>
+          <factorNormal>0.80</factorNormal>
+          <factorGood>0.85</factorGood>
+          <factorExcellent>0.95</factorExcellent>
+          <factorMasterwork>1.05</factorMasterwork>
+          <factorLegendary>1.20</factorLegendary>
+      </li>             
+    </parts>
+  </StatDef>
+
+  <!-- ================================== Apparel/Equipment =======================================-->
+
+  <StatDef ParentName="EquipmentNightVisionBase">
+    <defName>NightVisionEfficiency_Weapon</defName>	  
+    <label>night vision efficiency</label>    
+    <description>The effect of a weapon's optics on a the wielder's ability to overcome the effects of darkness for the purpose of firing accurately.</description>
+    <category>Weapon</category>
+  </StatDef>
+
+  <StatDef ParentName="EquipmentNightVisionBase">
+    <defName>NightVisionEfficiency_Apparel</defName>	  
+    <label>night vision efficiency</label>    
+    <description>The effect of apparel items on a creature's ability to overcome the effects of darkness for the purpose of making ranged attacks.</description>
+    <category>Apparel</category>
+  </StatDef>
+
+</Defs>

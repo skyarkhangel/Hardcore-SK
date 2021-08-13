@@ -1,154 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-	<StorytellerDef Name="SK_BaseStoryteller" Abstract="True">
-		<populationIntentFactorFromPopCurve>
-			<points>
-				<li>0,  8.0</li>
-				<li>1,  2.0</li>
-				<li>4,  1.0</li>
-				<li>7,  0.35</li>
-				<li>11, 0.0</li>
-				<li>20,-1.0</li>
-			</points>
-		</populationIntentFactorFromPopCurve>
-		<populationIntentFactorFromPopAdaptDaysCurve>
-			<points>
-				<li>( 0, 0)</li>
-				<li>( 8, 1)</li>
-			</points>
-		</populationIntentFactorFromPopAdaptDaysCurve>
-		<pointsFactorFromDaysPassed>
-			<points>
-				<li>(10, 0.70)</li>
-				<li>(40, 1.00)</li>
-			</points>
-		</pointsFactorFromDaysPassed>
-		<adaptDaysMin>-60</adaptDaysMin>
-		<adaptDaysMax>100</adaptDaysMax>
-		<adaptDaysGameStartGraceDays>30</adaptDaysGameStartGraceDays>		<!-- only applies to adaptDays past 0 -->
-		<adaptDaysLossFromColonistLostByPostPopulation>
-			<points>
-				<li>( 0, 30)</li>				<!-- 30 days at normal pops; lower at really high pop -->
-				<li>(11, 30)</li>
-				<li>(20, 20)</li>
-			</points>
-		</adaptDaysLossFromColonistLostByPostPopulation>
-		<adaptDaysLossFromColonistViolentlyDownedByPopulation>
-			<points>
-				<li>(1,  8)</li>
-				<li>(2,  6)</li>
-				<li>(3,  6)</li>
-				<li>(11, 5)</li>
-				<li>(20, 3.5)</li>
-			</points>
-		</adaptDaysLossFromColonistViolentlyDownedByPopulation>
-		<adaptDaysGrowthRateCurve>
-			<points>
-				<li>(-30.01, 6)</li>				<!-- under: 8.00 -->
-				<li>(-30,    3)</li>				<!--   -30: 3.00 -->
-				<li>(-0.01,  3)</li>
-				<li>(0,      1)</li>				<!--     0: 1.00 -->
-				<li>(59.99,  1)</li>
-				<li>(60,     0.5)</li>				<!--    60: 0.50 -->
-				<li>(119.99, 0.5)</li>
-				<li>(120,    0.25)</li>				<!--  120: 0.25 -->
-			</points>
-		</adaptDaysGrowthRateCurve>
-		<pointsFactorFromAdaptDays>
-			<points>
-				<li>(-30, 0.40)</li>				<!-- recover in 10 days -->
-				<li>(  0, 0.80)</li>				<!-- start at     0.80  -->
-				<li>( 30, 1.00)</li>				<!-- 0.5 years to 1.00  -->
-				<li>( 60, 1.20)</li>				<!-- 0.5 years to 1.20  -->
-				<li>(120, 1.60)</li>				<!-- 2   years to 1.60  -->
-				<li>(180, 2.00)</li>				<!-- 4   years to 2.00  -->
-			</points>
-		</pointsFactorFromAdaptDays>
-		<comps>
-			<!-- Endgame - ship escape quest -->
-			<li Class="StorytellerCompProperties_SingleOnceFixed">
-				<fireAfterDaysPassed>20</fireAfterDaysPassed>
-				<incident>GiveQuest_EndGame_ShipEscape</incident>
-				<allowedTargetTags>
-					<li>World</li>
-				</allowedTargetTags>
-			</li>
-			<!-- Endgame - royal ascent quest (Royalty only) -->
-			<li Class="StorytellerCompProperties_RefiringUniqueQuest">
-				<minDaysPassed>35</minDaysPassed>
-				<refireEveryDays>22</refireEveryDays>
-				<incident MayRequire="Ludeon.RimWorld.Royalty">GiveQuest_EndGame_RoyalAscent</incident>
-				<allowedTargetTags>
-					<li>World</li>
-				</allowedTargetTags>
-				<enableIfAnyModActive>
-					<li>Ludeon.RimWorld.Royalty</li>
-				</enableIfAnyModActive>
-			</li>
-			<!-- Infestations from deep drilling -->
-			<li Class="StorytellerCompProperties_DeepDrillInfestation">
-				<baseMtbDaysPerDrill>200</baseMtbDaysPerDrill>
-				<allowedTargetTags>
-					<li>Map_PlayerHome</li>
-					<li>Map_TempIncident</li>
-					<li>Map_Misc</li>
-					<li>Map_RaidBeacon</li>
-				</allowedTargetTags>
-			</li>
-			<!-- Royalty intro quests -->
-			<li Class="StorytellerCompProperties_SingleOnceFixed">
-				<fireAfterDaysPassed>8</fireAfterDaysPassed>
-				<incident MayRequire="Ludeon.RimWorld.Royalty">GiveQuest_Intro_Wimp</incident>
-				<skipIfColonistHasMinTitle MayRequire="Ludeon.RimWorld.Royalty">Yeoman</skipIfColonistHasMinTitle>
-				<skipIfOnExtremeBiome>true</skipIfOnExtremeBiome>
-				<minColonistCount>3</minColonistCount>
-				<allowedTargetTags>
-					<li>World</li>
-				</allowedTargetTags>
-				<enableIfAnyModActive>
-					<li>Ludeon.RimWorld.Royalty</li>
-				</enableIfAnyModActive>
-			</li>
-			<li Class="StorytellerCompProperties_SingleOnceFixed">
-				<fireAfterDaysPassed>26</fireAfterDaysPassed>
-				<incident MayRequire="Ludeon.RimWorld.Royalty">GiveQuest_Intro_Deserter</incident>
-				<skipIfOnExtremeBiome>true</skipIfOnExtremeBiome>
-				<allowedTargetTags>
-					<li>World</li>
-				</allowedTargetTags>
-				<enableIfAnyModActive>
-					<li>Ludeon.RimWorld.Royalty</li>
-				</enableIfAnyModActive>
-			</li>
-			<!-- Royalty tribute collector -->
-			<li Class="StorytellerCompProperties_FactionInteraction">
-				<incident MayRequire="Ludeon.RimWorld.Royalty">CaravanArrivalTributeCollector</incident>
-				<minDaysPassed>20</minDaysPassed>
-				<baseIncidentsPerYear>2</baseIncidentsPerYear>
-				<minSpacingDays>30</minSpacingDays>
-				<allowedTargetTags>
-					<li>Map_PlayerHome</li>
-				</allowedTargetTags>
-				<enableIfAnyModActive>
-					<li>Ludeon.RimWorld.Royalty</li>
-				</enableIfAnyModActive>
-			</li>
-			<li Class="StorytellerCompProperties_OnOffCycle">
-				<incident MayRequire="Ludeon.RimWorld.Royalty">AnimaTreeSpawn</incident>
-				<onDays>15</onDays>
-				<offDays>15</offDays>
-				<numIncidentsRange>1</numIncidentsRange>
-				<allowedTargetTags>
-					<li>Map_PlayerHome</li>
-				</allowedTargetTags>
-			</li>
-			<li Class="SK.Events.StorytellerCompProperties_SkyFall"/>
-			<li Class="SK.Events.StorytellerCompProperties_MoonFall"/>
-		</comps>
-	</StorytellerDef>
-
-	<StorytellerDef ParentName="SK_BaseStoryteller">
+	<StorytellerDef ParentName="BaseStoryteller">
 		<defName>Cassandra</defName>
 		<label>Cassandra Classic</label>
 		<description>Cassandra creates story events on a classic increasing curve of challenge and tension. She'll push you with dangerous events, then give breathing room, then come back to push once more.</description>
@@ -336,7 +189,7 @@
 		</comps>
 	</StorytellerDef>
 
-	<StorytellerDef ParentName="SK_BaseStoryteller">
+	<StorytellerDef ParentName="BaseStoryteller">
 		<defName>Phoebe</defName>
 		<label>Phoebe Chillax</label>
 		<description>Phoebe gives lots of time between disasters to build your colony. But beware - at high difficulties, she'll hit as hard as anyone.</description>
@@ -523,7 +376,7 @@
 		</comps>
 	</StorytellerDef>
 
-	<StorytellerDef ParentName="SK_BaseStoryteller">
+	<StorytellerDef ParentName="BaseStoryteller">
 		<defName>Randy</defName>
 		<label>Randy Random</label>
 		<description>Randy doesn't follow rules. He'll generate random events, and he doesn't care if they make a story of triumph or utter hopelessness. It's all drama to him.\n\nWarning: Since Randy is truly random, he will sometimes send extremely difficult or unfair groups of events at you. It makes for high drama - and unavoidable sacrifices.</description>
@@ -660,7 +513,7 @@
 		</comps>
 	</StorytellerDef>
 
-	<StorytellerDef ParentName="SK_BaseStoryteller">
+	<StorytellerDef ParentName="BaseStoryteller">
 		<defName>Kara</defName>
 		<label>Kara Fateful</label>
 		<description>We all go a little crazy, do not we? Kara will play with you as long as it takes to see your exhausted body trembling with anger and frustration.</description>
@@ -848,7 +701,7 @@
 		</comps>
 	</StorytellerDef>
 
-	<StorytellerDef ParentName="SK_BaseStoryteller">
+	<StorytellerDef ParentName="BaseStoryteller">
 		<defName>Rey</defName>
 		<label>Rey Torturer</label>
 		<description>Rey is a tough and consistent torturer. She will taunt you until magma flows out of your ass.</description>
@@ -985,7 +838,7 @@
 		</comps>
 	</StorytellerDef>
 
-	<StorytellerDef ParentName="SK_BaseStoryteller">
+	<StorytellerDef ParentName="BaseStoryteller">
 		<defName>PrototypePZ</defName>
 		<label>Zero Prototype</label>
 		<description>He will tell you the story of despair and hopelessness.</description>
