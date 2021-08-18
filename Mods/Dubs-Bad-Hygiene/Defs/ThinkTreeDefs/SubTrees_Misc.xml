@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!--============= Hygiene behavior core ============-->
+
+  <!--<ThinkTreeDef>
+    <defName>MainColonistHygieneNeeds</defName>
+    <insertTag>Humanlike_PreMain</insertTag>
+    <insertPriority>100</insertPriority>
+    <thinkRoot Class="ThinkNode_Tagger">
+      <tagToGive>SatisfyingNeeds</tagToGive>
+      <subNodes>
+        <li Class="ThinkNode_PrioritySorter">
+          <subNodes>
+            <li Class="DubsBadHygiene.JobGiver_UseToilet"/>
+            <li Class="DubsBadHygiene.JobGiver_HaveWash"/>
+          </subNodes>
+        </li>
+      </subNodes>
+    </thinkRoot>
+  </ThinkTreeDef>-->
+
+  <ThinkTreeDef>
+    <defName>PrisonerHygieneNeeds</defName>
+    <insertTag>Humanlike_PostDuty</insertTag>
+    <insertPriority>100</insertPriority>
+    <thinkRoot Class="ThinkNode_Tagger">
+      <tagToGive>SatisfyingNeeds</tagToGive>
+      <subNodes>
+        <li Class="ThinkNode_ConditionalPrisoner">
+          <subNodes>
+            <li Class="DubsBadHygiene.JobGiver_DrinkWater"/>
+            <li Class="DubsBadHygiene.JobGiver_UseToilet"/>
+            <li Class="DubsBadHygiene.JobGiver_HaveWash"/>
+          </subNodes>
+        </li>
+      </subNodes>
+    </thinkRoot>
+  </ThinkTreeDef>
+
+  <ThinkTreeDef>
+    <defName>PackDrinks</defName>
+    <insertTag>Humanlike_PreMain</insertTag>
+    <insertPriority>100</insertPriority>
+    <thinkRoot Class="ThinkNode_ConditionalColonist">
+      <subNodes>
+        <li Class="DubsBadHygiene.JobGiver_PackDrink">
+          <leaveJoinableLordIfIssuesJob>true</leaveJoinableLordIfIssuesJob>
+        </li>
+      </subNodes>
+    </thinkRoot>
+  </ThinkTreeDef>
+
+  <ThinkTreeDef>
+    <defName>ConditionalThirst</defName>
+    <insertTag>Humanlike_PostDuty</insertTag>
+    <insertPriority>100</insertPriority>
+    <thinkRoot Class="ThinkNode_ConditionalColonist">
+      <subNodes>
+        <li Class="DubsBadHygiene.ThinkNode_ConditionalToilet">
+          <subNodes>
+            <li Class="ThinkNode_Tagger">
+              <tagToGive>SatisfyingNeeds</tagToGive>
+              <subNodes>
+                <li Class="DubsBadHygiene.JobGiver_UseToilet">
+                  <leaveJoinableLordIfIssuesJob>true</leaveJoinableLordIfIssuesJob>
+                </li>
+              </subNodes>
+            </li>
+          </subNodes>
+        </li>
+        <li Class="DubsBadHygiene.ThinkNode_ConditionalThirst">
+          <subNodes>
+            <li Class="ThinkNode_Tagger">
+              <tagToGive>SatisfyingNeeds</tagToGive>
+              <subNodes>
+                <li Class="DubsBadHygiene.JobGiver_DrinkWater">
+                  <leaveJoinableLordIfIssuesJob>true</leaveJoinableLordIfIssuesJob>
+                </li>
+              </subNodes>
+            </li>
+          </subNodes>
+        </li>
+      </subNodes>
+    </thinkRoot>
+  </ThinkTreeDef>
+</Defs>
