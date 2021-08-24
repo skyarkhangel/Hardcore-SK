@@ -32,13 +32,6 @@
           </subNodes>
         </li>
 
-        <!-- If we CAN keep lying down... -->
-        <li Class="Hospitality.ThinkNode_ConditionalShouldKeepLyingDown">
-          <subNodes>
-				<li Class="Hospitality.JobGiver_Sleep" />
-          </subNodes>
-        </li>
-
 		<li Class="Hospitality.ThinkNode_InGuestArea">
 		  <invert>true</invert>
           <subNodes>
@@ -55,6 +48,14 @@
 			  <insertTag>Humanlike_PreMain</insertTag>
 			</li>
 
+            <!-- Optimize apparel -->
+            <li Class="ThinkNode_Tagger">
+              <tagToGive>ChangingApparel</tagToGive>
+              <subNodes>
+                <li Class="Hospitality.JobGiver_OptimizeApparel_Guest" />
+              </subNodes>
+            </li>
+            
 			<li Class="Hospitality.JobGiver_ClaimBed" />
 
 			<li Class="ThinkNode_Tagger">
@@ -64,23 +65,22 @@
 			  </subNodes>
 			</li>
 
-			<li Class="ThinkNode_PrioritySorter">
-			  <subNodes>
-
-				<li Class="JobGiver_GetFood" />
-				<li Class="Hospitality.JobGiver_Sleep" />
-				<li Class="Hospitality.JobGiver_Relax" />            
-
-			  </subNodes>
-			</li>
+            <li Class="ThinkNode_Tagger">
+              <tagToGive>SatisfyingNeeds</tagToGive>
+              <subNodes>
+    			<li Class="ThinkNode_PrioritySorter">
+    			  <subNodes>
+    
+    				<li Class="JobGiver_GetFood" />
+    				<li Class="Hospitality.JobGiver_BuyFood" />
+    				<li Class="Hospitality.JobGiver_Sleep" />
+    				<li Class="Hospitality.JobGiver_Relax" />            
+    
+    			  </subNodes>
+    			</li>
+              </subNodes>
+            </li>
             
-			<li Class="Hospitality.ThinkNode_ConditionalWantsToHelp">
-			  <requiredHappiness>0.75</requiredHappiness>
-			  <subNodes>
-				<li Class="JobGiver_Work" />
-			  </subNodes>
-			</li>
-			
 			<!-- Insertion hook for modders -->
 			<li Class="ThinkNode_SubtreesByTag">
 			  <insertTag>Humanlike_PostMain</insertTag>
@@ -89,16 +89,45 @@
             <li Class="ThinkNode_ConditionalRandom">
               <chance>0.35</chance>
               <subNodes>
-                <li Class="JobGiver_StandAndBeSociallyActive">
-                  <ticksRange>350~750</ticksRange>
+    		    <li Class="ThinkNode_Tagger">
+                  <tagToGive>Idle</tagToGive>
+                  <subNodes>
+					<li Class="JobGiver_StandAndBeSociallyActive">
+					  <ticksRange>350~750</ticksRange>
+					</li>
+                  </subNodes>
                 </li>
               </subNodes>
             </li>
 			
+	        <!-- If we CAN keep lying down... -->
+			<li Class="Hospitality.ThinkNode_ConditionalShouldKeepLyingDown">
+			  <subNodes>
+    		    <li Class="ThinkNode_Tagger">
+                  <tagToGive>Idle</tagToGive>
+                  <subNodes>
+					<li Class="Hospitality.JobGiver_Sleep" />
+                  </subNodes>
+                </li>
+			  </subNodes>
+			</li>
+
+			<li Class="Hospitality.ThinkNode_ConditionalWantsToHelp">
+			  <requiredHappiness>0.75</requiredHappiness>
+			  <subNodes>
+				<li Class="JobGiver_Work" />
+			  </subNodes>
+			</li>
+			
 			<!-- Wander -->
-			<li Class="JobGiver_WanderColony">
-              <ticksBetweenWandersRange>50~250</ticksBetweenWandersRange>
-			  <maxDanger>None</maxDanger>
+			<li Class="ThinkNode_Tagger">
+			  <tagToGive>Idle</tagToGive>
+			  <subNodes>
+				<li Class="JobGiver_WanderColony">
+				  <ticksBetweenWandersRange>50~250</ticksBetweenWandersRange>
+				  <maxDanger>None</maxDanger>
+				</li>
+			  </subNodes>
 			</li>
           </subNodes>
         </li>

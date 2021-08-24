@@ -27,7 +27,9 @@
 			<body>Human</body>
 			<baseHealthScale>1</baseHealthScale>
 			<foodType>OmnivoreHuman</foodType>
-			<gestationPeriodDays>45</gestationPeriodDays>
+			<gestationPeriodDays>35</gestationPeriodDays>
+			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
+			<manhunterOnTameFailChance>0.10</manhunterOnTameFailChance>
 			<litterSizeCurve>
 				<points>
 					<li>(0.5, 0)</li>
@@ -265,7 +267,8 @@
 			<li>CureChronicHeartArteryBlockage</li>	
 
 			<!--Cure poison-->
-			<li>EnterBasicAntidote</li> <!--Misc-->
+			<li>EnterBasicAntidote</li>
+			<!--Misc-->
 			<li>CurePoisonScratch</li>
 			<li>CurePoisonBite</li>
 			<li>CurePoisonArrow</li>
@@ -284,6 +287,11 @@
 			<li MayRequire="Ludeon.RimWorld.Royalty">CureBloodRot</li>
 			<li MayRequire="Ludeon.RimWorld.Royalty">CureAbasia</li>
 		</recipes>
+		<ingredient>
+			<mergeCompatibilityTags>
+				<li>HumanMeat</li>
+			</mergeCompatibilityTags>
+		</ingredient>
 		<comps>
 			<li Class="CombatExtended.CompProperties_Suppressable" />
 		</comps>
@@ -304,6 +312,7 @@
 			<SocialImpact>1.1</SocialImpact>
 			<GermResistance>0.05</GermResistance>
 			<GermContainment>0.05</GermContainment>
+			<NightVisionEfficiency>0.05</NightVisionEfficiency>
 		</statBases>
 		<tools>
 			<li Class="CombatExtended.ToolCE">
@@ -422,12 +431,12 @@
 					<bodyAddons>
 						<li>
 							<path>Things/Pawn/Humanlike/ElvenEars/EarLeft</path>
-							<drawSize>1</drawSize>
 							<bodyPart>left ear</bodyPart>
 							<inFrontOfBody>true</inFrontOfBody>
-							<layerOffset>-0.25</layerOffset>
 							<drawnInBed>true</drawnInBed>
 							<colorChannel>skin</colorChannel>
+							<drawSize>1</drawSize>
+							<defaultOffset>Tail</defaultOffset>
 							<offsets>
 								<south>
 									<bodyTypes>
@@ -441,6 +450,7 @@
 										<Normal_Average>(0,0)</Normal_Average>
 										<Narrow_Pointy>(0,0))</Narrow_Pointy>
 									</crownTypes>
+									<layerOffset>-0.275</layerOffset>
 								</south>
 								<north>
 									<bodyTypes>
@@ -454,6 +464,7 @@
 										<Normal_Average>(0,0)</Normal_Average>
 										<Narrow_Pointy>(0,0)</Narrow_Pointy>
 									</crownTypes>
+									<layerOffset>-0.275</layerOffset>
 								</north>
 								<east>
 									<bodyTypes>
@@ -467,6 +478,7 @@
 										<Normal_Average>(0,0)</Normal_Average>
 										<Narrow_Pointy>(0,0)</Narrow_Pointy>
 									</crownTypes>
+									<layerOffset>-0.275</layerOffset>
 								</east>
 							</offsets>
 							<hiddenUnderApparelFor>
@@ -475,12 +487,12 @@
 						</li>
 						<li>
 							<path>Things/Pawn/Humanlike/ElvenEars/EarRight</path>
-							<drawSize>1</drawSize>
 							<bodyPart>right ear</bodyPart>
 							<inFrontOfBody>true</inFrontOfBody>
-							<layerOffset>-0.25</layerOffset>
 							<drawnInBed>true</drawnInBed>
 							<colorChannel>skin</colorChannel>
+							<drawSize>1</drawSize>
+							<defaultOffset>Tail</defaultOffset>
 							<offsets>
 								<south>
 									<bodyTypes>
@@ -494,6 +506,7 @@
 										<Normal_Average>(0,0)</Normal_Average>
 										<Narrow_Pointy>(0,0)</Narrow_Pointy>
 									</crownTypes>
+									<layerOffset>-0.275</layerOffset>
 								</south>
 								<north>
 									<bodyTypes>
@@ -507,6 +520,7 @@
 										<Normal_Average>(0,0)</Normal_Average>
 										<Narrow_Pointy>(0,0)</Narrow_Pointy>
 									</crownTypes>
+									<layerOffset>-0.275</layerOffset>
 								</north>
 								<east>
 									<bodyTypes>
@@ -520,6 +534,7 @@
 										<Normal_Average>(0,0)</Normal_Average>
 										<Narrow_Pointy>(0,0)</Narrow_Pointy>
 									</crownTypes>
+									<layerOffset>-0.275</layerOffset>
 								</east>
 							</offsets>							
 							<hiddenUnderApparelFor>
@@ -588,10 +603,16 @@
 					</colorChannels>
 				</alienPartGenerator>
 			</generalSettings>
-			<hairSettings>
-				<hasHair>true</hasHair>
-				<getsGreyAt>2100</getsGreyAt>
-			</hairSettings>
+			<styleSettings>
+				<li>
+					<key>BeardDef</key>
+					<value>
+						<styleTags>
+							<li>NoBeard</li>
+						</styleTags>
+					</value>
+				</li>
+			</styleSettings>
 			<thoughtSettings>
 				<butcherThoughtSpecific>
 					<li>
@@ -602,8 +623,8 @@
 							<li>Norbal</li>
 							<li>Alien_Orassan</li>
 						</raceList>
-						<thought>ButcheredHuman</thought>
-						<knowThought>KnowButcheredHuman</knowThought>
+						<thought>ButcheredHumanlikeCorpse</thought>
+						<knowThought>KnowButcheredHumanlikeCorpse</knowThought>
 					</li>
 				</butcherThoughtSpecific>
 				<ateThoughtSpecific>
@@ -616,7 +637,7 @@
 							<li>Alien_Orassan</li>
 						</raceList>
 						<thought>AteHumanlikeMeatDirect</thought>
-						<ingredientThought>AteHumanIngredient</ingredientThought>
+						<ingredientThought>AteHumanlikeMeatAsIngredient</ingredientThought>
 					</li>
 					<li>
 						<raceList>
@@ -818,12 +839,12 @@
 					<bodyAddons>
 						<li>
 							<path>Things/Pawn/Humanlike/DovaEars/EarLeft</path>
-							<drawSize>1</drawSize>
 							<bodyPart>left ear</bodyPart>
 							<inFrontOfBody>true</inFrontOfBody>
-							<layerOffset>-0.25</layerOffset>
 							<drawnInBed>true</drawnInBed>
 							<colorChannel>skin</colorChannel>
+							<drawSize>1</drawSize>
+							<defaultOffset>Tail</defaultOffset>
 							<offsets>
 								<south>
 									<bodyTypes>
@@ -837,6 +858,7 @@
 										<Normal_Average>(0,0)</Normal_Average>
 										<Narrow_Pointy>(0,0))</Narrow_Pointy>
 									</crownTypes>
+									<layerOffset>-0.275</layerOffset>
 								</south>
 								<north>
 									<bodyTypes>
@@ -850,6 +872,7 @@
 										<Normal_Average>(0,0)</Normal_Average>
 										<Narrow_Pointy>(0,0)</Narrow_Pointy>
 									</crownTypes>
+									<layerOffset>-0.275</layerOffset>
 								</north>
 								<east>
 									<bodyTypes>
@@ -863,6 +886,7 @@
 										<Normal_Average>(0,0)</Normal_Average>
 										<Narrow_Pointy>(0,0)</Narrow_Pointy>
 									</crownTypes>
+									<layerOffset>-0.275</layerOffset>
 								</east>
 							</offsets>
 							<hiddenUnderApparelFor>
@@ -871,12 +895,12 @@
 						</li>
 						<li>
 							<path>Things/Pawn/Humanlike/DovaEars/EarRight</path>
-							<drawSize>1</drawSize>
 							<bodyPart>right ear</bodyPart>
 							<inFrontOfBody>true</inFrontOfBody>
-							<layerOffset>-0.25</layerOffset>
 							<drawnInBed>true</drawnInBed>
 							<colorChannel>skin</colorChannel>
+							<drawSize>1</drawSize>
+							<defaultOffset>Tail</defaultOffset>
 							<offsets>
 								<south>
 									<bodyTypes>
@@ -890,6 +914,7 @@
 										<Normal_Average>(0,0)</Normal_Average>
 										<Narrow_Pointy>(0,0)</Narrow_Pointy>
 									</crownTypes>
+									<layerOffset>-0.275</layerOffset>
 								</south>
 								<north>
 									<bodyTypes>
@@ -903,6 +928,7 @@
 										<Normal_Average>(0,0)</Normal_Average>
 										<Narrow_Pointy>(0,0)</Narrow_Pointy>
 									</crownTypes>
+									<layerOffset>-0.275</layerOffset>
 								</north>
 								<east>
 									<bodyTypes>
@@ -916,6 +942,7 @@
 										<Normal_Average>(0,0)</Normal_Average>
 										<Narrow_Pointy>(0,0)</Narrow_Pointy>
 									</crownTypes>
+									<layerOffset>-0.275</layerOffset>
 								</east>
 							</offsets>							
 							<hiddenUnderApparelFor>
@@ -999,9 +1026,16 @@
 					<customPortraitDrawSize>(1.0,1.0)</customPortraitDrawSize>
 				</alienPartGenerator>
 			</generalSettings>
-			<hairSettings>
-				<hasHair>true</hasHair>
-			</hairSettings>
+			<styleSettings>
+				<li>
+					<key>BeardDef</key>
+					<value>
+						<styleTags>
+							<li>NoBeard</li>
+						</styleTags>
+					</value>
+				</li>
+			</styleSettings>
 			<relationSettings>
 				<relationChanceModifierChild>1</relationChanceModifierChild>
 				<relationChanceModifierExLover>1</relationChanceModifierExLover>
@@ -1026,8 +1060,8 @@
 							<li>Norbal</li>
 							<li>Alien_Orassan</li>
 						</raceList>
-						<thought>ButcheredHuman</thought>
-						<knowThought>KnowButcheredHuman</knowThought>
+						<thought>ButcheredHumanlikeCorpse</thought>
+						<knowThought>KnowButcheredHumanlikeCorpse</knowThought>
 					</li>
 				</butcherThoughtSpecific>
 				<ateThoughtSpecific>
@@ -1040,7 +1074,7 @@
 							<li>Alien_Orassan</li>
 						</raceList>
 						<thought>AteHumanlikeMeatDirect</thought>
-						<ingredientThought>AteHumanIngredient</ingredientThought>
+						<ingredientThought>AteHumanlikeMeatAsIngredient</ingredientThought>
 					</li>
 					<li>
 						<raceList>
@@ -1076,6 +1110,7 @@
 			<SmokeSensitivity>0.7</SmokeSensitivity>
 			<GermResistance>0.1</GermResistance>
 			<GermContainment>0.05</GermContainment>
+			<NightVisionEfficiency>0.15</NightVisionEfficiency>
 		</statBases>
 		<tools>
 			<li Class="CombatExtended.ToolCE">
@@ -1203,6 +1238,10 @@
 		<alienRace>
 			<generalSettings>
 				<humanRecipeImport>true</humanRecipeImport>
+				<alienPartGenerator>
+				<bodyAddons>
+				</bodyAddons>
+				</alienPartGenerator>				
 			</generalSettings>	
 		</alienRace>
 		<tools>
@@ -1284,6 +1323,7 @@
 		<description>A baseline orassan, mostly unmodified by gene engineering and mostly unchanged by evolutionary pressures on non-Orass planets. A humanoid feline race.</description>
 		<alienRace>
 			<generalSettings>
+				<minAgeForAdulthood>16</minAgeForAdulthood>
 				<humanRecipeImport>true</humanRecipeImport>
 				<maleGenderProbability>0.4</maleGenderProbability>
 				<forcedRaceTraitEntries>
@@ -1337,6 +1377,7 @@
 							<drawSize>.75</drawSize>
 							<path>Things/Pawn/Humanlike/OrassanTails/OTail</path>
 							<bodyPart>Tail</bodyPart>
+							<defaultOffset>Tail</defaultOffset>
 							<backstoryGraphics>
 								<Orassan_GeneWarrior>Things/Pawn/Humanlike/OrassanTails/OTailG</Orassan_GeneWarrior>
 							</backstoryGraphics>
@@ -1369,10 +1410,10 @@
 								</north>
 								<east>
 									<bodyTypes>
-										<Male>(0.125,-0.2)</Male>
-										<Female>(0.125,-0.2)</Female>
-										<Thin>(0.0525,-0.2)</Thin>
-										<Hulk>(0.225,-0.25)</Hulk>
+										<Male>(0.1,-0.2)</Male>
+										<Female>(0.1,-0.2)</Female>
+										<Thin>(0.05,-0.2)</Thin>
+										<Hulk>(0.2,-0.25)</Hulk>
 									</bodyTypes>
 									<crownTypes>
 										<Normal_Average>(0,0)</Normal_Average>
@@ -1381,11 +1422,13 @@
 							</offsets>
 						</li>
 						<li>
+							<drawnDesiccated>false</drawnDesiccated>
 							<drawSize>0.9</drawSize>
 							<path>Things/Pawn/Humanlike/OrassanEars/EarLeft</path>
 							<bodyPart>left ear</bodyPart>
 							<inFrontOfBody>true</inFrontOfBody>
 							<colorChannel>skin</colorChannel>
+							<defaultOffset>Tail</defaultOffset>
 							<offsets>
 								<south>
 									<bodyTypes>
@@ -1444,11 +1487,14 @@
 							</hiddenUnderApparelFor>
 						</li>
 						<li>
+							<linkVariantIndexWithPrevious>true</linkVariantIndexWithPrevious>
+							<drawnDesiccated>false</drawnDesiccated>
 							<drawSize>0.9</drawSize>
 							<path>Things/Pawn/Humanlike/OrassanEars/EarRight</path>
 							<bodyPart>right ear</bodyPart>
 							<inFrontOfBody>true</inFrontOfBody>
 							<colorChannel>skin</colorChannel>
+							<defaultOffset>Tail</defaultOffset>
 							<offsets>
 								<south>
 									<bodyTypes>
@@ -1555,18 +1601,57 @@
 					<skeleton>Things/Pawn/Humanlike/Bodies/Dessicated/Dessicated_Thin</skeleton>
 				</li>
 			</graphicPaths>
-
-			<hairSettings>
-				<hasHair>true</hasHair>
-				<getsGreyAt>50</getsGreyAt>
-			</hairSettings>
+			<styleSettings>
+				<li>
+					<key>HairDef</key>
+					<value>
+						<hasStyle>true</hasStyle>
+						<!--<styleTags>
+                            <li>Rural</li>
+							<li>Urban</li>
+							<li>Punk</li>
+                            <li>Tribal</li>
+							<li>Minimal</li>
+							<li>Soldier</li>
+                        </styleTags>-->
+					</value>
+				</li>
+				<li>
+					<key>TattooDef</key>
+					<value>
+						<hasStyle>true</hasStyle>
+						<!--<styleTags>
+                            <li>Rural</li>
+							<li>Urban</li>
+							<li>Punk</li>
+                            <li>Tribal</li>
+							<li>Minimal</li>
+							<li>Soldier</li>
+                        </styleTags>-->
+					</value>
+				</li>
+				<li>
+					<key>BeardDef</key>
+					<value>
+						<hasStyle>true</hasStyle>
+						<!--<styleTags>
+                            <li>Rural</li>
+							<li>Urban</li>
+							<li>Punk</li>
+                            <li>Tribal</li>
+							<li>Minimal</li>
+                        </styleTags>-->
+					</value>
+				</li>
+			</styleSettings>
 			<thoughtSettings>
 				<cannotReceiveThoughts>
 					<li>EnvironmentDark</li>
-					<li>CabinFever</li>
+					<li>NeedOutdoors</li>
 					<li>SleptInCold</li>
 					<li>Naked</li>
 					<li>AteRawFood</li>
+					<li>WrongApparelGender</li>
 				</cannotReceiveThoughts>
 				<butcherThoughtSpecific>
 					<li>
@@ -1577,8 +1662,8 @@
 							<li>Norbal</li>
 							<li>Alien_Orassan</li>
 						</raceList>
-						<thought>ButcheredHuman</thought>
-						<knowThought>KnowButcheredHuman</knowThought>
+						<thought>ButcheredHumanlikeCorpse</thought>
+						<knowThought>KnowButcheredHumanlikeCorpse</knowThought>
 					</li>
 				</butcherThoughtSpecific>
 				<ateThoughtSpecific>
@@ -1591,7 +1676,7 @@
 							<li>Alien_Orassan</li>
 						</raceList>
 						<thought>AteHumanlikeMeatDirect</thought>
-						<ingredientThought>AteHumanIngredient</ingredientThought>
+						<ingredientThought>AteHumanlikeMeatAsIngredient</ingredientThought>
 					</li>
 					<li>
 						<raceList>
@@ -1620,6 +1705,7 @@
 			<SocialImpact>1.20</SocialImpact>
 			<MeleeDodgeChance>1.25</MeleeDodgeChance>
 			<GermResistance>0.12</GermResistance>
+			<NightVisionEfficiency>0.4</NightVisionEfficiency>
 		</statBases>
 		<tools>
 			<li Class="CombatExtended.ToolCE">

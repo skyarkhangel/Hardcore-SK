@@ -76,15 +76,21 @@
       <isResourceRock>true</isResourceRock>
       <mineableThing>RoughGem</mineableThing>
       <mineableDropChance>0.001</mineableDropChance>
-      <mineableYield>5</mineableYield>
-      <mineableNonMinedEfficiency>0.8</mineableNonMinedEfficiency>
+      <mineableYield>1</mineableYield>
+      <mineableNonMinedEfficiency>0</mineableNonMinedEfficiency>
       <claimable>false</claimable>
       <deconstructible>false</deconstructible>
       <isEdifice>true</isEdifice>
     </building>
+    <!-- What stage of map generation the thing is spawned during (chunks or plants) -->
+    <newMapGenStep>chunks</newMapGenStep>
     <!-- Tags which determine how some options behave  -->
     <tags>
     </tags>
+    <!-- Minimum distance from the nearest settlement the inital spawn needs to be in order to be spawned at the maximum probablity -->
+    <otherSettlementMiningRadius>0</otherSettlementMiningRadius>
+    <!--  If the mean size of minerals spawned at map generation is scaled by the relative abundance in that map -->
+    <sizeScaledByAbundance>false</sizeScaledByAbundance>
   </ThingDef>
   
   <ThingDef Name="QuartzBase" ParentName="StaticMineralBase" Class="Minerals.ThingDef_StaticMineral" Abstract="True">
@@ -94,12 +100,12 @@
     <pathCost>40</pathCost>
     <!--How far away it can spawn from an existing location-->
     <!-- Even though it is a static crystal, the map initialization uses "reproduction" to make clusters-->
-    <spawnRadius>2</spawnRadius>
+    <spawnRadius>5</spawnRadius>
     <!-- How  many squares each cluster will be -->
-    <minClusterSize>1</minClusterSize>
-    <maxClusterSize>15</maxClusterSize>
+    <minClusterSize>5</minClusterSize>
+    <maxClusterSize>50</maxClusterSize>
     <!-- The range of starting sizes of individuals in clusters -->
-    <initialSizeMin>.5</initialSizeMin>
+    <initialSizeMin>.4</initialSizeMin>
     <initialSizeMax>1.0</initialSizeMax>
     <!-- How much initial sizes of individuals randomly vary -->
     <initialSizeVariation>.2</initialSizeVariation>
@@ -111,23 +117,34 @@
       <li>WeatheredOreGold</li>
       <li>SolidOreGold</li>
     </associatedOres>
+    <nearAssociatedOreBonus>10</nearAssociatedOreBonus>
     <!-- The terrains this can appear on. The default is rocky terrains-->
     <allowedTerrains>
       <li>Marble_Rough</li>
       <li>ZF_BasaltBase_Rough</li>
       <li>Granite_Rough</li>
     </allowedTerrains>
-    <nearAssociatedOreBonus>10</nearAssociatedOreBonus>
+    <!-- The terrains this must be near to, but not necessarily on -->
+    <neededNearbyTerrains>
+			<li>SolidGranite</li>
+			<li>SolidMarble</li>
+			<li>SolidBasalt</li>
+			<li>HewnGranite</li>
+			<li>HewnMarble</li>
+			<li>HewnBasalt</li>
+    </neededNearbyTerrains>
+    <!-- how far away it can be from needed nearby terrains-->
+    <neededNearbyTerrainRadius>1.5</neededNearbyTerrainRadius>
     <!-- Roof requirements -->
     <mustBeUnderRoof>true</mustBeUnderRoof>
     <mustBeUnderThickRoof>false</mustBeUnderThickRoof>
     <mustBeUnroofed>false</mustBeUnroofed>
     <!-- The maximum number of images that will be printed per square -->
-    <maxMeshCount>50</maxMeshCount>
+    <maxMeshCount>35</maxMeshCount>
     <!-- The size range -->
     <visualSizeRange>
-      <min>0.2</min>
-      <max>0.5</max>
+      <min>0.25</min>
+      <max>0.6</max>
     </visualSizeRange>
     <visualClustering>0.3</visualClustering>
     <!-- between 0 and 1. 0 = uniform distribution, 1 = normal distribution -->
@@ -144,7 +161,7 @@
     <randomlyDropResources>
       <li>
         <ResourceDefName>GlassBatch</ResourceDefName>
-        <DropProbability>4</DropProbability>
+        <DropProbability>3</DropProbability>
         <CountPerDrop>5</CountPerDrop>
       </li>
     </randomlyDropResources>
@@ -160,7 +177,7 @@
     <spawnRadius>2</spawnRadius>
     <!-- How  many squares each cluster will be -->
     <minClusterSize>1</minClusterSize>
-    <maxClusterSize>10</maxClusterSize>
+    <maxClusterSize>15</maxClusterSize>
     <!-- The range of starting sizes of individuals in clusters -->
     <initialSizeMin>.5</initialSizeMin>
     <initialSizeMax>.9</initialSizeMax>
@@ -198,7 +215,7 @@
     <!-- The size range -->
     <visualSizeRange>
       <min>0.2</min>
-      <max>0.5</max>
+      <max>0.6</max>
     </visualSizeRange>
     <visualClustering>0.5</visualClustering>
     <!-- between 0 and 1. 0 = uniform distribution, 1 = normal distribution -->
@@ -226,30 +243,31 @@
     <!-- Even though it is a static crystal, the map initialization uses "reproduction" to make clusters-->
     <spawnRadius>1</spawnRadius>
     <!-- How  many squares each cluster will be -->
-    <minClusterSize>1</minClusterSize>
-    <maxClusterSize>15</maxClusterSize>
+    <minClusterSize>3</minClusterSize>
+    <maxClusterSize>30</maxClusterSize>
     <!-- The range of starting sizes of individuals in clusters -->
     <initialSizeMin>.3</initialSizeMin>
     <initialSizeMax>.8</initialSizeMax>
     <!-- How much initial sizes of individuals randomly vary -->
-    <initialSizeVariation>.4</initialSizeVariation>
+    <initialSizeVariation>.45</initialSizeVariation>
     <!-- The terrains this can appear on. The default is rocky terrains-->
     <allowedTerrains>
       <li>Limestone_Rough</li>
       <li>Sandstone_Rough</li>
       <li>Slate_Rough</li>
-      <li>Claystone_Rough</li>
+      <li>ZF_ClaystoneBase_Rough</li>
+      <li>ZF_MudstoneBase_Rough</li>
     </allowedTerrains>
     <!-- Roof requirements -->
     <mustBeUnderRoof>true</mustBeUnderRoof>
     <mustBeUnderThickRoof>false</mustBeUnderThickRoof>
     <mustBeUnroofed>false</mustBeUnroofed>
     <!-- The maximum number of images that will be printed per square -->
-    <maxMeshCount>20</maxMeshCount>
+    <maxMeshCount>18</maxMeshCount>
     <!-- The size range -->
     <visualSizeRange>
       <min>0.4</min>
-      <max>0.6</max>
+      <max>0.7</max>
     </visualSizeRange>
     <visualClustering>0.4</visualClustering>
     <!-- between 0 and 1. 0 = uniform distribution, 1 = normal distribution -->
@@ -283,13 +301,13 @@
     </statBases>
     <!--How far away it can spawn from an existing location-->
     <!-- Even though it is a static crystal, the map initialization uses "reproduction" to make clusters-->
-    <spawnRadius>5</spawnRadius>
+    <spawnRadius>8</spawnRadius>
     <!-- How  many squares each cluster will be -->
-    <minClusterSize>1</minClusterSize>
-    <maxClusterSize>10</maxClusterSize>
+    <minClusterSize>2</minClusterSize>
+    <maxClusterSize>20</maxClusterSize>
     <!-- The range of starting sizes of individuals in clusters -->
-    <initialSizeMin>.3</initialSizeMin>
-    <initialSizeMax>.7</initialSizeMax>
+    <initialSizeMin>.6</initialSizeMin>
+    <initialSizeMax>.9</initialSizeMax>
     <!-- How much initial sizes of individuals randomly vary -->
     <initialSizeVariation>.1</initialSizeVariation>
     <!-- The terrains this can appear on. The default is rocky terrains-->
@@ -333,13 +351,13 @@
     </statBases>
     <!--How far away it can spawn from an existing location-->
     <!-- Even though it is a static crystal, the map initialization uses "reproduction" to make clusters-->
-    <spawnRadius>5</spawnRadius>
+    <spawnRadius>8</spawnRadius>
     <!-- How  many squares each cluster will be -->
-    <minClusterSize>1</minClusterSize>
-    <maxClusterSize>10</maxClusterSize>
+    <minClusterSize>3</minClusterSize>
+    <maxClusterSize>30</maxClusterSize>
     <!-- The range of starting sizes of individuals in clusters -->
-    <initialSizeMin>.5</initialSizeMin>
-    <initialSizeMax>.8</initialSizeMax>
+    <initialSizeMin>.6</initialSizeMin>
+    <initialSizeMax>.9</initialSizeMax>
     <!-- How much initial sizes of individuals randomly vary -->
     <initialSizeVariation>.1</initialSizeVariation>
     <!-- The terrains this can appear on. The default is rocky terrains-->

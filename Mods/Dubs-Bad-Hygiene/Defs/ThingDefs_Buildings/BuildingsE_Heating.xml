@@ -458,7 +458,7 @@
 		</comps>
 		<researchPrerequisites Inherit="False">
 			<li>AirConditioning</li>
-		</researchPrerequisites>
+		</researchPrerequisites>		
 	</ThingDef>
 
 	<ThingDef ParentName="BaseRadiator" DBHLite="true">
@@ -494,18 +494,54 @@
 		</comps>
 		<researchPrerequisites Inherit="False">
 			<li>Temperature_control_C3</li>
-		</researchPrerequisites>
+		</researchPrerequisites>		
+	</ThingDef>
+	
+		<ThingDef ParentName="BaseRadiator">
+		<thingClass>DubsBadHygiene.Building_TowelRail</thingClass>
+		<defName>RadiatorTowelRail</defName>
+		<label>Towel Rail</label>
+		<description>Impressive bathroom towel rail.</description>
+		<uiIconPath>DBH/UI/TowelRail</uiIconPath>
+		<graphicData>
+			<texPath>DBH/Things/Building/Heating/TowelRail</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(2,2)</drawSize>
+			<damageData>
+				<rect>(0.05,0.05,0.95,0.95)</rect>
+			</damageData>
+		</graphicData>
+		<costList>
+			<Mechanism>1</Mechanism>
+			<ComponentIndustrial>1</ComponentIndustrial>
+		</costList>
+		<costStuffCount>50</costStuffCount>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Stony</li>
+			<li>Ceramic</li>
+		</stuffCategories>
+		<comps>
+			<li Class="DubsBadHygiene.CompProperties_Radiator">
+				<StoreCapacity>100</StoreCapacity>
+				<Energy>21</Energy>
+				<HeatingRate>250</HeatingRate>
+			</li>
+		</comps>
+		<statBases>
+			<Beauty>6</Beauty>
+		</statBases>
+		<researchPrerequisites Inherit="False">
+			<li>Temperature_control_C3</li>
+		</researchPrerequisites>		
 	</ThingDef>
 
 	<!--COOLING-->
 
-<!--	<DesignatorDropdownGroupDef DBHLite="true">
-		<defName>CeilingFans</defName>
-	</DesignatorDropdownGroupDef> -->
 
-	<ThingDef ParentName="BasedHeating" DBHLite="true">
-		<defName>CeilingFan</defName>
-		<label>ceiling fan 2x2</label>
+
+	<ThingDef ParentName="BasedHeating" Name="BasedCeilingFan" Abstract="True">
+		<description>Cools a room by circulating air. Includes a built-in lamp.</description>
 		<thingClass>DubsBadHygiene.Building_CeilingFan</thingClass>
 		<graphicData>
 			<texPath>DBH/Things/Building/Heating/CeilingFanBlades</texPath>
@@ -515,7 +551,6 @@
 		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
 		<altitudeLayer>Weather</altitudeLayer>
 		<clearBuildingArea>false</clearBuildingArea>
-		<description>Cools a room by circulating air. Includes a built-in lamp.</description>
 		<passability>Standable</passability>
 		<drawerType>RealtimeOnly</drawerType>
 		<blockWind>false</blockWind>
@@ -531,6 +566,39 @@
 				<texPath>DBH/Things/Building/Heating/CeilingFanBlades</texPath>
 			</blueprintGraphicData>
 		</building>
+		<statBases>
+			<MaxHitPoints>75</MaxHitPoints>
+			<WorkToBuild>700</WorkToBuild>
+			<Mass>15</Mass>
+		</statBases>
+		<comps>
+			<li Class="CompProperties_Power">
+				<compClass>CompPowerTrader</compClass>
+				<basePowerConsumption>50</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+		</comps>
+		<researchPrerequisites>
+			<li MayRequire="dbhlitemode">AirConditioning</li>
+		</researchPrerequisites>
+		<placeWorkers>
+			<li>PlaceWorker_CoolerSimple</li>
+			<li>DubsBadHygiene.PlaceWorker_NotUnderEdiface</li>
+		</placeWorkers>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<designationCategory>Hygiene</designationCategory>
+	</ThingDef>
+
+	<ThingDef ParentName="BasedCeilingFan" DBHLite="true">
+		<defName>CeilingFan</defName>
+		<label>ceiling fan 2x2</label>
+		<size>(2,2)</size>
+		<comps>
+			<li Class="CompProperties_Glower">
+				<glowRadius>9</glowRadius>
+				<glowColor>(217,217,208,0)</glowColor>
+			</li>
+		</comps>
 		<stuffCategories>
 			<li>Metallic</li>
 		</stuffCategories>
@@ -539,64 +607,20 @@
 			<ComponentIndustrial>10</ComponentIndustrial>
 			<ElectronicComponents>1</ElectronicComponents>
 			<Mechanism>2</Mechanism>
-		</costList>
-		<size>(2,2)</size>
-		<statBases>
-			<MaxHitPoints>75</MaxHitPoints>
-			<WorkToBuild>700</WorkToBuild>
-			<Mass>15</Mass>
-		</statBases>
+		</costList>		
+	</ThingDef>
+
+	<ThingDef ParentName="BasedCeilingFan" DBHLite="true">
+		<defName>CeilingFanS</defName>
+		<label>ceiling fan 1x1</label>
+		<uiIconScale>0.5</uiIconScale>
+		<size>(1,1)</size>
 		<comps>
-			<li Class="CompProperties_Power">
-				<compClass>CompPowerTrader</compClass>
-				<basePowerConsumption>50</basePowerConsumption>
-			</li>
 			<li Class="CompProperties_Glower">
 				<glowRadius>9</glowRadius>
 				<glowColor>(217,217,208,0)</glowColor>
 			</li>
-			<li Class="CompProperties_Flickable"/>
 		</comps>
-		<researchPrerequisites>
-			<li MayRequire="dbhlitemode">AirConditioning</li>
-		</researchPrerequisites>
-		<placeWorkers>
-			<li>PlaceWorker_CoolerSimple</li>
-			<li>DubsBadHygiene.PlaceWorker_NotUnderEdiface</li>
-		</placeWorkers>
-		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
-		<designationCategory>Hygiene</designationCategory>
-	</ThingDef>
-
-	<ThingDef ParentName="BasedHeating" DBHLite="true">
-		<defName>CeilingFanS</defName>
-		<label>ceiling fan 1x1</label>
-		<thingClass>DubsBadHygiene.Building_CeilingFan</thingClass>
-		<graphicData>
-			<texPath>DBH/Things/Building/Heating/CeilingFanBlades</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
-			<drawSize>(2,2)</drawSize>
-		</graphicData>
-		<uiIconScale>0.5</uiIconScale>
-		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
-		<altitudeLayer>Weather</altitudeLayer>
-		<clearBuildingArea>false</clearBuildingArea>
-		<description>Cools a room by circulating air. Includes a built-in lamp.</description>
-		<passability>Standable</passability>
-		<drawerType>RealtimeOnly</drawerType>
-		<blockWind>false</blockWind>
-		<blockLight>false</blockLight>
-		<holdsRoof>false</holdsRoof>
-		<castEdgeShadows>false</castEdgeShadows>
-		<rotatable>false</rotatable>
-		<building>
-			<isInert>true</isInert>
-			<isEdifice>false</isEdifice>
-			<canBuildNonEdificesUnder>true</canBuildNonEdificesUnder>
-			<blueprintGraphicData>
-				<texPath>DBH/Things/Building/Heating/CeilingFanBlades</texPath>
-			</blueprintGraphicData>
-		</building>
 		<stuffCategories>
 			<li>Metallic</li>
 		</stuffCategories>
@@ -605,33 +629,52 @@
 			<ComponentIndustrial>5</ComponentIndustrial>
 			<ElectronicComponents>1</ElectronicComponents>
 			<Mechanism>1</Mechanism>
-		</costList>
-		<size>(1,1)</size>
-		<statBases>
-			<MaxHitPoints>75</MaxHitPoints>
-			<WorkToBuild>700</WorkToBuild>
-			<Mass>15</Mass>
-		</statBases>
+		</costList>		
+	</ThingDef>
+
+	<ThingDef ParentName="BasedCeilingFan" DBHLite="true">
+		<defName>CeilingFanDarklight</defName>
+		<label>ceiling fan 2x2 (dark)</label>
+		<description>Cools a room by circulating air. Includes a built-in Darklight lamp.</description>
+		<size>(2,2)</size>
 		<comps>
-			<li Class="CompProperties_Power">
-				<compClass>CompPowerTrader</compClass>
-				<basePowerConsumption>50</basePowerConsumption>
-			</li>
 			<li Class="CompProperties_Glower">
 				<glowRadius>9</glowRadius>
-				<glowColor>(217,217,208,0)</glowColor>
+				<glowColor>(78, 226, 229, 0)</glowColor>
 			</li>
-			<li Class="CompProperties_Flickable"/>
 		</comps>
-		<researchPrerequisites>
-			<li MayRequire="dbhlitemode">AirConditioning</li>
-		</researchPrerequisites>
-		<placeWorkers>
-			<li>PlaceWorker_CoolerSimple</li>
-			<li>DubsBadHygiene.PlaceWorker_NotUnderEdiface</li>
-		</placeWorkers>
-		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
-		<designationCategory>Hygiene</designationCategory>
+		<stuffCategories>
+			<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>100</costStuffCount>
+		<costList>
+			<ComponentIndustrial>10</ComponentIndustrial>
+			<ElectronicComponents>1</ElectronicComponents>
+			<Mechanism>2</Mechanism>
+		</costList>	
+	</ThingDef>
+
+	<ThingDef ParentName="BasedCeilingFan" DBHLite="true">
+		<defName>CeilingFanSDarklight</defName>
+		<label>ceiling fan 1x1 (dark)</label>
+		<description>Cools a room by circulating air. Includes a built-in Darklight lamp.</description>
+		<uiIconScale>0.5</uiIconScale>
+		<size>(1,1)</size>
+		<comps>
+			<li Class="CompProperties_Glower">
+				<glowRadius>9</glowRadius>
+				<glowColor>(78, 226, 229, 0)</glowColor>
+			</li>
+		</comps>
+		<stuffCategories>
+			<li>Metallic</li>
+		</stuffCategories>
+		<costStuffCount>50</costStuffCount>
+		<costList>
+			<ComponentIndustrial>5</ComponentIndustrial>
+			<ElectronicComponents>1</ElectronicComponents>
+			<Mechanism>1</Mechanism>
+		</costList>		
 	</ThingDef>
 
 
@@ -767,7 +810,7 @@
 		</placeWorkers>
 		<researchPrerequisites Inherit="False">
 			<li>Temperature_control_C2</li>
-		</researchPrerequisites>
+		</researchPrerequisites>		
 	</ThingDef>
 
 	<ThingDef ParentName="BaseAircon" DBHLite="true">
