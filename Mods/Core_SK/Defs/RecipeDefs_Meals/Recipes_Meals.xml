@@ -553,18 +553,30 @@
 	</RecipeDef>
 	
 
-	<RecipeDef>
-		<defName>CookMealFine</defName>
-		<label>cook fine meal</label>
-		<description>Cooks a somewhat complex meal from a combination of raw meat and raw plant ingredients. Produces 2.</description>
-		<jobString>Cooking fine meal.</jobString>
+	<RecipeDef Name="CookMealFineBase" Abstract="True">
 		<workSpeedStat>CookSpeed</workSpeedStat>
 		<effectWorking>Cook</effectWorking>
+		<workSkill>Cooking</workSkill>
 		<workAmount>800</workAmount>
 		<soundWorking>Recipe_CookMeal</soundWorking>
 		<requiredGiverWorkType>Cooking</requiredGiverWorkType>
 		<allowMixingIngredients>true</allowMixingIngredients>
 		<ingredientValueGetterClass>IngredientValueGetter_Nutrition</ingredientValueGetterClass>
+		<skillRequirements>
+		  <Cooking>6</Cooking>
+		</skillRequirements>
+		<recipeUsers>
+			<li>FueledStove</li>
+			<li>ElectricStove</li>
+		</recipeUsers>
+		<researchPrerequisite>Food_B4</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="CookMealFineBase">
+		<defName>CookMealFine</defName>
+		<label>cook fine meal</label>
+		<description>Cooks a somewhat complex meal from a combination of raw meat and raw plant ingredients. Produces 2.</description>
+		<jobString>Cooking fine meal.</jobString>
 		<ingredients>
 			<li>
 				<filter>
@@ -636,29 +648,103 @@
 				<li>EggsFertilized</li>
 			</disallowedCategories>
 		</defaultIngredientFilter>
-		<skillRequirements>
-			<Cooking>4</Cooking>
-		</skillRequirements>
-		<workSkill>Cooking</workSkill>
-		<recipeUsers>
-			<li>FueledStove</li>
-			<li>ElectricStove</li>
-		</recipeUsers>
-		<researchPrerequisite>Food_B4</researchPrerequisite>
 	</RecipeDef>
-	
-	<RecipeDef>
+
+	<RecipeDef ParentName="CookMealFineBase">
+		<defName>CookMealFine_Veg</defName>
+		<label>cook vegetarian fine meal</label>
+		<description>Cook a somewhat complex meal from plant ingredients. Produces 2.</description>
+		<jobString>Cooking vegetarian fine meal.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>BasicPlantFoodRaw</li>
+						<li>FruitFoodRaw</li>
+						<li>ExtraPlantFoodRaw</li>
+					</categories>
+					<thingDefs>
+						<li>RawGiantLeaf</li>
+					</thingDefs>
+				</filter>
+				<count>1.5</count>
+			</li>
+		</ingredients>
+		<products>
+			<MealFine_Veg>2</MealFine_Veg>
+		</products>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>RawGiantLeaf</li>
+			</thingDefs>
+			<categories>
+				<li>BasicPlantFoodRaw</li>
+				<li>FruitFoodRaw</li>
+				<li>ExtraPlantFoodRaw</li>
+			</categories>
+			<specialFiltersToDisallow>
+				<li>AllowPlantFood</li>
+			</specialFiltersToDisallow>
+		</fixedIngredientFilter>
+	</RecipeDef>
+
+	<RecipeDef ParentName="CookMealFineBase">
+		<defName>CookMealFine_Meat</defName>
+		<label>cook carnivore fine meal</label>
+		<description>Cook a somewhat complex meal from meat ingredients. Produces 2.</description>
+		<jobString>Cooking carnivore fine meal.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>MeatRaw</li>
+					</categories>
+				</filter>
+				<count>1.5</count>
+			</li>
+		</ingredients>
+		<products>
+			<MealFine_Meat>2</MealFine_Meat>
+		</products>
+		<fixedIngredientFilter>
+			<categories>
+				<li>MeatRaw</li>
+			</categories>
+		</fixedIngredientFilter>
+		<defaultIngredientFilter>
+			<categories>
+				<li>MeatRaw</li>
+			</categories>
+			<disallowedThingDefs>
+				<li>Meat_Megaspider</li>
+				<li>Meat_Human</li>
+			</disallowedThingDefs>
+		</defaultIngredientFilter>
+	</RecipeDef>
+
+	<RecipeDef Name="CookMealFineBulkBase" Abstract="True">
+		<workSpeedStat>CookSpeed</workSpeedStat>
+		<effectWorking>Cook</effectWorking>
+		<workSkill>Cooking</workSkill>
+		<workAmount>2400</workAmount>
+		<soundWorking>Recipe_CookMeal</soundWorking>
+		<requiredGiverWorkType>Cooking</requiredGiverWorkType>
+		<allowMixingIngredients>true</allowMixingIngredients>
+		<ingredientValueGetterClass>IngredientValueGetter_Nutrition</ingredientValueGetterClass>
+		<skillRequirements>
+		  <Cooking>7</Cooking>
+		</skillRequirements>
+		<recipeUsers>
+			<li>ElectricStove_Pro</li>
+		</recipeUsers>
+		<researchPrerequisite>PackagedSurvivalMeal</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="CookMealFineBulkBase">
 		<defName>CookMealFine_Bulk</defName>
 		<label>cook fine meals (x4)</label>
 		<description>Cooks a somewhat complex meal from a combination of raw meat and raw plant ingredients. Produces 8.</description>
 		<jobString>Cooking fine meals.</jobString>
-		<workSpeedStat>CookSpeed</workSpeedStat>
-		<effectWorking>Cook</effectWorking>
-		<soundWorking>Recipe_CookMeal</soundWorking>
-		<workAmount>2400</workAmount>
-		<requiredGiverWorkType>Cooking</requiredGiverWorkType>
-		<allowMixingIngredients>true</allowMixingIngredients>
-		<ingredientValueGetterClass>IngredientValueGetter_Nutrition</ingredientValueGetterClass>
 		<ingredients>
 			<li>
 				<filter>
@@ -727,29 +813,104 @@
 				<li>EggsFertilized</li>
 			</disallowedCategories>
 		</defaultIngredientFilter>
-		<skillRequirements>
-			<Cooking>4</Cooking>
-		</skillRequirements>
-		<workSkill>Cooking</workSkill>
-		<recipeUsers>
-			<li>ElectricStove_Pro</li>
-		</recipeUsers>
-		<researchPrerequisite>PackagedSurvivalMeal</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="CookMealFineBulkBase">
+		<defName>CookMealFineBulk_Veg</defName>
+		<label>cook vegetarian fine meal (x4)</label>
+		<description>Cook somewhat complex meals from plant ingredients. Some of the ingredients are wasted in order to create a good eating experience. Producing varied flavors with plants alone introduces extra inefficiencies. Produces 8.</description>
+		<jobString>Cooking vegetarian fine meal.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>BasicPlantFoodRaw</li>
+						<li>FruitFoodRaw</li>
+						<li>ExtraPlantFoodRaw</li>
+					</categories>
+					<thingDefs>
+						<li>RawGiantLeaf</li>
+					</thingDefs>
+				</filter>
+				<count>6</count>
+			</li>
+		</ingredients>
+		<products>
+			<MealFine_Veg>8</MealFine_Veg>
+		</products>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>RawGiantLeaf</li>
+			</thingDefs>
+			<categories>
+				<li>BasicPlantFoodRaw</li>
+				<li>FruitFoodRaw</li>
+				<li>ExtraPlantFoodRaw</li>
+			</categories>
+			<specialFiltersToDisallow>
+				<li>AllowPlantFood</li>
+			</specialFiltersToDisallow>
+		</fixedIngredientFilter>
+	</RecipeDef>
+
+	<RecipeDef ParentName="CookMealFineBulkBase">
+		<defName>CookMealFineBulk_Meat</defName>
+		<label>cook carnivore fine meal (x4)</label>
+		<description>Cook somewhat complex meals from meat ingredients. Some of the ingredients are wasted in order to create a good eating experience. Producing varied flavors with meat alone introduces extra inefficiencies. Produces 8.</description>
+		<jobString>Cooking carnivore fine meal.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>MeatRaw</li>
+					</categories>
+				</filter>
+				<count>6</count>
+			</li>
+		</ingredients>
+		<products>
+			<MealFine_Meat>8</MealFine_Meat>
+		</products>
+		<fixedIngredientFilter>
+			<categories>
+				<li>MeatRaw</li>
+			</categories>
+		</fixedIngredientFilter>
+		<defaultIngredientFilter>
+			<categories>
+				<li>MeatRaw</li>
+			</categories>
+			<disallowedThingDefs>
+				<li>Meat_Megaspider</li>
+				<li>Meat_Human</li>
+			</disallowedThingDefs>
+		</defaultIngredientFilter>
 	</RecipeDef>
 
 
-	<RecipeDef>
+	<RecipeDef Name="CookMealLavishBase" Abstract="True">
+		<workSpeedStat>CookSpeed</workSpeedStat>
+		<effectWorking>Cook</effectWorking>
+		<workSkill>Cooking</workSkill>
+		<workAmount>900</workAmount>
+		<soundWorking>Recipe_CookMeal</soundWorking>
+		<requiredGiverWorkType>Cooking</requiredGiverWorkType>
+		<allowMixingIngredients>true</allowMixingIngredients>
+		<ingredientValueGetterClass>IngredientValueGetter_Nutrition</ingredientValueGetterClass>
+		<skillRequirements>
+		  <Cooking>9</Cooking>
+		</skillRequirements>
+		<recipeUsers>
+			<li>ElectricStove</li>
+		</recipeUsers>
+		<researchPrerequisite>Food_C1</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="CookMealLavishBase">
 		<defName>CookMealLavish</defName>
 		<label>cook lavish meal</label>
 		<description>Cooks a very complex meal from a combination of raw meat and raw plant ingredients. Produces 2.</description>
 		<jobString>Cooking lavish meal.</jobString>
-		<workSpeedStat>CookSpeed</workSpeedStat>
-		<effectWorking>Cook</effectWorking>
-		<soundWorking>Recipe_CookMeal</soundWorking>
-		<workAmount>900</workAmount>
-		<requiredGiverWorkType>Cooking</requiredGiverWorkType>
-		<allowMixingIngredients>true</allowMixingIngredients>
-		<ingredientValueGetterClass>IngredientValueGetter_Nutrition</ingredientValueGetterClass>
 		<ingredients>
 			<li>
 				<filter>
@@ -820,30 +981,104 @@
 				<li>EggsFertilized</li>
 			</disallowedCategories>
 		</defaultIngredientFilter>
-		<skillRequirements>
-			<Cooking>8</Cooking>
-		</skillRequirements>
-		<workSkill>Cooking</workSkill>
-		<recipeUsers>
-			<li>ElectricStove</li>
-		</recipeUsers>
-		<researchPrerequisite>Food_C1</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="CookMealLavishBase">
+		<defName>CookMealLavish_Veg</defName>
+		<label>cook vegetarian lavish meal</label>
+		<description>Cook a very complex meal from plant ingredients. Much of the ingredients are wasted in order to create the best eating experience. Producing varied flavors with plants alone introduces extra inefficiencies. Produces 2.</description>
+		<jobString>Cooking vegetarian lavish meal.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>BasicPlantFoodRaw</li>
+						<li>FruitFoodRaw</li>
+						<li>ExtraPlantFoodRaw</li>
+					</categories>
+					<thingDefs>
+						<li>RawGiantLeaf</li>
+					</thingDefs>
+				</filter>
+				<count>5</count>
+			</li>
+		</ingredients>
+		<products>
+			<MealLavish_Veg>2</MealLavish_Veg>
+		</products>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>RawGiantLeaf</li>
+			</thingDefs>
+			<categories>
+				<li>BasicPlantFoodRaw</li>
+				<li>FruitFoodRaw</li>
+				<li>ExtraPlantFoodRaw</li>
+			</categories>
+			<specialFiltersToDisallow>
+				<li>AllowPlantFood</li>
+			</specialFiltersToDisallow>
+		</fixedIngredientFilter>
+	</RecipeDef>
+
+	<RecipeDef ParentName="CookMealLavishBase">
+		<defName>CookMealLavish_Meat</defName>
+		<label>cook carnivore lavish meal</label>
+		<description>Cook a very complex meal from meat ingredients. Much of the ingredients are wasted in order to create the best eating experience. Producing varied flavors with meat alone introduces extra inefficiencies. Produces 2.</description>
+		<jobString>Cooking carnivore lavish meal.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>MeatRaw</li>
+					</categories>
+				</filter>
+				<count>5</count>
+			</li>
+		</ingredients>
+		<products>
+			<MealLavish_Meat>2</MealLavish_Meat>
+		</products>
+		<fixedIngredientFilter>
+			<categories>
+				<li>MeatRaw</li>
+			</categories>
+		</fixedIngredientFilter>
+		<defaultIngredientFilter>
+			<categories>
+				<li>MeatRaw</li>
+			</categories>
+			<disallowedThingDefs>
+				<li>Meat_Megaspider</li>
+				<li>Meat_Human</li>
+			</disallowedThingDefs>
+		</defaultIngredientFilter>
 	</RecipeDef>
 
 
+	<RecipeDef Name="CookMealLavishBulkBase" Abstract="True">
+		<workSpeedStat>CookSpeed</workSpeedStat>
+		<effectWorking>Cook</effectWorking>
+		<workSkill>Cooking</workSkill>
+		<workAmount>2700</workAmount>
+		<soundWorking>Recipe_CookMeal</soundWorking>
+		<requiredGiverWorkType>Cooking</requiredGiverWorkType>
+		<allowMixingIngredients>true</allowMixingIngredients>
+		<ingredientValueGetterClass>IngredientValueGetter_Nutrition</ingredientValueGetterClass>
+		<skillRequirements>
+		  <Cooking>11</Cooking>
+		</skillRequirements>
+		<recipeUsers>
+			<li>ElectricStove_Pro</li>
+		</recipeUsers>
+		<researchPrerequisite>PackagedSurvivalMeal</researchPrerequisite>
+	</RecipeDef>
 
-	<RecipeDef>
+	<RecipeDef ParentName="CookMealLavishBulkBase">
 		<defName>CookMealLavish_Bulk</defName>
 		<label>cook lavish meals (x4)</label>
 		<description>Cooks a very complex meal from a combination of raw meat and raw plant ingredients. Produces 8.</description>
 		<jobString>Cooking lavish meals.</jobString>
-		<workSpeedStat>CookSpeed</workSpeedStat>
-		<effectWorking>Cook</effectWorking>
-		<soundWorking>Recipe_CookMeal</soundWorking>
-		<workAmount>2700</workAmount>
-		<requiredGiverWorkType>Cooking</requiredGiverWorkType>
-		<allowMixingIngredients>true</allowMixingIngredients>
-		<ingredientValueGetterClass>IngredientValueGetter_Nutrition</ingredientValueGetterClass>
 		<ingredients>
 			<li>
 				<filter>
@@ -914,14 +1149,78 @@
 				<li>EggsFertilized</li>
 			</disallowedCategories>
 		</defaultIngredientFilter>
-		<skillRequirements>
-			<Cooking>10</Cooking>
-		</skillRequirements>
-		<workSkill>Cooking</workSkill>
-		<recipeUsers>
-			<li>ElectricStove_Pro</li>
-		</recipeUsers>
-		<researchPrerequisite>PackagedSurvivalMeal</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="CookMealLavishBulkBase">
+		<defName>CookMealLavishBulk_Veg</defName>
+		<label>cook vegetarian lavish meal (x4)</label>
+		<description>Cook very complex meals from plant ingredients. Much of the ingredients are wasted in order to create the best eating experience. Producing varied flavors with plants alone introduces extra inefficiencies. Produces 8.</description>
+		<jobString>Cooking vegetarian lavish meals.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>BasicPlantFoodRaw</li>
+						<li>FruitFoodRaw</li>
+						<li>ExtraPlantFoodRaw</li>
+					</categories>
+					<thingDefs>
+						<li>RawGiantLeaf</li>
+					</thingDefs>
+				</filter>
+				<count>20</count>
+			</li>
+		</ingredients>
+		<products>
+			<MealLavish_Veg>8</MealLavish_Veg>
+		</products>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>RawGiantLeaf</li>
+			</thingDefs>
+			<categories>
+				<li>BasicPlantFoodRaw</li>
+				<li>FruitFoodRaw</li>
+				<li>ExtraPlantFoodRaw</li>
+			</categories>
+			<specialFiltersToDisallow>
+				<li>AllowPlantFood</li>
+			</specialFiltersToDisallow>
+		</fixedIngredientFilter>
+	</RecipeDef>
+
+	<RecipeDef ParentName="CookMealLavishBulkBase">
+		<defName>CookMealLavishBulk_Meat</defName>
+		<label>cook carnivore lavish meal (x4)</label>
+		<description>Cook very complex meals from meat ingredients. Much of the ingredients are wasted in order to create the best eating experience. Producing varied flavors with meat alone introduces extra inefficiencies. Produces 8.</description>
+		<jobString>Cooking carnivore lavish meals.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>MeatRaw</li>
+					</categories>
+				</filter>
+				<count>20</count>
+			</li>
+		</ingredients>
+		<products>
+			<MealLavish_Meat>8</MealLavish_Meat>
+		</products>
+		<fixedIngredientFilter>
+			<categories>
+				<li>MeatRaw</li>
+			</categories>
+		</fixedIngredientFilter>
+		<defaultIngredientFilter>
+			<categories>
+				<li>MeatRaw</li>
+			</categories>
+			<disallowedThingDefs>
+				<li>Meat_Megaspider</li>
+				<li>Meat_Human</li>
+			</disallowedThingDefs>
+		</defaultIngredientFilter>
 	</RecipeDef>
 
 	<!--<RecipeDef>
