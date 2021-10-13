@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-	<RecipeDef>
+	<RecipeDef Name="CookMealSpecialBase_SK" Abstract="True">
+		<workSpeedStat>CookSpeed</workSpeedStat>
+		<effectWorking>Cook</effectWorking>
+		<workAmount>700</workAmount>
+		<workSkill>Cooking</workSkill>
+		<soundWorking>Recipe_CookMeal</soundWorking>
+		<requiredGiverWorkType>Cooking</requiredGiverWorkType>
+		<allowMixingIngredients>true</allowMixingIngredients>
+		<ingredientValueGetterClass>IngredientValueGetter_Nutrition</ingredientValueGetterClass>
+	</RecipeDef>
+
+	<RecipeDef ParentName="CookMealSpecialBase_SK">
 		<defName>CookMeatSoup</defName>
 		<label>cook meat soup</label>
 		<description>Prepares a meat soup from raw meat and a few raw plants. Produces 3.</description>
 		<jobString>Cooking meat soup.</jobString>
-		<workSpeedStat>CookSpeed</workSpeedStat>
-		<effectWorking>Cook</effectWorking>
-		<workAmount>700</workAmount>
-		<requiredGiverWorkType>Cooking</requiredGiverWorkType>
 		<soundWorking>Chemlab_Medicine_Drink</soundWorking>
-		<allowMixingIngredients>true</allowMixingIngredients>
-		<ingredientValueGetterClass>IngredientValueGetter_Nutrition</ingredientValueGetterClass>
 		<ingredients>
 			<li>
 				<filter>
@@ -65,30 +70,86 @@
 		<skillRequirements>
 			<Cooking>4</Cooking>
 		</skillRequirements>
-		<workSkill>Cooking</workSkill>
 		<recipeUsers>
 			<li>FueledStove</li>
 			<li>ElectricStove</li>
-			<li>ElectricStove_Pro</li>
 		</recipeUsers>
 		<researchPrerequisite>Food_B4</researchPrerequisite>
 	</RecipeDef>
-	
 
-<!--         Grilled Meals       -->
+	<RecipeDef ParentName="CookMealSpecialBase_SK">
+		<defName>CookMeatSoupBulk</defName>
+		<label>cook meat soup (x4)</label>
+		<description>Prepares a meat soup from raw meat and a few raw plants. Produces 12.</description>
+		<jobString>Cooking meat soup.</jobString>
+		<workAmount>2460</workAmount>
+		<soundWorking>Chemlab_Medicine_Drink</soundWorking>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>MeatRaw</li>
+					</categories>
+				</filter>
+				<count>2.6</count>
+			</li>
+			<li>
+				<filter>
+					<categories>
+						<li>BasicPlantFoodRaw</li>
+					</categories>
+					<thingDefs>
+						<li>RawGiantLeaf</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<products>
+			<MeatSoup>12</MeatSoup>
+		</products>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>RawGiantLeaf</li>
+			</thingDefs>
+			<categories>
+				<li>MeatRaw</li>
+				<li>BasicPlantFoodRaw</li>
+			</categories>
+			<specialFiltersToDisallow>
+				<li>AllowPlantFood</li>
+			</specialFiltersToDisallow>
+		</fixedIngredientFilter>
+		<defaultIngredientFilter>
+			<thingDefs>
+				<li>RawGiantLeaf</li>
+			</thingDefs>
+			<categories>
+				<li>MeatRaw</li>
+				<li>BasicPlantFoodRaw</li>
+			</categories>
+			<disallowedThingDefs>
+				<li>Meat_Megaspider</li>
+				<li>Meat_Human</li>
+			</disallowedThingDefs>
+		</defaultIngredientFilter>
+		<skillRequirements>
+			<Cooking>6</Cooking>
+		</skillRequirements>
+		<recipeUsers>
+			<li>ElectricStove_Pro</li>
+		</recipeUsers>
+		<researchPrerequisite>PackagedSurvivalMeal</researchPrerequisite>
+	</RecipeDef>
 
-	<RecipeDef>
+
+	<!--     Grilled Meals     -->
+
+	<RecipeDef ParentName="CookMealSpecialBase_SK">
 		<defName>MakeCheeseGrilled</defName>
 		<label>Grill cheese sandwich</label>
 		<description>Grills a sandwich from bread and cheese. Produces 2.</description>
 		<jobString>Grilling cheese sandwich.</jobString>
-		<workSpeedStat>CookSpeed</workSpeedStat>
-		<effectWorking>Cook</effectWorking>
-		<workAmount>700</workAmount>
-		<soundWorking>Recipe_CookMeal</soundWorking>
-		<requiredGiverWorkType>Cooking</requiredGiverWorkType>
-		<allowMixingIngredients>true</allowMixingIngredients>
-		<ingredientValueGetterClass>IngredientValueGetter_Nutrition</ingredientValueGetterClass>
 		<ingredients>
 			<li>
 				<filter>
@@ -132,24 +193,67 @@
 			<li>TableGrill</li>
 			<li>FueledStove</li>
 			<li>ElectricStove</li>
-			<li>ElectricStove_Pro</li>
 		</recipeUsers>
-		<workSkill>Cooking</workSkill>
 		<researchPrerequisite>Food_B3</researchPrerequisite>
 	</RecipeDef>
-	
-	<RecipeDef>
+
+	<RecipeDef ParentName="CookMealSpecialBase_SK">
+		<defName>MakeCheeseGrilledBulk</defName>
+		<label>Grill cheese sandwich (x4)</label>
+		<description>Grills a sandwich from bread and cheese. Produces 8.</description>
+		<jobString>Grilling cheese sandwich.</jobString>
+		<workAmount>2460</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Cheese</li>
+						<li>AgedCheese</li>
+					</thingDefs>
+				</filter>
+				<count>0.8</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>bread</li>
+					</thingDefs>
+				</filter>
+				<count>0.4</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Cheese</li>
+				<li>AgedCheese</li>
+				<li>bread</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<defaultIngredientFilter>
+			<thingDefs>
+				<li>Cheese</li>
+				<li>AgedCheese</li>
+				<li>bread</li>
+			</thingDefs>
+		</defaultIngredientFilter>
+		<products>
+			<GrilledCheese>8</GrilledCheese>
+		</products>
+		<skillRequirements>
+			<Cooking>7</Cooking>
+		</skillRequirements>
+		<recipeUsers>
+			<li>ElectricStove_Pro</li>
+		</recipeUsers>
+		<researchPrerequisite>PackagedSurvivalMeal</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="CookMealSpecialBase_SK">
 		<defName>MakePotatoesCheese</defName>
 		<label>Grill potatoes with cheese</label>
 		<description>Grills potatoes with some cheese on top. Produces 3.</description>
 		<jobString>Grilling potatoes with cheese.</jobString>
-		<workSpeedStat>CookSpeed</workSpeedStat>
-		<effectWorking>Cook</effectWorking>
 		<workAmount>450</workAmount>
-		<soundWorking>Recipe_CookMeal</soundWorking>
-		<requiredGiverWorkType>Cooking</requiredGiverWorkType>
-		<allowMixingIngredients>true</allowMixingIngredients>
-		<ingredientValueGetterClass>IngredientValueGetter_Nutrition</ingredientValueGetterClass>
 		<ingredients>
 			<li>
 				<filter>
@@ -193,28 +297,70 @@
 			<li>TableGrill</li>
 			<li>FueledStove</li>
 			<li>ElectricStove</li>
-			<li>ElectricStove_Pro</li>
 		</recipeUsers>
-		<workSkill>Cooking</workSkill>
 		<researchPrerequisite>Food_B3</researchPrerequisite>
 	</RecipeDef>
-	
+
+	<RecipeDef ParentName="CookMealSpecialBase_SK">
+		<defName>MakePotatoesCheeseBulk</defName>
+		<label>Grill potatoes with cheese (x4)</label>
+		<description>Grills potatoes with some cheese on top. Produces 12.</description>
+		<jobString>Grilling potatoes with cheese.</jobString>
+		<workAmount>1600</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Cheese</li>
+						<li>AgedCheese</li>
+					</thingDefs>
+				</filter>
+				<count>1.6</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>RawPotatoes</li>
+					</thingDefs>
+				</filter>
+				<count>1.6</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Cheese</li>
+				<li>AgedCheese</li>
+				<li>RawPotatoes</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<defaultIngredientFilter>
+			<thingDefs>
+				<li>Cheese</li>
+				<li>AgedCheese</li>
+				<li>RawPotatoes</li>
+			</thingDefs>
+		</defaultIngredientFilter>
+		<products>
+			<PotatoesCheese>12</PotatoesCheese>
+		</products>
+		<skillRequirements>
+			<Cooking>4</Cooking>
+		</skillRequirements>
+		<recipeUsers>
+			<li>ElectricStove_Pro</li>
+		</recipeUsers>
+		<researchPrerequisite>PackagedSurvivalMeal</researchPrerequisite>
+	</RecipeDef>
 
 	
-<!--         Fine Meals          -->
-	
-	<RecipeDef>
+	<!--     Fine Meals     -->
+
+	<RecipeDef ParentName="CookMealSpecialBase_SK">
 		<defName>CookHeartyStew</defName>
 		<label>cook hearty stew</label>
 		<description>Prepares a hearty stew from raw meat, potatoes and carrots. Produces 2.</description>
 		<jobString>Cooking hearty stew.</jobString>
-		<workSpeedStat>CookSpeed</workSpeedStat>
-		<effectWorking>Cook</effectWorking>
-		<workAmount>700</workAmount>
-		<requiredGiverWorkType>Cooking</requiredGiverWorkType>
 		<soundWorking>Chemlab_Medicine_Drink</soundWorking>
-		<allowMixingIngredients>true</allowMixingIngredients>
-		<ingredientValueGetterClass>IngredientValueGetter_Nutrition</ingredientValueGetterClass>
 		<ingredients>
 			<li>
 				<filter>
@@ -272,26 +418,87 @@
 		<skillRequirements>
 			<Cooking>8</Cooking>
 		</skillRequirements>
-		<workSkill>Cooking</workSkill>
 		<recipeUsers>
 			<li>ElectricStove</li>
-			<li>ElectricStove_Pro</li>
 		</recipeUsers>
 		<researchPrerequisite>Food_C1</researchPrerequisite>
 	</RecipeDef>
-	
-	<RecipeDef>
+
+	<RecipeDef ParentName="CookMealSpecialBase_SK">
+		<defName>CookHeartyStewBulk</defName>
+		<label>cook hearty stew (x4)</label>
+		<description>Prepares a hearty stew from raw meat, potatoes and carrots. Produces 8.</description>
+		<jobString>Cooking hearty stew.</jobString>
+		<workAmount>2460</workAmount>
+		<soundWorking>Chemlab_Medicine_Drink</soundWorking>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>MeatRaw</li>
+					</categories>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>RawPotatoes</li>
+					</thingDefs>
+				</filter>
+				<count>1.6</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>RawCarrots</li>
+					</thingDefs>
+				</filter>
+				<count>1.2</count>
+			</li>
+		</ingredients>
+		<products>
+			<HeartyStew>8</HeartyStew>
+		</products>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>RawPotatoes</li>
+				<li>RawCarrots</li>
+			</thingDefs>
+			<categories>
+				<li>MeatRaw</li>
+			</categories>
+			<specialFiltersToDisallow>
+				<li>AllowPlantFood</li>
+			</specialFiltersToDisallow>
+		</fixedIngredientFilter>
+		<defaultIngredientFilter>
+			<thingDefs>
+				<li>RawPotatoes</li>
+				<li>RawCarrots</li>
+			</thingDefs>
+			<categories>
+				<li>MeatRaw</li>
+			</categories>
+			<disallowedThingDefs>
+				<li>Meat_Megaspider</li>
+				<li>Meat_Human</li>
+			</disallowedThingDefs>
+		</defaultIngredientFilter>
+		<skillRequirements>
+			<Cooking>10</Cooking>
+		</skillRequirements>
+		<recipeUsers>
+			<li>ElectricStove_Pro</li>
+		</recipeUsers>
+		<researchPrerequisite>PackagedSurvivalMeal</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="CookMealSpecialBase_SK">
 		<defName>MakeMakiRolls</defName>
 		<label>make maki rolls</label>
 		<description>Make maki rolls from rice, algae and fish meat. Produces 2.</description>
 		<jobString>Cooking maki rolls.</jobString>
-		<workSpeedStat>CookSpeed</workSpeedStat>
-		<effectWorking>Cook</effectWorking>
-		<workAmount>700</workAmount>
-		<soundWorking>Recipe_CookMeal</soundWorking>
-		<requiredGiverWorkType>Cooking</requiredGiverWorkType>
-		<allowMixingIngredients>true</allowMixingIngredients>
-		<ingredientValueGetterClass>IngredientValueGetter_Nutrition</ingredientValueGetterClass>
 		<ingredients>
 			<li>
 				<filter>
@@ -348,26 +555,85 @@
 		<skillRequirements>
 			<Cooking>9</Cooking>
 		</skillRequirements>
-		<workSkill>Cooking</workSkill>
 		<recipeUsers>
 			<li>ElectricStove</li>
-			<li>ElectricStove_Pro</li>
 		</recipeUsers>
 		<researchPrerequisite>Food_C2</researchPrerequisite>
 	</RecipeDef>
-	
-	<RecipeDef>
+
+	<RecipeDef ParentName="CookMealSpecialBase_SK">
+		<defName>MakeMakiRollsBulk</defName>
+		<label>make maki rolls (x4)</label>
+		<description>Make maki rolls from rice, algae and fish meat. Produces 8.</description>
+		<jobString>Cooking maki rolls.</jobString>
+		<workAmount>2460</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Meat_ThingDefFishSduiggles</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>RawAlgae</li>
+					</thingDefs>
+				</filter>
+				<count>0.8</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>RawRice</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<products>
+			<MakiRolls>8</MakiRolls>
+		</products>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Meat_ThingDefFishSduiggles</li>
+				<li>RawAlgae</li>
+				<li>RawRice</li>
+			</thingDefs>
+			<specialFiltersToDisallow>
+				<li>AllowPlantFood</li>
+			</specialFiltersToDisallow>
+		</fixedIngredientFilter>
+		<defaultIngredientFilter>
+			<thingDefs>
+				<li>Meat_ThingDefFishSduiggles</li>
+				<li>RawAlgae</li>
+				<li>RawRice</li>
+			</thingDefs>
+			<disallowedThingDefs>
+				<li>Meat_Megaspider</li>
+				<li>Meat_Human</li>
+			</disallowedThingDefs>
+			<disallowedCategories>
+				<li>EggsFertilized</li>
+			</disallowedCategories>
+		</defaultIngredientFilter>
+		<skillRequirements>
+			<Cooking>11</Cooking>
+		</skillRequirements>
+		<recipeUsers>
+			<li>ElectricStove_Pro</li>
+		</recipeUsers>
+		<researchPrerequisite>PackagedSurvivalMeal</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="CookMealSpecialBase_SK">
 		<defName>MakeKebab</defName>
 		<label>make kebab</label>
 		<description>Make kebab from vegetables, mushrooms and meat. Produces 2.</description>
 		<jobString>Cooking kebab.</jobString>
-		<workSpeedStat>CookSpeed</workSpeedStat>
-		<effectWorking>Cook</effectWorking>
-		<workAmount>700</workAmount>
-		<soundWorking>Recipe_CookMeal</soundWorking>
-		<requiredGiverWorkType>Cooking</requiredGiverWorkType>
-		<allowMixingIngredients>true</allowMixingIngredients>
-		<ingredientValueGetterClass>IngredientValueGetter_Nutrition</ingredientValueGetterClass>
 		<ingredients>
 			<li>
 				<filter>
@@ -434,26 +700,95 @@
 		<skillRequirements>
 			<Cooking>8</Cooking>
 		</skillRequirements>
-		<workSkill>Cooking</workSkill>
 		<recipeUsers>
 			<li>ElectricStove</li>
-			<li>ElectricStove_Pro</li>
 		</recipeUsers>
 		<researchPrerequisite>Food_C1</researchPrerequisite>
 	</RecipeDef>
-	
-	<RecipeDef>
+
+	<RecipeDef ParentName="CookMealSpecialBase_SK">
+		<defName>MakeKebabBulk</defName>
+		<label>make kebab (x4)</label>
+		<description>Make kebab from vegetables, mushrooms and meat. Produces 8.</description>
+		<jobString>Cooking kebab.</jobString>
+		<workAmount>2460</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>MeatRaw</li>
+					</categories>
+				</filter>
+				<count>2.8</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>RawTomatoes</li>
+					</thingDefs>
+				</filter>
+				<count>1.2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>RawShimmershroom</li>
+						<li>RawGlowbulb</li>
+						<li>Rawmushroom</li>
+					</thingDefs>
+				</filter>
+				<count>1.2</count>
+			</li>
+		</ingredients>
+		<products>
+			<Kebab>8</Kebab>
+		</products>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>RawShimmershroom</li>
+				<li>RawGlowbulb</li>
+				<li>Rawmushroom</li>
+				<li>RawTomatoes</li>
+			</thingDefs>
+			<categories>
+				<li>MeatRaw</li>
+			</categories>
+			<specialFiltersToDisallow>
+				<li>AllowPlantFood</li>
+			</specialFiltersToDisallow>
+		</fixedIngredientFilter>
+		<defaultIngredientFilter>
+			<thingDefs>
+				<li>RawShimmershroom</li>
+				<li>RawGlowbulb</li>
+				<li>Rawmushroom</li>
+				<li>RawTomatoes</li>
+			</thingDefs>
+			<categories>
+				<li>MeatRaw</li>
+			</categories>
+			<disallowedThingDefs>
+				<li>Meat_Megaspider</li>
+				<li>Meat_Human</li>
+			</disallowedThingDefs>
+			<disallowedCategories>
+				<li>EggsFertilized</li>
+			</disallowedCategories>
+		</defaultIngredientFilter>
+		<skillRequirements>
+			<Cooking>10</Cooking>
+		</skillRequirements>
+		<recipeUsers>
+			<li>ElectricStove_Pro</li>
+		</recipeUsers>
+		<researchPrerequisite>PackagedSurvivalMeal</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="CookMealSpecialBase_SK">
 		<defName>MakeMushroomMadness</defName>
 		<label>make mushroom madness</label>
 		<description>Make a mysterious dish from different mushrooms. Produces 2.</description>
 		<jobString>Cooking mushroom madness.</jobString>
-		<workSpeedStat>CookSpeed</workSpeedStat>
-		<effectWorking>Cook</effectWorking>
-		<workAmount>700</workAmount>
-		<soundWorking>Recipe_CookMeal</soundWorking>
-		<requiredGiverWorkType>Cooking</requiredGiverWorkType>
-		<allowMixingIngredients>true</allowMixingIngredients>
-		<ingredientValueGetterClass>IngredientValueGetter_Nutrition</ingredientValueGetterClass>
 		<ingredients>
 			<li>
 				<filter>
@@ -510,26 +845,86 @@
 		<skillRequirements>
 			<Cooking>7</Cooking>
 		</skillRequirements>
-		<workSkill>Cooking</workSkill>
 		<recipeUsers>
 			<li>ElectricStove</li>
-			<li>ElectricStove_Pro</li>
 		</recipeUsers>
 		<researchPrerequisite>Food_C2</researchPrerequisite>
 	</RecipeDef>
 
-	<RecipeDef>
+	<RecipeDef ParentName="CookMealSpecialBase_SK">
+		<defName>MakeMushroomMadnessBulk</defName>
+		<label>make mushroom madness (x4)</label>
+		<description>Make a mysterious dish from different mushrooms. Produces 8.</description>
+		<jobString>Cooking mushroom madness.</jobString>
+		<workAmount>2460</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>RawShimmershroom</li>
+					</thingDefs>
+				</filter>
+				<count>1.6</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>RawGlowbulb</li>
+					</thingDefs>
+				</filter>
+				<count>1.6</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Rawmushroom</li>
+					</thingDefs>
+				</filter>
+				<count>1.6</count>
+			</li>
+		</ingredients>
+		<products>
+			<MushroomMadness>8</MushroomMadness>
+		</products>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>RawShimmershroom</li>
+				<li>RawGlowbulb</li>
+				<li>Rawmushroom</li>
+			</thingDefs>
+			<specialFiltersToDisallow>
+				<li>AllowPlantFood</li>
+			</specialFiltersToDisallow>
+		</fixedIngredientFilter>
+		<defaultIngredientFilter>
+			<thingDefs>
+				<li>RawShimmershroom</li>
+				<li>RawGlowbulb</li>
+				<li>Rawmushroom</li>
+			</thingDefs>
+			<disallowedThingDefs>
+				<li>Meat_Megaspider</li>
+				<li>Meat_Human</li>
+			</disallowedThingDefs>
+			<disallowedCategories>
+				<li>EggsFertilized</li>
+			</disallowedCategories>
+		</defaultIngredientFilter>
+		<skillRequirements>
+			<Cooking>9</Cooking>
+		</skillRequirements>
+		<recipeUsers>
+			<li>ElectricStove_Pro</li>
+		</recipeUsers>
+		<researchPrerequisite>PackagedSurvivalMeal</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="CookMealSpecialBase_SK">
 		<defName>MakeCoconutCurry</defName>
 		<label>cook coconut curry</label>
 		<description>Prepares an exotic dish from meat, rice and coconut milk. Produces 2.</description>
 		<jobString>Cooking coconut curry.</jobString>
-		<workSpeedStat>CookSpeed</workSpeedStat>
-		<effectWorking>Cook</effectWorking>
-		<workAmount>700</workAmount>
-		<requiredGiverWorkType>Cooking</requiredGiverWorkType>
 		<soundWorking>Chemlab_Medicine_Drink</soundWorking>
-		<allowMixingIngredients>true</allowMixingIngredients>
-		<ingredientValueGetterClass>IngredientValueGetter_Nutrition</ingredientValueGetterClass>
 		<ingredients>
 			<li>
 				<filter>
@@ -587,26 +982,88 @@
 		<skillRequirements>
 			<Cooking>9</Cooking>
 		</skillRequirements>
-		<workSkill>Cooking</workSkill>
 		<recipeUsers>
 			<li>ElectricStove</li>
-			<li>ElectricStove_Pro</li>
 		</recipeUsers>
 		<researchPrerequisite>Food_C2</researchPrerequisite>
 	</RecipeDef>
 
-	<RecipeDef>
+	<RecipeDef ParentName="CookMealSpecialBase_SK">
+		<defName>MakeCoconutCurryBulk</defName>
+		<label>cook coconut curry (x4)</label>
+		<description>Prepares an exotic dish from meat, rice and coconut milk. Produces 8.</description>
+		<jobString>Cooking coconut curry.</jobString>
+		<soundWorking>Chemlab_Medicine_Drink</soundWorking>
+		<workAmount>2460</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>MeatRaw</li>
+					</categories>
+				</filter>
+				<count>1.2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>coconutmilk</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>RawRice</li>
+					</thingDefs>
+				</filter>
+				<count>1.6</count>
+			</li>
+		</ingredients>
+		<products>
+			<CoconutCurry>8</CoconutCurry>
+		</products>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>RawRice</li>
+				<li>coconutmilk</li>
+			</thingDefs>
+			<categories>
+				<li>MeatRaw</li>
+			</categories>
+			<specialFiltersToDisallow>
+				<li>AllowPlantFood</li>
+			</specialFiltersToDisallow>
+		</fixedIngredientFilter>
+		<defaultIngredientFilter>
+			<thingDefs>
+				<li>RawRice</li>
+				<li>coconutmilk</li>
+			</thingDefs>
+			<categories>
+				<li>MeatRaw</li>
+			</categories>
+			<disallowedThingDefs>
+				<li>Meat_Megaspider</li>
+				<li>Meat_Human</li>
+			</disallowedThingDefs>
+		</defaultIngredientFilter>
+		<skillRequirements>
+			<Cooking>11</Cooking>
+		</skillRequirements>
+		<recipeUsers>
+			<li>ElectricStove_Pro</li>
+		</recipeUsers>
+		<researchPrerequisite>PackagedSurvivalMeal</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="CookMealSpecialBase_SK">
 		<defName>MakePelmeni</defName>
 		<label>make pelmeni</label>
 		<description>Make pelmeni from flour and prime meat. Produces 2.</description>
 		<jobString>Cooking pelmeni.</jobString>
-		<workSpeedStat>CookSpeed</workSpeedStat>
-		<effectWorking>Cook</effectWorking>
 		<workAmount>800</workAmount>
-		<soundWorking>Recipe_CookMeal</soundWorking>
-		<requiredGiverWorkType>Cooking</requiredGiverWorkType>
-		<allowMixingIngredients>true</allowMixingIngredients>
-		<ingredientValueGetterClass>IngredientValueGetter_Nutrition</ingredientValueGetterClass>
 		<ingredients>
 			<li>
 				<filter>
@@ -656,30 +1113,82 @@
 		<skillRequirements>
 			<Cooking>8</Cooking>
 		</skillRequirements>
-		<workSkill>Cooking</workSkill>
 		<recipeUsers>
 			<li>ElectricStove</li>
-			<li>ElectricStove_Pro</li>
 		</recipeUsers>
 		<researchPrerequisite>Food_C1</researchPrerequisite>
 	</RecipeDef>
 
+	<RecipeDef ParentName="CookMealSpecialBase_SK">
+		<defName>MakePelmeniBulk</defName>
+		<label>make pelmeni (x4)</label>
+		<description>Make pelmeni from flour and prime meat. Produces 8.</description>
+		<jobString>Cooking pelmeni.</jobString>
+		<workAmount>2800</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Meat_Muffalo</li>
+						<li>MetalCannedMeat_prime</li>
+					</thingDefs>
+				</filter>
+				<count>2.8</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Flour</li>
+					</thingDefs>
+				</filter>
+				<count>0.2</count>
+			</li>
+		</ingredients>
+		<products>
+			<Pelmeni>8</Pelmeni>
+		</products>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Meat_Muffalo</li>
+				<li>MetalCannedMeat_prime</li>
+				<li>Flour</li>
+			</thingDefs>
+			<specialFiltersToDisallow>
+				<li>AllowPlantFood</li>
+			</specialFiltersToDisallow>
+		</fixedIngredientFilter>
+		<defaultIngredientFilter>
+			<thingDefs>
+				<li>Meat_Muffalo</li>
+				<li>MetalCannedMeat_prime</li>
+				<li>Flour</li>
+			</thingDefs>
+			<disallowedThingDefs>
+				<li>Meat_Megaspider</li>
+				<li>Meat_Human</li>
+			</disallowedThingDefs>
+			<disallowedCategories>
+				<li>EggsFertilized</li>
+			</disallowedCategories>
+		</defaultIngredientFilter>
+		<skillRequirements>
+			<Cooking>10</Cooking>
+		</skillRequirements>
+		<recipeUsers>
+			<li>ElectricStove_Pro</li>
+		</recipeUsers>
+		<researchPrerequisite>PackagedSurvivalMeal</researchPrerequisite>
+	</RecipeDef>
 
-<!--         Lavish Meals              -->
-	
-	
-	<RecipeDef>
+
+	<!--     Lavish Meals     -->
+
+	<RecipeDef ParentName="CookMealSpecialBase_SK">
 		<defName>MakeBurgerCheese</defName>
 		<label>cook cheese burger</label>
 		<description>Cooks a burger made from bread, meat and cheese. Delicious! Produces 2.</description>
 		<jobString>Cooking cheese burger.</jobString>
-		<workSpeedStat>CookSpeed</workSpeedStat>
-		<effectWorking>Cook</effectWorking>
 		<workAmount>900</workAmount>
-		<soundWorking>Recipe_CookMeal</soundWorking>
-		<requiredGiverWorkType>Cooking</requiredGiverWorkType>
-		<allowMixingIngredients>true</allowMixingIngredients>
-		<ingredientValueGetterClass>IngredientValueGetter_Nutrition</ingredientValueGetterClass>
 		<ingredients>
 			<li>
 				<filter>
@@ -752,22 +1261,16 @@
 		<recipeUsers>
 			<li>ElectricStove_Pro</li>
 		</recipeUsers>
-		<workSkill>Cooking</workSkill>
 		<researchPrerequisite>Food_C6</researchPrerequisite>
 	</RecipeDef>
 	
-	<RecipeDef>
+	<RecipeDef ParentName="CookMealSpecialBase_SK">
 		<defName>MakeMisoSoup</defName>
 		<label>cook miso soup</label>
 		<description>Prepares a luxury miso soup from tofu, algae, mushrooms and onion. Produces 2.</description>
 		<jobString>Cooking coconut curry.</jobString>
-		<workSpeedStat>CookSpeed</workSpeedStat>
-		<effectWorking>Cook</effectWorking>
 		<workAmount>900</workAmount>
-		<requiredGiverWorkType>Cooking</requiredGiverWorkType>
 		<soundWorking>Chemlab_Medicine_Drink</soundWorking>
-		<allowMixingIngredients>true</allowMixingIngredients>
-		<ingredientValueGetterClass>IngredientValueGetter_Nutrition</ingredientValueGetterClass>
 		<ingredients>
 			<li>
 				<filter>
@@ -837,7 +1340,6 @@
 		<skillRequirements>
 			<Cooking>14</Cooking>
 		</skillRequirements>
-		<workSkill>Cooking</workSkill>
 		<recipeUsers>
 			<li>ElectricStove_Pro</li>
 		</recipeUsers>
