@@ -34,7 +34,8 @@ Requirements:
 - If the game was installed for the first time, you need to start before updating HSK. (The game at startup generates configuration files).
 - .Net Framework 4.5 (goes by default since Windows 8. There is no support for Windows XP and previously released OS).
 
-Download installer: http://hardcore-sk.ru/hardcore/installer/HSK-Launcher-1.6-Setup.exe
+Download installer: http://hardcore-sk.ru/installer/HSK-Launcher-Setup.exe
+Mirror: https://drive.google.com/file/d/1jk8Rv1Vy30_aY1ZHNA9whCnFxyeW8eSU
 
 It will ask for the RimWorld executable location.
 
