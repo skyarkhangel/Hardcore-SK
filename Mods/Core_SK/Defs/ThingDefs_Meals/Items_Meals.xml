@@ -3,30 +3,7 @@
 
 	<!-- =========== REALISTIC PRODUCTION SK MOD =========== -->
 
-	<ThingDef Name="ResBase" Abstract="True">
-		<thingClass>ThingWithComps</thingClass>
-		<label>unspecified resource</label>
-		<category>Item</category>
-		<drawerType>MapMeshOnly</drawerType>
-		<resourceReadoutPriority>Middle</resourceReadoutPriority>
-		<useHitPoints>true</useHitPoints>
-		<selectable>true</selectable>
-		<altitudeLayer>Item</altitudeLayer>
-		<stackLimit>75</stackLimit>
-		<comps>
-			<li Class="CompProperties_Forbiddable"/>
-		</comps>
-		<ingestible>
-			<chairSearchRadius>60</chairSearchRadius>
-		</ingestible>
-		<alwaysHaulable>true</alwaysHaulable>
-		<drawGUIOverlay>true</drawGUIOverlay>
-		<rotatable>false</rotatable>
-		<pathCost>15</pathCost>
-		<allowedArchonexusCount>-1</allowedArchonexusCount>
-	</ThingDef>
-
-	<ThingDef Name="OrganicMeals" ParentName="ResBase" Abstract="True">
+	<ThingDef Name="OrganicMeals" ParentName="SK_ResourceBase" Abstract="True">
 		<graphicData>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
@@ -40,12 +17,12 @@
 		</statBases>
 		<tickerType>Rare</tickerType>
 	</ThingDef>
-	
-	<ThingDef Name="EdibleBase" ParentName="ResBase" Abstract="True">
+
+	<ThingDef Name="EdibleBase" ParentName="SK_ResourceBase" Abstract="True">
 		<statBases>
 			<MaxHitPoints>50</MaxHitPoints>
 			<Flammability>1.0</Flammability>
-			<Beauty>-4</Beauty>
+			<Beauty>0</Beauty>
 			<Bulk>0.25</Bulk>
 			<Mass>0.35</Mass>
 			<DeteriorationRate>10</DeteriorationRate>
@@ -55,9 +32,9 @@
 		<socialPropernessMatters>true</socialPropernessMatters>
 		<healthAffectsPrice>false</healthAffectsPrice>
 		<comps>
-			<li Class="CompProperties_Ingredients" />
 			<li Class="CompProperties_FoodPoisonable" />
 		</comps>
+		<allowedArchonexusCount>40</allowedArchonexusCount>
 		<resourceReadoutPriority>Last</resourceReadoutPriority>
 		<uiIconForStackCount>1</uiIconForStackCount>
 		<ingestible>
@@ -67,19 +44,31 @@
 		</ingestible>
 	</ThingDef>
 
-	<ThingDef Name="SK_MealBase" ParentName="EdibleBase" Abstract="True">
+	<ThingDef Name="SK_MealBaseIngredientless" ParentName="EdibleBase" Abstract="True">
 		<thingCategories>
 			<li>FoodMeals</li>
 		</thingCategories>
 	</ThingDef>
 
-	<ThingDef Name="SweetMealBase" ParentName="EdibleBase" Abstract="True">
+	<ThingDef Name="SK_MealBase" ParentName="SK_MealBaseIngredientless" Abstract="True">
+		<comps>
+			<li Class="CompProperties_Ingredients" />
+		</comps>
+	</ThingDef>
+
+	<ThingDef Name="SweetMealBaseIngredientless" ParentName="EdibleBase" Abstract="True">
 		<thingCategories>
 			<li>SweetMeals</li>
 		</thingCategories>
 	</ThingDef>
 
-	<ThingDef Name="MealBeverage" ParentName="EdibleBase" Abstract="True">
+	<ThingDef Name="SweetMealBase" ParentName="SweetMealBaseIngredientless" Abstract="True">
+		<comps>
+			<li Class="CompProperties_Ingredients" />
+		</comps>
+	</ThingDef>
+
+	<ThingDef Name="MealBeverageIngredientless" ParentName="EdibleBase" Abstract="True">
 		<statBases>
 			<Beauty>-6</Beauty>
 			<Bulk>1.0</Bulk>
@@ -87,6 +76,11 @@
 		</statBases>
 	</ThingDef>
 
+	<ThingDef Name="MealBeverage" ParentName="MealBeverageIngredientless" Abstract="True">
+		<comps>
+			<li Class="CompProperties_Ingredients" />
+		</comps>
+	</ThingDef>
 
 	<ThingDef ParentName="SK_MealBase">
 		<defName>MealSurvivalPack</defName>
@@ -146,7 +140,6 @@
 		</comps>
 	</ThingDef> -->
 
-
 	<ThingDef ParentName="SK_MealBase">
 		<defName>MealFine</defName>
 		<label>Fine Meal</label>
@@ -176,7 +169,6 @@
 			</li>
 		</comps>
 	</ThingDef>
-
 
 	<ThingDef ParentName="SK_MealBase">
 		<defName>MealLavish</defName>
@@ -208,7 +200,6 @@
 		</comps>
 	</ThingDef>
 
-
 	<!-- <ThingDef ParentName="SK_MealBase">
 		<defName>MealLuxury</defName>
 		<label>Luxury Meal</label>
@@ -238,7 +229,6 @@
 			</li>
 		</comps>
 	</ThingDef> -->
-
 
 	<ThingDef ParentName="SK_MealBase">
 		<defName>MealSalad</defName>
@@ -298,7 +288,7 @@
 			</li>
 		</comps>
 	</ThingDef>
-	
+
 	<ThingDef ParentName="SK_MealBase">
 		<defName>ScrambledEggs</defName>
 		<label>Scrambled Eggs</label>
@@ -328,8 +318,7 @@
 			</li>
 		</comps>
 	</ThingDef>
-	
-	
+
 	<ThingDef ParentName="SK_MealBase">
 		<defName>FriedMushrooms</defName>
 		<label>fried cave mushrooms</label>
@@ -360,7 +349,6 @@
 			</li>
 		</comps>
 	</ThingDef>
-	
 
 	<ThingDef ParentName="SK_MealBase">
 		<defName>FriedVegetables</defName>
