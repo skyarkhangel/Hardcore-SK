@@ -1,0 +1,982 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- ========================== BigCats ============================ -->
+	<ThingDef ParentName="SK_AnimalThingBase" Name="SK_BigCatThingBase" Abstract="True">
+		<devNote>warg-1</devNote>
+		<statBases>
+			<Mass>110</Mass>
+			<MoveSpeed>7.8</MoveSpeed>
+			<ComfyTemperatureMin>-8</ComfyTemperatureMin>
+			<MarketValue>1150</MarketValue>
+			<MeleeDodgeChance>0.23</MeleeDodgeChance>
+			<MeleeParryChance>0.06</MeleeParryChance>
+			<MeleeCritChance>0.12</MeleeCritChance>
+			<FilthRate>3</FilthRate>
+		</statBases>
+		<uiIconScale>1.15</uiIconScale>
+		<tools>
+			<li Class="CombatExtended.ToolCE">
+				<label>left claw</label>
+				<capacities>
+					<li>Scratch</li>
+				</capacities>
+				<power>15</power>
+				<cooldownTime>1.4</cooldownTime>
+				<linkedBodyPartsGroup>FrontLeftPaw</linkedBodyPartsGroup>
+				<surpriseAttack>
+					<extraMeleeDamages>
+						<li>
+							<def>Stun</def>
+							<amount>20</amount>
+						</li>
+					</extraMeleeDamages>
+				</surpriseAttack>
+				<armorPenetrationSharp>3.1</armorPenetrationSharp>
+				<armorPenetrationBlunt>4.8</armorPenetrationBlunt>
+			</li>
+			<li Class="CombatExtended.ToolCE">
+				<label>right claw</label>
+				<capacities>
+					<li>Scratch</li>
+				</capacities>
+				<power>15</power>
+				<cooldownTime>1.4</cooldownTime>
+				<linkedBodyPartsGroup>FrontRightPaw</linkedBodyPartsGroup>
+				<surpriseAttack>
+					<extraMeleeDamages>
+						<li>
+							<def>Stun</def>
+							<amount>20</amount>
+						</li>
+					</extraMeleeDamages>
+				</surpriseAttack>
+				<armorPenetrationSharp>3.1</armorPenetrationSharp>
+				<armorPenetrationBlunt>4.8</armorPenetrationBlunt>
+			</li>
+			<li Class="CombatExtended.ToolCE">
+				<capacities>
+					<li>Bite</li>
+				</capacities>
+				<power>19</power>
+				<cooldownTime>1.6</cooldownTime>
+				<linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+				<surpriseAttack>
+					<extraMeleeDamages>
+						<li>
+							<def>Stun</def>
+							<amount>30</amount>
+						</li>
+					</extraMeleeDamages>
+				</surpriseAttack>
+				<chanceFactor>0.7</chanceFactor>
+				<armorPenetrationSharp>3.6</armorPenetrationSharp>
+				<armorPenetrationBlunt>7.6</armorPenetrationBlunt>
+			</li>
+			<li Class="CombatExtended.ToolCE">
+				<label>head</label>
+				<capacities>
+					<li>Blunt</li>
+				</capacities>
+				<power>12</power>
+				<cooldownTime>1.235</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.2</chanceFactor>
+				<armorPenetrationBlunt>6.5</armorPenetrationBlunt>
+			</li>
+		</tools>
+		<race>
+			<body>QuadrupedAnimalWithPawsAndTail</body>
+			<herdAnimal>false</herdAnimal>
+			<predator>true</predator>
+			<maxPreyBodySize>1.15</maxPreyBodySize>
+			<baseBodySize>1.1</baseBodySize>
+			<baseHungerRate>1.0</baseHungerRate>
+			<baseHealthScale>1.8</baseHealthScale>
+			<foodType>CarnivoreAnimal,  CarnivoreAnimalStrict, OvivoreAnimal</foodType>
+			<nuzzleMtbHours>36</nuzzleMtbHours>
+			<wildness>0.80</wildness>
+			<leatherDef>Leather_Panthera</leatherDef>
+			<useMeatFrom>Muffalo</useMeatFrom>
+			<manhunterOnTameFailChance>0.25</manhunterOnTameFailChance>
+			<manhunterOnDamageChance>0.65</manhunterOnDamageChance>
+			<gestationPeriodDays>10</gestationPeriodDays>
+			<lifeExpectancy>13</lifeExpectancy>
+			<lifeStageAges>
+				<li>
+					<def>AnimalBaby</def>
+					<minAge>0</minAge>
+				</li>
+				<li>
+					<def>AnimalJuvenile</def>
+					<minAge>0.25</minAge>
+				</li>
+				<li>
+					<def>AnimalAdult</def>
+					<minAge>0.5</minAge>
+					<soundWounded>Pawn_Cougar_Injured</soundWounded>
+					<soundDeath>Pawn_Cougar_Death</soundDeath>
+					<soundAngry>Pawn_Cougar_Angry</soundAngry>
+				</li>
+			</lifeStageAges>
+			<soundMeleeHitPawn>Pawn_Melee_BigBash_HitPawn</soundMeleeHitPawn>
+			<soundMeleeHitBuilding>Pawn_Melee_BigBash_HitBuilding</soundMeleeHitBuilding>
+			<soundMeleeMiss>Pawn_Melee_BigBash_Miss</soundMeleeMiss>
+		</race>
+		<tradeTags>
+			<li>AnimalUncommon</li>
+			<li>AnimalFighter</li>
+		</tradeTags>
+		<modExtensions>
+			<li Class="CombatExtended.RacePropertiesExtensionCE">
+				<bodyShape>Quadruped</bodyShape>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<PawnKindDef ParentName="SK_AnimalKindBase" Name="SK_BigCatKindBase" Abstract="True">
+		<combatPower>160</combatPower>
+		<ecoSystemWeight>0.45</ecoSystemWeight>
+	</PawnKindDef>
+
+	<ThingDef ParentName="SK_BigCatThingBase">
+		<defName>Cougar</defName>
+		<label>Cougar</label>
+		<description>One of the most dangerous big cats, cougars are solitary hunters with long, sharp teeth and claws. They stalk prey from hidden positions before pouncing.\n\nWhile humans are not their normal diet, they won't turn down a meal of vulnerable human meat.</description>
+		<statBases>
+			<ComfyTemperatureMin>-20</ComfyTemperatureMin>
+			<MarketValue>1050</MarketValue>
+			<FilthRate>2</FilthRate>
+		</statBases>
+	</ThingDef>
+
+	<PawnKindDef ParentName="SK_BigCatKindBase">
+		<defName>Cougar</defName>
+		<label>cougar</label>
+		<race>Cougar</race>
+		<lifeStages>
+			<li>
+				<bodyGraphicData>
+					<texPath>Things/Pawn/Animal/Cougar/Cougar</texPath>
+					<drawSize>1.1</drawSize>
+					<color>(177,136,112)</color>
+				</bodyGraphicData>
+				<dessicatedBodyGraphicData>
+					<texPath>Things/Pawn/Animal/Cougar/Dessicated_Cougar</texPath>
+					<drawSize>1.1</drawSize>
+				</dessicatedBodyGraphicData>
+			</li>
+			<li>
+				<bodyGraphicData>
+					<texPath>Things/Pawn/Animal/Cougar/Cougar</texPath>
+					<drawSize>1.4</drawSize>
+					<color>(177,136,112)</color>
+					<shadowData>
+						<volume>(0.3, 0.3, 0.3)</volume>
+						<offset>(0,0,-0.3)</offset>
+					</shadowData>
+				</bodyGraphicData>
+				<dessicatedBodyGraphicData>
+					<texPath>Things/Pawn/Animal/Cougar/Dessicated_Cougar</texPath>
+					<drawSize>1.4</drawSize>
+				</dessicatedBodyGraphicData>
+			</li>
+			<li>
+				<bodyGraphicData>
+					<texPath>Things/Pawn/Animal/Cougar/Cougar</texPath>
+					<drawSize>2.18</drawSize>
+					<color>(177,136,112)</color>
+					<shadowData>
+						<volume>(0.4, 0.4, 0.4)</volume>
+						<offset>(0,0,-0.1)</offset>
+					</shadowData>
+				</bodyGraphicData>
+				<dessicatedBodyGraphicData>
+					<texPath>Things/Pawn/Animal/Cougar/Dessicated_Cougar</texPath>
+					<drawSize>2.18</drawSize>
+				</dessicatedBodyGraphicData>
+			</li>
+		</lifeStages>
+	</PawnKindDef>
+
+	<ThingDef ParentName="SK_BigCatThingBase">
+		<defName>Panther</defName>
+		<label>Panther</label>
+		<description>An agile and powerful big cat native to the jungles of old Earth. As solitary ambush predators, panthers are masters of taking down both large and small prey. Onlookers tend to focus on their graceful movements, while those in closer contact usually notice their skull-crushing strength.</description>
+		<statBases>
+			<MoveSpeed>8.1</MoveSpeed>
+			<ComfyTemperatureMin>-8</ComfyTemperatureMin>
+			<ComfyTemperatureMax>50</ComfyTemperatureMax>
+			<MarketValue>1200</MarketValue>
+			<FilthRate>2</FilthRate>
+		</statBases>
+	</ThingDef>
+
+	<PawnKindDef ParentName="SK_BigCatKindBase">
+		<defName>Panther</defName>
+		<label>panther</label>
+		<race>Panther</race>
+		<lifeStages>
+			<li>
+				<bodyGraphicData>
+					<texPath>Things/Pawn/Animal/Cougar/Cougar</texPath>
+					<drawSize>1.05</drawSize>
+					<color>(60,60,60)</color>
+				</bodyGraphicData>
+				<dessicatedBodyGraphicData>
+					<texPath>Things/Pawn/Animal/Cougar/Dessicated_Cougar</texPath>
+					<drawSize>1.05</drawSize>
+				</dessicatedBodyGraphicData>
+			</li>
+			<li>
+				<bodyGraphicData>
+					<texPath>Things/Pawn/Animal/Cougar/Cougar</texPath>
+					<drawSize>1.35</drawSize>
+					<color>(60,60,60)</color>
+					<shadowData>
+						<volume>(0.3, 0.3, 0.3)</volume>
+						<offset>(0,0,-0.3)</offset>
+					</shadowData>
+				</bodyGraphicData>
+				<dessicatedBodyGraphicData>
+					<texPath>Things/Pawn/Animal/Cougar/Dessicated_Cougar</texPath>
+					<drawSize>1.35</drawSize>
+				</dessicatedBodyGraphicData>
+			</li>
+			<li>
+				<bodyGraphicData>
+					<texPath>Things/Pawn/Animal/Cougar/Cougar</texPath>
+					<drawSize>2.12</drawSize>
+					<color>(60,60,60)</color>
+					<shadowData>
+						<volume>(0.4, 0.4, 0.4)</volume>
+						<offset>(0,0,-0.1)</offset>
+					</shadowData>
+				</bodyGraphicData>
+				<dessicatedBodyGraphicData>
+					<texPath>Things/Pawn/Animal/Cougar/Dessicated_Cougar</texPath>
+					<drawSize>2.12</drawSize>
+				</dessicatedBodyGraphicData>
+			</li>
+		</lifeStages>
+	</PawnKindDef>
+
+	<!--===============================================-->
+	<ThingDef ParentName="SK_AnimalThingBase">
+		<defName>Lynx</defName>
+		<label>Lynx</label>
+		<devNote>warg-1</devNote>
+		<description>A wildcat larger than a housecat, but smaller than a cougar. Lynxes survive on a diet of small birds and animals. Their very warm fur keeps them safe from the brutally cold temperatures of their northern territories.</description>
+		<statBases>
+			<Mass>80</Mass>
+			<MoveSpeed>7.8</MoveSpeed>
+			<ComfyTemperatureMin>-52</ComfyTemperatureMin>
+			<MarketValue>850</MarketValue>
+			<MeleeDodgeChance>0.21</MeleeDodgeChance>
+			<MeleeCritChance>0</MeleeCritChance>
+			<FilthRate>2</FilthRate>
+		</statBases>
+		<tools>
+			<li Class="CombatExtended.ToolCE">
+				<label>left claw</label>
+				<capacities>
+					<li>Scratch</li>
+				</capacities>
+				<power>11</power>
+				<cooldownTime>1.25</cooldownTime>
+				<chanceFactor>0.4</chanceFactor>
+				<linkedBodyPartsGroup>FrontLeftPaw</linkedBodyPartsGroup>
+				<surpriseAttack>
+					<extraMeleeDamages>
+						<li>
+							<def>Stun</def>
+							<amount>20</amount>
+						</li>
+					</extraMeleeDamages>
+				</surpriseAttack>
+				<armorPenetrationSharp>1.5</armorPenetrationSharp>
+				<armorPenetrationBlunt>1.7</armorPenetrationBlunt>
+			</li>
+			<li Class="CombatExtended.ToolCE">
+				<label>right claw</label>
+				<capacities>
+					<li>Scratch</li>
+				</capacities>
+				<power>11</power>
+				<cooldownTime>1.25</cooldownTime>
+				<chanceFactor>0.4</chanceFactor>
+				<linkedBodyPartsGroup>FrontRightPaw</linkedBodyPartsGroup>
+				<surpriseAttack>
+					<extraMeleeDamages>
+						<li>
+							<def>Stun</def>
+							<amount>20</amount>
+						</li>
+					</extraMeleeDamages>
+				</surpriseAttack>
+				<armorPenetrationSharp>1.5</armorPenetrationSharp>
+				<armorPenetrationBlunt>1.7</armorPenetrationBlunt>
+			</li>
+			<li Class="CombatExtended.ToolCE">
+				<capacities>
+					<li>Bite</li>
+				</capacities>
+				<power>14</power>
+				<cooldownTime>1.4</cooldownTime>
+				<linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+				<surpriseAttack>
+					<extraMeleeDamages>
+						<li>
+							<def>Stun</def>
+							<amount>30</amount>
+						</li>
+					</extraMeleeDamages>
+				</surpriseAttack>
+				<armorPenetrationSharp>2.5</armorPenetrationSharp>
+				<armorPenetrationBlunt>2.690</armorPenetrationBlunt>
+			</li>
+			<li Class="CombatExtended.ToolCE">
+				<label>head</label>
+				<capacities>
+					<li>Blunt</li>
+				</capacities>
+				<power>12</power>
+				<cooldownTime>1.45</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.2</chanceFactor>
+				<armorPenetrationBlunt>1.5</armorPenetrationBlunt>
+			</li>
+		</tools>
+		<race>
+			<body>QuadrupedAnimalWithPawsAndTail</body>
+			<herdAnimal>false</herdAnimal>
+			<predator>true</predator>
+			<maxPreyBodySize>1.0</maxPreyBodySize>
+			<baseBodySize>0.8</baseBodySize>
+			<baseHungerRate>0.75</baseHungerRate>
+			<baseHealthScale>0.8</baseHealthScale>
+			<foodType>CarnivoreAnimal, OvivoreAnimal</foodType>
+			<useMeatFrom>Muffalo</useMeatFrom>
+			<leatherDef>Leather_Panthera</leatherDef>
+			<wildness>0.80</wildness>
+			<manhunterOnTameFailChance>0.25</manhunterOnTameFailChance>
+			<manhunterOnDamageChance>0.60</manhunterOnDamageChance>
+			<gestationPeriodDays>10</gestationPeriodDays>
+			<lifeExpectancy>9</lifeExpectancy>
+			<lifeStageAges>
+				<li>
+					<def>AnimalBaby</def>
+					<minAge>0</minAge>
+				</li>
+				<li>
+					<def>AnimalJuvenile</def>
+					<minAge>0.2</minAge>
+				</li>
+				<li>
+					<def>AnimalAdult</def>
+					<minAge>0.5</minAge>
+					<soundWounded>Pawn_Cougar_Injured</soundWounded>
+					<soundDeath>Pawn_Cougar_Death</soundDeath>
+					<soundAngry>Pawn_Cougar_Angry</soundAngry>
+				</li>
+			</lifeStageAges>
+			<soundMeleeHitPawn>Pawn_Melee_BigBash_HitPawn</soundMeleeHitPawn>
+			<soundMeleeHitBuilding>Pawn_Melee_BigBash_HitBuilding</soundMeleeHitBuilding>
+			<soundMeleeMiss>Pawn_Melee_BigBash_Miss</soundMeleeMiss>
+		</race>
+		<tradeTags>
+			<li>AnimalUncommon</li>
+			<li>AnimalFighter</li>
+		</tradeTags>
+		<modExtensions>
+			<li Class="CombatExtended.RacePropertiesExtensionCE">
+				<bodyShape>Quadruped</bodyShape>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<PawnKindDef ParentName="SK_AnimalKindBase">
+		<defName>Lynx</defName>
+		<label>lynx</label>
+		<race>Lynx</race>
+		<combatPower>125</combatPower>
+		<ecoSystemWeight>0.22</ecoSystemWeight>
+		<lifeStages>
+			<li>
+				<label>lynx kitten</label>
+				<bodyGraphicData>
+					<texPath>Things/Pawn/Animal/Lynx/Lynx</texPath>
+					<drawSize>1.1</drawSize>
+					<color>(173,155,138)</color>
+					<shaderType>CutoutComplex</shaderType>
+				</bodyGraphicData>
+				<dessicatedBodyGraphicData>
+					<texPath>Things/Pawn/Animal/Lynx/Dessicated_Lynx</texPath>
+					<drawSize>1.1</drawSize>
+				</dessicatedBodyGraphicData>
+			</li>
+			<li>
+				<bodyGraphicData>
+					<texPath>Things/Pawn/Animal/Lynx/Lynx</texPath>
+					<drawSize>1.4</drawSize>
+					<color>(173,155,138)</color>
+					<shaderType>CutoutComplex</shaderType>
+					<shadowData>
+						<volume>(0.3, 0.3, 0.3)</volume>
+						<offset>(0,0,-0.3)</offset>
+					</shadowData>
+				</bodyGraphicData>
+				<dessicatedBodyGraphicData>
+					<texPath>Things/Pawn/Animal/Lynx/Dessicated_Lynx</texPath>
+					<drawSize>1.4</drawSize>
+				</dessicatedBodyGraphicData>
+			</li>
+			<li>
+				<bodyGraphicData>
+					<texPath>Things/Pawn/Animal/Lynx/Lynx</texPath>
+					<drawSize>1.6</drawSize>
+					<color>(173,155,138)</color>
+					<shaderType>CutoutComplex</shaderType>
+					<shadowData>
+						<volume>(0.3, 0.3, 0.3)</volume>
+						<offset>(0,0,-0.1)</offset>
+					</shadowData>
+				</bodyGraphicData>
+				<dessicatedBodyGraphicData>
+					<texPath>Things/Pawn/Animal/Lynx/Dessicated_Lynx</texPath>
+					<drawSize>1.6</drawSize>
+				</dessicatedBodyGraphicData>
+			</li>
+		</lifeStages>
+	</PawnKindDef>
+
+	<ThingDef ParentName="SK_AnimalThingBase">
+		<defName>Tiger</defName>
+		<label>Tiger</label>
+		<devNote>warg-1</devNote>
+		<description>The tiger is the largest cat species, most recognisable for their pattern of dark vertical stripes on reddish-orange fur with a lighter underside. Tigers are apex predators, primarily preying on ungulates such as deer and bovids. They are territorial and generally solitary but social animals, often requiring large contiguous areas of habitat that support their prey requirements.</description>
+		<statBases>
+			<Mass>130</Mass>
+			<MoveSpeed>7.10</MoveSpeed>
+			<ComfyTemperatureMin>-5</ComfyTemperatureMin>
+			<MarketValue>1200</MarketValue>
+			<MeleeDodgeChance>0.15</MeleeDodgeChance>
+			<MeleeCritChance>0</MeleeCritChance>
+			<FilthRate>2</FilthRate>
+		</statBases>
+		<tools>
+			<li Class="CombatExtended.ToolCE">
+				<label>left claw</label>
+				<capacities>
+					<li>Scratch</li>
+				</capacities>
+				<power>16</power>
+				<cooldownTime>1.55</cooldownTime>
+				<linkedBodyPartsGroup>FrontLeftPaw</linkedBodyPartsGroup>
+				<surpriseAttack>
+					<extraMeleeDamages>
+						<li>
+							<def>Stun</def>
+							<amount>20</amount>
+						</li>
+					</extraMeleeDamages>
+				</surpriseAttack>
+				<armorPenetrationSharp>3.1</armorPenetrationSharp>
+				<armorPenetrationBlunt>4.9</armorPenetrationBlunt>
+			</li>
+			<li Class="CombatExtended.ToolCE">
+				<label>right claw</label>
+				<capacities>
+					<li>Scratch</li>
+				</capacities>
+				<power>16</power>
+				<cooldownTime>1.55</cooldownTime>
+				<linkedBodyPartsGroup>FrontRightPaw</linkedBodyPartsGroup>
+				<surpriseAttack>
+					<extraMeleeDamages>
+						<li>
+							<def>Stun</def>
+							<amount>20</amount>
+						</li>
+					</extraMeleeDamages>
+				</surpriseAttack>
+				<armorPenetrationSharp>3.1</armorPenetrationSharp>
+				<armorPenetrationBlunt>4.9</armorPenetrationBlunt>
+			</li>
+			<li Class="CombatExtended.ToolCE">
+				<capacities>
+					<li>Bite</li>
+				</capacities>
+				<power>20</power>
+				<cooldownTime>1.8</cooldownTime>
+				<linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+				<surpriseAttack>
+					<extraMeleeDamages>
+						<li>
+							<def>Stun</def>
+							<amount>30</amount>
+						</li>
+					</extraMeleeDamages>
+				</surpriseAttack>
+				<chanceFactor>0.7</chanceFactor>
+				<armorPenetrationSharp>3.6</armorPenetrationSharp>
+				<armorPenetrationBlunt>8.6</armorPenetrationBlunt>
+			</li>
+			<li Class="CombatExtended.ToolCE">
+				<label>head</label>
+				<capacities>
+					<li>Blunt</li>
+				</capacities>
+				<power>12</power>
+				<cooldownTime>1.45</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.2</chanceFactor>
+				<armorPenetrationBlunt>6.75</armorPenetrationBlunt>
+			</li>
+		</tools>
+		<race>
+			<predator>true</predator>
+			<maxPreyBodySize>1.25</maxPreyBodySize>
+			<body>QuadrupedAnimalWithPawsAndTail</body>
+			<petness>0</petness>
+			<baseBodySize>1.15</baseBodySize>
+			<baseHungerRate>1</baseHungerRate>
+			<baseHealthScale>1.3</baseHealthScale>
+			<foodType>OmnivoreAnimal, OvivoreAnimal</foodType>
+			<useMeatFrom>Muffalo</useMeatFrom>
+			<leatherDef>Leather_Panthera</leatherDef>
+			<gestationPeriodDays>12</gestationPeriodDays>			
+			<wildness>0.85</wildness>
+			<manhunterOnDamageChance>0.8</manhunterOnDamageChance>
+			<manhunterOnTameFailChance>0.25</manhunterOnTameFailChance>
+			<nuzzleMtbHours>24</nuzzleMtbHours>
+			<litterSizeCurve>
+				<points>
+					<li>(0.5, 0)</li>
+					<li>(1, 1)</li>
+					<li>(2, 1.7)</li>
+					<li>(3, 0.7)</li>
+					<li>(3.5, 0)</li>
+				</points>
+			</litterSizeCurve>
+			<lifeExpectancy>15</lifeExpectancy>
+			<lifeStageAges>
+				<li>
+					<def>AnimalBaby</def>
+					<minAge>0</minAge>
+				</li>
+				<li>
+					<def>AnimalJuvenile</def>
+					<minAge>0.25</minAge>
+				</li>
+				<li>
+					<def>AnimalAdult</def>
+					<minAge>0.6</minAge>
+					<soundWounded>Lion_Hurt</soundWounded>
+					<soundDeath>Pawn_Lion_Death</soundDeath>
+					<soundCall>Pawn_Lion_Call</soundCall>
+					<soundAngry>Pawn_Lion_Angry</soundAngry>
+				</li>
+			</lifeStageAges>
+			<soundMeleeHitPawn>Pawn_Melee_SmallScratch_HitPawn</soundMeleeHitPawn>
+			<soundMeleeHitBuilding>Pawn_Melee_SmallScratch_HitBuilding</soundMeleeHitBuilding>
+			<soundMeleeMiss>Pawn_Melee_SmallScratch_Miss</soundMeleeMiss>
+		</race>
+		<tradeTags>
+			<li>AnimalUncommon</li>
+			<li>AnimalFighter</li>
+		</tradeTags>
+		<modExtensions>
+			<li Class="CombatExtended.RacePropertiesExtensionCE">
+				<bodyShape>Quadruped</bodyShape>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<PawnKindDef ParentName="SK_AnimalKindBase">
+		<defName>Tiger</defName>
+		<label>Tiger</label>
+		<race>Tiger</race>
+		<combatPower>170</combatPower>
+		<ecoSystemWeight>0.4</ecoSystemWeight>
+		<wildGroupSize>1~3</wildGroupSize>
+		<lifeStages>
+			<li>
+				<label>Tiger kitten</label>
+				<bodyGraphicData>
+					<texPath>Things/Pawn/Animal/Tiger</texPath>
+					<drawSize>1.25</drawSize>
+				</bodyGraphicData>
+				<dessicatedBodyGraphicData>
+					<texPath>Things/Pawn/Animal/Cougar/Dessicated_Cougar</texPath>
+					<drawSize>1.25</drawSize>
+				</dessicatedBodyGraphicData>
+			</li>
+			<li>
+				<bodyGraphicData>
+					<texPath>Things/Pawn/Animal/Tiger</texPath>
+					<drawSize>1.8</drawSize>
+					<shadowData>
+						<volume>(0.4, 0.4, 0.4)</volume>
+						<offset>(0,0,-0.2)</offset>
+					</shadowData>
+				</bodyGraphicData>
+				<dessicatedBodyGraphicData>
+					<texPath>Things/Pawn/Animal/Cougar/Dessicated_Cougar</texPath>
+					<drawSize>1.8</drawSize>
+				</dessicatedBodyGraphicData>
+			</li>
+			<li>
+				<bodyGraphicData>
+					<texPath>Things/Pawn/Animal/Tiger</texPath>
+					<drawSize>2.2</drawSize>
+					<shadowData>
+						<volume>(0.4, 0.4, 0.4)</volume>
+						<offset>(0,0,-0.2)</offset>
+					</shadowData>
+				</bodyGraphicData>
+				<dessicatedBodyGraphicData>
+					<texPath>Things/Pawn/Animal/Cougar/Dessicated_Cougar</texPath>
+					<drawSize>2.2</drawSize>
+				</dessicatedBodyGraphicData>
+			</li>
+		</lifeStages>
+	</PawnKindDef>
+
+	<ThingDef ParentName="SK_AnimalThingBase">
+		<defName>WhiteTiger</defName>
+		<label>White tiger</label>
+		<devNote>warg-1</devNote>
+		<description>The white tiger is a pigmentation variant of the tiger. The white tigers are distinctive due to the color of their fur. The white fur caused by a lack of the pigment pheomelanin, which is found in tigers with orange color fur.</description>
+		<statBases>
+			<Mass>125</Mass>
+			<MoveSpeed>7.30</MoveSpeed>
+			<ComfyTemperatureMin>-36</ComfyTemperatureMin>
+			<MarketValue>1200</MarketValue>
+			<MeleeDodgeChance>0.15</MeleeDodgeChance>
+			<MeleeCritChance>0</MeleeCritChance>
+			<FilthRate>2</FilthRate>
+		</statBases>
+		<tools>
+			<li Class="CombatExtended.ToolCE">
+				<label>left claw</label>
+				<capacities>
+					<li>Scratch</li>
+				</capacities>
+				<power>16</power>
+				<cooldownTime>1.55</cooldownTime>
+				<linkedBodyPartsGroup>FrontLeftPaw</linkedBodyPartsGroup>
+				<surpriseAttack>
+					<extraMeleeDamages>
+						<li>
+							<def>Stun</def>
+							<amount>20</amount>
+						</li>
+					</extraMeleeDamages>
+				</surpriseAttack>
+				<armorPenetrationSharp>3.1</armorPenetrationSharp>
+				<armorPenetrationBlunt>4.8</armorPenetrationBlunt>
+			</li>
+			<li Class="CombatExtended.ToolCE">
+				<label>right claw</label>
+				<capacities>
+					<li>Scratch</li>
+				</capacities>
+				<power>16</power>
+				<cooldownTime>1.55</cooldownTime>
+				<linkedBodyPartsGroup>FrontRightPaw</linkedBodyPartsGroup>
+				<surpriseAttack>
+					<extraMeleeDamages>
+						<li>
+							<def>Stun</def>
+							<amount>20</amount>
+						</li>
+					</extraMeleeDamages>
+				</surpriseAttack>
+				<armorPenetrationSharp>3.1</armorPenetrationSharp>
+				<armorPenetrationBlunt>4.8</armorPenetrationBlunt>
+			</li>
+			<li Class="CombatExtended.ToolCE">
+				<capacities>
+					<li>Bite</li>
+				</capacities>
+				<power>20</power>
+				<cooldownTime>1.7</cooldownTime>
+				<linkedBodyPartsGroup>Teeth</linkedBodyPartsGroup>
+				<surpriseAttack>
+					<extraMeleeDamages>
+						<li>
+							<def>Stun</def>
+							<amount>30</amount>
+						</li>
+					</extraMeleeDamages>
+				</surpriseAttack>
+				<chanceFactor>0.7</chanceFactor>
+				<armorPenetrationSharp>3.6</armorPenetrationSharp>
+				<armorPenetrationBlunt>7.6</armorPenetrationBlunt>
+			</li>
+			<li Class="CombatExtended.ToolCE">
+				<label>head</label>
+				<capacities>
+					<li>Blunt</li>
+				</capacities>
+				<power>12</power>
+				<cooldownTime>1.65</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<chanceFactor>0.2</chanceFactor>
+				<armorPenetrationBlunt>6.5</armorPenetrationBlunt>
+			</li>
+		</tools>
+		<race>
+			<predator>true</predator>
+			<maxPreyBodySize>1.25</maxPreyBodySize>
+			<body>QuadrupedAnimalWithPawsAndTail</body>
+			<petness>0</petness>
+			<baseBodySize>1.15</baseBodySize>
+			<baseHungerRate>1</baseHungerRate>
+			<baseHealthScale>1.3</baseHealthScale>
+			<foodType>OmnivoreAnimal, OvivoreAnimal</foodType>
+			<useMeatFrom>Muffalo</useMeatFrom>
+			<leatherDef>Leather_Panthera</leatherDef>
+			<gestationPeriodDays>12</gestationPeriodDays>			
+			<wildness>0.85</wildness>
+			<manhunterOnDamageChance>0.9</manhunterOnDamageChance>
+			<manhunterOnTameFailChance>0.25</manhunterOnTameFailChance>
+			<nuzzleMtbHours>24</nuzzleMtbHours>
+			<litterSizeCurve>
+				<points>
+					<li>(0.5, 0)</li>
+					<li>(1, 1)</li>
+					<li>(2, 1.7)</li>
+					<li>(3, 0.7)</li>
+					<li>(3.5, 0)</li>
+				</points>
+			</litterSizeCurve>
+			<lifeExpectancy>15</lifeExpectancy>
+			<lifeStageAges>
+				<li>
+					<def>AnimalBaby</def>
+					<minAge>0</minAge>
+				</li>
+				<li>
+					<def>AnimalJuvenile</def>
+					<minAge>0.25</minAge>
+				</li>
+				<li>
+					<def>AnimalAdult</def>
+					<minAge>0.6</minAge>
+					<soundWounded>Lion_Hurt</soundWounded>
+					<soundDeath>Pawn_Lion_Death</soundDeath>
+					<soundCall>Pawn_Lion_Call</soundCall>
+					<soundAngry>Pawn_Lion_Angry</soundAngry>
+				</li>
+			</lifeStageAges>
+			<soundMeleeHitPawn>Pawn_Melee_SmallScratch_HitPawn</soundMeleeHitPawn>
+			<soundMeleeHitBuilding>Pawn_Melee_SmallScratch_HitBuilding</soundMeleeHitBuilding>
+			<soundMeleeMiss>Pawn_Melee_SmallScratch_Miss</soundMeleeMiss>
+		</race>
+		<tradeTags>
+			<li>AnimalUncommon</li>
+			<li>AnimalFighter</li>
+		</tradeTags>
+		<modExtensions>
+			<li Class="CombatExtended.RacePropertiesExtensionCE">
+				<bodyShape>Quadruped</bodyShape>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<PawnKindDef ParentName="SK_AnimalKindBase">
+		<defName>WhiteTiger</defName>
+		<label>White tiger</label>
+		<race>WhiteTiger</race>
+		<combatPower>170</combatPower>
+		<ecoSystemWeight>0.4</ecoSystemWeight>
+		<wildGroupSize>1~3</wildGroupSize>
+		<lifeStages>
+			<li>
+				<label>WhiteTiger kitten</label>
+				<bodyGraphicData>
+					<texPath>Things/Pawn/Animal/WhiteTiger</texPath>
+					<drawSize>1.2</drawSize>
+					<color>(255,255,255)</color>
+				</bodyGraphicData>
+				<dessicatedBodyGraphicData>
+					<texPath>Things/Pawn/Animal/Cougar/Dessicated_Cougar</texPath>
+					<drawSize>1.2</drawSize>
+				</dessicatedBodyGraphicData>
+			</li>
+			<li>
+				<bodyGraphicData>
+					<texPath>Things/Pawn/Animal/WhiteTiger</texPath>
+					<drawSize>1.8</drawSize>
+					<color>(255,255,255)</color>
+					<shadowData>
+						<volume>(0.4, 0.4, 0.4)</volume>
+						<offset>(0,0,-0.2)</offset>
+					</shadowData>
+				</bodyGraphicData>
+				<dessicatedBodyGraphicData>
+					<texPath>Things/Pawn/Animal/Cougar/Dessicated_Cougar</texPath>
+					<drawSize>1.8</drawSize>
+				</dessicatedBodyGraphicData>
+			</li>
+			<li>
+				<bodyGraphicData>
+					<texPath>Things/Pawn/Animal/WhiteTiger</texPath>
+					<drawSize>2.2</drawSize>
+					<color>(255,255,255)</color>
+					<shadowData>
+						<volume>(0.4, 0.4, 0.4)</volume>
+						<offset>(0,0,-0.2)</offset>
+					</shadowData>
+				</bodyGraphicData>
+				<dessicatedBodyGraphicData>
+					<texPath>Things/Pawn/Animal/Cougar/Dessicated_Cougar</texPath>
+					<drawSize>2.2</drawSize>
+				</dessicatedBodyGraphicData>
+			</li>
+		</lifeStages>
+	</PawnKindDef>
+
+	<ThingDef ParentName="SK_BigCatThingBase">
+		<defName>SnowLeopard</defName>
+		<label>snow leopard</label>
+		<devNote>warg-1</devNote>
+		<description>An agile and powerful big cat native to the cold biomes. As solitary ambush predators, Snow leopards are masters of taking down both large and small prey. Onlookers tend to focus on their graceful movements, while those in closer contact usually notice their skull-crushing strength.</description>
+		<statBases>
+			<MoveSpeed>8.15</MoveSpeed>
+			<ComfyTemperatureMin>-45</ComfyTemperatureMin>
+			<MarketValue>1200</MarketValue>
+			<FilthRate>2</FilthRate>
+		</statBases>
+		<race>
+			<useMeatFrom>Muffalo</useMeatFrom>
+			<leatherDef>Leather_Panthera</leatherDef>
+		</race>
+	</ThingDef>
+
+	<PawnKindDef ParentName="SK_BigCatKindBase">
+		<defName>SnowLeopard</defName>
+		<label>Snow leopard</label>
+		<race>SnowLeopard</race>
+		<lifeStages>
+			<li>
+				<bodyGraphicData>
+					<texPath>Things/Pawn/Animal/SnowLeopard</texPath>
+					<drawSize>1.05</drawSize>
+				</bodyGraphicData>
+				<dessicatedBodyGraphicData>
+					<texPath>Things/Pawn/Animal/Cougar/Dessicated_Cougar</texPath>
+					<drawSize>1.05</drawSize>
+				</dessicatedBodyGraphicData>
+			</li>
+			<li>
+				<bodyGraphicData>
+					<texPath>Things/Pawn/Animal/SnowLeopard</texPath>
+					<drawSize>1.35</drawSize>
+					<shadowData>
+						<volume>(0.3, 0.3, 0.3)</volume>
+						<offset>(0,0,-0.3)</offset>
+					</shadowData>
+				</bodyGraphicData>
+				<dessicatedBodyGraphicData>
+					<texPath>Things/Pawn/Animal/Cougar/Dessicated_Cougar</texPath>
+					<drawSize>1.35</drawSize>
+				</dessicatedBodyGraphicData>
+			</li>
+			<li>
+				<bodyGraphicData>
+					<texPath>Things/Pawn/Animal/SnowLeopard</texPath>
+					<drawSize>2.12</drawSize>
+					<shadowData>
+						<volume>(0.4, 0.4, 0.4)</volume>
+						<offset>(0,0,-0.1)</offset>
+					</shadowData>
+				</bodyGraphicData>
+				<dessicatedBodyGraphicData>
+					<texPath>Things/Pawn/Animal/Cougar/Dessicated_Cougar</texPath>
+					<drawSize>2.12</drawSize>
+				</dessicatedBodyGraphicData>
+			</li>
+		</lifeStages>
+	</PawnKindDef>
+
+	<ThingDef ParentName="SK_BigCatThingBase">
+		<defName>Jaguar</defName>
+		<label>Jaguar</label>
+		<devNote>warg-1</devNote>
+		<description>The jaguar is the third-largest feline after the tiger and the lion.</description>
+		<statBases>
+			<MoveSpeed>7.9</MoveSpeed>
+			<ComfyTemperatureMin>-8</ComfyTemperatureMin>
+			<MarketValue>1300</MarketValue>
+			<MeleeDodgeChance>0.2</MeleeDodgeChance>
+			<MeleeCritChance>0</MeleeCritChance>
+			<FilthRate>2</FilthRate>
+		</statBases>
+		<race>
+			<baseBodySize>1.15</baseBodySize>
+			<baseHungerRate>1.0</baseHungerRate>
+			<baseHealthScale>1.3</baseHealthScale>
+			<useMeatFrom>Muffalo</useMeatFrom>
+			<leatherDef>Leather_Panthera</leatherDef>
+		</race>
+		<modExtensions>
+			<li Class="CombatExtended.RacePropertiesExtensionCE">
+				<bodyShape>Quadruped</bodyShape>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<PawnKindDef ParentName="SK_BigCatKindBase">
+		<defName>Jaguar</defName>
+		<label>Jaguar</label>
+		<race>Jaguar</race>
+		<ecoSystemWeight>0.3</ecoSystemWeight>
+		<lifeStages>
+			<li>
+				<bodyGraphicData>
+					<texPath>Things/Pawn/Animal/Jaguar</texPath>
+					<drawSize>1.15</drawSize>
+				</bodyGraphicData>
+				<dessicatedBodyGraphicData>
+					<texPath>Things/Pawn/Animal/Cougar/Dessicated_Cougar</texPath>
+					<drawSize>1.15</drawSize>
+				</dessicatedBodyGraphicData>
+			</li>
+			<li>
+				<bodyGraphicData>
+					<texPath>Things/Pawn/Animal/Jaguar</texPath>
+					<drawSize>1.45</drawSize>
+					<shadowData>
+						<volume>(0.3, 0.3, 0.3)</volume>
+						<offset>(0,0,-0.3)</offset>
+					</shadowData>
+				</bodyGraphicData>
+				<dessicatedBodyGraphicData>
+					<texPath>Things/Pawn/Animal/Cougar/Dessicated_Cougar</texPath>
+					<drawSize>1.45</drawSize>
+				</dessicatedBodyGraphicData>
+			</li>
+			<li>
+				<bodyGraphicData>
+					<texPath>Things/Pawn/Animal/Jaguar</texPath>
+					<drawSize>2.25</drawSize>
+					<shadowData>
+						<volume>(0.4, 0.4, 0.4)</volume>
+						<offset>(0,0,-0.1)</offset>
+					</shadowData>
+				</bodyGraphicData>
+				<dessicatedBodyGraphicData>
+					<texPath>Things/Pawn/Animal/Cougar/Dessicated_Cougar</texPath>
+					<drawSize>2.25</drawSize>
+				</dessicatedBodyGraphicData>
+			</li>
+		</lifeStages>
+	</PawnKindDef>
+
+</Defs>

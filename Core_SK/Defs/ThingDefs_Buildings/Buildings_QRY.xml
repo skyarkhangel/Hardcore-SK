@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<ThingDef Name="QRY_QuarryBase" ParentName="StandartBuilding" Abstract="True">
+		<graphicData>
+			<graphicClass>Graphic_Multi</graphicClass>
+		</graphicData>
+		<drawOffscreen>true</drawOffscreen>
+		<altitudeLayer>FloorEmplacement</altitudeLayer>
+		<fillPercent>0</fillPercent>
+		<destroyable>true</destroyable>
+		<useHitPoints>false</useHitPoints>
+		<statBases>
+			<Flammability>0</Flammability>
+		</statBases>
+		<canOverlapZones>false</canOverlapZones>
+		<pathCost>50</pathCost>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<holdsRoof>false</holdsRoof>
+		<surfaceType>Item</surfaceType>
+		<neverMultiSelect>true</neverMultiSelect>
+		<designationCategory>Production</designationCategory>
+		<building>
+			<isInert>true</isInert>
+			<deconstructible>true</deconstructible>
+		</building>
+		<comps>
+			<li Class="CompProperties_Forbiddable" />
+			<li Class="CompProperties_AffectedByFacilities">
+				<linkableFacilities>
+					<li>QRY_Platform</li>
+				</linkableFacilities>
+			</li>
+			<li Class="CompProperties_AssignableToPawn">
+				<drawAssignmentOverlay>true</drawAssignmentOverlay>
+			</li>
+		</comps>
+		<placeWorkers>
+			<li>Quarry.PlaceWorker_Quarry</li>
+		</placeWorkers>
+		<researchPrerequisites>
+			<li>Mining_B1</li>
+		</researchPrerequisites>
+	</ThingDef>
+
+	<ThingDef ParentName="QRY_QuarryBase">
+		<defName>QRY_Quarry</defName>
+		<thingClass>Quarry.Building_Quarry</thingClass>
+		<label>quarry</label>
+		<description>A large pit for digging up long buried resources.</description>
+		<graphicData>
+			<texPath>Cupro/Object/Quarry</texPath>
+			<drawSize>(12,12)</drawSize>
+		</graphicData>
+		<statBases>
+			<WorkToBuild>30000</WorkToBuild>
+			<Beauty>-25</Beauty>
+		</statBases>
+		<size>(12,12)</size>
+		<stuffCategories>
+			<li>Woody</li>
+		</stuffCategories>
+		<costStuffCount>250</costStuffCount>
+		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
+	</ThingDef>
+
+	<ThingDef ParentName="QRY_QuarryBase">
+		<defName>QRY_MiniQuarry</defName>
+		<thingClass>Quarry.Building_MiniQuarry</thingClass>
+		<label>mini quarry</label>
+		<description>A small pit for digging up long buried resources.</description>
+		<graphicData>
+			<texPath>Cupro/Object/MiniQuarry</texPath>
+			<drawSize>(7,7)</drawSize>
+		</graphicData>
+		<statBases>
+			<WorkToBuild>9000</WorkToBuild>
+			<Beauty>-10</Beauty>
+		</statBases>
+		<size>(7,7)</size>
+		<stuffCategories>
+			<li>Woody</li>
+		</stuffCategories>
+		<costStuffCount>100</costStuffCount>
+		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+	</ThingDef>
+
+	<ThingDef ParentName="SK_BuildingBase">
+		<defName>QRY_Platform</defName>
+		<thingClass>Quarry.Building_Platform</thingClass>
+		<label>quarry platform</label>
+		<description>A platform quarry workers will haul resources to. Must be placed next to a quarry, preferably near the ladders. Quarries can be linked to only one or two platforms.</description>
+		<graphicData>
+			<texPath>Cupro/Object/Platform/Platform_Smooth</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(3,3)</drawSize>
+			<damageData>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+				<edgeTop>Damage/Edge</edgeTop>
+				<edgeBot>Damage/Edge</edgeBot>
+				<edgeLeft>Damage/Edge</edgeLeft>
+				<edgeRight>Damage/Edge</edgeRight>
+			</damageData>
+		</graphicData>
+		<altitudeLayer>LowPlant</altitudeLayer>
+		<passability>Standable</passability>
+		<castEdgeShadows>false</castEdgeShadows>
+		<designationCategory>Misc</designationCategory>
+		<pathCost>0</pathCost>
+		<fillPercent>0</fillPercent>
+		<coversFloor>true</coversFloor>
+		<canOverlapZones>false</canOverlapZones>
+		<stuffCategories>
+			<li>Woody</li>
+		</stuffCategories>
+		<costStuffCount>50</costStuffCount>
+		<staticSunShadowHeight>0</staticSunShadowHeight>
+		<surfaceType>Item</surfaceType>
+		<statBases>
+			<MaxHitPoints>150</MaxHitPoints>
+			<WorkToBuild>150</WorkToBuild>
+			<Mass>5</Mass>
+			<Flammability>1.0</Flammability>
+			<Beauty>1</Beauty>
+		</statBases>
+		<size>(3,3)</size>
+		<rotatable>false</rotatable>
+		<building>
+			<preventDeteriorationOnTop>false</preventDeteriorationOnTop>
+			<ignoreStoredThingsBeauty>true</ignoreStoredThingsBeauty>
+			<defaultStorageSettings>
+				<priority>Low</priority>
+				<filter>
+					<categories>
+						<li>ResourcesRaw</li>
+						<li>Items</li>
+					</categories>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+			</defaultStorageSettings>
+		</building>
+		<comps>
+			<li Class="CompProperties_Facility">
+				<maxSimultaneous>2</maxSimultaneous>
+				<maxDistance>18</maxDistance>
+			</li>
+		</comps>
+		<inspectorTabs>
+			<li>ITab_Storage</li>
+		</inspectorTabs>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+		</placeWorkers>
+		<researchPrerequisites>
+			<li>Mining_B1</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+	</ThingDef>
+
+</Defs>

@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>AmmoBlasterBolt</defName>
+		<label>Charged Blaster bolt</label>
+		<parent>AmmoAdvanced</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberCharge</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_BlasterBolt</defName>
+		<label>Blaster bolt</label>
+		<ammoTypes>
+			<Ammo_BlasterBolt>Bullet_Blaster</Ammo_BlasterBolt>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="SpacerSmallAmmoBase">
+		<defName>Ammo_BlasterBolt</defName>
+		<label>Blaster bolt</label>
+		<tradeTags>
+			<li>CE_AutoEnableCrafting</li>
+		</tradeTags>
+		<thingCategories>
+			<li>AmmoBlasterBolt</li>
+		</thingCategories>
+		<graphicData>
+			<texPath>Things/Ammo/Charged/Concentrated</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>12</MarketValue>
+			<Mass>0.01</Mass>
+			<Bulk>0.03</Bulk>
+		</statBases>
+		<tradeability>Sellable</tradeability>
+		<destroyOnDrop>False</destroyOnDrop>
+		<ammoClass>ChargedAP</ammoClass>
+		<comps>
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>0.7</explosiveRadius>
+				<explosiveDamageType>Flame</explosiveDamageType>
+				<explosiveExpandPerStackcount>0.01</explosiveExpandPerStackcount>
+				<startWickHitPointsPercent>0.333</startWickHitPointsPercent>
+				<wickTicks>
+					<min>5</min>
+					<max>10</max>
+				</wickTicks>
+			</li>
+			<li Class="CompProperties_Forbiddable"/>
+		</comps>
+	</ThingDef>
+
+
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="SK_BaseBullet">
+		<defName>Bullet_Blaster</defName>
+		<label>Blaster bolt</label>
+		<graphicData>
+			<texPath>Things/Building/Security/PrecisionShell</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Optic</damageDef>
+			<damageAmountBase>10</damageAmountBase>
+			<!-- <armorPenetrationBase>0.7</armorPenetrationBase> -->
+			<armorPenetrationSharp>20</armorPenetrationSharp>
+			<armorPenetrationBlunt>5.6</armorPenetrationBlunt>
+			<speed>170</speed>
+			<secondaryDamage>
+				<li>
+					<def>EMP</def>
+					<amount>4</amount>
+				</li>
+			</secondaryDamage>
+		</projectile>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeAmmo_BlasterBolt</defName>
+		<label>make Blaster charged bolt cartridge x80</label>
+		<description>Craft 80 Blaster charged bolt cartridges.</description>
+		<jobString>Making Blaster charged bolt cartridges.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>SLDBar</li>
+					</categories>
+				</filter>
+				<count>16</count>
+			</li>
+			<li>
+				<filter>
+					<categories>
+						<li>USLDBar</li>
+					</categories>
+				</filter>
+				<count>10</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>MagneticMaterial</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>BiosyntheticMaterial</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>SLDBar</li>
+				<li>USLDBar</li>
+			</categories>
+			<thingDefs>
+				<li>BiosyntheticMaterial</li>
+				<li>MagneticMaterial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_BlasterBolt>80</Ammo_BlasterBolt>
+		</products>
+		<researchPrerequisite>ChargedShot</researchPrerequisite>
+	</RecipeDef>
+
+</Defs>

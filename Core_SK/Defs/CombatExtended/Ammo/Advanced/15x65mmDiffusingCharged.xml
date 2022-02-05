@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>Ammo15x65mmDiffusingCharged</defName>
+		<label>15x65mm Diffusing Charged</label>
+		<parent>AmmoAdvanced</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberChargeLarge</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_15x65mmDiffusingCharged</defName>
+		<label>15x65mm Diffusing Charged</label>
+		<ammoTypes>
+			<Ammo_15x65mmDiffusingCharged_Buck>Bullet_15x65mmDiffusingCharged_Buck</Ammo_15x65mmDiffusingCharged_Buck>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="15x65mmDiffusingChargedBase" ParentName="SpacerSmallAmmoBase" Abstract="True">
+		<description>Mechanoid-built cartridge designed to split upon firing.</description>
+		<statBases>
+			<Mass>0.05</Mass>
+			<Bulk>0.07</Bulk>
+			<SellPriceFactor>0.70</SellPriceFactor>
+		</statBases>
+		<tradeTags>
+		  <li>CE_AutoEnableTrade_Sellable</li>
+		</tradeTags>
+		<thingCategories>
+			<li>Ammo15x65mmDiffusingCharged</li>
+		</thingCategories>
+		<thingSetMakerTags Inherit="false">
+		</thingSetMakerTags>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="15x65mmDiffusingChargedBase">
+		<defName>Ammo_15x65mmDiffusingCharged_Buck</defName>
+		<label>15x65mm Diffusing Charged cartridge</label>
+		<graphicData>
+			<texPath>Things/Ammo/Charged/Regular</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>10</MarketValue> <!-- value intentionally decreased to help reduce wealth bloat/free silver -->
+		</statBases>
+		<ammoClass>Ionized</ammoClass>
+		<cookOffProjectile>Bullet_15x65mmDiffusingCharged_Buck</cookOffProjectile>
+	</ThingDef>
+
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="Base15x65mmDiffusingChargedBullet" ParentName="SK_BaseBullet" Abstract="true">
+		<thingClass>SK.Projectile_ChargerCE</thingClass>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bullet</damageDef>
+			<speed>190</speed>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base15x65mmDiffusingChargedBullet">
+		<defName>Bullet_15x65mmDiffusingCharged_Buck</defName>
+		<label>diffusing charged ionized</label>
+		<graphicData>
+			<texPath>Things/Projectile/Charged/charge_regular</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageAmountBase>32</damageAmountBase>
+			<secondaryDamage>
+				<li>
+					<def>EMP</def>
+					<amount>8</amount>
+				</li>
+				<li>
+					<def>Bomb_Secondary</def>
+					<amount>7</amount>
+				</li>
+			</secondaryDamage>
+			<armorPenetrationSharp>10</armorPenetrationSharp>      
+			<armorPenetrationBlunt>55.46</armorPenetrationBlunt>
+		</projectile>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+</Defs>

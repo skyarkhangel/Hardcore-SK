@@ -1,0 +1,693 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<!--================================ Abstract bases ======================================-->
+
+	<ThingDef ParentName="SK_BuildingBase" Name="AdvanceArtBase" Abstract="True">
+		<thingClass>Building_Art</thingClass>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<fillPercent>0.9</fillPercent>
+		<pathCost>70</pathCost>
+		<useHitPoints>true</useHitPoints>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<thingCategories>
+			<li>BuildingsArt</li>
+		</thingCategories>
+		<thingSetMakerTags>
+			<li>RewardStandardLowFreq</li>
+		</thingSetMakerTags>
+		<statBases>
+			<Flammability>1.0</Flammability>
+			<SellPriceFactor>1.10</SellPriceFactor>
+			<MeditationFocusStrength>0.0</MeditationFocusStrength>
+		</statBases>
+		<comps>
+			<li>
+				<compClass>CompQuality</compClass>
+			</li>
+			<li Class="CompProperties_Art">
+				<nameMaker>NamerArtSculpture</nameMaker>
+				<descriptionMaker>ArtDescription_Sculpture</descriptionMaker>
+				<canBeEnjoyedAsArt>true</canBeEnjoyedAsArt>
+			</li>
+			<li Class="CompProperties_MeditationFocus">
+				<statDef>MeditationFocusStrength</statDef>
+				<focusTypes>
+					<li>Artistic</li>
+				</focusTypes>
+				<offsets>
+					<li Class="FocusStrengthOffset_Quality">
+						<curve>
+							<points>
+								<li>(0,0.12)</li>
+								<!-- awful -->
+								<li>(1,0.16)</li>
+								<!-- poor -->
+								<li>(2,0.20)</li>
+								<!-- normal -->
+								<li>(3,0.22)</li>
+								<!-- good -->
+								<li>(4,0.24)</li>
+								<!-- excellent -->
+								<li>(5,0.26)</li>
+								<!-- masterwork -->
+								<li>(6,0.28)</li>
+								<!-- legendary -->
+							</points>
+						</curve>
+					</li>
+					<li Class="FocusStrengthOffset_BuildingDefsWithQuality">
+						<defs>
+							<li>SculptureSmall</li>
+							<li>SculptureLarge</li>
+							<li>SculptureGrand</li>
+							<li>MuffaloArt</li>
+							<li>QueenArt</li>
+							<li>NymphArt</li>
+							<li>GreenyArt</li>
+							<li>WolfArt</li>
+							<li>DragonArt</li>
+							<li>ZeonArt</li>							
+							<li>DecorativeUrnSmall</li>
+							<li>SmallPottery</li>
+						</defs>
+						<radius>9.9</radius>
+						<maxBuildings>8</maxBuildings>
+						<focusPerQuality>
+							<points>
+								<li>(0,0.0)</li>
+								<!-- awful -->
+								<li>(1,0.0)</li>
+								<!-- poor -->
+								<li>(2,0.01)</li>
+								<!-- normal -->
+								<li>(3,0.01)</li>
+								<!-- good -->
+								<li>(4,0.01)</li>
+								<!-- excellent -->
+								<li>(5,0.02)</li>
+								<!-- masterwork -->
+								<li>(6,0.02)</li>
+								<!-- legendary -->
+							</points>
+						</focusPerQuality>
+						<explanationKey>MeditationFocusPerSculpture</explanationKey>
+						<explanationKeyAbstract>MeditationFocusPerSculptureAbstract</explanationKeyAbstract>
+					</li>
+				</offsets>
+			</li>
+			<li Class="CompProperties_Styleable"/>
+		</comps>
+		<placeWorkers>
+			<li>PlaceWorker_MeditationOffsetBuildingsNear</li>
+		</placeWorkers>
+		<building>
+			<uninstallWork>600</uninstallWork>
+		</building>
+		<inspectorTabs>
+			<li>ITab_Art</li>
+		</inspectorTabs>
+		<tradeTags>
+			<li>Art</li>
+		</tradeTags>
+		<ideoBuildingNamerBase MayRequire="Ludeon.RimWorld.Ideology">NamerIdeoSculpture</ideoBuildingNamerBase>
+		<ritualFocus>
+			<spectateDistance>2</spectateDistance>
+			<allowedSpectateSides>Down</allowedSpectateSides>
+		</ritualFocus>
+	</ThingDef>
+
+	<ThingDef ParentName="AdvanceArtBase" Name="SK_SculptureBase" Abstract="True">
+		<recipeMaker>
+			<workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+			<workSkill>Artistic</workSkill>
+			<unfinishedThingDef>UnfinishedSculpture</unfinishedThingDef>
+			<effectWorking>Sculpt</effectWorking>
+			<soundWorking>Recipe_Sculpt</soundWorking>
+			<recipeUsers>
+				<li>TableSculpting</li>
+			</recipeUsers>
+		</recipeMaker>
+	</ThingDef>
+
+	<!--================================ Sculptures ======================================-->
+
+	<ThingDef ParentName="SK_SculptureBase">
+		<defName>SculptureSmall</defName>
+		<label>small sculpture</label>
+		<description>A torso-sized piece of material sculpted into an artistic form.</description>
+		<graphicData>
+			<graphicClass>Graphic_Random</graphicClass>
+			<texPath>Things/Building/Art/SculptureSmall</texPath>
+		</graphicData>
+		<fillPercent>0.35</fillPercent>
+		<rotatable>false</rotatable>
+		<statBases>
+			<MaxHitPoints>90</MaxHitPoints>
+			<Beauty>20</Beauty>
+			<WorkToMake>10000</WorkToMake>
+			<Bulk>50</Bulk>
+			<Mass>30</Mass>
+			<StyleDominance MayRequire="Ludeon.RimWorld.Ideology">10</StyleDominance>
+		</statBases>
+		<stuffCategories>
+			<li>StrongMetallic</li>
+			<li>Precious</li>
+			<li>Woody</li>
+			<li>Stony</li>
+			<li>Bricks</li>
+			<li>Ceramic</li>
+		</stuffCategories>
+		<costStuffCount>60</costStuffCount>
+		<recipeMaker>
+			<researchPrerequisite>Art_B1</researchPrerequisite>
+		</recipeMaker>
+	</ThingDef>
+
+	<ThingDef ParentName="SK_SculptureBase">
+		<defName>SculptureLarge</defName>
+		<label>large sculpture</label>
+		<description>A person-sized piece of material sculpted into an artistic form.</description>
+		<graphicData>
+			<graphicClass>Graphic_Random</graphicClass>
+			<texPath>Things/Building/Art/SculptureLarge</texPath>
+			<drawSize>(3,3)</drawSize>
+		</graphicData>
+		<fillPercent>0.5</fillPercent>
+		<rotatable>false</rotatable>
+		<statBases>
+			<MaxHitPoints>150</MaxHitPoints>
+			<Beauty>32</Beauty>
+			<WorkToMake>15000</WorkToMake>
+			<Bulk>140</Bulk>
+			<Mass>90</Mass>
+			<StyleDominance MayRequire="Ludeon.RimWorld.Ideology">20</StyleDominance>
+		</statBases>
+		<stuffCategories>
+			<li>StrongMetallic</li>
+			<li>Precious</li>
+			<li>Woody</li>
+			<li>Stony</li>
+			<li>Bricks</li>
+			<li>Ceramic</li>
+		</stuffCategories>
+		<costStuffCount>110</costStuffCount>
+		<recipeMaker>
+			<researchPrerequisite>Art_B2</researchPrerequisite>
+		</recipeMaker>
+	</ThingDef>
+
+	<ThingDef ParentName="SK_SculptureBase">
+		<defName>SculptureGrand</defName>
+		<label>grand sculpture</label>
+		<description>A car-sized piece of material sculpted into an artistic form.</description>
+		<graphicData>
+			<graphicClass>Graphic_Random</graphicClass>
+			<texPath>Things/Building/Art/SculptureGrand</texPath>
+			<drawSize>(4,4)</drawSize>
+		</graphicData>
+		<fillPercent>0.5</fillPercent>
+		<rotatable>false</rotatable>
+		<size>(2,2)</size>
+		<canOverlapZones>false</canOverlapZones>
+		<statBases>
+			<MaxHitPoints>220</MaxHitPoints>
+			<Beauty>60</Beauty>
+			<WorkToMake>25000</WorkToMake>
+			<Bulk>260</Bulk>
+			<Mass>220</Mass>
+			<StyleDominance MayRequire="Ludeon.RimWorld.Ideology">40</StyleDominance>
+		</statBases>
+		<stuffCategories>
+			<li>StrongMetallic</li>
+			<li>Precious</li>
+			<li>Woody</li>
+			<li>Stony</li>
+			<li>Bricks</li>
+			<li>Ceramic</li>
+		</stuffCategories>
+		<costStuffCount>200</costStuffCount>
+		<recipeMaker>
+			<researchPrerequisite>Art_B2</researchPrerequisite>
+		</recipeMaker>
+	</ThingDef>
+
+	<ThingDef ParentName="SK_SculptureBase">
+		<defName>MuffaloArt</defName>
+		<label>muffalo sculpture</label>
+		<uiIconPath>Things/Building/Art/Muffalo_MenuIcon</uiIconPath>
+		<description>The holy Muffalo is a creature worshiped by the Cheda of the Indigo Gerbil Tribe on Alioth Posterius.</description>
+		<graphicData>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<texPath>Things/Building/Art/Muffalo</texPath>
+			<drawSize>(3,3)</drawSize>
+		</graphicData>
+		<fillPercent>0.5</fillPercent>
+		<rotatable>true</rotatable>
+		<statBases>
+			<MaxHitPoints>250</MaxHitPoints>
+			<Beauty>90</Beauty>
+			<WorkToMake>40000</WorkToMake>
+			<Bulk>270</Bulk>
+			<Mass>230</Mass>
+			<StyleDominance MayRequire="Ludeon.RimWorld.Ideology">55</StyleDominance>
+		</statBases>
+		<size>(2,2)</size>
+		<stuffCategories>
+			<li>StrongMetallic</li>
+			<li>Precious</li>
+			<li>Woody</li>
+			<li>Stony</li>
+			<li>Bricks</li>
+			<li>Ceramic</li>
+		</stuffCategories>
+		<costStuffCount>250</costStuffCount>
+		<recipeMaker>
+			<researchPrerequisite>Art_C1</researchPrerequisite>
+		</recipeMaker>
+	</ThingDef>
+
+	<ThingDef ParentName="SK_SculptureBase">
+		<defName>QueenArt</defName>
+		<label>queen sculpture</label>
+		<uiIconPath>Things/Building/Art/Queen_MenuIcon</uiIconPath>
+		<description>This stunning statue is a likeness of "Anha the Graceful" a matriarch of the Gray People Tribe known to be a dazzling and exquisite beauty.</description>
+		<graphicData>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<texPath>Things/Building/Art/Queen</texPath>
+			<drawSize>(3,3)</drawSize>
+		</graphicData>
+		<fillPercent>0.5</fillPercent>
+		<rotatable>true</rotatable>
+		<statBases>
+			<MaxHitPoints>170</MaxHitPoints>
+			<Beauty>70</Beauty>
+			<WorkToMake>36000</WorkToMake>
+			<Bulk>80</Bulk>
+			<Mass>50</Mass>
+			<StyleDominance MayRequire="Ludeon.RimWorld.Ideology">50</StyleDominance>
+		</statBases>
+		<stuffCategories>
+			<li>StrongMetallic</li>
+			<li>Precious</li>
+			<li>Woody</li>
+			<li>Stony</li>
+			<li>Ceramic</li>
+		</stuffCategories>
+		<costStuffCount>160</costStuffCount>
+		<recipeMaker>
+			<researchPrerequisite>Art_C1</researchPrerequisite>
+		</recipeMaker>
+	</ThingDef>
+
+	<ThingDef ParentName="SK_SculptureBase">
+		<defName>NymphArt</defName>
+		<label>Muza sculpture</label>
+		<uiIconPath>Things/Building/Art/Nymph_MenuIcon</uiIconPath>
+		<description>This stunning statue is a likeness of "Nadezhda the Muse", the most beautiful girl in the legends.</description>
+		<graphicData>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<texPath>Things/Building/Art/Nymph</texPath>
+			<drawSize>(3,3)</drawSize>
+		</graphicData>
+		<fillPercent>0.5</fillPercent>
+		<rotatable>true</rotatable>
+		<statBases>
+			<MaxHitPoints>160</MaxHitPoints>
+			<Beauty>80</Beauty>
+			<WorkToMake>40000</WorkToMake>
+			<Bulk>85</Bulk>
+			<Mass>55</Mass>
+			<StyleDominance MayRequire="Ludeon.RimWorld.Ideology">52</StyleDominance>
+		</statBases>
+		<stuffCategories>
+			<li>StrongMetallic</li>
+			<li>Precious</li>
+			<li>Woody</li>
+			<li>Stony</li>
+			<li>Ceramic</li>
+		</stuffCategories>
+		<costStuffCount>165</costStuffCount>
+		<recipeMaker>
+			<researchPrerequisite>Art_C1</researchPrerequisite>
+		</recipeMaker>
+	</ThingDef>
+
+	<ThingDef ParentName="SK_SculptureBase">
+		<defName>GreenyArt</defName>
+		<label>Green god</label>
+		<uiIconPath>Things/Building/Art/Greeny_MenuIcon</uiIconPath>
+		<description>This stunning statue of Greeny.</description>
+		<graphicData>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<texPath>Things/Building/Art/Greeny</texPath>
+			<drawSize>(3,3)</drawSize>
+		</graphicData>
+		<fillPercent>0.5</fillPercent>
+		<rotatable>true</rotatable>
+		<statBases>
+			<MaxHitPoints>170</MaxHitPoints>
+			<Beauty>70</Beauty>
+			<WorkToMake>36000</WorkToMake>
+			<Bulk>80</Bulk>
+			<Mass>50</Mass>
+			<StyleDominance MayRequire="Ludeon.RimWorld.Ideology">48</StyleDominance>
+		</statBases>
+		<stuffCategories>
+			<li>StrongMetallic</li>
+			<li>Precious</li>
+			<li>Woody</li>
+			<li>Stony</li>
+			<li>Ceramic</li>
+		</stuffCategories>
+		<costStuffCount>170</costStuffCount>
+		<recipeMaker>
+			<researchPrerequisite>Art_C1</researchPrerequisite>
+		</recipeMaker>
+	</ThingDef>
+
+
+	<ThingDef ParentName="SK_SculptureBase">
+		<defName>WolfArt</defName>
+		<label>wolf sculpture</label>
+		<uiIconPath>Things/Building/Art/Wolf_MenuIcon</uiIconPath>
+		<description>This statue depicts the wolf-like god named "LORDI", worshiped by the Purple Lobster Crouca on Aldhafera XI</description>
+		<graphicData>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<texPath>Things/Building/Art/Wolf</texPath>
+			<drawSize>(3,3)</drawSize>
+		</graphicData>
+		<fillPercent>0.5</fillPercent>
+		<rotatable>true</rotatable>
+		<statBases>
+			<MaxHitPoints>170</MaxHitPoints>
+			<Beauty>85</Beauty>
+			<WorkToMake>32000</WorkToMake>
+			<Bulk>70</Bulk>
+			<Mass>60</Mass>
+			<StyleDominance MayRequire="Ludeon.RimWorld.Ideology">44</StyleDominance>
+		</statBases>
+		<size>(1,2)</size>
+		<stuffCategories>
+			<li>StrongMetallic</li>
+			<li>Precious</li>
+			<li>Woody</li>
+			<li>Stony</li>
+			<li>Ceramic</li>
+		</stuffCategories>
+		<costStuffCount>160</costStuffCount>
+		<recipeMaker>
+			<researchPrerequisite>Art_C1</researchPrerequisite>
+		</recipeMaker>
+	</ThingDef>
+
+	<ThingDef ParentName="SK_SculptureBase">
+		<defName>DragonArt</defName>
+		<label>behir sculpture</label>
+		<description>This stunning huge statue of magical beast with a crocodilian head.</description>
+		<graphicData>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<texPath>Things/Building/Art/Dragon</texPath>
+			<drawSize>(3,3)</drawSize>
+		</graphicData>
+		<fillPercent>0.5</fillPercent>
+		<rotatable>true</rotatable>
+		<statBases>
+			<MaxHitPoints>180</MaxHitPoints>
+			<Beauty>80</Beauty>
+			<WorkToMake>38000</WorkToMake>
+			<Bulk>120</Bulk>
+			<Mass>70</Mass>
+			<StyleDominance MayRequire="Ludeon.RimWorld.Ideology">49</StyleDominance>
+		</statBases>
+		<stuffCategories>
+			<li>StrongMetallic</li>
+			<li>Precious</li>
+			<li>Woody</li>
+			<li>Stony</li>
+			<li>Ceramic</li>
+		</stuffCategories>
+		<costStuffCount>175</costStuffCount>
+		<recipeMaker>
+			<researchPrerequisite>Art_C1</researchPrerequisite>
+		</recipeMaker>
+	</ThingDef>
+
+	<ThingDef ParentName="SK_SculptureBase">
+		<defName>ZeonArt</defName>
+		<label>zeon sculpture</label>
+		<uiIconPath>Things/Building/Art/Zeon_MenuIcon</uiIconPath>
+		<description>A sculpture of Zeon. You only hope in building this he decides to not come to visit.</description>
+		<graphicData>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<shaderType>CutoutComplex</shaderType>
+			<texPath>Things/Building/Art/Zeon</texPath>
+			<drawSize>(3,3)</drawSize>
+		</graphicData>
+		<fillPercent>0.9</fillPercent>
+		<rotatable>true</rotatable>
+		<statBases>
+			<MaxHitPoints>200</MaxHitPoints>
+			<Beauty>90</Beauty>
+			<WorkToMake>42000</WorkToMake>
+			<Bulk>450</Bulk>
+			<Mass>370</Mass>
+			<StyleDominance MayRequire="Ludeon.RimWorld.Ideology">52</StyleDominance>
+		</statBases>
+		<size>(3,3)</size>
+		<stuffCategories>
+			<li>Precious</li>
+		</stuffCategories>
+		<costStuffCount>170</costStuffCount>
+		<recipeMaker>
+			<researchPrerequisite>Art_C1</researchPrerequisite>
+		</recipeMaker>
+	</ThingDef>
+
+	<ThingDef ParentName="SK_SculptureBase">
+		<defName>DecorativeUrnSmall</defName>
+		<label>decorative urn</label>
+		<description>A small piece of decorative pottery.</description>
+		<graphicData>
+			<graphicClass>Graphic_Random</graphicClass>
+			<texPath>Things/Building/Art/SmallUrn</texPath>
+			<drawSize>(1,1)</drawSize>
+		</graphicData>
+		<fillPercent>0.25</fillPercent>
+		<rotatable>false</rotatable>
+		<statBases>
+			<MaxHitPoints>90</MaxHitPoints>
+			<Beauty>20</Beauty>
+			<WorkToMake>7000</WorkToMake>
+			<Bulk>4</Bulk>
+			<Mass>4</Mass>
+			<StyleDominance MayRequire="Ludeon.RimWorld.Ideology">7</StyleDominance>
+		</statBases>
+		<stuffCategories>
+			<li>StrongMetallic</li>
+			<li>Precious</li>
+			<li>Woody</li>
+			<li>Stony</li>
+			<li>Ceramic</li>
+		</stuffCategories>
+		<costStuffCount>60</costStuffCount>
+		<recipeMaker>
+			<researchPrerequisite>Art_B1</researchPrerequisite>
+		</recipeMaker>
+		<thingSetMakerTags Inherit="false">
+		</thingSetMakerTags>
+	</ThingDef>
+
+	<ThingDef ParentName="SK_SculptureBase">
+		<defName>SmallPottery</defName>
+		<label>decorative pottery</label>
+		<description>A small pieces of pottery decorated with various pictures and carvings. They have no practical use.</description>
+		<graphicData>
+			<graphicClass>Graphic_Random</graphicClass>
+			<texPath>Things/Building/Art/SmallPottery</texPath>
+			<drawSize>(1,1)</drawSize>
+		</graphicData>
+		<fillPercent>0.25</fillPercent>
+		<rotatable>false</rotatable>
+		<statBases>
+			<MaxHitPoints>70</MaxHitPoints>
+			<Beauty>17</Beauty>
+			<WorkToMake>6000</WorkToMake>
+			<Bulk>5</Bulk>
+			<Mass>4</Mass>
+			<StyleDominance MayRequire="Ludeon.RimWorld.Ideology">6</StyleDominance>
+		</statBases>
+		<stuffCategories>
+			<li>StrongMetallic</li>
+			<li>Precious</li>
+			<li>Woody</li>
+			<li>Stony</li>
+			<li>Ceramic</li>
+		</stuffCategories>
+		<costStuffCount>45</costStuffCount>
+		<recipeMaker>
+			<researchPrerequisite>Art_B1</researchPrerequisite>
+		</recipeMaker>
+		<thingSetMakerTags Inherit="false">
+		</thingSetMakerTags>
+	</ThingDef>
+
+	<ThingDef ParentName="SK_SculptureBase">
+		<defName>PotteryDisplay</defName>
+		<label>pottery display stand</label>
+		<description>A display stand showing various pieces of decorative pottery. Many of these have painted or carved pictures on them.</description>
+		<graphicData>
+			<texPath>Things/Building/Art/Display/Display</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<shaderType>CutoutComplex</shaderType>	
+			<drawSize>(3.2,3.2)</drawSize>
+		</graphicData>
+		<fillPercent>0.4</fillPercent>
+		<rotatable>true</rotatable>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<statBases>
+			<MaxHitPoints>120</MaxHitPoints>
+			<Beauty>70</Beauty>
+			<WorkToMake>28000</WorkToMake>
+			<Bulk>120</Bulk>
+			<Mass>30</Mass>
+			<StyleDominance MayRequire="Ludeon.RimWorld.Ideology">28</StyleDominance>
+		</statBases>
+		<stuffCategories>
+			<li>StrongMetallic</li>
+			<li>Woody</li>
+		</stuffCategories>
+		<costStuffCount>150</costStuffCount>
+		<costList>
+			<WoodLog>60</WoodLog>
+		</costList>
+		<recipeMaker>
+			<researchPrerequisite>Art_B1</researchPrerequisite>
+		</recipeMaker>
+		<thingSetMakerTags Inherit="false">
+		</thingSetMakerTags>
+	</ThingDef>
+
+
+	<!--================================ Snowman ======================================-->
+
+	<ThingDef ParentName="SK_BuildingBase">
+		<defName>Snowman</defName>
+		<label>snowman</label>
+		<description>A set of large snowballs piled and shaped to resemble a person.</description>
+		<thingClass>Building</thingClass>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>25</pathCost>
+		<pathCostIgnoreRepeat>false</pathCostIgnoreRepeat>
+		<useHitPoints>true</useHitPoints>
+		<graphicData>
+			<graphicClass>Graphic_Random</graphicClass>
+			<texPath>Things/Building/Art/Snowman</texPath>
+		</graphicData>
+		<fillPercent>0.35</fillPercent>
+		<rotatable>false</rotatable>
+		<tickerType>Rare</tickerType>
+		<drawDamagedOverlay>false</drawDamagedOverlay>
+		<statBases>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Beauty>4</Beauty>
+			<WorkToBuild>600</WorkToBuild>
+			<MarketValue>0</MarketValue>
+		</statBases>
+		<comps>
+			<li>
+				<compClass>CompMelter</compClass>
+			</li>
+		</comps>
+		<forceDebugSpawnable>true</forceDebugSpawnable>
+		<building>
+			<expandHomeArea>false</expandHomeArea>
+			<repairable>false</repairable>
+			<isInert>true</isInert>
+			<artificialForMeditationPurposes>false</artificialForMeditationPurposes>
+		</building>
+	</ThingDef>
+
+
+	<ThingDef ParentName="SK_SculptureBase">
+		<defName>CatArt</defName>
+		<label>cat sculpture</label>
+		<uiIconPath>Things/Building/Art/CatArt</uiIconPath>
+		<description>Sculpture of cat. Meow.</description>
+		<graphicData>
+			<graphicClass>Graphic_Single</graphicClass>
+			<texPath>Things/Building/Art/CatArt</texPath>
+			<drawSize>(1,1.1)</drawSize>
+		</graphicData>
+		<fillPercent>0.5</fillPercent>
+		<rotatable>false</rotatable>
+		<statBases>
+			<MaxHitPoints>170</MaxHitPoints>
+			<Beauty>55</Beauty>
+			<WorkToMake>35000</WorkToMake>
+			<Bulk>45</Bulk>
+			<Mass>30</Mass>
+			<StyleDominance MayRequire="Ludeon.RimWorld.Ideology">35</StyleDominance>
+		</statBases>
+		<size>(1,1)</size>
+		<stuffCategories>
+			<li>Precious</li>
+			<li>Woody</li>
+			<li>Stony</li>
+			<li>Ceramic</li>
+		</stuffCategories>
+		<costStuffCount>80</costStuffCount>
+	</ThingDef>
+
+
+	<ThingDef ParentName="SK_SculptureBase">
+		<defName>GlowstoneArt</defName>
+		<label>glowstone sculpture</label>
+		<uiIconPath>Things/Building/Art/GlowstoneArt_menuIcon</uiIconPath>
+		<description>This stunning statue is made from beautifully cut glowstone, it is perfectly crystal shaped and it emits a bright light.</description>
+		<graphicData>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>CutoutComplex</shaderType>
+			<shadowData>
+				<volume>(0, 0, 0)</volume>
+			</shadowData>
+			<texPath>Things/Building/Art/GlowstoneArt</texPath>
+			<drawSize>(2.1,3)</drawSize>
+		</graphicData>
+		<fillPercent>0.5</fillPercent>
+		<rotatable>false</rotatable>
+		<comps>
+			<li Class="CompProperties_Glower">
+				<glowRadius>13</glowRadius>
+				<glowColor>(180,197,215,0)</glowColor>
+			</li>
+		</comps>
+		<statBases>
+			<MaxHitPoints>130</MaxHitPoints>
+			<Beauty>85</Beauty>
+			<WorkToMake>60000</WorkToMake>
+			<Bulk>80</Bulk>
+			<Mass>50</Mass>
+			<StyleDominance MayRequire="Ludeon.RimWorld.Ideology">48</StyleDominance>
+		</statBases>
+		<size>(2,2)</size>
+		<stuffCategories>
+			<li>StrongMetallic</li>
+			<li>Precious</li>
+			<li>Woody</li>
+			<li>Stony</li>
+			<li>Bricks</li>
+			<li>Ceramic</li>
+		</stuffCategories>
+		<costStuffCount>90</costStuffCount>
+		<costList>
+			<Glowstone>180</Glowstone>
+		</costList>
+		<recipeMaker>
+			<researchPrerequisite>Art_B2</researchPrerequisite>
+		</recipeMaker>
+	</ThingDef>
+
+</Defs>

@@ -1,0 +1,719 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<!-- BASE -->
+	<ThingDef Name="RangedWeaponBase" Abstract="True">
+		<category>Item</category>
+		<thingClass>ThingWithComps</thingClass>
+		<equipmentType>Primary</equipmentType>
+		<pathCost>10</pathCost>
+		<useHitPoints>True</useHitPoints>
+		<selectable>True</selectable>
+		<graphicData>
+			<onGroundRandomRotateAngle>35</onGroundRandomRotateAngle>
+		</graphicData>
+		<drawGUIOverlay>true</drawGUIOverlay>
+		<statBases>
+			<MaxHitPoints>100</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<DeteriorationRate>3</DeteriorationRate>
+			<SellPriceFactor>0.70</SellPriceFactor>
+		</statBases>
+		<equippedStatOffsets>
+			<Suppressability>-0.05</Suppressability>
+		</equippedStatOffsets>
+		<altitudeLayer>Item</altitudeLayer>
+		<alwaysHaulable>True</alwaysHaulable>
+		<tickerType>Never</tickerType>
+		<techLevel>Neolithic</techLevel>
+		<relicChance>0.5</relicChance>
+		<weaponTags>
+			<li>Ranged</li>
+		</weaponTags>
+		<tools>
+			<li Class="CombatExtended.ToolCE">
+				 <!--<id>limb</id>-->
+				<label>limb</label>
+				<capacities>
+					<li>Blunt</li>
+				</capacities>
+				<power>7</power>
+				<cooldownTime>1.6</cooldownTime>
+				<chanceFactor>0.5</chanceFactor>
+				<armorPenetrationBlunt>0.80</armorPenetrationBlunt>
+				<linkedBodyPartsGroup>Base</linkedBodyPartsGroup>
+			</li>
+			<li Class="CombatExtended.ToolCE">
+				 <!--<id>nock</id>-->
+				<label>nock</label>
+				<capacities>
+					<li>Poke</li>
+				</capacities>
+				<power>8</power>
+				<cooldownTime>1.6</cooldownTime>
+				<chanceFactor>0.5</chanceFactor>
+				<armorPenetrationBlunt>0.60</armorPenetrationBlunt>
+				<linkedBodyPartsGroup>Point</linkedBodyPartsGroup>
+			</li>
+		</tools>
+		<comps>
+			<li Class="CompProperties_Forbiddable" />
+			<li>
+				<compClass>CompEquippable</compClass>
+			</li>
+			<li>
+				<compClass>CompQuality</compClass>
+			</li>
+			<li Class="CompProperties_Art">
+				<nameMaker>NamerArtWeaponGun</nameMaker>
+				<descriptionMaker>ArtDescription_WeaponGun</descriptionMaker>
+				<minQualityForArtistic>Excellent</minQualityForArtistic>
+			</li>
+			<li Class="CompProperties_Styleable"/>
+		</comps>
+	</ThingDef>
+	<ThingDef Name="RangedWeaponNeoliticBase" ParentName="RangedWeaponBase" Abstract="True">
+		<techLevel>Neolithic</techLevel>
+		<recipeMaker>
+			<workSpeedStat>SmithingSpeed</workSpeedStat>
+			<workSkill>Crafting</workSkill>
+			<effectWorking>Smith</effectWorking>
+			<soundWorking>Recipe_MakeBow</soundWorking>
+			<recipeUsers>
+				<li>CraftingSpot</li>
+			</recipeUsers>
+			<skillRequirements>
+				<Crafting>1</Crafting>
+			</skillRequirements>
+			<unfinishedThingDef>UnfinishedWeapon</unfinishedThingDef>
+		</recipeMaker>
+	</ThingDef>
+	<ThingDef Name="RangedWeaponMedievalBase" ParentName="RangedWeaponBase" Abstract="True">
+		<techLevel>Medieval</techLevel>
+		<recipeMaker>
+			<workSpeedStat>SmithingSpeed</workSpeedStat>
+			<workSkill>Crafting</workSkill>
+			<effectWorking>Smith</effectWorking>
+			<soundWorking>Recipe_MakeBow</soundWorking>
+			<recipeUsers>
+				<li>ElectricSmithy</li>
+				<li>FueledSmithy</li>
+			</recipeUsers>
+			<skillRequirements>
+				<Crafting>5</Crafting>
+			</skillRequirements>
+			<unfinishedThingDef>UnfinishedWeapon</unfinishedThingDef>
+		</recipeMaker>
+	</ThingDef>
+
+	<!-- SHORT BOW -->
+	<ThingDef ParentName="RangedWeaponNeoliticBase">
+		<defName>Bow_Short</defName>
+		<label>Short Bow</label>
+		<description>A simple short bow. It was made with skill from primitive technology.</description>
+		<graphicData>
+			<texPath>Things/Weapons/Medieval/BowShort</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<soundInteract>Bow_Small</soundInteract>
+		<stuffCategories>
+			<li>WoodLogs</li>
+		</stuffCategories>
+		<costStuffCount>60</costStuffCount>
+		<statBases>
+			<WorkToMake>4000</WorkToMake>
+			<SightsEfficiency>0.85</SightsEfficiency>
+			<ShotSpread>1</ShotSpread>
+			<SwayFactor>2</SwayFactor>
+			<Bulk>3.0</Bulk>
+			<Mass>1.8</Mass>
+			<RangedWeapon_Cooldown>1.15</RangedWeapon_Cooldown>
+		</statBases>
+		<tradeability>Sellable</tradeability>
+		<weaponTags>
+			<li>NeolithicRangedBasic</li>
+			<li>CE_Bow</li>
+		</weaponTags>
+		<weaponClasses>
+			<li>Neolithic</li>
+			<li>ShortShots</li>
+		</weaponClasses>
+		<techLevel>Neolithic</techLevel>
+		<verbs>
+			<li Class="CombatExtended.VerbPropertiesCE">
+				<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+				<hasStandardCommand>true</hasStandardCommand>
+				<defaultProjectile>Projectile_Arrow_Stone</defaultProjectile>
+				<warmupTime>1.0</warmupTime>
+				<range>30</range>
+				<soundCast>Bow_Small</soundCast>
+			</li>
+		</verbs>
+		<comps>
+			<li Class="CombatExtended.CompProperties_AmmoUser">
+				<ammoSet>AmmoSet_Arrow</ammoSet>
+			</li>
+			<li Class="CombatExtended.CompProperties_FireModes">
+				<noSnapshot>True</noSnapshot>
+			</li>
+		</comps>
+		<thingCategories>
+			<li>BowRanged</li>
+		</thingCategories>
+	</ThingDef>	
+	
+	
+	
+	<!-- Pilum-specific base (both ammo and weapon) -->
+	<ThingDef ParentName="AmmoBase" Name="BaseWeaponAndAmmoNeolithic" Abstract="True">
+		<equipmentType>Primary</equipmentType>
+		<pathCost>10</pathCost>
+		<graphicData>
+			<onGroundRandomRotateAngle>35</onGroundRandomRotateAngle>
+		</graphicData>
+		<statBases>
+			<MaxHitPoints>100</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<DeteriorationRate>2</DeteriorationRate>
+			<SellPriceFactor>0.70</SellPriceFactor>
+		</statBases>
+		<techLevel>Neolithic</techLevel>
+		<!-- <menuHidden>false</menuHidden> -->
+		<destroyOnDrop>False</destroyOnDrop>
+		<weaponTags>
+			<li>Neolithic</li>
+		</weaponTags>
+		<weaponClasses>
+			<li>Neolithic</li>
+		</weaponClasses>
+		<thingCategories>
+			<li>WeaponsRanged</li>
+		</thingCategories>
+		<comps>
+			<li>
+				<compClass>CompEquippable</compClass>
+			</li>
+		</comps>
+		<recipeMaker>
+			<workSpeedStat>SmithingSpeed</workSpeedStat>
+			<workSkill>Crafting</workSkill>
+			<recipeUsers>
+				<li>ElectricSmithy</li>
+				<li>FueledSmithy</li>
+			</recipeUsers>
+			<effectWorking>Smelt</effectWorking>
+			<unfinishedThingDef>UnfinishedWeapon</unfinishedThingDef>
+		</recipeMaker>
+	</ThingDef>
+
+	<!-- PILA -->
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BaseWeaponAndAmmoNeolithic">
+		<defName>Pila</defName>
+		<label>javelins</label>
+		<description>A throwing spear which may be thrown on its own.</description>
+		<graphicData>
+			<texPath>Things/Ammo/Neolithic/Pilum</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<onGroundRandomRotateAngle>0</onGroundRandomRotateAngle>
+		</graphicData>
+		<soundInteract>Interact_BeatFire</soundInteract>
+		<tradeability>Sellable</tradeability>
+		<techLevel>Neolithic</techLevel>
+		<costList>
+			<WoodPlank>1</WoodPlank>
+		</costList>
+		<statBases>
+			<WorkToMake>500</WorkToMake>
+			<SightsEfficiency>0.45</SightsEfficiency>
+			<ShotSpread>1.1</ShotSpread>
+			<SwayFactor>1.45</SwayFactor>
+			<Bulk>6.70</Bulk>
+			<Mass>2.00</Mass>
+			<RangedWeapon_Cooldown>1.2</RangedWeapon_Cooldown>
+		</statBases>
+		<equippedAngleOffset>30</equippedAngleOffset>
+		<stackLimit>75</stackLimit>
+		<weaponTags>
+			<li>NeolithicRanged</li>
+			<li>CE_Pila</li>
+			<li>CR_Pila</li>
+			<li>CE_OneHandedWeapon</li>
+			<li>CE_AI_Rifle</li>
+		</weaponTags>
+		<verbs>
+			<li Class="CombatExtended.VerbPropertiesCE">
+				<verbClass>CombatExtended.Verb_ShootCEOneUse</verbClass>
+				<hasStandardCommand>true</hasStandardCommand>
+				<defaultProjectile>Pilum_Thrown</defaultProjectile>
+				<warmupTime>1.50</warmupTime>
+				<range>9</range>
+			</li>
+		</verbs>
+		<tools>
+			<li Class="CombatExtended.ToolCE">
+				<label>shaft</label>
+				<capacities>
+					<li>Blunt</li>
+				</capacities>
+				<power>7</power>
+				<cooldownTime>1.7</cooldownTime>
+				<armorPenetrationBlunt>2.1</armorPenetrationBlunt>
+				<linkedBodyPartsGroup>Shaft</linkedBodyPartsGroup>
+			</li>
+			<li Class="CombatExtended.ToolCE">
+				<label>point</label>
+				<capacities>
+					<li>Stab</li>
+				</capacities>
+				<power>14</power>
+				<cooldownTime>1.8</cooldownTime>
+				<chanceFactor>1.5</chanceFactor>
+				<armorPenetrationBlunt>2.75</armorPenetrationBlunt>
+				<armorPenetrationSharp>1.56</armorPenetrationSharp>
+				<linkedBodyPartsGroup>Point</linkedBodyPartsGroup>
+			</li>
+		</tools>
+		<ammoClass>Javelin</ammoClass>
+		<weaponClasses>
+			<li>Neolithic</li>
+		</weaponClasses>
+		<thingCategories>
+			<li>ThrownRanged</li>
+		</thingCategories>
+		<recipeMaker>
+			<recipeUsers>
+				<li>CraftingSpot</li>
+			</recipeUsers>
+			<researchPrerequisite>Greatbow</researchPrerequisite>
+		</recipeMaker>
+	</ThingDef>
+
+	<!-- GREAT BOW -->
+	<ThingDef ParentName="RangedWeaponNeoliticBase">
+		<defName>Bow_Great</defName>
+		<label>Great Bow</label>
+		<description>A powerful great bow. It fires a heavy arrow over long distances.</description>
+		<graphicData>
+			<texPath>Things/Weapons/Medieval/BowGreat</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<soundInteract>Bow_Large</soundInteract>
+		<tradeability>Sellable</tradeability>
+		<stuffCategories>
+			<li>WoodLogs</li>
+		</stuffCategories>
+		<costStuffCount>50</costStuffCount>
+		<costList>
+			<ComponentMedieval>6</ComponentMedieval>
+		</costList>
+		<statBases>
+			<WorkToMake>5000</WorkToMake>
+			<SightsEfficiency>0.95</SightsEfficiency>
+			<ShotSpread>1</ShotSpread>
+			<SwayFactor>2</SwayFactor>
+			<Bulk>5.00</Bulk>
+			<Mass>3.00</Mass>
+			<RangedWeapon_Cooldown>1.25</RangedWeapon_Cooldown>
+		</statBases>
+		<weaponTags>
+			<li>MedievalRanged</li>
+			<li>NeolithicRangedBasic</li>
+			<li>CE_Bow</li>
+		</weaponTags>
+		<weaponClasses>
+			<li>ShortShots</li>
+		</weaponClasses>
+		<verbs>
+			<li Class="CombatExtended.VerbPropertiesCE">
+				<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+				<hasStandardCommand>true</hasStandardCommand>
+				<defaultProjectile>Projectile_Arrow_Stone</defaultProjectile>
+				<warmupTime>1.3</warmupTime>
+				<range>38</range>
+				<soundCast>Bow_Large</soundCast>
+			</li>
+		</verbs>
+		<comps>
+			<li Class="CombatExtended.CompProperties_AmmoUser">
+				<ammoSet>AmmoSet_Arrow</ammoSet>
+			</li>
+			<li Class="CombatExtended.CompProperties_FireModes">
+				<noSnapshot>True</noSnapshot>
+			</li>
+		</comps>
+		<recipeMaker>
+			<researchPrerequisite>Bow_A1</researchPrerequisite>
+		</recipeMaker>
+		<thingCategories>
+			<li>BowRanged</li>
+		</thingCategories>
+	</ThingDef>
+
+	<!-- SCORPION -->
+	<ThingDef ParentName="RangedWeaponMedievalBase">
+		<defName>Norbal_Scorpion</defName>
+		<label>Scorpion Crossbow</label>
+		<description>Fearsome norbal crossbow. Deadly but slow.</description>
+		<graphicData>
+			<texPath>Things/Weapons/Norbal/NorbalCrossBow</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<soundInteract>Crossbow_I_hold</soundInteract>
+		<stuffCategories>
+			<li>WoodLogs</li>
+		</stuffCategories>
+		<costStuffCount>55</costStuffCount>
+		<costList>
+			<ComponentMedieval>6</ComponentMedieval>
+		</costList>
+		<statBases>
+			<WorkToMake>6000</WorkToMake>
+			<SightsEfficiency>1.05</SightsEfficiency>
+			<ShotSpread>0.55</ShotSpread>
+			<SwayFactor>1.17</SwayFactor>
+			<Bulk>4.50</Bulk>
+			<Mass>3.30</Mass>
+			<RangedWeapon_Cooldown>1.3</RangedWeapon_Cooldown>
+		</statBases>
+		<weaponTags>
+			<li>NorbalRanged</li>
+			<li>NorbalHeroRanged</li>
+			<li>CE_Bow</li>
+		</weaponTags>
+		<weaponClasses>
+			<li>ShortShots</li>
+		</weaponClasses>
+		<tradeability>Sellable</tradeability>
+		<verbs>
+			<li Class="CombatExtended.VerbPropertiesCE">
+				<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+				<hasStandardCommand>true</hasStandardCommand>
+				<defaultProjectile>Projectile_MetallicBolt</defaultProjectile>
+				<warmupTime>1.25</warmupTime>
+				<range>40</range>
+				<soundCast>Crossbow_S_hold</soundCast>
+			</li>
+		</verbs>
+		<comps>
+			<li Class="CombatExtended.CompProperties_AmmoUser">
+				<magazineSize>1</magazineSize>
+				<reloadTime>1.05</reloadTime>
+				<ammoSet>AmmoSet_Bolt</ammoSet>
+				<throwMote>false</throwMote>
+			</li>
+			<li Class="CombatExtended.CompProperties_FireModes">
+				<noSnapshot>True</noSnapshot>
+			</li>
+		</comps>
+		<recipeMaker>
+			<researchPrerequisite>Bow_B2</researchPrerequisite>
+		</recipeMaker>
+		<thingCategories>
+			<li>CrossbarRanged</li>
+		</thingCategories>
+	</ThingDef>
+
+	<!-- ARBALEST -->
+	<ThingDef ParentName="RangedWeaponMedievalBase">
+		<defName>Arbalest</defName>
+		<label>Arbalest</label>
+		<description>A large crossbow with a special mechanism for drawing back and releasing the string.</description>
+		<graphicData>
+			<texPath>Things/Weapons/Medieval/Arbalest</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<soundInteract>Crossbow_I_hold</soundInteract>
+		<stuffCategories>
+			<li>WoodLogs</li>
+		</stuffCategories>
+		<costStuffCount>50</costStuffCount>
+		<costList>
+			<ComponentMedieval>7</ComponentMedieval>
+		</costList>
+		<statBases>
+			<WorkToMake>7200</WorkToMake>
+			<SightsEfficiency>1.15</SightsEfficiency>
+			<ShotSpread>0.4</ShotSpread>
+			<SwayFactor>1.14</SwayFactor>
+			<Bulk>4.50</Bulk>
+			<Mass>3.30</Mass>
+			<RangedWeapon_Cooldown>1.3</RangedWeapon_Cooldown>
+		</statBases>
+		<weaponTags>
+			<li>MedievalRanged</li>
+			<li>CE_Bow</li>
+		</weaponTags>
+		<weaponClasses>
+			<li>ShortShots</li>
+		</weaponClasses>
+		<tradeability>Sellable</tradeability>
+		<verbs>
+			<li Class="CombatExtended.VerbPropertiesCE">
+				<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+				<hasStandardCommand>true</hasStandardCommand>
+				<defaultProjectile>Projectile_MetallicBolt</defaultProjectile>
+				<warmupTime>1.25</warmupTime>
+				<range>42</range>
+				<soundCast>Crossbow_S_hold</soundCast>
+			</li>
+		</verbs>
+		<comps>
+			<li Class="CombatExtended.CompProperties_AmmoUser">
+				<magazineSize>1</magazineSize>
+				<reloadTime>2.00</reloadTime>
+				<ammoSet>AmmoSet_Bolt</ammoSet>
+				<throwMote>false</throwMote>
+			</li>
+			<li Class="CombatExtended.CompProperties_FireModes">
+				<noSnapshot>True</noSnapshot>
+			</li>
+		</comps>
+		<recipeMaker>
+			<researchPrerequisite>Bow_B2</researchPrerequisite>
+		</recipeMaker>
+		<thingCategories>
+			<li>CrossbarRanged</li>
+		</thingCategories>
+	</ThingDef>
+
+	<!-- CROSSBOW -->
+	<ThingDef ParentName="RangedWeaponMedievalBase">
+		<defName>Crossbow</defName>
+		<label>Crossbow</label>
+		<description>A weapon consisting of a bow fixed crosswise on a wooden stock.</description>
+		<graphicData>
+			<texPath>Things/Weapons/Medieval/Crossbow</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<soundInteract>Crossbow_I_hold</soundInteract>
+		<stuffCategories>
+			<li>WoodLogs</li>
+		</stuffCategories>
+		<costStuffCount>45</costStuffCount>
+		<costList>
+			<ComponentMedieval>8</ComponentMedieval>
+		</costList>
+		<statBases>
+			<WorkToMake>6600</WorkToMake>
+			<SightsEfficiency>1.1</SightsEfficiency>
+			<ShotSpread>0.5</ShotSpread>
+			<SwayFactor>1.12</SwayFactor>
+			<Bulk>4.50</Bulk>
+			<Mass>3.30</Mass>
+			<RangedWeapon_Cooldown>1.28</RangedWeapon_Cooldown>
+		</statBases>
+		<weaponTags>
+			<li>MedievalRanged</li>
+			<li>CE_Bow</li>
+		</weaponTags>
+		<weaponClasses>
+			<li>ShortShots</li>
+		</weaponClasses>
+		<tradeability>Sellable</tradeability>
+		<verbs>
+			<li Class="CombatExtended.VerbPropertiesCE">
+				<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+				<hasStandardCommand>true</hasStandardCommand>
+				<defaultProjectile>Projectile_MetallicBolt</defaultProjectile>
+				<warmupTime>1.25</warmupTime>
+				<range>36</range>
+				<soundCast>Crossbow_S_hold</soundCast>
+			</li>
+		</verbs>
+		<comps>
+			<li Class="CombatExtended.CompProperties_AmmoUser">
+				<magazineSize>1</magazineSize>
+				<reloadTime>1.30</reloadTime>
+				<ammoSet>AmmoSet_Bolt</ammoSet>
+				<throwMote>false</throwMote>
+			</li>
+			<li Class="CombatExtended.CompProperties_FireModes">
+				<noSnapshot>True</noSnapshot>
+			</li>
+		</comps>
+		<recipeMaker>
+			<researchPrerequisite>Greatbow</researchPrerequisite>
+		</recipeMaker>
+		<thingCategories>
+			<li>CrossbarRanged</li>
+		</thingCategories>
+	</ThingDef>
+
+	<!-- RECURVE BOW -->
+	<ThingDef ParentName="RangedWeaponMedievalBase">
+		<defName>Bow_Recurve</defName>
+		<label>Recurve Bow</label>
+		<description>A recurve bow stores more energy and delivers energy more efficiently than the equivalent straight-limbed bow.</description>
+		<graphicData>
+			<texPath>Things/Weapons/Medieval/Bow_Recurve</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<soundInteract>Bow_Recurve</soundInteract>
+		<stuffCategories>
+			<li>WoodLogs</li>
+		</stuffCategories>
+		<costStuffCount>62</costStuffCount>
+		<statBases>
+			<WorkToMake>7000</WorkToMake>
+			<SightsEfficiency>1.0</SightsEfficiency>
+			<ShotSpread>2</ShotSpread>
+			<SwayFactor>1</SwayFactor>
+			<Bulk>4.5</Bulk>
+			<Mass>2.0</Mass>
+			<RangedWeapon_Cooldown>1.10</RangedWeapon_Cooldown>
+		</statBases>
+		<weaponTags>
+			<li>NeolithicRangedBasic</li>
+			<li>CE_Bow</li>
+		</weaponTags>
+		<weaponClasses>
+			<li>ShortShots</li>
+		</weaponClasses>
+		<tradeability>Sellable</tradeability>
+		<verbs>
+			<li Class="CombatExtended.VerbPropertiesCE">
+				<recoilPattern>Regular</recoilPattern>
+				<recoilAmount>1.18</recoilAmount>
+				<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+				<hasStandardCommand>true</hasStandardCommand>
+				<defaultProjectile>Projectile_StreamlinedArrow_Stone</defaultProjectile>
+				<warmupTime>0.85</warmupTime>
+				<range>34</range>
+				<soundCast>Bow_Recurve</soundCast>
+			</li>
+		</verbs>
+		<comps>
+			<li Class="CombatExtended.CompProperties_AmmoUser">
+				<ammoSet>AmmoSet_StreamlinedArrow</ammoSet>
+			</li>
+			<li Class="CombatExtended.CompProperties_FireModes">
+				<noSnapshot>True</noSnapshot>
+			</li>
+		</comps>
+		<recipeMaker>
+			<researchPrerequisite>RecurveBow</researchPrerequisite>
+		</recipeMaker>
+		<thingCategories>
+			<li>BowRanged</li>
+		</thingCategories>
+	</ThingDef>
+
+	<!-- SCYTHIAN BOW -->
+	<ThingDef ParentName="RangedWeaponMedievalBase">
+		<defName>NorbalBow_Grape</defName>
+		<label>Norbal Bow</label>
+		<description>A powerful Norbal bow. Fires heavy arrows at long distances.</description>
+		<graphicData>
+			<texPath>Things/Weapons/Norbal/NorbalBow</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<soundInteract>Bow_Recurve</soundInteract>
+		<stuffCategories>
+			<li>WoodLogs</li>
+		</stuffCategories>
+		<costStuffCount>75</costStuffCount>
+		<statBases>
+			<WorkToMake>7500</WorkToMake>
+			<SightsEfficiency>1.1</SightsEfficiency>
+			<ShotSpread>2.15</ShotSpread>
+			<SwayFactor>1.15</SwayFactor>
+			<Bulk>5.50</Bulk>
+			<Mass>3.25</Mass>
+			<RangedWeapon_Cooldown>0.85</RangedWeapon_Cooldown>
+		</statBases>
+		<weaponTags>
+			<li>NorbalRanged</li>
+			<li>CE_Bow</li>
+		</weaponTags>
+		<weaponClasses>
+			<li>ShortShots</li>
+		</weaponClasses>
+		<tradeability>Sellable</tradeability>
+		<verbs>
+			<li Class="CombatExtended.VerbPropertiesCE">
+				<recoilPattern>Regular</recoilPattern>
+				<recoilAmount>0.88</recoilAmount>
+				<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+				<hasStandardCommand>true</hasStandardCommand>
+				<defaultProjectile>Projectile_Arrow_Stone</defaultProjectile>
+				<warmupTime>0.8</warmupTime>
+				<range>40</range>
+				<soundCast>Bow_Recurve</soundCast>
+			</li>
+		</verbs>
+		<comps>
+			<li Class="CombatExtended.CompProperties_AmmoUser">
+				<ammoSet>AmmoSet_Arrow</ammoSet>
+			</li>
+			<li Class="CombatExtended.CompProperties_FireModes">
+				<noSnapshot>True</noSnapshot>
+			</li>
+		</comps>
+		<recipeMaker>
+			<researchPrerequisite>RecurveBow</researchPrerequisite>
+		</recipeMaker>
+		<thingCategories>
+			<li>BowRanged</li>
+		</thingCategories>
+	</ThingDef>
+
+	<!-- BLOWGUN -->
+	<ThingDef ParentName="RangedWeaponNeoliticBase">
+		<defName>blowgun</defName>
+		<label>blowgun</label>
+		<description>A blowgun with a set of poison darts.</description>
+		<graphicData>
+			<texPath>Things/Weapons/Blowgun</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<soundInteract>Bow_Small</soundInteract>
+		<stuffCategories>
+			<li>WoodLogs</li>
+		</stuffCategories>
+		<costStuffCount>35</costStuffCount>
+		<costList>
+			<MedicineHerbal>5</MedicineHerbal>
+		</costList>
+		<statBases>
+			<WorkToMake>2500</WorkToMake>
+			<SightsEfficiency>1</SightsEfficiency>
+			<ShotSpread>1.5</ShotSpread>
+			<SwayFactor>1</SwayFactor>
+			<Bulk>0.90</Bulk>
+			<Mass>0.40</Mass>
+			<RangedWeapon_Cooldown>0.8</RangedWeapon_Cooldown>
+		</statBases>
+		<tradeability>Sellable</tradeability>
+		<weaponTags>
+			<li>NeolithicRangedBasic</li>
+			<li>CE_Bow</li>
+		</weaponTags>
+		<weaponClasses>
+			<li>ShortShots</li>
+		</weaponClasses>
+		<verbs>
+			<li Class="CombatExtended.VerbPropertiesCE">
+				<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+				<hasStandardCommand>true</hasStandardCommand>
+				<defaultProjectile>PoisonDart</defaultProjectile>
+				<warmupTime>0.48</warmupTime>
+				<range>20</range>
+				<soundCast>BlowgunFiring</soundCast>
+			</li>
+		</verbs>
+		<comps>
+			<li Class="CombatExtended.CompProperties_AmmoUser">
+				<magazineSize>1</magazineSize>
+				<reloadTime>0.75</reloadTime>
+				<ammoSet>AmmoSet_Darts</ammoSet>
+			</li>
+			<li Class="CombatExtended.CompProperties_FireModes">
+				<noSnapshot>True</noSnapshot>
+				<aiAimMode>AimedShot</aiAimMode>
+			</li>
+		</comps>
+		<thingCategories>
+			<li>BowRanged</li>
+		</thingCategories>
+	</ThingDef>
+
+</Defs>
