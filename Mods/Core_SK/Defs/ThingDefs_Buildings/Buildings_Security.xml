@@ -507,7 +507,7 @@
 		</graphicData>
 		<techLevel>Industrial</techLevel>
 		<castEdgeShadows>false</castEdgeShadows>
-		<stealable>false</stealable>
+		<!--<stealable>false</stealable>-->
 		<staticSunShadowHeight>0</staticSunShadowHeight>
 		<altitudeLayer>Building</altitudeLayer>
 		<hasInteractionCell>True</hasInteractionCell>
@@ -518,8 +518,8 @@
 			<Flammability>1.0</Flammability>
 			<WorkToBuild>1700</WorkToBuild>
 			<Beauty>-60</Beauty>
-			<Mass>250</Mass>
-			<Bulk>400</Bulk>
+			<Mass>41</Mass>
+			<Bulk>80</Bulk>
 		</statBases>
 		<tickerType>Normal</tickerType>
 		<comps>
@@ -545,11 +545,14 @@
 			<buildingTags>
 				<li>Artillery</li>
 			</buildingTags>
-			<turretBurstWarmupTime>3.0</turretBurstWarmupTime>
-			<turretBurstCooldownTime>17</turretBurstCooldownTime>
 			<turretTopDrawSize>4</turretTopDrawSize>
+			<uninstallWork>150</uninstallWork>
 			<spawnedConceptLearnOpportunity>CE_MortarDirectFire</spawnedConceptLearnOpportunity>
 		</building>
+		<minifiedDef>MinifiedTurret_81mmMortar</minifiedDef>
+		<thingCategories>
+			<li>BuildingsSecurity</li>
+		</thingCategories>
 		<placeWorkers>
 			<li>PlaceWorker_NotUnderRoof</li>
 			<li>PlaceWorker_TurretTop</li>
@@ -576,52 +579,17 @@
 		<designationHotKey>Misc3</designationHotKey>
 		<designationCategory>Security</designationCategory>
 	</ThingDef>
-
-
-	<ThingDef Name="SK_BaseArtilleryWeapon" Abstract="True">
-		<category>Item</category>
-		<thingClass>ThingWithComps</thingClass>
-		<label>artillery error</label>
-		<useHitPoints>false</useHitPoints>
-		<equipmentType>Primary</equipmentType>
-		<tickerType>Never</tickerType>
-		<techLevel>Industrial</techLevel>
-		<soundInteract>Artillery_ShellLoaded</soundInteract>
-		<tradeability>None</tradeability>
-		<destroyOnDrop>True</destroyOnDrop>
-		<!-- <menuHidden>True</menuHidden> -->
-		<weaponTags>
-			<li>Artillery</li>
-		</weaponTags>
-		<comps>
-			<li>
-				<compClass>CompEquippable</compClass>
-			</li>
-			<li Class="CompProperties_ChangeableProjectile" />
-		</comps>
-		<building>
-			<fixedStorageSettings>
-				<filter>
-					<categories>
-						<li>MortarShells</li>
-					</categories>
-				</filter>
-			</fixedStorageSettings>
-			<defaultStorageSettings>
-				<filter>
-					<categories>
-						<li>MortarShells</li>
-					</categories>
-					<disallowedThingDefs>
-						<li>Shell_Firefoam</li>
-						<li>Shell_AntigrainWarhead</li>
-					</disallowedThingDefs>
-				</filter>
-			</defaultStorageSettings>
-		</building>
+	
+	<ThingDef ParentName="MinifiedTurretBase">
+		<defName>MinifiedTurret_81mmMortar</defName>
+		<label>Undeployed 81mm Mortar</label>
+		<statBases>
+			<Mass>41</Mass>
+			<Bulk>38</Bulk>
+		</statBases>
 	</ThingDef>
 
-	<ThingDef ParentName="SK_BaseArtilleryWeapon">
+	<ThingDef ParentName="BaseGun_Turret">
 		<defName>Artillery_Mortar</defName>
 		<label>81mm mortar</label>
 		<description>Lobs mortar shells on a high arc. Very inaccurate but long-ranged and capable of indirect fire.</description>
@@ -641,13 +609,8 @@
 			<li>Artillery_BaseDestroyer</li>
 		</weaponTags>
 		<comps>
-			<li Class="CombatExtended.CompProperties_Charges">
-				<chargeSpeeds>
-					<li>30</li>
-					<li>50</li>
-					<li>70</li>
-					<li>90</li>
-				</chargeSpeeds>
+			<li Class="CombatExtended.CompProperties_FireModes">
+				<aiAimMode>AimedShot</aiAimMode>
 			</li>
 			<li Class="CombatExtended.CompProperties_AmmoUser">
 				<magazineSize>1</magazineSize>
