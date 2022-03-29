@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+  <Operation Class="PatchOperationSequence">
+    <operations>
+      <!-- Modify trait description -->
+      <li Class="PatchOperationReplace">
+        <xpath>Defs/TraitDef[defName="Pyromaniac"]/degreeDatas/li/description</xpath>
+        <value>
+          <description>{PAWN_nameDef} loves to start and watch fires. {PAWN_pronoun} get stressed and anxious if not allowed to do so for an extended period of time, but will be happier if allowed to do so. {PAWN_pronoun} also enjoys using incendiary weapons and will only go on fire-starting sprees when having a mental break.</description>
+        </value>
+      </li>
+
+      <!-- Reduce pyromaniac-has-incendiary-weapon thought -->
+      <li Class="PatchOperationReplace">
+        <xpath>Defs/ThoughtDef[defName="PyromaniacHappy"]/stages/li/baseMoodEffect</xpath>
+        <value>
+          <baseMoodEffect>2</baseMoodEffect>
+        </value>
+      </li>
+    </operations>
+  </Operation>
+
+  <Operation Class="PatchOperationSequence">
+    <success>Always</success>
+    <operations>
+      <!-- Remove disabled firefighting -->
+      <li Class="PatchOperationTest">
+        <xpath>Defs/TraitDef[defName="Pyromaniac"]/disabledWorkTags</xpath>
+      </li>
+      <li Class="PatchOperationRemove">
+        <xpath>Defs/TraitDef[defName="Pyromaniac"]/disabledWorkTags</xpath>
+      </li>
+    </operations>
+  </Operation>
+
+  <Operation Class="PatchOperationSequence">
+    <success>Always</success>
+    <operations>
+      <!-- Remove random breaks -->
+      <li Class="PatchOperationTest">
+        <xpath>Defs/TraitDef[defName="Pyromaniac"]/degreeDatas/li/randomMentalState</xpath>
+      </li>
+      <li Class="PatchOperationRemove">
+        <xpath>Defs/TraitDef[defName="Pyromaniac"]/degreeDatas/li/randomMentalState</xpath>
+      </li>
+    </operations>
+  </Operation>
+
+  <Operation Class="PatchOperationSequence">
+    <success>Always</success>
+    <operations>
+      <!-- Remove random break MTB curve -->
+      <li Class="PatchOperationTest">
+        <xpath>Defs/TraitDef[defName="Pyromaniac"]/degreeDatas/li/randomMentalStateMtbDaysMoodCurve</xpath>
+      </li>
+      <li Class="PatchOperationRemove">
+        <xpath>Defs/TraitDef[defName="Pyromaniac"]/degreeDatas/li/randomMentalStateMtbDaysMoodCurve</xpath>
+      </li>
+    </operations>
+  </Operation>
+
+  <Operation Class="PatchOperationSequence">
+    <success>Always</success>
+    <operations>
+      <!-- Remove market value penalty -->
+      <li Class="PatchOperationTest">
+        <xpath>Defs/TraitDef[defName="Pyromaniac"]/degreeDatas/li/marketValueFactorOffset</xpath>
+      </li>
+      <li Class="PatchOperationRemove">
+        <xpath>Defs/TraitDef[defName="Pyromaniac"]/degreeDatas/li/marketValueFactorOffset</xpath>
+      </li>
+
+    </operations>
+  </Operation>
+
+</Patch>
