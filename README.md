@@ -3,9 +3,9 @@
 [![Logo](http://s008.radikal.ru/i304/1512/b8/e77f133acb4e.gif)](https://github.com/skyarkhangel/Hardcore-SK)
 <!-- you cant center markdown images -->
 
-* **Website/Forum:** <https://hardcore-sk.ru>
-* **Known Compatible Optional Mods:** <https://discord.com/channels/272340793174392832/994316234915061891>
 * **Discord:** <https://discord.gg/FMPRSKr> **(Validated Account Required)**
+* **Known Compatible Optional Mods:** <https://discord.com/channels/272340793174392832/994316234915061891>
+* **Website/Forum:** <https://hardcore-sk.ru>
 
 At first would like to thank the creator of the game and all modders whose mods i used.
 
@@ -14,7 +14,7 @@ The main idea of the Rimworld to overcome difficulties that you'll encounter whe
 
 Main focus based on the growing complexity of the gameplay. Trying to achieve greater..Maximally immerse the player into gameplay and stay there for a long time. More than 100 research are waiting. When you start playing, you immediately understand everything... Campfire welcomes you.
 
-This project supports English and Russian language.
+This project supports English and Russian languages. Partial support for Spanish and Korean languages. Chinese translation is a separate [mod](https://steamcommunity.com/sharedfiles/filedetails/?id=2469653495). 
 Using additional mods (not patched for the project) is not recommended.
 
 ## DOWNLOADING
