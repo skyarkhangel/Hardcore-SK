@@ -4,7 +4,6 @@
 <!-- you cant center markdown images -->
 
 * **Discord:** <https://discord.gg/FMPRSKr> **(Validated Account Required)**
-* **Known Compatible Optional Mods:** <https://discord.com/channels/272340793174392832/994316234915061891>
 * **Website/Forum:** <https://hardcore-sk.ru>
 
 First, I would like to thank the artists and developers of all the mods used in Hardcore SK.
@@ -84,7 +83,10 @@ These are some extensive and unique mods which are not derivative of others and 
 * Parabellum <https://github.com/Xx-Nelson-xX/Parabellum> (combat mod by Xx-Nelson-xX)
 * Minerals Extra <https://github.com/zachary-foster?tab=repositories&q=Minerals&type=&language=&sort=> (more minerals content by Dusty Breeches)
 
-Other mods which are not included in this project are not recommended, however, the HSK community manages a list of patched and compatible mods which can be found on the HSK discord <https://discord.gg/FMPRSKr>. 
+Other mods which are not included in this project are not recommended, however, the HSK community manages a list of mods which can be found on our Discord channel:
+
+* **Known Compatible Optional Mods:** <https://discord.com/channels/272340793174392832/994316234915061891>
+* **Patched Optional Mod:** <https://discord.com/channels/272340793174392832/880973340653809714>
 
 ## Credits
 
@@ -104,7 +106,7 @@ JailBot, Dibbura, donnie, ignorer, korovyev, NiciusB, Nightray, Vuursteen and Е
 * **Coders** - Jeremy(PirateBY), TGC, Void, Dusty Breeches, Glucocorticoid, qwerty19106
 * **XML modders** - Sidfu, ArpoMo6, AndreiAvinov (Kiri), GuardianDll, Spaniard829, Vile Heathen
 
-### Special Thanks to
+### Special thanks to
 
 SpoonShortage, Mrofa, Fluffy, Zhentar, Brrainz, Dubwise, Erdelf, Greeny, Hunt3rKill3r, 
 Lambert2191, Vuursteen, Tuvia, Dunkhan, jnkyacc, Jalordon, Varmonger, funs777, olizit, 
