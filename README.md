@@ -83,10 +83,12 @@ These are some extensive and unique mods which are not derivative of others and 
 * Parabellum <https://github.com/Xx-Nelson-xX/Parabellum> (combat mod by Xx-Nelson-xX)
 * Minerals Extra <https://github.com/zachary-foster?tab=repositories&q=Minerals&type=&language=&sort=> (more minerals content by Dusty Breeches)
 
-Other mods which are not included in this project are not recommended, however, the HSK community manages a list of mods which can be found on our Discord channel:
+The HSK community also manages a list of mods which can be found on our Discord channel:
 
 * **Known Compatible Optional Mods:** <https://discord.com/channels/272340793174392832/994316234915061891>
-* **Patched Optional Mod:** <https://discord.com/channels/272340793174392832/880973340653809714>
+* **Patched Optional Mods:** <https://discord.com/channels/272340793174392832/880973340653809714>
+
+Other mods which are not included in this project are not recommended.
 
 ## Credits
 
