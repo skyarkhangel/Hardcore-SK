@@ -1,6 +1,6 @@
 # Rimworld Hardcore SK
 
-[![Logo](http://s008.radikal.ru/i304/1512/b8/e77f133acb4e.gif)](https://github.com/skyarkhangel/Hardcore-SK)
+[![Logo](https://i.imgur.com/WP7w2sM.png)](https://github.com/skyarkhangel/Hardcore-SK)
 <!-- you cant center markdown images -->
 
 * **Discord:** <https://discord.gg/FMPRSKr> **(Validated Account Required)**
@@ -80,9 +80,9 @@ ReShade is often thought to be for games in 3D space, such as PUBG and Skyrim. H
 
 These are some extensive and unique mods which are not derivative of others and are specifically designed to work alongside HSK:
 
-Vile's Mods <https://github.com/xenomacabre/VilesMods> (several mods - overhauls to metallurgy, architecture, meals et al)
-Parabellum <https://github.com/Xx-Nelson-xX/Parabellum> (more combat content by Xx-Nelson-xX)
-Minerals Extra <https://github.com/zachary-foster?tab=repositories&q=Minerals&type=&language=&sort=> (more minerals content by Dusty Breeches)
+* Vile's Mods <https://github.com/xenomacabre/VilesMods> (several overhaul mods)
+* Parabellum <https://github.com/Xx-Nelson-xX/Parabellum> (combat mod by Xx-Nelson-xX)
+* Minerals Extra <https://github.com/zachary-foster?tab=repositories&q=Minerals&type=&language=&sort=> (more minerals content by Dusty Breeches)
 
 Other mods which are not included in this project are not recommended, however, the HSK community manages a list of patched and compatible mods which can be found on the HSK discord <https://discord.gg/FMPRSKr>. 
 
