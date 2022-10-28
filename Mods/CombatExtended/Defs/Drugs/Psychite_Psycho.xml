@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <ThingDef ParentName="MakeableDrugBase">
+    <defName>Psycho</defName>
+    <label>psycho</label>
+    <description>A coarse, powdery preparation of concentrated psychite. When snorted, it produces an intense feeling of euphoria and invigoration, dramatically reducing the user's perception of pain and sharpening their senses for a short time. The high is followed by an equally intense and very unpleasant crash. Owing to its high potency and crude preparation, psycho is even more dangerous and addictive than other drugs derived from psychoid leave.\n\nMany tribal warriors take psycho before entering battle, heightening their senses and allowing them to briefly ignore otherwise incapacitating wounds.</description>
+    <descriptionHyperlinks>
+      <HediffDef>PsychoHigh</HediffDef>
+      <HediffDef>PsychiteTolerance</HediffDef>
+      <HediffDef>PsychoCrash</HediffDef>
+      <HediffDef>PsychiteAddiction</HediffDef>
+      <HediffDef>ChemicalDamageSevere</HediffDef>
+    </descriptionHyperlinks>
+    <graphicData>
+      <texPath>Things/Item/Drug/Psycho</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <rotatable>false</rotatable>
+    <statBases>
+      <WorkToMake>600</WorkToMake>
+      <MarketValue>7</MarketValue>
+      <Mass>0.05</Mass>
+    </statBases>
+    <generateCommonality>0.25</generateCommonality>
+    <techLevel>Neolithic</techLevel>
+    <ingestible>
+      <foodType>Processed</foodType>
+      <joyKind>Chemical</joyKind>
+      <joy>0.5</joy>
+      <drugCategory>Hard</drugCategory>
+      <baseIngestTicks>60</baseIngestTicks>
+      <ingestSound>Ingest_Snort</ingestSound>
+      <ingestHoldOffsetStanding>
+        <northDefault>
+          <offset>(0.07,0,0)</offset>
+        </northDefault>
+      </ingestHoldOffsetStanding>
+      <ingestHoldUsesTable>false</ingestHoldUsesTable>
+      <ingestCommandString>Snort {0}</ingestCommandString>
+      <ingestReportString>Snorting {0}.</ingestReportString>
+      <useEatingSpeedStat>false</useEatingSpeedStat>
+      <outcomeDoers>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>PsychoHigh</hediffDef>
+          <severity>1.0</severity>
+          <toleranceChemical>Psychite</toleranceChemical>
+        </li>
+        <li Class="IngestionOutcomeDoer_OffsetNeed">
+          <need>Rest</need>
+          <offset>0.4</offset>
+          <toleranceChemical>Psychite</toleranceChemical>
+        </li>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>PsychiteTolerance</hediffDef>
+          <severity>0.1</severity>
+          <divideByBodySize>true</divideByBodySize>
+        </li>
+      </outcomeDoers>
+    </ingestible>
+    <recipeMaker>
+      <recipeUsers>
+        <li>CraftingSpot</li>
+        <li>DrugLab</li>
+      </recipeUsers>
+      <soundWorking>Recipe_Drug</soundWorking>
+    </recipeMaker>
+    <costList>
+      <PsychoidLeaves>16</PsychoidLeaves>
+    </costList>
+    <comps>
+      <li Class="CompProperties_Drug">
+        <chemical>Psychite</chemical>
+        <addictiveness>0.1</addictiveness>
+        <existingAddictionSeverityOffset>0.25</existingAddictionSeverityOffset>
+        <needLevelOffset>1.0</needLevelOffset>
+        <isCombatEnhancingDrug>true</isCombatEnhancingDrug>
+        <listOrder>150</listOrder>
+        <overdoseSeverityOffset>0.25~0.50</overdoseSeverityOffset>
+        <largeOverdoseChance>0.033</largeOverdoseChance>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <HediffDef>
+    <defName>PsychoHigh</defName>
+    <label>high on psycho</label>
+    <labelNoun>a psycho high</labelNoun>
+    <description>Active psycho in the bloodstream. Generates a very intense euphoric high.</description>
+    <hediffClass>Hediff_High</hediffClass>
+    <defaultLabelColor>(1,0,0.5)</defaultLabelColor>
+    <scenarioCanAdd>true</scenarioCanAdd>
+    <maxSeverity>1.0</maxSeverity>
+    <isBad>false</isBad>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-2.5</severityPerDay>
+        <showHoursToRecover>true</showHoursToRecover>
+      </li>
+    </comps>
+      <stages>
+        <li>
+          <hediffGivers>
+            <li Class="HediffGiver_Random">
+              <hediff>PsychoCrash</hediff>
+              <mtbDays>0.01</mtbDays>
+              <partsToAffect>
+                <li>Brain</li>
+              </partsToAffect>
+            </li>
+          </hediffGivers>
+        </li>
+        <li>
+          <minSeverity>0.05</minSeverity>
+          <painFactor>0.75</painFactor>
+          <restFallFactor>0.75</restFallFactor>
+          <capMods>
+            <li>
+              <capacity>Consciousness</capacity>
+              <offset>0.05</offset>
+            </li>
+            <li>
+              <capacity>Sight</capacity>
+              <offset>0.05</offset>
+            </li>
+            <li>
+              <capacity>Moving</capacity>
+              <offset>0.1</offset>
+            </li>
+          </capMods>
+          <statFactors>
+            <Suppressability>0.75</Suppressability>
+          </statFactors>
+        </li>
+        <li>
+          <minSeverity>0.15</minSeverity>
+          <painFactor>0.1</painFactor>
+          <restFallFactor>0.33</restFallFactor>
+          <capMods>
+            <li>
+              <capacity>Consciousness</capacity>
+              <offset>0.15</offset>
+            </li>
+            <li>
+              <capacity>Sight</capacity>
+              <offset>0.20</offset>
+            </li>
+            <li>
+              <capacity>Moving</capacity>
+              <offset>0.33</offset>
+            </li>
+          </capMods>
+          <statFactors>
+            <Suppressability>0.1</Suppressability>
+          </statFactors>
+        </li>
+      </stages>
+  </HediffDef>
+
+  <ThoughtDef>
+    <defName>PsychoHigh</defName>
+    <workerClass>ThoughtWorker_Hediff</workerClass>
+    <hediff>PsychoHigh</hediff>
+    <validWhileDespawned>true</validWhileDespawned>
+    <stages>
+      <li>
+        <label>coming down from psycho</label>
+        <description>Things are slowing down and my head is starting to pound.</description>
+        <baseMoodEffect>0</baseMoodEffect>
+      </li>
+      <li>
+        <label>fading psycho high</label>
+        <description>I still feel so good.</description>
+        <baseMoodEffect>5</baseMoodEffect>
+      </li>
+      <li>
+        <label>psycho high</label>
+        <description>I feel powerful and ready for anything.</description>
+        <baseMoodEffect>10</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+  
+  <HediffDef>
+    <defName>PsychoCrash</defName>
+    <label>psycho crash</label>
+    <labelNoun>a psycho crash</labelNoun>
+    <description>A very unpleasant delayed after-effect of psycho intake.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <initialSeverity>1</initialSeverity>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-0.5</severityPerDay>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <label>recovering</label>
+        <vomitMtbDays>0.4</vomitMtbDays>
+        <painOffset>0.1</painOffset>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <postFactor>0.8</postFactor>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <label>major</label>
+        <minSeverity>0.2</minSeverity>
+        <vomitMtbDays>0.5</vomitMtbDays>
+        <painOffset>0.3</painOffset>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <postFactor>0.4</postFactor>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <label>initial</label>
+        <minSeverity>0.8</minSeverity>
+        <vomitMtbDays>0.2</vomitMtbDays>
+        <painOffset>0.1</painOffset>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <postFactor>0.7</postFactor>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <ThoughtDef>
+    <defName>Crashed</defName>
+    <workerClass>ThoughtWorker_Hediff</workerClass>
+    <hediff>PsychoCrash</hediff>
+    <validWhileDespawned>true</validWhileDespawned>
+    <stages>
+      <li>
+        <label>fading psycho comedown</label>
+        <description>Ugh. My head is pounding, but at least I can think straight again.</description>
+        <baseMoodEffect>-2</baseMoodEffect>
+      </li>
+      <li>
+        <label>major psycho comedown</label>
+        <description>I feel awful. My mind feels sluggish and I can barely keep my balance.</description>
+        <baseMoodEffect>-10</baseMoodEffect>
+      </li>
+      <li>
+        <label>initial psycho comedown</label>
+        <description>I don't feel so good. My vision is blurry and my hands are starting to shake.</description>
+        <baseMoodEffect>-5</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+</Defs>

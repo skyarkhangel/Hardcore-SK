@@ -17,7 +17,7 @@
     <skillNeedFactors>
       <li Class="SkillNeed_BaseBonus">
         <skill>Shooting</skill>
-        <baseValue>0.01</baseValue>
+        <baseValue>0.2</baseValue>
         <bonusPerLevel>0.1</bonusPerLevel>
       </li>
     </skillNeedFactors>
@@ -34,14 +34,14 @@
     <postProcessCurve>
       <points>
         <li>(0.0, 0.0)</li>
-        <li>(0.5, 0.19)</li>
-        <li>(1.0, 0.41)</li>
-        <li>(1.5, 0.66)</li>
-        <li>(2.0, 0.86)</li>
-        <li>(6.5, 1.0)</li>
+        <li>(0.5, 0.5)</li>
+        <li>(1.0, 0.75)</li>
+        <li>(1.5, 0.875)</li>
+        <li>(2.0, 0.9375)</li>
+        <li>(6.5, 1.5)</li>
       </points>
     </postProcessCurve>
-  </StatDef>
+  </StatDef>  
 
   <StatDef>
     <defName>ReloadSpeed</defName>
@@ -121,7 +121,7 @@
 
   <StatDef>
     <defName>AverageSharpArmor</defName>
-    <label>armor coverage (sharp)</label>
+    <label>armor coverage</label>
     <description>The average value of armor coverage across this person's body. Higher values will make them more confident against low-penetration projectiles.</description>
     <workerClass>CombatExtended.StatWorker_ArmorCoverage</workerClass>
     <category>PawnCombat</category>
@@ -131,19 +131,6 @@
     <toStringStyle>FloatMaxTwo</toStringStyle>
     <formatString>{0} mm RHA</formatString>
   </StatDef>
-
-<!--   <StatDef>
-    <defName>AverageBluntArmor</defName>
-    <label>armor coverage (blunt)</label>
-    <description>The average value of armor coverage across this person's body. Higher values will make them more confident against low-penetration projectiles.</description>
-    <workerClass>CombatExtended.StatWorker_ArmorCoverageBlunt</workerClass>
-    <category>PawnCombat</category>
-    <displayPriorityInCategory>56</displayPriorityInCategory>
-    <defaultBaseValue>0</defaultBaseValue>
-    <minValue>0</minValue>
-    <toStringStyle>FloatMaxTwo</toStringStyle>
-    <formatString>{0} MPa</formatString>
-  </StatDef> -->
 
   <!-- ================================== Melee =======================================-->
 
@@ -163,7 +150,7 @@
   <StatDef>
     <defName>MeleeCritChance</defName>
     <label>melee critical chance</label>
-    <description>Base chance to critically hit a target in melee.\n\nThe final chance depends on the opponent's critical skill and equal opponents will always have a 10% chance to crit.</description>
+    <description>Base chance to land a critical hit with a melee attack. Critical hits force max damage from the damage variation. On a critical hit, sharp attacks get double penetration, while blunt attacks stun the target.\nThe final chance depends on the opponent's critical skill and equal opponents will always have a 10% chance to crit. The internal formula is:\n\nFinalCritChance = ClampBetweenZeroAndOne(0.1 + AttackerCritChance - DefenderCritChance)*100%</description>
     <category>PawnCombat</category>
     <displayPriorityInCategory>99</displayPriorityInCategory>
     <defaultBaseValue>1</defaultBaseValue>
@@ -206,51 +193,9 @@
   </StatDef>
 
   <StatDef>
-    <defName>MeleeDodgeChance</defName>
-    <label>melee dodge chance</label>
-    <description>Chance to dodge a melee attack that would've otherwise hit. Characters will not dodge while aiming or firing a ranged weapon.</description>
-    <category>PawnCombat</category>
-    <workerClass>CombatExtended.StatWorker_MoveSpeed</workerClass>
-    <displayPriorityInCategory>99</displayPriorityInCategory>
-    <defaultBaseValue>1</defaultBaseValue>
-    <minValue>0</minValue>
-    <maxValue>3.2</maxValue>
-    <toStringStyle>PercentZero</toStringStyle>
-    <neverDisabled>true</neverDisabled>
-    <skillNeedFactors>
-      <li Class="SkillNeed_BaseBonus">
-        <skill>Melee</skill>
-        <baseValue>0.05</baseValue>
-        <bonusPerLevel>0.0175</bonusPerLevel>
-      </li>
-    </skillNeedFactors>
-    <capacityFactors>
-      <li>
-        <capacity>Moving</capacity>
-        <weight>1</weight>
-      </li>
-      <li>
-        <capacity>Sight</capacity>
-        <weight>0.7</weight>
-        <max>1</max>
-      </li>
-    </capacityFactors>
-    <postProcessCurve>
-      <points>
-        <li>(0.0, 0.0)</li>
-        <li>(0.3, 0.3)</li>
-        <li>(0.6, 0.45)</li>
-        <li>(1.2, 0.6)</li>
-        <li>(2.4, 0.75)</li>
-        <li>(3.2, 0.8)</li>
-      </points>
-    </postProcessCurve>
-  </StatDef>
-
-  <StatDef>
     <defName>MeleeParryChance</defName>
     <label>melee parry chance</label>
-    <description>Base chance to parry a melee attack. When a parry is performed the equipped weapon or shield will take damage instead of the wielder. If the parrying pawn passes a critical chance check they will automatically riposte their attacker.\n\nThe final chance depends on the opponent's parry skill and equal opponents will always have a 20% chance to parry.</description>
+    <description>Base chance to parry a melee attack. When a parry is performed the equipped weapon or shield will take damage instead of the wielder. If the parrying pawn passes a critical chance check they will automatically riposte their attacker.\nThe final chance depends on the opponent's parry skill and equal opponents will always have a 20% chance to parry. The internal formula is:\n\nFinalParryChance = ClampBetweenZeroAndOne(0.2 + DefenderParryChance - AttackerParryChance * (1 + AttackerWeaponMeleeCounterParryBonus)*100%\n\nA pawn that is better skilled in parrying takes less damage from parrying while unarmed and is better at reducing damage taken by their weapon on parry.</description>
     <category>PawnCombat</category>
     <displayPriorityInCategory>99</displayPriorityInCategory>
     <defaultBaseValue>1</defaultBaseValue>
@@ -307,7 +252,7 @@
       <li Class="SkillNeed_BaseBonus">
         <skill>Melee</skill>
         <baseValue>0.00</baseValue>
-        <bonusPerLevel>0.40</bonusPerLevel>
+        <bonusPerLevel>0.50</bonusPerLevel>
       </li>
     </skillNeedOffsets>
     <capacityFactors>
@@ -321,6 +266,13 @@
         <weight>1</weight>
       </li>
     </capacityFactors>
+    <postProcessCurve>
+      <points>
+        <li>(0, 0)</li>
+        <li>(10, 10)</li>
+        <li>(100, 15)</li>
+      </points>
+    </postProcessCurve>
   </StatDef>
 
   <!-- ================================== Body part armor =======================================-->
@@ -332,6 +284,14 @@
     <defaultBaseValue>0</defaultBaseValue>
     <minValue>0</minValue>
     <toStringStyle>FloatMaxTwo</toStringStyle>
+  </StatDef>
+
+  <!-- Only displays information -->
+  <StatDef ParentName="BodyPartDensity">
+    <defName>PartialArmorBody</defName>
+    <description>Special armor values for certain bodyparts</description>
+    <label>Natural armor</label>
+    <workerClass>CombatExtended.StatWorker_ArmorPartial</workerClass>
   </StatDef>
 
   <StatDef ParentName="BodyPartDensity">
@@ -347,6 +307,5 @@
     <workerClass>CombatExtended.StatWorker_BodyPartBluntArmor</workerClass>
     <formatString>{0} MPa</formatString>
   </StatDef>
-
 
 </Defs>
