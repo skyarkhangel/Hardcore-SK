@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+	<!-- ========== Kill recipe maker ========== -->
+
+	<Operation Class="PatchOperationAttributeSet">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeFrag" or defName="Weapon_GrenadeMolotov" or defName="Weapon_GrenadeEMP"]</xpath>
+		<attribute>ParentName</attribute>
+		<value>BaseWeapon</value>
+	</Operation>
+
+	<!-- ========== Melee tools ========== -->
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeFrag" or defName="Weapon_GrenadeMolotov" or defName="Weapon_GrenadeEMP"]</xpath>
+		<value>
+			<tools>
+			  <li Class="CombatExtended.ToolCE">
+				<label>Body</label>
+				<capacities>
+				  <li>Blunt</li>
+				</capacities>
+				<power>2</power>
+				<cooldownTime>1.75</cooldownTime>
+				<armorPenetrationBlunt>1.0</armorPenetrationBlunt>
+				<linkedBodyPartsGroup>Base</linkedBodyPartsGroup>
+			  </li>
+			</tools>
+		</value>
+	</Operation>
+
+	<!-- ========== Base Grenade Projectile ========== -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[@Name="BaseGrenadeProjectile"]/thingClass</xpath>
+		<value>
+			<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[@Name="BaseFragGrenadeProjectile"]/thingClass</xpath>
+		<value>
+			<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAttributeSet">
+		<xpath>Defs/ThingDef[@Name="BaseGrenadeProjectile"]/projectile</xpath>
+		<attribute>Class</attribute>
+		<value>CombatExtended.ProjectilePropertiesCE</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[@Name="BaseGrenadeProjectile"]/projectile</xpath>
+		<value>
+			<explosionDamageFalloff>true</explosionDamageFalloff>
+		</value>
+	</Operation>
+
+	<!-- ========== Frag Grenade ========== -->
+
+	<!-- Projectile -->
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Proj_GrenadeFrag"]</xpath>
+		<value>
+			<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Proj_GrenadeFrag"]</xpath>
+		<value>
+			<graphicData>
+                <texPath>Things/Projectile/Grenades/Frag</texPath>
+                <graphicClass>Graphic_Single</graphicClass>
+            </graphicData>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Proj_GrenadeFrag"]</xpath>
+		<value>
+			<projectile Class="CombatExtended.ProjectilePropertiesCE">
+				<explosionRadius>1.5</explosionRadius>
+				<damageDef>Bomb</damageDef>
+				<damageAmountBase>56</damageAmountBase>
+				<explosionDelay>60</explosionDelay>
+				<dropsCasings>true</dropsCasings>
+				<casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+				<speed>12</speed>
+				<gravityFactor>2</gravityFactor>
+			</projectile>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationConditional">
+		<xpath>/Defs/ThingDef[defName="Proj_GrenadeFrag"]/comps</xpath>
+		<nomatch Class="PatchOperationAdd">
+			<xpath>/Defs/ThingDef[defName="Proj_GrenadeFrag"]</xpath>
+			<value>
+				<comps />
+			</value>
+		</nomatch>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Proj_GrenadeFrag"]/comps</xpath>
+		<value>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Small>40</Fragment_Small>
+				</fragments>
+			</li>
+		</value>
+	</Operation>
+
+	<!-- Grenade -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeFrag"]/label</xpath>
+		<value>
+			<label>frag grenade</label>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeFrag"]/graphicData</xpath>
+		<value>
+			<graphicData>
+				<texPath>Things/Ammo/HandGrenades/Frag</texPath>
+				<graphicClass>Graphic_StackCount</graphicClass>
+				<onGroundRandomRotateAngle>0</onGroundRandomRotateAngle>
+			</graphicData>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeFrag"]</xpath>
+		<value>
+			<thingClass>CombatExtended.AmmoThing</thingClass>
+			<stackLimit>75</stackLimit>
+			<resourceReadoutPriority>First</resourceReadoutPriority>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAttributeSet">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeFrag"]</xpath>
+		<attribute>Class</attribute>
+		<value>CombatExtended.AmmoDef</value>
+	</Operation>
+
+	<Operation Class="PatchOperationConditional">
+		<xpath>/Defs/ThingDef[defName="Weapon_GrenadeFrag"]/comps</xpath>
+		<nomatch Class="PatchOperationAdd">
+			<xpath>/Defs/ThingDef[defName="Weapon_GrenadeFrag"]</xpath>
+			<value>
+				<comps />
+			</value>
+		</nomatch>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeFrag"]/comps</xpath>
+		<value>
+		  <li Class="CombatExtended.CompProperties_ExplosiveCE">
+			<damageAmountBase>56</damageAmountBase>
+			<explosiveDamageType>Bomb</explosiveDamageType>
+			<explosiveRadius>1.5</explosiveRadius>
+		  </li>
+		</value>
+	</Operation>
+	
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeFrag"]/comps</xpath>
+		<value>
+		  <li Class="CombatExtended.CompProperties_Fragments">
+			<fragments>
+				<Fragment_Small>40</Fragment_Small>
+			</fragments>
+		  </li>
+		</value>
+	</Operation>
+
+	<Operation Class="CombatExtended.PatchOperationMakeGunCECompatible">
+		<defName>Weapon_GrenadeFrag</defName>
+		<statBases>
+			<Mass>0.4</Mass>
+			<Bulk>0.87</Bulk>
+			<MarketValue>12.22</MarketValue>
+			<RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
+			<SightsEfficiency>0.65</SightsEfficiency>
+		</statBases>
+		<Properties>
+			<label>throw frag grenade</label>
+			<verbClass>CombatExtended.Verb_ShootCEOneUse</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<range>10.0</range>
+			<minRange>4</minRange>
+			<warmupTime>0.8</warmupTime>
+			<noiseRadius>4</noiseRadius>
+			<ai_IsBuildingDestroyer>true</ai_IsBuildingDestroyer>
+			<soundCast>ThrowGrenade</soundCast>
+			<targetParams>
+				<canTargetLocations>true</canTargetLocations>
+			</targetParams>
+			<defaultProjectile>Proj_GrenadeFrag</defaultProjectile>
+			<onlyManualCast>true</onlyManualCast>
+			<ignorePartialLoSBlocker>true</ignorePartialLoSBlocker>
+			<ai_AvoidFriendlyFireRadius>7</ai_AvoidFriendlyFireRadius>
+		</Properties>
+		<weaponTags>
+			<li>CE_AI_AOE</li>
+			<li>CE_OneHandedWeapon</li>
+		</weaponTags>
+	</Operation>
+
+	<!-- ========== Molotov cocktail ========== -->
+
+	<!-- Projectile -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Proj_GrenadeMolotov"]/graphicData/texPath</xpath>
+		<value>
+			<texPath>Things/Projectile/Grenades/Molotov</texPath>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Proj_GrenadeMolotov"]</xpath>
+		<value>
+			<projectile Class="CombatExtended.ProjectilePropertiesCE">
+				<explosionRadius>1</explosionRadius>
+				<damageDef>PrometheumFlame</damageDef>
+				<damageAmountBase>10</damageAmountBase>
+				<preExplosionSpawnThingDef>FilthPrometheum</preExplosionSpawnThingDef>
+				<preExplosionSpawnChance>0.8</preExplosionSpawnChance>
+				<speed>12</speed>
+				<ai_IsIncendiary>true</ai_IsIncendiary>
+				<gravityFactor>2</gravityFactor>
+			</projectile>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Proj_GrenadeMolotov"]</xpath>
+		<value>
+			<thingClass>CombatExtended.Projectile_FireTrail</thingClass>
+		</value>
+	</Operation>
+
+	<!-- Grenade -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeMolotov"]/label</xpath>
+		<value>
+			<label>Molotov cocktail</label>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeMolotov"]/graphicData</xpath>
+		<value>
+			<graphicData>
+				<texPath>Things/Ammo/HandGrenades/Molotov</texPath>
+				<graphicClass>Graphic_StackCount</graphicClass>
+				<onGroundRandomRotateAngle>0</onGroundRandomRotateAngle>
+			</graphicData>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeMolotov"]</xpath>
+		<value>
+			<thingClass>CombatExtended.AmmoThing</thingClass>
+			<stackLimit>50</stackLimit>
+			<resourceReadoutPriority>First</resourceReadoutPriority>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAttributeSet">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeMolotov"]</xpath>
+		<attribute>Class</attribute>
+		<value>CombatExtended.AmmoDef</value>
+	</Operation>
+
+	<Operation Class="PatchOperationConditional">
+		<xpath>/Defs/ThingDef[defName="Weapon_GrenadeMolotov"]/comps</xpath>
+		<nomatch Class="PatchOperationAdd">
+			<xpath>/Defs/ThingDef[defName="Weapon_GrenadeMolotov"]</xpath>
+			<value>
+				<comps />
+			</value>
+		</nomatch>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeMolotov"]/comps</xpath>
+		<value>
+		  <li Class="CombatExtended.CompProperties_ExplosiveCE">
+			<damageAmountBase>1</damageAmountBase>
+			<explosiveDamageType>Flame</explosiveDamageType>
+			<explosiveRadius>1</explosiveRadius>
+			<preExplosionSpawnThingDef>Filth_Fuel</preExplosionSpawnThingDef>
+			<preExplosionSpawnChance>0.8</preExplosionSpawnChance>
+		  </li>
+		</value>
+	</Operation>
+
+	<Operation Class="CombatExtended.PatchOperationMakeGunCECompatible">
+		<defName>Weapon_GrenadeMolotov</defName>
+		<statBases>
+			<Mass>0.7</Mass>
+			<Bulk>1.96</Bulk>
+			<MarketValue>7.05</MarketValue>
+			<RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
+			<SightsEfficiency>0.65</SightsEfficiency>
+		</statBases>
+		<Properties>
+			<label>throw molotov</label>
+			<verbClass>CombatExtended.Verb_ShootCEOneUse</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<range>10</range>
+			<minRange>1.9</minRange>
+			<warmupTime>0.8</warmupTime>
+			<noiseRadius>4</noiseRadius>
+			<ai_IsBuildingDestroyer>true</ai_IsBuildingDestroyer>
+			<soundCast>ThrowMolotovCocktail</soundCast>
+			<targetParams>
+				<canTargetLocations>true</canTargetLocations>
+			</targetParams>
+			<defaultProjectile>Proj_GrenadeMolotov</defaultProjectile>
+			<onlyManualCast>true</onlyManualCast>
+			<ignorePartialLoSBlocker>true</ignorePartialLoSBlocker>
+			<ai_AvoidFriendlyFireRadius>2</ai_AvoidFriendlyFireRadius>
+		</Properties>
+		<weaponTags>
+			<li>CE_AI_AOE</li>
+			<li>CE_OneHandedWeapon</li>
+		</weaponTags>
+	</Operation>
+
+	<!-- ========== EMP Grenade ========== -->
+
+	<!-- Projectile -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Proj_GrenadeEMP"]/thingClass</xpath>
+		<value>
+			<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Proj_GrenadeEMP"]/graphicData/texPath</xpath>
+		<value>
+			<texPath>Things/Projectile/Grenades/EMP</texPath>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Proj_GrenadeEMP"]/projectile</xpath>
+		<value>
+			<projectile Class="CombatExtended.ProjectilePropertiesCE">
+				<explosionRadius>3</explosionRadius>
+				<damageDef>EMP</damageDef>
+				<damageAmountBase>56</damageAmountBase>
+				<explosionDelay>60</explosionDelay>
+				<dropsCasings>true</dropsCasings>
+				<casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
+				<speed>12</speed>
+				<gravityFactor>2</gravityFactor>
+			</projectile>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationConditional">
+		<xpath>/Defs/ThingDef[defName="Proj_GrenadeEMP"]/comps</xpath>
+		<nomatch Class="PatchOperationAdd">
+			<xpath>/Defs/ThingDef[defName="Proj_GrenadeEMP"]</xpath>
+			<value>
+				<comps />
+			</value>
+		</nomatch>
+	</Operation>
+
+	<!-- Grenade -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeEMP"]/label</xpath>
+		<value>
+			<label>EMP grenade</label>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeEMP"]/graphicData</xpath>
+		<value>
+			<graphicData>
+				<texPath>Things/Ammo/HandGrenades/EMP</texPath>
+				<graphicClass>Graphic_StackCount</graphicClass>
+				<onGroundRandomRotateAngle>0</onGroundRandomRotateAngle>
+			</graphicData>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeEMP"]</xpath>
+		<value>
+			<thingClass>CombatExtended.AmmoThing</thingClass>
+			<stackLimit>75</stackLimit>
+			<resourceReadoutPriority>First</resourceReadoutPriority>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAttributeSet">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeEMP"]</xpath>
+		<attribute>Class</attribute>
+		<value>CombatExtended.AmmoDef</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeEMP"]/smeltable</xpath>
+		<value>
+			<smeltable>false</smeltable>
+		</value>
+	</Operation>
+
+	<Operation Class="CombatExtended.PatchOperationMakeGunCECompatible">
+		<defName>Weapon_GrenadeEMP</defName>
+		<statBases>
+			<Mass>0.4</Mass>
+			<Bulk>0.87</Bulk>
+			<MarketValue>21.09</MarketValue>
+			<RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
+			<SightsEfficiency>0.65</SightsEfficiency>
+		</statBases>
+		<Properties>
+			<label>throw EMP grenade</label>
+			<verbClass>CombatExtended.Verb_ShootCEOneUse</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<range>10</range>
+			<minRange>4</minRange>
+			<warmupTime>0.8</warmupTime>
+			<noiseRadius>4</noiseRadius>
+			<ai_IsBuildingDestroyer>false</ai_IsBuildingDestroyer>
+			<soundCast>ThrowGrenade</soundCast>
+			<targetParams>
+				<canTargetLocations>true</canTargetLocations>
+			</targetParams>
+			<defaultProjectile>Proj_GrenadeEMP</defaultProjectile>
+			<onlyManualCast>true</onlyManualCast>
+			<ignorePartialLoSBlocker>true</ignorePartialLoSBlocker>
+			<ai_AvoidFriendlyFireRadius>5</ai_AvoidFriendlyFireRadius>
+		</Properties>
+		<weaponTags>
+			<li>CE_AI_EMP</li>
+			<li>CE_OneHandedWeapon</li>
+		</weaponTags>
+	</Operation>
+
+</Patch>
+

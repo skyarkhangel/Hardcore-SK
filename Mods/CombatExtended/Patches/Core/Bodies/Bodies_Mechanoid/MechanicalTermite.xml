@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+  <!-- ==================== MechanicalTermite ==================== -->
+
+  <!-- ========== Add groups entry if it doesn't exist already ========== -->
+
+	<Operation Class="PatchOperationConditional">
+		<xpath>/Defs/BodyDef[defName="MechanicalTermite"]/corePart/groups</xpath>
+		<nomatch Class="PatchOperationAdd">
+			<xpath>/Defs/BodyDef[defName="MechanicalTermite"]/corePart</xpath>
+			<value>
+				<groups />
+			</value>
+		</nomatch>
+	</Operation>
+
+	<Operation Class="PatchOperationConditional">
+		<xpath>/Defs/BodyDef[defName="MechanicalTermite"]/corePart/parts/li[def = "MechanicalHead"]/groups</xpath>
+		<nomatch Class="PatchOperationAdd">
+			<xpath>/Defs/BodyDef[defName="MechanicalTermite"]/corePart/parts/li[def = "MechanicalHead"]</xpath>
+			<value>
+				<groups />
+			</value>
+		</nomatch>
+	</Operation>
+
+	<Operation Class="PatchOperationConditional">
+		<xpath>/Defs/BodyDef[defName="MechanicalTermite"]/corePart/parts/li[def = "MechanicalTermiteBodySecondRing"]/groups</xpath>
+		<nomatch Class="PatchOperationAdd">
+			<xpath>/Defs/BodyDef[defName="MechanicalTermite"]/corePart/parts/li[def = "MechanicalTermiteBodySecondRing"]</xpath>
+			<value>
+				<groups />
+			</value>
+		</nomatch>
+	</Operation>
+
+  	<Operation Class="PatchOperationConditional">
+		<xpath>/Defs/BodyDef[defName="MechanicalTermite"]/corePart/parts/li[def="MechanicalTermiteBodySecondRing"]/parts/li[def = "MechanicalTermiteBodyThirdRing"]/groups</xpath>
+		<nomatch Class="PatchOperationAdd">
+			<xpath>/Defs/BodyDef[defName="MechanicalTermite"]/corePart/parts/li[def="MechanicalTermiteBodySecondRing"]/parts/li[def = "MechanicalTermiteBodyThirdRing"]</xpath>
+			<value>
+				<groups />
+			</value>
+		</nomatch>
+	</Operation>
+
+  <!-- ========== Add armor coverage ========== -->
+
+	<Operation Class="PatchOperationAdd">
+  	<xpath>/Defs/BodyDef[defName = "MechanicalTermite"]/corePart/groups</xpath>
+  	<value>
+      <li>CoveredByNaturalArmor</li>
+  	</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+  	<xpath>/Defs/BodyDef[defName = "MechanicalTermite"]/corePart/parts/li[def = "MechanicalHead"]/groups</xpath>
+  	<value>
+      <li>CoveredByNaturalArmor</li>
+  	</value>
+	</Operation>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>/Defs/BodyDef[defName = "MechanicalTermite"]/corePart/parts/li[def = "MechanicalTermiteBodySecondRing"]/groups</xpath>
+    <value>
+      <li>CoveredByNaturalArmor</li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>/Defs/BodyDef[defName = "MechanicalTermite"]/corePart/parts/li[def="MechanicalTermiteBodySecondRing"]/parts/li[def = "MechanicalTermiteBodyThirdRing"]/groups</xpath>
+    <value>
+      <li>CoveredByNaturalArmor</li>
+    </value>
+  </Operation>
+
+  <!-- ========== Modify coverage ========== -->
+
+  <Operation Class="PatchOperationReplace">
+    <xpath>/Defs/BodyDef[defName = "MechanicalTermite"]/corePart/parts/li[def = "MechanicalHead"]/coverage</xpath>
+    <value>
+      <coverage>0.08</coverage>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationReplace">
+    <xpath>/Defs/BodyDef[defName = "MechanicalTermite"]/corePart/parts/li[def = "MechanicalHead"]/parts/li[def = "SightSensor"]/coverage</xpath>
+    <value>
+      <coverage>0.15</coverage>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationReplace">
+    <xpath>/Defs/BodyDef[defName = "MechanicalTermite"]/corePart/parts/li[def = "MechanicalHead"]/parts/li[def = "HearingSensor"]/coverage</xpath>
+    <value>
+      <coverage>0.05</coverage>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationReplace">
+    <xpath>/Defs/BodyDef[defName = "MechanicalTermite"]/corePart/parts/li[def = "MechanicalHead"]/parts/li[def = "SmellSensor"]/coverage</xpath>
+    <value>
+      <coverage>0.05</coverage>
+    </value>
+  </Operation>
+
+  <!-- ========== Remove unwanted vanilla body parts ========== -->
+
+  <Operation Class="PatchOperationRemove">
+    <xpath>/Defs/BodyDef[defName = "MechanicalTermite"]/corePart/parts/li[def="MechanicalTermiteBodySecondRing"]/parts/li[def="Reactor"]</xpath>
+  </Operation>
+
+  <Operation Class="PatchOperationRemove">
+    <xpath>/Defs/BodyDef[defName = "MechanicalTermite"]/corePart/parts/li/parts/li/parts/li[def="FluidReprocessor"]</xpath>
+  </Operation>
+
+  <!-- ========== Add new body parts ========== -->
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>/Defs/BodyDef[defName = "MechanicalTermite"]/corePart/parts</xpath>
+    <value>
+      <li>
+        <def>MechanicalCapacitor</def>
+        <coverage>0.0875</coverage>
+        <depth>Inside</depth>
+      </li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>/Defs/BodyDef[defName = "MechanicalTermite"]/corePart/parts/li[def = "MechanicalTermiteBodySecondRing"]/parts</xpath>
+    <value>
+      <li>
+        <def>MechanicalWeaponActuator</def>
+        <coverage>0.05</coverage>
+        <depth>Inside</depth>
+      </li>
+      <li>
+        <def>MechanicalCapacitor</def>
+        <coverage>0.07</coverage>
+        <depth>Inside</depth>
+      </li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>/Defs/BodyDef[defName = "MechanicalTermite"]/corePart/parts/li[def="MechanicalTermiteBodySecondRing"]/parts/li[def = "MechanicalTermiteBodyThirdRing"]/parts</xpath>
+    <value>
+      <li>
+        <def>MechanicalPowerCore</def>
+        <coverage>0.125</coverage>
+        <depth>Inside</depth>
+      </li>
+      <li>
+        <def>MechanicalCoolantTank</def>
+        <coverage>0.09</coverage>
+        <depth>Inside</depth>
+      </li>
+    </value>
+  </Operation>
+
+</Patch>
+

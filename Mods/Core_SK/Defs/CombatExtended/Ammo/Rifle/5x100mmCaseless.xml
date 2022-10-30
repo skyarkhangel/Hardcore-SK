@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>Ammo5x100mmCaseless</defName>
+		<label>5x100mm Caseless</label>
+		<parent>AmmoRifles</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberRailgunRifle</iconPath>
+	</ThingCategoryDef>
+	
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_5x100mmCaseless</defName>
+		<label>5x100mm Caseless</label>
+		<ammoTypes>
+			<Ammo_5x100mmCaseless_Sabot>Bullet_5x100mmCaseless_Sabot</Ammo_5x100mmCaseless_Sabot>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_5x100mmCaselessToxic</defName>
+		<label>5x100mm Caseless (Toxic)</label>
+		<ammoTypes>
+			<Ammo_5x100mmCaseless_Sabot>Bullet_5x100mmCaseless_Toxic</Ammo_5x100mmCaseless_Sabot>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="5x100mmCaselessBase" ParentName="SmallAmmoBase" Abstract="True">
+		<description>Caseless slim and very long bullet with a solid propellant enveloping the projectile.</description>
+		<statBases>
+			<Bulk>0.03</Bulk>
+		</statBases>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting_TableMachining</li>
+		</tradeTags>
+		<thingCategories>
+			<li>Ammo5x100mmCaseless</li>
+		</thingCategories>
+	</ThingDef>
+	
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="5x100mmCaselessBase">
+		<defName>Ammo_5x100mmCaseless_Sabot</defName>
+		<label>5x100mm Caseless cartridge (Sabot)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Railgun/Rifle</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>0.12</MarketValue>
+			<Mass>0.018</Mass>
+		</statBases>
+		<ammoClass>Sabot</ammoClass>
+		<cookOffProjectile>Bullet_5x100mmCaseless_Sabot</cookOffProjectile>
+	</ThingDef>
+		
+	<!-- ================== Projectiles ================== -->
+	
+	<ThingDef Name="Base5x100mmCaselessBullet" ParentName="SK_BaseBullet" Abstract="true">
+		<graphicData>
+			<texPath>Things/Projectile/Needle</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+	</ThingDef>
+
+	  <ThingDef ParentName="Base5x100mmCaselessBullet">
+		<defName>Bullet_5x100mmCaseless_Sabot</defName>
+		<label>5x100 Caseless bullet (Sabot)</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+		  <damageDef>Bullet</damageDef>
+		  <damageAmountBase>10</damageAmountBase>
+		  <armorPenetrationSharp>18</armorPenetrationSharp>
+		  <armorPenetrationBlunt>75</armorPenetrationBlunt>
+		  <speed>200</speed>
+		</projectile>
+	  </ThingDef>
+
+	  <ThingDef ParentName="Base5x100mmCaselessBullet">
+		<defName>Bullet_5x100mmCaseless_Toxic</defName>
+		<label>5x100 Caseless bullet (Toxic)</label>
+		<graphicData>
+			<texPath>Things/Projectile/ToxicNeedleShot</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+		  <damageDef>BulletToxic</damageDef>
+		  <damageAmountBase>10</damageAmountBase>
+		  <armorPenetrationSharp>18</armorPenetrationSharp>
+		  <armorPenetrationBlunt>75</armorPenetrationBlunt>
+		  <speed>200</speed>
+		</projectile>
+	  </ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+  
+  <RecipeDef ParentName="AmmoRecipeRifle">
+    <defName>MakeAmmo_5x100mmCaseless_Sabot</defName>
+    <label>make 5x100mm Caseless (Sabot) cartridge x500</label>
+    <description>Craft 500 5x100mm Caseless (Sabot) cartridges.</description>
+    <jobString>Making 5x100mm Caseless (Sabot) cartridges.</jobString>
+	<ingredients>
+		<li>
+			<filter>
+				<categories>
+					<li>SLDBar</li>
+					<li>USLDBar</li>
+				</categories>
+			</filter>
+			<count>18</count>
+		</li>
+		<li>
+			<filter>
+				<categories>
+					<li>USLDHBar</li>
+				</categories>
+			</filter>
+			<count>8</count>
+		</li>
+		<li>
+			<filter>
+				<thingDefs>
+					<li>Powder</li>
+				</thingDefs>
+			</filter>
+			<count>5</count>
+		</li>
+	</ingredients>
+	<fixedIngredientFilter>
+		<categories>
+			<li>SLDBar</li>
+			<li>USLDBar</li>
+			<li>USLDHBar</li>
+		</categories>
+		<thingDefs>
+			<li>Powder</li>
+		</thingDefs>
+	</fixedIngredientFilter>
+    <products>
+      <Ammo_5x100mmCaseless_Sabot>500</Ammo_5x100mmCaseless_Sabot>
+    </products>
+    <workAmount>3400</workAmount>
+  </RecipeDef>
+	
+</Defs>

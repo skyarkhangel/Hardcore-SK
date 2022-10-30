@@ -174,6 +174,7 @@ Expanded Materials - Plastics |
 Expanded Patchleather	|
 Expanded Prosthetics and Organ Engineering (EPOE)	|
 Expanded Prosthetics and Organ Engineering (EPOE) - Forked	|
+EPOE-Forked: Royalty DLC expansion	|
 Expanded Woodworking (Forked)   |
 Extended Storage	|
 Faction: Mafia  |
