@@ -177,6 +177,7 @@
 							<StuffEffectMultiplierInsulation_Cold>0.25</StuffEffectMultiplierInsulation_Cold>
 							<StuffEffectMultiplierInsulation_Heat>0.25</StuffEffectMultiplierInsulation_Heat>
 							<StuffEffectMultiplierArmor>3.9</StuffEffectMultiplierArmor>
+							<NightVisionEfficiency_Apparel>0.80</NightVisionEfficiency_Apparel>
 							<ArmorRating_Sharp>6.8</ArmorRating_Sharp>
 							<ArmorRating_Blunt>14.5</ArmorRating_Blunt>
 							<ArmorRating_Heat>0.12</ArmorRating_Heat>
@@ -434,6 +435,7 @@
 							<EquipDelay>2.7</EquipDelay>
 							<Insulation_Heat>5</Insulation_Heat>
 							<Insulation_Cold>5</Insulation_Cold>
+							<NightVisionEfficiency_Apparel>0.70</NightVisionEfficiency_Apparel>
 							<StuffEffectMultiplierInsulation_Cold>0.25</StuffEffectMultiplierInsulation_Cold>
 							<StuffEffectMultiplierInsulation_Heat>0.25</StuffEffectMultiplierInsulation_Heat>
 							<StuffEffectMultiplierArmor>4.67</StuffEffectMultiplierArmor>
@@ -620,6 +622,24 @@
 								</li>
 							</options>
 						</colorGenerator>
+						<modExtensions>
+						  <li Class="CombatExtended.PartialArmorExt">
+							  <stats>		  				  
+								  <li>
+									<ArmorRating_Sharp>0.80</ArmorRating_Sharp>
+									<parts>
+										<li>Hand</li>
+									</parts>
+								  </li>
+								  <li>
+									<ArmorRating_Blunt>0.80</ArmorRating_Blunt>
+									<parts>
+										<li>Hand</li>
+									</parts>
+								  </li>
+							  </stats>
+						  </li>
+						</modExtensions>
 						<thingSetMakerTags>
 							<li>RewardStandardHighFreq</li>
 						</thingSetMakerTags>
@@ -662,6 +682,7 @@
 							<Bulk>5</Bulk>
 							<WornBulk>1</WornBulk>
 							<Flammability>0.2</Flammability>
+							<NightVisionEfficiency_Apparel>0.75</NightVisionEfficiency_Apparel>
 							<StuffEffectMultiplierArmor>8.65</StuffEffectMultiplierArmor>
 							<ArmorRating_Sharp>17.21</ArmorRating_Sharp>
 							<ArmorRating_Blunt>46.7</ArmorRating_Blunt>
@@ -739,6 +760,22 @@
 							<li Class="CombatExtended.ApparelHediffExtension">
 								<hediff>WearingSpacerHelmet</hediff>
 							</li>
+							<li Class="CombatExtended.PartialArmorExt">
+							<stats>
+								<li>
+									<ArmorRating_Sharp>0.90</ArmorRating_Sharp>
+									<parts>
+										<li>Eye</li>
+									</parts>
+								</li>
+								<li>
+									<ArmorRating_Blunt>0.90</ArmorRating_Blunt>
+									<parts>
+										<li>Eye</li>
+									</parts>
+								</li>
+							</stats>
+							</li>
 						</modExtensions>
 					</ThingDef>
 				</value>
@@ -775,7 +812,12 @@
 			</costList>
 		</value>
 	</Operation>
-
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Apparel_ArmorHelmetCataphractPrestige"]/statBases</xpath>
+		<value>
+		  <NightVisionEfficiency_Apparel>0.75</NightVisionEfficiency_Apparel>
+		</value>
+	</Operation>
 
 	<!-- ========== Apparel_ArmorLocust ========== -->
 
@@ -1107,6 +1149,9 @@
 		</operations>
 	</Operation>
 
+	<Operation Class="PatchOperationRemove">
+		<xpath>Defs/ThingDef[defName="Proj_GrenadierGrenade"]</xpath>
+	</Operation>
 
 	<!-- ========== Apparel_ArmorCataphractPhoenix ========== -->
 
@@ -1201,9 +1246,18 @@
 		</value>
 	</Operation>
 	<Operation Class="PatchOperationAttributeAdd">
-		<xpath>Defs/ThingDef[defName="Apparel_Gunlink"]/equippedStatOffsets</xpath>
+		<xpath>Defs/ThingDef[defName="Apparel_Gunlink"]/costList</xpath>
 		<attribute>Inherit</attribute>
-		<value>false</value>
+		  <value>false</value>
+	</Operation>
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Apparel_Gunlink"]/equippedStatOffsets</xpath>
+		<value>
+		  <equippedStatOffsets Inherit="False">
+			<AimingAccuracy>0.6</AimingAccuracy>
+			<ShootingAccuracyPawn>1.5</ShootingAccuracyPawn>
+		  </equippedStatOffsets>
+		</value>
 	</Operation>
 	<Operation Class="PatchOperationAdd">
 		<xpath>Defs/ThingDef[defName="Apparel_Gunlink"]/apparel</xpath>
@@ -1213,5 +1267,7 @@
 			</layers>  
 		</value>
 	</Operation>
+
+
 
 </Patch>
