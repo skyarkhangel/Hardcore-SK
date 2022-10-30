@@ -21,6 +21,7 @@
 		<xpath>Defs/StatDef[defName = "Mass"]/parts</xpath>
 		<value>
 			<li Class="CombatExtended.StatPart_LoadedAmmo"/>
+			<li Class="CombatExtended.StatPart_Attachments"/>			
 		</value>
 	</Operation>
 
@@ -31,13 +32,20 @@
 	<Operation Class="PatchOperationRemove">
 		<xpath>Defs/StatDef[@Name = "ArmorRatingBase"]/maxValue</xpath>
 	</Operation>
+
+	<!-- Armor Rating -->
 	
-	<!-- Armor Rating : Not needed already in core sk
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/StatDef[@Name = "ArmorRatingBase"]</xpath>
+		<value>
+			<workerClass>CombatExtended.StatWorker_ArmorPartial</workerClass>
+		</value>
+	</Operation>
 
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/StatDef[@Name = "ArmorRatingBase"]/parts/li[@Class = "StatPart_Quality"]</xpath>
 		<value>
-			<li Class="StatPart_Quality">
+			<li Class="CombatExtended.StatPart_QualityConditional">
 			  <factorAwful>0.5</factorAwful>
 			  <factorPoor>0.75</factorPoor>
 			  <factorNormal>1</factorNormal>
@@ -57,8 +65,7 @@
 			</li>
 		</value>
 	</Operation>
-	-->
-	
+
 	<Operation Class="PatchOperationAdd">
 		<xpath>Defs/StatDef[defName="ArmorRating_Sharp"]</xpath>
 		<value>
@@ -99,21 +106,21 @@
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/StatDef[defName = "ArmorRating_Sharp"]/description</xpath>
 		<value>
-			<description>Mitigation effect on sharp damage such as bullets, knife stabs, and animal bites.\n\nThis armor rating is compared against an attack's armor penetration, with deflection occurring if armor is the higher stat. Otherwise, armor penetration has the armor rating subtracted from it, and damage is reduced by the ratio of modified to initial AP, as follows:\n\nModifiedAP = InitialAP - ArmorRating\nModifiedDamage = InitialDamage * (ModifiedAP / InitialAP)\n\nThese reductions apply for each layer the attack goes through, lowering its ability to penetrate and damage subsequent layers. If an attack is deflected, it's converted to blunt, and checked against the apparel's blunt armor rating.</description>
+			<description>Mitigation effect on sharp damage such as bullets, knife stabs, and animal bites.\n\nThis armor rating is compared against an attack's armor penetration, with deflection occurring if armor is the higher stat. Otherwise, damage is reduced based on the ratio of armor to AP (e.g: if a 8mm RHA armor is hit by a 10mm RHA projectile, the armor will block 80% of the damage). The internal formula is:\n\nModifiedAP = InitialAP - ArmorRating\nModifiedDamage = InitialDamage * (ModifiedAP / InitialAP)\n\nThese reductions apply for each layer the attack goes through, lowering its ability to penetrate and damage subsequent layers. If an attack is deflected, it's converted to blunt, the damage is recalculated based off the base blunt armor penetration and the ratio of pre-deflecton sharp armor penetration to base sharp penetration, and is checked against the apparel's blunt armor rating. If an attack penetrated with some of its damage blocked, then additional blunt damage is applied based off the attack's base blunt penetration influenced by the ratio of blocked damage and blocked armor penetration to base damage and base armor penetration.</description>
 		</value>
 	</Operation>
 
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/StatDef[defName = "ArmorRating_Blunt"]/description</xpath>
 		<value>
-			<description>Mitigation effect on blunt-force damage such as maces, explosions, and animal hoofs.\n\nThis armor rating is compared against an attack's armor penetration, with no damage occurring if armor is the higher stat. Otherwise, armor penetration has the armor rating subtracted from it, and damage is reduced by the ratio of modified to initial AP, as follows:\n\nModifiedAP = InitialAP - ArmorRating\nModifiedDamage = InitialDamage * (ModifiedAP / InitialAP)\n\nThese reductions apply for each layer the attack goes through, lowering its ability to penetrate and damage subsequent layers.</description>
+			<description>Mitigation effect on blunt-force damage such as maces, explosions, and animal hoofs.\n\nThis armor rating is compared against an attack's armor penetration, with no damage occurring if armor is the higher stat. Otherwise, damage is reduced based on the ratio of armor to AP (e.g: if a 8 MPa armor is hit by a 10 MPa impact, the armor will block 80% of the damage). The internal formula is:\n\nModifiedAP = InitialAP - ArmorRating\nModifiedDamage = InitialDamage * (ModifiedAP / InitialAP)\n\nThese reductions apply for each layer the attack goes through, lowering its ability to penetrate and damage subsequent layers.</description>
 		</value>
 	</Operation>
 
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/StatDef[defName = "ArmorRating_Heat"]/description</xpath>
 		<value>
-			<description>The chance to affect temperature-related damage like burns.\n\nUpon taking damage, first this armor rating is reduced by the attack's armor penetration value. The remaining armor forms a percentage reduction of damage.</description>
+			<description>Percentage reduction of damage from extreme heat such as fire and incendiary explosions.\n\nHaving a value of 100% or above makes the creature immune to all flame damage in that body region.</description>
 		</value>
 	</Operation>
 
@@ -141,6 +148,83 @@
 		</value>
 	</Operation>
 
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/StatDef[defName="MeleeHitChance"]/parts</xpath>
+		<value>
+			<li Class="CombatExtended.StatPart_Bulk" />
+		</value>
+	</Operation>
+
+	<!-- Melee Dodge Chance -->
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/StatDef[defName="MeleeDodgeChance"]</xpath>
+		<value>
+			<workerClass>CombatExtended.StatWorker_MoveSpeed</workerClass>
+			<maxValue>3.2</maxValue>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/StatDef[defName="MeleeDodgeChance"]/defaultBaseValue</xpath>
+		<value>
+			<defaultBaseValue>1</defaultBaseValue>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/StatDef[defName="MeleeDodgeChance"]/skillNeedOffsets</xpath>
+		<value>
+		    <skillNeedFactors>
+		      <li Class="SkillNeed_BaseBonus">
+			<skill>Melee</skill>
+			<baseValue>0.05</baseValue>
+			<bonusPerLevel>0.0175</bonusPerLevel>
+		      </li>
+		    </skillNeedFactors>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/StatDef[defName="MeleeDodgeChance"]/capacityOffsets</xpath>
+		<value>
+		    <capacityFactors>
+		      <li>
+			<capacity>Moving</capacity>
+			<weight>1</weight>
+		      </li>
+		      <li>
+			<capacity>Sight</capacity>
+			<weight>0.7</weight>
+			<max>1</max>
+		      </li>
+		    </capacityFactors>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/StatDef[defName="MeleeDodgeChance"]/postProcessCurve</xpath>
+		<value>
+		    <postProcessCurve>
+		      <points>
+			<li>(0.0, 0.0)</li>
+			<li>(0.3, 0.3)</li>
+			<li>(0.6, 0.45)</li>
+			<li>(1.2, 0.6)</li>
+			<li>(2.4, 0.75)</li>
+			<li>(3.2, 0.8)</li>
+		      </points>
+		    </postProcessCurve>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/StatDef[defName="MeleeDodgeChance"]/displayPriorityInCategory</xpath>
+		<value>
+			<displayPriorityInCategory>99</displayPriorityInCategory>
+		</value>
+	</Operation>
+
 	<!-- Shooting Accuracy -->
 
 	<Operation Class="PatchOperationReplace">
@@ -150,22 +234,17 @@
 		</value>
 	</Operation>
 
-	<Operation Class="PatchOperationSequence">
-		<success>Always</success>
-		<operations>
-			<li Class="PatchOperationTest">
-				<xpath>Defs/StatDef[defName="ShootingAccuracyPawn"]/workerClass</xpath>
-			</li>
-			<li Class="PatchOperationRemove">
-				<xpath>Defs/StatDef[defName="ShootingAccuracyPawn"]/workerClass</xpath>
-			</li>
-		</operations>
+	<Operation Class="PatchOperationConditional">
+		<xpath>/Defs/ThingDef[defName="ShootingAccuracyPawn"]/workerClass</xpath>
+		<match Class="PatchOperationRemove">
+			<xpath>/Defs/ThingDef[defName="ShootingAccuracyPawn"]/workerClass</xpath>
+		</match>
 	</Operation>
 
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/StatDef[defName="ShootingAccuracyPawn"]/description</xpath>
 		<value>
-			<description>How well a shooter can hold a gun steady when aiming and compensate for recoil.\n\nThe total sway is calculated as:\n(4.5 - shooting accuracy) * weapon sway factor\n\nThe recoil per shot is determined by multiplying this value against the weapon's inherent recoil amount and increases after every shot in a burst.</description>
+			<description>How well a shooter can hold a gun steady when aiming and compensate for recoil.\n\nThe total sway is calculated as:\n(4.5 - weapon handling) * weapon sway factor\n\nThe recoil per shot is determined by multiplying this value against the weapon's inherent recoil amount and increases after every shot in a burst.</description>
 		</value>
 	</Operation>
 
@@ -174,6 +253,13 @@
 		<value>
 			<maxValue>13</maxValue>
 		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationConditional">
+		<xpath>/Defs/ThingDef[defName="ShootingAccuracyPawn"]/skillNeedOffsets/li[@Class = "SkillNeed_Direct"]</xpath>
+		<match Class="PatchOperationRemove">
+			<xpath>/Defs/ThingDef[defName="ShootingAccuracyPawn"]/workerClass</xpath>
+		</match>
 	</Operation>
 
 	<Operation Class="PatchOperationSequence"> <!-- compatibility with any mod that redefines ShootingAccuracy and changes SkillNeed back to the traditional pre-A17 values per skill level (e.g. Shooting Skill Rebalanced) -->
@@ -237,6 +323,64 @@
 		</value>
 	</Operation>
 
+	<!-- Aiming Delay Factor -->
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/StatDef[defName="AimingDelayFactor"]</xpath>
+		<value>
+		    <maxValue>2.0</maxValue>
+		    <skillNeedFactors>
+		      <li Class="SkillNeed_Direct">
+			<skill>Shooting</skill>
+			<valuesPerLevel>
+			  <li>1.25</li>
+			  <li>1.2</li>
+			  <li>1.17</li>
+			  <li>1.15</li>
+			  <li>1.12</li>
+			  <li>1.09</li>
+			  <li>1.06</li>
+			  <li>1.03</li>
+			  <li>1.0</li>
+			  <li>0.98</li>
+			  <li>0.96</li>
+			  <li>0.94</li>
+			  <li>0.92</li>
+			  <li>0.90</li>
+			  <li>0.88</li>
+			  <li>0.86</li>
+			  <li>0.84</li>
+			  <li>0.82</li>
+			  <li>0.80</li>
+			  <li>0.78</li>
+			  <li>0.75</li>
+			</valuesPerLevel>
+		      </li>
+		    </skillNeedFactors>
+		    <capacityFactors>
+		      <li>
+			<capacity>Manipulation</capacity>
+			<weight>1</weight>
+			<useReciprocal>true</useReciprocal>
+		      </li>
+		      <li>
+			<capacity>Sight</capacity>
+			<weight>0.7</weight>
+			<useReciprocal>true</useReciprocal>
+		      </li>
+		    </capacityFactors>
+		    <postProcessCurve>
+		      <points>
+			<li>(0.01, 0.5)</li>
+			<li>(0.75, 0.75)</li>
+			<li>(1.0, 1.0)</li>
+			<li>(1.25, 1.25)</li>
+			<li>(2.0, 1.5)</li>
+		      </points>
+		    </postProcessCurve>
+		</value>
+	</Operation>
+
 	<!-- Move speed -->
 
 	<Operation Class="PatchOperationAdd">
@@ -291,4 +435,3 @@
 	</Operation>
 
 </Patch>
-

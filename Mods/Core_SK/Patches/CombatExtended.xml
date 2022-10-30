@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Patch>
+
+	<Operation Class="PatchOperationFindMod">
+	<mods>
+		<li>Combat Extended</li>
+	</mods>
+		<match Class="PatchOperationSequence">
+			<operations>
+		
+				<li Class="PatchOperationConditional">
+					<xpath>/Defs/ThingDef[@Name="BaseGas"]</xpath>
+					<nomatch Class="PatchOperationAdd">
+					  <xpath>/Defs</xpath>
+					  <value>
+						<ThingDef Name="BaseGas" Abstract="True">
+							<thingClass>Gas</thingClass>
+							<label>gas</label>
+							<category>Gas</category>
+							<altitudeLayer>Gas</altitudeLayer>
+							<useHitPoints>false</useHitPoints>
+							<tickerType>Normal</tickerType>
+							<graphicData>
+							  <graphicClass>Graphic_Gas</graphicClass>
+							  <shaderType>Transparent</shaderType>
+							</graphicData>
+						</ThingDef>
+					  </value>
+					</nomatch>
+					<match Class="PatchOperationReplace">
+					  <xpath>/Defs/ThingDef[@Name="BaseGas"]</xpath>
+					  <value>
+						<ThingDef Name="BaseGas" Abstract="True">
+							<thingClass>Gas</thingClass>
+							<label>gas</label>
+							<category>Gas</category>
+							<altitudeLayer>Gas</altitudeLayer>
+							<useHitPoints>false</useHitPoints>
+							<tickerType>Normal</tickerType>
+							<graphicData>
+							  <graphicClass>Graphic_Gas</graphicClass>
+							  <shaderType>Transparent</shaderType>
+							</graphicData>
+						</ThingDef>
+					  </value>
+					</match>
+				</li>
+
+				<li Class="PatchOperationRemove">
+				  <xpath>/Defs/ThingDef[defName="Gas_BlackSmoke"]/gas/blockTurretTracking</xpath>
+				</li>
+
+				<li Class="PatchOperationRemove">
+				  <xpath>/Defs/ThingDef[defName="Gas_BlackSmoke"]/gas/accuracyPenalty</xpath>
+				</li>
+
+				<li Class="PatchOperationReplace">
+					<xpath>Defs/ThingDef[@Name="BaseFragGrenadeProjectile"]/thingClass</xpath>
+					<value>
+						<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+					</value>
+				</li>
+
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/ThingDef[@Name="BaseGrenadeProjectile"]/projectile</xpath>
+					<value>
+						<explosionDamageFalloff>true</explosionDamageFalloff>
+					</value>
+				</li>
+
+				<li Class="PatchOperationAdd">
+					<xpath>/Defs/PawnKindDef[defName="StrangerInBlack"]/apparelRequired</xpath>
+					 <value>
+					   <li>Apparel_Backpack</li>
+					 </value>
+				</li>
+
+				<li Class="PatchOperationConditional">
+					<xpath>/Defs/PawnKindDef[@Name="TribalChiefBase"]/apparelRequired</xpath>
+					<nomatch Class="PatchOperationAdd">
+					<xpath>Defs/PawnKindDef[@Name="TribalChiefBase"]</xpath>
+					<value>
+					  <apparelRequired>
+						<li>Apparel_TribalBackpack</li>
+					  </apparelRequired>
+					</value>
+				</nomatch>
+				<match Class="PatchOperationAdd">
+					<xpath>Defs/PawnKindDef[@Name="TribalChiefBase"]/apparelRequired</xpath>
+					<value>
+					  <li>Apparel_TribalBackpack</li>
+					</value>
+					</match>
+				</li>
+
+			</operations>
+		</match>
+    </Operation>
+	
+</Patch>

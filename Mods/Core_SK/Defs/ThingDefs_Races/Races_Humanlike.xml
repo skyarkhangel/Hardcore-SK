@@ -27,9 +27,10 @@
 			<body>Human</body>
 			<baseHealthScale>1</baseHealthScale>
 			<foodType>OmnivoreHuman</foodType>
-			<gestationPeriodDays>35</gestationPeriodDays>
+			<gestationPeriodDays>40</gestationPeriodDays>
 			<manhunterOnDamageChance>0.50</manhunterOnDamageChance>
 			<manhunterOnTameFailChance>0.10</manhunterOnTameFailChance>
+			<soundCallIntervalRange>1000~2000</soundCallIntervalRange>
 			<litterSizeCurve>
 				<points>
 					<li>(0.5, 0)</li>
@@ -44,12 +45,12 @@
 					<minAge>0</minAge>
 				</li>
 				<li>
-					<def>HumanlikeToddler</def>
-					<minAge>1.2</minAge>
+				  <def>HumanlikeChild</def>
+				  <minAge>3</minAge>
 				</li>
-				<li>
-					<def>HumanlikeChild</def>
-					<minAge>4</minAge>
+				<li MayRequire="Ludeon.RimWorld.Biotech">
+				  <def>HumanlikePreTeenager</def>
+				  <minAge>9</minAge>
 				</li>
 				<li>
 					<def>HumanlikeTeenager</def>
@@ -64,6 +65,29 @@
 					<soundAngry>Pawn_Human_Wounded</soundAngry>
 				</li>
 			</lifeStageAges>
+			<lifeStageWorkSettings MayRequire="Ludeon.RimWorld.Biotech">
+				<Firefighter>7</Firefighter>
+				<Patient>0</Patient>
+				<Doctor>10</Doctor>
+				<PatientBedRest>0</PatientBedRest>
+				<Childcare MayRequire="Ludeon.RimWorld.Biotech">0</Childcare>
+				<BasicWorker>7</BasicWorker>
+				<Warden>10</Warden>
+				<Handling>7</Handling>
+				<Cooking>7</Cooking>
+				<Hunting>7</Hunting>
+				<Construction>10</Construction>
+				<Growing>7</Growing>
+				<Mining>7</Mining>
+				<PlantCutting>7</PlantCutting>
+				<Smithing>13</Smithing>
+				<Tailoring>7</Tailoring>
+				<Art>10</Art>
+				<Crafting>7</Crafting>
+				<Hauling>3</Hauling>
+				<Cleaning>3</Cleaning>
+				<Research>13</Research>
+			</lifeStageWorkSettings>
 			<soundMeleeHitPawn>Pawn_Melee_Punch_HitPawn</soundMeleeHitPawn>
 			<soundMeleeHitBuilding>Pawn_Melee_Punch_HitBuilding</soundMeleeHitBuilding>
 			<soundMeleeMiss>Pawn_Melee_Punch_Miss</soundMeleeMiss>
@@ -74,14 +98,23 @@
 			</specialShadowData>
 			<ageGenerationCurve>
 				<points>
-					<li>(14,0)</li>
-					<li>(16,100)</li>
-					<li>(50,100)</li>
-					<li>(60,30)</li>
-					<li>(70,18)</li>
-					<li>(80,10)</li>
-					<li>(90,3)</li>
-					<li>(100,0)</li>
+				  <li MayRequire="Ludeon.RimWorld.Biotech">(0,0)</li>
+				  <li MayRequire="Ludeon.RimWorld.Biotech">(0.001,43)</li>
+				  <li MayRequire="Ludeon.RimWorld.Biotech">(8,86)</li>
+				  <li MayRequire="Ludeon.RimWorld.Biotech">(12.5,118)</li>  <!-- Exclude 12.5-13 years to avoid spawning pawns who are very close to becoming adults -->  
+				  <li MayRequire="Ludeon.RimWorld.Biotech">(12.51,0)</li>  
+				  <li MayRequire="Ludeon.RimWorld.Biotech">(13,0)</li>      
+				  <li MayRequire="Ludeon.RimWorld.Biotech">(13.001,122)</li><!-- End exclude -->
+				  <li MayRequire="Ludeon.RimWorld.Biotech">(13.999,130)</li>
+				  <li>(14,0)</li>
+				  <li MayRequire="Ludeon.RimWorld.Biotech">(14.001,130)</li>
+				  <li>(16,100)</li>
+				  <li>(50,100)</li>
+				  <li>(60,30)</li>
+				  <li>(70,18)</li>
+				  <li>(80,10)</li>
+				  <li>(90,3)</li>
+				  <li>(100,0)</li>
 				</points>
 			</ageGenerationCurve>
 			<hediffGiverSets>
@@ -290,6 +323,16 @@
 			<li>CureScaria</li>
 			<li MayRequire="Ludeon.RimWorld.Royalty">CureBloodRot</li>
 			<li MayRequire="Ludeon.RimWorld.Royalty">CureAbasia</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">Vasectomy</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">ReverseVasectomy</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">TubalLigation</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">ExtractOvum</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">ExtractHemogenPack</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">BloodTransfusion</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">ImplantXenogerm</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">ImplantIUD</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">RemoveIUD</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">TerminatePregnancy</li>
 		</recipes>
 		<ingredient>
 			<mergeCompatibilityTags>
@@ -327,6 +370,14 @@
 				<power>4</power>
 				<cooldownTime>1.26</cooldownTime>
 				<chanceFactor>0.5</chanceFactor>
+				<surpriseAttack>
+				  <extraMeleeDamages>
+					<li>
+					  <def>Stun</def>
+					  <amount>14</amount>
+					</li>
+				  </extraMeleeDamages>
+				</surpriseAttack>
 				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
 				<armorPenetrationBlunt>1.2</armorPenetrationBlunt>
 			</li>
@@ -338,6 +389,14 @@
 				<power>4</power>
 				<cooldownTime>1.26</cooldownTime>
 				<chanceFactor>0.5</chanceFactor>
+				<surpriseAttack>
+				  <extraMeleeDamages>
+					<li>
+					  <def>Stun</def>
+					  <amount>14</amount>
+					</li>
+				  </extraMeleeDamages>
+				</surpriseAttack>
 				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
 				<armorPenetrationBlunt>1.2</armorPenetrationBlunt>
 			</li>
@@ -420,7 +479,8 @@
 				<alienPartGenerator>
 					<headOffset>(0,0)</headOffset>	
 					<headTypes>
-						<li>Narrow_Pointy</li>
+						<li>Male_NarrowPointy</li>
+						<li>Female_NarrowPointy</li>
 					</headTypes>
 					<bodyTypes>
 						<li>Male</li>
@@ -434,7 +494,8 @@
 					<bodyAddons>
 						<li>
 							<path>Things/Pawn/Humanlike/ElvenEars/EarLeft</path>
-							<bodyPart>left ear</bodyPart>
+							<bodyPart>Ear</bodyPart>
+							<bodyPartLabel>left ear</bodyPartLabel>
 							<inFrontOfBody>true</inFrontOfBody>
 							<drawnInBed>true</drawnInBed>
 							<colorChannel>skin</colorChannel>
@@ -450,8 +511,10 @@
 										<Hulk>(-0.42, 0.55)</Hulk>
 									</bodyTypes>
 									<headTypes>
-										<Normal_Average>(0,0)</Normal_Average>
-										<Narrow_Pointy>(0,0))</Narrow_Pointy>
+										<Male_AverageNormal>(0,0)</Male_AverageNormal>
+										<Male_NarrowPointy>(0,0))</Male_NarrowPointy>
+										<Female_AverageNormal>(0,0)</Female_AverageNormal>
+										<Female_NarrowPointy>(0,0))</Female_NarrowPointy>
 									</headTypes>
 									<layerOffset>-0.275</layerOffset>
 								</south>
@@ -464,8 +527,10 @@
 										<Hulk>(0,0.87)</Hulk>
 									</bodyTypes>
 									<headTypes>
-										<Normal_Average>(0,0)</Normal_Average>
-										<Narrow_Pointy>(0,0)</Narrow_Pointy>
+										<Male_AverageNormal>(0,0)</Male_AverageNormal>
+										<Male_NarrowPointy>(0,0))</Male_NarrowPointy>
+										<Female_AverageNormal>(0,0)</Female_AverageNormal>
+										<Female_NarrowPointy>(0,0))</Female_NarrowPointy>
 									</headTypes>
 									<layerOffset>-0.275</layerOffset>
 								</north>
@@ -478,8 +543,10 @@
 										<Hulk>(-0.5, 0.5)</Hulk>
 									</bodyTypes>
 									<headTypes>
-										<Normal_Average>(0,0)</Normal_Average>
-										<Narrow_Pointy>(0,0)</Narrow_Pointy>
+										<Male_AverageNormal>(0,0)</Male_AverageNormal>
+										<Male_NarrowPointy>(0,0))</Male_NarrowPointy>
+										<Female_AverageNormal>(0,0)</Female_AverageNormal>
+										<Female_NarrowPointy>(0,0))</Female_NarrowPointy>
 									</headTypes>
 									<layerOffset>-0.275</layerOffset>
 								</east>
@@ -490,7 +557,8 @@
 						</li>
 						<li>
 							<path>Things/Pawn/Humanlike/ElvenEars/EarRight</path>
-							<bodyPart>right ear</bodyPart>
+							<bodyPart>Ear</bodyPart>
+							<bodyPartLabel>right ear</bodyPartLabel>
 							<inFrontOfBody>true</inFrontOfBody>
 							<drawnInBed>true</drawnInBed>
 							<colorChannel>skin</colorChannel>
@@ -506,8 +574,10 @@
 										<Hulk>(-0.42, 0.55)</Hulk>
 									</bodyTypes>
 									<headTypes>
-										<Normal_Average>(0,0)</Normal_Average>
-										<Narrow_Pointy>(0,0)</Narrow_Pointy>
+										<Male_AverageNormal>(0,0)</Male_AverageNormal>
+										<Male_NarrowPointy>(0,0)</Male_NarrowPointy>
+										<Female_AverageNormal>(0,0)</Female_AverageNormal>
+										<Female_NarrowPointy>(0,0)</Female_NarrowPointy>
 									</headTypes>
 									<layerOffset>-0.275</layerOffset>
 								</south>
@@ -520,8 +590,10 @@
 										<Hulk>(0,0.87)</Hulk>
 									</bodyTypes>
 									<headTypes>
-										<Normal_Average>(0,0)</Normal_Average>
-										<Narrow_Pointy>(0,0)</Narrow_Pointy>
+										<Male_AverageNormal>(0,0)</Male_AverageNormal>
+										<Male_NarrowPointy>(0,0)</Male_NarrowPointy>
+										<Female_AverageNormal>(0,0)</Female_AverageNormal>
+										<Female_NarrowPointy>(0,0)</Female_NarrowPointy>
 									</headTypes>
 									<layerOffset>-0.275</layerOffset>
 								</north>
@@ -534,8 +606,10 @@
 										<Hulk>(-0.5, 0.5)</Hulk>
 									</bodyTypes>
 									<headTypes>
-										<Normal_Average>(0,0)</Normal_Average>
-										<Narrow_Pointy>(0,0)</Narrow_Pointy>
+										<Male_AverageNormal>(0,0)</Male_AverageNormal>
+										<Male_NarrowPointy>(0,0)</Male_NarrowPointy>
+										<Female_AverageNormal>(0,0)</Female_AverageNormal>
+										<Female_NarrowPointy>(0,0)</Female_NarrowPointy>
 									</headTypes>
 									<layerOffset>-0.275</layerOffset>
 								</east>
@@ -662,7 +736,7 @@
 			<MoveSpeed>5.25</MoveSpeed>
 			<Flammability>2</Flammability>
 			<PsychicSensitivity>1.10</PsychicSensitivity>
-			<ToxicSensitivity>1.20</ToxicSensitivity>
+			<ToxicResistance>-0.2</ToxicResistance>
 			<ComfyTemperatureMin>-15</ComfyTemperatureMin>
 			<ComfyTemperatureMax>23</ComfyTemperatureMax>
 			<LeatherAmount>30</LeatherAmount>
@@ -733,6 +807,7 @@
 			<nameGeneratorFemale>NamerPersonNovaFemale</nameGeneratorFemale>
 			<makesFootprints>true</makesFootprints>
 			<lifeExpectancy>120</lifeExpectancy>
+			<gestationPeriodDays>42</gestationPeriodDays>
 			<baseBodySize>1</baseBodySize>
 			<baseHealthScale>1.05</baseHealthScale>
 			<ageGenerationCurve>
@@ -829,10 +904,14 @@
 				<alienPartGenerator>
 					<headOffset>(0,0)</headOffset>	
 					<headTypes>
-						<li>Narrow_Normal</li>
-						<li>Average_Normal</li>
-						<li>Average_Pointy</li>
-						<li>Narrow_Pointy</li>
+						<li>Male_NarrowNormal</li>
+						<li>Male_AverageNormal</li>
+						<li>Male_AveragePointy</li>
+						<li>Male_NarrowPointy</li>
+						<li>Female_NarrowNormal</li>
+						<li>Female_AverageNormal</li>
+						<li>Female_AveragePointy</li>
+						<li>Female_NarrowPointy</li>
 					</headTypes>
 					<bodyTypes>
 						<li>Male</li>
@@ -842,7 +921,8 @@
 					<bodyAddons>
 						<li>
 							<path>Things/Pawn/Humanlike/DovaEars/EarLeft</path>
-							<bodyPart>left ear</bodyPart>
+							<bodyPart>Ear</bodyPart>
+							<bodyPartLabel>left ear</bodyPartLabel>
 							<inFrontOfBody>true</inFrontOfBody>
 							<drawnInBed>true</drawnInBed>
 							<colorChannel>skin</colorChannel>
@@ -858,8 +938,10 @@
 										<Hulk>(-0.42, 0.48)</Hulk>
 									</bodyTypes>
 									<headTypes>
-										<Normal_Average>(0,0)</Normal_Average>
-										<Narrow_Pointy>(0,0))</Narrow_Pointy>
+										<Male_AverageNormal>(0,0)</Male_AverageNormal>
+										<Male_NarrowPointy>(0,0)</Male_NarrowPointy>
+										<Female_AverageNormal>(0,0)</Female_AverageNormal>
+										<Female_NarrowPointy>(0,0)</Female_NarrowPointy>
 									</headTypes>
 									<layerOffset>-0.275</layerOffset>
 								</south>
@@ -872,8 +954,10 @@
 										<Hulk>(0,0.8)</Hulk>
 									</bodyTypes>
 									<headTypes>
-										<Normal_Average>(0,0)</Normal_Average>
-										<Narrow_Pointy>(0,0)</Narrow_Pointy>
+										<Male_AverageNormal>(0,0)</Male_AverageNormal>
+										<Male_NarrowPointy>(0,0)</Male_NarrowPointy>
+										<Female_AverageNormal>(0,0)</Female_AverageNormal>
+										<Female_NarrowPointy>(0,0)</Female_NarrowPointy>
 									</headTypes>
 									<layerOffset>-0.275</layerOffset>
 								</north>
@@ -886,8 +970,10 @@
 										<Hulk>(-0.5, 0.5)</Hulk>
 									</bodyTypes>
 									<headTypes>
-										<Normal_Average>(0,0)</Normal_Average>
-										<Narrow_Pointy>(0,0)</Narrow_Pointy>
+										<Male_AverageNormal>(0,0)</Male_AverageNormal>
+										<Male_NarrowPointy>(0,0)</Male_NarrowPointy>
+										<Female_AverageNormal>(0,0)</Female_AverageNormal>
+										<Female_NarrowPointy>(0,0)</Female_NarrowPointy>
 									</headTypes>
 									<layerOffset>-0.275</layerOffset>
 								</east>
@@ -898,7 +984,8 @@
 						</li>
 						<li>
 							<path>Things/Pawn/Humanlike/DovaEars/EarRight</path>
-							<bodyPart>right ear</bodyPart>
+							<bodyPart>Ear</bodyPart>
+							<bodyPartLabel>right ear</bodyPartLabel>
 							<inFrontOfBody>true</inFrontOfBody>
 							<drawnInBed>true</drawnInBed>
 							<colorChannel>skin</colorChannel>
@@ -914,8 +1001,10 @@
 										<Hulk>(-0.42, 0.48)</Hulk>
 									</bodyTypes>
 									<headTypes>
-										<Normal_Average>(0,0)</Normal_Average>
-										<Narrow_Pointy>(0,0)</Narrow_Pointy>
+										<Male_AverageNormal>(0,0)</Male_AverageNormal>
+										<Male_NarrowPointy>(0,0)</Male_NarrowPointy>
+										<Female_AverageNormal>(0,0)</Female_AverageNormal>
+										<Female_NarrowPointy>(0,0)</Female_NarrowPointy>
 									</headTypes>
 									<layerOffset>-0.275</layerOffset>
 								</south>
@@ -928,8 +1017,10 @@
 										<Hulk>(0,0.8)</Hulk>
 									</bodyTypes>
 									<headTypes>
-										<Normal_Average>(0,0)</Normal_Average>
-										<Narrow_Pointy>(0,0)</Narrow_Pointy>
+										<Male_AverageNormal>(0,0)</Male_AverageNormal>
+										<Male_NarrowPointy>(0,0)</Male_NarrowPointy>
+										<Female_AverageNormal>(0,0)</Female_AverageNormal>
+										<Female_NarrowPointy>(0,0)</Female_NarrowPointy>
 									</headTypes>
 									<layerOffset>-0.275</layerOffset>
 								</north>
@@ -942,8 +1033,10 @@
 										<Hulk>(-0.5, 0.5)</Hulk>
 									</bodyTypes>
 									<headTypes>
-										<Normal_Average>(0,0)</Normal_Average>
-										<Narrow_Pointy>(0,0)</Narrow_Pointy>
+										<Male_AverageNormal>(0,0)</Male_AverageNormal>
+										<Male_NarrowPointy>(0,0)</Male_NarrowPointy>
+										<Female_AverageNormal>(0,0)</Female_AverageNormal>
+										<Female_NarrowPointy>(0,0)</Female_NarrowPointy>
 									</headTypes>
 									<layerOffset>-0.275</layerOffset>
 								</east>
@@ -1098,7 +1191,7 @@
 			<MarketValue>2450</MarketValue>
 			<MoveSpeed>5.35</MoveSpeed>
 			<PsychicSensitivity>1.15</PsychicSensitivity>
-			<ToxicSensitivity>0.7</ToxicSensitivity>
+			<ToxicResistance>0.3</ToxicResistance>
 			<ComfyTemperatureMin>15</ComfyTemperatureMin>
 			<ComfyTemperatureMax>40</ComfyTemperatureMax>
 			<LeatherAmount>30</LeatherAmount>
@@ -1190,6 +1283,7 @@
 			<intelligence>Humanlike</intelligence>
 			<makesFootprints>true</makesFootprints>
 			<lifeExpectancy>1200</lifeExpectancy>
+			<gestationPeriodDays>37</gestationPeriodDays>
 			<baseBodySize>1</baseBodySize>
 			<baseHealthScale>1.1</baseHealthScale>
 			<baseHungerRate>0.85</baseHungerRate>
@@ -1231,7 +1325,7 @@
 			<GlobalLearningFactor>0.8</GlobalLearningFactor>
 			<ImmunityGainSpeed>1.15</ImmunityGainSpeed>
 			<SocialImpact>0.9</SocialImpact>
-			<ToxicSensitivity>0.8</ToxicSensitivity>
+			<ToxicResistance>0.2</ToxicResistance>
 			<ArmorRating_Blunt>1</ArmorRating_Blunt>
 			<ArmorRating_Sharp>0.2</ArmorRating_Sharp>
 			<MeleeCritChance>0.2</MeleeCritChance>
@@ -1301,6 +1395,7 @@
 			<useMeatFrom>Human</useMeatFrom>
 			<leatherDef>Leather_Human</leatherDef>
 			<lifeExpectancy>70</lifeExpectancy>
+			<gestationPeriodDays>35</gestationPeriodDays>
 			<baseBodySize>1.05</baseBodySize>
 			<baseHealthScale>1.25</baseHealthScale>
 			<hediffGiverSets>
@@ -1367,7 +1462,8 @@
 				<alienPartGenerator>
 					<headOffset>(0.0, -0.06)</headOffset>
 					<headTypes>
-						<li>Average_Normal</li>
+						<li>Male_AverageNormal</li>
+						<li>Female_AverageNormal</li>
 					</headTypes>
 					<bodyTypes>
 						<li>Thin</li>
@@ -1396,7 +1492,8 @@
 										<Hulk>(-.1,-0.2)</Hulk>
 									</bodyTypes>
 									<headTypes>
-										<Normal_Average>(0,0)</Normal_Average>
+										<Male_AverageNormal>(0,0)</Male_AverageNormal>
+										<Female_AverageNormal>(0,0)</Female_AverageNormal>
 									</headTypes>
 								</south>
 								<north>
@@ -1407,7 +1504,8 @@
 										<Hulk>(0,-0.05)</Hulk>
 									</bodyTypes>
 									<headTypes>
-										<Normal_Average>(0,0)</Normal_Average>
+										<Male_AverageNormal>(0,0)</Male_AverageNormal>
+										<Female_AverageNormal>(0,0)</Female_AverageNormal>
 									</headTypes>
 								</north>
 								<east>
@@ -1418,7 +1516,8 @@
 										<Hulk>(0.2,-0.25)</Hulk>
 									</bodyTypes>
 									<headTypes>
-										<Normal_Average>(0,0)</Normal_Average>
+										<Male_AverageNormal>(0,0)</Male_AverageNormal>
+										<Female_AverageNormal>(0,0)</Female_AverageNormal>
 									</headTypes>
 								</east>
 							</offsets>
@@ -1427,7 +1526,8 @@
 							<drawnDesiccated>false</drawnDesiccated>
 							<drawSize>0.9</drawSize>
 							<path>Things/Pawn/Humanlike/OrassanEars/EarLeft</path>
-							<bodyPart>left ear</bodyPart>
+							<bodyPart>Ear</bodyPart>
+							<bodyPartLabel>left ear</bodyPartLabel>
 							<inFrontOfBody>true</inFrontOfBody>
 							<colorChannel>skin</colorChannel>
 							<defaultOffset>Tail</defaultOffset>
@@ -1446,7 +1546,8 @@
 										<Hulk>(-0.45,.67)</Hulk>
 									</portraitBodyTypes>
 									<headTypes>
-										<Normal_Average>(0,0)</Normal_Average>
+										<Male_AverageNormal>(0,0)</Male_AverageNormal>
+										<Female_AverageNormal>(0,0)</Female_AverageNormal>
 									</headTypes>
 								</south>
 								<north>
@@ -1463,7 +1564,8 @@
 										<Hulk>(-0.04,.89)</Hulk>
 									</portraitBodyTypes>
 									<headTypes>
-										<Normal_Average>(0,0)</Normal_Average>
+										<Male_AverageNormal>(0,0)</Male_AverageNormal>
+										<Female_AverageNormal>(0,0)</Female_AverageNormal>
 									</headTypes>
 								</north>
 								<east>
@@ -1480,7 +1582,8 @@
 										<Hulk>(-0.44,.58)</Hulk>
 									</portraitBodyTypes>
 									<headTypes>
-										<Normal_Average>(0,0)</Normal_Average>
+										<Male_AverageNormal>(0,0)</Male_AverageNormal>
+										<Female_AverageNormal>(0,0)</Female_AverageNormal>
 									</headTypes>
 								</east>
 							</offsets>
@@ -1493,7 +1596,8 @@
 							<drawnDesiccated>false</drawnDesiccated>
 							<drawSize>0.9</drawSize>
 							<path>Things/Pawn/Humanlike/OrassanEars/EarRight</path>
-							<bodyPart>right ear</bodyPart>
+							<bodyPart>Ear</bodyPart>
+							<bodyPartLabel>right ear</bodyPartLabel>
 							<inFrontOfBody>true</inFrontOfBody>
 							<colorChannel>skin</colorChannel>
 							<defaultOffset>Tail</defaultOffset>
@@ -1512,7 +1616,8 @@
 										<Hulk>(-0.4,.67)</Hulk>
 									</portraitBodyTypes>
 									<headTypes>
-										<Normal_Average>(0,0)</Normal_Average>
+										<Male_AverageNormal>(0,0)</Male_AverageNormal>
+										<Female_AverageNormal>(0,0)</Female_AverageNormal>
 									</headTypes>
 								</south>
 								<north>
@@ -1529,7 +1634,8 @@
 										<Hulk>(-0.01,1)</Hulk>
 									</portraitBodyTypes>
 									<headTypes>
-										<Normal_Average>(0,0)</Normal_Average>
+										<Male_AverageNormal>(0,0)</Male_AverageNormal>
+										<Female_AverageNormal>(0,0)</Female_AverageNormal>
 									</headTypes>
 								</north>
 								<east>
@@ -1546,7 +1652,8 @@
 										<Hulk>(-0.44,.58)</Hulk>
 									</portraitBodyTypes>
 									<headTypes>
-										<Normal_Average>(0,0)</Normal_Average>
+										<Male_AverageNormal>(0,0)</Male_AverageNormal>
+										<Female_AverageNormal>(0,0)</Female_AverageNormal>
 									</headTypes>
 								</east>
 							</offsets>
@@ -1598,7 +1705,12 @@
 			</generalSettings>
 
 			<graphicPaths>
-				<head>Things/Pawn/Humanlike/OrassanHeads/</head>
+				<head>
+					<headtypeGraphics>
+						  <Male_AverageNormal>Things/Pawn/Humanlike/OrassanHeads/Male_AverageNormal</Male_AverageNormal>
+						  <Female_AverageNormal>Things/Pawn/Humanlike/OrassanHeads/Female_AverageNormal</Female_AverageNormal>
+					</headtypeGraphics>
+				</head>
 				<skeleton>Things/Pawn/Humanlike/Bodies/Dessicated/Dessicated_Thin</skeleton>
 			</graphicPaths>
 			<styleSettings>
@@ -1789,6 +1901,7 @@
 			<useMeatFrom>Human</useMeatFrom>
 			<leatherDef>Leather_Human</leatherDef>
 			<lifeExpectancy>68</lifeExpectancy>
+			<gestationPeriodDays>30</gestationPeriodDays>
 			<body>Orassan</body>
 			<foodType>OmnivoreHuman</foodType>
 			<baseBodySize>1.0</baseBodySize>
@@ -1796,11 +1909,7 @@
 			<nuzzleMtbHours>3</nuzzleMtbHours>
 		</race>
 		<recipes>
-			<li>InstallClothTail</li>
-			<li>InstallPlasteelClaws</li>
-			<li>InstallBionicTail</li>
-			<li>InstallCyberneticTail</li>
-			<li>InstallOrassanTail</li>
+
 		</recipes>
 		<modExtensions>
 			<li Class="CombatExtended.RacePropertiesExtensionCE">
