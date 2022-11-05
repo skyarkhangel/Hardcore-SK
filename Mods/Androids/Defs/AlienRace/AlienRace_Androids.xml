@@ -70,15 +70,27 @@
 				<immuneToXenophobia>true</immuneToXenophobia>
 				<humanRecipeImport>false</humanRecipeImport>
 				<alienPartGenerator>
-					<aliencrowntypes>
-						<li>Average_Normal</li>
-						<li>Narrow_Normal</li>
-					</aliencrowntypes>
-					<alienbodytypes>
+					<headTypes>
+						<li>Female_AverageWide</li>
+						<li>Female_AveragePointy</li>
+						<li>Female_AverageNormal</li>
+						<li>Female_NarrowNormal</li>
+						<li>Female_NarrowPointy</li>
+						<li>Female_NarrowWide</li>
+						<li>Male_AverageWide</li>
+						<li>Male_AveragePointy</li>
+						<li>Male_AverageNormal</li>
+						<li>Male_NarrowNormal</li>
+						<li>Male_NarrowPointy</li>
+						<li>Male_NarrowWide</li>
+					</headTypes>
+					<bodyTypes>
+						<li MayRequire="Ludeon.RimWorld.Biotech">Baby</li>
+						<li MayRequire="Ludeon.RimWorld.Biotech">Child</li>
 						<li>Thin</li>
 						<li>Male</li>
 						<li>Female</li>
-					</alienbodytypes>
+					</bodyTypes>
 					<colorChannels>
 						<li>
 							<name>skin</name>
@@ -162,12 +174,51 @@
 						</li>
 					</colorChannels>
 				</alienPartGenerator>
+				<growthAges>
+				  <li>7</li>
+				  <li>10</li>
+				  <li>13</li>
+				</growthAges><!--
+				<femaleFertilityAgeFactor>
+				  <points>
+					<li>(14, 0)</li>
+					<li>(20, 1)</li>
+					<li>(500, 1)</li>
+					<li>(700, 0.5)</li>
+					<li>(800, 0.1)</li>
+					<li>(900, 0.02)</li>
+					<li>(1000, 0)</li>
+				  </points>
+				</femaleFertilityAgeFactor>
+				<maleFertilityAgeFactor>
+				  <points>
+					<li>(14, 0)</li>
+					<li>(18, 1)</li>
+					<li>(700, 1)</li>
+					<li>(1000, 0)</li>
+				  </points>
+				</maleFertilityAgeFactor>-->
 			</generalSettings>
 			<graphicPaths>
-				<li>
-					<body>Things/Android/</body>
-					<skeleton>Things/Pawn/Humanlike/Bodies/Dessicated/Dessicated_Thin</skeleton>
-				</li>
+				<head>
+					<path>Things/Android/Head/</path>
+					<headtypeGraphics>
+					  <Male_AverageNormal>Things/Android/Head/Female_AverageNormal</Male_AverageNormal>
+					  <Female_AverageNormal>Things/Android/Head/Female_AverageNormal</Female_AverageNormal>
+					  <Male_AveragePointy>Things/Android/Head/Female_AveragePointy</Male_AveragePointy>
+					  <Female_AveragePointy>Things/Android/Head/Female_AveragePointy</Female_AveragePointy>
+					  <Male_AverageWide>Things/Android/Head/Female_AverageWide</Male_AverageWide>
+					  <Female_AverageWide>Things/Android/Head/Female_AverageWide</Female_AverageWide>
+					  <Male_NarrowNormal>Things/Android/Head/Female_NarrowNormal</Male_NarrowNormal>
+					  <Female_NarrowNormal>Things/Android/Head/Female_NarrowNormal</Female_NarrowNormal>
+					  <Male_NarrowPointy>Things/Android/Head/Female_NarrowPointy</Male_NarrowPointy>
+					  <Female_NarrowPointy>Things/Android/Head/Female_NarrowPointy</Female_NarrowPointy>
+					  <Male_NarrowWide>Things/Android/Head/Female_NarrowWide</Male_NarrowWide>
+					  <Female_NarrowWide>Things/Android/Head/Female_NarrowWide</Female_NarrowWide>
+					</headtypeGraphics>
+				</head>
+				<body>Things/Android/</body>
+				<skeleton>Things/Pawn/Humanlike/Bodies/Dessicated/Dessicated_Thin</skeleton>
 			</graphicPaths>
 			<styleSettings>
 				<li>
@@ -223,7 +274,7 @@
 			<MeleeParryChance>0.4</MeleeParryChance>
 			<Suppressability>1</Suppressability>
 			<SmokeSensitivity>0.2</SmokeSensitivity>
-			<ToxicSensitivity>0.1</ToxicSensitivity>
+			<ToxicResistance>0.9</ToxicResistance>
 			<Radiation>0.5</Radiation>
 			<GermResistance>1</GermResistance>
 			<GermContainment>1</GermContainment>
@@ -331,12 +382,12 @@
 					<minAge>0</minAge>
 				</li>
 				<li>
-					<def>HumanlikeToddler</def>
-					<minAge>1.2</minAge>
-				</li>
-				<li>
 					<def>HumanlikeChild</def>
 					<minAge>4</minAge>
+				</li>
+				<li MayRequire="Ludeon.RimWorld.Biotech">
+				  <def>HumanlikePreTeenager</def>
+				  <minAge>9</minAge>
 				</li>
 				<li>
 					<def>HumanlikeTeenager</def>
@@ -357,7 +408,16 @@
 			</specialShadowData>
 			<ageGenerationCurve>
 				<points>
+					<li MayRequire="Ludeon.RimWorld.Biotech">(0,0)</li>
+					<li MayRequire="Ludeon.RimWorld.Biotech">(0.001,43)</li>
+					<li MayRequire="Ludeon.RimWorld.Biotech">(8,86)</li>
+					<li MayRequire="Ludeon.RimWorld.Biotech">(12.5,118)</li>  <!-- Exclude 12.5-13 years to avoid spawning pawns who are very close to becoming adults -->  
+					<li MayRequire="Ludeon.RimWorld.Biotech">(12.51,0)</li>  
+					<li MayRequire="Ludeon.RimWorld.Biotech">(13,0)</li>      
+					<li MayRequire="Ludeon.RimWorld.Biotech">(13.001,122)</li><!-- End exclude -->
+					<li MayRequire="Ludeon.RimWorld.Biotech">(13.999,130)</li>
 					<li>(14,0)</li>
+					<li MayRequire="Ludeon.RimWorld.Biotech">(14.001,130)</li>
 					<li>(16,100)</li>
 					<li>(50,100)</li>
 					<li>(60,30)</li>
@@ -380,6 +440,16 @@
 			<li>CureScaria</li>
 			<li MayRequire="Ludeon.RimWorld.Royalty">CureBloodRot</li>
 			<li MayRequire="Ludeon.RimWorld.Royalty">CureAbasia</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">Vasectomy</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">ReverseVasectomy</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">TubalLigation</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">ExtractOvum</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">ExtractHemogenPack</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">BloodTransfusion</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">ImplantXenogerm</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">ImplantIUD</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">RemoveIUD</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">TerminatePregnancy</li>
 		</recipes>
 		<butcherProducts>
 			<RobotParts>10</RobotParts>

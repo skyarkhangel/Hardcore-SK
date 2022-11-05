@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+  
+	<!-- ========== Remove the Toxbomb launcher ========== -->
+
+	<Operation Class="PatchOperationRemove">
+		<xpath>Defs/ThingDef[defName="Gun_ToxbombLauncher"]</xpath>
+	</Operation>
+
+	<!-- Add the tox grenades to the 40mm grenade ammoset -->
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/CombatExtended.AmmoSetDef[defName="AmmoSet_40x46mmGrenade"]/ammoTypes</xpath>
+		<value>
+			<Ammo_40x46mmGrenade_Tox>Bullet_40x46mmGrenade_Tox</Ammo_40x46mmGrenade_Tox>
+		</value>
+	</Operation>
+
+	<!-- ========== Tox Grenades ========== -->
+
+	<!-- Kill recipe maker -->
+
+	<Operation Class="PatchOperationAttributeSet">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeTox"]</xpath>
+		<attribute>ParentName</attribute>
+		<value>BaseWeapon</value>
+	</Operation>
+
+	<Operation Class="PatchOperationRemove">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeTox"]/recipeMaker</xpath>
+	</Operation>
+
+	<!-- Melee tools -->
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeTox"]</xpath>
+		<value>
+			<tools>
+			  <li Class="CombatExtended.ToolCE">
+				<label>Body</label>
+				<capacities>
+				  <li>Blunt</li>
+				</capacities>
+				<power>2</power>
+				<cooldownTime>1.75</cooldownTime>
+				<armorPenetrationBlunt>1.0</armorPenetrationBlunt>
+				<linkedBodyPartsGroup>Base</linkedBodyPartsGroup>
+			  </li>
+			</tools>
+		</value>
+	</Operation>
+
+	<!-- Projectile -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Proj_GrenadeTox"]/thingClass</xpath>
+		<value>
+			<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Proj_GrenadeTox"]/graphicData/texPath</xpath>
+		<value>
+			<texPath>Things/Projectile/Grenades/Tox</texPath>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Proj_GrenadeTox"]/projectile</xpath>
+		<value>
+			<projectile Class="CombatExtended.ProjectilePropertiesCE">
+				<damageDef>ToxGas</damageDef>
+				<explosionRadius>2.9</explosionRadius>
+				<explosionDelay>100</explosionDelay>
+				<postExplosionGasType>ToxGas</postExplosionGasType>
+				<dropsCasings>true</dropsCasings>
+				<casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
+				<speed>12</speed>
+				<screenShakeFactor>0</screenShakeFactor>
+			</projectile>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationConditional">
+		<xpath>/Defs/ThingDef[defName="Proj_GrenadeTox"]/comps</xpath>
+		<nomatch Class="PatchOperationAdd">
+			<xpath>/Defs/ThingDef[defName="Proj_GrenadeTox"]</xpath>
+			<value>
+				<comps />
+			</value>
+		</nomatch>
+	</Operation>
+
+	<!-- Grenade -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeTox"]/label</xpath>
+		<value>
+			<label>tox grenade</label>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeTox"]/graphicData</xpath>
+		<value>
+			<graphicData>
+				<texPath>Things/Ammo/HandGrenades/Tox</texPath>
+				<graphicClass>Graphic_StackCount</graphicClass>
+				<onGroundRandomRotateAngle>0</onGroundRandomRotateAngle>
+			</graphicData>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeTox"]</xpath>
+		<value>
+			<thingClass>CombatExtended.AmmoThing</thingClass>
+			<stackLimit>75</stackLimit>
+			<resourceReadoutPriority>First</resourceReadoutPriority>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAttributeSet">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeTox"]</xpath>
+		<attribute>Class</attribute>
+		<value>CombatExtended.AmmoDef</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeTox"]/smeltable</xpath>
+		<value>
+			<smeltable>false</smeltable>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Weapon_GrenadeTox"]/comps</xpath>
+		<value>
+			<comps>
+			  <li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<explosiveRadius>2.9</explosiveRadius>
+				<explosiveDamageType>ToxGas</explosiveDamageType>
+				<postExplosionGasType>ToxGas</postExplosionGasType>
+			  </li>
+			</comps>
+		</value>
+	</Operation>
+
+	<Operation Class="CombatExtended.PatchOperationMakeGunCECompatible">
+		<defName>Weapon_GrenadeTox</defName>
+		<statBases>
+			<Mass>0.539</Mass>
+			<Bulk>1.05</Bulk>
+			<MarketValue>10.15</MarketValue>
+			<RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
+			<SightsEfficiency>0.65</SightsEfficiency>
+		</statBases>
+		<Properties>
+			<label>throw tox grenade</label>
+			<verbClass>CombatExtended.Verb_ShootCEOneUse</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<range>10</range>
+			<minRange>3</minRange>
+			<warmupTime>0.8</warmupTime>
+			<noiseRadius>4</noiseRadius>
+			<ai_IsBuildingDestroyer>false</ai_IsBuildingDestroyer>
+			<soundCast>ThrowGrenade</soundCast>
+			<targetParams>
+				<canTargetLocations>true</canTargetLocations>
+			</targetParams>
+			<defaultProjectile>Proj_GrenadeTox</defaultProjectile>
+			<onlyManualCast>true</onlyManualCast>
+			<ignorePartialLoSBlocker>true</ignorePartialLoSBlocker>
+			<ai_AvoidFriendlyFireRadius>5</ai_AvoidFriendlyFireRadius>
+		</Properties>
+		<weaponTags>
+			<li>CE_AI_AOE</li>
+			<li>CE_OneHandedWeapon</li>
+		</weaponTags>
+	</Operation>
+
+  <!-- ========== Flamebow ========== -->
+
+	<Operation Class="CombatExtended.PatchOperationMakeGunCECompatible">
+		<defName>Flamebow</defName>
+		<statBases>
+			<SightsEfficiency>0.6</SightsEfficiency>
+			<ShotSpread>1</ShotSpread>
+			<SwayFactor>2</SwayFactor>
+			<Bulk>3.00</Bulk>
+			<RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
+		</statBases>
+		<Properties>
+			<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<defaultProjectile>Projectile_Arrow_Flame</defaultProjectile>
+			<warmupTime>1</warmupTime>
+			<range>14</range>
+			<soundCast>Bow_Small</soundCast>
+		</Properties>
+		<AmmoUser>
+			<ammoSet>AmmoSet_FlameArrow</ammoSet>
+		</AmmoUser>
+		<FireModes />
+		<AllowWithRunAndGun>false</AllowWithRunAndGun>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Flamebow"]/tools</xpath>
+		<value>
+			<tools>
+				<li Class="CombatExtended.ToolCE">
+					<capacities>
+						<li>Blunt</li>
+					</capacities>
+					<power>7</power>
+					<cooldownTime>1.6</cooldownTime>
+					<armorPenetrationBlunt>0.65</armorPenetrationBlunt>
+				</li>
+			</tools>
+		</value>
+	</Operation>
+
+</Patch>
