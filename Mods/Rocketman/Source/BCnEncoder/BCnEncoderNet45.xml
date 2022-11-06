@@ -1,0 +1,401 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BCnEncoderNet47</name>
+    </assembly>
+    <members>
+        <member name="F:BCnEncoder.Encoder.EncoderInputOptions.luminanceAsRed">
+            <summary>
+            If true, when encoding to a format that only includes a red channel,
+            use the pixel luminance instead of just the red channel. Default is false.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Encoder.EncoderOutputOptions.format">
+            <summary>
+            The compression format to use. Default is BC1.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Encoder.EncoderOutputOptions.quality">
+            <summary>
+            The quality of the compression. Use either fast or balanced for testing.
+            Fast can be used for near real-time encoding for most algorithms.
+            Use bestQuality when needed. Default is balanced.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Encoder.EncoderOutputOptions.fileFormat">
+            <summary>
+            The output file format of the data. Either Ktx or Dds.
+            Default is Ktx.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Encoder.EncoderOutputOptions.ddsBc1WriteAlphaFlag">
+            <summary>
+            The DDS file format doesn't seem to have a standard for indicating whether a BC1 texture
+            includes 1bit of alpha. This option will write DDPF_ALPHAPIXELS flag to the header
+            to indicate the presence of an alpha channel. Some programs read and write this flag,
+            but some programs don't like it and get confused. Your mileage may vary.
+            Default is false.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Encoder.EncoderOptions.multiThreaded">
+            <summary>
+            Whether the blocks should be encoded in parallel. This can be much faster than single-threaded encoding,
+            but is slow if multiple textures are being processed at the same time.
+            When a debugger is attached, the encoder defaults to single-threaded operation to ease debugging.
+            Default is true.
+            </summary>
+        </member>
+        <member name="T:BCnEncoder.Encoder.BcEncoder">
+            <summary>
+            Handles all encoding of images into compressed or uncompressed formats. For decoding, <see cref="!:Decoder.BcDecoder"/>
+            </summary>
+        </member>
+        <member name="M:BCnEncoder.Encoder.BcEncoder.Encode(System.Byte[],System.Int32,System.Int32,System.IO.Stream)">
+            <summary>
+            Encodes all mipmap levels into a ktx or a dds file and writes it to the output stream.
+            </summary>
+        </member>
+        <member name="M:BCnEncoder.Encoder.BcEncoder.EncodeToKtx(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Encodes all mipmap levels into a Ktx file.
+            </summary>
+        </member>
+        <member name="M:BCnEncoder.Encoder.BcEncoder.EncodeToDds(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Encodes Rgba image into a Dds file.
+            </summary>
+        </member>
+        <member name="M:BCnEncoder.Encoder.BcEncoder.EncodeToRawBytes(System.Byte[],System.Int32,System.Int32,System.Int32@,System.Int32@)">
+            <summary>
+            Encodes an RGBA byte buffer to raw compressed bytes
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Encoder.CompressionQuality.Fast">
+            <summary>
+            Fast, but low quality. Especially bad with gradients.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Encoder.CompressionQuality.Balanced">
+            <summary>
+            Strikes a balance between speed and quality. Good enough for most purposes.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Encoder.CompressionQuality.BestQuality">
+            <summary>
+            Aims for best quality encoding. Can be very slow.
+            </summary>
+        </member>
+        <member name="P:BCnEncoder.Shared.Bc7Block.ColorComponentPrecision">
+            <summary>
+            Bitcount of color component including Pbit
+            </summary>
+        </member>
+        <member name="P:BCnEncoder.Shared.Bc7Block.AlphaComponentPrecision">
+            <summary>
+            Bitcount of alpha component including Pbit
+            </summary>
+        </member>
+        <member name="P:BCnEncoder.Shared.Bc7Block.Type4IndexMode">
+            <summary>
+            Type 4 has 2-bit and 3-bit indices. If index mode is 0; color components will use 2-bit indices and alpha will use 3-bit indices.
+            In index mode 1; color will use 3-bit indices and alpha will use 2-bit indices.
+            </summary>
+        </member>
+        <member name="M:BCnEncoder.Shared.Bc7Block.GetIndexBitCount(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Decrements bitCount by one if index is one of the anchor indices.
+            </summary>
+        </member>
+        <member name="M:BCnEncoder.Shared.Bc7Block.SwapChannels(BCnEncoder.Shared.ColorRgba32,System.Int32)">
+            <summary>
+            00 – no swapping
+            01 – swap A and R
+            10 – swap A and G
+            11 - swap A and B
+            </summary>
+        </member>
+        <member name="M:BCnEncoder.Shared.ColorRgba32.op_LeftShift(BCnEncoder.Shared.ColorRgba32,System.Int32)">
+            <summary>
+            Component-wise left shift
+            </summary>
+        </member>
+        <member name="M:BCnEncoder.Shared.ColorRgba32.op_RightShift(BCnEncoder.Shared.ColorRgba32,System.Int32)">
+            <summary>
+            Component-wise right shift
+            </summary>
+        </member>
+        <member name="M:BCnEncoder.Shared.ColorRgba32.op_BitwiseOr(BCnEncoder.Shared.ColorRgba32,BCnEncoder.Shared.ColorRgba32)">
+            <summary>
+            Component-wise bitwise OR operation
+            </summary>
+        </member>
+        <member name="M:BCnEncoder.Shared.ColorRgba32.op_BitwiseOr(BCnEncoder.Shared.ColorRgba32,System.Int32)">
+            <summary>
+            Component-wise bitwise OR operation
+            </summary>
+        </member>
+        <member name="M:BCnEncoder.Shared.ColorRgba32.op_BitwiseAnd(BCnEncoder.Shared.ColorRgba32,BCnEncoder.Shared.ColorRgba32)">
+            <summary>
+            Component-wise bitwise AND operation
+            </summary>
+        </member>
+        <member name="M:BCnEncoder.Shared.ColorRgba32.op_BitwiseAnd(BCnEncoder.Shared.ColorRgba32,System.Int32)">
+            <summary>
+            Component-wise bitwise AND operation
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.CompressionFormat.BC1">
+            <summary>
+            BC1 / DXT1 with no alpha. Very widely supported and good compression ratio.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.CompressionFormat.BC1WithAlpha">
+            <summary>
+            BC1 / DXT1 with 1-bit of alpha.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.CompressionFormat.BC2">
+            <summary>
+            BC2 / DXT3 encoding with alpha. Good for sharp alpha transitions.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.CompressionFormat.BC3">
+            <summary>
+            BC3 / DXT5 encoding with alpha. Good for smooth alpha transitions.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.CompressionFormat.BC4">
+            <summary>
+            BC4 single-channel encoding. Only luminance is encoded.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.CompressionFormat.BC5">
+            <summary>
+            BC5 dual-channel encoding. Only red and green channels are encoded.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.CompressionFormat.BC6">
+            <summary>
+            BC6H / BPTC float encoding. Can compress HDR textures without alpha. Currently not supported.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.CompressionFormat.BC7">
+            <summary>
+            BC7 / BPTC unorm encoding. Very high quality rgba or rgb encoding. Also very slow.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.DdsHeader.dwSize">
+            <summary>
+            Has to be 124
+            </summary>
+        </member>
+        <member name="T:BCnEncoder.Shared.HeaderFlags">
+            <summary>
+            Flags to indicate which members contain valid data.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.HeaderFlags.DDSD_CAPS">
+            <summary>
+            Required in every .dds file.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.HeaderFlags.DDSD_HEIGHT">
+            <summary>
+            Required in every .dds file.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.HeaderFlags.DDSD_WIDTH">
+            <summary>
+            Required in every .dds file.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.HeaderFlags.DDSD_PITCH">
+            <summary>
+            Required when pitch is provided for an uncompressed texture.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.HeaderFlags.DDSD_PIXELFORMAT">
+            <summary>
+            Required in every .dds file.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.HeaderFlags.DDSD_MIPMAPCOUNT">
+            <summary>
+            Required in a mipmapped texture.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.HeaderFlags.DDSD_LINEARSIZE">
+            <summary>
+            Required when pitch is provided for a compressed texture.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.HeaderFlags.DDSD_DEPTH">
+            <summary>
+            Required in a depth texture.
+            </summary>
+        </member>
+        <member name="T:BCnEncoder.Shared.HeaderCaps">
+            <summary>
+            Specifies the complexity of the surfaces stored.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.HeaderCaps.DDSCAPS_COMPLEX">
+            <summary>
+            Optional; must be used on any file that contains more than one surface (a mipmap, a cubic environment map, or mipmapped volume texture).
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.HeaderCaps.DDSCAPS_MIPMAP">
+            <summary>
+            Optional; should be used for a mipmap.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.HeaderCaps.DDSCAPS_TEXTURE">
+            <summary>
+            Required
+            </summary>
+        </member>
+        <member name="T:BCnEncoder.Shared.HeaderCaps2">
+            <summary>
+            Additional detail about the surfaces stored.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.HeaderCaps2.DDSCAPS2_CUBEMAP">
+            <summary>
+            Required for a cube map.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.HeaderCaps2.DDSCAPS2_CUBEMAP_POSITIVEX">
+            <summary>
+            Required when these surfaces are stored in a cube map.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.HeaderCaps2.DDSCAPS2_CUBEMAP_NEGATIVEX">
+            <summary>
+            Required when these surfaces are stored in a cube map.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.HeaderCaps2.DDSCAPS2_CUBEMAP_POSITIVEY">
+            <summary>
+            Required when these surfaces are stored in a cube map.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.HeaderCaps2.DDSCAPS2_CUBEMAP_NEGATIVEY">
+            <summary>
+            Required when these surfaces are stored in a cube map.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.HeaderCaps2.DDSCAPS2_CUBEMAP_POSITIVEZ">
+            <summary>
+            Required when these surfaces are stored in a cube map.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.HeaderCaps2.DDSCAPS2_CUBEMAP_NEGATIVEZ">
+            <summary>
+            Required when these surfaces are stored in a cube map.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.HeaderCaps2.DDSCAPS2_VOLUME">
+            <summary>
+            Required for a volume texture.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.PixelFormatFlags.DDPF_ALPHAPIXELS">
+            <summary>
+            Texture contains alpha data; dwRGBAlphaBitMask contains valid data.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.PixelFormatFlags.DDPF_ALPHA">
+            <summary>
+            Used in some older DDS files for alpha channel only uncompressed data (dwRGBBitCount contains the alpha channel bitcount; dwABitMask contains valid data)
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.PixelFormatFlags.DDPF_FOURCC">
+            <summary>
+            Texture contains compressed RGB data; dwFourCC contains valid data.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.PixelFormatFlags.DDPF_RGB">
+            <summary>
+            Texture contains uncompressed RGB data; dwRGBBitCount and the RGB masks (dwRBitMask, dwGBitMask, dwBBitMask) contain valid data.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.PixelFormatFlags.DDPF_YUV">
+            <summary>
+            Used in some older DDS files for YUV uncompressed data (dwRGBBitCount contains the YUV bit count; dwRBitMask contains the Y mask, dwGBitMask contains the U mask, dwBBitMask contains the V mask)
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.PixelFormatFlags.DDPF_LUMINANCE">
+            <summary>
+            Used in some older DDS files for single channel color uncompressed data (dwRGBBitCount contains the luminance channel bit count; dwRBitMask contains the channel mask). Can be combined with DDPF_ALPHAPIXELS for a two channel DDS file.
+            </summary>
+        </member>
+        <member name="T:BCnEncoder.Shared.KtxFile">
+            <summary>
+            A representation of a ktx file.
+            This class handles loading and saving ktx files into streams.
+            The full spec can be found here: https://www.khronos.org/opengles/sdk/tools/KTX/file_format_spec/
+            </summary>
+        </member>
+        <member name="M:BCnEncoder.Shared.KtxFile.Write(System.IO.Stream)">
+            <summary>
+            Writes this ktx file into a stream.
+            </summary>
+        </member>
+        <member name="M:BCnEncoder.Shared.KtxFile.Load(System.IO.Stream)">
+            <summary>
+            Loads a KTX file from a stream.
+            </summary>
+        </member>
+        <member name="M:BCnEncoder.Shared.KtxFile.GetTotalSize">
+            <summary>
+            Gets the total size of all mipmaps and faces.
+            </summary>
+        </member>
+        <member name="M:BCnEncoder.Shared.KtxFile.GetAllTextureDataFaceMajor">
+            <summary>
+            Gets all texture data of the file in face-major order (face0_mip0 ... face0_mip1 ... face1_mip0 ...)
+            </summary>
+        </member>
+        <member name="M:BCnEncoder.Shared.KtxFile.GetAllTextureDataMipMajor">
+            <summary>
+            Gets all texture data of the file in MipMap-major order (face0_mip0 ... face1_mip0 ... face0_mip1 ...)
+            </summary>
+        </member>
+        <member name="T:BCnEncoder.Shared.LinearClustering">
+            <summary>
+            Simple Linear Iterative Clustering.
+            </summary>
+        </member>
+        <member name="M:BCnEncoder.Shared.LinearClustering.ClusterPixels(BCnEncoder.Shared.Rgba32[],System.Int32,System.Int32,System.Int32,System.Single,System.Int32,System.Boolean)">
+            <summary>
+            The greater the value of M,
+            the more spatial proximity is emphasized and the more compact the cluster,
+            M should be in range of 1 to 20.
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.OutputFileFormat.Ktx">
+            <summary>
+            Khronos texture format https://www.khronos.org/opengles/sdk/tools/KTX/file_format_spec/
+            </summary>
+        </member>
+        <member name="F:BCnEncoder.Shared.OutputFileFormat.Dds">
+            <summary>
+            Direct draw surface format https://docs.microsoft.com/en-us/windows/win32/direct3ddds/dx-graphics-dds
+            </summary>
+        </member>
+        <member name="M:BCnEncoder.Shared.PcaVectors.CalculatePrincipalAxis(BCnEncoder.Matrix4x4)">
+            <summary>
+            Calculate principal axis with the power-method
+            </summary>
+            <param name="covarianceMatrix"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BCnEncoder.Shared.RgbBoundingBox">
+            <summary>
+            Calculate the bounding box of rgb values as described in
+            "Real-Time DXT Compression by J.M.P. van Waveren, 2006, Id Software, Inc." and
+            "Real-Time YCoCg-DXT Compression J.M.P. van Waveren,  Ignacio Castaño id Software, Inc. NVIDIA Corp."
+            </summary>
+        </member>
+    </members>
+</doc>
