@@ -1,0 +1,52 @@
+name: Build
+
+env:
+  SLN_PATH: Source/
+
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - 'README.md'
+    tags-ignore:
+      - 'v*'
+  pull_request:
+    paths-ignore: 
+      - README.md
+
+jobs:
+  build:
+    name: Build on ${{ matrix.operating-system }}
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        # You can configure operating systems to build on here. It shouldn't make a difference 
+        operating-system: [ubuntu-latest, windows-latest, macOS-latest]
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Setup Dotnet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
+
+    - name: Install Dependencies
+      run: dotnet restore ${{ env.SLN_PATH }}
+
+    - name: Build Mod
+      run: dotnet build ${{ env.SLN_PATH }} --configuration Release --no-restore
+
+    - name: Upload Mod Files
+      uses: actions/upload-artifact@v2
+      with:
+        name: build-${{ matrix.operating-system }}
+        path: |
+          About/
+          1.2/
+          Source/
+          !**/.*
+        # This final path is to exclude hidden files such as .gitkeep and .DS_STORE. 
+        # I would recommend keeping it, but I don't think it will break anything if 
+        # you remove or modify it.
