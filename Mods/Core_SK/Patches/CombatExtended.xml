@@ -126,6 +126,145 @@
 					</value>
 				</li>
 
+				<!-- ========== Foam Turret ========== -->
+
+				<li Class="PatchOperationReplace">
+					<xpath>Defs/ThingDef[defName="Turret_FoamTurret"]/comps/li[@Class = "CompProperties_Refuelable"]/fuelMultiplier</xpath>
+					<value>
+						<fuelMultiplier>0.20</fuelMultiplier>	
+					</value>
+				</li>
+
+				<li Class="PatchOperationReplace">
+					<xpath>Defs/ThingDef[defName="Turret_FoamTurret"]/comps/li[@Class = "CompProperties_Refuelable"]/fuelFilter/thingDefs/li</xpath>
+					<value>
+						<li>Ammo_30x64mmFuel_Foam</li>	
+					</value>
+				</li>
+
+				<li Class="PatchOperationReplace">
+					<xpath>Defs/ThingDef[defName="Turret_FoamTurret"]/comps/li[@Class = "CompProperties_Refuelable"]/initialFuelPercent</xpath>
+					<value>
+						<initialFuelPercent>0</initialFuelPercent>
+					</value>
+				</li>
+
+				<li Class="PatchOperationRemove">
+					<xpath>Defs/ThingDef[defName="Turret_FoamTurret"]/costList/Chemfuel</xpath>
+				</li>
+
+				<!-- ========== Rocketswarm Turret ========== -->
+
+				<li Class="PatchOperationReplace">
+					<xpath>Defs/ThingDef[defName="Turret_RocketswarmLauncher"]/thingClass</xpath>
+					<value>
+						<thingClass>CombatExtended.Building_TurretGunCE</thingClass>
+					</value>
+				</li>
+
+				<li Class="PatchOperationRemove">
+					<xpath>Defs/ThingDef[defName="Turret_RocketswarmLauncher"]/comps/li[@Class = "CompProperties_Refuelable"]</xpath>
+				</li>
+
+				<li Class="PatchOperationRemove">
+					<xpath>Defs/ThingDef[defName="Turret_RocketswarmLauncher"]/comps/li[@Class = "CompProperties_Activable"]</xpath>
+				</li>
+
+				<li Class="PatchOperationRemove">
+					<xpath>Defs/ThingDef[defName="Turret_RocketswarmLauncher"]/costList/Chemfuel</xpath>
+				</li>
+
+				<li Class="PatchOperationRemove">
+					<xpath>Defs/ThingDef[defName="Turret_RocketswarmLauncher"]/placeWorkers/li[.="PlaceWorker_ShowTurretRadius"]</xpath>
+				</li>
+
+				<li Class="PatchOperationReplace">
+					<xpath>Defs/ThingDef[defName="Turret_RocketswarmLauncher"]/statBases/ShootingAccuracyTurret</xpath>
+					<value>
+						<ShootingAccuracyTurret>1.25</ShootingAccuracyTurret>
+					</value>
+				</li>
+
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/ThingDef[defName="Turret_RocketswarmLauncher"]/statBases</xpath>
+					<value>
+						<AimingAccuracy>1.0</AimingAccuracy>
+					</value>
+				</li>
+
+				<li Class="PatchOperationReplace">
+					<xpath>/Defs/ThingDef[defName="Turret_RocketswarmLauncher"]/building/turretBurstCooldownTime</xpath>
+					<value>
+						<turretBurstCooldownTime>4.2</turretBurstCooldownTime>
+					</value>
+				</li>
+
+				<li Class="PatchOperationRemove">
+					<xpath>Defs/ThingDef[defName="Gun_RocketswarmLauncher"]/statBases/AccuracyTouch 
+						| Defs/ThingDef[defName="Gun_RocketswarmLauncher"]/statBases/AccuracyShort
+						| Defs/ThingDef[defName="Gun_RocketswarmLauncher"]/statBases/AccuracyMedium
+						| Defs/ThingDef[defName="Gun_RocketswarmLauncher"]/statBases/AccuracyLong</xpath>
+				</li>
+
+				<li Class="PatchOperationConditional">
+					<xpath>/Defs/ThingDef[defName="Gun_RocketswarmLauncher"]/comps</xpath>
+					<nomatch Class="PatchOperationAdd">
+						<xpath>/Defs/ThingDef[defName="Gun_RocketswarmLauncher"]</xpath>
+						<value>
+							<comps />
+						</value>
+					</nomatch>
+				</li>
+
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/ThingDef[defName="Gun_RocketswarmLauncher"]/comps</xpath>
+					<value>
+						<li Class="CombatExtended.CompProperties_Charges">
+							<chargeSpeeds>
+								<li>20</li>
+								<li>30</li>
+								<li>40</li>
+								<li>50</li>
+								<li>60</li>			
+							</chargeSpeeds>
+						</li>
+						<li Class="CombatExtended.CompProperties_AmmoUser">
+							<magazineSize>12</magazineSize>
+							<reloadTime>6.5</reloadTime>
+							<ammoSet>AmmoSet_50mmRocket</ammoSet>
+						</li>								
+					</value>
+				</li>
+
+				<li Class="PatchOperationReplace">
+					<xpath>Defs/ThingDef[defName="Gun_RocketswarmLauncher"]/verbs</xpath>
+					<value>
+						<verbs>
+							<li Class="CombatExtended.VerbPropertiesCE">
+								<recoilAmount>1.73</recoilAmount>
+								<verbClass>CombatExtended.Verb_ShootMortarCE</verbClass>
+								<forceNormalTimeSpeed>false</forceNormalTimeSpeed>
+								<hasStandardCommand>true</hasStandardCommand>
+								<requireLineOfSight>false</requireLineOfSight>
+								<defaultProjectile>Bullet_50mmRocket_HE</defaultProjectile>
+								<warmupTime>3.6</warmupTime>
+								<range>86</range>
+								<minRange>14</minRange>
+								<burstShotCount>4</burstShotCount>
+								<ticksBetweenBurstShots>6</ticksBetweenBurstShots>
+								<soundCast>RocketswarmLauncher_Fire</soundCast>
+								<soundCastTail>GunTail_Heavy</soundCastTail>
+								<muzzleFlashScale>39</muzzleFlashScale>
+								<circularError>1</circularError>
+								<indirectFirePenalty>0.25</indirectFirePenalty>
+								<targetParams>
+									<canTargetLocations>true</canTargetLocations>
+								</targetParams>
+							</li>
+						</verbs>
+					</value>
+				</li>
+
 			</operations>
 		</match>
     </Operation>
