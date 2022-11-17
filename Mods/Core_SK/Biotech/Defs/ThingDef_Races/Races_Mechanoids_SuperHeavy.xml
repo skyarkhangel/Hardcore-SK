@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <ThingDef Abstract="True" Name="SuperHeavyMechanoid" ParentName="HeavyMechanoid">
+    <statBases>
+      <MarketValue>1600</MarketValue>
+      <ControlTakingTime>30</ControlTakingTime>
+      <BandwidthCost>5</BandwidthCost>
+      <ArmorRating_Blunt>54</ArmorRating_Blunt>
+      <ArmorRating_Sharp>24</ArmorRating_Sharp>
+      <PsychicSensitivity>0.75</PsychicSensitivity>
+      <MechEnergyLossPerHP>0.15</MechEnergyLossPerHP>
+    </statBases>
+    <race>
+      <baseHealthScale>4.5</baseHealthScale>
+      <mechWeightClass>UltraHeavy</mechWeightClass>
+    </race>
+    <butcherProducts Inherit="False">
+      <Steel>50</Steel>
+      <Plasteel>20</Plasteel>
+    </butcherProducts>
+  </ThingDef>
+  
+  <!-- Centurion -->
+  <ThingDef Name="MechCenturion" ParentName="SuperHeavyMechanoid">
+    <defName>Mech_Centurion</defName>
+    <label>centurion</label>
+    <description>An ultraheavy mech with a built-in shield bubble generator. The centurion carries a point-defense bulb turret capable of firing while the mechanoid is moving.</description>
+    <statBases>
+		<MoveSpeed>1.6</MoveSpeed>
+		<EnergyShieldRechargeRate>0.75</EnergyShieldRechargeRate>
+		<EnergyShieldEnergyMax>4.5</EnergyShieldEnergyMax>
+		<MeleeDoorDamageFactor>1.5</MeleeDoorDamageFactor>
+		<MeleeDodgeChance>0.01</MeleeDodgeChance>
+		<MeleeCritChance>0.17</MeleeCritChance>
+		<MeleeParryChance>0.45</MeleeParryChance>
+		<MaxHitPoints>550</MaxHitPoints>
+    </statBases>
+    <race>
+      <body>Mech_Centurion</body>
+      <baseBodySize>2.6</baseBodySize>
+      <lifeStageAges>
+        <li>
+          <def>MechanoidFullyFormed</def>
+          <minAge>0</minAge>
+          <soundWounded>Pawn_Mech_Centurion_Wounded</soundWounded>
+          <soundDeath>Pawn_Mech_Centurion_Death</soundDeath>
+          <soundCall>Pawn_Mech_Centurion_Call</soundCall>
+        </li>
+        <li>
+          <def>MechanoidFullyFormed</def>
+          <minAge>100</minAge>
+          <soundWounded>Pawn_Mech_Centurion_Wounded</soundWounded>
+          <soundDeath>Pawn_Mech_Centurion_Death</soundDeath>
+          <soundCall>Pawn_Mech_Centurion_Call</soundCall>
+        </li>
+      </lifeStageAges>
+      <baseHealthScale>1.8</baseHealthScale>
+    </race>
+    <comps>
+      <li Class="CompProperties_ProjectileInterceptor">
+        <radius>6</radius>
+        <interceptGroundProjectiles>true</interceptGroundProjectiles>
+        <color>(0.4, 0.4, 0.4)</color>
+        <reactivateEffect>BulletShieldGenerator_Reactivate</reactivateEffect>
+        <activeSound>BulletShield_Ambience</activeSound>
+        <hitPoints>450</hitPoints>
+        <hitPointsRestoreInstantlyAfterCharge>true</hitPointsRestoreInstantlyAfterCharge>
+        <chargeDurationTicks>1800</chargeDurationTicks><!-- 30s -->
+        <rechargeHitPointsIntervalTicks>120</rechargeHitPointsIntervalTicks>
+        <minIdleAlpha>0.2</minIdleAlpha>
+        <drawWithNoSelection>True</drawWithNoSelection>
+        <disarmedByEmpForTicks>1500</disarmedByEmpForTicks>
+        <gizmoTipKey>ProjectileInterceptorTip</gizmoTipKey>
+      </li>
+      <li Class="CompProperties_TurretGun">
+        <turretDef>Gun_ChargeBlasterTurret</turretDef>
+        <angleOffset>-90</angleOffset>
+      </li>
+    </comps>
+	<tools>
+		<li Class="CombatExtended.ToolCE">
+			<label>head</label>
+			<capacities>
+				<li>Demolish</li>
+			</capacities>
+			<power>27</power>
+			<cooldownTime>3.0</cooldownTime>
+			<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+			<armorPenetrationSharp>0</armorPenetrationSharp>
+			<armorPenetrationBlunt>10</armorPenetrationBlunt>
+			<chanceFactor>0.2</chanceFactor>
+		</li>
+	</tools>
+	<modExtensions>
+		<li Class="CombatExtended.RacePropertiesExtensionCE">
+			<bodyShape>Humanoid</bodyShape>
+		</li>
+	</modExtensions>
+  </ThingDef>
+
+  <ThingDef ParentName="BaseWeaponTurret">
+    <defName>Gun_ChargeBlasterTurret</defName>
+    <label>charge blaster turret</label>
+    <description>A small charge blaster designed for use on a defense turret.</description>
+    <tradeability>None</tradeability>
+    <destroyOnDrop>true</destroyOnDrop>
+    <graphicData>
+      <texPath>Things/Item/Equipment/WeaponRanged/ChargeBlasterTurret</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <Mass>2.6</Mass>
+      <AccuracyTouch>0.60</AccuracyTouch>
+      <AccuracyShort>0.80</AccuracyShort>
+      <AccuracyMedium>0.90</AccuracyMedium>
+      <AccuracyLong>0.85</AccuracyLong>
+    </statBases>
+    <verbs>
+      <li>
+        <verbClass>Verb_Shoot</verbClass>
+        <defaultProjectile>Bullet_ChargeBlasterHeavy</defaultProjectile>
+        <range>44.9</range>
+        <soundCast>Shot_ChargeBlaster</soundCast>
+        <soundCastTail>GunTail_Heavy</soundCastTail>
+        <muzzleFlashScale>9</muzzleFlashScale>
+        <defaultCooldownTime>2.5</defaultCooldownTime>
+        <linkedBodyPartsGroup>BulbTurret</linkedBodyPartsGroup>
+        <ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+        <ticksBetweenBurstShots>150</ticksBetweenBurstShots>
+      </li>
+    </verbs>
+  </ThingDef>
+  
+  <PawnKindDef Name="MechCenturionKind" ParentName="HeavyMechanoidKind">
+    <defName>Mech_Centurion</defName>
+    <label>centurion</label>
+    <race>Mech_Centurion</race>
+    <combatPower>400</combatPower>
+    <maxPerGroup>3</maxPerGroup>
+    <allowInMechClusters>false</allowInMechClusters>
+    <lifeStages>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Mechanoid/Centurion</texPath>
+          <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Centurion</maskPath>
+          <shaderType>CutoutWithOverlay</shaderType>
+          <graphicClass>Graphic_Multi</graphicClass>
+          <drawSize>2.5</drawSize>
+          <shadowData>
+            <volume>(0.6, 0.8, 0.6)</volume>
+          </shadowData>
+        </bodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Mechanoid/CenturionAncient</texPath>
+          <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Centurion</maskPath>
+          <shaderType>CutoutWithOverlay</shaderType>
+          <graphicClass>Graphic_Multi</graphicClass>
+          <drawSize>2.5</drawSize>
+          <shadowData>
+            <volume>(0.6, 0.8, 0.6)</volume>
+          </shadowData>
+        </bodyGraphicData>
+      </li>
+    </lifeStages>      
+  </PawnKindDef>
+
+  <!-- Warqueen -->
+  <ThingDef Name="MechWarqueen" ParentName="SuperHeavyMechanoid">
+    <defName>Mech_Warqueen</defName>
+    <label>war queen</label>
+    <description>An ultra-heavy mech with a built-in mech gestator. Fed with appropriate resources, the war queen can form small war urchin combat mechs within its massive carapace and deploy them into combat.\n\nEven more than other mechanoids, the war queen resembles a giant, living insect. All war mechs can be terrifying, but humans tend to find the war queen disturbing on a deeper level.</description>
+    <statBases>
+		<MoveSpeed>1.6</MoveSpeed>
+		<EnergyShieldRechargeRate>0.75</EnergyShieldRechargeRate>
+		<EnergyShieldEnergyMax>4.5</EnergyShieldEnergyMax>
+		<MeleeDoorDamageFactor>1.5</MeleeDoorDamageFactor>
+		<EMPResistance>0.7</EMPResistance>
+		<MeleeDodgeChance>0.01</MeleeDodgeChance>
+		<MeleeCritChance>0.2</MeleeCritChance>
+		<MeleeParryChance>0.5</MeleeParryChance>
+		<MaxHitPoints>600</MaxHitPoints>
+    </statBases>
+    <race>
+      <body>Mech_Warqueen</body>
+      <baseBodySize>3.0</baseBodySize>
+      <lifeStageAges>
+        <li>
+          <def>MechanoidFullyFormed</def>
+          <minAge>0</minAge>
+          <soundWounded>Pawn_Mech_Warqueen_Wounded</soundWounded>
+          <soundDeath>Pawn_Mech_Warqueen_Death</soundDeath>
+          <soundCall>Pawn_Mech_Warqueen_Call</soundCall>
+        </li>
+        <li>
+          <def>MechanoidFullyFormed</def>
+          <minAge>100</minAge>
+          <soundWounded>Pawn_Mech_Warqueen_Wounded</soundWounded>
+          <soundDeath>Pawn_Mech_Warqueen_Death</soundDeath>
+          <soundCall>Pawn_Mech_Warqueen_Call</soundCall>
+        </li>
+      </lifeStageAges>
+      <baseHealthScale>3.0</baseHealthScale>
+      <dutyBoss>Warqueen</dutyBoss>
+    </race>
+	<tools>
+		<li Class="CombatExtended.ToolCE">
+			<label>head</label>
+			<capacities>
+				<li>Blunt</li>
+			</capacities>
+			<power>10</power>
+			<cooldownTime>2.0</cooldownTime>
+			<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+			<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+			<armorPenetrationSharp>0</armorPenetrationSharp>
+			<armorPenetrationBlunt>2.0</armorPenetrationBlunt>
+			<chanceFactor>0.2</chanceFactor>
+		</li>
+	</tools>
+    <comps>
+      <li Class="CompProperties_MechCarrier">
+        <spawnPawnKind>Mech_WarUrchin</spawnPawnKind>
+        <fixedIngredient>Steel</fixedIngredient>
+        <costPerPawn>25</costPerPawn>
+        <startingIngredientCount>600</startingIngredientCount>
+        <maxIngredientCount>600</maxIngredientCount>
+        <spawnEffecter>WarqueenWarUrchinsSpawned</spawnEffecter>
+        <spawnedMechEffecter>WarUrchinSpawned</spawnedMechEffecter>
+        <attachSpawnedEffecter>true</attachSpawnedEffecter>
+        <attachSpawnedMechEffecter>true</attachSpawnedMechEffecter>
+      </li>
+      <li Class="CompProperties_TurretGun">
+        <turretDef>Gun_ChargeBlasterTurret</turretDef>
+        <angleOffset>-90</angleOffset>
+        <autoAttack>false</autoAttack>
+      </li>
+    </comps>
+    <killedLeavingsPlayerHostile>
+      <PowerfocusChip>1</PowerfocusChip>
+    </killedLeavingsPlayerHostile>
+	<modExtensions>
+		<li Class="CombatExtended.RacePropertiesExtensionCE">
+			<bodyShape>QuadrupedLow</bodyShape>
+		</li>
+	</modExtensions>
+  </ThingDef>
+
+  <PawnKindDef Name="MechWarqueenKind" ParentName="HeavyMechanoidKind">
+    <defName>Mech_Warqueen</defName>
+    <label>war queen</label>
+    <labelPlural>war queens</labelPlural>
+    <race>Mech_Warqueen</race>
+    <combatPower>900</combatPower>
+    <maxPerGroup>3</maxPerGroup>
+    <allowInMechClusters>false</allowInMechClusters>
+    <lifeStages>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Mechanoid/Warqueen</texPath>
+          <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/MechWarqueen</maskPath>
+          <shaderType>CutoutWithOverlay</shaderType>
+          <graphicClass>Graphic_Multi</graphicClass>
+          <drawSize>3</drawSize>
+          <shadowData>
+            <volume>(0.7, 0.8, 0.7)</volume>
+          </shadowData>
+        </bodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Mechanoid/WarqueenAncient</texPath>
+          <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/MechWarqueen</maskPath>
+          <shaderType>CutoutWithOverlay</shaderType>
+          <graphicClass>Graphic_Multi</graphicClass>
+          <drawSize>3</drawSize>
+          <shadowData>
+            <volume>(0.7, 0.8, 0.7)</volume>
+          </shadowData>
+        </bodyGraphicData>
+      </li>
+    </lifeStages>    
+    <controlGroupPortraitZoom>0.7</controlGroupPortraitZoom>  
+  </PawnKindDef>
+
+    <!-- Diabolus -->
+    <ThingDef Name="MechDiabolus" ParentName="SuperHeavyMechanoid">
+		<defName>Mech_Diabolus</defName>
+		<label>diabolus</label>
+		<description>An ultra-heavy mechanoid with an ultra-powerful hellsphere cannon. Made for siegebreaking, its hellsphere cannon takes time to charge up a shot, but can melt concrete and vaporize bone. The diabolus dissipates the hellsphere cannon's waste power in a heat column mounted on its back, which can pulse to ignite flammable objects nearby.\n\nThis mech's name comes from a thousand-year-old poem written by a Haspian monk who survived the erasure of his monastery. His religiously-tinged work describes a razor-bodied fiend pulsing with flesh-searing heat as it crushed scorched bodies under massive claws. The few who have faced a diabolus and survived tend to agree with this depiction.</description>
+		<race>
+			<body>Mech_Diabolus</body>
+			<baseBodySize>3.0</baseBodySize>
+			<lifeStageAges>
+			  <li>
+				<def>MechanoidFullyFormed</def>
+				<minAge>0</minAge>
+				<soundWounded>Pawn_Mech_Diabolus_Wounded</soundWounded>
+				<soundDeath>Pawn_Mech_Diabolus_Death</soundDeath>
+				<soundCall>Pawn_Mech_Diabolus_Call</soundCall>
+			  </li>
+			  <li>
+				<def>MechanoidFullyFormed</def>
+				<minAge>100</minAge>
+				<soundWounded>Pawn_Mech_Diabolus_Wounded</soundWounded>
+				<soundDeath>Pawn_Mech_Diabolus_Death</soundDeath>
+				<soundCall>Pawn_Mech_Diabolus_Call</soundCall>
+			  </li>
+			</lifeStageAges>
+			<baseHealthScale>2.6</baseHealthScale>
+		</race>
+		<tools>
+			<li Class="CombatExtended.ToolCE">
+				<label>head</label>
+				<capacities>
+					<li>Blunt</li>
+				</capacities>
+				<power>36</power>
+				<cooldownTime>3.6</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<armorPenetrationSharp>0</armorPenetrationSharp>
+				<armorPenetrationBlunt>16</armorPenetrationBlunt>
+			</li>
+		</tools>
+		<comps>
+		<li Class="CompProperties_TargetingBeam"></li>
+		<li Class="CompProperties_TurretGun">
+		  <turretDef>Gun_ChargeBlasterTurret</turretDef>
+		  <angleOffset>-90</angleOffset>
+		</li>
+		</comps>
+		<statBases>
+			<BandwidthCost>5</BandwidthCost>
+			<EMPResistance>0.6</EMPResistance>
+			<MoveSpeed>2.4</MoveSpeed>
+			<CarryWeight>400</CarryWeight>
+			<CarryBulk>80</CarryBulk>
+			<AimingAccuracy>1.0</AimingAccuracy>
+			<ShootingAccuracyPawn>1.5</ShootingAccuracyPawn>
+			<MeleeDodgeChance>0.01</MeleeDodgeChance>
+			<MeleeCritChance>0.2</MeleeCritChance>
+			<MeleeParryChance>0.5</MeleeParryChance>
+			<AimingDelayFactor>1.25</AimingDelayFactor>
+			<MaxHitPoints>600</MaxHitPoints>
+		</statBases>
+		<killedLeavingsPlayerHostile>
+			<SignalChip>1</SignalChip>
+		</killedLeavingsPlayerHostile>
+		<modExtensions>
+			<li Class="CombatExtended.RacePropertiesExtensionCE">
+				<bodyShape>QuadrupedLow</bodyShape>
+			</li>
+		</modExtensions>
+    </ThingDef>
+    
+    <PawnKindDef Name="MechDiabolusKind" ParentName="HeavyMechanoidKind">
+      <defName>Mech_Diabolus</defName>
+      <label>diabolus</label>
+      <race>Mech_Diabolus</race>
+      <combatPower>900</combatPower>
+      <maxPerGroup>3</maxPerGroup>
+      <allowInMechClusters>false</allowInMechClusters>
+      <lifeStages>
+        <li>
+          <bodyGraphicData>
+            <texPath>Things/Pawn/Mechanoid/Diabolus</texPath>
+            <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Diablo</maskPath>
+            <shaderType>CutoutWithOverlay</shaderType>
+              <graphicClass>Graphic_Multi</graphicClass>
+              <drawSize>3</drawSize>
+          </bodyGraphicData>
+        </li>
+        <li>
+          <bodyGraphicData>
+            <texPath>Things/Pawn/Mechanoid/DiabolusAncient</texPath>
+            <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Diablo</maskPath>
+            <shaderType>CutoutWithOverlay</shaderType>
+              <graphicClass>Graphic_Multi</graphicClass>
+              <drawSize>3</drawSize>
+          </bodyGraphicData>
+        </li>
+      </lifeStages>      
+      <weaponTags>
+        <li>HellsphereCannonGun</li>
+      </weaponTags>
+      <abilities>
+        <li>FireBurst</li>
+      </abilities>
+    </PawnKindDef>
+
+</Defs>
