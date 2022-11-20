@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <ThingDef Name="HeavyMechanoid" ParentName="SK_MechanoidThingBase" Abstract="True">
+    <statBases>
+      <MoveSpeed>1.9</MoveSpeed>
+      <ArmorRating_Blunt>15</ArmorRating_Blunt>
+      <ArmorRating_Sharp>7</ArmorRating_Sharp>
+      <ControlTakingTime>24</ControlTakingTime>
+      <MechEnergyLossPerHP>0.2</MechEnergyLossPerHP>
+    </statBases>
+    <race>
+      <intelligence>ToolUser</intelligence>
+      <thinkTreeMain>Mechanoid</thinkTreeMain>
+      <soundMeleeHitPawn>Pawn_Melee_Punch_HitPawn</soundMeleeHitPawn>
+      <soundMeleeHitBuilding>Pawn_Melee_Punch_HitBuilding</soundMeleeHitBuilding>
+      <soundMeleeMiss>Pawn_Melee_Punch_Miss</soundMeleeMiss>
+      <mechWeightClass>Heavy</mechWeightClass>
+    </race>
+	<butcherProducts>
+		<TitaniumBar>8</TitaniumBar>
+		<DepletedUranium>9</DepletedUranium>
+		<CarbonAlloy>6</CarbonAlloy>
+	</butcherProducts>
+  </ThingDef>
+
+  <PawnKindDef Name="HeavyMechanoidKind" ParentName="SK_BaseMechanoidKind" Abstract="True">
+    <weaponMoney>8000~8000</weaponMoney>
+    <combatPower>400</combatPower>
+    <weaponTags></weaponTags>
+    <techHediffsChance>1</techHediffsChance>
+    <techHediffsMoney>6000~6000</techHediffsMoney>
+    <controlGroupPortraitZoom>0.8</controlGroupPortraitZoom>
+  </PawnKindDef>
+
+  <!-- Tunneler -->
+  <ThingDef ParentName="HeavyMechanoid">
+    <defName>Mech_Tunneler</defName>
+    <label>tunneler</label>
+    <description>A heavy mechanoid built for mining in treacherous locations. While intended for excavation, the tunneler's gigantic power claws and ultra-thick armor makes it a dangerous force in combat.</description>
+    <statBases>
+		<MoveSpeed>1.9</MoveSpeed>
+		<ArmorRating_Blunt>67.5</ArmorRating_Blunt>
+		<ArmorRating_Sharp>30</ArmorRating_Sharp>
+		<BandwidthCost>3</BandwidthCost>
+		<WorkSpeedGlobal>1.5</WorkSpeedGlobal>
+		<EnergyShieldEnergyMax>3.75</EnergyShieldEnergyMax>
+		<MeleeDodgeChance>0.04</MeleeDodgeChance>
+		<MeleeCritChance>0.13</MeleeCritChance>
+		<MeleeParryChance>0.36</MeleeParryChance>
+		<MaxHitPoints>300</MaxHitPoints>
+    </statBases>
+    <race>
+      <body>Mech_Tunneler</body>
+      <baseBodySize>3.5</baseBodySize>
+      <baseHealthScale>1.5</baseHealthScale>
+      <lifeStageAges>
+        <li>
+          <def>MechanoidFullyFormed</def>
+          <minAge>0</minAge>
+          <soundWounded>Pawn_Mech_Tunneler_Wounded</soundWounded>
+          <soundDeath>Pawn_Mech_Tunneler_Death</soundDeath>
+          <soundCall>Pawn_Mech_Tunneler_Call</soundCall>
+        </li>
+        <li>
+          <def>MechanoidFullyFormed</def>
+          <minAge>100</minAge>
+          <soundWounded>Pawn_Mech_Tunneler_Wounded</soundWounded>
+          <soundDeath>Pawn_Mech_Tunneler_Death</soundDeath>
+          <soundCall>Pawn_Mech_Tunneler_Call</soundCall>
+        </li>
+      </lifeStageAges>
+      <bulletStaggerDelayTicks>120</bulletStaggerDelayTicks>
+      <bulletStaggerSpeedFactor>0.2</bulletStaggerSpeedFactor>
+      <bulletStaggerIgnoreBodySize>true</bulletStaggerIgnoreBodySize>
+      <bulletStaggerEffecterDef>TunnelerSlowedDown</bulletStaggerEffecterDef>
+      <mechEnabledWorkTypes>
+        <li>Mining</li>
+      </mechEnabledWorkTypes>
+    </race>
+	<tools>
+		<li Class="CombatExtended.ToolCE">
+			<label>left power claw</label>
+			<capacities>
+				<li>Scratch</li>
+			</capacities>
+			<power>22</power>
+			<cooldownTime>2.0</cooldownTime>
+			<linkedBodyPartsGroup>LeftPowerClaw</linkedBodyPartsGroup>
+			<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+			<armorPenetrationSharp>1</armorPenetrationSharp>
+			<armorPenetrationBlunt>5</armorPenetrationBlunt>
+		</li>
+		<li Class="CombatExtended.ToolCE">
+			<label>right power claw</label>
+			<capacities>
+				<li>Scratch</li>
+			</capacities>
+			<power>22</power>
+			<cooldownTime>2.0</cooldownTime>
+			<linkedBodyPartsGroup>RightPowerClaw</linkedBodyPartsGroup>
+			<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+			<armorPenetrationSharp>1</armorPenetrationSharp>
+			<armorPenetrationBlunt>5</armorPenetrationBlunt>
+		</li>
+	</tools>
+    <comps>
+      <li Class="CompProperties_Shield" />
+    </comps>
+	<modExtensions>
+		<li Class="CombatExtended.RacePropertiesExtensionCE">
+			<bodyShape>QuadrupedLow</bodyShape>
+		</li>
+	</modExtensions>
+  </ThingDef>
+  
+  <PawnKindDef ParentName="HeavyMechanoidKind">
+    <defName>Mech_Tunneler</defName>
+    <label>tunneler</label>
+    <race>Mech_Tunneler</race>
+    <allowInMechClusters>false</allowInMechClusters>
+    <lifeStages>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Mechanoid/Tunneler</texPath>
+          <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Paladin</maskPath>
+          <shaderType>CutoutWithOverlay</shaderType>
+          <graphicClass>Graphic_Multi</graphicClass>
+          <drawSize>1.8</drawSize>
+          <shadowData>
+            <volume>(0.6, 0.8, 0.6)</volume>
+          </shadowData>
+        </bodyGraphicData>
+      </li>
+      <li>
+        <bodyGraphicData>
+          <texPath>Things/Pawn/Mechanoid/TunnelerAncient</texPath>
+          <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Paladin</maskPath>
+          <shaderType>CutoutWithOverlay</shaderType>
+          <graphicClass>Graphic_Multi</graphicClass>
+          <drawSize>1.8</drawSize>
+          <shadowData>
+            <volume>(0.6, 0.8, 0.6)</volume>
+          </shadowData>
+        </bodyGraphicData>
+      </li>
+    </lifeStages>      
+    <abilities>
+      <li>SmokepopMech</li>
+    </abilities>
+    <controlGroupPortraitZoom>1</controlGroupPortraitZoom>  
+  </PawnKindDef>
+
+</Defs>

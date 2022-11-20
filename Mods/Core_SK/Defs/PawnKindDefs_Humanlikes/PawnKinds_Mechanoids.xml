@@ -1,33 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 	<!-- Mechanoid Bases -->
+
 	<PawnKindDef Name="SK_BaseMechanoidKind" Abstract="True">
 		<defaultFactionType>Mechanoid</defaultFactionType>
 		<aiAvoidCover>true</aiAvoidCover>
 		<destroyGearOnDrop>true</destroyGearOnDrop>
+		<canStrip>false</canStrip>
+		<minGenerationAge MayRequire="Ludeon.Rimworld.Biotech">200</minGenerationAge>
+		<forceNormalGearQuality>true</forceNormalGearQuality>
 	</PawnKindDef>
+
 	<!-- Centipede -->
-	<PawnKindDef ParentName="SK_BaseMechanoidKind">
-		<defName>Mech_Centipede</defName>
-		<label>Centipede</label>
-		<race>Mech_Centipede</race>
-		<combatPower>800</combatPower>
+	<PawnKindDef Abstract="True" Name="MechCentipedeBase" ParentName="SK_BaseMechanoidKind">
 		<lifeStages>
-			<li>
-				<bodyGraphicData>
-					<texPath>Things/Pawn/Mechanoid/Centipede</texPath>
-					<graphicClass>Graphic_Multi</graphicClass>
-					<drawSize>3</drawSize>
-					<shadowData>
-						<volume>(0.6, 0.8, 0.6)</volume>
-					</shadowData>
-				</bodyGraphicData>
-			</li>
+		  <li MayRequire="Ludeon.RimWorld.Biotech">
+			<bodyGraphicData>
+			  <texPath>Things/Pawn/Mechanoid/CentipedeClean</texPath>
+			  <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Centipede</maskPath>
+			  <shaderType>CutoutWithOverlay</shaderType>
+			  <graphicClass>Graphic_Multi</graphicClass>
+			  <drawSize>3</drawSize>
+			  <shadowData>
+				<volume>(0.6, 0.8, 0.6)</volume>
+			  </shadowData>
+			</bodyGraphicData>
+		  </li>
+		  <li>
+			<bodyGraphicData>
+			  <texPath>Things/Pawn/Mechanoid/Centipede</texPath>
+			  <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Centipede</maskPath>
+			  <shaderType>CutoutWithOverlay</shaderType>
+			  <graphicClass>Graphic_Multi</graphicClass>
+			  <drawSize>3</drawSize>
+			  <shadowData>
+				<volume>(0.6, 0.8, 0.6)</volume>
+			  </shadowData>
+			</bodyGraphicData>
+		  </li>
 		</lifeStages>
-		<weaponMoney>
-			<min>8000</min>
-			<max>8000</max>
-		</weaponMoney>
+		<combatPower>800</combatPower>
+		<weaponMoney>8000~8000</weaponMoney>
+		<techHediffsChance MayRequire="Ludeon.RimWorld.Biotech">1</techHediffsChance>
+		<techHediffsMoney>8000~8000</techHediffsMoney>
+		<controlGroupPortraitZoom>0.65</controlGroupPortraitZoom>  
 		<weaponTags>
 			<li>MBL3</li>
 		</weaponTags>
@@ -40,28 +56,21 @@
 			</li>
 		</modExtensions>
 	</PawnKindDef>
-	<!-- Centipede Inferno -->
-	<PawnKindDef ParentName="SK_BaseMechanoidKind">
+
+	<PawnKindDef ParentName="MechCentipedeBase">
+		<defName>Mech_CentipedeBlaster</defName>
+		<label>centipede blaster</label>
+		<race>Mech_CentipedeBlaster</race>
+		<weaponTags>
+		  <li>MBL3</li>
+		</weaponTags>
+	</PawnKindDef>	
+
+	<PawnKindDef ParentName="MechCentipedeBase">
 		<defName>Mech_CentipedeInferno</defName>
 		<label>Centipede</label>
-		<race>Mech_Centipede</race>
+		<race>Mech_CentipedeBurner</race>
 		<combatPower>840</combatPower>
-		<lifeStages>
-			<li>
-				<bodyGraphicData>
-					<texPath>Things/Pawn/Mechanoid/Centipede</texPath>
-					<graphicClass>Graphic_Multi</graphicClass>
-					<drawSize>3</drawSize>
-					<shadowData>
-						<volume>(0.6, 0.8, 0.6)</volume>
-					</shadowData>
-				</bodyGraphicData>
-			</li>
-		</lifeStages>
-		<weaponMoney>
-			<min>8000</min>
-			<max>8000</max>
-		</weaponMoney>
 		<weaponTags>
 			<li>INF</li>
 		</weaponTags>
@@ -74,28 +83,205 @@
 			</li>
 		</modExtensions>
 	</PawnKindDef>
-	<!-- Scyther -->
+
+	<PawnKindDef ParentName="MechCentipedeBase">
+		<defName>Mech_CentipedeGunner</defName>
+		<label>centipede gunner</label>
+		<race>Mech_CentipedeGunner</race>
+		<lifeStages Inherit="False">
+		  <li MayRequire="Ludeon.RimWorld.Biotech">
+			<bodyGraphicData>
+			  <texPath>Things/Pawn/Mechanoid/CentipedeGunnerClean</texPath>
+			  <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/CentipedeGunner</maskPath>
+			  <shaderType>CutoutWithOverlay</shaderType>
+			  <graphicClass>Graphic_Multi</graphicClass>
+			  <drawSize>3</drawSize>
+			  <shadowData>
+				<volume>(0.6, 0.8, 0.6)</volume>
+			  </shadowData>
+			</bodyGraphicData>
+		  </li>
+		  <li>
+			<bodyGraphicData>
+			  <texPath>Things/Pawn/Mechanoid/CentipedeGunner</texPath>
+			  <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/CentipedeGunner</maskPath>
+			  <shaderType>CutoutWithOverlay</shaderType>
+			  <graphicClass>Graphic_Multi</graphicClass>
+			  <drawSize>3</drawSize>
+			  <shadowData>
+				<volume>(0.6, 0.8, 0.6)</volume>
+			  </shadowData>
+			</bodyGraphicData>
+		  </li>
+		</lifeStages>
+		<weaponTags>
+		  <li>Microgun</li>
+		</weaponTags>
+	</PawnKindDef>
+
+	<PawnKindDef ParentName="MechCentipedeBase">
+		<defName>Mech_CentipedeBurner</defName>
+		<label>centipede burner</label>
+		<race>Mech_CentipedeBurner</race>
+		<lifeStages Inherit="False">
+		  <li MayRequire="Ludeon.RimWorld.Biotech">
+			<bodyGraphicData>
+			  <texPath>Things/Pawn/Mechanoid/CentipedeBurnerClean</texPath>
+			  <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/CentipedeBurner</maskPath>
+			  <shaderType>CutoutWithOverlay</shaderType>
+			  <graphicClass>Graphic_Multi</graphicClass>
+			  <drawSize>3</drawSize>
+			  <shadowData>
+				<volume>(0.6, 0.8, 0.6)</volume>
+			  </shadowData>
+			</bodyGraphicData>
+		  </li>
+		  <li>
+			<bodyGraphicData>
+			  <texPath>Things/Pawn/Mechanoid/CentipedeBurner</texPath>
+			  <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/CentipedeBurner</maskPath>
+			  <shaderType>CutoutWithOverlay</shaderType>
+			  <graphicClass>Graphic_Multi</graphicClass>
+			  <drawSize>3</drawSize>
+			  <shadowData>
+				<volume>(0.6, 0.8, 0.6)</volume>
+			  </shadowData>
+			</bodyGraphicData>
+		  </li>
+		</lifeStages>
+		<weaponTags>
+		  <li>InfernoCannonGun</li>
+		</weaponTags>
+	</PawnKindDef>
+
 	<PawnKindDef ParentName="SK_BaseMechanoidKind">
-		<defName>Mech_Scyther</defName>
-		<label>Scyther</label>
-		<race>Mech_Scyther</race>
-		<combatPower>640</combatPower>
+		<defName>Mech_Lancer</defName>
+		<label>lancer</label>
+		<race>Mech_Lancer</race>
+		<combatPower>590</combatPower>
 		<lifeStages>
-			<li>
-				<bodyGraphicData>
-					<texPath>Things/Pawn/Mechanoid/Scyther</texPath>
-					<graphicClass>Graphic_Multi</graphicClass>
-					<drawSize>2</drawSize>
-					<shadowData>
-						<volume>(0.4, 0.8, 0.4)</volume>
-					</shadowData>
-				</bodyGraphicData>
+		  <li MayRequire="Ludeon.Rimworld.Biotech">
+			<bodyGraphicData>
+			  <texPath>Things/Pawn/Mechanoid/LancerClean</texPath>
+			  <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Lancer</maskPath>
+			  <shaderType>CutoutWithOverlay</shaderType>
+			  <graphicClass>Graphic_Multi</graphicClass>
+			  <drawSize>1.5</drawSize>
+			  <shadowData>
+				<volume>(0.4, 0.8, 0.4)</volume>
+			  </shadowData>
+			</bodyGraphicData>
+		  </li>
+		  <li>
+			<bodyGraphicData>
+			  <texPath>Things/Pawn/Mechanoid/Stalker</texPath>
+			  <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Lancer</maskPath>
+			  <shaderType>CutoutWithOverlay</shaderType>
+			  <graphicClass>Graphic_Multi</graphicClass>
+			  <drawSize>1.5</drawSize>
+			  <shadowData>
+				<volume>(0.4, 0.8, 0.4)</volume>
+			  </shadowData>
+			</bodyGraphicData>
+		  </li>
+		</lifeStages>
+		<weaponMoney>5000~5000</weaponMoney>
+		<weaponTags>
+		  <li>MBL2</li>
+		</weaponTags>
+		<techHediffsChance>1</techHediffsChance>
+		<techHediffsMoney>6000~6000</techHediffsMoney>
+		<modExtensions>
+			<li Class="CombatExtended.LoadoutPropertiesExtension">
+				<primaryMagazineCount>
+					<min>4</min>
+					<max>5</max>
+				</primaryMagazineCount>
 			</li>
+		</modExtensions>
+	</PawnKindDef>
+
+	<PawnKindDef ParentName="SK_BaseMechanoidKind">
+		<defName>Mech_SniperLancer</defName>
+		<label>Lancer</label>
+		<race>Mech_Lancer</race>
+		<combatPower>680</combatPower>
+		<lifeStages>
+		<li MayRequire="Ludeon.Rimworld.Biotech">
+			<bodyGraphicData>
+			  <texPath>Things/Pawn/Mechanoid/LancerClean</texPath>
+			  <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Lancer</maskPath>
+			  <shaderType>CutoutWithOverlay</shaderType>
+			  <graphicClass>Graphic_Multi</graphicClass>
+			  <drawSize>2</drawSize>
+			  <shadowData>
+				<volume>(0.4, 0.8, 0.4)</volume>
+			  </shadowData>
+			</bodyGraphicData>
+		</li>
+		<li>
+			<bodyGraphicData>
+			  <texPath>Things/Pawn/Mechanoid/Stalker</texPath>
+			  <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Lancer</maskPath>
+			  <shaderType>CutoutWithOverlay</shaderType>
+			  <graphicClass>Graphic_Multi</graphicClass>
+			  <drawSize>2</drawSize>
+			  <shadowData>
+				<volume>(0.4, 0.8, 0.4)</volume>
+			  </shadowData>
+			</bodyGraphicData>
+		</li>
 		</lifeStages>
 		<weaponMoney>
 			<min>5000</min>
 			<max>5000</max>
 		</weaponMoney>
+		<weaponTags>
+			<li>MRAIL</li>
+		</weaponTags>
+		<modExtensions>
+			<li Class="CombatExtended.LoadoutPropertiesExtension">
+				<primaryMagazineCount>
+					<min>12</min>
+					<max>13</max>
+				</primaryMagazineCount>
+			</li>
+		</modExtensions>
+	</PawnKindDef>
+
+	<PawnKindDef ParentName="SK_BaseMechanoidKind">
+		<defName>Mech_Scyther</defName>
+		<label>scyther</label>
+		<race>Mech_Scyther</race>
+		<combatPower>640</combatPower>
+		<lifeStages>
+		  <li MayRequire="Ludeon.Rimworld.Biotech">
+			<bodyGraphicData>
+			  <texPath>Things/Pawn/Mechanoid/ScytherClean</texPath>
+			  <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Scyther</maskPath>
+			  <shaderType>CutoutWithOverlay</shaderType>
+			  <graphicClass>Graphic_Multi</graphicClass>
+			  <drawSize>1.5</drawSize>
+			  <shadowData>
+				<volume>(0.4, 0.8, 0.4)</volume>
+			  </shadowData>
+			</bodyGraphicData>
+		  </li>
+		  <li>
+			<bodyGraphicData>
+			  <texPath>Things/Pawn/Mechanoid/Scyther</texPath>
+			  <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Scyther</maskPath>
+			  <shaderType>CutoutWithOverlay</shaderType>
+			  <graphicClass>Graphic_Multi</graphicClass>
+			  <drawSize>1.5</drawSize>
+			  <shadowData>
+				<volume>(0.4, 0.8, 0.4)</volume>
+			  </shadowData>
+			</bodyGraphicData>
+		  </li>
+		</lifeStages>
+		<weaponMoney>5000~5000</weaponMoney>
+		<defendPointRadius>0</defendPointRadius>
 		<weaponTags>
 			<li>MBL2</li>
 		</weaponTags>
@@ -107,17 +293,33 @@
 				</primaryMagazineCount>
 			</li>
 		</modExtensions>
+		<techHediffsChance>1</techHediffsChance>
+		<techHediffsMoney>6000~6000</techHediffsMoney>
 	</PawnKindDef>
-	<!-- HeavyGun Scyther -->
+
 	<PawnKindDef ParentName="SK_BaseMechanoidKind">
 		<defName>Mech_HGScyther</defName>
 		<label>Scyther</label>
 		<race>Mech_Scyther</race>
 		<combatPower>650</combatPower>
 		<lifeStages>
+			<li MayRequire="Ludeon.Rimworld.Biotech">
+				<bodyGraphicData>
+				  <texPath>Things/Pawn/Mechanoid/ScytherClean</texPath>
+				  <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Scyther</maskPath>
+				  <shaderType>CutoutWithOverlay</shaderType>
+				  <graphicClass>Graphic_Multi</graphicClass>
+				  <drawSize>2</drawSize>
+				  <shadowData>
+					<volume>(0.4, 0.8, 0.4)</volume>
+				  </shadowData>
+				</bodyGraphicData>
+			</li>
 			<li>
 				<bodyGraphicData>
 					<texPath>Things/Pawn/Mechanoid/Scyther</texPath>
+					<maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Scyther</maskPath>
+					<shaderType>CutoutWithOverlay</shaderType>
 					<graphicClass>Graphic_Multi</graphicClass>
 					<drawSize>2</drawSize>
 					<shadowData>
@@ -142,99 +344,45 @@
 			</li>
 		</modExtensions>
 	</PawnKindDef>
-	<!-- Lancer -->
-	<PawnKindDef ParentName="SK_BaseMechanoidKind">
-		<defName>Mech_Lancer</defName>
-		<label>Lancer</label>
-		<race>Mech_Lancer</race>
-		<combatPower>590</combatPower>
-		<lifeStages>
-			<li>
-				<bodyGraphicData>
-					<texPath>Things/Pawn/Mechanoid/Stalker</texPath>
-					<graphicClass>Graphic_Multi</graphicClass>
-					<drawSize>2</drawSize>
-					<shadowData>
-						<volume>(0.4, 0.8, 0.4)</volume>
-					</shadowData>
-				</bodyGraphicData>
-			</li>
-		</lifeStages>
-		<weaponMoney>
-			<min>5000</min>
-			<max>5000</max>
-		</weaponMoney>
-		<weaponTags>
-			<li>MBL2</li>
-		</weaponTags>
-		<modExtensions>
-			<li Class="CombatExtended.LoadoutPropertiesExtension">
-				<primaryMagazineCount>
-					<min>4</min>
-					<max>5</max>
-				</primaryMagazineCount>
-			</li>
-		</modExtensions>
-	</PawnKindDef>
-	<!-- Sniper Lancer -->
-	<PawnKindDef ParentName="SK_BaseMechanoidKind">
-		<defName>Mech_SniperLancer</defName>
-		<label>Lancer</label>
-		<race>Mech_Lancer</race>
-		<combatPower>680</combatPower>
-		<lifeStages>
-			<li>
-				<bodyGraphicData>
-					<texPath>Things/Pawn/Mechanoid/Stalker</texPath>
-					<graphicClass>Graphic_Multi</graphicClass>
-					<drawSize>2</drawSize>
-					<shadowData>
-						<volume>(0.4, 0.8, 0.4)</volume>
-					</shadowData>
-				</bodyGraphicData>
-			</li>
-		</lifeStages>
-		<weaponMoney>
-			<min>5000</min>
-			<max>5000</max>
-		</weaponMoney>
-		<weaponTags>
-			<li>MRAIL</li>
-		</weaponTags>
-		<modExtensions>
-			<li Class="CombatExtended.LoadoutPropertiesExtension">
-				<primaryMagazineCount>
-					<min>12</min>
-					<max>13</max>
-				</primaryMagazineCount>
-			</li>
-		</modExtensions>
-	</PawnKindDef>
-	<!-- Pikeman -->
+
 	<PawnKindDef ParentName="SK_BaseMechanoidKind">
 		<defName>Mech_Pikeman</defName>
-		<label>Pikeman</label>
+		<label>pikeman</label>
+		<labelPlural>pikemen</labelPlural>
 		<race>Mech_Pikeman</race>
 		<combatPower>590</combatPower>
 		<lifeStages>
-			<li>
-				<bodyGraphicData>
-					<texPath>Things/Pawn/Mechanoid/Pikeman</texPath>
-					<graphicClass>Graphic_Multi</graphicClass>
-					<drawSize>1.8</drawSize>
-					<shadowData>
-						<volume>(0.4, 0.8, 0.4)</volume>
-					</shadowData>
-				</bodyGraphicData>
-			</li>
+		  <li MayRequire="Ludeon.Rimworld.Biotech"> 
+			<bodyGraphicData>
+			  <texPath>Things/Pawn/Mechanoid/PikemanClean</texPath>
+			  <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Pikeman</maskPath>
+			  <shaderType>CutoutWithOverlay</shaderType>
+			  <graphicClass>Graphic_Multi</graphicClass>
+			  <drawSize>2.4</drawSize>
+			  <shadowData>
+				<volume>(0.4, 0.8, 0.4)</volume>
+			  </shadowData>
+			</bodyGraphicData>
+		  </li>
+		  <li> 
+			<bodyGraphicData>
+			  <texPath>Things/Pawn/Mechanoid/Pikeman</texPath>
+			  <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Pikeman</maskPath>
+			  <shaderType>CutoutWithOverlay</shaderType>
+			  <graphicClass>Graphic_Multi</graphicClass>
+			  <drawSize>2.4</drawSize>
+			  <shadowData>
+				<volume>(0.4, 0.8, 0.4)</volume>
+			  </shadowData>
+			</bodyGraphicData>
+		  </li>
 		</lifeStages>
-		<weaponMoney>
-			<min>4000</min>
-			<max>4000</max>
-		</weaponMoney>
+		<weaponMoney>4000~4000</weaponMoney>
 		<weaponTags>
-			<li>Mneedle</li>
+		  <li>Mneedle</li>
 		</weaponTags>
+		<techHediffsChance>1</techHediffsChance>
+		<techHediffsMoney>6000~6000</techHediffsMoney>
 		<modExtensions>
 			<li Class="CombatExtended.LoadoutPropertiesExtension">
 				<primaryMagazineCount>
@@ -244,7 +392,7 @@
 			</li>
 		</modExtensions>
 	</PawnKindDef>
-	<!-- Crawler -->
+
 	<PawnKindDef ParentName="SK_BaseMechanoidKind">
 		<defName>Mech_Crawler</defName>
 		<label>Crawler</label>
@@ -260,4 +408,5 @@
 			</li>
 		</lifeStages>
 	</PawnKindDef>
+
 </Defs>

@@ -1,0 +1,697 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <ThingDef Name="LightMechanoid" ParentName="SK_MechanoidThingBase" Abstract="True">
+		<statBases>
+			<MarketValue>800</MarketValue>
+			<MoveSpeed>3.4</MoveSpeed>
+			<ArmorRating_Blunt>3</ArmorRating_Blunt>
+			<ArmorRating_Sharp>2</ArmorRating_Sharp>
+			<CarryWeight>50</CarryWeight>
+			<CarryBulk>20</CarryBulk>
+			<MeleeDodgeChance>0</MeleeDodgeChance>
+			<MeleeCritChance>0.01</MeleeCritChance>
+			<MeleeParryChance>0</MeleeParryChance>
+			<MechEnergyLossPerHP>0.66</MechEnergyLossPerHP>
+		</statBases>
+		<race>
+			<body>Mech_Light</body>
+			<intelligence>ToolUser</intelligence>
+			<thinkTreeMain>Mechanoid</thinkTreeMain>
+			<baseBodySize>0.7</baseBodySize>
+			<soundMeleeHitPawn>Pawn_Melee_Punch_HitPawn</soundMeleeHitPawn>
+			<soundMeleeHitBuilding>Pawn_Melee_Punch_HitBuilding</soundMeleeHitBuilding>
+			<soundMeleeMiss>Pawn_Melee_Punch_Miss</soundMeleeMiss>
+			<mechWeightClass>Light</mechWeightClass>
+		</race>
+		<butcherProducts>
+			<TitaniumBar>3</TitaniumBar>
+			<DepletedUranium>4</DepletedUranium>
+			<CarbonAlloy>3</CarbonAlloy>
+		</butcherProducts>
+		<tools>
+			<li Class="CombatExtended.ToolCE">
+				<label>head</label>
+				<capacities>
+					<li>Blunt</li>
+				</capacities>
+				<power>4</power>
+				<cooldownTime>2.0</cooldownTime>
+				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<armorPenetrationSharp>0</armorPenetrationSharp>
+				<armorPenetrationBlunt>0.5</armorPenetrationBlunt>
+			</li>
+		</tools>
+    </ThingDef>
+
+    <PawnKindDef Name="LightMechanoidKind" ParentName="SK_BaseMechanoidKind" Abstract="True">
+      <weaponMoney>8000~8000</weaponMoney>
+      <combatPower>75</combatPower>
+      <weaponTags></weaponTags>
+      <techHediffsChance>1</techHediffsChance>
+      <techHediffsMoney>6000~6000</techHediffsMoney>
+      <controlGroupPortraitZoom>1.8</controlGroupPortraitZoom>
+    </PawnKindDef>
+
+    <PawnKindDef Name="NonCombatLightMechanoidKind" ParentName="LightMechanoidKind" Abstract="True">
+      <isFighter>false</isFighter>
+    </PawnKindDef>
+
+    <!-- Militor -->    
+    <ThingDef ParentName="LightMechanoid">
+		<defName>Mech_Militor</defName>
+		<label>militor</label>
+		<description>A small combat mechanoid armed with a low-power mini-shotgun. Roughly four feet tall, militors lack the power, range, and toughness of more senior combat mechs. However, it is cheap to gestate and maintain, and so is often used as a rear guard or swarm attacker.\n\nIn war, mech armies are known to send militors into urban ruins to hunt down survivors after breaking the human defenses. For this reason, they are considered by some to be the most cruel of all mechanoid patterns.</description>
+		<statBases>
+			<MoveSpeed>3.8</MoveSpeed>
+			<ArmorRating_Blunt>4</ArmorRating_Blunt>
+			<ArmorRating_Sharp>2.5</ArmorRating_Sharp>
+			<AimingAccuracy>1.0</AimingAccuracy>
+			<ShootingAccuracyPawn>1.25</ShootingAccuracyPawn>
+			<MeleeDodgeChance>0.19</MeleeDodgeChance>
+			<MeleeCritChance>0.22</MeleeCritChance>
+			<MeleeParryChance>0.09</MeleeParryChance>
+			<MaxHitPoints>150</MaxHitPoints>
+		</statBases>
+		<race>
+		<lifeStageAges>
+		  <li>
+			<def>MechanoidFullyFormed</def>
+			<minAge>0</minAge>
+			<soundWounded>Pawn_Mech_Militor_Wounded</soundWounded>
+			<soundDeath>Pawn_Mech_Militor_Death</soundDeath>
+			<soundCall>Pawn_Mech_Militor_Call</soundCall>
+		  </li>
+		  <li>
+			<def>MechanoidFullyFormed</def>
+			<minAge>100</minAge>
+			<soundWounded>Pawn_Mech_Militor_Wounded</soundWounded>
+			<soundDeath>Pawn_Mech_Militor_Death</soundDeath>
+			<soundCall>Pawn_Mech_Militor_Call</soundCall>
+		  </li>
+		</lifeStageAges>
+		</race>
+		<modExtensions>
+			<li Class="CombatExtended.RacePropertiesExtensionCE">
+				<bodyShape>Humanoid</bodyShape>
+			</li>
+		</modExtensions>
+    </ThingDef>
+  
+    <PawnKindDef ParentName="LightMechanoidKind">
+		<defName>Mech_Militor</defName>
+		<label>militor</label>
+		<race>Mech_Militor</race>
+		<combatPower>90</combatPower>
+		<lifeStages>
+		<li>
+		  <bodyGraphicData>
+			<texPath>Things/Pawn/Mechanoid/Militor</texPath>
+			<maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Slugger</maskPath>
+			<shaderType>CutoutWithOverlay</shaderType>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>1.25</drawSize>
+			<shadowData>
+			  <volume>(0.3, 0.4, 0.3)</volume>
+			  <offset>(0,0,-0.25)</offset>
+			</shadowData>
+		  </bodyGraphicData>
+		</li>
+		<li>
+		  <bodyGraphicData>
+			<texPath>Things/Pawn/Mechanoid/MilitorAncient</texPath>
+			<maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Slugger</maskPath>
+			<shaderType>CutoutWithOverlay</shaderType>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>1.25</drawSize>
+			<shadowData>
+			  <volume>(0.3, 0.4, 0.3)</volume>
+			  <offset>(0,0,-0.25)</offset>
+			</shadowData>
+		  </bodyGraphicData>
+		</li>
+		</lifeStages>
+		<weaponTags>
+		<li>MechanoidGunShortRange</li>
+		</weaponTags>
+		<modExtensions>
+			<li Class="CombatExtended.LoadoutPropertiesExtension">
+				<primaryMagazineCount>
+					<min>5</min>
+					<max>6</max>
+				</primaryMagazineCount>
+			</li>
+		</modExtensions>
+    </PawnKindDef>
+    
+    <!-- Lifter -->  
+    <ThingDef ParentName="LightMechanoid">
+		<defName>Mech_Lifter</defName>
+		<label>lifter</label>
+		<description>A small mechanoid designed for hauling. Lacking a ranged weapon, it can make only weak melee attacks.</description>
+		<statBases>
+			<MoveSpeed>2.8</MoveSpeed>
+			<CarryWeight>60</CarryWeight>
+			<CarryBulk>25</CarryBulk>
+		</statBases>
+		<race>
+		<mechEnabledWorkTypes>
+		  <li>Hauling</li>
+		</mechEnabledWorkTypes>
+		<lifeStageAges>
+		  <li>
+			<def>MechanoidFullyFormed</def>
+			<minAge>0</minAge>
+			<soundWounded>Pawn_Mech_Lifter_Wounded</soundWounded>
+			<soundDeath>Pawn_Mech_Lifter_Death</soundDeath>
+			<soundCall>Pawn_Mech_Lifter_Call</soundCall>
+		  </li>
+		  <li>
+			<def>MechanoidFullyFormed</def>
+			<minAge>100</minAge>
+			<soundWounded>Pawn_Mech_Lifter_Wounded</soundWounded>
+			<soundDeath>Pawn_Mech_Lifter_Death</soundDeath>
+			<soundCall>Pawn_Mech_Lifter_Call</soundCall>
+		  </li>
+		</lifeStageAges>
+		</race>
+		<modExtensions>
+			<li Class="CombatExtended.RacePropertiesExtensionCE">
+				<bodyShape>Humanoid</bodyShape>
+			</li>
+		</modExtensions>
+    </ThingDef>
+    
+    <PawnKindDef ParentName="NonCombatLightMechanoidKind">
+      <defName>Mech_Lifter</defName>
+      <label>lifter</label>
+      <race>Mech_Lifter</race>
+      <lifeStages>
+        <li>
+          <bodyGraphicData>
+            <texPath>Things/Pawn/Mechanoid/Lifter</texPath>
+            <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Liftman</maskPath>
+            <shaderType>CutoutWithOverlay</shaderType>
+            <graphicClass>Graphic_Multi</graphicClass>
+            <drawSize>1.1</drawSize>
+          </bodyGraphicData>
+        </li>
+        <li>
+          <bodyGraphicData>
+            <texPath>Things/Pawn/Mechanoid/LifterAncient</texPath>
+            <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Liftman</maskPath>
+            <shaderType>CutoutWithOverlay</shaderType>
+            <graphicClass>Graphic_Multi</graphicClass>
+            <drawSize>1.1</drawSize>
+          </bodyGraphicData>
+        </li>
+      </lifeStages>
+    </PawnKindDef>
+
+    <!-- Constructoid -->  
+    <ThingDef ParentName="LightMechanoid">
+		<defName>Mech_Constructoid</defName>
+		<label>constructoid</label>
+		<description>A small mechanoid designed to perform construction tasks. It is equipped with a small slug gun for light defense. It can also perform blunt melee attacks if necessary.</description>
+		<statBases>
+			<ConstructionSpeed>0.5</ConstructionSpeed>
+			<AimingAccuracy>1.0</AimingAccuracy>
+			<ShootingAccuracyPawn>1.25</ShootingAccuracyPawn>
+		</statBases>
+		<race>
+		<mechEnabledWorkTypes>
+		  <li>Construction</li>
+		</mechEnabledWorkTypes>
+		<lifeStageAges>
+		  <li>
+			<def>MechanoidFullyFormed</def>
+			<minAge>0</minAge>
+			<soundWounded>Pawn_Mech_Constructoid_Wounded</soundWounded>
+			<soundDeath>Pawn_Mech_Constructoid_Death</soundDeath>
+			<soundCall>Pawn_Mech_Constructoid_Call</soundCall>
+		  </li>
+		  <li>
+			<def>MechanoidFullyFormed</def>
+			<minAge>100</minAge>
+			<soundWounded>Pawn_Mech_Constructoid_Wounded</soundWounded>
+			<soundDeath>Pawn_Mech_Constructoid_Death</soundDeath>
+			<soundCall>Pawn_Mech_Constructoid_Call</soundCall>
+		  </li>
+		</lifeStageAges>
+		</race>
+		<tools>
+			<li Class="CombatExtended.ToolCE">
+				<label>torso</label>
+				<capacities>
+					<li>Blunt</li>
+				</capacities>
+				<power>10</power>
+				<cooldownTime>3.0</cooldownTime>
+				<linkedBodyPartsGroup>Torso</linkedBodyPartsGroup>
+				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+				<armorPenetrationSharp>0</armorPenetrationSharp>
+				<armorPenetrationBlunt>3.0</armorPenetrationBlunt>
+			</li>
+		</tools>
+		<modExtensions>
+			<li Class="CombatExtended.RacePropertiesExtensionCE">
+				<bodyShape>Vehicle</bodyShape>
+			</li>
+		</modExtensions>
+    </ThingDef>
+    
+    <PawnKindDef ParentName="NonCombatLightMechanoidKind">
+		<defName>Mech_Constructoid</defName>
+		<label>constructoid</label>
+		<race>Mech_Constructoid</race>
+		<lifeStages>
+		<li>
+		  <bodyGraphicData>
+			<texPath>Things/Pawn/Mechanoid/Constructoid</texPath>
+			<maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Constructoid</maskPath>
+			<shaderType>CutoutWithOverlay</shaderType>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>1.1</drawSize>
+		  </bodyGraphicData>
+		</li>
+		<li>
+		  <bodyGraphicData>
+			<texPath>Things/Pawn/Mechanoid/ConstructoidAncient</texPath>
+			<maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Constructoid</maskPath>
+			<shaderType>CutoutWithOverlay</shaderType>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>1.1</drawSize>
+		  </bodyGraphicData>
+		</li>
+		</lifeStages>
+		<weaponTags>
+		<li>MechanoidGunSlugthrower</li>
+		</weaponTags>
+		<modExtensions>
+			<li Class="CombatExtended.LoadoutPropertiesExtension">
+				<primaryMagazineCount>
+					<min>5</min>
+					<max>6</max>
+				</primaryMagazineCount>
+			</li>
+		</modExtensions>
+    </PawnKindDef>
+
+    <!-- Fabricor -->  
+    <ThingDef ParentName="LightMechanoid">
+		<defName>Mech_Fabricor</defName>
+		<label>fabricor</label>
+		<description>A small work mechanoid designed to craft all manner of manufactured objects. It is equipped with a small slug gun for light defense.</description>
+		<statBases>
+			<FoodPoisonChance>0.01</FoodPoisonChance>
+			<AimingAccuracy>1.0</AimingAccuracy>
+			<ShootingAccuracyPawn>1.25</ShootingAccuracyPawn>
+		</statBases>
+		<race>
+		<mechEnabledWorkTypes>
+		  <li>Crafting</li>
+		  <li>Smithing</li>
+		  <li>Tailoring</li>
+		  <li>Cooking</li>
+		</mechEnabledWorkTypes>
+		<lifeStageAges>
+		  <li>
+			<def>MechanoidFullyFormed</def>
+			<minAge>0</minAge>
+			<soundWounded>Pawn_Mech_Fabricor_Wounded</soundWounded>
+			<soundDeath>Pawn_Mech_Fabricor_Death</soundDeath>
+			<soundCall>Pawn_Mech_Fabricor_Call</soundCall>
+		  </li>
+		  <li>
+			<def>MechanoidFullyFormed</def>
+			<minAge>100</minAge>
+			<soundWounded>Pawn_Mech_Fabricor_Wounded</soundWounded>
+			<soundDeath>Pawn_Mech_Fabricor_Death</soundDeath>
+			<soundCall>Pawn_Mech_Fabricor_Call</soundCall>
+		  </li>
+		</lifeStageAges>
+		</race>
+		<modExtensions>
+			<li Class="CombatExtended.RacePropertiesExtensionCE">
+				<bodyShape>Humanoid</bodyShape>
+			</li>
+		</modExtensions>
+    </ThingDef>
+    
+    <PawnKindDef ParentName="NonCombatLightMechanoidKind">
+		<defName>Mech_Fabricor</defName>
+		<label>fabricor</label>
+		<race>Mech_Fabricor</race>
+		<lifeStages>
+		<li>
+		  <bodyGraphicData>
+			<texPath>Things/Pawn/Mechanoid/Fabricor</texPath>
+			<maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Fabricor</maskPath>
+			<shaderType>CutoutWithOverlay</shaderType>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>1.1</drawSize>
+		  </bodyGraphicData>
+		</li>
+		<li>
+		  <bodyGraphicData>
+			<texPath>Things/Pawn/Mechanoid/FabricorAncient</texPath>
+			<maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Fabricor</maskPath>
+			<shaderType>CutoutWithOverlay</shaderType>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>1.1</drawSize>
+		  </bodyGraphicData>
+		</li>
+		</lifeStages>      
+		<weaponTags>
+		<li>MechanoidGunSlugthrower</li>
+		</weaponTags>
+		<modExtensions>
+			<li Class="CombatExtended.LoadoutPropertiesExtension">
+				<primaryMagazineCount>
+					<min>5</min>
+					<max>6</max>
+				</primaryMagazineCount>
+			</li>
+		</modExtensions>
+    </PawnKindDef>
+
+    <!-- Agrihand -->  
+    <ThingDef ParentName="LightMechanoid">
+		<defName>Mech_Agrihand</defName>
+		<label>agrihand</label>
+		<description>A small mechanoid designed to sow and harvest crops. While it is better suited to labor than combat, it can fight with built-in cutting blades if necessary.</description>
+		<tools>
+			<li Class="CombatExtended.ToolCE">
+				<label>right blade</label>
+				<capacities>
+					<li>Cut</li>
+				</capacities>
+				<power>17</power>
+				<cooldownTime>2.07</cooldownTime>
+				<linkedBodyPartsGroup>RightBlade</linkedBodyPartsGroup>
+				<armorPenetrationSharp>0.9</armorPenetrationSharp>
+				<armorPenetrationBlunt>2.2</armorPenetrationBlunt>
+				<alwaysTreatAsWeapon>true</alwaysTreatAsWeapon>
+			</li>
+			<li Class="CombatExtended.ToolCE">
+				<label>right blade</label>
+				<capacities>
+					<li>Stab</li>
+				</capacities>
+				<power>10</power>
+				<cooldownTime>1.33</cooldownTime>
+				<linkedBodyPartsGroup>RightBlade</linkedBodyPartsGroup>
+				<armorPenetrationSharp>16</armorPenetrationSharp>
+				<armorPenetrationBlunt>8</armorPenetrationBlunt>
+				<alwaysTreatAsWeapon>true</alwaysTreatAsWeapon>
+			</li>
+		</tools>
+		<statBases>
+			<PlantWorkSpeed>0.80</PlantWorkSpeed>
+		</statBases>
+		<race>
+		<body>Mech_Agrihand</body>
+		<mechEnabledWorkTypes>
+		  <li>PlantCutting</li>
+		  <li>Growing</li>
+		</mechEnabledWorkTypes>
+		<mechWorkTypePriorities>
+		  <PlantCutting>2</PlantCutting>
+		</mechWorkTypePriorities>
+		<lifeStageAges>
+		  <li>
+			<def>MechanoidFullyFormed</def>
+			<minAge>0</minAge>
+			<soundWounded>Pawn_Mech_Agrihand_Wounded</soundWounded>
+			<soundDeath>Pawn_Mech_Agrihand_Death</soundDeath>
+			<soundCall>Pawn_Mech_Agrihand_Call</soundCall>
+		  </li>
+		  <li>
+			<def>MechanoidFullyFormed</def>
+			<minAge>100</minAge>
+			<soundWounded>Pawn_Mech_Agrihand_Wounded</soundWounded>
+			<soundDeath>Pawn_Mech_Agrihand_Death</soundDeath>
+			<soundCall>Pawn_Mech_Agrihand_Call</soundCall>
+		  </li>
+		</lifeStageAges>
+		</race>
+		<modExtensions>
+			<li Class="CombatExtended.RacePropertiesExtensionCE">
+				<bodyShape>Vehicle</bodyShape>
+			</li>
+		</modExtensions>
+    </ThingDef>
+    
+    <PawnKindDef ParentName="NonCombatLightMechanoidKind">
+      <defName>Mech_Agrihand</defName>
+      <label>agrihand</label>
+      <race>Mech_Agrihand</race>
+      <lifeStages>
+        <li>
+          <bodyGraphicData>
+            <texPath>Things/Pawn/Mechanoid/Agrihand</texPath>
+            <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Agrihand</maskPath>
+            <shaderType>CutoutWithOverlay</shaderType>
+            <graphicClass>Graphic_Multi</graphicClass>
+            <drawSize>1.1</drawSize>
+          </bodyGraphicData>
+        </li>
+        <li>
+          <bodyGraphicData>
+            <texPath>Things/Pawn/Mechanoid/AgrihandAncient</texPath>
+            <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Agrihand</maskPath>
+            <shaderType>CutoutWithOverlay</shaderType>
+            <graphicClass>Graphic_Multi</graphicClass>
+            <drawSize>1.1</drawSize>
+          </bodyGraphicData>
+        </li>
+      </lifeStages>      
+    </PawnKindDef>
+
+    <!-- Cleansweeper -->  
+    <ThingDef ParentName="LightMechanoid">
+		<defName>Mech_Cleansweeper</defName>
+		<label>cleansweeper</label>
+		<description>A light mechanoid designed for cleaning. Lacking a ranged weapon, it can make only weak melee attacks.</description>
+		<statBases>
+			<CleaningSpeed>0.5</CleaningSpeed>
+		</statBases>
+		<race>
+		<mechEnabledWorkTypes>
+		  <li>Cleaning</li>
+		</mechEnabledWorkTypes>
+		<lifeStageAges>
+		  <li>
+			<def>MechanoidFullyFormed</def>
+			<minAge>0</minAge>
+			<soundWounded>Pawn_Mech_Cleansweeper_Wounded</soundWounded>
+			<soundDeath>Pawn_Mech_Cleansweeper_Death</soundDeath>
+			<soundCall>Pawn_Mech_Cleansweeper_Call</soundCall>
+		  </li>
+		  <li>
+			<def>MechanoidFullyFormed</def>
+			<minAge>0</minAge>
+			<soundWounded>Pawn_Mech_Cleansweeper_Wounded</soundWounded>
+			<soundDeath>Pawn_Mech_Cleansweeper_Death</soundDeath>
+			<soundCall>Pawn_Mech_Cleansweeper_Call</soundCall>
+		  </li>
+		</lifeStageAges>
+		<baseBodySize>0.3</baseBodySize>
+		</race>
+		<modExtensions>
+			<li Class="CombatExtended.RacePropertiesExtensionCE">
+				<bodyShape>Vehicle</bodyShape>
+			</li>
+		</modExtensions>
+    </ThingDef>
+    
+    <PawnKindDef ParentName="NonCombatLightMechanoidKind">
+      <defName>Mech_Cleansweeper</defName>
+      <label>cleansweeper</label>
+      <race>Mech_Cleansweeper</race>
+      <lifeStages>
+        <li>
+          <bodyGraphicData>
+            <texPath>Things/Pawn/Mechanoid/Cleansweeper</texPath>
+            <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Cleansweeper</maskPath>
+            <shaderType>CutoutWithOverlay</shaderType>
+            <graphicClass>Graphic_Multi</graphicClass>
+            <drawSize>1.1</drawSize>
+          </bodyGraphicData>
+        </li>
+        <li>
+          <bodyGraphicData>
+            <texPath>Things/Pawn/Mechanoid/CleansweeperAncient</texPath>
+            <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Cleansweeper</maskPath>
+            <shaderType>CutoutWithOverlay</shaderType>
+            <graphicClass>Graphic_Multi</graphicClass>
+            <drawSize>1.1</drawSize>
+          </bodyGraphicData>
+        </li>
+      </lifeStages>
+    </PawnKindDef>
+
+    <!-- WarUrchin -->  
+    <ThingDef ParentName="LightMechanoid">
+		<defName>Mech_WarUrchin</defName>
+		<label>war urchin</label>
+		<description>A small, deployable combat mechanoid usually manufactured inside an ultra-heavy war queen mech. War urchins are expendable fighters designed to swarm-attack enemies. They are mounted with short-ranged spiner guns and have a non-rechargeable power source.</description>
+		<statBases>
+			<MoveSpeed>4.2</MoveSpeed>
+			<AimingAccuracy>1.0</AimingAccuracy>
+			<ShootingAccuracyPawn>1.5</ShootingAccuracyPawn>
+		</statBases>
+		<race>
+		<lifeStageAges>
+		  <li>
+			<def>MechanoidFullyFormed</def>
+			<minAge>0</minAge>
+			<soundWounded>Pawn_Mech_WarUrchin_Wounded</soundWounded>
+			<soundDeath>Pawn_Mech_WarUrchin_Death</soundDeath>
+			<soundCall>Pawn_Mech_WarUrchin_Call</soundCall>
+		  </li>
+		  <li>
+			<def>MechanoidFullyFormed</def>
+			<minAge>100</minAge>
+			<soundWounded>Pawn_Mech_WarUrchin_Wounded</soundWounded>
+			<soundDeath>Pawn_Mech_WarUrchin_Death</soundDeath>
+			<soundCall>Pawn_Mech_WarUrchin_Call</soundCall>
+		  </li>
+		</lifeStageAges>
+		<thinkTreeConstant>WarUrchinConstant</thinkTreeConstant>
+		<baseHealthScale>1.3</baseHealthScale>
+		</race>
+		<comps Inherit="False">
+		<li Class="CompProperties_CanBeDormant" />
+		<li Class="CompProperties_WakeUpDormant">
+		  <wakeUpOnDamage>true</wakeUpOnDamage>
+		  <wakeUpCheckRadius>30</wakeUpCheckRadius>
+		  <wakeUpSound>MechanoidsWakeUp</wakeUpSound>
+		</li>
+		<li Class="CompProperties_MechPowerCell">
+		  <totalPowerTicks>15000</totalPowerTicks>
+		</li>
+		</comps>
+		<modExtensions>
+			<li Class="CombatExtended.RacePropertiesExtensionCE">
+				<bodyShape>Vehicle</bodyShape>
+			</li>
+		</modExtensions>
+    </ThingDef>
+    
+    <PawnKindDef ParentName="LightMechanoidKind">
+      <defName>Mech_WarUrchin</defName>
+      <label>war urchin</label>
+      <labelPlural>war urchins</labelPlural>
+      <race>Mech_WarUrchin</race>
+      <allowInMechClusters>false</allowInMechClusters>
+      <forceNoDeathNotification>true</forceNoDeathNotification>
+      <lifeStages>
+        <li>
+          <bodyGraphicData>
+            <texPath>Things/Pawn/Mechanoid/WarUrchin</texPath>
+            <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/MechMinimech</maskPath>
+            <shaderType>CutoutWithOverlay</shaderType>
+            <graphicClass>Graphic_Multi</graphicClass>
+            <drawSize>1.1</drawSize>
+            <shadowData>
+              <volume>(0.2, 0.3, 0.2)</volume>
+            </shadowData>
+          </bodyGraphicData>
+        </li>
+        <li>
+          <bodyGraphicData>
+            <texPath>Things/Pawn/Mechanoid/WarUrchinAncient</texPath>
+            <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/MechMinimech</maskPath>
+            <shaderType>CutoutWithOverlay</shaderType>
+            <graphicClass>Graphic_Multi</graphicClass>
+            <drawSize>1.1</drawSize>
+            <shadowData>
+              <volume>(0.2, 0.3, 0.2)</volume>
+            </shadowData>
+          </bodyGraphicData>
+        </li>
+      </lifeStages>      
+      <weaponTags>
+        <li>MechanoidGunSpiner</li>
+      </weaponTags>
+    </PawnKindDef>
+
+    <!-- Paramedic -->    
+    <ThingDef ParentName="LightMechanoid">
+		<defName>Mech_Paramedic</defName>
+		<label>paramedic</label>
+		<description>A small mechanoid designed for non-violent emergency situation management and medical care. The paramedic can rescue the wounded, fight fires, treat the sick, and even perform surgery when a more-qualified human is not available. Its built-in jump launcher allows it to jump into, and out of, emergency situations, and its built-in firefoam popper can quickly extinguish fires.</description>
+		<statBases>
+			<MoveSpeed>3.8</MoveSpeed>
+		</statBases>
+		<race>
+		<mechEnabledWorkTypes>
+		  <li>Doctor</li>
+		  <li>Firefighter</li>
+		</mechEnabledWorkTypes>
+		<lifeStageAges>
+		  <li>
+			<def>MechanoidFullyFormed</def>
+			<minAge>0</minAge>
+			<soundWounded>Pawn_Mech_Paramedic_Wounded</soundWounded>
+			<soundDeath>Pawn_Mech_Paramedic_Death</soundDeath>
+			<soundCall>Pawn_Mech_Paramedic_Call</soundCall>
+		  </li>
+		  <li>
+			<def>MechanoidFullyFormed</def>
+			<minAge>100</minAge>
+			<soundWounded>Pawn_Mech_Paramedic_Wounded</soundWounded>
+			<soundDeath>Pawn_Mech_Paramedic_Death</soundDeath>
+			<soundCall>Pawn_Mech_Paramedic_Call</soundCall>
+		  </li>
+		</lifeStageAges>
+		</race>
+		<modExtensions>
+			<li Class="CombatExtended.RacePropertiesExtensionCE">
+				<bodyShape>Humanoid</bodyShape>
+			</li>
+		</modExtensions>
+    </ThingDef>
+  
+    <PawnKindDef ParentName="LightMechanoidKind">
+      <defName>Mech_Paramedic</defName>
+      <label>paramedic</label>
+      <race>Mech_Paramedic</race>
+      <allowInMechClusters>false</allowInMechClusters>
+      <lifeStages>
+        <li>
+          <bodyGraphicData>
+            <texPath>Things/Pawn/Mechanoid/Paramedic</texPath>
+            <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Paramedic</maskPath>
+            <shaderType>CutoutWithOverlay</shaderType>
+            <graphicClass>Graphic_Multi</graphicClass>
+            <drawSize>1.25</drawSize>
+            <shadowData>
+              <volume>(0.3, 0.4, 0.3)</volume>
+              <offset>(0,0,-0.25)</offset>
+            </shadowData>
+          </bodyGraphicData>
+        </li>
+        <li>
+          <bodyGraphicData>
+            <texPath>Things/Pawn/Mechanoid/ParamedicAncient</texPath>
+            <maskPath>Things/Pawn/Mechanoid/AllegianceOverlays/Mech_Paramedic</maskPath>
+            <shaderType>CutoutWithOverlay</shaderType>
+            <graphicClass>Graphic_Multi</graphicClass>
+            <drawSize>1.25</drawSize>
+            <shadowData>
+              <volume>(0.3, 0.4, 0.3)</volume>
+              <offset>(0,0,-0.25)</offset>
+            </shadowData>
+          </bodyGraphicData>
+        </li>
+      </lifeStages>
+      <abilities>
+        <li>FirefoampopMech</li>
+        <li>LongjumpMechLauncher</li>
+      </abilities>
+    </PawnKindDef>
+
+</Defs>

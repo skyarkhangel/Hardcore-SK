@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+			<li Class="PatchOperationTest">
+				<xpath>Defs/RitualBehaviorDef[defName="GladiatorDuel"]/stages/li/roleBehaviors/li[roleId="duelist2" and dutyDef="DropWeapon"]</xpath>
+			</li>
+			<li Class="PatchOperationInsert">
+				<xpath>Defs/RitualBehaviorDef[defName="GladiatorDuel"]/stages/li/roleBehaviors/li[roleId="duelist2" and dutyDef="DropWeapon"]</xpath>
+				<value>
+					<li>
+						<roleId>escorte1</roleId>
+						<dutyDef>NonUnoPinata_StripDuelEquipment</dutyDef>
+					</li>
+					<li>
+						<roleId>escorte2</roleId>
+						<dutyDef>NonUnoPinata_StripDuelEquipment</dutyDef>
+					</li>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+</Patch>
+
+<!--
+<Defs>
+  <RitualBehaviorDef>
+    <defName>GladiatorDuel</defName>
+    <workerClass>RitualBehaviorWorker_Duel</workerClass>
+    <roles>
+      <li Class="RitualRoleTag">
+        <label>speaker</label>
+        <tag>Leader</tag>
+        <id>leader</id>
+        <precept>IdeoRole_Leader</precept>
+        <required>True</required>
+        <substitutable>True</substitutable>
+        <maxCount>1</maxCount>
+        <countsAsParticipant>False</countsAsParticipant>
+      </li>
+      <li Class="RitualRolePrisonerOrSlave">
+        <label>duelist</label>
+        <categoryLabel>duelists</categoryLabel>
+        <missingDesc>prisoners / slaves (duelists)</missingDesc>
+        <id>duelist1</id>
+        <mergeId>duelist</mergeId>
+        <mustBeCapableToFight>true</mustBeCapableToFight>
+        <required>True</required>
+        <maxCount>1</maxCount>
+        <ignoreBleeding>true</ignoreBleeding>
+        <countsAsParticipant>False</countsAsParticipant>
+      </li>
+      <li Class="RitualRolePrisonerOrSlave">
+        <label>duelist</label>
+        <categoryLabel>duelists</categoryLabel>
+        <missingDesc>prisoners / slaves (duelists)</missingDesc>
+        <id>duelist2</id>
+        <mergeId>duelist</mergeId>
+        <required>True</required>
+        <mustBeCapableToFight>true</mustBeCapableToFight>
+        <maxCount>1</maxCount>
+        <ignoreBleeding>true</ignoreBleeding>
+        <countsAsParticipant>False</countsAsParticipant>
+      </li>
+      <li Class="RitualRoleColonist">
+        <label>duelist escort</label>
+        <categoryLabel>duelist escorts</categoryLabel>
+        <missingDesc>non-downed colonists capable of hauling</missingDesc>
+        <id>escorte1</id>
+        <mergeId>escorte</mergeId>
+        <required>True</required>
+        <maxCount>1</maxCount>
+      </li>
+      <li Class="RitualRoleColonist">
+        <label>duelist escort</label>
+        <categoryLabel>duelist escorts</categoryLabel>
+        <missingDesc>non-downed colonists capable of hauling</missingDesc>
+        <id>escorte2</id>
+        <mergeId>escorte</mergeId>
+        <required>True</required>
+        <maxCount>1</maxCount>
+      </li>
+    </roles>
+    <spectatorsLabel>Spectators</spectatorsLabel>
+    <spectatorGerund>participate</spectatorGerund>
+    <stages>
+      <!- - Duelists drop weapons - ->
+      <li>
+        <defaultDuty>SpectateCircle</defaultDuty>
+        <spectateDistanceOverride>5~7</spectateDistanceOverride>
+        <endTriggers>
+          <li Class="StageEndTrigger_RolesUnarmed">
+            <roleIds>
+              <li>duelist1</li>
+              <li>duelist2</li>
+            </roleIds>
+          </li>
+        </endTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>duelist1</roleId>
+            <dutyDef>DropWeapon</dutyDef>
+          </li>
+          <li>
+            <roleId>duelist2</roleId>
+            <dutyDef>DropWeapon</dutyDef>
+          </li>
+        </roleBehaviors>
+      </li>
+      <!- - People gather up - ->
+      <li>
+        <defaultDuty>SpectateCircle</defaultDuty>
+        <spectateDistanceOverride>5~7</spectateDistanceOverride>
+        <endTriggers>
+          <li Class="StageEndTrigger_RolesArrived">
+            <roleIds>
+              <li>leader</li>
+            </roleIds>
+          </li>
+        </endTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>leader</roleId>
+            <dutyDef>ArriveToCell</dutyDef>
+            <customPositions>
+              <li Class="RitualPosition_InCircle">
+                <preferredRotation>North</preferredRotation>
+                <distRange>3~3</distRange>
+              </li>
+            </customPositions>
+          </li>
+          <li>
+            <roleId>duelist1</roleId>
+            <dutyDef>Idle</dutyDef>
+          </li>
+          <li>
+            <roleId>duelist2</roleId>
+            <dutyDef>Idle</dutyDef>
+          </li>
+        </roleBehaviors>
+      </li>
+      <!- - Duelists are taken - ->
+      <li Class="RitualStage_InteractWithRole">
+        <targets>
+          <li>
+            <pawnId>escorte1</pawnId>
+            <targetId>duelist1</targetId>
+          </li>
+          <li>
+            <pawnId>escorte2</pawnId>
+            <targetId>duelist2</targetId>
+          </li>
+        </targets>
+        <defaultDuty>SpectateCircle</defaultDuty>
+        <spectateDistanceOverride>5~7</spectateDistanceOverride>
+        <failTriggers>
+          <li Class="StageFailTrigger_TargetPawnUnreachable">
+            <takerId>escorte1</takerId>
+            <takeeId>duelist1</takeeId>
+            <desc>Duelist is not reachable.</desc>
+          </li>
+        </failTriggers>
+        <endTriggers>
+          <li Class="StageEndTrigger_RolesArrived">
+            <roleIds>
+              <li>escorte1</li>
+              <li>escorte2</li>
+            </roleIds>
+            <clearTag>true</clearTag>
+          </li>
+        </endTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>leader</roleId>
+            <dutyDef>Idle</dutyDef>
+            <customPositions>
+              <li Class="RitualPosition_InCircle">
+                <preferredRotation>North</preferredRotation>
+                <distRange>3~3</distRange>
+              </li>
+            </customPositions>
+          </li>
+          <li>
+            <roleId>escorte1</roleId>
+            <dutyDef>DeliverPawnToCellIfAliveThenIdle</dutyDef>
+            <customPositions>
+              <li Class="RitualPosition_DuelistStart">
+                <distFromTarget>2</distFromTarget>
+                <duelistIndex>0</duelistIndex>
+              </li>
+            </customPositions>
+          </li>
+          <li>
+            <roleId>escorte2</roleId>
+            <dutyDef>DeliverPawnToCellIfAliveThenIdle</dutyDef>
+            <customPositions>
+              <li Class="RitualPosition_DuelistStart">
+                <distFromTarget>2</distFromTarget>
+                <duelistIndex>1</duelistIndex>
+              </li>
+            </customPositions>
+          </li>
+          <li>
+            <roleId>duelist1</roleId>
+            <dutyDef>Idle</dutyDef>
+          </li>
+          <li>
+            <roleId>duelist2</roleId>
+            <dutyDef>Idle</dutyDef>
+          </li>
+        </roleBehaviors>
+      </li>
+      <!- - Leader speak on cell - ->
+      <li>
+        <defaultDuty>SpectateCircle</defaultDuty>
+        <spectateDistanceOverride>5~7</spectateDistanceOverride>
+        <ignoreDurationToFinishAfterStage>true</ignoreDurationToFinishAfterStage>
+        <postAction Class="RitualStageAction_SoundOneshotOnTarget">
+          <sound>GladiatorDuel_Start</sound>
+        </postAction>
+        <endTriggers>
+          <li Class="StageEndTrigger_DurationPercentage">
+            <percentage>0.33</percentage>
+          </li>
+        </endTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>leader</roleId>
+            <dutyDef>SpeakOnCell</dutyDef>
+            <speakerInteraction>Speech_Duel</speakerInteraction>
+            <customPositions>
+              <li Class="RitualPosition_InCircle">
+                <preferredRotation>North</preferredRotation>
+                <distRange>3~3</distRange>
+              </li>
+            </customPositions>
+          </li>
+          <li>
+            <roleId>duelist2</roleId>
+            <dutyDef>Idle</dutyDef>
+          </li>
+          <li>
+            <roleId>duelist1</roleId>
+            <dutyDef>Idle</dutyDef>
+          </li>
+        </roleBehaviors>
+      </li>
+      <!- - Fight - ->
+      <li>
+        <defaultDuty>SpectateCircle</defaultDuty>
+        <spectateDistanceOverride>5~7</spectateDistanceOverride>
+        <visualEffectDef>Duel</visualEffectDef>
+        <endTriggers>
+          <li Class="StageEndTrigger_DurationPercentage">
+            <percentage>1</percentage>
+          </li>
+          <li Class="StageEndTrigger_DuelEnded">
+            <roleIds>
+              <li>duelist1</li>
+              <li>duelist2</li>
+            </roleIds>
+          </li>
+        </endTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>leader</roleId>
+            <dutyDef>Idle</dutyDef>
+            <customPositions>
+              <li Class="RitualPosition_InCircle">
+                <preferredRotation>North</preferredRotation>
+                <distRange>3~3</distRange>
+              </li>
+            </customPositions>
+          </li>
+          <li>
+            <roleId>duelist2</roleId>
+            <dutyDef>Duel</dutyDef>
+          </li>
+          <li>
+            <roleId>duelist1</roleId>
+            <dutyDef>Duel</dutyDef>
+          </li>
+        </roleBehaviors>
+      </li>
+      <!- - Duelists drop weapons - ->
+      <li>
+        <defaultDuty>SpectateCircle</defaultDuty>
+        <spectateDistanceOverride>5~7</spectateDistanceOverride>
+        <endTriggers>
+          <li Class="StageEndTrigger_RolesUnarmed">
+            <roleIds>
+              <li>duelist1</li>
+              <li>duelist2</li>
+            </roleIds>
+          </li>
+        </endTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>duelist1</roleId>
+            <dutyDef>DropWeapon</dutyDef>
+          </li>
+          <li>
+            <roleId>duelist2</roleId>
+            <dutyDef>DropWeapon</dutyDef>
+          </li>
+        </roleBehaviors>
+      </li>
+      <!- - Wait some time - ->
+      <li>
+        <defaultDuty>SpectateCircle</defaultDuty>
+        <spectateDistanceOverride>5~7</spectateDistanceOverride>
+        <endTriggers>
+          <li Class="StageEndTrigger_DurationPercentage">
+            <percentage>0.05</percentage>
+          </li>
+        </endTriggers>
+        <roleBehaviors>
+          <li>
+            <roleId>duelist1</roleId>
+            <dutyDef>Idle</dutyDef>
+          </li>
+          <li>
+            <roleId>duelist2</roleId>
+            <dutyDef>Idle</dutyDef>
+          </li>
+        </roleBehaviors>
+      </li>
+      <!- - Duelists are brought back - ->
+      <li Class="RitualStage_InteractWithRole">
+        <targets>
+          <li>
+            <pawnId>escorte1</pawnId>
+            <targetId>duelist1</targetId>
+          </li>
+          <li>
+            <pawnId>escorte2</pawnId>
+            <targetId>duelist2</targetId>
+          </li>
+        </targets>
+        <defaultDuty>SpectateCircle</defaultDuty>
+        <spectateDistanceOverride>5~7</spectateDistanceOverride>
+        <endTriggers>
+          <li Class="StageEndTrigger_RolesArrived">
+            <roleIds>
+              <li>escorte1</li>
+              <li>escorte2</li>
+            </roleIds>
+          </li>
+        </endTriggers>
+        <preAction Class="RitualStageAction_RemovePawnsFromLord">
+		<!- - This is required to keep pawns tucked in their bed. - ->d
+          <roleIds>
+            <li>duelist1</li>
+            <li>duelist2</li>
+          </roleIds>
+        </preAction>
+        <roleBehaviors>
+          <li>
+            <roleId>leader</roleId>
+            <dutyDef>Idle</dutyDef>
+            <customPositions>
+              <li Class="RitualPosition_InCircle">
+                <preferredRotation>North</preferredRotation>
+                <distRange>3~3</distRange>
+              </li>
+            </customPositions>
+          </li>
+          <li>
+            <roleId>escorte1</roleId>
+            <dutyDef>DeliverPawnToBedIfAliveThenIdle</dutyDef>
+          </li>
+          <li>
+            <roleId>escorte2</roleId>
+            <dutyDef>DeliverPawnToBedIfAliveThenIdle</dutyDef>
+          </li>
+          <li>
+            <roleId>duelist1</roleId>
+            <dutyDef>Idle</dutyDef>
+          </li>
+          <li>
+            <roleId>duelist2</roleId>
+            <dutyDef>Idle</dutyDef>
+          </li>
+        </roleBehaviors>
+      </li>
+    </stages>
+  </RitualBehaviorDef>
+</Defs>
+-->

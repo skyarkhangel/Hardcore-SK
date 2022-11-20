@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+    <ThingCategoryDef>
+      <defName>Ammo50mmRocket</defName>
+      <label></label>
+      <parent>AmmoRockets</parent>
+      <iconPath>UI/Icons/ThingCategories/CaliberRocket</iconPath>
+    </ThingCategoryDef>
+	
+	<!-- ==================== AmmoSet ========================== -->
+
+  <CombatExtended.AmmoSetDef>
+    <defName>AmmoSet_50mmRocket</defName>
+    <label>50mm rocket</label>
+	<ammoTypes>
+	  <Ammo_50mmRocket_HE>Bullet_50mmRocket_HE</Ammo_50mmRocket_HE>
+	</ammoTypes>
+  </CombatExtended.AmmoSetDef>
+	
+	<!-- ==================== Ammo ========================== -->
+
+  <ThingDef Class="CombatExtended.AmmoDef" Name="50mmRocketBase" ParentName="AmmoBase" Abstract="True">
+    <description>An unguided rocket equipped with an explosive warhead and a contact fuse.</description>
+    <statBases>
+      <MaxHitPoints>150</MaxHitPoints>
+    </statBases>
+    <tradeTags>
+      <li>CE_AutoEnableTrade</li>
+      <li>CE_AutoEnableCrafting_TableMachining</li>
+    </tradeTags>
+    <thingCategories>
+      <li>Ammo50mmRocket</li>
+    </thingCategories>
+    <stackLimit>25</stackLimit>
+    <cookOffFlashScale>25</cookOffFlashScale>
+    <cookOffSound>MortarBomb_Explode</cookOffSound>
+  </ThingDef>
+
+  <ThingDef Class="CombatExtended.AmmoDef" ParentName="50mmRocketBase">
+    <defName>Ammo_50mmRocket_HE</defName>
+    <label>50mm rocket (HE)</label>
+    <graphicData>
+      <texPath>Things/Ammo/Rocket/70mmAPKWS</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+      <drawSize>0.70</drawSize>
+    </graphicData>
+    <statBases>
+      <MarketValue>14.83</MarketValue>
+      <Mass>4.5</Mass>
+      <Bulk>7.07</Bulk>
+    </statBases>
+    <ammoClass>GrenadeHE</ammoClass>
+	<detonateProjectile>Bullet_50mmRocket_HE</detonateProjectile>
+  </ThingDef>
+	
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef Name="Base50mmRocket" ParentName="BaseBullet" Abstract="true">
+		<graphicData>
+			<shaderType>TransparentPostLight</shaderType>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>0</speed>
+			<soundAmbient>RocketPropelledLoop_Small</soundAmbient>
+			<dropsCasings>false</dropsCasings>
+			<flyOverhead>true</flyOverhead>
+			<gravityFactor>5</gravityFactor>      
+		</projectile>
+	</ThingDef>	
+
+	<ThingDef ParentName="Base50mmRocket">
+		<defName>Bullet_50mmRocket_HE</defName>
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		<label>50mm rocket (HE)</label>
+		<graphicData>
+			<texPath>Things/Projectile/Rocket/70mmAPKWS</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.70</drawSize>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bomb</damageDef>
+			<damageAmountBase>147</damageAmountBase>
+			<explosionRadius>2.5</explosionRadius>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Small>23</Fragment_Small>
+				</fragments>
+			</li>
+		</comps>
+	</ThingDef>
+  
+	<!-- ==================== Recipes ========================== -->
+
+  <RecipeDef ParentName="AmmoRecipeBase">
+    <defName>MakeAmmo_50mmRocket_HE</defName>
+    <label>make 50mm HE rockets x10</label>
+    <description>Craft 10 50mm HE rockets.</description>
+    <jobString>Making 50mm HE rockets.</jobString>
+    <workAmount>15000</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>SLDBar</li>
+						<li>USLDBar</li>
+					</categories>
+				</filter>
+				<count>42</count>
+			</li>
+			<li>
+				<filter>
+					<categories>
+						<li>HeavyBar</li>
+					</categories>
+				</filter>
+				<count>8</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Chemfuel</li>
+					</thingDefs>
+				</filter>
+				<count>32</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Napalm</li>
+					</thingDefs>
+				</filter>
+				<count>5</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Electronics</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>SLDBar</li>
+				<li>USLDBar</li>
+				<li>HeavyBar</li>
+			</categories>
+			<thingDefs>
+				<li>Chemfuel</li>
+				<li>Napalm</li>
+				<li>Powder</li>
+				<li>Electronics</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+    <products>
+      <Ammo_50mmRocket_HE>10</Ammo_50mmRocket_HE>
+    </products>
+	<researchPrerequisite>Range_C2</researchPrerequisite>
+  </RecipeDef>
+	
+</Defs>
