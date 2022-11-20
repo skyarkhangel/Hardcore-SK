@@ -1,0 +1,728 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+	<ThingDef Name="CombatBionicsBase" ParentName="BodyPartBase_Cybernetic" Abstract="True">
+		<techLevel>Archotech</techLevel>
+		<statBases>
+			<Flammability>0.6</Flammability>
+			<DeteriorationRate>0.2</DeteriorationRate>
+			<WorkToMake>35000</WorkToMake>
+			<Mass>1</Mass>
+		</statBases>
+		<thingCategories Inherit="False">
+			<li>CyberneticProstheses</li>
+		</thingCategories>
+		<tradeTags>
+			<li>CONN_BodyPartsArtificial</li>
+		</tradeTags>
+	</ThingDef>
+
+	<!-- ############## Zoom ############## -->
+	<HediffDef ParentName="AddedBodyPartBase">
+		<defName>Trunken_hediff_Zoom</defName>
+		<label>zoom</label>
+		<description>An enhanced artificial eye. With its biogel nerve-link, internal signal pre-processor, self-repair module, wide-spectrum sensors, and synaptic impulse transmitter, it is better than a biological eye in almost every way. The prototype neuro connector allows the user to zoom in and out on thought.</description>
+		<labelNoun>a bionic eye</labelNoun>
+		<defaultLabelColor>(0, 0.8, 0.5)</defaultLabelColor>
+		<stages>
+			<li>
+				<statOffsets>
+					<MedicalTendQualityOffset>0.1</MedicalTendQualityOffset>
+					<MedicalTendSpeed>0.15</MedicalTendSpeed>
+				</statOffsets>
+				<statFactors>
+					<SightsEfficiency>1.15</SightsEfficiency>
+					<ShotSpread>0.92</ShotSpread>
+					<SwayFactor>0.90</SwayFactor>
+				</statFactors>
+			</li>
+		</stages>
+		<addedPartProps>
+			<solid>true</solid>
+			<partEfficiency>1.10</partEfficiency>
+			<betterThanNatural>true</betterThanNatural>
+		</addedPartProps>
+		<spawnThingOnRemoved>ANN_Zoom</spawnThingOnRemoved>
+		<descriptionHyperlinks>
+			<ThingDef>ANN_Zoom</ThingDef>
+		</descriptionHyperlinks>
+	</HediffDef>
+
+	<ThingDef ParentName="CombatBionicsBase">
+		<defName>ANN_Zoom</defName>
+		<label>zoom</label>
+		<description>An enhanced artificial eye. With its biogel nerve-link, internal signal pre-processor, self-repair module, wide-spectrum sensors, and synaptic impulse transmitter, it is better than a biological eye in almost every way. The prototype neuro connector allows the user to zoom in and out on thought. (Replacement)</description>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/CyberneticEye</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<techLevel>Archotech</techLevel>
+		<costList>
+			<MagneticMaterial>15</MagneticMaterial>
+			<ComponentUltra>6</ComponentUltra>
+			<AdvMechanism>5</AdvMechanism>
+			<BionicEye>1</BionicEye>
+			<BiosyntheticMaterial>15</BiosyntheticMaterial>
+		</costList>
+		<recipeMaker>
+			<researchPrerequisite>Prosthesis_making_E5</researchPrerequisite>
+			<skillRequirements>
+				<Crafting>20</Crafting>
+			</skillRequirements>
+			<recipeUsers Inherit="False">
+				<li>UpgradingStation</li>
+			</recipeUsers>
+			<unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+		</recipeMaker>
+		<statBases>
+			<MarketValue>7000</MarketValue>
+		</statBases>
+	</ThingDef>
+
+	<RecipeDef ParentName="SK_SurgeryInstallBodyPartArtificialBase">
+		<defName>ANN_InstallZoom</defName>
+		<label>install zoom</label>
+		<description>Install zoom.</description>
+		<descriptionHyperlinks>
+			<ThingDef>ANN_Zoom</ThingDef>
+			<HediffDef>Trunken_hediff_Zoom</HediffDef>
+		</descriptionHyperlinks>
+		<jobString>Installing zoom.</jobString>
+		<workAmount>6000</workAmount>
+		<deathOnFailedSurgeryChance>0</deathOnFailedSurgeryChance>
+		<surgerySuccessChanceFactor>0.90</surgerySuccessChanceFactor>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ANN_Zoom</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>ANN_Zoom</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Eye</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>Trunken_hediff_Zoom</addsHediff>
+		<skillRequirements>
+			<Medicine>14</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>Prosthesis_install_E2</researchPrerequisite>
+	</RecipeDef>
+
+	<!-- ############## Energy Fist ############## -->
+	<HediffDef ParentName="AddedBodyPartBase">
+		<defName>Trunken_hediff_EnergyFist</defName>
+		<label>energy fist</label>
+		<description>A combat-oriented hand replacement consisting of a technological hand and an implemented pumping system inside the wrist. The pump allows for quick, controlled punches. The mechanical trigger lets you have control about its sheer power with its powerful speed boosts bounded on neural connectors and energized by an ultratech micro-battery.</description>
+		<labelNoun>an energy fist</labelNoun>
+		<defaultLabelColor>(0, 0.8, 0.5)</defaultLabelColor>
+		<comps>
+			<li Class="HediffCompProperties_VerbGiver">
+				<tools>
+					<li Class="CombatExtended.ToolCE">
+						<label>arm</label>
+						<capacities>
+							<li>Poke</li>
+						</capacities>
+						<power>19.0</power>
+						<cooldownTime>0.9</cooldownTime>
+						<alwaysTreatAsWeapon>false</alwaysTreatAsWeapon>
+						<armorPenetrationBlunt>35</armorPenetrationBlunt>
+					</li>
+				</tools>
+			</li>
+		</comps>
+		<spawnThingOnRemoved>ANN_EnergyFist</spawnThingOnRemoved>
+		<descriptionHyperlinks>
+			<ThingDef>ANN_EnergyFist</ThingDef>
+		</descriptionHyperlinks>
+		<addedPartProps>
+			<isGoodWeapon>true</isGoodWeapon>
+			<solid>true</solid>
+			<partEfficiency>1.50</partEfficiency>
+			<betterThanNatural>true</betterThanNatural>
+		</addedPartProps>
+	</HediffDef>
+
+	<ThingDef ParentName="CombatBionicsBase">
+		<defName>ANN_EnergyFist</defName>
+		<label>energy fist</label>
+		<description>A combat-oriented hand replacement consisting of a technological hand and an implemented pumping system inside the wrist. The pump allows for quick, controlled punches. The mechanical trigger lets you have control about its sheer power with its powerful speed boosts bounded on neural connectors and energized by an ultratech micro-battery. (Replacement)</description>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/CyberneticHand</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<techLevel>Archotech</techLevel>
+		<costList>
+			<BioMicrochips>1</BioMicrochips>
+			<Titanium>15</Titanium>
+			<GTHand>1</GTHand>
+			<SyntheticFibers>25</SyntheticFibers>
+			<ArtificialBone>5</ArtificialBone>
+		</costList>
+		<recipeMaker>
+			<researchPrerequisite>Prosthesis_making_E3</researchPrerequisite>
+			<skillRequirements>
+				<Crafting>16</Crafting>
+			</skillRequirements>
+			<recipeUsers Inherit="False">
+				<li>UpgradingStation</li>
+			</recipeUsers>
+			<unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+		</recipeMaker>
+		<statBases>
+			<MarketValue>5500</MarketValue>
+			<Flammability>0.1</Flammability>
+			<DeteriorationRate>0.1</DeteriorationRate>
+			<Beauty>5</Beauty>
+			<WorkToMake>45000</WorkToMake>
+			<Mass>1.5</Mass>
+		</statBases>
+	</ThingDef>
+
+	<RecipeDef ParentName="SK_SurgeryInstallBodyPartArtificialBase">
+		<defName>ANN_InstallEnergyFist</defName>
+		<label>install energy fist</label>
+		<description>Install energy fist.</description>
+		<descriptionHyperlinks>
+			<ThingDef>ANN_EnergyFist</ThingDef>
+			<HediffDef>Trunken_hediff_EnergyFist</HediffDef>
+		</descriptionHyperlinks>
+		<jobString>Installing energy fist.</jobString>
+		<workAmount>5000</workAmount>
+		<deathOnFailedSurgeryChance>0</deathOnFailedSurgeryChance>
+		<surgerySuccessChanceFactor>0.90</surgerySuccessChanceFactor>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ANN_EnergyFist</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>ANN_EnergyFist</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Hand</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>Trunken_hediff_EnergyFist</addsHediff>
+		<skillRequirements>
+			<Medicine>15</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>Prosthesis_install_E1</researchPrerequisite>
+	</RecipeDef>
+
+	<!-- ############## Elastic Achilles ############## -->
+	<HediffDef ParentName="AddedBodyPartBase">
+		<defName>Trunken_hediff_ElasticAchilles</defName>
+		<label>elastic achilles</label>
+		<description>This bionic leg module can hold a man on his feet, even without any flesh on his bones. It's designed to annul the last human weakness in close combat, the Achilles' heel, by replacing it with a more elastic and less sensitive version. Favored by heavy ground units. It comes with all parts for a complete reconstruction.</description>
+		<labelNoun>a bionic Achilles' heel</labelNoun>
+		<defaultLabelColor>(0, 0.8, 0.5)</defaultLabelColor>
+		<stages>
+			<li>
+				<statOffsets>
+					<TrapSpringChance>-0.1</TrapSpringChance>
+					<MeleeHitChance>4</MeleeHitChance>
+				</statOffsets>
+			</li>
+		</stages>
+		<addedPartProps>
+			<solid>true</solid>
+			<partEfficiency>1.20</partEfficiency>
+			<betterThanNatural>true</betterThanNatural>
+		</addedPartProps>
+		<spawnThingOnRemoved>ANN_ElasticAchilles</spawnThingOnRemoved>
+		<descriptionHyperlinks>
+			<ThingDef>ANN_ElasticAchilles</ThingDef>
+		</descriptionHyperlinks>
+	</HediffDef>
+
+	<ThingDef ParentName="CombatBionicsBase">
+		<defName>ANN_ElasticAchilles</defName>
+		<label>elastic achilles</label>
+		<description>This bionic leg module can hold a man on his feet, even without any flesh on his bones. It's designed to annul the last human weakness in close combat, the Achilles' heel, by replacing it with a more elastic and less sensitive version. Favored by heavy ground units. It comes with all parts for a complete reconstruction. (Replacement)</description>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/CyberneticFoot</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<techLevel>Archotech</techLevel>
+		<costList>
+			<ArtificialBone>5</ArtificialBone>
+			<Hyperweave>50</Hyperweave>
+			<SyntheticSkin>5</SyntheticSkin>
+			<ArchotechLeg>1</ArchotechLeg>
+		</costList>
+		<statBases>
+			<MaxHitPoints>75</MaxHitPoints>
+			<Flammability>0.5</Flammability>
+			<DeteriorationRate>1.0</DeteriorationRate>
+			<Beauty>-1</Beauty>
+			<WorkToMake>30000</WorkToMake>
+			<MarketValue>7600</MarketValue>
+			<Mass>0.5</Mass>
+		</statBases>
+		<recipeMaker>
+			<researchPrerequisite>Prosthesis_making_E5</researchPrerequisite>
+			<skillRequirements>
+				<Crafting>14</Crafting>
+			</skillRequirements>
+			<recipeUsers Inherit="False">
+				<li>UpgradingStation</li>
+			</recipeUsers>
+			<unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+		</recipeMaker>
+	</ThingDef>
+
+	<RecipeDef ParentName="SK_SurgeryInstallBodyPartArtificialBase">
+		<defName>ANN_InstallElasticAchilles</defName>
+		<label>install elastic achilles</label>
+		<description>Install elastic achilles.</description>
+		<descriptionHyperlinks>
+			<ThingDef>ANN_ElasticAchilles</ThingDef>
+			<HediffDef>Trunken_hediff_ElasticAchilles</HediffDef>
+		</descriptionHyperlinks>
+		<jobString>Installing elastic achilles.</jobString>
+		<workAmount>6000</workAmount>
+		<deathOnFailedSurgeryChance>0</deathOnFailedSurgeryChance>
+		<surgerySuccessChanceFactor>0.90</surgerySuccessChanceFactor>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ANN_ElasticAchilles</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>ANN_ElasticAchilles</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Foot</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>Trunken_hediff_ElasticAchilles</addsHediff>
+		<skillRequirements>
+			<Medicine>16</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>Prosthesis_install_E2</researchPrerequisite>
+	</RecipeDef>
+
+	<!-- ############## Cyclops Visor ############## -->
+	<HediffDef ParentName="AddedBodyPartBase">
+		<defName>Trunken_hediff_CyclopsVisor</defName>
+		<label>cyclops visor</label>
+		<description>A hybrid bionic eye and target acquisition system with full adjustment filters and data scaning. It can be linked to the memory by connecting to the central nerve system. Enhance the sight and sharpness.</description>
+		<labelNoun>a cyclops visor</labelNoun>
+		<defaultLabelColor>(0, 0.8, 0.5)</defaultLabelColor>
+		<stages>
+			<li>
+				<statOffsets>
+					<RangedWeapon_Cooldown>-0.2</RangedWeapon_Cooldown>
+					<AimingDelayFactor>-0.2</AimingDelayFactor>
+				</statOffsets>
+				<statFactors>
+					<SightsEfficiency>1.15</SightsEfficiency>
+					<ShotSpread>0.92</ShotSpread>
+					<SwayFactor>0.90</SwayFactor>
+				</statFactors>
+			</li>
+		</stages>
+		<addedPartProps>
+			<solid>true</solid>
+			<partEfficiency>1.20</partEfficiency>
+			<betterThanNatural>true</betterThanNatural>
+		</addedPartProps>
+		<spawnThingOnRemoved>ANN_CyclopsVisor</spawnThingOnRemoved>
+		<descriptionHyperlinks>
+			<ThingDef>ANN_CyclopsVisor</ThingDef>
+		</descriptionHyperlinks>
+	</HediffDef>
+
+	<ThingDef ParentName="CombatBionicsBase">
+		<defName>ANN_CyclopsVisor</defName>
+		<label>cyclops visor</label>
+		<description>A hybrid bionic eye and target acquisition system with full adjustment filters and data scaning. It can be linked to the memory by connecting to the central nerve system. Enhance the sight and sharpness. (Replacement)</description>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/Joywire</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<techLevel>Archotech</techLevel>
+		<costList>
+			<Glass>20</Glass>
+			<ArchotechEye>1</ArchotechEye>
+			<BioMicrochips>1</BioMicrochips>
+			<Titanium>10</Titanium>
+			<BiosyntheticMaterial>15</BiosyntheticMaterial>
+		</costList>
+		<statBases>
+			<MaxHitPoints>75</MaxHitPoints>
+			<Flammability>0.2</Flammability>
+			<DeteriorationRate>0.3</DeteriorationRate>
+			<Beauty>-1</Beauty>
+			<WorkToMake>42500</WorkToMake>
+			<MarketValue>7600</MarketValue>
+			<Mass>0.5</Mass>
+		</statBases>
+		<recipeMaker>
+			<researchPrerequisite>Prosthesis_making_E2</researchPrerequisite>
+			<skillRequirements>
+				<Crafting>16</Crafting>
+			</skillRequirements>
+			<recipeUsers Inherit="False">
+				<li>UpgradingStation</li>
+			</recipeUsers>
+			<unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+		</recipeMaker>
+	</ThingDef>
+
+	<RecipeDef ParentName="SK_SurgeryInstallBodyPartArtificialBase">
+		<defName>ANN_InstallCyclopsVisor</defName>
+		<label>install cyclops visor</label>
+		<description>Install cyclops visor.</description>
+		<descriptionHyperlinks>
+			<ThingDef>ANN_CyclopsVisor</ThingDef>
+			<HediffDef>Trunken_hediff_CyclopsVisor</HediffDef>
+		</descriptionHyperlinks>
+		<jobString>Installing cyclops visor.</jobString>
+		<workAmount>8500</workAmount>
+		<deathOnFailedSurgeryChance>0</deathOnFailedSurgeryChance>
+		<surgerySuccessChanceFactor>0.90</surgerySuccessChanceFactor>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ANN_CyclopsVisor</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>ANN_CyclopsVisor</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Eye</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>Trunken_hediff_CyclopsVisor</addsHediff>
+		<skillRequirements>
+			<Medicine>14</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>Prosthesis_install_E1</researchPrerequisite>
+	</RecipeDef>
+
+	<!-- ############## Laser Detection ############## -->
+	<HediffDef ParentName="ImplantHediffBase">
+		<defName>Trunken_hediff_LaserDetection</defName>
+		<label>laser detection</label>
+		<description>A laser detection device, mounted on the ear side. The laser scans the environment and displays all important data on an extendable eye patch display. Improves sight substantially, while increasing target acquisition alongside it, with its elegant auto marker.</description>
+		<labelNoun>a laser detection device</labelNoun>
+		<defaultLabelColor>(0, 0.8, 0.5)</defaultLabelColor>
+		<comps>
+			<li Class="CONN.CompProperties_LightEffect">
+				<visualMote>CONN_Mote_MoteFlashLightRed</visualMote>
+				<size>1.5</size>
+			</li>
+		</comps>
+		<stages>
+			<li>
+				<statOffsets>
+					<AimingDelayFactor>-0.10</AimingDelayFactor>
+				</statOffsets>
+				<statFactors>
+					<SightsEfficiency>1.25</SightsEfficiency>
+					<ShotSpread>0.95</ShotSpread>
+					<SwayFactor>0.80</SwayFactor>
+				</statFactors>
+				<capMods>
+					<li>
+						<capacity>Sight</capacity>
+						<offset>0.10</offset>
+					</li>
+				</capMods>
+			</li>
+		</stages>
+		<spawnThingOnRemoved>ANN_LaserDetection</spawnThingOnRemoved>
+		<descriptionHyperlinks>
+			<ThingDef>ANN_LaserDetection</ThingDef>
+		</descriptionHyperlinks>
+	</HediffDef>
+
+	<ThingDef ParentName="CombatBionicsBase">
+		<defName>ANN_LaserDetection</defName>
+		<label>laser detection</label>
+		<description>A laser detection device, mounted on the ear side. The laser scans the environment and displays all important data on an extendable eye patch display. Improves sight substantially, while increasing target acquisition alongside it, with its elegant auto marker. (Implant)</description>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/Joywire</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<techLevel>Archotech</techLevel>
+		<costList>
+			<MagneticMaterial>15</MagneticMaterial>
+			<ComponentUltra>5</ComponentUltra>
+			<Microchips>1</Microchips>
+			<BionicEar>1</BionicEar>
+			<BiosyntheticMaterial>16</BiosyntheticMaterial>
+		</costList>
+		<recipeMaker>
+			<researchPrerequisite>Prosthesis_making_E3</researchPrerequisite>
+			<skillRequirements>
+				<Crafting>15</Crafting>
+			</skillRequirements>
+			<recipeUsers Inherit="False">
+				<li>UpgradingStation</li>
+			</recipeUsers>
+			<unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+		</recipeMaker>
+		<statBases>
+			<WorkToMake>21000</WorkToMake>
+			<Flammability>0.5</Flammability>
+			<DeteriorationRate>0.9</DeteriorationRate>
+			<Beauty>-1</Beauty>
+			<MarketValue>6250</MarketValue>
+			<Mass>0.2</Mass>
+		</statBases>
+	</ThingDef>
+
+	<RecipeDef ParentName="SK_SurgeryInstallImplantBase">
+		<defName>ANN_InstallLaserDetection</defName>
+		<label>install laser detection</label>
+		<description>Install a laser detection.</description>
+		<descriptionHyperlinks>
+			<ThingDef>ANN_LaserDetection</ThingDef>
+			<HediffDef>Trunken_hediff_LaserDetection</HediffDef>
+		</descriptionHyperlinks>
+		<jobString>Installing laser detection.</jobString>
+		<workAmount>4200</workAmount>
+		<deathOnFailedSurgeryChance>0</deathOnFailedSurgeryChance>
+		<surgerySuccessChanceFactor>0.90</surgerySuccessChanceFactor>
+		<skillRequirements>
+			<Medicine>12</Medicine>
+		</skillRequirements>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ANN_LaserDetection</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>ANN_LaserDetection</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Ear</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>Trunken_hediff_LaserDetection</addsHediff>
+		<researchPrerequisite>Prosthesis_install_E1</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="SurgeryRemoveImplantBase">
+		<defName>CONN_RemoveLaserDetection</defName>
+		<label>remove laser detection device</label>
+		<description>Remove laser detection device.</description>
+		<descriptionHyperlinks>
+			<ThingDef>ANN_LaserDetection</ThingDef>
+			<HediffDef>Trunken_hediff_LaserDetection</HediffDef>
+		</descriptionHyperlinks>
+		<jobString>Removing laser detection device.</jobString>
+		<removesHediff>Trunken_hediff_LaserDetection</removesHediff>
+		<researchPrerequisite>Prosthesis_install_E1</researchPrerequisite>
+	</RecipeDef>
+
+	<!-- ############## Sensoric Earside  ############## -->
+	<HediffDef ParentName="AddedBodyPartBase">
+		<defName>Trunken_hediff_SensoricEarside</defName>
+		<label>Sensoric Earside</label>
+		<description>A sensoric hearing device and target acquisition system, replacing the ear. This allows you to hear a needle dropping from a far distance.</description>
+		<labelNoun>a sensoric earside</labelNoun>
+		<defaultLabelColor>(0, 0.8, 0.5)</defaultLabelColor>
+		<stages>
+			<li>
+				<statOffsets>
+					<MedicalTendQualityOffset>0.10</MedicalTendQualityOffset>
+					<AimingDelayFactor>-0.10</AimingDelayFactor>
+					<MeleeDodgeChance>0.07</MeleeDodgeChance>
+				</statOffsets>
+				<capMods>
+					<li>
+						<capacity>Hearing</capacity>
+						<offset>0.18</offset>
+					</li>
+				</capMods>
+			</li>
+		</stages>
+		<addedPartProps>
+			<solid>true</solid>
+			<partEfficiency>1.20</partEfficiency>
+			<betterThanNatural>true</betterThanNatural>
+		</addedPartProps>
+		<spawnThingOnRemoved>ANN_SensoricEarside</spawnThingOnRemoved>
+		<descriptionHyperlinks>
+			<ThingDef>ANN_SensoricEarside</ThingDef>
+		</descriptionHyperlinks>
+	</HediffDef>
+
+	<ThingDef ParentName="CombatBionicsBase">
+		<defName>ANN_SensoricEarside</defName>
+		<label>sensoric earside</label>
+		<description>A sensoric hearing device and target acquisition system, replacing the ear. This allows you to hear a needle dropping from a far distance. (Replacement)</description>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/Joywire</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<techLevel>Archotech</techLevel>
+		<costList>
+			<CarbonAlloy>20</CarbonAlloy>
+			<BionicEar>1</BionicEar>
+			<Microchips>1</Microchips>
+			<BiosyntheticMaterial>12</BiosyntheticMaterial>
+		</costList>
+		<statBases>
+			<WorkToMake>21000</WorkToMake>
+			<Flammability>0.5</Flammability>
+			<DeteriorationRate>0.5</DeteriorationRate>
+			<Beauty>-3</Beauty>
+			<MarketValue>5500</MarketValue>
+			<Mass>0.18</Mass>
+		</statBases>
+		<recipeMaker>
+			<researchPrerequisite>Prosthesis_making_E3</researchPrerequisite>
+			<skillRequirements>
+				<Crafting>16</Crafting>
+			</skillRequirements>
+			<recipeUsers Inherit="False">
+				<li>UpgradingStation</li>
+			</recipeUsers>
+			<unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+		</recipeMaker>
+	</ThingDef>
+
+	<RecipeDef ParentName="SK_SurgeryInstallBodyPartArtificialBase">
+		<defName>ANN_InstallSensoricEarside</defName>
+		<label>install sensoric earside</label>
+		<description>Install sensoric earside.</description>
+		<descriptionHyperlinks>
+			<ThingDef>ANN_SensoricEarside</ThingDef>
+			<HediffDef>Trunken_hediff_SensoricEarside</HediffDef>
+		</descriptionHyperlinks>
+		<jobString>Installing sensoric earside.</jobString>
+		<deathOnFailedSurgeryChance>0</deathOnFailedSurgeryChance>
+		<surgerySuccessChanceFactor>0.90</surgerySuccessChanceFactor>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ANN_SensoricEarside</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>ANN_SensoricEarside</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Ear</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>Trunken_hediff_SensoricEarside</addsHediff>
+		<skillRequirements>
+			<Medicine>11</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>Prosthesis_install_E1</researchPrerequisite>
+	</RecipeDef>
+</Defs>

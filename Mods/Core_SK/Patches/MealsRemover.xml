@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<!-- Remove redundant Ideology meals from the game -->
+	<Operation Class="PatchOperationRemove">
+		<xpath>Defs/RecipeDef[defName="CookMealFine_Veg" or
+							  defName="CookMealLavish_Veg" or
+							  defName="CookMealFine_Meat" or
+							  defName="CookMealLavish_Meat" or
+							  defName="CookMealFineBulk_Veg" or
+							  defName="CookMealLavishBulk_Veg" or
+							  defName="CookMealFineBulk_Meat" or
+							  defName="CookMealLavishBulk_Meat"]</xpath>
+	</Operation>	
+	
+	<Operation Class="PatchOperationRemove">
+		<xpath>Defs/ThingDef[defName="MealFine_Veg" or
+							 defName="MealLavish_Veg" or
+							 defName="MealFine_Meat" or
+							 defName="MealLavish_Meat"]</xpath>
+	</Operation>
+	
+	
+	<!-- Also remove recipes from table recipes -->
+	<Operation Class="PatchOperationRemove">
+		<xpath>Defs/ThingDef[defName="ElectricStove" or defName="FueledStove"]/recipes/li[text()="CookMealFineBulk_Veg" or 
+																						  text()="CookMealLavishBulk_Veg" or 
+																						  text()="CookMealFineBulk_Meat" or
+																						  text()="CookMealLavishBulk_Meat" or
+																						  text()="CookMealFine_Veg" or
+																						  text()="CookMealLavish_Veg" or
+																						  text()="CookMealFine_Meat" or
+																						  text()="CookMealLavish_Meat"]</xpath>
+	</Operation>
+	
+	
+	<!-- And from biosculpter too -->
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Ideology</li>
+		</mods>
+		<match Class="PatchOperationRemove"> 
+			<xpath>Defs/ThingDef[defName="BiosculpterPod"]/building/defaultStorageSettings/filter/disallowedThingDefs/li[text()="MealLavish_Veg" or text()="MealLavish_Meat"]</xpath>
+		</match>
+	</Operation>
+</Patch>

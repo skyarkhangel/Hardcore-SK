@@ -131,11 +131,13 @@
             </remarks>
         </member>
         <member name="T:HarmonyLib.Memory">
-            <summary>A low level memory helper</summary>
+             <summary>A low level memory helper</summary>
+            
         </member>
         <member name="M:HarmonyLib.Memory.MarkForNoInlining(System.Reflection.MethodBase)">
-            <summary>Mark method for no inlining (currently only works on Mono)</summary>
-            <param name="method">The method/constructor to change</param>
+             <summary>Mark method for no inlining (currently only works on Mono)</summary>
+             <param name="method">The method/constructor to change</param>
+            
         </member>
         <member name="M:HarmonyLib.Memory.DetourMethod(System.Reflection.MethodBase,System.Reflection.MethodBase)">
              <summary>Detours a method</summary>
@@ -163,64 +165,6 @@
         </member>
         <member name="T:HarmonyLib.PatchFunctions">
             <summary>Patch function helpers</summary>
-        </member>
-        <member name="M:HarmonyLib.PatchFunctions.AddPrefix(HarmonyLib.PatchInfo,System.String,HarmonyLib.HarmonyMethod)">
-             <summary>Adds a prefix</summary>
-             <param name="patchInfo">The patch info</param>
-             <param name="owner">The owner (Harmony ID)</param>
-             <param name="info">The annotation info</param>
-            
-        </member>
-        <member name="M:HarmonyLib.PatchFunctions.RemovePrefix(HarmonyLib.PatchInfo,System.String)">
-             <summary>Removes a prefix</summary>
-             <param name="patchInfo">The patch info</param>
-             <param name="owner">The owner (Harmony ID)</param>
-            
-        </member>
-        <member name="M:HarmonyLib.PatchFunctions.AddPostfix(HarmonyLib.PatchInfo,System.String,HarmonyLib.HarmonyMethod)">
-             <summary>Adds a postfix</summary>
-             <param name="patchInfo">The patch info</param>
-             <param name="owner">The owner (Harmony ID)</param>
-             <param name="info">The annotation info</param>
-            
-        </member>
-        <member name="M:HarmonyLib.PatchFunctions.RemovePostfix(HarmonyLib.PatchInfo,System.String)">
-             <summary>Removes a postfix</summary>
-             <param name="patchInfo">The patch info</param>
-             <param name="owner">The owner (Harmony ID)</param>
-            
-        </member>
-        <member name="M:HarmonyLib.PatchFunctions.AddTranspiler(HarmonyLib.PatchInfo,System.String,HarmonyLib.HarmonyMethod)">
-             <summary>Adds a transpiler</summary>
-             <param name="patchInfo">The patch info</param>
-             <param name="owner">The owner (Harmony ID)</param>
-             <param name="info">The annotation info</param>
-            
-        </member>
-        <member name="M:HarmonyLib.PatchFunctions.RemoveTranspiler(HarmonyLib.PatchInfo,System.String)">
-             <summary>Removes a transpiler</summary>
-             <param name="patchInfo">The patch info</param>
-             <param name="owner">The owner (Harmony ID)</param>
-            
-        </member>
-        <member name="M:HarmonyLib.PatchFunctions.AddFinalizer(HarmonyLib.PatchInfo,System.String,HarmonyLib.HarmonyMethod)">
-             <summary>Adds a finalizer</summary>
-             <param name="patchInfo">The patch info</param>
-             <param name="owner">The owner (Harmony ID)</param>
-             <param name="info">The annotation info</param>
-            
-        </member>
-        <member name="M:HarmonyLib.PatchFunctions.RemoveFinalizer(HarmonyLib.PatchInfo,System.String)">
-             <summary>Removes a finalizer</summary>
-             <param name="patchInfo">The patch info</param>
-             <param name="owner">The owner (Harmony ID)</param>
-            
-        </member>
-        <member name="M:HarmonyLib.PatchFunctions.RemovePatch(HarmonyLib.PatchInfo,System.Reflection.MethodInfo)">
-             <summary>Removes a patch method</summary>
-             <param name="patchInfo">The patch info</param>
-             <param name="patch">The patch method</param>
-            
         </member>
         <member name="M:HarmonyLib.PatchFunctions.GetSortedPatchMethods(System.Reflection.MethodBase,HarmonyLib.Patch[],System.Boolean)">
              <summary>Sorts patch methods by their priority rules</summary>
@@ -769,7 +713,7 @@
             
         </member>
         <member name="F:HarmonyLib.CodeInstruction.opcode">
-            <summary>The opcode</summary>
+             <summary>The opcode</summary>
             
         </member>
         <member name="F:HarmonyLib.CodeInstruction.operand">
@@ -777,11 +721,11 @@
             
         </member>
         <member name="F:HarmonyLib.CodeInstruction.labels">
-            <summary>All labels defined on this instruction</summary>
+             <summary>All labels defined on this instruction</summary>
             
         </member>
         <member name="F:HarmonyLib.CodeInstruction.blocks">
-            <summary>All exception block boundaries defined on this instruction</summary>
+             <summary>All exception block boundaries defined on this instruction</summary>
             
         </member>
         <member name="M:HarmonyLib.CodeInstruction.#ctor(System.Reflection.Emit.OpCode,System.Object)">
@@ -938,6 +882,7 @@
         </member>
         <member name="M:HarmonyLib.Harmony.PatchAll">
             <summary>Searches the current assembly for Harmony annotations and uses them to create patches</summary>
+            <remarks>This method can fail to use the correct assembly when being inlined. It calls StackTrace.GetFrame(1) which can point to the wrong method/assembly. If you are unsure or run into problems, use <code>PatchAll(Assembly.GetExecutingAssembly())</code> instead.</remarks>
             
         </member>
         <member name="M:HarmonyLib.Harmony.CreateProcessor(System.Reflection.MethodBase)">
@@ -1021,6 +966,18 @@
         <member name="M:HarmonyLib.Harmony.GetAllPatchedMethods">
              <summary>Gets all patched original methods in the appdomain</summary>
              <returns>An enumeration of patched original methods/constructors</returns>
+            
+        </member>
+        <member name="M:HarmonyLib.Harmony.GetOriginalMethod(System.Reflection.MethodInfo)">
+             <summary>Gets the original method from a given replacement method</summary>
+             <param name="replacement">A replacement method, for example from a stacktrace</param>
+             <returns>The original method/constructor or <c>null</c> if not found</returns>
+            
+        </member>
+        <member name="M:HarmonyLib.Harmony.GetMethodFromStackframe(System.Diagnostics.StackFrame)">
+             <summary>Tries to get the method from a stackframe including dynamic replacement methods</summary>
+             <param name="frame">The <see cref="T:System.Diagnostics.StackFrame"/></param>
+             <returns>For normal frames, <c>frame.GetMethod()</c> is returned. For frames containing patched methods, the replacement method is returned or <c>null</c> if no method can be found</returns>
             
         </member>
         <member name="M:HarmonyLib.Harmony.VersionInfo(System.Version@)">
@@ -1303,78 +1260,82 @@
             <summary>Finalizers as an array of <see cref="T:HarmonyLib.Patch"/></summary>
             
         </member>
-        <member name="M:HarmonyLib.PatchInfo.#ctor">
-            <summary>Default constructor</summary>
-            
-        </member>
         <member name="P:HarmonyLib.PatchInfo.Debugging">
             <summary>Returns if any of the patches wants debugging turned on</summary>
             
         </member>
-        <member name="M:HarmonyLib.PatchInfo.AddPrefix(System.Reflection.MethodInfo,System.String,System.Int32,System.String[],System.String[],System.Boolean)">
-             <summary>Adds a prefix</summary>
-             
-             <param name="patch">The prefix method</param>
+        <member name="M:HarmonyLib.PatchInfo.AddPrefixes(System.String,HarmonyLib.HarmonyMethod[])">
+             <summary>Adds prefixes</summary>
              <param name="owner">An owner (Harmony ID)</param>
-             <param name="priority">The priority, see <see cref="T:HarmonyLib.Priority"/></param>
-             <param name="before">A list of Harmony IDs for prefixes that should run after this prefix</param>
-             <param name="after">A list of Harmony IDs for prefixes that should run before this prefix</param>
-             <param name="debug">A flag that will log the replacement method via <see cref="T:HarmonyLib.FileLog"/> every time this prefix is used to build the replacement, even in the future</param>
+             <param name="methods">The patch methods</param>
             
+        </member>
+        <member name="M:HarmonyLib.PatchInfo.AddPrefix(System.Reflection.MethodInfo,System.String,System.Int32,System.String[],System.String[],System.Boolean)">
+            <summary>Adds a prefix</summary>
         </member>
         <member name="M:HarmonyLib.PatchInfo.RemovePrefix(System.String)">
              <summary>Removes prefixes</summary>
-             <param name="owner">The owner of the prefix or <c>*</c> for any prefix</param>
+             <param name="owner">The owner of the prefixes, or <c>*</c> for all</param>
+            
+        </member>
+        <member name="M:HarmonyLib.PatchInfo.AddPostfixes(System.String,HarmonyLib.HarmonyMethod[])">
+             <summary>Adds postfixes</summary>
+             <param name="owner">An owner (Harmony ID)</param>
+             <param name="methods">The patch methods</param>
             
         </member>
         <member name="M:HarmonyLib.PatchInfo.AddPostfix(System.Reflection.MethodInfo,System.String,System.Int32,System.String[],System.String[],System.Boolean)">
-             <summary>Adds a postfix</summary>
-             <param name="patch">The postfix method</param>
-             <param name="owner">An owner (Harmony ID)</param>
-             <param name="priority">The priority, see <see cref="T:HarmonyLib.Priority"/></param>
-             <param name="before">A list of Harmony IDs for postfixes that should run after this postfix</param>
-             <param name="after">A list of Harmony IDs for postfixes that should run before this postfix</param>
-             <param name="debug">A flag that will log the replacement method via <see cref="T:HarmonyLib.FileLog"/> every time this postfix is used to build the replacement, even in the future</param>
-            
+            <summary>Adds a postfix</summary>
         </member>
         <member name="M:HarmonyLib.PatchInfo.RemovePostfix(System.String)">
              <summary>Removes postfixes</summary>
-             <param name="owner">The owner of the postfix or <c>*</c> for any postfix</param>
+             <param name="owner">The owner of the postfixes, or <c>*</c> for all</param>
+            
+        </member>
+        <member name="M:HarmonyLib.PatchInfo.AddTranspilers(System.String,HarmonyLib.HarmonyMethod[])">
+             <summary>Adds transpilers</summary>
+             <param name="owner">An owner (Harmony ID)</param>
+             <param name="methods">The patch methods</param>
             
         </member>
         <member name="M:HarmonyLib.PatchInfo.AddTranspiler(System.Reflection.MethodInfo,System.String,System.Int32,System.String[],System.String[],System.Boolean)">
-             <summary>Adds a transpiler</summary>
-             <param name="patch">The transpiler method</param>
-             <param name="owner">An owner (Harmony ID)</param>
-             <param name="priority">The priority, see <see cref="T:HarmonyLib.Priority"/></param>
-             <param name="before">A list of Harmony IDs for transpilers that should run after this transpiler</param>
-             <param name="after">A list of Harmony IDs for transpilers that should run before this transpiler</param>
-             <param name="debug">A flag that will log the replacement method via <see cref="T:HarmonyLib.FileLog"/> every time this patch is used to build the replacement, even in the future</param>
-            
+            <summary>Adds a transpiler</summary>
         </member>
         <member name="M:HarmonyLib.PatchInfo.RemoveTranspiler(System.String)">
              <summary>Removes transpilers</summary>
-             <param name="owner">The owner of the transpiler or <c>*</c> for any transpiler</param>
+             <param name="owner">The owner of the transpilers, or <c>*</c> for all</param>
+            
+        </member>
+        <member name="M:HarmonyLib.PatchInfo.AddFinalizers(System.String,HarmonyLib.HarmonyMethod[])">
+             <summary>Adds finalizers</summary>
+             <param name="owner">An owner (Harmony ID)</param>
+             <param name="methods">The patch methods</param>
             
         </member>
         <member name="M:HarmonyLib.PatchInfo.AddFinalizer(System.Reflection.MethodInfo,System.String,System.Int32,System.String[],System.String[],System.Boolean)">
-             <summary>Adds a finalizer</summary>
-             <param name="patch">The finalizer method</param>
-             <param name="owner">An owner (Harmony ID)</param>
-             <param name="priority">The priority, see <see cref="T:HarmonyLib.Priority"/></param>
-             <param name="before">A list of Harmony IDs for finalizers that should run after this finalizer</param>
-             <param name="after">A list of Harmony IDs for finalizers that should run before this finalizer</param>
-             <param name="debug">A flag that will log the replacement method via <see cref="T:HarmonyLib.FileLog"/> every time this patch is used to build the replacement, even in the future</param>
-            
+            <summary>Adds a finalizer</summary>
         </member>
         <member name="M:HarmonyLib.PatchInfo.RemoveFinalizer(System.String)">
              <summary>Removes finalizers</summary>
-             <param name="owner">The owner of the finalizer or <c>*</c> for any finalizer</param>
+             <param name="owner">The owner of the finalizers, or <c>*</c> for all</param>
             
         </member>
         <member name="M:HarmonyLib.PatchInfo.RemovePatch(System.Reflection.MethodInfo)">
              <summary>Removes a patch using its method</summary>
              <param name="patch">The method of the patch to remove</param>
+            
+        </member>
+        <member name="M:HarmonyLib.PatchInfo.Add(System.String,HarmonyLib.HarmonyMethod[],HarmonyLib.Patch[])">
+             <summary>Gets a concatenated list of patches</summary>
+             <param name="owner">The Harmony instance ID adding the new patches</param>
+             <param name="add">The patches to add</param>
+             <param name="current">The current patches</param>
+            
+        </member>
+        <member name="M:HarmonyLib.PatchInfo.Remove(System.String,HarmonyLib.Patch[])">
+             <summary>Gets a list of patches with any from the given owner removed</summary>
+             <param name="owner">The owner of the methods, or <c>*</c> for all</param>
+             <param name="current">The current patches</param>
             
         </member>
         <member name="T:HarmonyLib.Patch">
@@ -1419,6 +1380,12 @@
              <param name="after">A list of Harmony IDs for patches that should run before this patch</param>
              <param name="debug">A flag that will log the replacement method via <see cref="T:HarmonyLib.FileLog"/> every time this patch is used to build the replacement, even in the future</param>
             
+        </member>
+        <member name="M:HarmonyLib.Patch.#ctor(HarmonyLib.HarmonyMethod,System.Int32,System.String)">
+            <summary>Creates a patch</summary>
+            <param name="method">The method of the patch</param>
+            <param name="index">Zero-based index</param>
+            <param name="owner">An owner (Harmony ID)</param>
         </member>
         <member name="M:HarmonyLib.Patch.GetMethod(System.Reflection.MethodBase)">
              <summary>Get the patch method or a DynamicMethod if original patch method is a patch factory</summary>
@@ -1707,7 +1674,7 @@
             
         </member>
         <member name="M:HarmonyLib.Transpilers.MethodReplacer(System.Collections.Generic.IEnumerable{HarmonyLib.CodeInstruction},System.Reflection.MethodBase,System.Reflection.MethodBase)">
-             <summary>A transpiler that replaces all occurrences of a given method with another one</summary>
+             <summary>A transpiler that replaces all occurrences of a given method with another one using the same signature</summary>
              <param name="instructions">The enumeration of <see cref="T:HarmonyLib.CodeInstruction"/> to act on</param>
              <param name="from">Method or constructor to search for</param>
              <param name="to">Method or constructor to replace with</param>
@@ -1730,16 +1697,20 @@
             
         </member>
         <member name="T:HarmonyLib.AccessTools">
-            <summary>A helper class for reflection related functions</summary>
+             <summary>A helper class for reflection related functions</summary>
             
         </member>
         <member name="F:HarmonyLib.AccessTools.all">
-            <summary>Shortcut for <see cref="T:System.Reflection.BindingFlags"/> to simplify the use of reflections and make it work for any access level</summary>
+             <summary>Shortcut for <see cref="T:System.Reflection.BindingFlags"/> to simplify the use of reflections and make it work for any access level</summary>
             
         </member>
         <member name="F:HarmonyLib.AccessTools.allDeclared">
-            <summary>Shortcut for <see cref="T:System.Reflection.BindingFlags"/> to simplify the use of reflections and make it work for any access level but only within the current type</summary>
+             <summary>Shortcut for <see cref="T:System.Reflection.BindingFlags"/> to simplify the use of reflections and make it work for any access level but only within the current type</summary>
             
+        </member>
+        <member name="M:HarmonyLib.AccessTools.AllAssemblies">
+            <summary>Enumerates all assemblies in the current app domain, excluding visual studio assemblies</summary>
+            <returns>An enumeration of <see cref="T:System.Reflection.Assembly"/></returns>
         </member>
         <member name="M:HarmonyLib.AccessTools.TypeByName(System.String)">
              <summary>Gets a type by name. Prefers a full name with namespace but falls back to the first type matching the name otherwise</summary>
@@ -1748,30 +1719,39 @@
             
         </member>
         <member name="M:HarmonyLib.AccessTools.GetTypesFromAssembly(System.Reflection.Assembly)">
-            <summary>Gets all successfully loaded types from a given assembly</summary>
-            <param name="assembly">The assembly</param>
-            <returns>An array of types</returns>
-            <remarks>
-            This calls and returns <see cref="M:System.Reflection.Assembly.GetTypes"/>, while catching any thrown <see cref="T:System.Reflection.ReflectionTypeLoadException"/>.
-            If such an exception is thrown, returns the successfully loaded types (<see cref="P:System.Reflection.ReflectionTypeLoadException.Types"/>,
-            filtered for non-null values).
-            </remarks>
+             <summary>Gets all successfully loaded types from a given assembly</summary>
+             <param name="assembly">The assembly</param>
+             <returns>An array of types</returns>
+             <remarks>
+             This calls and returns <see cref="M:System.Reflection.Assembly.GetTypes"/>, while catching any thrown <see cref="T:System.Reflection.ReflectionTypeLoadException"/>.
+             If such an exception is thrown, returns the successfully loaded types (<see cref="P:System.Reflection.ReflectionTypeLoadException.Types"/>,
+             filtered for non-null values).
+             </remarks>
             
         </member>
+        <member name="M:HarmonyLib.AccessTools.AllTypes">
+            <summary>Enumerates all successfully loaded types in the current app domain, excluding visual studio assemblies</summary>
+            <returns>An enumeration of all <see cref="T:System.Type"/> in all assemblies, excluding visual studio assemblies</returns>
+        </member>
         <member name="M:HarmonyLib.AccessTools.FindIncludingBaseTypes``1(System.Type,System.Func{System.Type,``0})">
-             <summary>Applies a function going up the type hierarchy and stops at the first non null result</summary>
+             <summary>Applies a function going up the type hierarchy and stops at the first non-<c>null</c> result</summary>
              <typeparam name="T">Result type of func()</typeparam>
              <param name="type">The class/type to start with</param>
              <param name="func">The evaluation function returning T</param>
-             <returns>Returns the first non null result or <c>default(T)</c> when reaching the top level type object</returns>
+             <returns>The first non-<c>null</c> result, or <c>null</c> if no match</returns>
+             <remarks>
+             The type hierarchy of a class or value type (including struct) does NOT include implemented interfaces,
+             and the type hierarchy of an interface is only itself (regardless of whether that interface implements other interfaces).
+             The top-most type in the type hierarchy of all non-interface types (including value types) is <see cref="T:System.Object"/>.
+             </remarks>
             
         </member>
         <member name="M:HarmonyLib.AccessTools.FindIncludingInnerTypes``1(System.Type,System.Func{System.Type,``0})">
-             <summary>Applies a function going into inner types and stops at the first non null result</summary>
+             <summary>Applies a function going into inner types and stops at the first non-<c>null</c> result</summary>
              <typeparam name="T">Generic type parameter</typeparam>
              <param name="type">The class/type to start with</param>
              <param name="func">The evaluation function returning T</param>
-             <returns>Returns the first non null result or null with no match</returns>
+             <returns>The first non-<c>null</c> result, or <c>null</c> if no match</returns>
             
         </member>
         <member name="M:HarmonyLib.AccessTools.DeclaredField(System.Type,System.String)">
@@ -2013,126 +1993,365 @@
             
         </member>
         <member name="T:HarmonyLib.AccessTools.FieldRef`2">
-             <summary>A read/writable reference to an instance field</summary>
-             <typeparam name="T">The class the field is defined in or "object" if type cannot be accessed at compile time</typeparam>
-             <typeparam name="F">The type of the field</typeparam>
-             <param name="obj">The runtime instance to access the field (leave empty for static fields)</param>
-             <returns>An readable/assignable object representing the field</returns>
+             <summary>A readable/assignable reference delegate to an instance field of a class or static field (NOT an instance field of a struct)</summary>
+             <typeparam name="T">
+             An arbitrary type if the field is static; otherwise the class that defines the field, or a parent class (including <see cref="T:System.Object"/>),
+             implemented interface, or derived class of this type
+             </typeparam>
+             <typeparam name="F">
+             The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
+             </typeparam>
+             <param name="instance">The runtime instance to access the field (ignored and can be omitted for static fields)</param>
+             <returns>A readable/assignable reference to the field</returns>
+             <exception cref="T:System.NullReferenceException">Null instance passed to a non-static field ref delegate</exception>
+             <exception cref="T:System.InvalidCastException">
+             Instance of invalid type passed to a non-static field ref delegate
+             (this can happen if <typeparamref name="T"/> is a parent class or interface of the field's declaring type)
+             </exception>
+             <remarks>
+             <para>
+             This delegate cannot be used for instance fields of structs, since a struct instance passed to the delegate would be passed by
+             value and thus would be a copy that only exists within the delegate's invocation. This is fine for a readonly reference,
+             but makes assignment futile. Use <see cref="T:HarmonyLib.AccessTools.StructFieldRef`2"/> instead.
+             </para>
+             <para>
+             Note that <typeparamref name="T"/> is not required to be the field's declaring type. It can be a parent class (including <see cref="T:System.Object"/>),
+             implemented interface, or a derived class of the field's declaring type ("<c>instanceOfT is FieldDeclaringType</c>" must be possible).
+             Specifically, <typeparamref name="F"/> must be <see cref="M:System.Type.IsAssignableFrom(System.Type)">assignable from</see> OR to the field's declaring type.
+             Technically, this allows <c>Nullable</c>, although <c>Nullable</c> is only relevant for structs, and since only static fields of structs
+             are allowed for this delegate, and the instance passed to such a delegate is ignored, this hardly matters.
+             </para>
+             <para>
+             Similarly, <typeparamref name="F"/> is not required to be the field's field type, unless that type is a non-enum value type.
+             It can be a parent class (including <c>object</c>) or implemented interface of the field's field type. It cannot be a derived class.
+             This variance is not allowed for value types, since that would require boxing/unboxing, which is not allowed for ref values.
+             Special case for enum types: <typeparamref name="F"/> can also be the underlying integral type of the enum type.
+             Specifically, for reference types, <typeparamref name="F"/> must be <see cref="M:System.Type.IsAssignableFrom(System.Type)">assignable from</see>
+             the field's field type; for non-enum value types, <typeparamref name="F"/> must be exactly the field's field type; for enum types,
+             <typeparamref name="F"/> must be either the field's field type or the underyling integral type of that field type.
+             </para>
+             <para>
+             This delegate supports static fields, even those defined in structs, for legacy reasons.
+             For such static fields, <typeparamref name="T"/> is effectively ignored.
+             Consider using <see cref="T:HarmonyLib.AccessTools.FieldRef`1"/> (and <c>StaticFieldRefAccess</c> methods that return it) instead for static fields.
+             </para>
+             </remarks>
             
         </member>
         <member name="M:HarmonyLib.AccessTools.FieldRefAccess``2(System.String)">
-             <summary>Creates an instance field reference</summary>
-             <typeparam name="T">The class the field is defined in</typeparam>
-             <typeparam name="F">The type of the field</typeparam>
+             <summary>Creates a field reference delegate for an instance field of a class</summary>
+             <typeparam name="T">The class that defines the instance field, or derived class of this type</typeparam>
+             <typeparam name="F">
+             The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
+             </typeparam>
              <param name="fieldName">The name of the field</param>
-             <returns>A read and writable field reference delegate</returns>
+             <returns>A readable/assignable <see cref="T:HarmonyLib.AccessTools.FieldRef`2"/> delegate</returns>
+             <remarks>
+             <para>
+             For backwards compatibility, there is no class constraint on <typeparamref name="T"/>.
+             Instead, the non-value-type check is done at runtime within the method.
+             </para>
+             </remarks>
             
         </member>
         <member name="M:HarmonyLib.AccessTools.FieldRefAccess``2(``0,System.String)">
-             <summary>Creates an instance field reference for a specific instance</summary>
-             <typeparam name="T">The class the field is defined in</typeparam>
-             <typeparam name="F">The type of the field</typeparam>
+             <summary>Creates an instance field reference for a specific instance of a class</summary>
+             <typeparam name="T">The class that defines the instance field, or derived class of this type</typeparam>
+             <typeparam name="F">
+             The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
+             </typeparam>
              <param name="instance">The instance</param>
              <param name="fieldName">The name of the field</param>
-             <returns>An readable/assignable object representing the field</returns>
+             <returns>A readable/assignable reference to the field</returns>
+             <remarks>
+             <para>
+             This method is meant for one-off access to a field's value for a single instance.
+             If you need to access a field's value for potentially multiple instances, use <see cref="M:HarmonyLib.AccessTools.FieldRefAccess``2(System.String)"/> instead.
+             <c>FieldRefAccess&lt;T, F&gt;(instance, fieldName)</c> is functionally equivalent to <c>FieldRefAccess&lt;T, F&gt;(fieldName)(instance)</c>.
+             </para>
+             <para>
+             For backwards compatibility, there is no class constraint on <typeparamref name="T"/>.
+             Instead, the non-value-type check is done at runtime within the method.
+             </para>
+             </remarks>
             
         </member>
         <member name="M:HarmonyLib.AccessTools.FieldRefAccess``1(System.Type,System.String)">
-             <summary>Creates an instance field reference delegate for a private type</summary>
-             <typeparam name="F">The type of the field</typeparam>
-             <param name="type">The class/type</param>
+             <summary>Creates a field reference delegate for an instance field of a class or static field (NOT an instance field of a struct)</summary>
+             <typeparam name="F">
+             The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
+             </typeparam>
+             <param name="type">
+             The type that defines the field, or derived class of this type; must not be a struct type unless the field is static
+             </param>
              <param name="fieldName">The name of the field</param>
-             <returns>A read and writable <see cref="T:HarmonyLib.AccessTools.FieldRef`2"/> delegate</returns>
+             <returns>
+             A readable/assignable <see cref="T:HarmonyLib.AccessTools.FieldRef`2"/> delegate with <c>T=object</c>
+             (for static fields, the <c>instance</c> delegate parameter is ignored)
+             </returns>
+             <remarks>
+             <para>
+             This method is meant for cases where the given type is only known at runtime and thus can't be used as a type parameter <c>T</c>
+             in e.g. <see cref="M:HarmonyLib.AccessTools.FieldRefAccess``2(System.String)"/>.
+             </para>
+             <para>
+             This method supports static fields, even those defined in structs, for legacy reasons.
+             Consider using <see cref="M:HarmonyLib.AccessTools.StaticFieldRefAccess``1(System.Type,System.String)"/> (and other overloads) instead for static fields.
+             </para>
+             </remarks>
             
         </member>
         <member name="M:HarmonyLib.AccessTools.FieldRefAccess``2(System.Reflection.FieldInfo)">
-             <summary>Creates an instance field reference delegate for a fieldinfo</summary>
-             <typeparam name="T">The class the field is defined in or "object" if type cannot be accessed at compile time</typeparam>
-             <typeparam name="F">The type of the field</typeparam>
-             <param name="fieldInfo">The field of the field</param>
-             <returns>A read and writable <see cref="T:HarmonyLib.AccessTools.FieldRef`2"/> delegate</returns>
+             <summary>Creates a field reference delegate for an instance field of a class or static field (NOT an instance field of a struct)</summary>
+             <typeparam name="T">
+             An arbitrary type if the field is static; otherwise the class that defines the field, or a parent class (including <see cref="T:System.Object"/>),
+             implemented interface, or derived class of this type ("<c>instanceOfT is FieldDeclaringType</c>" must be possible)
+             </typeparam>
+             <typeparam name="F">
+             The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
+             </typeparam>
+             <param name="fieldInfo">The field</param>
+             <returns>A readable/assignable <see cref="T:HarmonyLib.AccessTools.FieldRef`2"/> delegate</returns>
+             <remarks>
+             <para>
+             This method is meant for cases where the field has already been obtained, avoiding the field searching cost in
+             e.g. <see cref="M:HarmonyLib.AccessTools.FieldRefAccess``2(System.String)"/>.
+             </para>
+             <para>
+             This method supports static fields, even those defined in structs, for legacy reasons.
+             For such static fields, <typeparamref name="T"/> is effectively ignored.
+             Consider using <see cref="M:HarmonyLib.AccessTools.StaticFieldRefAccess``2(System.Reflection.FieldInfo)"/> (and other overloads) instead for static fields.
+             </para>
+             <para>
+             For backwards compatibility, there is no class constraint on <typeparamref name="T"/>.
+             Instead, the non-value-type check is done at runtime within the method.
+             </para>
+             </remarks>
+            
+        </member>
+        <member name="M:HarmonyLib.AccessTools.FieldRefAccess``2(``0,System.Reflection.FieldInfo)">
+             <summary>Creates a field reference for an instance field of a class</summary>
+             <typeparam name="T">
+             The type that defines the field; or a parent class (including <see cref="T:System.Object"/>), implemented interface, or derived class of this type
+             ("<c>instanceOfT is FieldDeclaringType</c>" must be possible)
+             </typeparam>
+             <typeparam name="F">
+             The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
+             </typeparam>
+             <param name="instance">The instance</param>
+             <param name="fieldInfo">The field</param>
+             <returns>A readable/assignable reference to the field</returns>
+             <remarks>
+             <para>
+             This method is meant for one-off access to a field's value for a single instance and where the field has already been obtained.
+             If you need to access a field's value for potentially multiple instances, use <see cref="M:HarmonyLib.AccessTools.FieldRefAccess``2(System.Reflection.FieldInfo)"/> instead.
+             <c>FieldRefAccess&lt;T, F&gt;(instance, fieldInfo)</c> is functionally equivalent to <c>FieldRefAccess&lt;T, F&gt;(fieldInfo)(instance)</c>.
+             </para>
+             <para>
+             For backwards compatibility, there is no class constraint on <typeparamref name="T"/>.
+             Instead, the non-value-type check is done at runtime within the method.
+             </para>
+             </remarks>
+            
+        </member>
+        <member name="T:HarmonyLib.AccessTools.StructFieldRef`2">
+             <summary>A readable/assignable reference delegate to an instance field of a struct</summary>
+             <typeparam name="T">The struct that defines the instance field</typeparam>
+             <typeparam name="F">
+             The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
+             </typeparam>
+             <param name="instance">A reference to the runtime instance to access the field</param>
+             <returns>A readable/assignable reference to the field</returns>
+            
+        </member>
+        <member name="M:HarmonyLib.AccessTools.StructFieldRefAccess``2(System.String)">
+             <summary>Creates a field reference delegate for an instance field of a struct</summary>
+             <typeparam name="T">The struct that defines the instance field</typeparam>
+             <typeparam name="F">
+             The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
+             </typeparam>
+             <param name="fieldName">The name of the field</param>
+             <returns>A readable/assignable <see cref="T:HarmonyLib.AccessTools.StructFieldRef`2"/> delegate</returns>
+            
+        </member>
+        <member name="M:HarmonyLib.AccessTools.StructFieldRefAccess``2(``0@,System.String)">
+             <summary>Creates an instance field reference for a specific instance of a struct</summary>
+             <typeparam name="T">The struct that defines the instance field</typeparam>
+             <typeparam name="F">
+             The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
+             </typeparam>
+             <param name="instance">The instance</param>
+             <param name="fieldName">The name of the field</param>
+             <returns>A readable/assignable reference to the field</returns>
+             <remarks>
+             <para>
+             This method is meant for one-off access to a field's value for a single instance.
+             If you need to access a field's value for potentially multiple instances, use <see cref="M:HarmonyLib.AccessTools.StructFieldRefAccess``2(System.String)"/> instead.
+             <c>StructFieldRefAccess&lt;T, F&gt;(ref instance, fieldName)</c> is functionally equivalent to <c>StructFieldRefAccess&lt;T, F&gt;(fieldName)(ref instance)</c>.
+             </para>
+             </remarks>
+            
+        </member>
+        <member name="M:HarmonyLib.AccessTools.StructFieldRefAccess``2(System.Reflection.FieldInfo)">
+             <summary>Creates a field reference delegate for an instance field of a struct</summary>
+             <typeparam name="T">The struct that defines the instance field</typeparam>
+             <typeparam name="F">
+             The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
+             </typeparam>
+             <param name="fieldInfo">The field</param>
+             <returns>A readable/assignable <see cref="T:HarmonyLib.AccessTools.StructFieldRef`2"/> delegate</returns>
+             <remarks>
+             <para>
+             This method is meant for cases where the field has already been obtained, avoiding the field searching cost in
+             e.g. <see cref="M:HarmonyLib.AccessTools.StructFieldRefAccess``2(System.String)"/>.
+             </para>
+             </remarks>
+            
+        </member>
+        <member name="M:HarmonyLib.AccessTools.StructFieldRefAccess``2(``0@,System.Reflection.FieldInfo)">
+             <summary>Creates a field reference for an instance field of a struct</summary>
+             <typeparam name="T">The struct that defines the instance field</typeparam>
+             <typeparam name="F">
+             The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
+             </typeparam>
+             <param name="instance">The instance</param>
+             <param name="fieldInfo">The field</param>
+             <returns>A readable/assignable reference to the field</returns>
+             <remarks>
+             <para>
+             This method is meant for one-off access to a field's value for a single instance and where the field has already been obtained.
+             If you need to access a field's value for potentially multiple instances, use <see cref="M:HarmonyLib.AccessTools.StructFieldRefAccess``2(System.Reflection.FieldInfo)"/> instead.
+             <c>StructFieldRefAccess&lt;T, F&gt;(ref instance, fieldInfo)</c> is functionally equivalent to <c>StructFieldRefAccess&lt;T, F&gt;(fieldInfo)(ref instance)</c>.
+             </para>
+             </remarks>
+            
+        </member>
+        <member name="T:HarmonyLib.AccessTools.FieldRef`1">
+             <summary>A readable/assignable reference delegate to a static field</summary>
+             <typeparam name="F">
+             The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
+             </typeparam>
+             <returns>A readable/assignable reference to the field</returns>
             
         </member>
         <member name="M:HarmonyLib.AccessTools.StaticFieldRefAccess``2(System.String)">
              <summary>Creates a static field reference</summary>
-             <typeparam name="T">The class the field is defined in or "object" if type cannot be accessed at compile time</typeparam>
-             <typeparam name="F">The type of the field</typeparam>
+             <typeparam name="T">The type (can be class or struct) the field is defined in</typeparam>
+             <typeparam name="F">
+             The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
+             </typeparam>
              <param name="fieldName">The name of the field</param>
-             <returns>An readable/assignable object representing the static field</returns>
+             <returns>A readable/assignable reference to the field</returns>
             
         </member>
         <member name="M:HarmonyLib.AccessTools.StaticFieldRefAccess``1(System.Type,System.String)">
              <summary>Creates a static field reference</summary>
-             <typeparam name="F">The type of the field</typeparam>
-             <param name="type">The class/type</param>
+             <typeparam name="F">
+             The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
+             </typeparam>
+             <param name="type">The type (can be class or struct) the field is defined in</param>
              <param name="fieldName">The name of the field</param>
-             <returns>An readable/assignable object representing the static field</returns>
+             <returns>A readable/assignable reference to the field</returns>
             
         </member>
         <member name="M:HarmonyLib.AccessTools.StaticFieldRefAccess``2(System.Reflection.FieldInfo)">
              <summary>Creates a static field reference</summary>
-             <typeparam name="T">The class the field is defined in or "object" if type cannot be accessed at compile time</typeparam>
-             <typeparam name="F">The type of the field</typeparam>
+             <typeparam name="T">An arbitrary type (by convention, the type the field is defined in)</typeparam>
+             <typeparam name="F">
+             The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
+             </typeparam>
              <param name="fieldInfo">The field</param>
-             <returns>An readable/assignable object representing the static field</returns>
-            
-        </member>
-        <member name="T:HarmonyLib.AccessTools.FieldRef`1">
-             <summary>A read/writable reference delegate to a static field</summary>
-             <typeparam name="F">The type of the field</typeparam>
-             <returns>An readable/assignable object representing the static field</returns>
+             <returns>A readable/assignable reference to the field</returns>
+             <remarks>
+             The type parameter <typeparamref name="T"/> is only used in exception messaging and to distinguish between this method overload
+             and the <see cref="M:HarmonyLib.AccessTools.StaticFieldRefAccess``1(System.Reflection.FieldInfo)"/> overload (which returns a <see cref="T:HarmonyLib.AccessTools.FieldRef`1"/> rather than a reference).
+             </remarks>
             
         </member>
         <member name="M:HarmonyLib.AccessTools.StaticFieldRefAccess``1(System.Reflection.FieldInfo)">
              <summary>Creates a static field reference delegate</summary>
-             <typeparam name="F">The type of the field</typeparam>
+             <typeparam name="F">
+             The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
+             </typeparam>
              <param name="fieldInfo">The field</param>
-             <returns>A read and writable <see cref="T:HarmonyLib.AccessTools.FieldRef`1"/> delegate</returns>
+             <returns>A readable/assignable <see cref="T:HarmonyLib.AccessTools.FieldRef`1"/> delegate</returns>
             
         </member>
         <member name="M:HarmonyLib.AccessTools.MethodDelegate``1(System.Reflection.MethodInfo,System.Object,System.Boolean)">
-            <summary>Creates a delegate to a given method</summary>
-            <typeparam name="DelegateType">The delegate Type</typeparam>
-            <param name="method">The method to create a delegate from.</param>
-            <param name="instance">
-            Only applies for instance methods. If <c>null</c> (default), returned delegate is an open (a.k.a. unbound) instance delegate
-            where an instance is supplied as the first argument to the delegate invocation; else, delegate is a closed (a.k.a. bound)
-            instance delegate where the delegate invocation always applies to the given <paramref name="instance"/>.
-            </param>
-            <param name="virtualCall">
-            Only applies for instance methods. If <c>true</c> (default) and <paramref name="method"/> is virtual, invocation of the delegate
-            calls the instance method virtually (the instance type's most-derived/overriden implementation of the method is called);
-            else, invocation of the delegate calls the exact specified <paramref name="method"/> (this is useful for calling base class methods)
-            Note: if <c>false</c> and <paramref name="method"/> is an interface method, an ArgumentException is thrown.
-            </param>
-            <returns>A delegate of given <typeparamref name="DelegateType"/> to given <paramref name="method"/></returns>
-            <remarks>
-            <para>
-            Delegate invocation is more performant and more convenient to use than <see cref="M:System.Reflection.MethodBase.Invoke(System.Object,System.Object[])"/>
-            at a one-time setup cost.
-            </para>
-            <para>
-            Works for both type of static and instance methods, both open and closed (a.k.a. unbound and bound) instance methods,
-            and both class and struct methods.
-            </para>
-            </remarks>
+             <summary>Creates a delegate to a given method</summary>
+             <typeparam name="DelegateType">The delegate Type</typeparam>
+             <param name="method">The method to create a delegate from.</param>
+             <param name="instance">
+             Only applies for instance methods. If <c>null</c> (default), returned delegate is an open (a.k.a. unbound) instance delegate
+             where an instance is supplied as the first argument to the delegate invocation; else, delegate is a closed (a.k.a. bound)
+             instance delegate where the delegate invocation always applies to the given <paramref name="instance"/>.
+             </param>
+             <param name="virtualCall">
+             Only applies for instance methods. If <c>true</c> (default) and <paramref name="method"/> is virtual, invocation of the delegate
+             calls the instance method virtually (the instance type's most-derived/overriden implementation of the method is called);
+             else, invocation of the delegate calls the exact specified <paramref name="method"/> (this is useful for calling base class methods)
+             Note: if <c>false</c> and <paramref name="method"/> is an interface method, an ArgumentException is thrown.
+             </param>
+             <returns>A delegate of given <typeparamref name="DelegateType"/> to given <paramref name="method"/></returns>
+             <remarks>
+             <para>
+             Delegate invocation is more performant and more convenient to use than <see cref="M:System.Reflection.MethodBase.Invoke(System.Object,System.Object[])"/>
+             at a one-time setup cost.
+             </para>
+             <para>
+             Works for both type of static and instance methods, both open and closed (a.k.a. unbound and bound) instance methods,
+             and both class and struct methods.
+             </para>
+             </remarks>
             
         </member>
         <member name="M:HarmonyLib.AccessTools.HarmonyDelegate``1(System.Object)">
-            <summary>Creates a delegate for a given delegate definition, attributed with [<see cref="T:HarmonyLib.HarmonyDelegate"/>]</summary>
-            <typeparam name="DelegateType">The delegate Type, attributed with [<see cref="T:HarmonyLib.HarmonyDelegate"/>]</typeparam>
-            <param name="instance">
-            Only applies for instance methods. If <c>null</c> (default), returned delegate is an open (a.k.a. unbound) instance delegate
-            where an instance is supplied as the first argument to the delegate invocation; else, delegate is a closed (a.k.a. bound)
-            instance delegate where the delegate invocation always applies to the given <paramref name="instance"/>.
-            </param>
-            <returns>A delegate of given <typeparamref name="DelegateType"/> to the method specified via [<see cref="T:HarmonyLib.HarmonyDelegate"/>]
-            attributes on <typeparamref name="DelegateType"/></returns>
-            <remarks>
-            This calls <see cref="M:HarmonyLib.AccessTools.MethodDelegate``1(System.Reflection.MethodInfo,System.Object,System.Boolean)"/> with the <c>method</c> and <c>virtualCall</c> arguments
-            determined from the [<see cref="T:HarmonyLib.HarmonyDelegate"/>] attributes on <typeparamref name="DelegateType"/>,
-            and the given <paramref name="instance"/> (for closed instance delegates).
-            </remarks>
+             <summary>Creates a delegate for a given delegate definition, attributed with [<see cref="T:HarmonyLib.HarmonyDelegate"/>]</summary>
+             <typeparam name="DelegateType">The delegate Type, attributed with [<see cref="T:HarmonyLib.HarmonyDelegate"/>]</typeparam>
+             <param name="instance">
+             Only applies for instance methods. If <c>null</c> (default), returned delegate is an open (a.k.a. unbound) instance delegate
+             where an instance is supplied as the first argument to the delegate invocation; else, delegate is a closed (a.k.a. bound)
+             instance delegate where the delegate invocation always applies to the given <paramref name="instance"/>.
+             </param>
+             <returns>A delegate of given <typeparamref name="DelegateType"/> to the method specified via [<see cref="T:HarmonyLib.HarmonyDelegate"/>]
+             attributes on <typeparamref name="DelegateType"/></returns>
+             <remarks>
+             This calls <see cref="M:HarmonyLib.AccessTools.MethodDelegate``1(System.Reflection.MethodInfo,System.Object,System.Boolean)"/> with the <c>method</c> and <c>virtualCall</c> arguments
+             determined from the [<see cref="T:HarmonyLib.HarmonyDelegate"/>] attributes on <typeparamref name="DelegateType"/>,
+             and the given <paramref name="instance"/> (for closed instance delegates).
+             </remarks>
             
         </member>
         <member name="M:HarmonyLib.AccessTools.GetOutsideCaller">
@@ -2175,9 +2394,20 @@
              <returns>The new instance</returns>
             
         </member>
+        <member name="M:HarmonyLib.AccessTools.CreateInstance``1">
+             <summary>Creates an (possibly uninitialized) instance of a given type</summary>
+             <typeparam name="T">The class/type</typeparam>
+             <returns>The new instance</returns>
+            
+        </member>
+        <member name="F:HarmonyLib.AccessTools.addHandlerCache">
+            <summary>
+            A cache for the <see cref="M:System.Collections.Generic.ICollection`1.Add(`0)"/> or similar Add methods for different types.
+            </summary>
+        </member>
         <member name="M:HarmonyLib.AccessTools.MakeDeepCopy``1(System.Object)">
              <summary>Makes a deep copy of any object</summary>
-             <typeparam name="T">The type of the instance that should be created</typeparam>
+             <typeparam name="T">The type of the instance that should be created; for legacy reasons, this must be a class or interface</typeparam>
              <param name="source">The original object</param>
              <returns>A copy of the original object but of type T</returns>
             
@@ -2219,15 +2449,15 @@
             
         </member>
         <member name="M:HarmonyLib.AccessTools.IsInteger(System.Type)">
-            <summary>Tests if a type is an integer type</summary>
-            <param name="type">The type</param>
-            <returns>True if the type represents some integer</returns>
+             <summary>Tests if a type is an integer type</summary>
+             <param name="type">The type</param>
+             <returns>True if the type represents some integer</returns>
             
         </member>
         <member name="M:HarmonyLib.AccessTools.IsFloatingPoint(System.Type)">
-            <summary>Tests if a type is a floating point type</summary>
-            <param name="type">The type</param>
-            <returns>True if the type represents some floating point</returns>
+             <summary>Tests if a type is a floating point type</summary>
+             <param name="type">The type</param>
+             <returns>True if the type represents some floating point</returns>
             
         </member>
         <member name="M:HarmonyLib.AccessTools.IsNumber(System.Type)">
@@ -2578,19 +2808,19 @@
             <returns>Returns true if the member has an IL body or false if not</returns>
         </member>
         <member name="T:HarmonyLib.FileLog">
-            <summary>A file log for debugging</summary>
+             <summary>A file log for debugging</summary>
             
         </member>
         <member name="F:HarmonyLib.FileLog.logPath">
-            <summary>Full pathname of the log file, defaults to a file called <c>harmony.log.txt</c> on your Desktop</summary>
+             <summary>Full pathname of the log file, defaults to a file called <c>harmony.log.txt</c> on your Desktop</summary>
             
         </member>
         <member name="F:HarmonyLib.FileLog.indentChar">
-            <summary>The indent character. The default is <c>tab</c></summary>
+             <summary>The indent character. The default is <c>tab</c></summary>
             
         </member>
         <member name="F:HarmonyLib.FileLog.indentLevel">
-            <summary>The current indent level</summary>
+             <summary>The current indent level</summary>
             
         </member>
         <member name="M:HarmonyLib.FileLog.ChangeIndent(System.Int32)">
@@ -2622,7 +2852,7 @@
             
         </member>
         <member name="M:HarmonyLib.FileLog.FlushBuffer">
-            <summary>Flushes the log buffer to disk (use in combination with LogBuffered)</summary>
+             <summary>Flushes the log buffer to disk (use in combination with LogBuffered)</summary>
             
         </member>
         <member name="M:HarmonyLib.FileLog.Log(System.String)">
@@ -2631,7 +2861,7 @@
             
         </member>
         <member name="M:HarmonyLib.FileLog.Reset">
-            <summary>Resets and deletes the log</summary>
+             <summary>Resets and deletes the log</summary>
             
         </member>
         <member name="M:HarmonyLib.FileLog.LogBytes(System.Int64,System.Int32)">

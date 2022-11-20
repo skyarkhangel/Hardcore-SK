@@ -2,12 +2,14 @@
 <Defs>
 	<!-- ========================== Insects ============================ -->
 	<ThingDef Abstract="True" ParentName="SK_AnimalThingBase" Name="SK_InsectThingBase">
+		<devNote>insect</devNote>
 		<statBases>
 			<ToxicSensitivity>0</ToxicSensitivity>
 			<Flammability>1.0</Flammability>
 			<ImmunityGainSpeed>2.5</ImmunityGainSpeed>
 			<ComfyTemperatureMax>60</ComfyTemperatureMax>
 			<SmokeSensitivity>0.5</SmokeSensitivity>
+			<FilthRate>4</FilthRate>
 		</statBases>
 		<race>
 			<herdMigrationAllowed>false</herdMigrationAllowed>
@@ -16,12 +18,24 @@
 			<meatColor>(160,168,139)</meatColor>
 			<meatMarketValue>0.5</meatMarketValue>
 			<foodType>OmnivoreAnimal, AnimalProduct</foodType>
-			<manhunterOnDamageChance>0.3</manhunterOnDamageChance>
-			<manhunterOnTameFailChance>0.018</manhunterOnTameFailChance>
+			<manhunterOnDamageChance>0.5</manhunterOnDamageChance>
+			<manhunterOnTameFailChance>0.2</manhunterOnTameFailChance>
 			<hediffGiverSets>
 				<li>HardPassiveSet</li>
 			</hediffGiverSets>
 		</race>
+		<ingredient>
+			<mergeCompatibilityTags>
+				<li MayRequire="Ludeon.RimWorld.Ideology">InsectMeat</li>
+			</mergeCompatibilityTags>
+		</ingredient>
+		<receivesSignals>true</receivesSignals>
+		<comps>
+			<li Class="CompProperties_CanBeDormant" />
+			<li Class="CompProperties_WakeUpDormant">
+				<wakeUpOnDamage>true</wakeUpOnDamage>
+			</li>
+		</comps>
 	</ThingDef>
 
 	<ThingDef ParentName="SK_InsectThingBase">
@@ -48,8 +62,8 @@
 				<power>4</power>
 				<cooldownTime>1.8</cooldownTime>
 				<linkedBodyPartsGroup>Mouth</linkedBodyPartsGroup>
-				<armorPenetrationSharp>1.3</armorPenetrationSharp>
-				<armorPenetrationBlunt>1.1</armorPenetrationBlunt>
+				<armorPenetrationSharp>1.8</armorPenetrationSharp>
+				<armorPenetrationBlunt>1.6</armorPenetrationBlunt>
 			</li>
 			<li Class="CombatExtended.ToolCE">
 				<label>head</label>
@@ -61,7 +75,7 @@
 				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
 				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
 				<chanceFactor>0.2</chanceFactor>
-				<armorPenetrationBlunt>1</armorPenetrationBlunt>
+				<armorPenetrationBlunt>1.5</armorPenetrationBlunt>
 			</li>
 		</tools>
 		<comps>
@@ -69,8 +83,8 @@
 				<compClass>SK.CompShearableRenameable</compClass>
 				<growthLabel>Chitin</growthLabel>
 				<woolDef>Chitin</woolDef>
-				<shearIntervalDays>10</shearIntervalDays>
-				<woolAmount>45</woolAmount>
+				<shearIntervalDays>5</shearIntervalDays>
+				<woolAmount>30</woolAmount>
 			</li>
 		</comps>
 		<butcherProducts>
@@ -80,9 +94,10 @@
 			<body>BeetleLike</body>
 			<baseBodySize>0.35</baseBodySize>
 			<baseHungerRate>0.4</baseHungerRate>
-			<baseHealthScale>0.6</baseHealthScale>
+			<baseHealthScale>0.75</baseHealthScale>
 			<useMeatFrom>Megaspider</useMeatFrom>
-			<wildness>0.95</wildness>
+			<wildness>0.82</wildness>
+			<trainability>Intermediate</trainability>
 			<lifeExpectancy>10</lifeExpectancy>
 			<lifeStageAges>
 				<li>
@@ -207,8 +222,8 @@
 				<power>13</power>
 				<cooldownTime>1.8</cooldownTime>
 				<linkedBodyPartsGroup>HeadClaw</linkedBodyPartsGroup>
-				<armorPenetrationSharp>1.1</armorPenetrationSharp>
-				<armorPenetrationBlunt>1</armorPenetrationBlunt>
+				<armorPenetrationSharp>2.2</armorPenetrationSharp>
+				<armorPenetrationBlunt>2</armorPenetrationBlunt>
 			</li>
 			<li Class="CombatExtended.ToolCE">
 				<label>head</label>
@@ -220,7 +235,7 @@
 				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
 				<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
 				<chanceFactor>0.2</chanceFactor>
-				<armorPenetrationBlunt>0.7</armorPenetrationBlunt>
+				<armorPenetrationBlunt>2</armorPenetrationBlunt>
 			</li>
 		</tools>
 		<comps>
@@ -228,7 +243,7 @@
 				<compClass>SK.CompShearableRenameable</compClass>
 				<growthLabel>Chitin</growthLabel>
 				<woolDef>Chitin</woolDef>
-				<shearIntervalDays>10</shearIntervalDays>
+				<shearIntervalDays>5</shearIntervalDays>
 				<woolAmount>45</woolAmount>
 			</li>
 		</comps>
@@ -239,10 +254,11 @@
 			<body>BeetleLikeWithClaw</body>
 			<baseHungerRate>0.7</baseHungerRate>
 			<baseBodySize>0.7</baseBodySize>
-			<baseHealthScale>1.8</baseHealthScale>
+			<baseHealthScale>2.25</baseHealthScale>
 			<useMeatFrom>Megaspider</useMeatFrom>
 			<gestationPeriodDays>12</gestationPeriodDays>
-			<wildness>0.95</wildness>
+			<wildness>0.82</wildness>
+			<trainability>Intermediate</trainability>
 			<lifeExpectancy>6</lifeExpectancy>
 			<lifeStageAges>
 				<li>
@@ -364,7 +380,7 @@
 				<power>12</power>
 				<cooldownTime>1.33</cooldownTime>
 				<linkedBodyPartsGroup>HeadClaw</linkedBodyPartsGroup>
-				<armorPenetrationSharp>2.5</armorPenetrationSharp>
+				<armorPenetrationSharp>4.5</armorPenetrationSharp>
 				<armorPenetrationBlunt>7.5</armorPenetrationBlunt>
 			</li>
 			<li Class="CombatExtended.ToolCE">
@@ -374,7 +390,7 @@
 				<power>20</power>
 				<cooldownTime>2.1</cooldownTime>
 				<linkedBodyPartsGroup>HeadClaw</linkedBodyPartsGroup>
-				<armorPenetrationSharp>3</armorPenetrationSharp>
+				<armorPenetrationSharp>4</armorPenetrationSharp>
 				<armorPenetrationBlunt>8.5</armorPenetrationBlunt>
 			</li>
 			<li Class="CombatExtended.ToolCE">
@@ -395,8 +411,8 @@
 				<compClass>SK.CompShearableRenameable</compClass>
 				<growthLabel>Chitin</growthLabel>
 				<woolDef>Chitin</woolDef>
-				<shearIntervalDays>10</shearIntervalDays>
-				<woolAmount>45</woolAmount>
+				<shearIntervalDays>5</shearIntervalDays>
+				<woolAmount>60</woolAmount>
 			</li>
 		</comps>
 		<butcherProducts>
@@ -406,11 +422,12 @@
 			<body>BeetleLikeWithClaw</body>
 			<baseHungerRate>0.9</baseHungerRate>
 			<baseBodySize>1.0</baseBodySize>
-			<baseHealthScale>2.7</baseHealthScale>
-			<gestationPeriodDays>10</gestationPeriodDays>
+			<baseHealthScale>3.4</baseHealthScale>
+			<gestationPeriodDays>7</gestationPeriodDays>
 			<meatLabel>insect meat</meatLabel>
-			<wildness>0.95</wildness>
+			<wildness>0.9</wildness>
 			<lifeExpectancy>6</lifeExpectancy>
+			<trainability>Intermediate</trainability>
 			<lifeStageAges>
 				<li>
 					<def>EusocialInsectLarva</def>
@@ -555,7 +572,7 @@
 				<compClass>SK.CompShearableRenameable</compClass>
 				<growthLabel>Chitin</growthLabel>
 				<woolDef>Chitin</woolDef>
-				<shearIntervalDays>10</shearIntervalDays>
+				<shearIntervalDays>8</shearIntervalDays>
 				<woolAmount>125</woolAmount>
 			</li>
 		</comps>
@@ -575,9 +592,10 @@
 			<bloodDef>Filth_BloodInsect</bloodDef>
 			<useMeatFrom>Megaspider</useMeatFrom>
 			<wildness>0.9</wildness>
-			<gestationPeriodDays>20</gestationPeriodDays>
-			<manhunterOnTameFailChance>0.3</manhunterOnTameFailChance>
-			<manhunterOnDamageChance>0.3</manhunterOnDamageChance>
+			<trainability>Intermediate</trainability>
+			<gestationPeriodDays>14</gestationPeriodDays>
+			<manhunterOnTameFailChance>0.35</manhunterOnTameFailChance>
+			<manhunterOnDamageChance>1</manhunterOnDamageChance>
 			<lifeExpectancy>10</lifeExpectancy>
 			<lifeStageAges>
 				<li>

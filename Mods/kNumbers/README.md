@@ -32,6 +32,25 @@ It can be added to existing saves without problems.
 - [GitHub](https://github.com/Mehni/kNumbers)
 - [All the releases](https://github.com/Mehni/kNumbers/releases)
 
+## Credits
+
+Much thanks to [Maarxx](https://github.com/maarxx) for singlehandedly adding support for Royalty. Check out their mods [here](https://ludeon.com/forums/index.php?topic=53539)!
+
+### Languages
+
+- English: Mehni
+- Chinese (simplified): AlongWY
+- German: Amalek
+- Russian: JasKill
+- Spanish: Crusader
+
+## Adding a column (for contributors)
+
+1. Add a new class in Numbers\PawnColumnWorkers. Use the `Numbers` namespace. Inherit from the correct PawnColumnWorker.
+1. Create a new PawnColumnDef. Save it in `1.1\Defs\PawnColumnDef\PawnColumns_Numbers.xml`. Adhere to the naming scheme there.
+1. To add your new column to the Misc button, add the defName of your PawnColumnDef to the appropriate Def in `1.1\Defs\PawnColumnOptionDef\Numbers_PawnColumnOptionDef.xml`. This step should not be skipped.
+1. To add your new column to the default table, add the defName of your PawnColumnDef to the approppriate PawnTableDef in `1.1\Defs\PawnTableDef\Numbers_PawnTableDef.xml`.
+
 ## License
 
 Original idea by koisama: https://github.com/koisama/kNumbers, whose original license I respect by the preceding link. For the license since 2018/11/21, see LICENSE.

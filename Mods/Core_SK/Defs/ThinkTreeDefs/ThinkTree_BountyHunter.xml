@@ -86,6 +86,11 @@
 					</subNodes>
 				</li>
 
+				<!-- Behavior when roped -->
+				<li Class="ThinkNode_Subtree">
+					<treeDef>RopedPawn</treeDef>
+				</li>
+
 				<!-- Lord directives -->
 				<li Class="ThinkNode_Subtree">
 					<treeDef>LordDuty</treeDef>
@@ -222,6 +227,18 @@
 							</subNodes>
 						</li>
 
+						<!-- Roamers gonna roam -->
+						<li Class="ThinkNode_ChancePerDay_Roam">
+							<subNodes>
+								<li Class="ThinkNode_Tagger">
+									<tagToGive>Misc</tagToGive>
+									<subNodes>
+										<li Class="JobGiver_StartRoaming" />
+									</subNodes>
+								</li>
+							</subNodes>
+						</li>
+
 						<!-- Trained behavior: Haul-->
 						<li Class="ThinkNode_ChancePerHour_Constant">
 							<mtbHours>1.5</mtbHours>
@@ -263,6 +280,33 @@
 								<!-- Wander near your current position if in hostile map -->
 								<li Class="ThinkNode_ConditionalAnyEnemyInHostileMap">
 									<subNodes>
+										<li Class="JobGiver_WanderAnywhere">
+											<maxDanger>None</maxDanger>
+											<ticksBetweenWandersRange>120~240</ticksBetweenWandersRange>
+										</li>
+									</subNodes>
+								</li>
+
+								<li Class="ThinkNode_ConditionalRoamer">
+									<subNodes>
+										<li Class="JobGiver_WanderInRoofedCellsInPen">
+											<maxDanger>None</maxDanger>
+											<ticksBetweenWandersRange>120~240</ticksBetweenWandersRange>
+											<expiryInterval>500</expiryInterval>
+										</li>
+
+										<!-- tame roamers should not wander too far, and if unenclosed wander near a suitable pen marker 10% of the time -->
+										<li Class="ThinkNode_ConditionalRandom">
+											<chance>0.1</chance>
+											<subNodes>
+												<li Class="JobGiver_WanderInPen">
+													<maxDanger>None</maxDanger>
+													<ticksBetweenWandersRange>120~240</ticksBetweenWandersRange>
+													<expiryInterval>500</expiryInterval>
+												</li>
+											</subNodes>
+										</li>
+
 										<li Class="JobGiver_WanderAnywhere">
 											<maxDanger>None</maxDanger>
 											<ticksBetweenWandersRange>120~240</ticksBetweenWandersRange>

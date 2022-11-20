@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <DutyDef>
+    <defName>RK_JoinPrayerService</defName>
+    <hook>MediumPriority</hook>
+    <socialModeMax>SuperActive</socialModeMax>
+    <thinkNode Class="ThinkNode_Priority">
+      <subNodes>
+        <li Class="JobGiver_GotoTravelDestination">
+          <exactCell>false</exactCell>
+          <locomotionUrgency>Walk</locomotionUrgency>
+        </li>
+        
+        <li Class="NewRatkin.ThinkNode_ConditionalAtDutyRoom">
+          <subNodes>
+            <li Class="JobGiver_WanderInGatheringArea">
+              <ticksBetweenWandersRange>100~300</ticksBetweenWandersRange>
+              <locomotionUrgency>Walk</locomotionUrgency>
+            </li>
+          </subNodes>
+        </li>
+      </subNodes>
+    </thinkNode>
+  </DutyDef>
+
+  <DutyDef>
+    <defName>RK_SpectatePrayerService</defName>
+    <hook>MediumPriority</hook>
+    <socialModeMax>Quiet</socialModeMax>
+    <thinkNode Class="ThinkNode_Priority">
+      <subNodes>
+        <!-- Spectate -->
+        <li Class="NewRatkin.JobGiver_PrayDutySpectateRect" />
+      </subNodes>
+    </thinkNode>
+  </DutyDef>
+
+  <DutyDef>
+    <defName>RK_OrganizePrayerService</defName>
+    <socialModeMax>Off</socialModeMax>
+    <thinkNode Class="ThinkNode_Priority">
+      <subNodes>
+        <!-- Goto my spot -->
+        <li Class="NewRatkin.JobGiver_GotoTravelInteractionCell">
+          <locomotionUrgency>Jog</locomotionUrgency>
+        </li>
+        
+        <!-- Arrived -->
+        <li Class="NewRatkin.ThinkNode_ConditionalAtDutyInteractionCell">
+          <subNodes>
+            <li Class="NewRatkin.JobGiver_PrayerService">
+              <ticks>100</ticks>
+            </li>
+          </subNodes>
+        </li>
+      </subNodes>
+    </thinkNode>
+  </DutyDef>
+</Defs>

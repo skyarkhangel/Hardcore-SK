@@ -1,17 +1,40 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
-	<!-- Neuromod Stat Booster -->
-	<ThingDef ParentName="MechSerumBase">
-		<defName>ANN_NeuromodBooster</defName>
-		<label>neuromod booster</label>
-		<description>A Neuronal Modifier is a small device penetrating your eye in order to remap your existing brain structure. Through your eyes.\n\nBeware, Robotic Fusion: Nanobots will become one with patient. Can have side-effects like Paraplexis or White Noise, which can end up in confusion, disorientation and even paralyzation.</description>
+	<ThingDef Name="CONN_Neuromod" ParentName="MechSerumBase" Abstract="True">
 		<graphicData>
-			<texPath>Things/Item/Special/Neuromod</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
-		<techLevel>Spacer</techLevel>
+		<drawGUIOverlay>false</drawGUIOverlay>
+		<techLevel>Ultra</techLevel>
 		<stackLimit>1</stackLimit>
+		<tradeNeverStack>false</tradeNeverStack>
+		<statBases>
+			<MarketValue>1100</MarketValue>
+		</statBases>
+		<thingCategories Inherit="False">
+			<li>Neurotrainers</li>
+		</thingCategories>
+		<tradeability>Sellable</tradeability>
+		<thingSetMakerTags>
+			<li>RewardStandardHighFreq</li>
+		</thingSetMakerTags>
+		<comps>
+			<li Class="CompProperties_UseEffect">
+				<compClass>CompUseEffect_DestroySelf</compClass>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<!-- Neuromod Stat Booster -->
+	<ThingDef ParentName="CONN_Neuromod">
+		<defName>ANN_NeuromodBooster</defName>
+		<label>neuromod booster</label>
+		<description>A neuronal modifier is a small device penetrating your eye in order to remap your existing brain structure effectivly. Usually leading to small improvement of each skills.</description>
+		<graphicData>
+			<texPath>Things/Item/Special/Neuromod</texPath>
+		</graphicData>
+		<techLevel>Spacer</techLevel>
 		<tradeNeverStack>true</tradeNeverStack>
 		<costList>
 			<Gold>15</Gold>
@@ -35,39 +58,31 @@
 			<Mass>0.2</Mass>
 			<DeteriorationRate>1.0</DeteriorationRate>
 			<Flammability>0.2</Flammability>
-			<MarketValue>1100</MarketValue>
+			<MarketValue>1500</MarketValue>
 			<WorkToMake>60000</WorkToMake>
 		</statBases>
-		<drawGUIOverlay>false</drawGUIOverlay>
 		<comps>
 			<li Class="CompProperties_Usable">
-				<compClass>CONN.CompUseEffectCONN.CONN_Neurotrainer</compClass>
+				<compClass>CONN.CONN_Neurotrainer</compClass>
 				<useJob>UseNeurotrainer</useJob>
 				<useLabel>Use neuromod booster</useLabel>
 			</li>
 			<li Class="CompProperties_UseEffect">
-				<compClass>CONN.CompUseEffectCONN.CompUseEffect_LearnSkill</compClass>
-			</li>
-			<li Class="CompProperties_UseEffect">
-				<compClass>CompUseEffect_DestroySelf</compClass>
+				<compClass>CONN.CompUseEffect_LearnSkill</compClass>
 			</li>
 		</comps>
-		<thingSetMakerTags>
-			<li>RewardSpecial</li>
-		</thingSetMakerTags>
-		<thingCategories Inherit="False">
-			<li>ANN_Mind</li>
-		</thingCategories>
+		<tradeTags>
+			<li>ExoticMisc</li>
+		</tradeTags>
 	</ThingDef>
 
 	<!-- ############## Brainwash ############## -->
-	<ThingDef ParentName="MechSerumBase">
+	<ThingDef ParentName="CONN_Neuromod">
 		<defName>ANN_Brainwash</defName>
 		<label>brainwash</label>
-		<description>Brainwash device to erase the memory. Affects already learned traits. Don't use this on already brainwashed patients or it might end in unforeseeable results!</description>
+		<description>Brainwash device to erase the memory. Remove any personnality traits not related to your story.</description>
 		<graphicData>
 			<texPath>Things/Item/Special/Brainwash</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<techLevel>Spacer</techLevel>
 		<stackLimit>1</stackLimit>
@@ -94,10 +109,9 @@
 			<Mass>0.2</Mass>
 			<DeteriorationRate>1.0</DeteriorationRate>
 			<Flammability>0.2</Flammability>
-			<MarketValue>1100</MarketValue>
+			<MarketValue>1600</MarketValue>
 			<WorkToMake>60000</WorkToMake>
 		</statBases>
-		<drawGUIOverlay>false</drawGUIOverlay>
 		<comps>
 			<li Class="CompProperties_Usable">
 				<useJob>UseItem</useJob>
@@ -105,34 +119,21 @@
 				<useLabel>Use brainwasher</useLabel>
 			</li>
 			<li Class="CompProperties_UseEffect">
-				<compClass>CONN.CompUseEffectCONN.CompUseEffect_TraitReset</compClass>
-			</li>
-			<li Class="CompProperties_UseEffect">
-				<compClass>CompUseEffect_DestroySelf</compClass>
+				<compClass>CONN.CompUseEffect_TraitReset</compClass>
 			</li>
 		</comps>
-		<thingSetMakerTags>
-			<li>RewardSpecial</li>
-		</thingSetMakerTags>
-		<thingCategories Inherit="False">
-			<li>ANN_Mind</li>
-		</thingCategories>
-		<tradeTags>
-			<li>ExoticMisc</li>
-		</tradeTags>
 	</ThingDef>
 
 	<!-- ############## Passion Giver ############## -->
-	<ThingDef ParentName="MechSerumBase">
+	<ThingDef ParentName="CONN_Neuromod">
 		<defName>ANN_PassionGiver</defName>
 		<label>passion giver</label>
-		<description>Inject nanobots which are going to alter your brain cells to inculcate you a random passion. Can fail horrible!</description>
+		<description>Inject nanobots which are going to alter your brain cells to inculcate you a random passion.</description>
 		<graphicData>
 			<texPath>Things/Item/Special/PassionGiver</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.65</drawSize>
 		</graphicData>
 		<techLevel>Spacer</techLevel>
-		<stackLimit>1</stackLimit>
 		<tradeNeverStack>true</tradeNeverStack>
 		<costList>
 			<Gold>20</Gold>
@@ -160,7 +161,6 @@
 			<MarketValue>1100</MarketValue>
 			<WorkToMake>60000</WorkToMake>
 		</statBases>
-		<drawGUIOverlay>false</drawGUIOverlay>
 		<comps>
 			<li Class="CompProperties_Usable">
 				<useJob>UseItem</useJob>
@@ -168,31 +168,73 @@
 				<useDuration>100</useDuration>
 			</li>
 			<li Class="CompProperties_UseEffect">
-				<compClass>CONN.CompUseEffectCONN.CompUseEffect_PassionGiver</compClass>
-			</li>
-			<li Class="CompProperties_UseEffect">
-				<compClass>CompUseEffect_DestroySelf</compClass>
+				<compClass>CONN.CompUseEffect_PassionGiver</compClass>
 			</li>
 		</comps>
-		<thingSetMakerTags>
-			<li>RewardSpecial</li>
-		</thingSetMakerTags>
-		<thingCategories Inherit="False">
-			<li>ANN_Mind</li>
-		</thingCategories>
+		<tradeTags>
+			<li>ExoticMisc</li>
+		</tradeTags>
+	</ThingDef>
+
+	<!-- ############## Trait Giver ############## -->
+	<ThingDef ParentName="CONN_Neuromod">
+		<defName>ANN_TraitGiver</defName>
+		<label>trait giver</label>
+		<description>Inject nanobots which are going to alter your brain cells to inculcate you a random personnality trait.</description>
+		<graphicData>
+			<texPath>Things/Item/Special/TraitGiver</texPath>
+			<drawSize>0.65</drawSize>
+		</graphicData>
+		<techLevel>Spacer</techLevel>
+		<tradeNeverStack>true</tradeNeverStack>
+		<costList>
+			<Neutroamine>70</Neutroamine>
+			<Gold>17</Gold>
+			<Glass>10</Glass>
+			<SyntheticFibers>6</SyntheticFibers>
+			<BioMicrochips>1</BioMicrochips>
+			<ComponentUltra>1</ComponentUltra>
+		</costList>
+		<recipeMaker>
+			<researchPrerequisite>Prosthesis_making_E2</researchPrerequisite>
+			<skillRequirements>
+				<Medicine>16</Medicine>
+			</skillRequirements>
+			<recipeUsers Inherit="False">
+				<li>TableElectronics</li>
+			</recipeUsers>
+			<unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+		</recipeMaker>
+		<statBases>
+			<MaxHitPoints>80</MaxHitPoints>
+			<Mass>0.2</Mass>
+			<DeteriorationRate>1.0</DeteriorationRate>
+			<Flammability>0.2</Flammability>
+			<MarketValue>1400</MarketValue>
+			<WorkToMake>60000</WorkToMake>
+		</statBases>
+		<comps>
+			<li Class="CompProperties_Usable">
+				<useJob>UseItem</useJob>
+				<useLabel>Use trait giver</useLabel>
+				<useDuration>100</useDuration>
+			</li>
+			<li Class="CompProperties_UseEffect">
+				<compClass>CONN.CompUseEffect_AddRandomTrait</compClass>
+			</li>
+		</comps>
 		<tradeTags>
 			<li>ExoticMisc</li>
 		</tradeTags>
 	</ThingDef>
 
 	<!-- ############## Mind Clearer ############## -->
-	<ThingDef ParentName="MechSerumBase">
-		<defName>ANN_MindClearer</defName>
+	<ThingDef ParentName="CONN_Neuromod">
+		<defName>NeurotrainersClearer</defName>
 		<label>mind clearer</label>
 		<description>Brainwash device to erase the short-term memory. Affects current throughts.</description>
 		<graphicData>
 			<texPath>Things/Item/Special/MindClearer</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<techLevel>Spacer</techLevel>
 		<stackLimit>1</stackLimit>
@@ -223,7 +265,6 @@
 			<MarketValue>1100</MarketValue>
 			<WorkToMake>60000</WorkToMake>
 		</statBases>
-		<drawGUIOverlay>false</drawGUIOverlay>
 		<comps>
 			<li Class="CompProperties_Usable">
 				<useJob>UseItem</useJob>
@@ -231,31 +272,22 @@
 				<useDuration>100</useDuration>
 			</li>
 			<li Class="CompProperties_UseEffect">
-				<compClass>CONN.CompUseEffectCONN.CompUseEffect_ThoughClearer</compClass>
-			</li>
-			<li Class="CompProperties_UseEffect">
-				<compClass>CompUseEffect_DestroySelf</compClass>
+				<compClass>CONN.CompUseEffect_ThoughClearer</compClass>
 			</li>
 		</comps>
-		<thingSetMakerTags>
-			<li>RewardSpecial</li>
-		</thingSetMakerTags>
-		<thingCategories Inherit="False">
-			<li>ANN_Mind</li>
-		</thingCategories>
 		<tradeTags>
 			<li>ExoticMisc</li>
 		</tradeTags>
 	</ThingDef>
 
 	<!-- ############## Reconditioner ############## -->
-	<ThingDef ParentName="MechSerumBase">
+	<ThingDef ParentName="CONN_Neuromod">
 		<defName>ANN_Reconditioner</defName>
 		<label>reconditioner</label>
-		<description>Inject nanobots which are going to alter your brain cells in a way, that you don't remember, what you did in your life. Changes your backstories. Can result in heavy amnesia.</description>
+		<description>Inject nanobots which are going to alter your brain cells to erase your long term memory. Essentialy create a new life for user to beleive in.</description>
 		<graphicData>
 			<texPath>Things/Item/Special/Reconditioner</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.65</drawSize>
 		</graphicData>
 		<techLevel>Spacer</techLevel>
 		<stackLimit>1</stackLimit>
@@ -286,7 +318,6 @@
 			<MarketValue>1100</MarketValue>
 			<WorkToMake>60000</WorkToMake>
 		</statBases>
-		<drawGUIOverlay>false</drawGUIOverlay>
 		<comps>
 			<li Class="CompProperties_Usable">
 				<useJob>UseItem</useJob>
@@ -294,18 +325,9 @@
 				<useDuration>100</useDuration>
 			</li>
 			<li Class="CompProperties_UseEffect">
-				<compClass>CONN.CompUseEffectCONN.CompUseEffect_Reconditionner</compClass>
-			</li>
-			<li Class="CompProperties_UseEffect">
-				<compClass>CompUseEffect_DestroySelf</compClass>
+				<compClass>CONN.CompUseEffect_Reconditionner</compClass>
 			</li>
 		</comps>
-		<thingSetMakerTags>
-			<li>RewardSpecial</li>
-		</thingSetMakerTags>
-		<thingCategories Inherit="False">
-			<li>ANN_Mind</li>
-		</thingCategories>
 		<tradeTags>
 			<li>ExoticMisc</li>
 		</tradeTags>

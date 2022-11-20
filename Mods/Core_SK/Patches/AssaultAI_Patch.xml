@@ -2,6 +2,23 @@
 
 <Patch>
 
+	<Operation Class="PatchOperationFindMod">
+		<success>Always</success>
+		<mods>
+			<li>Combat Extended</li>
+		</mods>
+		<match Class="PatchOperationRemove">
+			<xpath>Defs/ThinkTreeDef[defName="HumanlikeConstant"]/thinkRoot/subNodes/li[@Class="ThinkNode_ConditionalCanDoConstantThinkTreeJobNow"]/subNodes/li[@Class="CombatExtended.JobGiver_TakeAndEquip"]</xpath>
+		</match>
+	</Operation>
+
+	<Operation Class="PatchOperationInsert">
+		<xpath>Defs/ThinkTreeDef[defName="HumanlikeConstant"]/thinkRoot/subNodes/li[@Class="ThinkNode_ConditionalCanDoConstantThinkTreeJobNow"]/subNodes/li[@Class="JobGiver_FleePotentialExplosion"]</xpath>
+		<value>
+			<li Class="SkyMind.JobGiver_TakeAndEquip"/>
+		</value>
+	</Operation>
+
 	<Operation Class="PatchOperationSequence">
 		<success>Always</success>
 		<operations>
@@ -15,7 +32,7 @@
 						<li Class="JobGiver_TakeCombatEnhancingDrug" />
 						<li Class="JobGiver_AIFightEnemies">
 							<targetAcquireRadius>75</targetAcquireRadius>
-							<targetKeepRadius>78</targetKeepRadius>
+							<targetKeepRadius>85</targetKeepRadius>
 							<needLOSToAcquireNonPawnTargets>true</needLOSToAcquireNonPawnTargets>
 						</li>
 						<li Class="SkyMind.JobGiver_SiegeAI" />
@@ -37,9 +54,63 @@
 	<Operation Class="PatchOperationRemove">
 		<xpath>Defs/DutyDef[defName = "Sapper"]/thinkNode/subNodes/li[@Class="JobGiver_AITrashBuildingsDistant"]</xpath>
 	</Operation>
-	
+
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/DutyDef[defName = "Sapper"]/thinkNode/subNodes/li[@Class="JobGiver_AISapper"]</xpath>
+		<value>
+			<li Class="SkyMind.JobGiver_SiegeAI" />
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+			<li Class="PatchOperationRemove">
+				<xpath>Defs/DutyDef[defName = "Breaching"]/thinkNode/subNodes</xpath>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/DutyDef[defName = "Breaching"]/thinkNode</xpath>
+				<value>
+					<subNodes>
+						<li Class="JobGiver_TakeCombatEnhancingDrug" />
+						<li Class="ThinkNode_HarmedRecently">
+							<thresholdTicks>600</thresholdTicks>
+							<subNodes>
+								<li Class="JobGiver_AIFightEnemies">
+									<!-- respond if attacked -->
+									<targetAcquireRadius>75</targetAcquireRadius>
+									<targetKeepRadius>85</targetKeepRadius>
+									<needLOSToAcquireNonPawnTargets>true</needLOSToAcquireNonPawnTargets>
+								</li>
+							</subNodes>
+						</li>
+						<li Class="JobGiver_AIFightEnemies">
+							<!-- respond to close threats -->
+							<targetAcquireRadius>50</targetAcquireRadius>
+							<targetKeepRadius>60</targetKeepRadius>
+							<needLOSToAcquireNonPawnTargets>true</needLOSToAcquireNonPawnTargets>
+						</li>
+						<li Class="JobGiver_AIBreaching" />
+						<li Class="JobGiver_AIFightEnemies">
+							<!-- respond to distant threats -->
+							<targetAcquireRadius>75</targetAcquireRadius>
+							<targetKeepRadius>85</targetKeepRadius>
+						</li>
+						<li Class="JobGiver_WanderNearBreacher">
+							<wanderRadius>5</wanderRadius>
+							<expiryInterval>120</expiryInterval>
+						</li>
+						<li Class="SkyMind.JobGiver_SiegeAI" />
+						<li Class="JobGiver_AITrashColonyClose" />
+						<li Class="JobGiver_AIGotoNearestHostile" />
+					</subNodes>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/DutyDef[defName = "AssaultThing"]/thinkNode/subNodes/li[@Class="JobGiver_AISapper"]</xpath>
 		<value>
 			<li Class="SkyMind.JobGiver_SiegeAI" />
 		</value>

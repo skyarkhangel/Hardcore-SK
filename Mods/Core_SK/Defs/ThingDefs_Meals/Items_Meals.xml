@@ -3,28 +3,7 @@
 
 	<!-- =========== REALISTIC PRODUCTION SK MOD =========== -->
 
-	<ThingDef Name="ResBase" Abstract="True">
-		<thingClass>ThingWithComps</thingClass>
-		<label>unspecified resource</label>
-		<category>Item</category>
-		<resourceReadoutPriority>Middle</resourceReadoutPriority>
-		<useHitPoints>true</useHitPoints>
-		<selectable>true</selectable>
-		<altitudeLayer>Item</altitudeLayer>
-		<stackLimit>75</stackLimit>
-		<comps>
-			<li Class="CompProperties_Forbiddable"/>
-		</comps>
-		<ingestible>
-			<chairSearchRadius>60</chairSearchRadius>
-		</ingestible>
-		<alwaysHaulable>true</alwaysHaulable>
-		<drawGUIOverlay>true</drawGUIOverlay>
-		<rotatable>false</rotatable>
-		<pathCost>15</pathCost>
-	</ThingDef>
-
-	<ThingDef Name="OrganicMeals" ParentName="ResBase" Abstract="True">
+	<ThingDef Name="OrganicMeals" ParentName="SK_ResourceBase" Abstract="True">
 		<graphicData>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
@@ -38,12 +17,12 @@
 		</statBases>
 		<tickerType>Rare</tickerType>
 	</ThingDef>
-	
-	<ThingDef Name="EdibleBase" ParentName="ResBase" Abstract="True">
+
+	<ThingDef Name="EdibleBase" ParentName="SK_ResourceBase" Abstract="True">
 		<statBases>
 			<MaxHitPoints>50</MaxHitPoints>
 			<Flammability>1.0</Flammability>
-			<Beauty>-4</Beauty>
+			<Beauty>0</Beauty>
 			<Bulk>0.25</Bulk>
 			<Mass>0.35</Mass>
 			<DeteriorationRate>10</DeteriorationRate>
@@ -53,9 +32,9 @@
 		<socialPropernessMatters>true</socialPropernessMatters>
 		<healthAffectsPrice>false</healthAffectsPrice>
 		<comps>
-			<li Class="CompProperties_Ingredients" />
 			<li Class="CompProperties_FoodPoisonable" />
 		</comps>
+		<allowedArchonexusCount>40</allowedArchonexusCount>
 		<resourceReadoutPriority>Last</resourceReadoutPriority>
 		<uiIconForStackCount>1</uiIconForStackCount>
 		<ingestible>
@@ -65,19 +44,31 @@
 		</ingestible>
 	</ThingDef>
 
-	<ThingDef Name="SK_MealBase" ParentName="EdibleBase" Abstract="True">
+	<ThingDef Name="SK_MealBaseIngredientless" ParentName="EdibleBase" Abstract="True">
 		<thingCategories>
 			<li>FoodMeals</li>
 		</thingCategories>
 	</ThingDef>
 
-	<ThingDef Name="SweetMealBase" ParentName="EdibleBase" Abstract="True">
+	<ThingDef Name="SK_MealBase" ParentName="SK_MealBaseIngredientless" Abstract="True">
+		<comps>
+			<li Class="CompProperties_Ingredients" />
+		</comps>
+	</ThingDef>
+
+	<ThingDef Name="SweetMealBaseIngredientless" ParentName="EdibleBase" Abstract="True">
 		<thingCategories>
 			<li>SweetMeals</li>
 		</thingCategories>
 	</ThingDef>
 
-	<ThingDef Name="MealBeverage" ParentName="EdibleBase" Abstract="True">
+	<ThingDef Name="SweetMealBase" ParentName="SweetMealBaseIngredientless" Abstract="True">
+		<comps>
+			<li Class="CompProperties_Ingredients" />
+		</comps>
+	</ThingDef>
+
+	<ThingDef Name="MealBeverageIngredientless" ParentName="EdibleBase" Abstract="True">
 		<statBases>
 			<Beauty>-6</Beauty>
 			<Bulk>1.0</Bulk>
@@ -85,14 +76,19 @@
 		</statBases>
 	</ThingDef>
 
+	<ThingDef Name="MealBeverage" ParentName="MealBeverageIngredientless" Abstract="True">
+		<comps>
+			<li Class="CompProperties_Ingredients" />
+		</comps>
+	</ThingDef>
 
 	<ThingDef ParentName="SK_MealBase">
 		<defName>MealSurvivalPack</defName>
 		<label>Packaged Survival Meal</label>
 		<description>A high-quality packaged meal, manufactured for use in survival situations.</description>
 		<graphicData>
-			<texPath>Things/Item/Meal/SurvivalPack</texPath>
-			<graphicClass>Graphic_StackCount</graphicClass>
+			<texPath>Things/Item/Meal128/MRE</texPath>
+			<graphicClass>Graphic_MealVariants</graphicClass>
 		</graphicData>
 		<statBases>
 			<DeteriorationRate>0.25</DeteriorationRate>
@@ -109,6 +105,10 @@
 			<optimalityOffsetHumanlikes>-5</optimalityOffsetHumanlikes>
 			<optimalityOffsetFeedingAnimals>-5</optimalityOffsetFeedingAnimals>
 		</ingestible>
+		<allowedArchonexusCount>40</allowedArchonexusCount>
+		<thingSetMakerTags>
+			<li>HSKhumanitarianSuppliesTierThree</li>
+		</thingSetMakerTags>
 	</ThingDef>
 
 	<!--<ThingDef ParentName="SK_MealBase">
@@ -140,22 +140,14 @@
 		</comps>
 	</ThingDef> -->
 
-
-	<ThingDef ParentName="SK_MealBase">
-		<defName>MealFine</defName>
-		<label>Fine Meal</label>
-		<description>A complex dish assembled with care from a wide selection of ingredients.</description>
-		<graphicData>
-			<texPath>Things/Item/Meal/Fine</texPath>
-			<graphicClass>Graphic_StackCount</graphicClass>
-		</graphicData>
+	<ThingDef Name="SK_MealFineBase" ParentName="SK_MealBaseIngredientless" Abstract="True">
 		<statBases>
 			<DeteriorationRate>10</DeteriorationRate>
-			<MarketValue>28</MarketValue>
+			<MarketValue>20</MarketValue>
 			<WorkToMake>450</WorkToMake>
 			<Bulk>1.30</Bulk>
 			<Mass>1.00</Mass>
-			<Nutrition>0.75</Nutrition>
+			<Nutrition>0.8</Nutrition>
 		</statBases>
 		<ingestible>
 			<preferability>MealFine</preferability>
@@ -171,22 +163,28 @@
 		</comps>
 	</ThingDef>
 
-
-	<ThingDef ParentName="SK_MealBase">
-		<defName>MealLavish</defName>
-		<label>Lavish Meal</label>
-		<description>An elborate concoction of food skillfully prepared into a succulent meal.</description>
+	<ThingDef ParentName="SK_MealFineBase">
+		<defName>MealFine</defName>
+		<label>Fine Meal</label>
+		<description>A complex dish assembled with care from a wide selection of ingredients.</description>
 		<graphicData>
-			<texPath>Things/Item/Meal/Lavish</texPath>
-			<graphicClass>Graphic_StackCount</graphicClass>
+			<texPath>Things/Item/Meal128/StirFry</texPath>
+			<graphicClass>Graphic_MealVariants</graphicClass>
 		</graphicData>
+		<comps>
+			<li Class="CompProperties_Ingredients"/>
+		</comps>
+	</ThingDef>
+
+	<ThingDef Name="SK_MealLavishBase" ParentName="SK_MealBaseIngredientless" Abstract="True">
+		<description>A masterpiece of the culinary arts, this meal nourishes the body, mind, and soul.</description>
 		<statBases>
 			<DeteriorationRate>10</DeteriorationRate>
-			<MarketValue>30</MarketValue>
+			<MarketValue>34</MarketValue>
 			<WorkToMake>800</WorkToMake>
 			<Bulk>1.50</Bulk>
 			<Mass>1.20</Mass>
-			<Nutrition>0.8</Nutrition>
+			<Nutrition>0.85</Nutrition>
 		</statBases>
 		<ingestible>
 			<preferability>MealLavish</preferability>
@@ -200,8 +198,20 @@
 				<rotDestroys>true</rotDestroys>
 			</li>
 		</comps>
-	</ThingDef>
+	</ThingDef>  
 
+	<ThingDef ParentName="SK_MealLavishBase">
+		<defName>MealLavish</defName>
+		<label>Lavish Meal</label>
+		<description>An elborate concoction of food skillfully prepared into a succulent meal.</description>
+		<graphicData>
+			<texPath>Things/Item/Meal128/SteakDinner</texPath>
+			<graphicClass>Graphic_MealVariants</graphicClass>
+		</graphicData>
+		<comps>
+			<li Class="CompProperties_Ingredients" />
+		</comps>
+	</ThingDef>
 
 	<!-- <ThingDef ParentName="SK_MealBase">
 		<defName>MealLuxury</defName>
@@ -233,9 +243,8 @@
 		</comps>
 	</ThingDef> -->
 
-
 	<ThingDef ParentName="SK_MealBase">
-		<defName>MealSalad</defName>
+		<defName>MealSimple</defName>
 		<label>Fruit Salad</label>
 		<description>A fruit salad made from gathered fruit.</description>
 		<graphicData>
@@ -244,7 +253,7 @@
 		</graphicData>
 		<statBases>
 			<DeteriorationRate>10</DeteriorationRate>
-			<MarketValue>20</MarketValue>
+			<MarketValue>12</MarketValue>
 			<WorkToMake>300</WorkToMake>
 			<Bulk>1.50</Bulk>
 			<Mass>1.20</Mass>
@@ -263,7 +272,7 @@
 		</comps>
 	</ThingDef>
 
-	<ThingDef ParentName="SK_MealBase">
+	<ThingDef ParentName="SK_MealBaseIngredientless">
 		<defName>RoastedMeat</defName>
 		<label>Roasted Meat</label>
 		<description>Freshly roasted meat.</description>
@@ -290,13 +299,16 @@
 				<daysToRotStart>4</daysToRotStart>
 				<rotDestroys>true</rotDestroys>
 			</li>
+			<li Class="CompProperties_Ingredients">
+				<noIngredientsFoodKind>Meat</noIngredientsFoodKind>
+			</li>
 		</comps>
 	</ThingDef>
-	
+
 	<ThingDef ParentName="SK_MealBase">
 		<defName>ScrambledEggs</defName>
-		<label>Scrambled Eggs</label>
-		<description>A dish made from eggs stirred or beaten together while being gently heated.</description>
+		<label>Scramble</label>
+		<description>A dish made from eggs or tofu stirred or beaten together while being gently heated.</description>
 		<graphicData>
 			<texPath>Things/Item/Meal/Simple</texPath>
 			<graphicClass>Graphic_StackCount</graphicClass>
@@ -322,43 +334,10 @@
 			</li>
 		</comps>
 	</ThingDef>
-	
-	
-	<ThingDef ParentName="SK_MealBase">
-		<defName>FriedMushrooms</defName>
-		<label>fried cave mushrooms</label>
-		<description>Fried cave mushrooms. Rich with proteins and are able to replace meat in some recipes.</description>
-		<graphicData>
-			<texPath>Things/Item/Meal/SaladSimple</texPath>
-			<graphicClass>Graphic_StackCount</graphicClass>
-		</graphicData>
-		<statBases>
-			<DeteriorationRate>10</DeteriorationRate>
-			<MarketValue>40</MarketValue>
-			<WorkToMake>500</WorkToMake>
-			<Bulk>1.5</Bulk>
-			<Mass>1.2</Mass>
-			<Nutrition>0.7</Nutrition>				
-		</statBases>
-		<stackLimit>10</stackLimit>
-		<ingestible>
-			<foodType>Meal, Processed</foodType>
-			<preferability>MealSimple</preferability>
-			<ingestEffect>EatVegetarian</ingestEffect>
-			<ingestSound>Meal_Eat</ingestSound>
-		</ingestible>
-		<comps>
-			<li Class="CompProperties_Rottable">
-				<daysToRotStart>4</daysToRotStart>
-				<rotDestroys>true</rotDestroys>
-			</li>
-		</comps>
-	</ThingDef>
-	
 
 	<ThingDef ParentName="SK_MealBase">
 		<defName>FriedVegetables</defName>
-		<label>Fried Assorts</label>
+		<label>Panfried Vegetables</label>
 		<description>A simple fried assortment of vegetables. Not too nutritious or tasty.</description>
 		<graphicData>
 			<texPath>Things/Item/Meal/FriedVegetables</texPath>

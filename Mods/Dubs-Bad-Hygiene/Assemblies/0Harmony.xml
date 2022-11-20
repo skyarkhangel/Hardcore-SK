@@ -713,7 +713,7 @@
             
         </member>
         <member name="F:HarmonyLib.CodeInstruction.opcode">
-            <summary>The opcode</summary>
+             <summary>The opcode</summary>
             
         </member>
         <member name="F:HarmonyLib.CodeInstruction.operand">
@@ -721,11 +721,11 @@
             
         </member>
         <member name="F:HarmonyLib.CodeInstruction.labels">
-            <summary>All labels defined on this instruction</summary>
+             <summary>All labels defined on this instruction</summary>
             
         </member>
         <member name="F:HarmonyLib.CodeInstruction.blocks">
-            <summary>All exception block boundaries defined on this instruction</summary>
+             <summary>All exception block boundaries defined on this instruction</summary>
             
         </member>
         <member name="M:HarmonyLib.CodeInstruction.#ctor(System.Reflection.Emit.OpCode,System.Object)">
@@ -882,6 +882,7 @@
         </member>
         <member name="M:HarmonyLib.Harmony.PatchAll">
             <summary>Searches the current assembly for Harmony annotations and uses them to create patches</summary>
+            <remarks>This method can fail to use the correct assembly when being inlined. It calls StackTrace.GetFrame(1) which can point to the wrong method/assembly. If you are unsure or run into problems, use <code>PatchAll(Assembly.GetExecutingAssembly())</code> instead.</remarks>
             
         </member>
         <member name="M:HarmonyLib.Harmony.CreateProcessor(System.Reflection.MethodBase)">
@@ -965,6 +966,18 @@
         <member name="M:HarmonyLib.Harmony.GetAllPatchedMethods">
              <summary>Gets all patched original methods in the appdomain</summary>
              <returns>An enumeration of patched original methods/constructors</returns>
+            
+        </member>
+        <member name="M:HarmonyLib.Harmony.GetOriginalMethod(System.Reflection.MethodInfo)">
+             <summary>Gets the original method from a given replacement method</summary>
+             <param name="replacement">A replacement method, for example from a stacktrace</param>
+             <returns>The original method/constructor or <c>null</c> if not found</returns>
+            
+        </member>
+        <member name="M:HarmonyLib.Harmony.GetMethodFromStackframe(System.Diagnostics.StackFrame)">
+             <summary>Tries to get the method from a stackframe including dynamic replacement methods</summary>
+             <param name="frame">The <see cref="T:System.Diagnostics.StackFrame"/></param>
+             <returns>For normal frames, <c>frame.GetMethod()</c> is returned. For frames containing patched methods, the replacement method is returned or <c>null</c> if no method can be found</returns>
             
         </member>
         <member name="M:HarmonyLib.Harmony.VersionInfo(System.Version@)">
@@ -1695,6 +1708,10 @@
              <summary>Shortcut for <see cref="T:System.Reflection.BindingFlags"/> to simplify the use of reflections and make it work for any access level but only within the current type</summary>
             
         </member>
+        <member name="M:HarmonyLib.AccessTools.AllAssemblies">
+            <summary>Enumerates all assemblies in the current app domain, excluding visual studio assemblies</summary>
+            <returns>An enumeration of <see cref="T:System.Reflection.Assembly"/></returns>
+        </member>
         <member name="M:HarmonyLib.AccessTools.TypeByName(System.String)">
              <summary>Gets a type by name. Prefers a full name with namespace but falls back to the first type matching the name otherwise</summary>
              <param name="name">The name</param>
@@ -1711,6 +1728,10 @@
              filtered for non-null values).
              </remarks>
             
+        </member>
+        <member name="M:HarmonyLib.AccessTools.AllTypes">
+            <summary>Enumerates all successfully loaded types in the current app domain, excluding visual studio assemblies</summary>
+            <returns>An enumeration of all <see cref="T:System.Type"/> in all assemblies, excluding visual studio assemblies</returns>
         </member>
         <member name="M:HarmonyLib.AccessTools.FindIncludingBaseTypes``1(System.Type,System.Func{System.Type,``0})">
              <summary>Applies a function going up the type hierarchy and stops at the first non-<c>null</c> result</summary>
@@ -1979,7 +2000,8 @@
              </typeparam>
              <typeparam name="F">
              The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
-             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> the field's type
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
              </typeparam>
              <param name="instance">The runtime instance to access the field (ignored and can be omitted for static fields)</param>
              <returns>A readable/assignable reference to the field</returns>
@@ -2002,17 +2024,17 @@
              are allowed for this delegate, and the instance passed to such a delegate is ignored, this hardly matters.
              </para>
              <para>
-             Similarly, <typeparamref name="F"/> is not required to be the field's field type, unless that type is a value type.
+             Similarly, <typeparamref name="F"/> is not required to be the field's field type, unless that type is a non-enum value type.
              It can be a parent class (including <c>object</c>) or implemented interface of the field's field type. It cannot be a derived class.
              This variance is not allowed for value types, since that would require boxing/unboxing, which is not allowed for ref values.
+             Special case for enum types: <typeparamref name="F"/> can also be the underlying integral type of the enum type.
              Specifically, for reference types, <typeparamref name="F"/> must be <see cref="M:System.Type.IsAssignableFrom(System.Type)">assignable from</see>
-             the field's field type; and for value types, <typeparamref name="F"/> must be exactly the field's field type.
+             the field's field type; for non-enum value types, <typeparamref name="F"/> must be exactly the field's field type; for enum types,
+             <typeparamref name="F"/> must be either the field's field type or the underyling integral type of that field type.
              </para>
              <para>
              This delegate supports static fields, even those defined in structs, for legacy reasons.
              For such static fields, <typeparamref name="T"/> is effectively ignored.
-             This is also the reason that this delegate lacks a generic class constraint (it was added to certain <c>FieldRefAccess</c> methods,
-             but such a constraint cannot be added to this delegate without breaking binary compatibility).
              Consider using <see cref="T:HarmonyLib.AccessTools.FieldRef`1"/> (and <c>StaticFieldRefAccess</c> methods that return it) instead for static fields.
              </para>
              </remarks>
@@ -2023,10 +2045,17 @@
              <typeparam name="T">The class that defines the instance field, or derived class of this type</typeparam>
              <typeparam name="F">
              The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
-             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> the field's type
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
              </typeparam>
              <param name="fieldName">The name of the field</param>
              <returns>A readable/assignable <see cref="T:HarmonyLib.AccessTools.FieldRef`2"/> delegate</returns>
+             <remarks>
+             <para>
+             For backwards compatibility, there is no class constraint on <typeparamref name="T"/>.
+             Instead, the non-value-type check is done at runtime within the method.
+             </para>
+             </remarks>
             
         </member>
         <member name="M:HarmonyLib.AccessTools.FieldRefAccess``2(``0,System.String)">
@@ -2034,7 +2063,8 @@
              <typeparam name="T">The class that defines the instance field, or derived class of this type</typeparam>
              <typeparam name="F">
              The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
-             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> the field's type
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
              </typeparam>
              <param name="instance">The instance</param>
              <param name="fieldName">The name of the field</param>
@@ -2045,6 +2075,10 @@
              If you need to access a field's value for potentially multiple instances, use <see cref="M:HarmonyLib.AccessTools.FieldRefAccess``2(System.String)"/> instead.
              <c>FieldRefAccess&lt;T, F&gt;(instance, fieldName)</c> is functionally equivalent to <c>FieldRefAccess&lt;T, F&gt;(fieldName)(instance)</c>.
              </para>
+             <para>
+             For backwards compatibility, there is no class constraint on <typeparamref name="T"/>.
+             Instead, the non-value-type check is done at runtime within the method.
+             </para>
              </remarks>
             
         </member>
@@ -2052,7 +2086,8 @@
              <summary>Creates a field reference delegate for an instance field of a class or static field (NOT an instance field of a struct)</summary>
              <typeparam name="F">
              The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
-             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> the field's type
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
              </typeparam>
              <param name="type">
              The type that defines the field, or derived class of this type; must not be a struct type unless the field is static
@@ -2082,7 +2117,8 @@
              </typeparam>
              <typeparam name="F">
              The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
-             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> the field's type
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
              </typeparam>
              <param name="fieldInfo">The field</param>
              <returns>A readable/assignable <see cref="T:HarmonyLib.AccessTools.FieldRef`2"/> delegate</returns>
@@ -2096,6 +2132,10 @@
              For such static fields, <typeparamref name="T"/> is effectively ignored.
              Consider using <see cref="M:HarmonyLib.AccessTools.StaticFieldRefAccess``2(System.Reflection.FieldInfo)"/> (and other overloads) instead for static fields.
              </para>
+             <para>
+             For backwards compatibility, there is no class constraint on <typeparamref name="T"/>.
+             Instead, the non-value-type check is done at runtime within the method.
+             </para>
              </remarks>
             
         </member>
@@ -2107,7 +2147,8 @@
              </typeparam>
              <typeparam name="F">
              The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
-             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> the field's type
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
              </typeparam>
              <param name="instance">The instance</param>
              <param name="fieldInfo">The field</param>
@@ -2118,6 +2159,10 @@
              If you need to access a field's value for potentially multiple instances, use <see cref="M:HarmonyLib.AccessTools.FieldRefAccess``2(System.Reflection.FieldInfo)"/> instead.
              <c>FieldRefAccess&lt;T, F&gt;(instance, fieldInfo)</c> is functionally equivalent to <c>FieldRefAccess&lt;T, F&gt;(fieldInfo)(instance)</c>.
              </para>
+             <para>
+             For backwards compatibility, there is no class constraint on <typeparamref name="T"/>.
+             Instead, the non-value-type check is done at runtime within the method.
+             </para>
              </remarks>
             
         </member>
@@ -2126,7 +2171,8 @@
              <typeparam name="T">The struct that defines the instance field</typeparam>
              <typeparam name="F">
              The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
-             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> the field's type
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
              </typeparam>
              <param name="instance">A reference to the runtime instance to access the field</param>
              <returns>A readable/assignable reference to the field</returns>
@@ -2137,7 +2183,8 @@
              <typeparam name="T">The struct that defines the instance field</typeparam>
              <typeparam name="F">
              The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
-             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> the field's type
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
              </typeparam>
              <param name="fieldName">The name of the field</param>
              <returns>A readable/assignable <see cref="T:HarmonyLib.AccessTools.StructFieldRef`2"/> delegate</returns>
@@ -2148,7 +2195,8 @@
              <typeparam name="T">The struct that defines the instance field</typeparam>
              <typeparam name="F">
              The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
-             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> the field's type
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
              </typeparam>
              <param name="instance">The instance</param>
              <param name="fieldName">The name of the field</param>
@@ -2167,7 +2215,8 @@
              <typeparam name="T">The struct that defines the instance field</typeparam>
              <typeparam name="F">
              The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
-             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> the field's type
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
              </typeparam>
              <param name="fieldInfo">The field</param>
              <returns>A readable/assignable <see cref="T:HarmonyLib.AccessTools.StructFieldRef`2"/> delegate</returns>
@@ -2184,7 +2233,8 @@
              <typeparam name="T">The struct that defines the instance field</typeparam>
              <typeparam name="F">
              The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
-             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> the field's type
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
              </typeparam>
              <param name="instance">The instance</param>
              <param name="fieldInfo">The field</param>
@@ -2202,7 +2252,8 @@
              <summary>A readable/assignable reference delegate to a static field</summary>
              <typeparam name="F">
              The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
-             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> the field's type
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
              </typeparam>
              <returns>A readable/assignable reference to the field</returns>
             
@@ -2212,7 +2263,8 @@
              <typeparam name="T">The type (can be class or struct) the field is defined in</typeparam>
              <typeparam name="F">
              The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
-             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> the field's type
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
              </typeparam>
              <param name="fieldName">The name of the field</param>
              <returns>A readable/assignable reference to the field</returns>
@@ -2222,7 +2274,8 @@
              <summary>Creates a static field reference</summary>
              <typeparam name="F">
              The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
-             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> the field's type
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
              </typeparam>
              <param name="type">The type (can be class or struct) the field is defined in</param>
              <param name="fieldName">The name of the field</param>
@@ -2234,7 +2287,8 @@
              <typeparam name="T">An arbitrary type (by convention, the type the field is defined in)</typeparam>
              <typeparam name="F">
              The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
-             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> the field's type
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
              </typeparam>
              <param name="fieldInfo">The field</param>
              <returns>A readable/assignable reference to the field</returns>
@@ -2248,7 +2302,8 @@
              <summary>Creates a static field reference delegate</summary>
              <typeparam name="F">
              The type of the field; or if the field's type is a reference type (a class or interface, NOT a struct or other value type),
-             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> the field's type
+             a type that <see cref="M:System.Type.IsAssignableFrom(System.Type)">is assignable from</see> that type; or if the field's type is an enum type,
+             either that type or the underlying integral type of that enum type
              </typeparam>
              <param name="fieldInfo">The field</param>
              <returns>A readable/assignable <see cref="T:HarmonyLib.AccessTools.FieldRef`1"/> delegate</returns>
@@ -2339,6 +2394,12 @@
              <returns>The new instance</returns>
             
         </member>
+        <member name="M:HarmonyLib.AccessTools.CreateInstance``1">
+             <summary>Creates an (possibly uninitialized) instance of a given type</summary>
+             <typeparam name="T">The class/type</typeparam>
+             <returns>The new instance</returns>
+            
+        </member>
         <member name="F:HarmonyLib.AccessTools.addHandlerCache">
             <summary>
             A cache for the <see cref="M:System.Collections.Generic.ICollection`1.Add(`0)"/> or similar Add methods for different types.
@@ -2346,7 +2407,7 @@
         </member>
         <member name="M:HarmonyLib.AccessTools.MakeDeepCopy``1(System.Object)">
              <summary>Makes a deep copy of any object</summary>
-             <typeparam name="T">The type of the instance that should be created</typeparam>
+             <typeparam name="T">The type of the instance that should be created; for legacy reasons, this must be a class or interface</typeparam>
              <param name="source">The original object</param>
              <returns>A copy of the original object but of type T</returns>
             

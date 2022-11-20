@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Patch>
 
-  <Operation Class="PatchOperationFindMod">
-    <mods>
-      <li>Androids</li>
-    </mods>
-    <match Class="PatchOperationRemove">
-      <xpath>Defs/ResearchProjectDef[
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Androids</li>
+		</mods>
+		<match Class="PatchOperationRemove">
+			<xpath>Defs/ResearchProjectDef[
       defName="AndroidRepairKit" or
       defName="ChJAndroidPortableChemfuelGenerator" or
       defName="ChJAndroidDroidBatteries" or
@@ -20,7 +20,23 @@
       defName="ChJAndroidUpgrade_Proficency" or
       defName="ChJAndroidUpgrade_Archotech"
       ]</xpath>
-    </match>
-  </Operation>
+		</match>
+	</Operation>
 
-</Patch>
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Skynet</li>
+		</mods>	
+		<match Class="PatchOperationSequence">
+			<success>Always</success>
+			<operations>
+				<li Class="PatchOperationTest">
+					<xpath>Defs/ResearchProjectDef[defName="AndroidRepairKit"]</xpath>
+				</li>
+				<li Class="PatchOperationRemove">
+					<xpath>Defs/ResearchProjectDef[defName="AndroidRepairKit"]</xpath>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+	</Patch>
