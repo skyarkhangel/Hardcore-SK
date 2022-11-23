@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Resources;
 using HarmonyLib;
 using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace AnimalsLogic
@@ -19,14 +21,43 @@ namespace AnimalsLogic
         [HarmonyPatch(typeof(Pawn), "ButcherProducts", new Type[] { typeof(Pawn), typeof(float) })]
         static class Pawn_ButcherProducts_Patch
         {
-            static void Postfix(ref IEnumerable<Thing> __result, ref Pawn __instance)
+            static void Postfix(ref IEnumerable<Thing> __result, ref Pawn __instance, float efficiency)
             {
-                if (!Settings.tastes_like_chicken || __result == null || !__result.Any())
+                if (__result == null)
                 {
                     return;
                 }
 
                 List<Thing> result = new List<Thing>(__result);
+
+                CompShearable shareable;
+                if (Settings.shear_corpses && (shareable = __instance.GetComp<CompShearable>()) != null && __instance.ageTracker.CurLifeStage.shearable)
+                {
+                    float fullness = shareable.Fullness;
+                    if (__instance.Faction == null || !__instance.Faction.IsPlayer)
+                        fullness = Rand.Value * 0.5f + 0.5f; // no one shears wild animals so they always have wool, but less than full (50 to 100%)
+
+                    if (fullness >= 0.2)
+                    {
+                        CompProperties_Shearable props = shareable.Props;
+                        int total_wool = GenMath.RoundRandom((float)props.woolAmount * fullness * efficiency);
+                        while (total_wool > 0)
+                        {
+                            int wool_stack = Mathf.Clamp(total_wool, 1, props.woolDef.stackLimit);
+                            total_wool -= wool_stack;
+                            Thing thing = ThingMaker.MakeThing(props.woolDef);
+                            thing.stackCount = wool_stack;
+                            result.Add(thing);
+                        }
+                        __result = result.AsEnumerable();
+                    }
+                }
+
+                if (!Settings.tastes_like_chicken)
+                {
+                    return;
+                }
+
                 Thing meat = result.Find(x => x.def.IsIngestible && x.def.ingestible.foodType == FoodTypeFlags.Meat);
 
                 if (meat == null)

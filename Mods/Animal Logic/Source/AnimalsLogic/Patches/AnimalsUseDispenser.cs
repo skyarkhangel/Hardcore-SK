@@ -14,7 +14,7 @@ namespace AnimalsLogic
         public static void Patch()
         {
             AnimalsLogic.harmony.Patch(
-                typeof(FoodUtility).GetMethod("BestFoodSourceOnMap"),
+                typeof(FoodUtility).GetMethod("BestFoodSourceOnMap_NewTemp"),
                 transpiler: new HarmonyMethod(typeof(AnimalsUseDispenser).GetMethod(nameof(BestFoodSourcePatch)))
                 );
 
