@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.0
+- Fixed NoOverwriteMode not reacting to correct button
+- Added support of NoOverwriteMode to pasting a plan
+- Updated dashed and round designations
+
 ## 1.3.0
 - Added quick selection of last loaded plans by right clicking 'load plan' designator
 - Added selection of opacity, texture and visibility for each plan type individually
