@@ -1,0 +1,591 @@
+<Defs>
+	<!-- Painting Easel (Production) -->
+	<ThingDef ParentName="BenchBase">
+		<defName>RBPEaselPainting</defName>
+		<label>easel</label>
+		<description>An upright easel, used to create paintings.</description>
+		<thingClass>Building_WorkTable</thingClass>
+		<graphicData>
+			<texPath>Things/Buildings/RBPEasel/RBEasel</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>CutoutComplex</shaderType>
+			<drawSize>(3.2,3.2)</drawSize>
+			<shadowData>
+				<volume>(1, 1, 0.5)</volume>
+				<offset>(0, 0, 0)</offset>
+			</shadowData>
+			<damageData>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+			</damageData>
+		</graphicData>
+		<rotatable>false</rotatable>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Woody</li>
+			<li>Stony</li>
+		</stuffCategories>
+		<costStuffCount>30</costStuffCount>
+		<altitudeLayer>Building</altitudeLayer>
+		<fillPercent>0.5</fillPercent>
+		<useHitPoints>True</useHitPoints>
+		<statBases>
+			<WorkToBuild>500</WorkToBuild>
+			<MaxHitPoints>100</MaxHitPoints>
+			<Flammability>1.0</Flammability>
+			<Cleanliness>-5</Cleanliness>
+		</statBases>
+		<size>(3,3)</size>
+		<designationCategory>Production</designationCategory>
+		<passability>PassThroughOnly</passability>
+		<pathCost>100</pathCost>
+		<hasInteractionCell>True</hasInteractionCell>
+		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
+		<surfaceType>Item</surfaceType>
+		<inspectorTabs>
+			<li>ITab_Bills</li>
+		</inspectorTabs>
+		<building>
+			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+		</building>
+		<comps>
+			<li Class="CompProperties_Styleable"/>
+			<li Class="CompProperties_AffectedByFacilities">
+				<linkableFacilities>
+					<li>RBPArtCabinet</li>
+				</linkableFacilities>
+			</li>
+		</comps>
+		<designationHotKey>Misc2</designationHotKey>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+			<li>PlaceWorker_PreventInteractionSpotOverlap</li>
+		</placeWorkers>
+		<uiIconScale>1.3</uiIconScale>
+						    <researchPrerequisites>
+      <li>RBPClassicalPainting</li>
+    </researchPrerequisites>
+	</ThingDef>
+	<!-- Paintings -->
+	<ThingDef ParentName="BuildingBase" Name="PaintingBase" Abstract="True">
+		<thingClass>Building_Art</thingClass>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<pathCost>50</pathCost>
+		<useHitPoints>true</useHitPoints>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<thingCategories>
+			<li>BuildingsArt</li>
+		</thingCategories>
+		<statBases>
+			<Flammability>1.0</Flammability>
+			<SellPriceFactor>1.05</SellPriceFactor>
+			<MeditationFocusStrength>0.0</MeditationFocusStrength>
+		</statBases>
+		<comps>
+			<li>
+				<compClass>CompQuality</compClass>
+			</li>
+			<li Class="CompProperties_Art">
+				<nameMaker>NamerArtSculpture</nameMaker>
+				<descriptionMaker>ArtDescription_Painting</descriptionMaker>
+				<canBeEnjoyedAsArt>true</canBeEnjoyedAsArt>
+			</li>
+			<li Class="CompProperties_MeditationFocus">
+				<statDef>MeditationFocusStrength</statDef>
+				<focusTypes>
+					<li>Artistic</li>
+				</focusTypes>
+				<offsets>
+					<li Class="FocusStrengthOffset_Quality">
+						<curve>
+							<points>
+								<li>(0,0.12)</li>
+								<!-- awful -->
+								<li>(1,0.16)</li>
+								<!-- poor -->
+								<li>(2,0.20)</li>
+								<!-- normal -->
+								<li>(3,0.22)</li>
+								<!-- good -->
+								<li>(4,0.24)</li>
+								<!-- excellent -->
+								<li>(5,0.26)</li>
+								<!-- masterwork -->
+								<li>(6,0.28)</li>
+								<!-- legendary -->
+							</points>
+						</curve>
+					</li>
+					<li Class="FocusStrengthOffset_BuildingDefsWithQuality">
+						<defs>
+							<li>SculptureSmall</li>
+							<li>SculptureLarge</li>
+							<li>SculptureGrand</li>
+						</defs>
+						<radius>5.5</radius>
+						<maxBuildings>10</maxBuildings>
+						<focusPerQuality>
+							<points>
+								<li>(0,0.0)</li>
+								<!-- awful -->
+								<li>(1,0.0)</li>
+								<!-- poor -->
+								<li>(2,0.01)</li>
+								<!-- normal -->
+								<li>(3,0.01)</li>
+								<!-- good -->
+								<li>(4,0.01)</li>
+								<!-- excellent -->
+								<li>(5,0.02)</li>
+								<!-- masterwork -->
+								<li>(6,0.02)</li>
+								<!-- legendary -->
+							</points>
+						</focusPerQuality>
+						<explanationKey>MeditationFocusPerSculpture</explanationKey>
+						<explanationKeyAbstract>MeditationFocusPerSculptureAbstract</explanationKeyAbstract>
+					</li>
+				</offsets>
+			</li>
+			<li Class="CompProperties_Styleable"/>
+		</comps>
+		<placeWorkers>
+			<li>PlaceWorker_MeditationOffsetBuildingsNear</li>
+		</placeWorkers>
+		<inspectorTabs>
+			<li>ITab_Art</li>
+		</inspectorTabs>
+		<tradeTags>
+			<li>Art</li>
+		</tradeTags>
+		<recipeMaker>
+			<workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+			<workSkill>Artistic</workSkill>
+			<unfinishedThingDef>RBPUnfinishedPainting</unfinishedThingDef>
+			<effectWorking>Paint</effectWorking>
+			<soundWorking>RBPPainting_Work</soundWorking>
+			<recipeUsers>
+				<li>RBPEaselPainting</li>
+			</recipeUsers>
+			      <defaultIngredientFilter>
+        <categories>
+          <li>Root</li>
+        </categories>
+        <disallowedThingDefs>
+          <li>Gold</li>
+          <li>Silver</li>
+          <li>Plasteel</li>
+          <li>Jade</li>
+          <li>Uranium</li>
+        </disallowedThingDefs>
+      </defaultIngredientFilter>
+		</recipeMaker>
+		<ideoBuildingNamerBase MayRequire="Ludeon.RimWorld.Ideology">NamerIdeoSculpture</ideoBuildingNamerBase>
+		<ritualFocus>
+			<spectateDistance>2</spectateDistance>
+			<allowedSpectateSides>Down</allowedSpectateSides>
+		</ritualFocus>
+						    <researchPrerequisites>
+      <li>RBPClassicalPainting</li>
+    </researchPrerequisites>
+	</ThingDef>
+	<ThingDef ParentName="PaintingBase">
+		<defName>RBPPaintingClassical</defName>
+		<label>classical painting</label>
+		<description>A classical painting placed upon an easel.</description>
+		<castEdgeShadows>true</castEdgeShadows>
+		<graphicData>
+			<graphicClass>Graphic_Random</graphicClass>
+			<shaderType>CutoutComplex</shaderType>
+			<texPath>Things/Buildings/RBPPaintings/Classical/Generic</texPath>
+			<drawSize>(2.12,2.12)</drawSize>
+		</graphicData>
+		<fillPercent>0.5</fillPercent>
+		<rotatable>true</rotatable>
+		<statBases>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>3</Mass>
+			<Beauty>70</Beauty>
+			<WorkToMake>18000</WorkToMake>
+			<StyleDominance MayRequire="Ludeon.RimWorld.Ideology">20</StyleDominance>
+		</statBases>
+		<costList>
+			<Cloth>10</Cloth>
+		</costList>
+				<stuffCategories>
+			<li>Metallic</li>
+			<li>Woody</li>
+			<li>Stony</li>
+		</stuffCategories>
+		<costStuffCount>10</costStuffCount>
+		<defaultPlacingRot>South</defaultPlacingRot>
+	</ThingDef>
+	<ThingDef ParentName="PaintingBase">
+		<defName>RBPPaintingModern</defName>
+		<label>modern painting</label>
+		<description>A modern painting placed upon an easel.</description>
+		<castEdgeShadows>true</castEdgeShadows>
+		<graphicData>
+			<graphicClass>Graphic_Random</graphicClass>
+			<shaderType>CutoutComplex</shaderType>
+			<texPath>Things/Buildings/RBPPaintings/Modern/Generic</texPath>
+			<drawSize>(2.12,2.12)</drawSize>
+		</graphicData>
+		<fillPercent>0.5</fillPercent>
+		<rotatable>true</rotatable>
+		<statBases>
+			<MaxHitPoints>50</MaxHitPoints>
+			<Mass>3</Mass>
+			<Beauty>80</Beauty>
+			<WorkToMake>18000</WorkToMake>
+			<StyleDominance MayRequire="Ludeon.RimWorld.Ideology">20</StyleDominance>
+		</statBases>
+		<costList>
+			<Cloth>10</Cloth>
+		</costList>
+				<stuffCategories>
+			<li>Metallic</li>
+			<li>Woody</li>
+			<li>Stony</li>
+		</stuffCategories>
+		<costStuffCount>10</costStuffCount>
+		<defaultPlacingRot>South</defaultPlacingRot>
+						    <researchPrerequisites>
+      <li>RBPModernPainting</li>
+    </researchPrerequisites>
+	</ThingDef>
+	<ThingDef ParentName="FurnitureBase">
+		<defName>RBPArtCabinet</defName>
+		<label>art cabinet</label>
+		<description>A large cabinet filled with art supplies. Increases work speed when placed near an easel. The more art cabinets, the faster the painter can access their tools.</description>
+		<uiIconPath>Things/Buildings/RBPArtCabinet/RBPArtCabinetIC</uiIconPath>
+		<graphicData>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<texPath>Things/Buildings/RBPArtCabinet/RBPArtCabinet</texPath>
+			<drawSize>(3.2,3.5)</drawSize>
+			<shaderType>CutoutComplex</shaderType>
+		</graphicData>
+		<designationCategory>Misc</designationCategory>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Woody</li>
+			<li>Stony</li>
+		</stuffCategories>
+		<costStuffCount>150</costStuffCount>
+		<altitudeLayer>Building</altitudeLayer>
+		<castEdgeShadows>true</castEdgeShadows>
+		<passability>Impassable</passability>
+		<saveCompressible>false</saveCompressible>
+		<size>(2,1)</size>
+		<rotatable>true</rotatable>
+		<statBases>
+			<MaxHitPoints>100</MaxHitPoints>
+			<WorkToBuild>2000</WorkToBuild>
+			<Mass>10</Mass>
+			<Beauty>1.5</Beauty>
+			<Flammability>100</Flammability>
+		</statBases>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<fillPercent>0.10</fillPercent>
+		<techLevel>Industrial</techLevel>
+		<clearBuildingArea>true</clearBuildingArea>
+		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<canOverlapZones>false</canOverlapZones>
+		<uiIconScale>1.5</uiIconScale>
+		<comps>
+			<li Class="CompProperties_Facility">
+				<statOffsets>
+					<WorkTableWorkSpeedFactor>0.10</WorkTableWorkSpeedFactor>
+				</statOffsets>
+				<maxSimultaneous>3</maxSimultaneous>
+			</li>
+		</comps>
+		<designationHotKey>Misc6</designationHotKey>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+		</placeWorkers>
+						    <researchPrerequisites>
+      <li>RBPClassicalPainting</li>
+    </researchPrerequisites>
+	</ThingDef>
+	<ThingDef ParentName="BuildingBase">
+		<defName>RBPPaintingProps</defName>
+		<label>painting props</label>
+		<description>Some assorted goods that would look right at home in an art studio. Rotate the object for different graphics.</description>
+		<graphicData>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<texPath>Things/Buildings/RBPPaintingProps/RBPPaintingProps</texPath>
+			<drawSize>(1.5,1.5)</drawSize>
+		</graphicData>
+		<designationCategory>Misc</designationCategory>
+		<designatorDropdown>RBPProps</designatorDropdown>
+		<costList>
+			<WoodLog>5</WoodLog>
+		</costList>
+		<altitudeLayer>BuildingOnTop</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<size>(1,1)</size>
+		<rotatable>true</rotatable>
+		<statBases>
+			<MaxHitPoints>10</MaxHitPoints>
+			<WorkToBuild>10</WorkToBuild>
+			<Mass>2</Mass>
+			<Beauty>0.5</Beauty>
+			<Flammability>50</Flammability>
+		</statBases>
+		<fillPercent>0.1</fillPercent>
+		<building>
+			<isEdifice>false</isEdifice>
+			<ai_neverTrashThis>true</ai_neverTrashThis>
+		</building>
+		<techLevel>Industrial</techLevel>
+		<clearBuildingArea>false</clearBuildingArea>
+		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<uiIconScale>1</uiIconScale>
+						    <researchPrerequisites>
+      <li>RBPClassicalPainting</li>
+    </researchPrerequisites>
+	</ThingDef>
+	<!-- Paint Spills -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>RBPPaintSpills</defName>
+		<label>paint spills</label>
+		<description>Some paint splashes caused by a clumsy artist. Rotate the object for different graphics.</description>
+		<graphicData>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<texPath>Things/Buildings/RBPPaintingProps/RBPPaintSpills</texPath>
+			<drawSize>(3.5,3.5)</drawSize>
+		</graphicData>
+		<designationCategory>Misc</designationCategory>
+		<designatorDropdown>RBPProps</designatorDropdown>
+		<costList>
+			<Dye>2</Dye>
+		</costList>
+		<altitudeLayer>Filth</altitudeLayer>
+		<passability>Standable</passability>
+		<size>(2,2)</size>
+		<rotatable>true</rotatable>
+		<statBases>
+			<MaxHitPoints>10</MaxHitPoints>
+			<WorkToBuild>10</WorkToBuild>
+			<Mass>2</Mass>
+			<Beauty>0</Beauty>
+			<Flammability>100</Flammability>
+		</statBases>
+		<fillPercent>0.1</fillPercent>
+		<building>
+			<isEdifice>false</isEdifice>
+			<ai_neverTrashThis>true</ai_neverTrashThis>
+		</building>
+		<techLevel>Industrial</techLevel>
+		<clearBuildingArea>false</clearBuildingArea>
+		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<uiIconScale>0.7</uiIconScale>
+				    <researchPrerequisites>
+      <li>RBPClassicalPainting</li>
+    </researchPrerequisites>
+	</ThingDef>
+	<!-- Paint Mat -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>RBPPaintMat</defName>
+		<label>paint mat</label>
+		<description>Textiles or papers placed on the floor to protect it from paint mess. Rotate the object for different graphics.</description>
+		<graphicData>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<texPath>Things/Buildings/RBPPaintingProps/RBPPaintMat</texPath>
+			<drawSize>(3.5,3.5)</drawSize>
+		</graphicData>
+		<designationCategory>Misc</designationCategory>
+		<designatorDropdown>RBPProps</designatorDropdown>
+		<costList>
+			<Cloth>5</Cloth>
+		</costList>
+		<altitudeLayer>Filth</altitudeLayer>
+		<passability>Standable</passability>
+		<size>(2,2)</size>
+		<rotatable>true</rotatable>
+		<statBases>
+			<MaxHitPoints>10</MaxHitPoints>
+			<WorkToBuild>10</WorkToBuild>
+			<Mass>2</Mass>
+			<Beauty>0.2</Beauty>
+			<Flammability>100</Flammability>
+		</statBases>
+		<fillPercent>0.1</fillPercent>
+		<building>
+			<isEdifice>false</isEdifice>
+			<ai_neverTrashThis>true</ai_neverTrashThis>
+		</building>
+		<techLevel>Industrial</techLevel>
+		<clearBuildingArea>false</clearBuildingArea>
+		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<uiIconScale>0.5</uiIconScale>
+				    <researchPrerequisites>
+      <li>RBPModernPainting</li>
+    </researchPrerequisites>
+	</ThingDef>
+	<!-- Paint Tins -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>RBPPaintTins</defName>
+		<label>paint tins</label>
+		<description>Tins of paint. Rotate the object for different graphics.</description>
+		<uiIconPath>Things/Buildings/RBPPaintingProps/RBPPaintTinsIC</uiIconPath>
+		<graphicData>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<texPath>Things/Buildings/RBPPaintingProps/RBPPaintTins</texPath>
+			<drawSize>(2,2)</drawSize>
+		</graphicData>
+		<designationCategory>Misc</designationCategory>
+		<designatorDropdown>RBPProps</designatorDropdown>
+		<costList>
+			<Steel>10</Steel>
+		</costList>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<size>(1,1)</size>
+		<rotatable>true</rotatable>
+		<statBases>
+			<MaxHitPoints>10</MaxHitPoints>
+			<WorkToBuild>10</WorkToBuild>
+			<Mass>2</Mass>
+			<Beauty>0.3</Beauty>
+			<Flammability>100</Flammability>
+		</statBases>
+		<fillPercent>0.1</fillPercent>
+		<building>
+			<isEdifice>false</isEdifice>
+			<ai_neverTrashThis>true</ai_neverTrashThis>
+		</building>
+		<techLevel>Industrial</techLevel>
+		<clearBuildingArea>false</clearBuildingArea>
+		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<uiIconScale>1.5</uiIconScale>
+				    <researchPrerequisites>
+      <li>RBPModernPainting</li>
+    </researchPrerequisites>
+	</ThingDef>
+	<!-- Canvases -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>RBPCanvases</defName>
+		<label>canvases</label>
+		<description>A stack of canvases. Maybe, one day, one of these canvases will be the home to a great artist's magnum opus. Or maybe- in fact more likely- home to quick, crude drawing of the male anatomy. Rotate the object for different graphics.</description>
+		<graphicData>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<texPath>Things/Buildings/RBPPaintingProps/RBPEasels</texPath>
+			<drawSize>(2,2)</drawSize>
+		</graphicData>
+		<designationCategory>Misc</designationCategory>
+		<designatorDropdown>RBPProps</designatorDropdown>
+		<costList>
+			<WoodLog>10</WoodLog>
+		</costList>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<size>(2,1)</size>
+		<rotatable>true</rotatable>
+		<statBases>
+			<MaxHitPoints>10</MaxHitPoints>
+			<WorkToBuild>10</WorkToBuild>
+			<Mass>2</Mass>
+			<Beauty>0.3</Beauty>
+			<Flammability>100</Flammability>
+		</statBases>
+		<fillPercent>0.1</fillPercent>
+		<building>
+			<isEdifice>false</isEdifice>
+			<ai_neverTrashThis>true</ai_neverTrashThis>
+		</building>
+		<techLevel>Industrial</techLevel>
+		<clearBuildingArea>false</clearBuildingArea>
+		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<uiIconScale>1</uiIconScale>
+		    <researchPrerequisites>
+      <li>RBPModernPainting</li>
+    </researchPrerequisites>
+	</ThingDef>
+		<!-- Gallery Barrier -->
+	<ThingDef ParentName="BuildingBase">
+		<defName>RBPGalleryBarrier</defName>
+		<label>gallery barrier</label>
+		<description>A fence comprised of bollards connected by a fancy rope.</description>
+		<uiIconPath>Things/Buildings/RBPGalleryBarrier/RBPGalleryBarrierIC</uiIconPath>
+		<graphicData>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<shaderType>CutoutComplex</shaderType>
+			<texPath>Things/Buildings/RBPGalleryBarrier/RBPGalleryBarrier</texPath>
+			<drawSize>(2.68,2.68)</drawSize>
+		</graphicData>
+		<designationCategory>Structure</designationCategory>
+		<costList>
+			<Cloth>3</Cloth>
+		</costList>
+		<costStuffCount>5</costStuffCount>
+			<stuffCategories>
+		<li>Metallic</li>
+		<li>Woody</li>
+		<li>Stony</li>
+	</stuffCategories>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>Impassable</passability>
+		<size>(3,1)</size>
+		<rotatable>true</rotatable>
+		<statBases>
+			<MaxHitPoints>50</MaxHitPoints>
+			<WorkToBuild>5</WorkToBuild>
+			<Mass>2</Mass>
+			<Beauty>0.4</Beauty>
+			<Flammability>100</Flammability>
+		</statBases>
+		<fillPercent>0.3</fillPercent>
+		<building>
+			<isEdifice>false</isEdifice>
+			<ai_neverTrashThis>true</ai_neverTrashThis>
+		</building>
+		<techLevel>Industrial</techLevel>
+		<clearBuildingArea>true</clearBuildingArea>
+		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<uiIconScale>1</uiIconScale>
+		    <researchPrerequisites>
+      <li>RBPModernPainting</li>
+    </researchPrerequisites>
+	</ThingDef>
+	<!-- Unfinished Painting -->
+	<ThingDef ParentName="UnfinishedBase">
+		<defName>RBPUnfinishedPainting</defName>
+		<label>unfinished painting</label>
+		<description>An unfinished painting. Art block strikes again.</description>
+		<graphicData>
+			<texPath>Things/Item/Unfinished/Painting</texPath>
+			<graphicClass>Graphic_Random</graphicClass>
+			<drawSize>(2.5,2.5)</drawSize>
+		</graphicData>
+		<stuffCategories Inherit="false"/>
+	</ThingDef>
+	<!-- Work Giver -->
+	<WorkGiverDef>
+		<defName>DoBillsPaint</defName>
+		<label>paint at an easel</label>
+		<giverClass>WorkGiver_DoBill</giverClass>
+		<workType>Art</workType>
+		<priorityInType>90</priorityInType>
+		<fixedBillGiverDefs>
+			<li>RBPEaselPainting</li>
+		</fixedBillGiverDefs>
+		<verb>paint</verb>
+		<gerund>painting at</gerund>
+		<requiredCapacities>
+			<li>Manipulation</li>
+		</requiredCapacities>
+		<prioritizeSustains>true</prioritizeSustains>
+	</WorkGiverDef>
+</Defs>
