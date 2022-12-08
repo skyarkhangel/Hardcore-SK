@@ -8,8 +8,9 @@
 		<description>A defensive smokescreen. When activated, it will release a cloud of smoke, obscuring incoming shots and preventing turrets from locking on.</description>
 		<thingClass>SK.SmokepopBelt_SK</thingClass>
 		<graphicData>
-			<texPath>Things/Pawn/Humanlike/Apparel/SmokepopBelt/SmokepopBelt</texPath>
+			<texPath>Things/Pawn/Humanlike/Apparel/SmokepopPack/SmokepopPack</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.75</drawSize>
 		</graphicData>
 		<techLevel>Industrial</techLevel>
 		<tickerType>Normal</tickerType>
@@ -34,7 +35,7 @@
 		<costStuffCount>30</costStuffCount>
 		<costList>
 			<Electronics>1</Electronics>
-			<Chemfuel>75</Chemfuel>
+			<Chemfuel>45</Chemfuel>
 		</costList>
 		<comps>
 			<li Class="CompProperties_Reloadable">
@@ -75,6 +76,52 @@
 		</recipeMaker>
 		<generateAllowChance>0.3</generateAllowChance>
 		<apparel>
+			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/SmokepopPack/SmokepopPack</wornGraphicPath>
+			<wornGraphicData>
+				<renderUtilityAsPack>true</renderUtilityAsPack>
+				<north>
+					<offset>(0,-0.15)</offset>
+				</north>
+				<east>
+					<offset>(-0.35,-0.05)</offset>
+					<thin>
+						<offset>(0.05,0)</offset>
+					</thin>
+					<hulk>
+						<offset>(-0.1,0)</offset>
+					</hulk>
+					<fat>
+						<offset>(-0.15,0)</offset>
+					</fat>
+				</east>
+				<west>
+					<offset>(0.35,-0.05)</offset>
+					<thin>
+						<offset>(-0.05,0)</offset>
+					</thin>
+					<hulk>
+						<offset>(0.1,0)</offset>
+					</hulk>
+					<fat>
+						<offset>(0.15,0)</offset>
+					</fat>
+				</west>
+				<male>
+					<scale>(0.75,0.75)</scale>
+				</male>
+				<female>
+					<scale>(0.75,0.75)</scale>
+				</female>
+				<thin>
+					<scale>(0.7,0.7)</scale>
+				</thin>
+				<hulk>
+					<scale>(0.9,0.9)</scale>
+				</hulk>
+				<fat>
+					<scale>(0.9,0.9)</scale>
+				</fat>
+			</wornGraphicData>
 			<countsAsClothingForNudity>false</countsAsClothingForNudity>
 			<careIfWornByCorpse>false</careIfWornByCorpse>
 			<careIfDamaged>false</careIfDamaged>
@@ -88,8 +135,6 @@
 			<tags>
 				<li>BeltDefensePop</li>
 			</tags>
-			<useDeflectMetalEffect>true</useDeflectMetalEffect>
-			<canBeDesiredForIdeo>false</canBeDesiredForIdeo>
 		</apparel>
 		<colorGenerator Class="ColorGenerator_Options">
 			<options>
@@ -112,10 +157,185 @@
 				</li>
 			</options>
 		</colorGenerator>
+		<allowedArchonexusCount>1</allowedArchonexusCount>
 		<thingCategories>
 			<li>SpecialApparelCat</li>
 			<li>ApparelUtility</li>
 		</thingCategories>
+		<tradeTags>
+			<li>Clothing</li>
+			<li>Armor</li>
+		</tradeTags>
+	</ThingDef>
+
+
+	<ThingDef ParentName="ApparelNoQualityShieldBase">
+		<defName>Apparel_FirefoampopPack</defName>
+		<label>firefoam pop pack</label>
+		<description>A utility pack made for firefighters. When triggered, a burst of fire-retardant foam is released, covering a wide circle around its wearer.</description>
+		<techLevel>Industrial</techLevel>
+		<comps>
+			<li Class="CompProperties_Reloadable">
+				<maxCharges>1</maxCharges>
+				<ammoDef>Chemfuel</ammoDef>
+				<ammoCountToRefill>30</ammoCountToRefill>
+				<baseReloadTicks>60</baseReloadTicks>
+				<soundReload>Standard_Reload</soundReload>
+				<hotKey>Misc4</hotKey>
+				<chargeNoun>firefoam pop</chargeNoun>
+				<displayGizmoWhileUndrafted>true</displayGizmoWhileUndrafted>
+			</li>
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>4.9</explosiveRadius>
+				<explosiveDamageType>Extinguish</explosiveDamageType>
+				<startWickHitPointsPercent>0</startWickHitPointsPercent>
+				<chanceNeverExplodeFromDamage>1</chanceNeverExplodeFromDamage>
+				<!-- Player or AI toggled. Otherwise it won't use a charge. -->
+				<postExplosionSpawnThingDef>Filth_FireFoam</postExplosionSpawnThingDef>
+				<postExplosionSpawnChance>1</postExplosionSpawnChance>
+				<postExplosionSpawnThingCount>3</postExplosionSpawnThingCount>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+				<explosionEffect>ExtinguisherExplosion</explosionEffect>
+				<explosionSound>Explosion_FirefoamPopPack</explosionSound>
+				<wickTicks>0</wickTicks>
+				<destroyThingOnExplosionSize>9999</destroyThingOnExplosionSize>
+				<!--hack to not destroy on explosion-->
+			</li>
+			<li Class="CompProperties_AIUSablePack">
+				<compClass>CompFirefoamPack</compClass>
+				<checkInterval>60</checkInterval>
+			</li>
+		</comps>
+		<verbs>
+			<li>
+				<verbClass>Verb_FirefoamPop</verbClass>
+				<label>pop firefoam</label>
+				<violent>false</violent>
+				<hasStandardCommand>true</hasStandardCommand>
+				<targetable>false</targetable>
+				<nonInterruptingSelfCast>true</nonInterruptingSelfCast>
+				<onlyManualCast>True</onlyManualCast>
+			</li>
+		</verbs>
+		<recipeMaker>
+			<unfinishedThingDef>UnfinishedPack</unfinishedThingDef>
+			<researchPrerequisite>Firefoam</researchPrerequisite>
+			<recipeUsers>
+				<li>TableMachining</li>
+			</recipeUsers>
+			<useIngredientsForColor>false</useIngredientsForColor>
+			<workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+			<workSkill>Crafting</workSkill>
+			<effectWorking>Smith</effectWorking>
+			<soundWorking>Recipe_Smith</soundWorking>
+			<skillRequirements>
+				<Crafting>3</Crafting>
+			</skillRequirements>
+			<displayPriority>320</displayPriority>
+		</recipeMaker>
+		<stuffCategories>
+			<li>StrongMetallic</li>
+		</stuffCategories>
+		<costStuffCount>30</costStuffCount>
+		<costList>
+			<ComponentIndustrial>1</ComponentIndustrial>
+			<Electronics>1</Electronics>
+			<Chemfuel>35</Chemfuel>
+		</costList>
+		<graphicData>
+			<texPath>Things/Pawn/Humanlike/Apparel/FirefoamPack/FirefoamPack</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<tickerType>Normal</tickerType>
+		<statBases>
+			<WorkToMake>2800</WorkToMake>
+			<Mass>3</Mass>
+			<Bulk>3</Bulk>
+			<WornBulk>1</WornBulk>
+			<EquipDelay>2</EquipDelay>			
+			<StuffEffectMultiplierInsulation_Cold>0.10</StuffEffectMultiplierInsulation_Cold>
+			<StuffEffectMultiplierInsulation_Heat>0.10</StuffEffectMultiplierInsulation_Heat>
+			<StuffEffectMultiplierArmor>0.6</StuffEffectMultiplierArmor>
+			<ArmorRating_Sharp>0</ArmorRating_Sharp>
+			<ArmorRating_Blunt>0</ArmorRating_Blunt>
+			<ArmorRating_Heat>0</ArmorRating_Heat>			
+			<Flammability>0.4</Flammability>
+			<SmokepopBeltRadius>4.9</SmokepopBeltRadius>
+		</statBases>
+		<thingCategories>
+			<li>ApparelUtility</li>
+		</thingCategories>
+		<generateAllowChance>0.15</generateAllowChance>
+		<apparel>
+			<wornGraphicPath>Things/Pawn/Humanlike/Apparel/FirefoamPack/FirefoamPack</wornGraphicPath>
+			<wornGraphicData>
+				<renderUtilityAsPack>true</renderUtilityAsPack>
+				<north>
+					<offset>(0,-0.15)</offset>
+				</north>
+				<south>
+					<offset>(0,0.1)</offset>
+					<scale>(1.3,1)</scale>
+					<!--frame covered by pawn body unless we stretch-->
+				</south>
+				<east>
+					<offset>(-0.35,-0.05)</offset>
+					<thin>
+						<offset>(0.05,0)</offset>
+					</thin>
+					<hulk>
+						<offset>(-0.1,0)</offset>
+					</hulk>
+					<fat>
+						<offset>(-0.15,0)</offset>
+					</fat>
+				</east>
+				<west>
+					<offset>(0.35,-0.05)</offset>
+					<thin>
+						<offset>(-0.05,0)</offset>
+					</thin>
+					<hulk>
+						<offset>(0.1,0)</offset>
+					</hulk>
+					<fat>
+						<offset>(0.15,0)</offset>
+					</fat>
+				</west>
+				<male>
+					<scale>(0.8,0.8)</scale>
+				</male>
+				<female>
+					<scale>(0.75,0.75)</scale>
+				</female>
+				<thin>
+					<scale>(0.7,0.7)</scale>
+				</thin>
+				<hulk>
+					<scale>(1.2,1.2)</scale>
+				</hulk>
+				<fat>
+					<scale>(1.1,1.1)</scale>
+				</fat>
+			</wornGraphicData>
+			<countsAsClothingForNudity>false</countsAsClothingForNudity>
+			<careIfWornByCorpse>false</careIfWornByCorpse>
+			<careIfDamaged>false</careIfDamaged>
+			<wearPerDay>0</wearPerDay>
+			<bodyPartGroups>
+				<li>Waist</li>
+			</bodyPartGroups>
+			<layers>
+				<li>Belt</li>
+			</layers>
+			<tags>
+				<li>BeltDefensePop</li>
+			</tags>
+		</apparel>
+		<allowedArchonexusCount>1</allowedArchonexusCount>
+		<tradeTags>
+			<li>Clothing</li>
+		</tradeTags>
 	</ThingDef>
 
 </Defs>

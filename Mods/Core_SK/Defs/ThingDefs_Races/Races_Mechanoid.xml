@@ -1,32 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
 	<!-- ============================ Mechanoids ========================== -->
-	<ThingDef Name="SK_MechanoidThingBase" Abstract="True">
-		<thingClass>Pawn</thingClass>
-		<category>Pawn</category>
-		<selectable>true</selectable>
-		<tickerType>Normal</tickerType>
-		<altitudeLayer>Pawn</altitudeLayer>
-		<useHitPoints>false</useHitPoints>
-		<hasTooltip>true</hasTooltip>
-		<soundImpactDefault>BulletImpact_Metal</soundImpactDefault>
-		<inspectorTabs>
-			<li>ITab_Pawn_Health</li>
-			<li>ITab_Pawn_Needs</li>
-			<li>ITab_Pawn_Character</li>
-			<li>ITab_Pawn_Training</li>
-			<li>ITab_Pawn_Social</li>
-			<li>ITab_Pawn_Guest</li>
-			<li>ITab_Pawn_Prisoner</li>
-			<li>ITab_Pawn_FormingCaravan</li>
-			<li>CombatExtended.ITab_Inventory</li>
-			<li>ITab_Pawn_Log</li>
-		</inspectorTabs>
-		<drawGUIOverlay>true</drawGUIOverlay>
+	<ThingDef ParentName="SK_BasePawn" Name="SK_MechanoidThingBase" Abstract="True">
 		<statBases>
 			<Mass>70</Mass>
 			<PsychicSensitivity>0.5</PsychicSensitivity>
-			<ToxicSensitivity>0</ToxicSensitivity>
+			<ToxicResistance>1</ToxicResistance>
 			<Flammability>0</Flammability>
 			<ComfyTemperatureMin>-80</ComfyTemperatureMin>
 			<ComfyTemperatureMax>450</ComfyTemperatureMax>
@@ -35,9 +14,16 @@
 			<ArmorRating_Heat>2.00</ArmorRating_Heat>
 			<GermResistance>1.0</GermResistance>
 			<GermContainment>1.0</GermContainment>
-			<NightVisionEfficiency>0.6</NightVisionEfficiency>
+			<NightVisionEfficiency>1</NightVisionEfficiency>
+			<BandwidthCost MayRequire="Ludeon.Rimworld.Biotech">1</BandwidthCost>
+			<ControlTakingTime MayRequire="Ludeon.Rimworld.Biotech">12</ControlTakingTime>
+			<ToxicEnvironmentResistance MayRequire="Ludeon.RimWorld.Biotech">1</ToxicEnvironmentResistance>
+			<MechEnergyLossPerHP MayRequire="Ludeon.Rimworld.Biotech">0.33</MechEnergyLossPerHP>
+			<WastepacksPerRecharge MayRequire="Ludeon.Rimworld.Biotech">5</WastepacksPerRecharge>
+			<WorkSpeedGlobal MayRequire="Ludeon.Rimworld.Biotech">0.5</WorkSpeedGlobal>
 		</statBases>
 		<receivesSignals>true</receivesSignals>
+		<tradeability>None</tradeability>
 		<race>
 			<fleshType>Mechanoid</fleshType>
 			<needsRest>false</needsRest>
@@ -48,30 +34,30 @@
 				<li>MechanoidStandard</li>
 			</hediffGiverSets>
 			<bloodDef>Filth_MachineBits</bloodDef>
+			<nameGenerator MayRequire="Ludeon.RimWorld.Biotech">NamerMech</nameGenerator>
+			<soundCallIntervalRange>1000~2000</soundCallIntervalRange>
+			<soundCallIntervalFriendlyFactor>2</soundCallIntervalFriendlyFactor>
+			<thinkTreeConstant MayRequire="Ludeon.RimWorld.Biotech">MechConstant</thinkTreeConstant>
 		</race>
 		<comps>
-			<li>
-				<compClass>CompAttachBase</compClass>
-			</li>
-			<li>
-				<compClass>CombatExtended.CompPawnGizmo</compClass>
-			</li>
-			<li>
-				<compClass>CombatExtended.CompInventory</compClass>
-			</li>			
 			<li Class="CompProperties_CanBeDormant" />
 			<li Class="CompProperties_WakeUpDormant">
 				<wakeUpOnDamage>true</wakeUpOnDamage>
-				<anyColonistCloseCheckRadius>30</anyColonistCloseCheckRadius>
+				<wakeUpCheckRadius>30</wakeUpCheckRadius>
 				<wakeUpSound>MechanoidsWakeUp</wakeUpSound>
 			</li>
+			<li MayRequire="Ludeon.Rimworld.Biotech" Class="CompProperties_OverseerSubject">
+				<needsOverseerEffect>MechUncontrolled</needsOverseerEffect>
+				<delayUntilFeralCheck>60000</delayUntilFeralCheck>
+				<feralMtbDays>10</feralMtbDays>
+				<feralCascadeRadialDistance>25</feralCascadeRadialDistance>
+			</li>
+			<li MayRequire="Ludeon.Rimworld.Biotech" Class="CompProperties_MechRepairable" />
 		</comps>
 	</ThingDef>
 
-	<!-- Centipede -->
-	<ThingDef ParentName="SK_MechanoidThingBase">
-		<defName>Mech_Centipede</defName>
-		<label>Centipede</label>
+	<!-- Centipede - abstract -->
+	<ThingDef Abstract="True" Name="MechCentipede" ParentName="SK_MechanoidThingBase">
 		<description>Heavy combat mechanoids that glide on dozens of tiny legs. Their thick carpace and firepower makes them very effective against bunched-up static defenders. They are somewhat vulnerable to mobile hit-and-run tactics.</description>
 		<statBases>
 			<Mass>380</Mass>
@@ -88,6 +74,8 @@
 			<MeleeParryChance>0.4</MeleeParryChance>
 			<MaxHitPoints>500</MaxHitPoints>
 			<PsychicSensitivity>0.75</PsychicSensitivity>
+			<BandwidthCost MayRequire="Ludeon.Rimworld.Biotech">4</BandwidthCost>
+			<MechEnergyLossPerHP  MayRequire="Ludeon.Rimworld.Biotech">0.2</MechEnergyLossPerHP>
 		</statBases>
 		<tools>
 			<li Class="CombatExtended.ToolCE">
@@ -117,14 +105,18 @@
 					<soundDeath>Pawn_Mech_Centipede_Death</soundDeath>
 					<soundCall>Pawn_Mech_Centipede_Call</soundCall>
 				</li>
+				<li MayRequire="Ludeon.RimWorld.Biotech">
+					<def>MechanoidFullyFormed</def>
+					<minAge>100</minAge>
+					<soundWounded>Pawn_Mech_Centipede_Wounded</soundWounded>
+					<soundDeath>Pawn_Mech_Centipede_Death</soundDeath>
+					<soundCall>Pawn_Mech_Centipede_Call</soundCall>
+				</li>
 			</lifeStageAges>
-			<soundCallIntervalRange>
-				<min>1000</min>
-				<max>2000</max>
-			</soundCallIntervalRange>
 			<soundMeleeHitPawn>Pawn_Melee_MechanoidBash_HitPawn</soundMeleeHitPawn>
 			<soundMeleeHitBuilding>Pawn_Melee_MechanoidBash_HitBuilding</soundMeleeHitBuilding>
 			<soundMeleeMiss>Pawn_Melee_MechanoidBash_Miss</soundMeleeMiss>
+			<mechWeightClass>Heavy</mechWeightClass>
 		</race>
 		<butcherProducts>
 			<TitaniumBar>8</TitaniumBar>
@@ -136,6 +128,24 @@
 				<bodyShape>QuadrupedLow</bodyShape>
 			</li>
 		</modExtensions>
+	</ThingDef>
+
+	<!-- Centipede - blaster -->
+	<ThingDef ParentName="MechCentipede">
+		<defName>Mech_CentipedeBlaster</defName>
+		<label>centipede blaster</label>
+	</ThingDef>
+
+	<!-- Centipede - minigun -->
+	<ThingDef ParentName="MechCentipede">
+		<defName>Mech_CentipedeGunner</defName>
+		<label>centipede gunner</label>
+	</ThingDef>
+
+	<!-- Centipede - burner -->
+	<ThingDef ParentName="MechCentipede">
+		<defName>Mech_CentipedeBurner</defName>
+		<label>centipede burner</label>
 	</ThingDef>
 
 	<!-- Scyther -->
@@ -157,6 +167,7 @@
 			<MeleeDodgeChance>0.08</MeleeDodgeChance>
 			<MeleeCritChance>0.18</MeleeCritChance>
 			<MeleeParryChance>0.09</MeleeParryChance>
+			<BandwidthCost MayRequire="Ludeon.Rimworld.Biotech">2</BandwidthCost>
 		</statBases>
 		<tools>
 			<li Class="CombatExtended.ToolCE">
@@ -167,8 +178,8 @@
 				<power>43</power>
 				<cooldownTime>1.65</cooldownTime>
 				<linkedBodyPartsGroup>LeftBlade</linkedBodyPartsGroup>
-				<armorPenetrationSharp>3.5</armorPenetrationSharp>
-				<armorPenetrationBlunt>5.4</armorPenetrationBlunt>
+				<armorPenetrationSharp>25.5</armorPenetrationSharp>
+				<armorPenetrationBlunt>45.4</armorPenetrationBlunt>
 				<alwaysTreatAsWeapon>true</alwaysTreatAsWeapon>
 			</li>
 			<li Class="CombatExtended.ToolCE">
@@ -189,10 +200,10 @@
 					<li>Cut</li>
 				</capacities>
 				<power>43</power>
-				<cooldownTime>2.07</cooldownTime>
+				<cooldownTime>1.65</cooldownTime>
 				<linkedBodyPartsGroup>RightBlade</linkedBodyPartsGroup>
-				<armorPenetrationSharp>3.5</armorPenetrationSharp>
-				<armorPenetrationBlunt>5.4</armorPenetrationBlunt>
+				<armorPenetrationSharp>25.5</armorPenetrationSharp>
+				<armorPenetrationBlunt>45.4</armorPenetrationBlunt>
 				<alwaysTreatAsWeapon>true</alwaysTreatAsWeapon>
 			</li>
 			<li Class="CombatExtended.ToolCE">
@@ -234,11 +245,14 @@
 					<soundDeath>Pawn_Mech_Scyther_Death</soundDeath>
 					<soundCall>Pawn_Mech_Scyther_Call</soundCall>
 				</li>
+				<li MayRequire="Ludeon.RimWorld.Biotech">
+					<def>MechanoidFullyFormed</def>
+					<minAge>100</minAge>
+					<soundWounded>Pawn_Mech_Scyther_Wounded</soundWounded>
+					<soundDeath>Pawn_Mech_Scyther_Death</soundDeath>
+					<soundCall>Pawn_Mech_Scyther_Call</soundCall>
+				</li>
 			</lifeStageAges>
-			<soundCallIntervalRange>
-				<min>1000</min>
-				<max>2000</max>
-			</soundCallIntervalRange>
 			<soundMeleeHitPawn>Pawn_Melee_MechanoidSlash_HitPawn</soundMeleeHitPawn>
 			<soundMeleeHitBuilding>Pawn_Melee_MechanoidSlash_HitBuilding</soundMeleeHitBuilding>
 			<soundMeleeMiss>Pawn_Melee_MechanoidSlash_Miss</soundMeleeMiss>
@@ -275,6 +289,7 @@
 			<MeleeCritChance>0.15</MeleeCritChance>
 			<MeleeParryChance>0.22</MeleeParryChance>
 			<NightVisionEfficiency>0.9</NightVisionEfficiency>
+			<BandwidthCost MayRequire="Ludeon.Rimworld.Biotech">2</BandwidthCost>
 		</statBases>
 		<tools>
 			<li Class="CombatExtended.ToolCE">
@@ -282,11 +297,11 @@
 				<capacities>
 					<li>Blunt</li>
 				</capacities>
-				<power>5</power>
-				<cooldownTime>1.11</cooldownTime>
+				<power>12</power>
+				<cooldownTime>1.21</cooldownTime>
 				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
-				<armorPenetrationSharp>0</armorPenetrationSharp>
-				<armorPenetrationBlunt>4.688</armorPenetrationBlunt>
+				<armorPenetrationSharp>11</armorPenetrationSharp>
+				<armorPenetrationBlunt>8.688</armorPenetrationBlunt>
 				<alwaysTreatAsWeapon>true</alwaysTreatAsWeapon>
 			</li>
 			<li Class="CombatExtended.ToolCE">
@@ -294,11 +309,11 @@
 				<capacities>
 					<li>Blunt</li>
 				</capacities>
-				<power>5</power>
-				<cooldownTime>1.11</cooldownTime>
+				<power>12</power>
+				<cooldownTime>1.21</cooldownTime>
 				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
-				<armorPenetrationSharp>0</armorPenetrationSharp>
-				<armorPenetrationBlunt>4.688</armorPenetrationBlunt>
+				<armorPenetrationSharp>11</armorPenetrationSharp>
+				<armorPenetrationBlunt>8.688</armorPenetrationBlunt>
 				<alwaysTreatAsWeapon>true</alwaysTreatAsWeapon>
 			</li>
 			<li Class="CombatExtended.ToolCE">
@@ -306,12 +321,12 @@
 				<capacities>
 					<li>Blunt</li>
 				</capacities>
-				<power>5</power>
+				<power>11</power>
 				<cooldownTime>1.85</cooldownTime>
 				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
 				<chanceFactor>0.2</chanceFactor>
 				<armorPenetrationSharp>0</armorPenetrationSharp>
-				<armorPenetrationBlunt>1.625</armorPenetrationBlunt>
+				<armorPenetrationBlunt>9.625</armorPenetrationBlunt>
 			</li>
 		</tools>
 		<race>
@@ -328,11 +343,14 @@
 					<soundDeath>Pawn_Mech_Scyther_Death</soundDeath>
 					<soundCall>Pawn_Mech_Scyther_Call</soundCall>
 				</li>
+				<li MayRequire="Ludeon.RimWorld.Biotech">
+					<def>MechanoidFullyFormed</def>
+					<minAge>100</minAge>
+					<soundWounded>Pawn_Mech_Scyther_Wounded</soundWounded>
+					<soundDeath>Pawn_Mech_Scyther_Death</soundDeath>
+					<soundCall>Pawn_Mech_Scyther_Call</soundCall>
+				</li>
 			</lifeStageAges>
-			<soundCallIntervalRange>
-				<min>1000</min>
-				<max>2000</max>
-			</soundCallIntervalRange>
 			<soundMeleeHitPawn>Pawn_Melee_MechanoidSlash_HitPawn</soundMeleeHitPawn>
 			<soundMeleeHitBuilding>Pawn_Melee_MechanoidSlash_HitBuilding</soundMeleeHitBuilding>
 			<soundMeleeMiss>Pawn_Melee_MechanoidSlash_Miss</soundMeleeMiss>
@@ -369,6 +387,7 @@
 			<MeleeCritChance>0.15</MeleeCritChance>
 			<MeleeParryChance>0.22</MeleeParryChance>
 			<NightVisionEfficiency>0.7</NightVisionEfficiency>
+			<BandwidthCost MayRequire="Ludeon.Rimworld.Biotech">2</BandwidthCost>
 		</statBases>
 		<tools>
 			<li Class="CombatExtended.ToolCE">
@@ -376,9 +395,9 @@
 				<capacities>
 					<li>Blunt</li>
 				</capacities>
-				<power>5</power>
-				<cooldownTime>1.11</cooldownTime>
-				<linkedBodyPartsGroup>LeftHand</linkedBodyPartsGroup>
+				<power>11</power>
+				<cooldownTime>1.71</cooldownTime>
+				<linkedBodyPartsGroup>FrontLeftLeg</linkedBodyPartsGroup>
 				<armorPenetrationSharp>0</armorPenetrationSharp>
 				<armorPenetrationBlunt>6</armorPenetrationBlunt>
 				<alwaysTreatAsWeapon>true</alwaysTreatAsWeapon>
@@ -388,9 +407,9 @@
 				<capacities>
 					<li>Blunt</li>
 				</capacities>
-				<power>5</power>
-				<cooldownTime>1.11</cooldownTime>
-				<linkedBodyPartsGroup>RightHand</linkedBodyPartsGroup>
+				<power>11</power>
+				<cooldownTime>1.71</cooldownTime>
+				<linkedBodyPartsGroup>FrontRightLeg</linkedBodyPartsGroup>
 				<armorPenetrationSharp>0</armorPenetrationSharp>
 				<armorPenetrationBlunt>6</armorPenetrationBlunt>
 				<alwaysTreatAsWeapon>true</alwaysTreatAsWeapon>
@@ -400,7 +419,7 @@
 				<capacities>
 					<li>Blunt</li>
 				</capacities>
-				<power>5</power>
+				<power>9</power>
 				<cooldownTime>1.85</cooldownTime>
 				<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
 				<chanceFactor>0.2</chanceFactor>
@@ -411,10 +430,10 @@
 		<race>
 			<intelligence>ToolUser</intelligence>
 			<thinkTreeMain>Mechanoid</thinkTreeMain>
-			<body>Scyther</body>
+			<body>Pikeman</body>
 			<baseBodySize>1.0</baseBodySize>
 			<baseHealthScale>2.8</baseHealthScale>
-			<lifeStageAges>
+			<lifeStageAges Inherit="False">
 				<li>
 					<def>MechanoidFullyFormed</def>
 					<minAge>0</minAge>
@@ -422,11 +441,14 @@
 					<soundDeath>Pawn_Mech_Pikeman_Death</soundDeath>
 					<soundCall>Pawn_Mech_Pikeman_Call</soundCall>
 				</li>
+				<li MayRequire="Ludeon.Rimworld.Biotech">
+					<def>MechanoidFullyFormed</def>
+					<minAge>100</minAge>
+					<soundWounded>Pawn_Mech_Pikeman_Wounded</soundWounded>
+					<soundDeath>Pawn_Mech_Pikeman_Death</soundDeath>
+					<soundCall>Pawn_Mech_Pikeman_Call</soundCall>
+				</li>
 			</lifeStageAges>
-			<soundCallIntervalRange>
-				<min>1000</min>
-				<max>2000</max>
-			</soundCallIntervalRange>
 			<soundMeleeHitPawn>Pawn_Melee_Punch_HitPawn</soundMeleeHitPawn>
 			<soundMeleeHitBuilding>Pawn_Melee_Punch_HitBuilding</soundMeleeHitBuilding>
 			<soundMeleeMiss>Pawn_Melee_Punch_Miss</soundMeleeMiss>
@@ -486,7 +508,6 @@
 					<soundCall>Pawn_Mech_Termite_Call</soundCall>
 				</li>
 			</lifeStageAges>
-			<soundCallIntervalRange>1000~2000</soundCallIntervalRange>
 			<soundMeleeHitPawn>Pawn_Melee_MechanoidBash_HitPawn</soundMeleeHitPawn>
 			<soundMeleeHitBuilding>Pawn_Melee_MechanoidBash_HitBuilding</soundMeleeHitBuilding>
 			<soundMeleeMiss>Pawn_Melee_MechanoidBash_Miss</soundMeleeMiss>
@@ -572,7 +593,6 @@
 					<soundCall>Pawn_Mech_Centipede_Call</soundCall>
 				</li>
 			</lifeStageAges>
-			<soundCallIntervalRange>1000~2000</soundCallIntervalRange>
 			<soundMeleeHitPawn>Pawn_Melee_MechanoidSlash_HitPawn</soundMeleeHitPawn>
 			<soundMeleeHitBuilding>Pawn_Melee_MechanoidSlash_HitBuilding</soundMeleeHitBuilding>
 			<soundMeleeMiss>Pawn_Melee_MechanoidSlash_Miss</soundMeleeMiss>

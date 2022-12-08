@@ -41,6 +41,7 @@
         <li>(6.5, 1.0)</li>
       </points>
     </postProcessCurve>
+	<showDevelopmentalStageFilter>Child, Adult</showDevelopmentalStageFilter>
   </StatDef>
 
   <StatDef>
@@ -98,6 +99,7 @@
     		<li>(999, 999)</li>
     	</points>
     </postProcessCurve>
+	<showDevelopmentalStageFilter>Child, Adult</showDevelopmentalStageFilter>
   </StatDef>
 
   <StatDef>
@@ -117,6 +119,7 @@
         <weight>0.5</weight>
       </li>
     </capacityFactors>
+	<showDevelopmentalStageFilter>Child, Adult</showDevelopmentalStageFilter>
   </StatDef>
 
   <StatDef>
@@ -130,6 +133,7 @@
     <minValue>0</minValue>
     <toStringStyle>FloatMaxTwo</toStringStyle>
     <formatString>{0} mm RHA</formatString>
+	<showDevelopmentalStageFilter>Child, Adult</showDevelopmentalStageFilter>
   </StatDef>
 
 <!--   <StatDef>
@@ -158,12 +162,13 @@
     <defaultBaseValue>0</defaultBaseValue>
     <minValue>0</minValue>
     <toStringStyle>FloatTwo</toStringStyle>
+	<showDevelopmentalStageFilter>Child, Adult</showDevelopmentalStageFilter>
   </StatDef>
 
   <StatDef>
     <defName>MeleeCritChance</defName>
     <label>melee critical chance</label>
-    <description>Base chance to critically hit a target in melee.\n\nThe final chance depends on the opponent's critical skill and equal opponents will always have a 10% chance to crit.</description>
+    <description>Base chance to land a critical hit with a melee attack. Critical hits force max damage from the damage variation. On a critical hit, sharp attacks get double penetration, while blunt attacks stun the target.\nThe final chance depends on the opponent's critical skill and equal opponents will always have a 10% chance to crit. The internal formula is:\n\nFinalCritChance = ClampBetweenZeroAndOne(0.1 + AttackerCritChance - DefenderCritChance)*100%</description>
     <category>PawnCombat</category>
     <displayPriorityInCategory>99</displayPriorityInCategory>
     <defaultBaseValue>1</defaultBaseValue>
@@ -203,6 +208,7 @@
         <li>(3.2, 0.8)</li>
       </points>
     </postProcessCurve>
+	<showDevelopmentalStageFilter>Child, Adult</showDevelopmentalStageFilter>
   </StatDef>
 
   <StatDef>
@@ -245,12 +251,13 @@
         <li>(3.2, 0.8)</li>
       </points>
     </postProcessCurve>
+	<showDevelopmentalStageFilter>Child, Adult</showDevelopmentalStageFilter>
   </StatDef>
 
   <StatDef>
     <defName>MeleeParryChance</defName>
     <label>melee parry chance</label>
-    <description>Base chance to parry a melee attack. When a parry is performed the equipped weapon or shield will take damage instead of the wielder. If the parrying pawn passes a critical chance check they will automatically riposte their attacker.\n\nThe final chance depends on the opponent's parry skill and equal opponents will always have a 20% chance to parry.</description>
+    <description>Base chance to parry a melee attack. When a parry is performed the equipped weapon or shield will take damage instead of the wielder. If the parrying pawn passes a critical chance check they will automatically riposte their attacker.\nThe final chance depends on the opponent's parry skill and equal opponents will always have a 20% chance to parry. The internal formula is:\n\nFinalParryChance = ClampBetweenZeroAndOne(0.2 + DefenderParryChance - AttackerParryChance * (1 + AttackerWeaponMeleeCounterParryBonus)*100%\n\nA pawn that is better skilled in parrying takes less damage from parrying while unarmed and is better at reducing damage taken by their weapon on parry.</description>
     <category>PawnCombat</category>
     <displayPriorityInCategory>99</displayPriorityInCategory>
     <defaultBaseValue>1</defaultBaseValue>
@@ -290,6 +297,7 @@
         <li>(3.2, 0.8)</li>
       </points>
     </postProcessCurve>
+	<showDevelopmentalStageFilter>Child, Adult</showDevelopmentalStageFilter>
   </StatDef>
   
   <StatDef>
@@ -307,7 +315,7 @@
       <li Class="SkillNeed_BaseBonus">
         <skill>Melee</skill>
         <baseValue>0.00</baseValue>
-        <bonusPerLevel>0.40</bonusPerLevel>
+        <bonusPerLevel>0.50</bonusPerLevel>
       </li>
     </skillNeedOffsets>
     <capacityFactors>
@@ -321,6 +329,7 @@
         <weight>1</weight>
       </li>
     </capacityFactors>
+	<showDevelopmentalStageFilter>Child, Adult</showDevelopmentalStageFilter>
   </StatDef>
 
   <!-- ================================== Body part armor =======================================-->
@@ -332,6 +341,15 @@
     <defaultBaseValue>0</defaultBaseValue>
     <minValue>0</minValue>
     <toStringStyle>FloatMaxTwo</toStringStyle>
+	<showDevelopmentalStageFilter>Child, Adult</showDevelopmentalStageFilter>
+  </StatDef>
+  
+  <!-- Only displays information -->
+  <StatDef ParentName="BodyPartDensity">
+    <defName>PartialArmorBody</defName>
+    <description>Special armor values for certain bodyparts</description>
+    <label>Natural armor</label>
+    <workerClass>CombatExtended.StatWorker_ArmorPartial</workerClass>
   </StatDef>
 
   <StatDef ParentName="BodyPartDensity">

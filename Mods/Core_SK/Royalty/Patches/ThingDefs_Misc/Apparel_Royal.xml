@@ -6,7 +6,7 @@
 			<li>HF</li>
 		</value>
 	</Operation>
-	
+
 	<!-- ========== Apparel_ShirtRuffle ========== -->
 
 	<Operation Class="PatchOperationSequence">
@@ -657,47 +657,101 @@
 
 	<!-- ========== Apparel_Cape ========== -->
 
-	<Operation Class="PatchOperationAdd">
-		<xpath>Defs/ThingDef[defName="Apparel_Cape"]/thingCategories</xpath>
-		<value>
-			<li>SetNoble</li>
-		</value>
-	</Operation>
-	<Operation Class="PatchOperationAdd">
-		<xpath>Defs/ThingDef[defName="Apparel_Cape"]/statBases</xpath>
-		<value>
-			<ArmorRating_Sharp>0</ArmorRating_Sharp>
-			<ArmorRating_Blunt>0</ArmorRating_Blunt>
-			<ArmorRating_Heat>0</ArmorRating_Heat>
-			<Bulk>6.5</Bulk>
-			<WornBulk>0</WornBulk>
-		</value>
-	</Operation>
-	<Operation Class="PatchOperationReplace">
-		<xpath>Defs/ThingDef[defName="Apparel_Cape"]/statBases/StuffEffectMultiplierArmor</xpath>
-		<value>
-			<StuffEffectMultiplierArmor>0.45</StuffEffectMultiplierArmor>
-		</value>
-	</Operation>
-	<Operation Class="PatchOperationAdd">
-		<xpath>Defs/ThingDef[defName="Apparel_Cape"]</xpath>
-		<value>
-			<techLevel>Medieval</techLevel>
-			<recipeMaker Inherit="false">
-				<workSpeedStat>TailoringSpeed</workSpeedStat>
-				<workSkill>Crafting</workSkill>
-				<effectWorking>Tailor</effectWorking>
-				<soundWorking>Recipe_Tailor</soundWorking>
-				<recipeUsers>
-					<li>HandTailoringBench</li>
-				</recipeUsers>
-				<skillRequirements>
-					<Crafting>8</Crafting>
-				</skillRequirements>
-				<unfinishedThingDef>UnfinishedArmor</unfinishedThingDef>
-				<researchPrerequisite>NobleApparel</researchPrerequisite>
-			</recipeMaker>
-		</value>
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+			<li Class="PatchOperationRemove">
+				<xpath>Defs/ThingDef[defName="Apparel_Cape"]</xpath>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>Defs</xpath>
+				<value>
+					<ThingDef ParentName="ApparelMedievalBase" MayRequireAnyOf="Ludeon.RimWorld.Royalty,Ludeon.RimWorld.Biotech">
+						<defName>Apparel_Cape</defName>
+						<label>cape</label>
+						<description>A long cape of elegant design. It hangs over one side of the torso.</description>
+						<possessionCount>1</possessionCount>
+						<graphicData>
+							<texPath>Things/Pawn/Humanlike/Apparel/Cape/Cape</texPath>
+							<graphicClass>Graphic_Single</graphicClass>
+							<drawSize>1.05</drawSize>
+						</graphicData>
+						<costStuffCount>80</costStuffCount>
+						<stuffCategories>
+							<li>Fabric</li>
+							<li>Leathery</li>
+						</stuffCategories>
+						<thingCategories>
+							<li>ApparelNoble</li>
+							<li>SetNoble</li>
+						</thingCategories>
+						<statBases>
+							<MaxHitPoints>120</MaxHitPoints>
+							<WorkToMake>16000</WorkToMake>
+							<Mass>2</Mass>
+							<Bulk>12</Bulk>
+							<WornBulk>6</WornBulk>
+							<EquipDelay>3</EquipDelay>			
+							<Insulation_Heat>3</Insulation_Heat>
+							<Insulation_Cold>8</Insulation_Cold>			
+							<StuffEffectMultiplierInsulation_Cold>0.50</StuffEffectMultiplierInsulation_Cold>
+							<StuffEffectMultiplierInsulation_Heat>0.50</StuffEffectMultiplierInsulation_Heat>
+							<StuffEffectMultiplierArmor>0.48</StuffEffectMultiplierArmor>
+							<ArmorRating_Sharp>0</ArmorRating_Sharp>
+							<ArmorRating_Blunt>0</ArmorRating_Blunt>
+							<ArmorRating_Heat>0</ArmorRating_Heat>      
+						</statBases>
+						<apparel>
+							<bodyPartGroups>
+								<li>Torso</li>
+								<li>Neck</li>
+								<li>Shoulders</li>
+								<li>Arms</li>
+								<li>Legs</li>
+							</bodyPartGroups>
+							<wornGraphicPath>Things/Pawn/Humanlike/Apparel/Cape/Cape</wornGraphicPath>
+							<shellRenderedBehindHead>true</shellRenderedBehindHead>
+							<canBeDesiredForIdeo>false</canBeDesiredForIdeo>
+							<canBeGeneratedToSatisfyWarmth>false</canBeGeneratedToSatisfyWarmth>
+							<canBeGeneratedToSatisfyToxicEnvironmentResistance>false</canBeGeneratedToSatisfyToxicEnvironmentResistance>
+							<layers>
+								<li>Shell</li>
+							</layers>
+							<tags>
+								<li>Cape</li>
+								<li>Royal</li>
+								<li>RoyalTier2</li>
+								<li>RoyalTier5</li>
+							</tags>
+						</apparel>
+						<equippedStatOffsets>
+							<CarryBulk>0</CarryBulk>
+							<MoveSpeed>-0.11</MoveSpeed>
+							<WorkSpeedGlobal>-0.06</WorkSpeedGlobal>
+							<AimingDelayFactor>-0.07</AimingDelayFactor>
+							<GermResistance>0.03</GermResistance>
+							<GermContainment>0.03</GermContainment>
+						</equippedStatOffsets>
+						<colorGenerator Class="ColorGenerator_StandardApparel" />
+						<recipeMaker Inherit="false">
+							<workSpeedStat>TailoringSpeed</workSpeedStat>
+							<workSkill>Crafting</workSkill>
+							<effectWorking>Tailor</effectWorking>
+							<soundWorking>Recipe_Tailor</soundWorking>
+							<recipeUsers>
+								<li>HandTailoringBench</li>
+							</recipeUsers>
+							<skillRequirements>
+								<Crafting>8</Crafting>
+							</skillRequirements>
+							<unfinishedThingDef>UnfinishedArmor</unfinishedThingDef>
+							<researchPrerequisite>NobleApparel</researchPrerequisite>
+							<displayPriority>235</displayPriority>
+						</recipeMaker>
+					</ThingDef>
+				</value>
+			</li>
+		</operations>
 	</Operation>
 
 	<!-- ========== Apparel_Beret ========== -->

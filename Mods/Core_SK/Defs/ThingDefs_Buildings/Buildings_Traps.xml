@@ -154,7 +154,7 @@
 		</statBases>
 		<costList>
 			<ComponentIndustrial>4</ComponentIndustrial>
-			<Wire>2</Wire>
+			<Wire>3</Wire>
 		</costList>
 		<building>
 			<trapDestroyOnSpring>true</trapDestroyOnSpring>
@@ -176,20 +176,29 @@
 		</graphicData>
 		<description>An artillery shell connected to a homemade trigger. When someone disturbs the trigger, the shell explodes. The improvised trigger has a random delay that might allow a nimble enemy to escape.</description>
 		<costList>
-			<FSX>3</FSX>
+			<FSX>6</FSX>
+			<ElectronicComponents>3</ElectronicComponents>
 			<ComponentIndustrial>2</ComponentIndustrial>
-			<Wire>2</Wire>
-			<Mechanism>1</Mechanism>
+			<Mechanism>2</Mechanism>
 		</costList>
 		<comps>
 			<li Class="CompProperties_Explosive">
 				<explosiveRadius>3.9</explosiveRadius>
+				<damageAmountBase>270</damageAmountBase>
 				<explosiveDamageType>Bomb</explosiveDamageType>
 				<startWickHitPointsPercent>0.2</startWickHitPointsPercent>
-				<wickTicks>
-					<min>15</min>
-					<max>30</max>
-				</wickTicks>
+				<wickTicks>15</wickTicks>
+				<startWickOnDamageTaken>
+					<li>Bullet</li>
+					<li>Arrow</li>
+					<li>ArrowHighVelocity</li>
+				</startWickOnDamageTaken>
+			</li>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Large>12</Fragment_Large>
+					<Fragment_Small>42</Fragment_Small>
+				</fragments>
 			</li>
 		</comps>
 		<specialDisplayRadius>3.9</specialDisplayRadius>
@@ -209,19 +218,22 @@
 		<description>Explosives mixed into an incendiary paste with a chemical trigger for dispersal. Its chemical trigger is simple and reliable.</description>
 		<costList>
 			<Napalm>10</Napalm>
-			<ComponentIndustrial>2</ComponentIndustrial>
-			<Wire>2</Wire>
+			<Powder>3</Powder>
+			<ElectronicComponents>3</ElectronicComponents>
 			<Mechanism>1</Mechanism>
 		</costList>
 		<comps>
 			<li Class="CompProperties_Explosive">
-				<explosiveRadius>3.9</explosiveRadius>
-				<explosiveDamageType>Flame</explosiveDamageType>
-				<startWickHitPointsPercent>0.2</startWickHitPointsPercent>
-				<wickTicks>
-					<min>15</min>
-					<max>15</max>
-				</wickTicks>
+				<explosiveDamageType>PrometheumFlame</explosiveDamageType>
+				<explosiveRadius>5</explosiveRadius>
+				<preExplosionSpawnThingDef>FilthPrometheum</preExplosionSpawnThingDef>
+				<preExplosionSpawnChance>0.75</preExplosionSpawnChance>
+				<wickTicks>15</wickTicks>
+				<startWickOnDamageTaken>
+					<li>Bullet</li>
+					<li>Arrow</li>
+					<li>ArrowHighVelocity</li>
+				</startWickOnDamageTaken>
 			</li>
 		</comps>
 		<specialDisplayRadius>3.9</specialDisplayRadius>
@@ -239,9 +251,9 @@
 			<texPath>Things/Building/Traps/IEDEMP</texPath>
 		</graphicData>
 		<costList>
-			<ElectronicComponents>2</ElectronicComponents>
-			<Wire>2</Wire>
-			<Mechanism>1</Mechanism>
+			<Powder>3</Powder>
+			<ElectronicComponents>3</ElectronicComponents>
+			<Mechanism>2</Mechanism>
 		</costList>
 		<designationHotKey>Misc9</designationHotKey>
 		<comps>
@@ -249,10 +261,12 @@
 				<explosiveRadius>10.9</explosiveRadius>
 				<explosiveDamageType>EMP</explosiveDamageType>
 				<startWickHitPointsPercent>0.2</startWickHitPointsPercent>
-				<wickTicks>
-					<min>15</min>
-					<max>15</max>
-				</wickTicks>
+				<wickTicks>15</wickTicks>
+				<startWickOnDamageTaken>
+					<li>Bullet</li>
+					<li>Arrow</li>
+					<li>ArrowHighVelocity</li>
+				</startWickOnDamageTaken>
 			</li>
 		</comps>
 		<specialDisplayRadius>10.9</specialDisplayRadius>
@@ -260,6 +274,37 @@
 			<li>IED_C1</li>
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>9</constructionSkillPrerequisite>
+	</ThingDef>
+
+	<ThingDef ParentName="TrapIEDBase">
+		<defName>TrapIED_Smoke</defName>
+		<label>IED Smoke trap</label>
+		<description>A pair of smoke shells connected to a trigger which detonates on touch or bullet impact. Since it is hidden in the surrounding terrain, it cannot be placed adjacent to other traps. Animals can sense these when calm.</description>
+		<graphicData>
+			<texPath>Things/Building/Security/IEDSmoke</texPath>
+		</graphicData>
+		<uiOrder>43</uiOrder>
+		<costList>
+			<Powder>3</Powder>
+			<ElectronicComponents>3</ElectronicComponents>
+			<Mechanism>2</Mechanism>
+		</costList>
+		<designationHotKey>Misc10</designationHotKey>
+		<comps>
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>8.6</explosiveRadius>
+				<explosiveDamageType>Smoke</explosiveDamageType>
+				<startWickHitPointsPercent>0.2</startWickHitPointsPercent>
+				<postExplosionGasType>BlindSmoke</postExplosionGasType>
+				<wickTicks>15</wickTicks>
+				<startWickOnDamageTaken>
+					<li>Bullet</li>
+					<li>Arrow</li>
+					<li>ArrowHighVelocity</li>
+				</startWickOnDamageTaken>
+			</li>
+		</comps>
+		<specialDisplayRadius>8.6</specialDisplayRadius>
 	</ThingDef>
 
 	<ThingDef ParentName="SK_TrapIEDBase">
@@ -270,8 +315,8 @@
 			<texPath>Things/Building/Traps/IEDFireFoam</texPath>
 		</graphicData>
 		<costList>
-			<ElectronicComponents>1</ElectronicComponents>
-			<ComponentIndustrial>2</ComponentIndustrial>
+			<Powder>3</Powder>
+			<ElectronicComponents>3</ElectronicComponents>
 			<Mechanism>2</Mechanism>
 		</costList>
 		<designationHotKey>Misc10</designationHotKey>
@@ -284,11 +329,12 @@
 				<postExplosionSpawnChance>1</postExplosionSpawnChance>
 				<postExplosionSpawnThingCount>3</postExplosionSpawnThingCount>
 				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
-				<explosionEffect>ExtinguisherExplosion</explosionEffect>
-				<wickTicks>
-					<min>15</min>
-					<max>15</max>
-				</wickTicks>
+				<wickTicks>15</wickTicks>
+				<startWickOnDamageTaken>
+					<li>Bullet</li>
+					<li>Arrow</li>
+					<li>ArrowHighVelocity</li>
+				</startWickOnDamageTaken>
 			</li>
 		</comps>
 		<specialDisplayRadius>8.9</specialDisplayRadius>
@@ -306,9 +352,9 @@
 			<texPath>Things/Building/Traps/IEDAGW</texPath>
 		</graphicData>
 		<costList>
-			<FSX>5</FSX>
-			<Prometheum>5</Prometheum>
-			<ComponentSpacer>1</ComponentSpacer>
+			<FSX>6</FSX>
+			<Prometheum>6</Prometheum>
+			<ComponentSpacer>2</ComponentSpacer>
 			<Mechanism>2</Mechanism>
 		</costList>
 		<designationHotKey>Misc11</designationHotKey>
