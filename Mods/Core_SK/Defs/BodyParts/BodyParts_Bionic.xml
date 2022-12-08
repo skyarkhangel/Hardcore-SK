@@ -596,6 +596,7 @@
 		</graphicData>
 		<statBases>
 			<Mass>0.3</Mass>
+			<NightVisionEfficiency_Implant>0.3</NightVisionEfficiency_Implant>
 		</statBases>
 		<costList>
 			<Biomatter>20</Biomatter>
@@ -629,6 +630,13 @@
 			<partEfficiency>1.2</partEfficiency>
 			<betterThanNatural>true</betterThanNatural>
 		</addedPartProps>
+		<stages>
+			<li>
+				<statOffsets>
+					<NightVisionEfficiency_Implant>0.3</NightVisionEfficiency_Implant>
+				</statOffsets>
+			</li>
+		</stages>
 	</HediffDef>
 
 	<RecipeDef ParentName="SK_SurgeryFlesh">
@@ -1317,6 +1325,109 @@
 		</fixedIngredientFilter>
 		<skillRequirements>
 			<Medicine>6</Medicine>
+		</skillRequirements>
+		<researchPrerequisite>Prosthesis_install_D3</researchPrerequisite>
+	</RecipeDef>
+
+	<ThingDef ParentName="BodyPartBase_Bionic">
+		<defName>BionicNeck</defName>
+		<label>bionic neck</label>
+		<description>Allows the user to perform talks even better than with regular neck. Also allows you to rotate your head 180 degrees.</description>
+		<descriptionHyperlinks>
+			<RecipeDef>InstallBionicNeck</RecipeDef>
+		</descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Item/BodyPart/BionicNeck</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+		</graphicData>
+		<statBases>
+			<Mass>1.5</Mass>
+			<MaxHitPoints>80</MaxHitPoints>
+		</statBases>
+		<costList>
+			<ComponentAdvanced>4</ComponentAdvanced>
+			<Biomatter>30</Biomatter>
+			<SyntheticFibers>20</SyntheticFibers>
+			<ArtificialBone>1</ArtificialBone>
+			<Microchips>1</Microchips>
+		</costList>
+		<recipeMaker>
+			<productCount>1</productCount>
+			<skillRequirements>
+				<Crafting>15</Crafting>
+			</skillRequirements>
+		    <researchPrerequisite>Bionics</researchPrerequisite>
+		</recipeMaker>
+	</ThingDef>
+
+	<HediffDef ParentName="HediffBodyPartBase_Bionic">
+		<defName>BionicNeck</defName>
+		<label>bionic neck</label>
+		<description>An installed bionic neck. Increasing durability and talking efficiency.</description>
+		<labelNoun>a bionic neck</labelNoun>
+		<descriptionHyperlinks>
+			<ThingDef>BionicNeck</ThingDef>
+		</descriptionHyperlinks>
+		<hediffClass>Hediff_Implant</hediffClass>
+		<addedPartProps>
+			<partEfficiency>1.1</partEfficiency>
+		</addedPartProps>
+		<stages>
+			<li>
+				<capMods>
+					<li>
+						<capacity>Talking</capacity>
+						<offset>0.1</offset>
+					</li>
+				</capMods>
+			</li>	 
+		</stages>
+		<spawnThingOnRemoved>BionicNeck</spawnThingOnRemoved>
+	</HediffDef>
+
+	<RecipeDef ParentName="SK_SurgeryFlesh">
+		<defName>InstallBionicNeck</defName>
+		<label>Install Bionic Neck</label>
+		<description>Installs a Bionic Neck.</description>
+		<workerClass>Recipe_InstallArtificialBodyPart</workerClass>
+		<jobString>Installing Bionic Neck.</jobString>
+		<workAmount>3600</workAmount>
+		<descriptionHyperlinks>
+			<ThingDef>BionicNeck</ThingDef>
+		</descriptionHyperlinks>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Medicine</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>BionicNeck</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>Medicine</li>
+			</categories>
+			<thingDefs>
+				<li>BionicNeck</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<appliedOnFixedBodyParts>
+			<li>Neck</li>
+		</appliedOnFixedBodyParts>
+		<addsHediff>BionicNeck</addsHediff>
+		<skillRequirements>
+			<Medicine>12</Medicine>
 		</skillRequirements>
 		<researchPrerequisite>Prosthesis_install_D3</researchPrerequisite>
 	</RecipeDef>

@@ -54,7 +54,7 @@
 	<RecipeDef>
 		<defName>MakeFruitYogurt_Bulk</defName>
 		<label>cook bulk fruit yogurts</label>
-		<description>Cook yogurts from milk or soy milk and some fruits. Produces 10.</description>
+		<description>Cook yogurts from milk or soy milk and some fruits. Produces 10. Much of the ingredients are wasted in order to create the best eating experience.</description>
 		<jobString>Cookig yogurts.</jobString>
 		<workSpeedStat>CookSpeed</workSpeedStat>
 		<effectWorking>Cook</effectWorking>
@@ -69,7 +69,7 @@
 						<li>FruitFoodRaw</li>
 					</categories>
 				</filter>
-				<count>1.3</count>
+				<count>1.6</count>
 			</li>
 			<li>
 				<filter>
@@ -77,7 +77,7 @@
 						<li>CookingSupplies</li>
 					</categories>
 				</filter>
-				<count>2</count>
+				<count>2.5</count>
 			</li>
 		</ingredients>
 		<fixedIngredientFilter>
@@ -166,7 +166,9 @@
 		<workAmount>1200</workAmount>
 		<allowMixingIngredients>true</allowMixingIngredients>
 		<recipeUsers>
-			<li>TableCoffee</li>
+			<li>Campfire</li>
+			<li>FueledStove</li>
+			<li>ElectricStove</li>
 		</recipeUsers>
 		<ingredients>
 			<li>
@@ -200,6 +202,53 @@
 		</skillRequirements>
 		<workSkill>Cooking</workSkill>
 		<researchPrerequisite>Food_00</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef>
+		<defName>BrewTeaBulk</defName>
+		<label>brew bulk cups of tea</label>
+		<description>Prepare tea leaves and brew them into cups of tea. Produces 12.</description>
+		<jobString>Brewing cups of tea.</jobString>
+		<workSpeedStat>DrugCookingSpeed</workSpeedStat>
+		<effectWorking>Cook</effectWorking>
+		<soundWorking>Recipe_Brewing</soundWorking>
+		<workAmount>2400</workAmount>
+		<allowMixingIngredients>true</allowMixingIngredients>
+		<recipeUsers>
+			<li>TableCoffee</li>
+		</recipeUsers>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>RawTea</li>
+					</thingDefs>
+				</filter>
+				<count>60</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Sugar</li>
+					</thingDefs>
+				</filter>
+				<count>12</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>RawTea</li>
+				<li>Sugar</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Cuptea>12</Cuptea>
+		</products>
+		<skillRequirements>
+			<Cooking>8</Cooking>
+		</skillRequirements>
+		<workSkill>Cooking</workSkill>
+		<researchPrerequisite>Food_C3</researchPrerequisite>
 	</RecipeDef>
 
 
@@ -279,89 +328,129 @@
 		<workSkill>Cooking</workSkill>
 		<researchPrerequisite>Food_B2</researchPrerequisite>
 	</RecipeDef>
-	
-  <ThingDef ParentName="MakeableDrugBase">
-    <defName>PsychiteTea</defName>
-    <label>psychite tea</label>
-    <description>A fragrant tea infused with leaves of the psychoid plant. Drinking it induces a subtle psychite euphoria. This tea is easy to produce at cooking facilities, but can produce psychite addiction if consumed too often.\n\nMany tribes use psychoid tea, both as a daily energizer and as part of social and religious rituals.</description>
-    <descriptionHyperlinks>
-      <HediffDef>PsychiteTeaHigh</HediffDef>
-      <HediffDef>PsychiteTolerance</HediffDef>
-      <HediffDef>PsychiteAddiction</HediffDef>
-      <HediffDef>ChemicalDamageSevere</HediffDef>
-    </descriptionHyperlinks>
-    <graphicData>
-      <texPath>Things/Item/Drug/Tea</texPath>
-      <graphicClass>Graphic_StackCount</graphicClass>
-      <drawSize>0.88</drawSize>
-    </graphicData>
-    <rotatable>false</rotatable>
-    <statBases>
-      <WorkToMake>400</WorkToMake>
-      <MarketValue>10</MarketValue>
-      <Mass>0.05</Mass>
-      <DeteriorationRate>6</DeteriorationRate>
-    </statBases>
-    <techLevel>Neolithic</techLevel>
-    <ingestible>
-      <foodType>Fluid, Processed</foodType>
-      <joyKind>Chemical</joyKind>
-      <joy>0.40</joy>
-      <baseIngestTicks>210</baseIngestTicks>
-      <nurseable>true</nurseable>
-      <drugCategory>Social</drugCategory>
-      <ingestSound>Ingest_Drink</ingestSound>
-      <ingestHoldOffsetStanding>
-        <northDefault>
-          <offset>(0.18,0,0)</offset>
-        </northDefault>
-      </ingestHoldOffsetStanding>
-      <ingestHoldUsesTable>false</ingestHoldUsesTable>
-      <ingestCommandString>Drink {0}</ingestCommandString>
-      <ingestReportString>Drinking {0}.</ingestReportString>
-      <outcomeDoers>
-        <li Class="IngestionOutcomeDoer_GiveHediff">
-          <hediffDef>PsychiteTeaHigh</hediffDef>
-          <severity>0.75</severity>
-          <toleranceChemical>Psychite</toleranceChemical>
-        </li>
-        <li Class="IngestionOutcomeDoer_OffsetNeed">
-          <need>Rest</need>
-          <offset>0.1</offset>
-          <toleranceChemical>Psychite</toleranceChemical>
-        </li>
-        <li Class="IngestionOutcomeDoer_GiveHediff">
-          <hediffDef>PsychiteTolerance</hediffDef>
-          <severity>0.03</severity>
-          <divideByBodySize>true</divideByBodySize>
-        </li>
-      </outcomeDoers>
-    </ingestible>
-    <recipeMaker>
-	<researchPrerequisite>Food_00</researchPrerequisite>
-      <recipeUsers>
-        <li>TableCoffee</li>
-      </recipeUsers>
-      <workSpeedStat>DrugCookingSpeed</workSpeedStat>
-      <workSkill>Cooking</workSkill>
-      <skillRequirements>
-        <Cooking>2</Cooking>
-      </skillRequirements>
-      <requiredGiverWorkType>Cooking</requiredGiverWorkType>
-    </recipeMaker>
-    <costList>
-      <PsychoidLeaves>4</PsychoidLeaves>
-    </costList>
-    <comps>
-      <li Class="CompProperties_Drug">
-        <chemical>Psychite</chemical>
-        <addictiveness>0.02</addictiveness>
-        <minToleranceToAddict>0.10</minToleranceToAddict>
-        <existingAddictionSeverityOffset>0.15</existingAddictionSeverityOffset>
-        <needLevelOffset>0.9</needLevelOffset>
-        <listOrder>110</listOrder>
-      </li>
-    </comps>
-  </ThingDef>
+
+	<ThingDef ParentName="MakeableDrugBase">
+		<defName>PsychiteTea</defName>
+		<label>psychite tea</label>
+		<description>A fragrant tea infused with leaves of the psychoid plant. Drinking it induces a subtle psychite euphoria. This tea is easy to produce at cooking facilities, but can produce psychite addiction if consumed too often.\n\nMany tribes use psychoid tea, both as a daily energizer and as part of social and religious rituals.</description>
+		<descriptionHyperlinks>
+			<HediffDef>PsychiteTeaHigh</HediffDef>
+			<HediffDef>PsychiteTolerance</HediffDef>
+			<HediffDef>PsychiteAddiction</HediffDef>
+			<HediffDef>ChemicalDamageSevere</HediffDef>
+		</descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Item/Drug/Tea</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.88</drawSize>
+		</graphicData>
+		<rotatable>false</rotatable>
+		<statBases>
+			<WorkToMake>400</WorkToMake>
+			<MarketValue>10</MarketValue>
+			<Mass>0.05</Mass>
+			<DeteriorationRate>6</DeteriorationRate>
+		</statBases>
+		<techLevel>Neolithic</techLevel>
+		<ingestible>
+			<foodType>Fluid, Processed</foodType>
+			<joyKind>Chemical</joyKind>
+			<joy>0.40</joy>
+			<baseIngestTicks>210</baseIngestTicks>
+			<nurseable>true</nurseable>
+			<drugCategory>Social</drugCategory>
+			<ingestSound>Ingest_Drink</ingestSound>
+			<ingestHoldOffsetStanding>
+				<northDefault>
+					<offset>(0.18,0,0)</offset>
+				</northDefault>
+			</ingestHoldOffsetStanding>
+			<ingestHoldUsesTable>false</ingestHoldUsesTable>
+			<ingestCommandString>Drink {0}</ingestCommandString>
+			<ingestReportString>Drinking {0}.</ingestReportString>
+			<outcomeDoers>
+				<li Class="IngestionOutcomeDoer_GiveHediff">
+					<hediffDef>PsychiteTeaHigh</hediffDef>
+					<severity>0.75</severity>
+					<toleranceChemical>Psychite</toleranceChemical>
+				</li>
+				<li Class="IngestionOutcomeDoer_OffsetNeed">
+					<need>Rest</need>
+					<offset>0.1</offset>
+					<toleranceChemical>Psychite</toleranceChemical>
+				</li>
+				<li Class="IngestionOutcomeDoer_GiveHediff">
+					<hediffDef>PsychiteTolerance</hediffDef>
+					<severity>0.03</severity>
+					<divideByBodySize>true</divideByBodySize>
+				</li>
+			</outcomeDoers>
+		</ingestible>
+		<recipeMaker>
+			<researchPrerequisite>Food_00</researchPrerequisite>
+			<recipeUsers>
+				<li>Campfire</li>
+				<li>FueledStove</li>
+				<li>ElectricStove</li>
+			</recipeUsers>
+			<workSpeedStat>DrugCookingSpeed</workSpeedStat>
+			<workSkill>Cooking</workSkill>
+			<skillRequirements>
+				<Cooking>2</Cooking>
+			</skillRequirements>
+			<requiredGiverWorkType>Cooking</requiredGiverWorkType>
+		</recipeMaker>
+		<costList>
+			<PsychoidLeaves>4</PsychoidLeaves>
+		</costList>
+		<comps>
+			<li Class="CompProperties_Drug">
+				<chemical>Psychite</chemical>
+				<addictiveness>0.02</addictiveness>
+				<minToleranceToAddict>0.10</minToleranceToAddict>
+				<existingAddictionSeverityOffset>0.15</existingAddictionSeverityOffset>
+				<needLevelOffset>0.9</needLevelOffset>
+				<listOrder>110</listOrder>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<RecipeDef>
+		<defName>BrewPsychiteTeaBulk</defName>
+		<label>brew bulk cups of psychite tea</label>
+		<description>Prepare psychite tea leaves and brew them into cups of psychite tea. Produces 12.</description>
+		<jobString>Brewing cups of psychite tea.</jobString>
+		<workSpeedStat>DrugCookingSpeed</workSpeedStat>
+		<effectWorking>Cook</effectWorking>
+		<soundWorking>Recipe_Brewing</soundWorking>
+		<workAmount>2400</workAmount>
+		<allowMixingIngredients>true</allowMixingIngredients>
+		<recipeUsers>
+			<li>TableCoffee</li>
+		</recipeUsers>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>PsychoidLeaves</li>
+					</thingDefs>
+				</filter>
+				<count>48</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>PsychoidLeaves</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<PsychiteTea>12</PsychiteTea>
+		</products>
+		<skillRequirements>
+			<Cooking>8</Cooking>
+		</skillRequirements>
+		<workSkill>Cooking</workSkill>
+		<researchPrerequisite>Food_C3</researchPrerequisite>
+	</RecipeDef>
 
 </Defs>

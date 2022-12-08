@@ -50,9 +50,11 @@
 			<li Class="DubsBadHygiene.CompProperties_Pipe">
 				<mode>Sewage</mode>
 			</li>
-			<li Class="DubsBadHygiene.CompProperties_Thermostat">
+			<li Class="CompProperties_TempControl">
+				<compClass>DubsBadHygiene.CompThermostat</compClass>
 				<maxTargetTemperature>35</maxTargetTemperature>
 				<minTargetTemperature>5</minTargetTemperature>
+				<defaultTargetTemperature>21</defaultTargetTemperature>
 			</li>
 		</comps>
 		<researchPrerequisites>
@@ -109,6 +111,7 @@
 			<li Class="CompProperties_Flickable"/>
 			<li Class="SK.CompFueled_Properties">
 				<operatingTemp>500</operatingTemp>
+				<canAutoBurn>true</canAutoBurn>
 				<drawfirefuel>false</drawfirefuel>
 				<smokeDrawOffset>(0,-0.1,0.85)</smokeDrawOffset>
 				<smokesize>0.5</smokesize>
@@ -165,6 +168,7 @@
 		<pathCost>150</pathCost>
 		<size>(1,1)</size>
 		<costList>
+		    <Mechanism>5</Mechanism>
 			<ComponentIndustrial>5</ComponentIndustrial>
 		</costList>
 		<costStuffCount>150</costStuffCount>
@@ -202,6 +206,7 @@
 			<li Class="SK.CompFueled_Properties">
 				<operatingTemp>800</operatingTemp>
 				<drawfirefuel>false</drawfirefuel>
+				<canAutoBurn>true</canAutoBurn>
 				<smokeDrawOffset>(0,-0.1,0.85)</smokeDrawOffset>
 				<smokesize>0.5</smokesize>
 				<fuelCapacity>50</fuelCapacity>
@@ -337,6 +342,57 @@
 		</researchPrerequisites>
 	</ThingDef>
 
+	<ThingDef ParentName="BasedHygieneMom" DBHLite="true">
+		<defName>GeothermHeater</defName>
+		<label>Geothermal heater</label>
+		<description>Uses geothermal heat to heat hot water tanks and radiators. 3700 units of heating.</description>
+		<graphicData>
+			<texPath>DBH/Things/Building/Heating/geoheater</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(3,3)</drawSize>
+			<damageData>
+				<rect>(0.05,0.05,0.95,0.95)</rect>
+			</damageData>
+		</graphicData>
+		<blockWind>false</blockWind>
+		<castEdgeShadows>true</castEdgeShadows>
+		<pathCost>150</pathCost>
+		<size>(2,2)</size>
+		<costList>
+		    <Mechanism>5</Mechanism>
+			<ComponentIndustrial>5</ComponentIndustrial>
+		</costList>
+		<costStuffCount>200</costStuffCount>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Stony</li>
+			<li>Ceramic</li>
+			<li>Bricks</li>
+		</stuffCategories>
+		<rotatable>false</rotatable>
+		<statBases>
+			<MaxHitPoints>250</MaxHitPoints>
+			<WorkToBuild>4000</WorkToBuild>
+		</statBases>
+		<placeWorkers>
+			<li>PlaceWorker_OnSteamGeyser</li>
+		</placeWorkers>
+		<comps>
+			<li Class="DubsBadHygiene.CompProperties_Pipe">
+				<mode>Sewage</mode>
+			</li>
+			<li Class="DubsBadHygiene.CompProperties_CompBoiler">
+				<compClass>DubsBadHygiene.CompGeoBoiler</compClass>
+				<BaseCapacity>3700</BaseCapacity>
+				<ThermostatControl>false</ThermostatControl>
+			</li>
+			<li Class="CompProperties_Breakdownable"/>
+		</comps>
+		<researchPrerequisites>
+			<li MayRequire="dbhlitemode">AirConditioning</li>
+		</researchPrerequisites>
+	</ThingDef>
+
 	<ThingDef ParentName="BasedHeating" DBHLite="true">
 		<defName>HotWaterTank</defName>
 		<label>hot water tank</label>
@@ -380,7 +436,8 @@
 				<commandLabelKey>CommandDesignateOpenCloseValveLabel</commandLabelKey>
 				<commandDescKey>CommandDesignateOpenCloseValveDesc</commandDescKey>
 			</li>
-			<li Class="DubsBadHygiene.CompProperties_HeatStore">
+			<li Class="DubCore.CompProperties_HeatStore">
+				<compClass>DubsBadHygiene.CompHeatStore</compClass>
 				<StoreCapacity>100</StoreCapacity>
 				<RiseRate>0.0024</RiseRate>
 				<FallRate>0.00001</FallRate>
@@ -394,7 +451,7 @@
 
 
 	<ThingDef Name="BaseRadiator" ParentName="BasedHeating" Abstract="True">
-		<thingClass>DubsBadHygiene.Building_Radiator</thingClass>
+		<!--<thingClass>DubsBadHygiene.Building_Radiator</thingClass>-->
 		<graphicData>
 			<texPath>DBH/Things/Building/Heating/radiator</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
@@ -403,7 +460,7 @@
 				<rect>(0.05,0.05,0.95,0.95)</rect>
 			</damageData>
 		</graphicData>
-		<description>Heats rooms using hot water. Requires 100 heating units.</description>
+		<description>Heats rooms using hot water from boilers. Requires 100 heating units.</description>
 		<passability>Standable</passability>
 		<blockWind>false</blockWind>
 		<castEdgeShadows>false</castEdgeShadows>
@@ -424,6 +481,12 @@
 				<commandTexture>DBH/Things/Building/Valve</commandTexture>
 				<commandLabelKey>CommandDesignateOpenCloseValveLabel</commandLabelKey>
 				<commandDescKey>CommandDesignateOpenCloseValveDesc</commandDescKey>
+			</li>
+			<li Class="CompProperties_TempControl">
+				<compClass>DubsBadHygiene.DBHCompTempControl</compClass>
+				<maxTargetTemperature>35</maxTargetTemperature>
+				<minTargetTemperature>5</minTargetTemperature>
+				<defaultTargetTemperature>21</defaultTargetTemperature>
 			</li>
 		</comps>
 		<researchPrerequisites>
@@ -496,8 +559,9 @@
 			<li>Temperature_control_C3</li>
 		</researchPrerequisites>		
 	</ThingDef>
-	
-		<ThingDef ParentName="BaseRadiator">
+
+
+	<ThingDef ParentName="BaseRadiator">
 		<thingClass>DubsBadHygiene.Building_TowelRail</thingClass>
 		<defName>RadiatorTowelRail</defName>
 		<label>Towel Rail</label>
@@ -536,9 +600,8 @@
 		</researchPrerequisites>		
 	</ThingDef>
 
+
 	<!--COOLING-->
-
-
 
 	<ThingDef ParentName="BasedHeating" Name="BasedCeilingFan" Abstract="True">
 		<description>Cools a room by circulating air. Includes a built-in lamp.</description>
@@ -579,7 +642,7 @@
 			<li Class="CompProperties_Flickable"/>
 		</comps>
 		<researchPrerequisites>
-			<li MayRequire="dbhlitemode">AirConditioning</li>
+			<li MayRequire="dbhlitemode">Electricity</li>
 		</researchPrerequisites>
 		<placeWorkers>
 			<li>PlaceWorker_CoolerSimple</li>
@@ -607,7 +670,7 @@
 			<ComponentIndustrial>10</ComponentIndustrial>
 			<ElectronicComponents>1</ElectronicComponents>
 			<Mechanism>2</Mechanism>
-		</costList>		
+		</costList>			
 	</ThingDef>
 
 	<ThingDef ParentName="BasedCeilingFan" DBHLite="true">
@@ -629,7 +692,7 @@
 			<ComponentIndustrial>5</ComponentIndustrial>
 			<ElectronicComponents>1</ElectronicComponents>
 			<Mechanism>1</Mechanism>
-		</costList>		
+		</costList>			
 	</ThingDef>
 
 	<ThingDef ParentName="BasedCeilingFan" DBHLite="true">
@@ -651,7 +714,7 @@
 			<ComponentIndustrial>10</ComponentIndustrial>
 			<ElectronicComponents>1</ElectronicComponents>
 			<Mechanism>2</Mechanism>
-		</costList>	
+		</costList>			
 	</ThingDef>
 
 	<ThingDef ParentName="BasedCeilingFan" DBHLite="true">
@@ -674,7 +737,7 @@
 			<ComponentIndustrial>5</ComponentIndustrial>
 			<ElectronicComponents>1</ElectronicComponents>
 			<Mechanism>1</Mechanism>
-		</costList>		
+		</costList>			
 	</ThingDef>
 
 
@@ -799,7 +862,8 @@
 				<CoolingRate>250</CoolingRate>
 				<Capacity>100</Capacity>
 			</li>
-			<li Class="DubsBadHygiene.CompProperties_Thermostat">
+			<li Class="CompProperties_TempControl">
+				<compClass>DubsBadHygiene.CompThermostat</compClass>
 				<maxTargetTemperature>35</maxTargetTemperature>
 				<minTargetTemperature>5</minTargetTemperature>
 				<defaultTargetTemperature>21</defaultTargetTemperature>
@@ -853,7 +917,8 @@
 		<castEdgeShadows>true</castEdgeShadows>
 		<staticSunShadowHeight>1.0</staticSunShadowHeight>
 		<comps>
-			<li Class="DubsBadHygiene.CompProperties_Thermostat">
+			<li Class="CompProperties_TempControl">
+				<compClass>DubsBadHygiene.CompThermostat</compClass>
 				<maxTargetTemperature>2</maxTargetTemperature>
 				<minTargetTemperature>-22</minTargetTemperature>
 				<defaultTargetTemperature>-4</defaultTargetTemperature>
@@ -877,7 +942,7 @@
 		</placeWorkers>
 		<researchPrerequisites Inherit="False">
 			<li>Temperature_control_C3</li>
-		</researchPrerequisites>
+		</researchPrerequisites>		
 	</ThingDef>
 
 </Defs>
