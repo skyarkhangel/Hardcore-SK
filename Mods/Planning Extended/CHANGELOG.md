@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.5.0
+- Support of vertical doors
+- Maps are now automatically updated (old plans, vertical doors)
+- Added button to convert plans from MorePlanning mod
+
+## 1.4.1
+- Moved designators to its own category to avoid conflict with MorePlanning mod
+
+## 1.4.0
+- Fixed NoOverwriteMode not reacting to correct button
+- Added support of NoOverwriteMode when pasting a plan
+- Updated dashed and round designations
+
 ## 1.3.0
 - Added quick selection of last loaded plans by right clicking 'load plan' designator
 - Added selection of opacity, texture and visibility for each plan type individually
