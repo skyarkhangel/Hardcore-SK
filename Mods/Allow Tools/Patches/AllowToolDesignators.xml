@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<Operation Class="PatchOperationSequence">
+		<operations>
+			<!-- 
+			Inserts the Allow Tool designators into the Orders category after the stock Designator_Claim
+			(or whatever designator is found in the 13th position).
+			We could append them at the end, but people expect their Allow Tool buttons to be in a certain position.
+			Items must be specified in reverse order.
+			-->
+			<li Class="PatchOperationInsert">
+				<order>Append</order>
+				<xpath>/Defs/DesignationCategoryDef[defName="Orders"]/specialDesignatorClasses/li[13]</xpath>
+				<value>
+					<li>AllowTool.Designator_StripMine</li>
+					<li>AllowTool.Designator_HarvestFullyGrown</li>
+					<li>AllowTool.Designator_FinishOff</li>
+					<li>AllowTool.Designator_HaulUrgently</li>
+					<li>AllowTool.Designator_SelectSimilar</li>
+					<li>AllowTool.Designator_AllowAll</li>
+					<li>AllowTool.Designator_Forbid</li>
+					<li>AllowTool.Designator_Allow</li>
+				</value>
+			</li>
+			<!-- Remove stock forbid designator -->
+			<li Class="PatchOperationRemove">
+				<success>Always</success>
+				<xpath>/Defs/DesignationCategoryDef[defName="Orders"]/specialDesignatorClasses/li[text()="Designator_Forbid"]</xpath>
+			</li>
+			<!-- Remove stock unforbid designator -->
+			<li Class="PatchOperationRemove">
+				<success>Always</success>
+				<xpath>/Defs/DesignationCategoryDef[defName="Orders"]/specialDesignatorClasses/li[text()="Designator_Unforbid"]</xpath>
+			</li>
+		</operations>
+	</Operation>
+</Patch>

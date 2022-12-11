@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- ================================== Shooting =======================================-->
+
+  <StatDef>
+    <defName>AimingAccuracy</defName>
+    <label>aiming accuracy</label>
+    <description>How well a shooter can lead moving targets and estimate range in combination with the weapon's aiming efficiency.\n\nThe final modifier is calculated via this formula:\n(1.5 - aiming accuracy) / aiming efficiency\n\nLead error is calculated by multiplying this factor against total lead distance in cells. Range error is calculated by multiplying it against the total distance to the target divided by 4.\n\nAiming accuracy influences the the sway reduction during aimed shots. For example, at 75% aiming accuracy sway will be reduced to 25%.</description>
+    <category>PawnCombat</category>
+    <displayPriorityInCategory>50</displayPriorityInCategory>
+    <defaultBaseValue>1.0</defaultBaseValue>
+    <minValue>0.0</minValue>
+    <maxValue>6.5</maxValue>
+    <toStringStyle>PercentTwo</toStringStyle>
+    <showOnAnimals>false</showOnAnimals>
+    <skillNeedFactors>
+      <li Class="SkillNeed_BaseBonus">
+        <skill>Shooting</skill>
+        <baseValue>0.01</baseValue>
+        <bonusPerLevel>0.1</bonusPerLevel>
+      </li>
+    </skillNeedFactors>
+    <capacityOffsets>
+      <li>
+        <capacity>Consciousness</capacity>
+        <scale>1.2</scale>
+      </li>
+      <li>
+        <capacity>Sight</capacity>
+        <scale>1.2</scale>
+      </li>
+    </capacityOffsets>
+    <postProcessCurve>
+      <points>
+        <li>(0.0, 0.0)</li>
+        <li>(0.5, 0.19)</li>
+        <li>(1.0, 0.41)</li>
+        <li>(1.5, 0.66)</li>
+        <li>(2.0, 0.86)</li>
+        <li>(6.5, 1.0)</li>
+      </points>
+    </postProcessCurve>
+	<showDevelopmentalStageFilter>Child, Adult</showDevelopmentalStageFilter>
+  </StatDef>
+
+  <StatDef>
+    <defName>ReloadSpeed</defName>
+    <label>reload speed</label>
+    <description>The speed at which firearms are reloaded.</description>
+    <category>PawnCombat</category>
+    <displayPriorityInCategory>60</displayPriorityInCategory>
+    <defaultBaseValue>1</defaultBaseValue>
+    <minValue>0.001</minValue>
+    <toStringStyle>PercentZero</toStringStyle>
+    <neverDisabled>true</neverDisabled>
+    <showOnAnimals>false</showOnAnimals>
+    <showOnMechanoids>true</showOnMechanoids>
+    <skillNeedFactors>
+    	<li Class="SkillNeed_Direct">
+    		<skill>Shooting</skill>
+    		<valuesPerLevel>
+    			<li>0.75</li>
+    			<li>0.8</li>
+    			<li>0.85</li>
+    			<li>0.9</li>
+    			<li>0.95</li>
+    			<li>0.975</li>
+    			<li>1</li>
+    			<li>1.025</li>
+    			<li>1.05</li>
+    			<li>1.075</li>
+    			<li>1.1</li>
+    			<li>1.13333</li>
+    			<li>1.16667</li>
+    			<li>1.2</li>
+    			<li>1.23333</li>
+    			<li>1.26667</li>
+    			<li>1.3</li>
+    			<li>1.35</li>
+    			<li>1.4</li>
+    			<li>1.45</li>
+    			<li>1.5</li>
+    		</valuesPerLevel>
+    	</li>
+    </skillNeedFactors>
+    <capacityFactors>
+      <li>
+        <capacity>Manipulation</capacity>
+        <weight>1</weight>
+      </li>
+    </capacityFactors>
+    <postProcessCurve>
+    	<points>
+    		<li>(0, 0.25)</li>
+    		<li>(0.125, 0.3125)</li>
+    		<li>(0.25, 0.375)</li>
+    		<li>(0.5, 0.5)</li>
+    		<li>(999, 999)</li>
+    	</points>
+    </postProcessCurve>
+	<showDevelopmentalStageFilter>Child, Adult</showDevelopmentalStageFilter>
+  </StatDef>
+
+  <StatDef>
+    <defName>Suppressability</defName>
+    <label>suppressability</label>
+    <description>How susceptible this person is to suppression. Loss of consciousness and certain drugs can lower this value, making it harder to suppress this person.</description>
+    <category>PawnCombat</category>
+    <displayPriorityInCategory>60</displayPriorityInCategory>
+    <defaultBaseValue>1</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>PercentZero</toStringStyle>
+    <showOnAnimals>false</showOnAnimals>
+    <showOnMechanoids>false</showOnMechanoids>
+    <capacityFactors>
+      <li>
+        <capacity>Consciousness</capacity>
+        <weight>0.5</weight>
+      </li>
+    </capacityFactors>
+	<showDevelopmentalStageFilter>Child, Adult</showDevelopmentalStageFilter>
+  </StatDef>
+
+  <StatDef>
+    <defName>AverageSharpArmor</defName>
+    <label>armor coverage (sharp)</label>
+    <description>The average value of armor coverage across this person's body. Higher values will make them more confident against low-penetration projectiles.</description>
+    <workerClass>CombatExtended.StatWorker_ArmorCoverage</workerClass>
+    <category>PawnCombat</category>
+    <displayPriorityInCategory>55</displayPriorityInCategory>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>FloatMaxTwo</toStringStyle>
+    <formatString>{0} mm RHA</formatString>
+	<showDevelopmentalStageFilter>Child, Adult</showDevelopmentalStageFilter>
+  </StatDef>
+
+<!--   <StatDef>
+    <defName>AverageBluntArmor</defName>
+    <label>armor coverage (blunt)</label>
+    <description>The average value of armor coverage across this person's body. Higher values will make them more confident against low-penetration projectiles.</description>
+    <workerClass>CombatExtended.StatWorker_ArmorCoverageBlunt</workerClass>
+    <category>PawnCombat</category>
+    <displayPriorityInCategory>56</displayPriorityInCategory>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>FloatMaxTwo</toStringStyle>
+    <formatString>{0} MPa</formatString>
+  </StatDef> -->
+
+  <!-- ================================== Melee =======================================-->
+
+  <!-- Doesn't do anything, just for display -->
+  <StatDef Name="MeleeArmorPenetrationBase">
+    <defName>MeleeArmorPenetration</defName>
+    <workerClass>CombatExtended.StatWorker_MeleeArmorPenetration</workerClass>
+    <label>melee armor penetration</label>
+    <description>Armor penetration in melee. Determines how much damage is lost to enemy armor.</description>
+    <category>PawnCombat</category>
+    <displayPriorityInCategory>99</displayPriorityInCategory>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>FloatTwo</toStringStyle>
+	<showDevelopmentalStageFilter>Child, Adult</showDevelopmentalStageFilter>
+  </StatDef>
+
+  <StatDef>
+    <defName>MeleeCritChance</defName>
+    <label>melee critical chance</label>
+    <description>Base chance to land a critical hit with a melee attack. Critical hits force max damage from the damage variation. On a critical hit, sharp attacks get double penetration, while blunt attacks stun the target.\nThe final chance depends on the opponent's critical skill and equal opponents will always have a 10% chance to crit. The internal formula is:\n\nFinalCritChance = ClampBetweenZeroAndOne(0.1 + AttackerCritChance - DefenderCritChance)*100%</description>
+    <category>PawnCombat</category>
+    <displayPriorityInCategory>99</displayPriorityInCategory>
+    <defaultBaseValue>1</defaultBaseValue>
+    <showOnPawns>true</showOnPawns>
+    <minValue>0.0</minValue>
+    <maxValue>3.2</maxValue>
+    <toStringStyle>PercentZero</toStringStyle>
+    <skillNeedFactors>
+      <li Class="SkillNeed_BaseBonus">
+        <skill>Melee</skill>
+        <baseValue>0.08</baseValue>
+        <bonusPerLevel>0.01</bonusPerLevel>
+      </li>
+    </skillNeedFactors>
+    <capacityFactors>
+      <!-- <li>
+        <capacity>Consciousness</capacity>
+        <weight>1</weight>
+      </li> -->
+      <li>
+        <capacity>Sight</capacity>
+        <weight>0.7</weight>
+        <max>1</max>
+      </li>
+      <li>
+        <capacity>Manipulation</capacity>
+        <weight>1</weight>
+      </li>
+    </capacityFactors>
+    <postProcessCurve>
+      <points>
+        <li>(0.0, 0.0)</li>
+        <li>(0.3, 0.3)</li>
+        <li>(0.6, 0.45)</li>
+        <li>(1.2, 0.6)</li>
+        <li>(2.4, 0.75)</li>
+        <li>(3.2, 0.8)</li>
+      </points>
+    </postProcessCurve>
+	<showDevelopmentalStageFilter>Child, Adult</showDevelopmentalStageFilter>
+  </StatDef>
+
+  <StatDef>
+    <defName>MeleeDodgeChance</defName>
+    <label>melee dodge chance</label>
+    <description>Chance to dodge a melee attack that would've otherwise hit. Characters will not dodge while aiming or firing a ranged weapon.</description>
+    <category>PawnCombat</category>
+    <workerClass>CombatExtended.StatWorker_MoveSpeed</workerClass>
+    <displayPriorityInCategory>99</displayPriorityInCategory>
+    <defaultBaseValue>1</defaultBaseValue>
+    <minValue>0</minValue>
+    <maxValue>3.2</maxValue>
+    <toStringStyle>PercentZero</toStringStyle>
+    <neverDisabled>true</neverDisabled>
+    <skillNeedFactors>
+      <li Class="SkillNeed_BaseBonus">
+        <skill>Melee</skill>
+        <baseValue>0.05</baseValue>
+        <bonusPerLevel>0.0175</bonusPerLevel>
+      </li>
+    </skillNeedFactors>
+    <capacityFactors>
+      <li>
+        <capacity>Moving</capacity>
+        <weight>1</weight>
+      </li>
+      <li>
+        <capacity>Sight</capacity>
+        <weight>0.7</weight>
+        <max>1</max>
+      </li>
+    </capacityFactors>
+    <postProcessCurve>
+      <points>
+        <li>(0.0, 0.0)</li>
+        <li>(0.3, 0.3)</li>
+        <li>(0.6, 0.45)</li>
+        <li>(1.2, 0.6)</li>
+        <li>(2.4, 0.75)</li>
+        <li>(3.2, 0.8)</li>
+      </points>
+    </postProcessCurve>
+	<showDevelopmentalStageFilter>Child, Adult</showDevelopmentalStageFilter>
+  </StatDef>
+
+  <StatDef>
+    <defName>MeleeParryChance</defName>
+    <label>melee parry chance</label>
+    <description>Base chance to parry a melee attack. When a parry is performed the equipped weapon or shield will take damage instead of the wielder. If the parrying pawn passes a critical chance check they will automatically riposte their attacker.\nThe final chance depends on the opponent's parry skill and equal opponents will always have a 20% chance to parry. The internal formula is:\n\nFinalParryChance = ClampBetweenZeroAndOne(0.2 + DefenderParryChance - AttackerParryChance * (1 + AttackerWeaponMeleeCounterParryBonus)*100%\n\nA pawn that is better skilled in parrying takes less damage from parrying while unarmed and is better at reducing damage taken by their weapon on parry.</description>
+    <category>PawnCombat</category>
+    <displayPriorityInCategory>99</displayPriorityInCategory>
+    <defaultBaseValue>1</defaultBaseValue>
+    <showOnPawns>true</showOnPawns>
+    <minValue>0.0</minValue>
+    <maxValue>3.2</maxValue>
+    <toStringStyle>PercentZero</toStringStyle>
+    <skillNeedFactors>
+      <li Class="SkillNeed_BaseBonus">
+        <skill>Melee</skill>
+        <baseValue>0.1</baseValue>
+        <bonusPerLevel>0.0125</bonusPerLevel>
+      </li>
+    </skillNeedFactors>
+    <capacityFactors>
+      <!-- <li>
+        <capacity>Consciousness</capacity>
+        <weight>1</weight>
+      </li> -->
+      <li>
+        <capacity>Sight</capacity>
+        <weight>0.7</weight>
+        <max>1</max>
+      </li>
+      <li>
+        <capacity>Manipulation</capacity>
+        <weight>1</weight>
+      </li>
+    </capacityFactors>
+    <postProcessCurve>
+      <points>
+        <li>(0.0, 0.0)</li>
+        <li>(0.3, 0.3)</li>
+        <li>(0.6, 0.45)</li>
+        <li>(1.2, 0.6)</li>
+        <li>(2.4, 0.75)</li>
+        <li>(3.2, 0.8)</li>
+      </points>
+    </postProcessCurve>
+	<showDevelopmentalStageFilter>Child, Adult</showDevelopmentalStageFilter>
+  </StatDef>
+  
+  <StatDef>
+    <defName>UnarmedDamage</defName>
+    <label>unarmed damage bonus</label>
+    <description>Additional damage done in unarmed combat.</description>
+    <category>PawnCombat</category>
+    <displayPriorityInCategory>99</displayPriorityInCategory>
+    <defaultBaseValue>0</defaultBaseValue>
+    <showOnPawns>true</showOnPawns>
+    <minValue>0.0</minValue>
+    <maxValue>10.0</maxValue>
+    <toStringStyle>FloatMaxTwo</toStringStyle>
+    <skillNeedOffsets>
+      <li Class="SkillNeed_BaseBonus">
+        <skill>Melee</skill>
+        <baseValue>0.00</baseValue>
+        <bonusPerLevel>0.50</bonusPerLevel>
+      </li>
+    </skillNeedOffsets>
+    <capacityFactors>
+      <li>
+        <capacity>Sight</capacity>
+        <weight>0.7</weight>
+        <max>1</max>
+      </li>
+      <li>
+        <capacity>Manipulation</capacity>
+        <weight>1</weight>
+      </li>
+    </capacityFactors>
+	<showDevelopmentalStageFilter>Child, Adult</showDevelopmentalStageFilter>
+  </StatDef>
+
+  <!-- ================================== Body part armor =======================================-->
+
+  <StatDef Abstract="true" Name="BodyPartDensity">
+    <description>Compared against weapon's armor penetration to see if it can penetrate to the next layer of body parts. A high value means low-penetration attacks like buckshot will have a harder time hitting internal organs.</description>
+    <category>PawnCombat</category>
+    <displayPriorityInCategory>100</displayPriorityInCategory>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <toStringStyle>FloatMaxTwo</toStringStyle>
+	<showDevelopmentalStageFilter>Child, Adult</showDevelopmentalStageFilter>
+  </StatDef>
+  
+  <!-- Only displays information -->
+  <StatDef ParentName="BodyPartDensity">
+    <defName>PartialArmorBody</defName>
+    <description>Special armor values for certain bodyparts</description>
+    <label>Natural armor</label>
+    <workerClass>CombatExtended.StatWorker_ArmorPartial</workerClass>
+  </StatDef>
+
+  <StatDef ParentName="BodyPartDensity">
+    <defName>BodyPartSharpArmor</defName>
+    <label>body part RHA</label>
+    <workerClass>CombatExtended.StatWorker_BodyPartSharpArmor</workerClass>
+    <formatString>{0} mm RHA</formatString>
+  </StatDef>
+
+  <StatDef ParentName="BodyPartDensity">
+    <defName>BodyPartBluntArmor</defName>
+    <label>body part MPa</label>
+    <workerClass>CombatExtended.StatWorker_BodyPartBluntArmor</workerClass>
+    <formatString>{0} MPa</formatString>
+  </StatDef>
+
+
+</Defs>
