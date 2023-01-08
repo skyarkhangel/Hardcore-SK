@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Base for all other bases/structures in PRF -->
+  <ThingDef Name="PRF_BuildingBase" Abstract="True">
+    <category>Building</category>    <!-- Designates a category to be used internally. -->
+    <thingClass>Building</thingClass>    <!-- 	Provides an attachment to an internal class in the code. -->
+    <altitudeLayer>Building</altitudeLayer>    <!-- The layer this thing is rendered on. Usually the same value as category. -->
+    <soundImpactDefault>BulletImpact_Metal</soundImpactDefault>
+    <canOverlapZones>false</canOverlapZones>
+    <selectable>true</selectable>    <!-- Specifies whether or not the item can be selected in the atlas. -->
+    <drawerType>MapMeshAndRealTime</drawerType>    <!-- ??? options:	None, RealtimeOnly, MepMeshOnly, MapMeshAndRealTime -->
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>    <!-- Where the thing can be built.  -->
+    <repairEffect>Repair</repairEffect>    <!-- Effect when the building is being repaired. Any, Light, Heavy, GrowSoil, Diggable, SmoothHard, SmoothableStone -->
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>    <!-- 	Whether it leaves part of its resource cost when killed. -->
+    <filthLeaving>Filth_RubbleBuilding</filthLeaving>    <!-- What filth will be there when the thing gets destroyed. -->
+    <statBases>
+      <SellPriceFactor>0.70</SellPriceFactor>      <!-- 	A factor denoting how much traders will pay you less for this weapon than they would sell it for (when negotiating at maximal social skill). default value on weaponry is 0.5 -->
+      <Beauty>-1</Beauty>      <!-- +is good -is bad ;) -->
+      <Mass>10</Mass>      <!-- mass in kg -->
+      <Flammability>0.9</Flammability>      <!-- 0.0=0%, 1=100% -->
+    </statBases>
+    <comps>
+      <li>
+        <compClass>ProjectRimFactory.Common.CompPRFHelp</compClass>        <!-- PRF Internal help tab/icon setup in language -->
+      </li>
+    </comps>
+    <thingCategories>      <!-- Assign there in filters this should go when minified -->
+      <li>BuildingsAutomation</li>
+    </thingCategories>
+    <designationCategory>Industrial</designationCategory>    <!--architect menu location-->
+  </ThingDef>
+
+
+  <!-- Bench Like base is for modified benches used for other purposes than normal benches -->
+  <ThingDef Name="PRF_BenchLikeBase" ParentName="BuildingBase" Abstract="True">
+    <canOverlapZones>false</canOverlapZones>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+    <thingCategories>
+      <li>BuildingsProduction</li>
+    </thingCategories>
+    <statBases>
+      <Mass>20</Mass>
+    </statBases>
+    <interactionCellIcon>DiningChair</interactionCellIcon>
+    <comps>
+      <li>
+        <compClass>CompReportWorkSpeed</compClass>
+      </li>
+    </comps>
+    <placeWorkers>
+      <li>PlaceWorker_ReportWorkSpeedPenalties</li>
+    </placeWorkers>
+  </ThingDef>
+
+
+  <!-- Base for normal bench type building eq. robotics table-->
+  <ThingDef Name="PRF_BenchBase" ParentName="PRF_BuildingBase" Abstract="True">
+    <castEdgeShadows>true</castEdgeShadows>
+    <staticSunShadowHeight>0.20</staticSunShadowHeight>    <!-- staticSunShadowHeight defines how much of a shadow the strucure casts (Range: 0.0 - 1.0) -->
+    <canOverlapZones>false</canOverlapZones>    <!-- zones as in storage zones, growing zones, etc -->
+    <comps>
+      <li>
+        <compClass>CompReportWorkSpeed</compClass>
+      </li>
+    </comps>
+    <placeWorkers>      <!-- Restrictor when placing the building. Class name -->
+      <li>PlaceWorker_ReportWorkSpeedPenalties</li>
+    </placeWorkers>
+  </ThingDef>
+</Defs>
