@@ -1,0 +1,1146 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!--====== Other DropDown Groups ======-->
+
+  <DesignatorDropdownGroupDef>
+    <defName>PRF_PullersGroup</defName>
+  </DesignatorDropdownGroupDef>
+
+  <DesignatorDropdownGroupDef>
+    <defName>PRF_IoGroup</defName>
+  </DesignatorDropdownGroupDef>
+
+  <!--====== Belt Dropdown Groups ======-->
+  <DesignatorDropdownGroupDef>
+    <defName>PRF_UgBeltsGroup</defName>
+  </DesignatorDropdownGroupDef>
+
+  <DesignatorDropdownGroupDef>
+    <defName>PRF_BeltsGroup</defName>
+  </DesignatorDropdownGroupDef>
+
+  <DesignatorDropdownGroupDef>
+    <defName>PRF_WallBeltsGroup</defName>
+  </DesignatorDropdownGroupDef>
+
+  <!--==================== Fueling Dispenser ====================-->
+  <ThingDef ParentName="PRF_BuildingBase">
+    <defName>PRF_FuelingMachine</defName>
+    <label>Fueling Dispenser</label>
+    <description>A simple refueling machine capable of refueling all standard refuelable objects like generators, braziers, and mortars. It will attempt to fuel the output (yellow cell) with objects from the input (white cell).\n\n(Works with "refuelable comp" buildings and some others eg, SoS, CE.)</description>
+    <thingClass>ProjectRimFactory.Industry.Building_FuelingMachine</thingClass>
+    <graphicData>
+      <texPath>Industry/FuelingMachine</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(1.4)</drawSize>
+    </graphicData>
+    <uiIconScale>0.7</uiIconScale>
+    <size>(1,1)</size>
+    <passability>PassThroughOnly</passability>
+    <castEdgeShadows>true</castEdgeShadows>
+    <statBases>
+      <WorkToBuild>450</WorkToBuild>
+      <MaxHitPoints>150</MaxHitPoints>
+      <MarketValue>1560</MarketValue>
+      <Flammability>1.0</Flammability>
+      <Mass>15</Mass>
+    </statBases>
+	<costList>
+		<ReinforcedConcrete>5</ReinforcedConcrete>
+		<ComponentIndustrial>2</ComponentIndustrial>
+		<Mechanism>1</Mechanism>
+		<Rubber>5</Rubber>
+		<Wire>5</Wire>
+	</costList>
+	<stuffCategories>
+		<li>RuggedMetallic</li>
+	</stuffCategories>
+	<costStuffCount>5</costStuffCount>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <shortCircuitInRain>false</shortCircuitInRain>
+        <basePowerConsumption>50</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Breakdownable"/>
+      <li Class="CompProperties_Flickable" />
+    </comps>
+    <tickerType>Rare</tickerType>
+    <rotatable>true</rotatable>
+    <staticSunShadowHeight>0.1</staticSunShadowHeight>
+    <researchPrerequisites>
+      <li>PRF_BeltsI</li>
+    </researchPrerequisites>
+    <placeWorkers>
+      <li>ProjectRimFactory.Industry.PlaceWorker_FuelingMachine</li>
+    </placeWorkers>
+    <constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+  </ThingDef>
+
+  <!--============================== Smart Puller / vacuum Hopper ==============================-->
+  <ThingDef ParentName="PRF_BuildingBase">
+    <defName>PRF_SmartHopper</defName>
+    <label>Smart hopper</label>
+    <description>An intelligent hopper which gathers objects within its input range (white cells). It can be toggled to only gather items in stockpiles. Does not push objects elsewhere, only gathers them, and will also grab from nearby belts. This device is unrelated to a nutrient dispenser hopper, and does not interface with a nutrient dispenser.</description>
+    <thingClass>ProjectRimFactory.SAL3.Things.Building_SmartHopper</thingClass>
+    <uiIconScale>0.7</uiIconScale>
+    <graphicData>
+      <texPath>Storage/vacuum</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <damageData>
+        <rect>(0.05,0.1,0.9,0.9)</rect>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+      </damageData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <fillPercent>0.5</fillPercent>
+    <pathCost>70</pathCost>
+    <building>
+      <fixedStorageSettings>
+        <priority>Preferred</priority>
+        <filter>
+          <categories>
+            <li>Root</li>
+          </categories>
+        </filter>
+      </fixedStorageSettings>
+      <defaultStorageSettings>
+        <priority>Preferred</priority>
+        <filter>
+          <categories>
+          </categories>
+        </filter>
+      </defaultStorageSettings>
+    </building>
+    <inspectorTabs>
+      <li>ITab_Storage</li>
+      <li>ProjectRimFactory.Common.ITab_PowerSupply</li>      <!-- Power boost -->
+    </inspectorTabs>
+    <castEdgeShadows>true</castEdgeShadows>
+    <statBases>
+      <WorkToBuild>450</WorkToBuild>
+      <MaxHitPoints>100</MaxHitPoints>
+      <MarketValue>1475</MarketValue>
+      <Flammability>1.0</Flammability>
+      <Mass>30</Mass>
+    </statBases>
+	<stuffCategories>
+		<li>RuggedMetallic</li>
+	</stuffCategories>
+	<costStuffCount>50</costStuffCount>
+	<costList>
+		<ComponentIndustrial>6</ComponentIndustrial>
+		<Mechanism>4</Mechanism>
+		<Rubber>5</Rubber>
+		<ElectronicComponents>3</ElectronicComponents>
+	</costList>
+    <comps>
+      <li Class="CompProperties_Breakdownable"/>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>200</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable" />
+      <!-- Either specialDisplayRadius or CompProperties_PowerWorkSetting -->
+      <li Class="ProjectRimFactory.Common.CompProperties_PowerWorkSetting">
+        <!-- Speed Settings -->
+        <floatrange_SpeedFactor>1~1</floatrange_SpeedFactor>
+        <powerPerStepSpeed>0</powerPerStepSpeed>
+        <powerStepFactor>1</powerStepFactor>
+        <!-- Range Settings -->
+        <floatrange_Range>5~10</floatrange_Range>
+        <powerPerStepRange>100</powerPerStepRange>
+        <rangeType>ProjectRimFactory.Common.CircleRange</rangeType>
+      </li>
+    </comps>
+    <tickerType>Normal</tickerType>
+    <rotatable>true</rotatable>
+    <neverMultiSelect>true</neverMultiSelect>
+    <staticSunShadowHeight>0.3</staticSunShadowHeight>
+    <surfaceType>Item</surfaceType>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <!-- <specialDisplayRadius>5</specialDisplayRadius> -->    <!--A.K.A. Search radius-->
+    <researchPrerequisites>
+      <li>PRF_BeltsIII</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+
+  <!--======================================= ===  PULLERS === ===============================================-->
+  <!--======================================= ================ ===============================================-->
+  <!--======================================= Item Puller base ===============================================-->
+  <ThingDef Name="PRF_Puller_Base" ParentName="PRF_BuildingBase" Abstract="true">
+    <thingClass>ProjectRimFactory.AutoMachineTool.Building_ItemPuller</thingClass>
+    <drawerType>RealtimeOnly</drawerType>
+    <tickerType>Never</tickerType>
+    <uiIconScale>0.7</uiIconScale>
+    <designatorDropdown>PRF_PullersGroup</designatorDropdown>
+	<stuffCategories>
+		<li>RuggedMetallic</li>
+	</stuffCategories>
+	<costStuffCount>75</costStuffCount>
+	<costList>
+		<ReinforcedConcrete>10</ReinforcedConcrete>
+		<ComponentIndustrial>6</ComponentIndustrial>
+		<Mechanism>4</Mechanism>
+		<Rubber>8</Rubber>
+		<ElectronicComponents>4</ElectronicComponents>
+	</costList>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <WorkToBuild>300</WorkToBuild>
+      <Flammability>0</Flammability>
+      <Mass>20</Mass>
+      <Beauty>-2</Beauty>
+    </statBases>
+    <minifiedDef>MinifiedThing</minifiedDef>    <!-- Sets if a item should be moveable vanilla reinstall/uninstall -->
+    <size>(1,1)</size>
+    <fillPercent>0.5</fillPercent>
+    <passability>Standable</passability>
+    <rotatable>true</rotatable>
+    <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+    <constructionSkillPrerequisite>12</constructionSkillPrerequisite>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <shortCircuitInRain>false</shortCircuitInRain>
+        <basePowerConsumption>160</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="ProjectRimFactory.Common.CompProperties_PowerWorkSetting">
+        <!-- Speed Settings -->
+        <floatrange_SpeedFactor>1~10</floatrange_SpeedFactor>
+        <powerPerStepSpeed>20</powerPerStepSpeed>
+        <powerStepFactor>1</powerStepFactor>
+        <!-- Range Settings -->
+        <floatrange_Range>0~0</floatrange_Range>
+        <powerPerStepRange>0</powerPerStepRange>
+        <rangeType>ProjectRimFactory.Common.RectRange</rangeType>        <!--Temp-->
+      </li>
+    </comps>
+    <inspectorTabs>
+      <li>ProjectRimFactory.Common.ITab_Filter</li>
+      <li>ProjectRimFactory.Common.ITab_PowerSupply</li>
+      <li>ProjectRimFactory.Common.ITab_ProductionSettings</li>
+    </inspectorTabs>
+    <researchPrerequisites>
+      <li>PRF_BeltsIII</li>
+    </researchPrerequisites>
+    <placeWorkers>
+      <li>ProjectRimFactory.AutoMachineTool.PlaceWorker_PullerCellsHilight</li>
+      <li>ProjectRimFactory.PlaceWorker_Arrow</li>
+    </placeWorkers>
+  </ThingDef>
+
+  <!--======================================= Growzone Puller ===============================================-->
+  <ThingDef ParentName="PRF_Puller_Base">
+    <defName>PRF_GrowzonePuller_I</defName>
+    <thingClass>ProjectRimFactory.AutoMachineTool.Building_HarvestPuller</thingClass>
+    <label>Growzone puller</label>
+    <description>A specialized puller that will pull from adjacent grow zones. It must be connected to the grow zone to function properly.</description>
+    <placeWorkers>
+      <li>ProjectRimFactory.Common.PlaceWorker_GrowZonePuller</li>
+    </placeWorkers>
+    <statBases>
+      <MarketValue>597</MarketValue>
+    </statBases>
+    <passability>Impassable</passability>
+    <altitudeLayer>Building</altitudeLayer>
+    <graphicData>
+      <texPath>Belts/Growzone</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(1.1,1.1)</drawSize>
+    </graphicData>
+    <building>
+      <fixedStorageSettings>
+        <priority>Normal</priority>
+        <filter>
+          <categories>
+            <li>Manufactured</li>
+            <li>ResourcesRaw</li>
+            <li>AnimalProductRaw</li>
+            <li>Drugs</li>
+            <li>EggsFertilized</li>
+            <li>EggsUnfertilized</li>
+            <li>Foods</li>
+            <li>Medicine</li>
+            <li>PlantMatter</li>
+            <li>PlantFoodRaw</li>
+          </categories>
+          <specialFiltersToDisallow>
+            <li>AllowRotten</li>            <!-- Disallow rotten by default -->
+          </specialFiltersToDisallow>
+        </filter>
+      </fixedStorageSettings>
+    </building>
+    <modExtensions>
+      <li Class="ProjectRimFactory.AutoMachineTool.ModExtension_Puller">
+        <outputSides>false</outputSides>
+      </li>
+      <li Class="ProjectRimFactory.Common.ModExtension_Graphic">
+        <graphicDataList>
+          <Working>
+            <graphicData>
+              <texPath>Belts/GrowzoneWorking</texPath>
+              <graphicClass>Graphic_Multi</graphicClass>
+              <drawSize>(1.1,1.1)</drawSize>
+            </graphicData>
+          </Working>
+        </graphicDataList>
+      </li>
+    </modExtensions>
+    <researchPrerequisites Inherit="false">
+      <li>PRF_BeltsII</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+  <!--======================================= Item Puller mkI ===============================================-->
+  <ThingDef ParentName="PRF_Puller_Base">
+    <defName>PRF_SimplePuller_I</defName>
+    <label>Item puller MKI</label>
+    <description>A device that pulls items from the input (white cell) and pushes them to the output (yellow cell). Turn it on after setting the filters.\nThis device is very flexible in its connections and works with Stockpiles, Storage, Belts (all versions), I/O, and others.</description>    <!--todo: maybe make a message on spawn if not turned on-->
+    <statBases>
+      <MarketValue>597</MarketValue>
+    </statBases>
+    <passability>Impassable</passability>
+    <altitudeLayer>Building</altitudeLayer>
+    <graphicData>
+      <texPath>Belts/PullerI</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(1.1,1.1)</drawSize>
+    </graphicData>
+    <modExtensions Inherit="false">
+      <li Class="ProjectRimFactory.AutoMachineTool.ModExtension_Puller">
+        <outputSides>false</outputSides>
+      </li>
+      <li Class="ProjectRimFactory.Common.ModExtension_Graphic">
+        <graphicDataList>
+          <Working>
+            <graphicData>
+              <texPath>Belts/PullerWorkingI</texPath>
+              <graphicClass>Graphic_Multi</graphicClass>
+              <drawSize>(1.1,1.1)</drawSize>
+            </graphicData>
+          </Working>
+        </graphicDataList>
+      </li>
+    </modExtensions>
+    <comps>
+      <li Class="CompProperties_Breakdownable"/>
+      <li Class="ProjectRimFactory.Common.CompProperties_PowerWorkSetting">
+        <!-- Speed Settings -->
+        <floatrange_SpeedFactor>0.01~0.1</floatrange_SpeedFactor>
+        <powerPerStepSpeed>10</powerPerStepSpeed>
+        <powerStepFactor>1</powerStepFactor>
+        <!-- Range Settings -->
+        <floatrange_Range>0~0</floatrange_Range>
+        <powerPerStepRange>0</powerPerStepRange>
+        <rangeType>ProjectRimFactory.Common.RectRange</rangeType>        <!--Temp-->
+      </li>
+    </comps>
+    <researchPrerequisites Inherit="false">
+      <li>PRF_BeltsII</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+  <!--======================================= Item Puller mkII ===============================================-->
+  <ThingDef ParentName="PRF_Puller_Base">
+    <defName>PRF_SimplePuller_II</defName>
+    <label>Item puller MKII</label>
+    <description>An optimized puller which runs at higher speeds. Pulls from input (white cell) to output (yellow cell). Very flexible in its connections.</description>    <!--todo: maybe make a message on spawn if not turned on-->
+	<stuffCategories>
+		<li>RuggedMetallic</li>
+	</stuffCategories>
+	<costStuffCount>100</costStuffCount>
+	<costList>
+		<ReinforcedConcrete>20</ReinforcedConcrete>
+		<ComponentIndustrial>10</ComponentIndustrial>
+		<Mechanism>5</Mechanism>
+		<Rubber>10</Rubber>
+		<ElectronicComponents>5</ElectronicComponents>
+	</costList>
+    <statBases>
+      <MarketValue>959</MarketValue>
+    </statBases>
+    <passability>Impassable</passability>
+    <altitudeLayer>Building</altitudeLayer>
+    <graphicData>
+      <texPath>Belts/Puller</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(1.1,1.1)</drawSize>
+    </graphicData>
+    <modExtensions>
+      <li Class="ProjectRimFactory.AutoMachineTool.ModExtension_Puller">
+        <outputSides>false</outputSides>
+      </li>
+      <li Class="ProjectRimFactory.Common.ModExtension_Graphic">
+        <graphicDataList>
+          <Working>
+            <graphicData>
+              <texPath>Belts/PullerWorking</texPath>
+              <graphicClass>Graphic_Multi</graphicClass>
+              <drawSize>(1.1,1.1)</drawSize>
+            </graphicData>
+          </Working>
+        </graphicDataList>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <!--======================================= Item Angle Puller===============================================-->
+  <ThingDef ParentName="PRF_Puller_Base">
+    <defName>PRF_SimplePuller_II_Side</defName>
+    <label>Item angle puller</label>
+    <description>A specialized puller designed to pull items at a 90 degree angle. Functionally similar to normal puller. Directions can be swapped after placing.</description>
+	<stuffCategories>
+		<li>RuggedMetallic</li>
+	</stuffCategories>
+	<costStuffCount>100</costStuffCount>
+	<costList>
+		<ReinforcedConcrete>20</ReinforcedConcrete>
+		<ComponentIndustrial>10</ComponentIndustrial>
+		<Mechanism>5</Mechanism>
+		<Rubber>10</Rubber>
+		<ElectronicComponents>5</ElectronicComponents>
+	</costList>
+    <statBases>
+      <MarketValue>959</MarketValue>
+    </statBases>
+    <passability>Impassable</passability>
+    <altitudeLayer>Building</altitudeLayer>
+    <researchPrerequisites Inherit="false">
+      <li>PRF_BeltsIII</li>
+    </researchPrerequisites>
+
+    <graphicData>
+      <texPath>Belts/PullerL</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(1.1,1.1)</drawSize>
+    </graphicData>
+    <modExtensions>
+      <li Class="ProjectRimFactory.AutoMachineTool.ModExtension_Puller">
+        <outputSides>true</outputSides>
+      </li>
+      <li Class="ProjectRimFactory.Common.ModExtension_Graphic">
+        <graphicDataList>
+          <Left>
+            <graphicData>
+              <texPath>Belts/PullerL</texPath>
+              <graphicClass>Graphic_Multi</graphicClass>
+              <drawSize>(1.1,1.1)</drawSize>
+            </graphicData>
+          </Left>
+          <Right>
+            <graphicData>
+              <texPath>Belts/PullerR</texPath>
+              <graphicClass>Graphic_Multi</graphicClass>
+              <drawSize>(1.1,1.1)</drawSize>
+            </graphicData>
+          </Right>
+          <LeftWorking>
+            <graphicData>
+              <texPath>Belts/PullerLWorking</texPath>
+              <graphicClass>Graphic_Multi</graphicClass>
+              <drawSize>(1.1,1.1)</drawSize>
+            </graphicData>
+          </LeftWorking>
+          <RightWorking>
+            <graphicData>
+              <texPath>Belts/PullerRWorking</texPath>
+              <graphicClass>Graphic_Multi</graphicClass>
+              <drawSize>(1.1,1.1)</drawSize>
+            </graphicData>
+          </RightWorking>
+        </graphicDataList>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <!--======================================= Wall Item Puller ===============================================-->
+  <ThingDef ParentName="PRF_Puller_Base">
+    <defName>PRF_SimplePuller_II_Wall</defName>
+    <label>Wall item puller</label>
+    <description>A specialized item puller that functions as a wall, pushing items from input (white cell) to output (yellow cell). The wall puller is insulated enough for use in freezers and secure enough for prisons.</description>
+	<stuffCategories>
+		<li>RuggedMetallic</li>
+	</stuffCategories>
+	<costStuffCount>100</costStuffCount>
+	<costList>
+		<ReinforcedConcrete>20</ReinforcedConcrete>
+		<ComponentIndustrial>10</ComponentIndustrial>
+		<Mechanism>5</Mechanism>
+		<Rubber>10</Rubber>
+		<ElectronicComponents>5</ElectronicComponents>
+	</costList>
+    <statBases>
+      <MarketValue>959</MarketValue>
+    </statBases>
+    <altitudeLayer>BuildingOnTop</altitudeLayer>
+    <building>
+      <isEdifice>false</isEdifice>
+    </building>
+    <clearBuildingArea>false</clearBuildingArea>
+    <placeWorkers>
+      <li>ProjectRimFactory.AutoMachineTool.PlaceWorker_WallEmbedded</li>
+    </placeWorkers>
+    <graphicData>
+      <texPath>Belts/PullerWall</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(1.1,1.1)</drawSize>
+      <drawRotated>false</drawRotated>      <!-- Can rotate ingame without rotate texture, will flip horizontaly only. -->
+    </graphicData>
+    <modExtensions>
+      <li Class="ProjectRimFactory.AutoMachineTool.ModExtension_Puller">
+        <outputSides>false</outputSides>
+      </li>
+      <li Class="ProjectRimFactory.Common.ModExtension_Graphic">
+        <graphicDataList>
+          <Working>
+            <graphicData>
+              <texPath>Belts/PullerWallWorking</texPath>
+              <graphicClass>Graphic_Multi</graphicClass>
+              <drawSize>(1.1,1.1)</drawSize>
+              <drawRotated>false</drawRotated>              <!-- Can rotate ingame without rotate texture, will flip horizontaly only. -->
+            </graphicData>
+          </Working>
+        </graphicDataList>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+
+  <!--======================================= ============= ===============================================-->
+  <!--==================================== Conveyor belts base ============================================-->
+  <!--======================================= ============= ===============================================-->
+  <ThingDef Name="PRF_Conveyor_Base" ParentName="PRF_BuildingBase" Abstract="true">
+    <thingClass>ProjectRimFactory.AutoMachineTool.Building_BeltConveyor</thingClass>
+    <altitudeLayer>Building</altitudeLayer>
+    <designatorDropdown>PRF_BeltsGroup</designatorDropdown>
+    <uiIconScale>0.7</uiIconScale>
+	<stuffCategories>
+		<li>RuggedMetallic</li>
+	</stuffCategories>
+	<costStuffCount>5</costStuffCount>
+	<costList>
+		<ReinforcedConcrete>5</ReinforcedConcrete>
+		<ComponentIndustrial>2</ComponentIndustrial>
+		<Mechanism>1</Mechanism>
+		<Rubber>5</Rubber>
+		<Wire>5</Wire>
+	</costList>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <WorkToBuild>100</WorkToBuild>
+      <Flammability>0.4</Flammability>
+      <Beauty>-0.5</Beauty>      <!--Let's Game It Out playing SatisFactory shows how beautiful conveyors truly are!-->
+      <Mass>10</Mass>
+    </statBases>
+    <clearBuildingArea>false</clearBuildingArea>    <!-- Might want to change this for anything with a building -->
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <researchPrerequisites>
+      <li>PRF_BeltsI</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+    <size>(1,1)</size>
+    <pathCost>45</pathCost>
+    <passability>Standable</passability>
+    <rotatable>true</rotatable>
+    <drawGUIOverlay>true</drawGUIOverlay>
+    <drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+    <placeWorkers>
+      <li>ProjectRimFactory.PlaceWorker_Arrow</li>
+      <li>ProjectRimFactory.AutoMachineTool.PlaceWorker_Conveyor</li>
+    </placeWorkers>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>10</basePowerConsumption>
+        <transmitsPower>false</transmitsPower>
+        <shortCircuitInRain>false</shortCircuitInRain>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="ProjectRimFactory.CompProperties_TransmitsPower" />
+      <li Class="ProjectRimFactory.Common.CompProperties_PowerWorkSetting">
+        <!-- Speed Settings -->
+        <floatrange_SpeedFactor>0.003~0.003</floatrange_SpeedFactor>
+        <powerPerStepSpeed>0</powerPerStepSpeed>
+        <powerStepFactor>1</powerStepFactor>
+        <!-- Range Settings -->
+        <floatrange_Range>0~0</floatrange_Range>
+        <powerPerStepRange>0</powerPerStepRange>
+        <rangeType>ProjectRimFactory.Common.RectRange</rangeType>
+      </li>
+    </comps>
+    <inspectorTabs>
+      <li>ProjectRimFactory.Common.ITab_PowerSupply</li>
+      <li>ProjectRimFactory.Common.ITab_ProductionSettings</li>
+    </inspectorTabs>
+    <tradeability>None</tradeability>
+  </ThingDef>
+  <!--======================================= Conveyor belt base   ===============================================-->
+  <ThingDef Name="PRF_DraggableConveyorBelt_Base" ParentName="PRF_Conveyor_Base" Abstract="true">
+    <placingDraggableDimensions>1</placingDraggableDimensions>
+  </ThingDef>
+
+  <!--======================================= Conveyor belt normal ===============================================-->
+  <ThingDef ParentName="PRF_DraggableConveyorBelt_Base">
+    <defName>PRF_Conveyor_Simple_I</defName>
+    <label>Conveyor belt</label>
+    <description>An industrial grade assembly belt used for the transportation of items in a specific direction to a specific location. Useful for automatically hauling products without having your colonists do it themselves.	It will dump into storage or stockpiles - or just leave stuff on the ground when the belts end. Because they are rather unsophisticated, they will happily dump whatever they have off the end if there is room.\nA corner can be made by leading the belt into the side of another belt and it will seamlessly continue.</description>
+    <clearBuildingArea>false</clearBuildingArea>
+    <uiIconPath>Belts/v3/BeltConveyorIcon</uiIconPath>
+    <graphicData>
+      <texPath>[extraData][texPath]Belts/v3/Belts Atlas 640x640 GroundLevel Padded[/texPath][arrowEastDrawOffset](0,0.0,0)[/arrowEastDrawOffset][/extraData]</texPath>
+      <graphicClass>ProjectRimFactory.AutoMachineTool.Graphic_LinkedConveyorTwo</graphicClass>
+      <drawRotated>true</drawRotated>
+      <drawSize>(1, 1)</drawSize>
+    </graphicData>
+    <building>
+      <blueprintGraphicData>
+        <texPath>[notActualTexPath>[texPath>Belts/v3/Belts Atlas 640x640 GroundLevel Padded Blueprint[/texPath>[arrowDrawOffset](0,0.2,0)[/arrowDrawOffset][/notActualTexPath></texPath>        <!--TODO-->
+        <graphicClass>ProjectRimFactory.AutoMachineTool.Graphic_LinkedConveyorTwo</graphicClass>
+        <drawRotated>true</drawRotated>
+        <drawSize>(1, 1)</drawSize>
+      </blueprintGraphicData>
+    </building>
+  </ThingDef>
+
+  <!--======================================= Fast Conveyor belt ===============================================-->
+  <ThingDef ParentName="PRF_DraggableConveyorBelt_Base">
+    <defName>PRF_Conveyor_Simple_II</defName>
+    <label>Fast conveyor belt</label>
+    <description>An upgraded version of the conveyor belt which transports at twice the speed. Functions similarly to the standard belt, dumping into storage, stockpiles, or empty space.\nA corner can be made by leading the belt into the side of another belt and it will seamlessly continue.</description>
+    <clearBuildingArea>false</clearBuildingArea>
+	<stuffCategories>
+		<li>RuggedMetallic</li>
+	</stuffCategories>
+	<costStuffCount>10</costStuffCount>
+	<costList>
+		<ReinforcedConcrete>6</ReinforcedConcrete>
+		<ComponentIndustrial>4</ComponentIndustrial>
+		<Mechanism>2</Mechanism>
+		<Rubber>8</Rubber>
+		<Wire>5</Wire>
+	</costList>
+    <uiIconPath>Belts/v3/BeltConveyorIcon2</uiIconPath>
+    <graphicData>
+      <texPath>[extraData][texPath]Belts/v3/Belts Atlas 640x640 GroundLevel Padded[/texPath][arrowEastDrawOffset](0,0.0,0)[/arrowEastDrawOffset][arrowTexPath1]Belts/T2SmallArrow00[/arrowTexPath1][arrowTexPath2]Belts/T2SmallArrow01[/arrowTexPath2][/extraData]</texPath>
+      <graphicClass>ProjectRimFactory.AutoMachineTool.Graphic_LinkedConveyorTwo</graphicClass>
+      <drawRotated>true</drawRotated>
+      <drawSize>(1, 1)</drawSize>
+    </graphicData>
+    <building>
+      <blueprintGraphicData>
+        <texPath>[notActualTexPath>[texPath>Belts/v3/Belts Atlas 640x640 GroundLevel Padded Blueprint[/texPath>[arrowDrawOffset](0,0.2,0)[/arrowDrawOffset][arrowTexPath1]Belts/T2SmallArrow00[/arrowTexPath1][arrowTexPath2]Belts/T2SmallArrow01[/arrowTexPath2][/notActualTexPath></texPath>        <!--TODO-->
+        <graphicClass>ProjectRimFactory.AutoMachineTool.Graphic_LinkedConveyorTwo</graphicClass>
+        <drawRotated>true</drawRotated>
+        <drawSize>(1, 1)</drawSize>
+      </blueprintGraphicData>
+    </building>
+    <comps Inherit="false">
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>10</basePowerConsumption>
+        <transmitsPower>false</transmitsPower>
+        <shortCircuitInRain>false</shortCircuitInRain>
+      </li>
+      <li Class="ProjectRimFactory.CompProperties_TransmitsPower" />
+      <li Class="ProjectRimFactory.Common.CompProperties_PowerWorkSetting">
+        <!-- Speed Settings -->
+        <floatrange_SpeedFactor>0.006~0.006</floatrange_SpeedFactor>
+        <powerPerStepSpeed>0</powerPerStepSpeed>
+        <powerStepFactor>1</powerStepFactor>
+        <!-- Range Settings -->
+        <floatrange_Range>0~0</floatrange_Range>
+        <powerPerStepRange>0</powerPerStepRange>
+        <rangeType>ProjectRimFactory.Common.RectRange</rangeType>
+      </li>
+    </comps>
+    <researchPrerequisites Inherit="false">
+      <li>PRF_BeltsII</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+  <!--======================================= Express Conveyor belt ===============================================-->
+  <ThingDef ParentName="PRF_DraggableConveyorBelt_Base">
+    <defName>PRF_Conveyor_Simple_III</defName>
+    <label>Express conveyor belt</label>
+    <description>An advanced conveyor belt for optimal logistics, moving at three times the speed (or 1.5x its predecessor). Functions similarly to the standard belt, dumping into storage, stockpiles, or empty space.\nA corner can be made by leading the belt into the side of another belt and it will seamlessly continue.</description>
+    <clearBuildingArea>false</clearBuildingArea>
+	<stuffCategories>
+		<li>RuggedMetallic</li>
+	</stuffCategories>
+	<costStuffCount>10</costStuffCount>
+	<costList>
+		<ReinforcedConcrete>6</ReinforcedConcrete>
+		<ComponentIndustrial>4</ComponentIndustrial>
+		<Mechanism>2</Mechanism>
+		<Rubber>8</Rubber>
+		<Wire>5</Wire>
+	</costList>
+    <uiIconPath>Belts/v3/BeltConveyorIcon3</uiIconPath>
+    <graphicData>
+      <texPath>[extraData][texPath]Belts/v3/Belts Atlas 640x640 GroundLevel Padded[/texPath][arrowEastDrawOffset](0,0.0,0)[/arrowEastDrawOffset][arrowTexPath1]Belts/T3SmallArrow00[/arrowTexPath1][arrowTexPath2]Belts/T3SmallArrow01[/arrowTexPath2][/extraData]</texPath>
+      <graphicClass>ProjectRimFactory.AutoMachineTool.Graphic_LinkedConveyorTwo</graphicClass>
+      <drawRotated>true</drawRotated>
+      <drawSize>(1, 1)</drawSize>
+    </graphicData>
+    <building>
+      <blueprintGraphicData>
+        <texPath>[notActualTexPath>[texPath>Belts/v3/Belts Atlas 640x640 GroundLevel Padded Blueprint[/texPath>[arrowDrawOffset](0,0.2,0)[/arrowDrawOffset][arrowTexPath1]Belts/T3SmallArrow00[/arrowTexPath1][arrowTexPath2]Belts/T3SmallArrow01[/arrowTexPath2][/notActualTexPath></texPath>        <!--TODO-->
+        <graphicClass>ProjectRimFactory.AutoMachineTool.Graphic_LinkedConveyorTwo</graphicClass>
+        <drawRotated>true</drawRotated>
+        <drawSize>(1, 1)</drawSize>
+      </blueprintGraphicData>
+    </building>
+    <comps Inherit="false">
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>10</basePowerConsumption>
+        <transmitsPower>false</transmitsPower>
+        <shortCircuitInRain>false</shortCircuitInRain>
+      </li>
+      <li Class="ProjectRimFactory.CompProperties_TransmitsPower" />
+      <li Class="ProjectRimFactory.Common.CompProperties_PowerWorkSetting">
+        <!-- Speed Settings -->
+        <floatrange_SpeedFactor>0.009~0.009</floatrange_SpeedFactor>
+        <powerPerStepSpeed>0</powerPerStepSpeed>
+        <powerStepFactor>1</powerStepFactor>
+        <!-- Range Settings -->
+        <floatrange_Range>0~0</floatrange_Range>
+        <powerPerStepRange>0</powerPerStepRange>
+        <rangeType>ProjectRimFactory.Common.RectRange</rangeType>
+      </li>
+    </comps>
+    <researchPrerequisites Inherit="false">
+      <li>PRF_BeltsIII</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+  <!--======================================= Conveyor wall ===============================================-->
+  <ThingDef ParentName="PRF_DraggableConveyorBelt_Base">
+    <defName>PRF_Conveyor_Wall_I</defName>
+    <label>Wall belt</label>
+    <description>Moves items - through walls! You can use these to traverse walls or move items along inside them. When items hit the end, they will move out onto the ground, as long as there is room.</description>
+    <designatorDropdown>PRF_WallBeltsGroup</designatorDropdown>
+    <altitudeLayer>BuildingOnTop</altitudeLayer>
+    <pathCost>0</pathCost>
+    <fillPercent>0.0</fillPercent>
+    <clearBuildingArea>false</clearBuildingArea>
+    <placeWorkers>
+      <li>ProjectRimFactory.AutoMachineTool.PlaceWorker_WallEmbedded</li>
+    </placeWorkers>
+    <researchPrerequisites Inherit="false">
+      <li>PRF_BeltsI</li>
+    </researchPrerequisites>
+    <uiIconPath>Belts/v3/BeltConveyorWallIcon</uiIconPath>
+    <graphicData>
+      <texPath>[RIPThorny][texPath]Belts/v3/Atlas_PRF_Rollers_512x512_Padded_Walls_v3[/texPath][graphicData1][texPath]Belts/v3/Belts_Wall_Transition[/texPath][graphicClass]Graphic_Multi[/graphicClass][/graphicData1][specialLinkDefs][li]PRF_Conveyor_Wall_I[/li][/specialLinkDefs][/RIPThorny]</texPath>
+      <graphicClass>ProjectRimFactory.AutoMachineTool.Graphic_LinkedConveyorWallTwo</graphicClass>
+      <drawRotated>true</drawRotated>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <building>
+      <isEdifice>false</isEdifice>
+      <blueprintGraphicData>
+        <texPath>[notActualTexPath>[texPath>Belts/v3/Atlas_PRF_Rollers_512x512_Padded_Walls_v3_bp[/texPath>[arrowDrawOffset](0,0.2,0)[/arrowDrawOffset][/notActualTexPath></texPath>        <!--TODO-->
+        <graphicClass>ProjectRimFactory.AutoMachineTool.Graphic_LinkedConveyorTwo</graphicClass>
+        <drawRotated>true</drawRotated>
+        <drawSize>(1, 1)</drawSize>
+      </blueprintGraphicData>
+    </building>
+  </ThingDef>
+
+  <!--======================================= Conveyor underground ===============================================-->
+  <ThingDef ParentName="PRF_DraggableConveyorBelt_Base">
+    <defName>PRF_Conveyor_UG_I</defName>
+    <label>Underground belt</label>
+    <designatorDropdown>PRF_UgBeltsGroup</designatorDropdown>
+    <description>Underground conveyor belts carry items in tunnels under the ground, safely under walls, machines, and other belts without connecting.\nDoes not require an entrance or exit unless merging with a standard above-ground belt.</description>
+    <altitudeLayer>Gas</altitudeLayer>    <!-- FloorEmplacement -->
+    <canOverlapZones>true</canOverlapZones>
+    <pathCost>0</pathCost>
+    <fillPercent>0.0</fillPercent>
+    <researchPrerequisites Inherit="false">
+      <li>PRF_BeltsI</li>
+    </researchPrerequisites>
+    <clearBuildingArea>false</clearBuildingArea>
+    <comps Inherit="false">
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>10</basePowerConsumption>
+        <transmitsPower>false</transmitsPower>
+        <shortCircuitInRain>false</shortCircuitInRain>
+      </li>
+      <li Class="ProjectRimFactory.Common.CompProperties_PowerWorkSetting">
+        <!-- Speed Settings -->
+        <floatrange_SpeedFactor>0.009~0.009</floatrange_SpeedFactor>
+        <powerPerStepSpeed>0</powerPerStepSpeed>
+        <powerStepFactor>1</powerStepFactor>
+        <!-- Range Settings -->
+        <floatrange_Range>0~0</floatrange_Range>
+        <powerPerStepRange>0</powerPerStepRange>
+        <rangeType>ProjectRimFactory.Common.RectRange</rangeType>
+      </li>
+    </comps>
+    <statBases>
+      <WorkToBuild Inherit="false">400</WorkToBuild>      <!--harder to dig tunnel-->
+    </statBases>
+    <modExtensions>
+      <li Class="ProjectRimFactory.AutoMachineTool.ModExtension_Conveyor">
+        <underground>true</underground>
+      </li>
+    </modExtensions>
+    <uiIconPath>AutoMachineTool/Buildings/BeltConveyorUGIcon</uiIconPath>
+    <graphicData>
+      <texPath>Belts/v3/BeltConveyorUG</texPath>
+      <graphicClass>ProjectRimFactory.AutoMachineTool.Graphic_LinkedConveyorV2</graphicClass>
+      <drawRotated>true</drawRotated>
+    </graphicData>
+    <building>
+      <isEdifice>false</isEdifice>
+      <blueprintGraphicData>
+        <texPath>Belts/v3/BeltConveyorUG</texPath>
+        <graphicClass>ProjectRimFactory.AutoMachineTool.Graphic_LinkedConveyorV2</graphicClass>
+        <drawRotated>true</drawRotated>
+      </blueprintGraphicData>
+    </building>
+  </ThingDef>
+
+  <!--======================================= Conveyor underground connector base ===============================================-->
+  <!-- ==== BASE ZYMEX STOP LOOKING for a name HERE ==== -->
+  <ThingDef Name="PRF_UGConnector_Base" ParentName="PRF_Conveyor_Base" Abstract="true">
+    <thingClass>ProjectRimFactory.AutoMachineTool.Building_BeltConveyorUGConnector</thingClass>
+    <clearBuildingArea>true</clearBuildingArea>
+    <designatorDropdown>PRF_UgBeltsGroup</designatorDropdown>
+    <canOverlapZones>true</canOverlapZones>
+    <researchPrerequisites Inherit="false">
+      <li>PRF_BeltsI</li>
+    </researchPrerequisites>
+	<stuffCategories>
+		<li>RuggedMetallic</li>
+	</stuffCategories>
+	<costStuffCount>30</costStuffCount>
+	<costList>
+		<ReinforcedConcrete>10</ReinforcedConcrete>
+		<ComponentIndustrial>6</ComponentIndustrial>
+		<Mechanism>4</Mechanism>
+		<Rubber>12</Rubber>
+		<Wire>8</Wire>
+	</costList>
+    <statBases>
+      <MarketValue>78</MarketValue>
+    </statBases>
+    <pathCost>0</pathCost>
+    <fillPercent>0.4</fillPercent>    <!-- Cover from shell -->
+    <comps Inherit="false">
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>10</basePowerConsumption>
+        <transmitsPower>false</transmitsPower>
+        <shortCircuitInRain>false</shortCircuitInRain>
+      </li>
+      <li Class="ProjectRimFactory.CompProperties_TransmitsPower" />
+      <li Class="ProjectRimFactory.Common.CompProperties_PowerWorkSetting">
+        <!-- Speed Settings -->
+        <floatrange_SpeedFactor>0.009~0.009</floatrange_SpeedFactor>
+        <powerPerStepSpeed>0</powerPerStepSpeed>
+        <powerStepFactor>1</powerStepFactor>
+        <!-- Range Settings -->
+        <floatrange_Range>0~0</floatrange_Range>
+        <powerPerStepRange>0</powerPerStepRange>
+        <rangeType>ProjectRimFactory.Common.RectRange</rangeType>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <!--======================================= Conveyor floor connector to underground ===============================================-->
+  <ThingDef ParentName="PRF_UGConnector_Base">
+    <defName>PRF_Conveyor_Connector_To_UG</defName>
+    <label>Underground belt entrance</label>
+    <description>Connects ground conveyor belts to underground conveyors. This is the entrance to the subterranean passages.</description>
+    <graphicData>
+      <texPath>AutoMachineTool/Buildings/undergroundIn</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(1,1.1)</drawSize>
+      <drawRotated>true</drawRotated>
+    </graphicData>
+    <pathCost>70</pathCost>
+    <modExtensions>
+      <li Class="ProjectRimFactory.AutoMachineTool.ModExtension_Conveyor">
+        <toUnderground>true</toUnderground>
+      </li>
+    </modExtensions>
+    <comps Inherit="false">
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>10</basePowerConsumption>
+        <transmitsPower>false</transmitsPower>
+        <shortCircuitInRain>false</shortCircuitInRain>
+      </li>
+      <li Class="ProjectRimFactory.CompProperties_TransmitsPower" />
+      <li Class="ProjectRimFactory.Common.CompProperties_PowerWorkSetting">
+        <!-- Speed Settings -->
+        <floatrange_SpeedFactor>0.009~0.009</floatrange_SpeedFactor>
+        <powerPerStepSpeed>0</powerPerStepSpeed>
+        <powerStepFactor>1</powerStepFactor>
+        <!-- Range Settings -->
+        <floatrange_Range>0~0</floatrange_Range>
+        <powerPerStepRange>0</powerPerStepRange>
+        <rangeType>ProjectRimFactory.Common.RectRange</rangeType>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <!--======================================= Conveyor underground connector to floor ===============================================-->
+  <ThingDef ParentName="PRF_UGConnector_Base">
+    <defName>PRF_Conveyor_Connector_To_Floor</defName>
+    <label>Underground belt exit</label>
+    <description>Connects the underground conveyor belt to the above-ground conveyor. Provides an exit back to the surface and will drop items on the floor if there is no conveyor.</description>
+    <graphicData>
+      <texPath>AutoMachineTool/Buildings/undergroundOut</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(1,1.1)</drawSize>
+      <drawRotated>true</drawRotated>
+    </graphicData>
+    <pathCost>70</pathCost>
+    <inspectorTabs Inherit="false">
+      <li>ProjectRimFactory.Common.ITab_ProductionSettings</li>
+    </inspectorTabs>
+    <modExtensions>
+      <li Class="ProjectRimFactory.AutoMachineTool.ModExtension_Conveyor">
+        <toUnderground>false</toUnderground>
+      </li>
+    </modExtensions>
+    <comps Inherit="false">
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>10</basePowerConsumption>
+        <transmitsPower>false</transmitsPower>
+        <shortCircuitInRain>false</shortCircuitInRain>
+      </li>
+      <li Class="ProjectRimFactory.CompProperties_TransmitsPower" />
+      <li Class="ProjectRimFactory.Common.CompProperties_PowerWorkSetting">
+        <!-- Speed Settings -->
+        <floatrange_SpeedFactor>0.009~0.009</floatrange_SpeedFactor>
+        <powerPerStepSpeed>0</powerPerStepSpeed>
+        <powerStepFactor>1</powerStepFactor>
+        <!-- Range Settings -->
+        <floatrange_Range>0~0</floatrange_Range>
+        <powerPerStepRange>0</powerPerStepRange>
+        <rangeType>ProjectRimFactory.Common.RectRange</rangeType>
+      </li>
+    </comps>
+  </ThingDef>
+  <!--======================================= Conveyor Splitters ===============================================-->
+  <ThingDef ParentName="PRF_Conveyor_Base" Name="PRF_Belt_Splitter">
+    <defName>PRF_Conveyor_Splitter_I</defName>
+    <thingClass>ProjectRimFactory.AutoMachineTool.Building_BeltSplitter</thingClass>
+    <label>Conveyor splitter</label>
+    <description>An automated unit that directs items on a conveyor belt in different directions depending on filters, handled by a very basic AI. If no filters are set, it will simply split where items passing through go. Directions in settings are output, and must be enabled.</description>
+    <pathCost>120</pathCost>
+    <passability>PassThroughOnly</passability>
+    <clearBuildingArea>true</clearBuildingArea>
+    <researchPrerequisites Inherit="false">
+      <li>PRF_BeltsII</li>
+    </researchPrerequisites>
+    <inspectorTabs>
+      <li>ProjectRimFactory.AutoMachineTool.ITab_ConveyorFilter</li>
+    </inspectorTabs>
+	<stuffCategories>
+		<li>RuggedMetallic</li>
+	</stuffCategories>
+	<costStuffCount>15</costStuffCount>
+	<costList>
+		<ReinforcedConcrete>5</ReinforcedConcrete>
+		<ComponentIndustrial>3</ComponentIndustrial>
+		<Mechanism>2</Mechanism>
+		<Rubber>5</Rubber>
+		<Wire>5</Wire>
+	</costList>
+    <statBases>
+      <MarketValue>1195</MarketValue>
+      <WorkToBuild Inherit="false">450</WorkToBuild>
+    </statBases>
+    <comps Inherit="false">      <!--It appears one must replace all of them-->
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>40</basePowerConsumption>
+        <transmitsPower>false</transmitsPower>
+        <shortCircuitInRain>false</shortCircuitInRain>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="ProjectRimFactory.CompProperties_TransmitsPower" />
+      <li Class="ProjectRimFactory.Common.CompProperties_PowerWorkSetting">
+        <!-- Speed Settings -->
+        <floatrange_SpeedFactor>0.002~0.002</floatrange_SpeedFactor>
+        <powerPerStepSpeed>0</powerPerStepSpeed>
+        <powerStepFactor>1</powerStepFactor>
+        <!-- Range Settings -->
+        <floatrange_Range>0~0</floatrange_Range>
+        <powerPerStepRange>0</powerPerStepRange>
+        <rangeType>ProjectRimFactory.Common.RectRange</rangeType>
+      </li>
+      <li>
+        <compClass>ProjectRimFactory.Common.CompPRFHelp</compClass>        <!-- PRF Internal help tab/icon setup in language -->
+      </li>
+    </comps>
+    <uiIconPath>Belts/Splitter_door_closed</uiIconPath>
+    <graphicData>
+      <texPath>[extraData][texPath]Belts/v3/Belts Atlas 640x640 GroundLevel Padded_North[/texPath][texPath2]Belts/v3/Splitter_House[/texPath2][/extraData]</texPath>
+      <graphicClass>ProjectRimFactory.AutoMachineTool.Graphic_LinkedSplitter</graphicClass>
+      <drawRotated>false</drawRotated>
+      <drawSize>(1, 1)</drawSize>
+    </graphicData>
+    <!--    <building>
+      <blueprintGraphicData>
+        <texPath>Belts/v3/Belts Atlas 640x640 GroundLevel Padded Blueprint_North</texPath>
+        <graphicClass>ProjectRimFactory.AutoMachineTool.Graphic_LinkedSplitter</graphicClass>
+        <shaderType>EdgeDetect</shaderType>
+        <drawRotated>false</drawRotated>
+        <drawSize>(1, 1)</drawSize>
+      </blueprintGraphicData>
+    </building>-->
+  </ThingDef>
+  <!--======================================= Conveyor Splitter UG ===============================================-->
+  <ThingDef ParentName="PRF_Belt_Splitter">
+    <defName>PRF_Conveyor_Splitter_UG</defName>
+    <label>Underground splitter</label>
+    <designatorDropdown>PRF_UgBeltsGroup</designatorDropdown>
+    <description>A subterranean conveyor splitter. Functions similarly to an above ground splitter, minus the mess.</description>
+    <canOverlapZones>true</canOverlapZones>
+    <altitudeLayer>FloorEmplacement</altitudeLayer>
+    <pathCost>0</pathCost>
+    <passability>Standable</passability>
+    <fillPercent>0.0</fillPercent>
+    <clearBuildingArea>false</clearBuildingArea>
+	<stuffCategories>
+		<li>RuggedMetallic</li>
+	</stuffCategories>
+	<costStuffCount>35</costStuffCount>
+	<costList>
+		<ReinforcedConcrete>10</ReinforcedConcrete>
+		<ComponentIndustrial>6</ComponentIndustrial>
+		<Mechanism>4</Mechanism>
+		<Rubber>14</Rubber>
+		<Wire>8</Wire>
+	</costList>
+    <statBases>
+      <WorkToBuild Inherit="false">1300</WorkToBuild>      <!--have to dig space for unit-->
+      <MarketValue>1280</MarketValue>
+    </statBases>
+    <modExtensions>
+      <li Class="ProjectRimFactory.AutoMachineTool.ModExtension_Conveyor">
+        <underground>true</underground>
+      </li>
+    </modExtensions>
+    <graphicData>
+      <texPath>[extraData][texPath]AutoMachineTool/Buildings/BeltConveyorUG[/texPath][texPath2]Belts/v3/Splitter_House[/texPath2][/extraData]</texPath>
+      <graphicClass>ProjectRimFactory.AutoMachineTool.Graphic_LinkedSplitter</graphicClass>
+      <drawRotated>true</drawRotated>
+    </graphicData>
+    <researchPrerequisites Inherit="false">
+      <li>PRF_BeltsIII</li>
+    </researchPrerequisites>
+    <building>
+      <isEdifice>false</isEdifice>
+      <!--      <blueprintGraphicData>
+        <texPath>AutoMachineTool/Buildings/BeltConveyorUG</texPath>
+        <graphicClass>ProjectRimFactory.AutoMachineTool.Graphic_LinkedSplitter</graphicClass>
+        <drawRotated>false</drawRotated>
+      </blueprintGraphicData>-->
+    </building>
+    <comps Inherit="false">
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>10</basePowerConsumption>
+        <transmitsPower>false</transmitsPower>
+        <shortCircuitInRain>false</shortCircuitInRain>
+      </li>
+      <li Class="ProjectRimFactory.CompProperties_TransmitsPower" />
+      <li Class="ProjectRimFactory.Common.CompProperties_PowerWorkSetting">
+        <!-- Speed Settings -->
+        <floatrange_SpeedFactor>0.009~0.009</floatrange_SpeedFactor>
+        <powerPerStepSpeed>0</powerPerStepSpeed>
+        <powerStepFactor>1</powerStepFactor>
+        <!-- Range Settings -->
+        <floatrange_Range>0~0</floatrange_Range>
+        <powerPerStepRange>0</powerPerStepRange>
+        <rangeType>ProjectRimFactory.Common.RectRange</rangeType>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <!--======================================= Conveyor Splitter Wall ===============================================-->
+  <ThingDef ParentName="PRF_Belt_Splitter">
+    <defName>PRF_Conveyor_Splitter_Wall</defName>
+    <label>Wall splitter</label>
+    <description>A conveyor splitter built into the walls. Functions similarly to standard splitters, connecting to above ground belts.</description>
+    <designatorDropdown>PRF_WallBeltsGroup</designatorDropdown>
+    <altitudeLayer>BuildingOnTop</altitudeLayer>
+    <pathCost>0</pathCost>
+    <passability>Standable</passability>
+    <fillPercent>0.0</fillPercent>
+    <clearBuildingArea>false</clearBuildingArea>
+    <placeWorkers>
+      <li>ProjectRimFactory.AutoMachineTool.PlaceWorker_WallEmbedded</li>
+    </placeWorkers>
+	<stuffCategories>
+		<li>Stony</li>
+		<li>RuggedMetallic</li>
+	</stuffCategories>
+	<costStuffCount>25</costStuffCount>
+	<costList>
+		<ReinforcedConcrete>10</ReinforcedConcrete>
+		<ComponentIndustrial>3</ComponentIndustrial>
+		<Mechanism>2</Mechanism>
+		<Rubber>5</Rubber>
+		<Wire>5</Wire>
+	</costList>
+    <statBases>
+      <MarketValue>1195</MarketValue>
+      <WorkToBuild Inherit="false">1300</WorkToBuild>      <!--have to dig space for unit-->
+    </statBases>
+    <graphicData>
+      <texPath>[extraData][texPath]AutoMachineTool/Buildings/BeltConveyorUG[/texPath][texPath2]Belts/v3/Splitter_House[/texPath2][/extraData]</texPath>
+      <graphicClass>ProjectRimFactory.AutoMachineTool.Graphic_LinkedSplitter</graphicClass>
+      <drawRotated>true</drawRotated>
+    </graphicData>
+    <researchPrerequisites Inherit="false">
+      <li>PRF_BeltsIII</li>
+    </researchPrerequisites>
+    <comps Inherit="false">
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>10</basePowerConsumption>
+        <transmitsPower>false</transmitsPower>
+        <shortCircuitInRain>false</shortCircuitInRain>
+      </li>
+      <li Class="ProjectRimFactory.CompProperties_TransmitsPower" />
+      <li Class="ProjectRimFactory.Common.CompProperties_PowerWorkSetting">
+        <!-- Speed Settings -->
+        <floatrange_SpeedFactor>0.009~0.009</floatrange_SpeedFactor>
+        <powerPerStepSpeed>0</powerPerStepSpeed>
+        <powerStepFactor>1</powerStepFactor>
+        <!-- Range Settings -->
+        <floatrange_Range>0~0</floatrange_Range>
+        <powerPerStepRange>0</powerPerStepRange>
+        <rangeType>ProjectRimFactory.Common.RectRange</rangeType>
+      </li>
+    </comps>
+    <building>
+
+      <isEdifice>false</isEdifice>
+      <!--      <blueprintGraphicData>
+        <texPath>AutoMachineTool/Buildings/BeltConveyorUG</texPath>
+        <graphicClass>ProjectRimFactory.AutoMachineTool.Graphic_LinkedSplitter</graphicClass>
+        <drawRotated>false</drawRotated>
+      </blueprintGraphicData>-->
+    </building>
+  </ThingDef>
+
+</Defs>
