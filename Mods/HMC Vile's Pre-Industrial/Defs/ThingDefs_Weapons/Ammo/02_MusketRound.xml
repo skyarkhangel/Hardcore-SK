@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	
+
+	<ThingCategoryDef>
+		<defName>Ammo69Musket</defName>
+		<label>.69 Musket Ball</label>
+		<parent>AmmoMusket</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberRifle</iconPath>
+	</ThingCategoryDef>
+	
+
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_69Musket</defName>
+		<label>.69 Musket Ball</label>
+		<ammoTypes>
+			<Ammo_69Musket_Lead>Bullet_69Musket_Lead</Ammo_69Musket_Lead>
+			<Ammo_69Musket_Buck>Bullet_69Musket_Buck</Ammo_69Musket_Buck>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="69MusketBase" ParentName="SmallAmmoBase" Abstract="True">
+		<description>Round bullet with powder, wrapped in paper.</description>
+		<statBases>
+			<Mass>0.012</Mass>
+			<Bulk>0.03</Bulk>
+		</statBases>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting</li>
+		</tradeTags>
+		<thingCategories>
+			<li>Ammo69Musket</li>
+		</thingCategories>
+		<comps>
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>0.45</explosiveRadius>
+				<explosiveDamageType>Flame</explosiveDamageType>
+				<explosiveExpandPerStackcount>0.01</explosiveExpandPerStackcount>
+				<startWickHitPointsPercent>0.333</startWickHitPointsPercent>
+				<wickTicks>
+					<min>5</min>
+					<max>10</max>
+				</wickTicks>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="69MusketBase">
+		<defName>Ammo_69Musket_Lead</defName>
+		<label>.69 Musket Ball</label>
+		<graphicData>
+			<texPath>Things/Ammunition/MusketBall</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>0.2</MarketValue>
+		</statBases>
+		<ammoClass>LeadBall</ammoClass>
+		<cookOffProjectile>Bullet_69Musket_Lead</cookOffProjectile>
+	</ThingDef>
+	
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="69MusketBase">
+		<defName>Ammo_69Musket_Buck</defName>
+		<label>.69 Musket Buck and Ball</label>
+		<graphicData>
+			<texPath>Things/Ammunition/BuckandBall</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>0.2</MarketValue>
+		</statBases>
+		<ammoClass>BuckandBall</ammoClass>
+		<cookOffProjectile>Bullet_69Musket_Lead</cookOffProjectile>
+	</ThingDef>
+
+
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="Base69MusketBullet" ParentName="SK_BaseBullet" Abstract="true">
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_Small</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bullet</damageDef>
+			<speed>125</speed>
+			<dropsCasings>False</dropsCasings>
+		</projectile>
+	</ThingDef>
+
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base69MusketBullet">
+		<defName>Bullet_69Musket_Lead</defName>
+		<label>.69 Musket Ball (Lead)</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageAmountBase>22</damageAmountBase>
+			<!-- <armorPenetrationBase>0.53</armorPenetrationBase> -->
+			<armorPenetrationSharp>5.5</armorPenetrationSharp>
+			<armorPenetrationBlunt>70</armorPenetrationBlunt>
+		</projectile>
+	</ThingDef>
+	
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base69MusketBullet">
+		<defName>Bullet_69Musket_Buck</defName>
+		<label>.69 Musket Buck and Ball</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageAmountBase>8</damageAmountBase>
+			<pelletCount>6</pelletCount>
+			<!-- <armorPenetrationBase>0.30</armorPenetrationBase> -->
+			<armorPenetrationSharp>3.5</armorPenetrationSharp>
+			<armorPenetrationBlunt>6.5</armorPenetrationBlunt>
+			<spreadMult>8.8</spreadMult>
+		</projectile>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef ParentName="AmmoRecipeBlackPowderBase">
+		<defName>MakeAmmo_69Musket_Lead</defName>
+		<label>make .69 Musket Ball x25</label>
+		<description>Craft 25 .69 Musket Ball rounds, and measure out powder charge.</description>
+		<jobString>Making .69 Musket Ball rounds.</jobString>
+		<workAmount>450</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>LeadBar</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Powder</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>HeavyBar</li>
+			</categories>
+			<thingDefs>
+				<li>Powder</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_69Musket_Lead>25</Ammo_69Musket_Lead>
+		</products>
+		<skillRequirements>
+			<Crafting>1</Crafting>
+		</skillRequirements>
+		<workSkill>Crafting</workSkill>
+		<workSkillLearnFactor>0.8</workSkillLearnFactor>
+		<researchPrerequisite>Muskets_B1</researchPrerequisite> <!-- Smithing -->
+	</RecipeDef>
+	
+	
+	
+	<!-- BUCK AND BALL FORGE-->
+	<RecipeDef ParentName="AmmoRecipeBlackPowderBase">
+		<defName>MakeAmmo_69Musket_Buck</defName>
+		<label>make .69 Musket Buck and Ball x25</label>
+		<description>Craft 25 .69 Musket Buck and Ball rounds.</description>
+		<jobString>Making .69 Musket Buck and Ball rounds.</jobString>
+		<workAmount>450</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>SLDBar</li>
+						<li>USLDBar</li>
+					</categories>
+				</filter>
+				<count>3</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Powder</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Powder</li>
+			</thingDefs>
+			<categories>
+				<li>SLDBar</li>
+				<li>USLDBar</li>
+			</categories>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_69Musket_Buck>25</Ammo_69Musket_Buck>
+		</products>
+		<skillRequirements>
+			<Crafting>1</Crafting>
+		</skillRequirements>
+		<workSkill>Crafting</workSkill>
+		<workSkillLearnFactor>0.8</workSkillLearnFactor>
+		<researchPrerequisite>Muskets_B1</researchPrerequisite> <!-- Smithing -->
+	</RecipeDef>
+	
+	
+</Defs>
