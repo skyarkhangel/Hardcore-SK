@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.6.1
+- Added Russian language support
+
+## 1.6.0
+- Fixed sound not playing on 'Plan xxx' button click
+- Added custom keybinding for color picker
+- Added option to skip instead of replace as default
+- Added 'Paint Plan' designator
+- Changing texture set also changes 'Plan xxx' icon accordingly
+
+## 1.5.1
+- Fixed vertical doors not always working when using undo-redo-system
+- Added vanilla RimWorld plan converter
+
 ## 1.5.0
 - Support of vertical doors
 - Maps are now automatically updated (old plans, vertical doors)

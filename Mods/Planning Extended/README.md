@@ -9,12 +9,12 @@ This mod adds learning XP for stonecutting again, as well as bulk recipes, cutti
 - Draw colored designations, such as walls, doors, objects and floors
 - Optionally skip (don't overwrite) already placed plan designations
 - Use different shapes, e.g. rectangle, area, cross
-- Load / Save plan blueprints
+- Load / Save plan blueprints, quickly select last loaded plans
 - Cut / Copy / Paste your plans
 - Undo / Redo your planned actions
 - Show / Hide your planning designations (incl. global shortcut)
 - Change plan texture sets and opacity for each plan type individually
-- Convert your plan from MorePlanning mod
+- Convert your plan from vanilla Rimworld or MorePlanning mod
 
 ### Coming soon
 
@@ -67,7 +67,7 @@ I really want this mod available in my native language!
 > Unfortunately, I'll have to rely on the community here. So if you would like to support the project, feel free to translate this file (link coming soon).
 
 Why does my performance decrease when I paint lots of planning designations?
-> The problem is, that the colored ones aren't rendered in a batched call. When I add about 20.000 colored designations and fully zoom out (using Camera+), my FPS takes a slight hit. You will encounter the same problem, when using the vanilla paint-tool (for floors or buildings/structures) and add that many colored designations. I use exactly the same method and should RimWorld solve this issue by starting to batch these ones, the performance of this mod will improve as well. Should it really cause a lot of trouble, I can try to implement a custom batch renderer just for that.
+> The problem is, that the designations aren't rendered in a batched call. When I add about 20.000 designations and fully zoom out (using Camera+), my FPS takes a slight hit. You will encounter the same problem, when using the MorePlanning mod or vanilla paint-tool (for floors or buildings/structures) and add that many designations.
 
 ## Installation
 
