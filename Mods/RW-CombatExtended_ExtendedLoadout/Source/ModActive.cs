@@ -10,7 +10,6 @@ public class ModActive
     {
         get
         {
-            Log.Message("BPC ModActive check entered");
             return ModLister.HasActiveModWithName("Better Pawn Control");
         }
     }

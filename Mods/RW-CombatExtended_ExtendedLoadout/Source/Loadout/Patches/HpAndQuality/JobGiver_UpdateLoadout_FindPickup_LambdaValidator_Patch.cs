@@ -56,9 +56,10 @@ public class JobGiver_UpdateLoadout_FindPickup_LambdaValidator_Patch
             new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(JobGiver_UpdateLoadout_FindPickup_LambdaValidator_Patch), nameof(AllowEquip))),
             new CodeInstruction(OpCodes.Brfalse_S, code[idx - 1].operand), // read exit label from brtrue.s
         });
-
+#if DEBUG
         File.WriteAllLines("E:\\Validatorbefore.txt", instructions.Select(x => x.ToString()));
         File.WriteAllLines("E:\\Validatorafter.txt", code.Select(x => x.ToString()));
+#endif
         return code;
     }
 
