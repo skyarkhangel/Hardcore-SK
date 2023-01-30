@@ -107,20 +107,16 @@ public class ExtendedLoadoutMod : ModBase
             //BPC.Patch(Harmony);
         }
 
-        Log.Warning("BPC patch passed");
-
         Harmony.PatchAll();
 
         if (!useMultiLoadouts) // disable unused patch
         {
             LoadoutProxy_Patch.Unpatch();
         }
-
-        Log.Warning("LoadoutProxy_Patch passed");
         // add generic defs
         MedicineDefs.Initialize();
 
-        Log.Warning("[CombatExtended.ExtendedLoadout] Initialized");
+        Log.Message("[CombatExtended.ExtendedLoadout] Initialized");
     }
 
     private IEnumerable<PawnColumnDef> GeneratePawnColumnDefs(int count)

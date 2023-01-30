@@ -86,7 +86,6 @@ public class Loadout_Multi : Loadout, IExposable, ILoadReferenceable
 
     public new void ExposeData()
     {
-        Log.Warning("Loadout_Multi.ExposeData Entered");
         Scribe_Values.Look(ref uniqueID, "uniqueID");
         Scribe_References.Look(ref _pawn, "pawn");
         Scribe_Deep.Look(ref _personalLoadout, "personalLoadout");

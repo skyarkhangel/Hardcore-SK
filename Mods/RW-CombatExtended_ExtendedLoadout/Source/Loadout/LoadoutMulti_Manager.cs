@@ -15,11 +15,10 @@ public static class LoadoutMulti_Manager
 
     public static void ExposeData(LoadoutManager __instance)
     {
-        Log.Warning("ExposeData Multi Entered");
         Scribe_Collections.Look(ref assignedLoadoutsMulti, "assignedLoadoutsMulti", LookMode.Reference, LookMode.Deep, ref keysWorkingList, ref valuesWorkingList);
 
         // fix for old saves
-        if (Scribe.mode == LoadSaveMode.PostLoadInit && assignedLoadoutsMulti == null)
+        if (Scribe.mode == LoadSaveMode.PostLoadInit && assignedLoadoutsMulti == null)  
         {
             assignedLoadoutsMulti = new Dictionary<Pawn, Loadout_Multi>();
 
