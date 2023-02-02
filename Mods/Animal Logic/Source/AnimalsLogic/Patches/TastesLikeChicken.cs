@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Resources;
 using HarmonyLib;
 using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace AnimalsLogic
@@ -19,39 +21,63 @@ namespace AnimalsLogic
         [HarmonyPatch(typeof(Pawn), "ButcherProducts", new Type[] { typeof(Pawn), typeof(float) })]
         static class Pawn_ButcherProducts_Patch
         {
-            static void Postfix(ref IEnumerable<Thing> __result, ref Pawn __instance)
+            static void Postfix(ref IEnumerable<Thing> __result, ref Pawn __instance, float efficiency)
             {
-                if (!Settings.tastes_like_chicken || __result == null || !__result.Any())
+                if (__result == null)
                 {
                     return;
                 }
 
-                List<Thing> result = new List<Thing>(__result);
-                Thing meat = result.Find(x => x.def.IsIngestible && x.def.ingestible.foodType == FoodTypeFlags.Meat);
+                List<Thing> resultTemp = new List<Thing>(__result);
 
-                if (meat == null)
+                if (Settings.tastes_like_chicken)
+                    foreach (Thing meat in resultTemp.FindAll(x => x.def.ingestible?.foodType == FoodTypeFlags.Meat))
+                    {
+                        if (meat == null)
+                        {
+                            continue;
+                        }
+                        if (meat.def.defName.Contains("RawCHFood")) // Cosmic Horrors mod semi-support
+                        {
+                            continue; // do nothing
+                        }
+                        else if (__instance.RaceProps.Humanlike)
+                        {
+                            meat.def = DefDatabase<ThingDef>.GetNamed("Meat_Human");
+                        }
+                        else if (__instance.RaceProps.FleshType == FleshTypeDefOf.Insectoid)
+                        {
+                            meat.def = DefDatabase<ThingDef>.GetNamed("Meat_Megaspider");
+                        }
+                        else if (__instance.RaceProps.FleshType == FleshTypeDefOf.Normal)
+                        {
+                            meat.def = DefDatabase<ThingDef>.GetNamed("Meat_Chicken");
+                        }
+                    }
+
+                CompShearable shareable;
+                if (Settings.shear_corpses && (shareable = __instance.GetComp<CompShearable>()) != null && __instance.ageTracker.CurLifeStage.shearable)
                 {
-                    return;
+                    float fullness = shareable.Fullness;
+                    if (__instance.Faction == null || !__instance.Faction.IsPlayer)
+                        fullness = Rand.Value * 0.5f + 0.5f; // no one shears wild animals so they always have wool, but less than full (50 to 100%)
+
+                    if (fullness >= 0.1)
+                    {
+                        CompProperties_Shearable props = shareable.Props;
+                        int total_wool = GenMath.RoundRandom((float)props.woolAmount * fullness * efficiency);
+                        while (total_wool > 0)
+                        {
+                            int wool_stack = Mathf.Clamp(total_wool, 1, props.woolDef.stackLimit);
+                            total_wool -= wool_stack;
+                            Thing thing = ThingMaker.MakeThing(props.woolDef);
+                            thing.stackCount = wool_stack;
+                            resultTemp.Add(thing);
+                        }
+                    }
                 }
 
-                if (meat.def.defName.Contains("RawCHFood")) // Cosmic Horrors mod semi-support
-                {
-                    return; // do nothing
-                }
-                else if (__instance.RaceProps.Humanlike)
-                {
-                    meat.def = DefDatabase<ThingDef>.GetNamed("Meat_Human");
-                }
-                else if (__instance.RaceProps.FleshType == FleshTypeDefOf.Insectoid)
-                {
-                    meat.def = DefDatabase<ThingDef>.GetNamed("Meat_Megaspider");
-                }
-                else if (__instance.RaceProps.FleshType == FleshTypeDefOf.Normal)
-                {
-                    meat.def = DefDatabase<ThingDef>.GetNamed("Meat_Chicken");
-                }
-
-                __result = result.AsEnumerable();
+                __result = resultTemp.AsEnumerable();
             }
         }
     }

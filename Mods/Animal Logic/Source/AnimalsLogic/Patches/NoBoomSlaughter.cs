@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using RimWorld;
+using System;
 using Verse;
 
 namespace AnimalsLogic
@@ -54,10 +55,17 @@ namespace AnimalsLogic
                     Log.Error("Animal Logic: " + type + " is not DeathActionWorker.");
                     return;
                 }
-                AnimalsLogic.harmony.Patch(
-                        type.GetMethod("PawnDied"),
-                        prefix: new HarmonyMethod(typeof(NoBoomSlaughter).GetMethod(nameof(Explosion_Prefix)))
-                    );
+                try
+                {
+                    AnimalsLogic.harmony.Patch(
+                            type.GetMethod("PawnDied"),
+                            prefix: new HarmonyMethod(typeof(NoBoomSlaughter).GetMethod(nameof(Explosion_Prefix)))
+                        );
+                }
+                catch (Exception)
+                {
+                    Log.Error("Exception while patching explosive animal: " + type);
+                }
             }
         }
 
