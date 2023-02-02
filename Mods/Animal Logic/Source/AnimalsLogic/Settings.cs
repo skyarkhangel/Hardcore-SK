@@ -11,6 +11,7 @@ namespace AnimalsLogic
         public static bool hostile_vermins = true;
         public static bool convert_ruined_eggs = true;
         public static bool tastes_like_chicken = false;
+        public static bool shear_corpses = true;
         public static bool medical_alerts = true;
         public static bool trade_tags = true;
         public static bool use_dispenser = true;
@@ -32,6 +33,7 @@ namespace AnimalsLogic
             listing_Standard.CheckboxLabeled("ALConfigHostilePredatorsLabel".Translate(), ref hostile_predators, "ALConfigHostilePredatorsTooltip".Translate());
             listing_Standard.CheckboxLabeled("ALConfigEggConversionLabel".Translate(), ref convert_ruined_eggs, "ALConfigEggConversionTooltip".Translate());
             listing_Standard.CheckboxLabeled("ALConfigMeatConversionLabel".Translate(), ref tastes_like_chicken, "ALConfigMeatConversionTooltip".Translate());
+            listing_Standard.CheckboxLabeled("ALConfigShearCorpsesLabel".Translate(), ref shear_corpses, "ALConfigShearCorpsesTooltip".Translate());
             listing_Standard.CheckboxLabeled("ALConfigMedicalAlertsLabel".Translate(), ref medical_alerts, "ALConfigMedicalAlertsTooltip".Translate());
             listing_Standard.CheckboxLabeled("ALConfigTradeHintsLabel".Translate(), ref trade_tags, "ALConfigTradeHintsTooltip".Translate());
             listing_Standard.CheckboxLabeled("ALConfigAnimalsCanUseFoodDispenserLabel".Translate(), ref use_dispenser, "ALConfigAnimalsCanUseFoodDispenserTooltip".Translate());
@@ -45,7 +47,7 @@ namespace AnimalsLogic
             listing_Standard.Label("ALConfigTrainingDecaySpeedFactorLabel".Translate(((float)Math.Round(training_decay_factor, 3)).ToStringPercent()), tooltip: "ALConfigTrainingDecaySpeedFactorTooltip".Translate());
             training_decay_factor = listing_Standard.Slider(training_decay_factor, 0.01f, 2f);
             
-            listing_Standard.Label("ALConfigHaulingMTBLabel".Translate(((float)Math.Round(Math.Round(haul_mtb * 4) / 4f, 2))), tooltip: "ALConfigHaulingMTBTooltip".Translate());
+            listing_Standard.Label("ALConfigHaulingMTBLabel".Translate(((float)Math.Round(Math.Round(haul_mtb * 40) / 40f, 2))), tooltip: "ALConfigHaulingMTBTooltip".Translate());
             haul_mtb = listing_Standard.Slider(haul_mtb, 0.0f, 3f);
 
             listing_Standard.Label("ALConfigToxicBuildupRotLabel".Translate(((float)Math.Round(toxic_buildup_rot, 3)).ToStringPercent()), tooltip: "ALConfigToxicBuildupRotTooltip".Translate());
@@ -61,6 +63,7 @@ namespace AnimalsLogic
             Scribe_Values.Look<bool>(ref hostile_predators, "hostile_predators", true, false);
             Scribe_Values.Look<bool>(ref convert_ruined_eggs, "convert_ruined_eggs", true, false);
             Scribe_Values.Look<bool>(ref tastes_like_chicken, "tastes_like_chicken", false, false);
+            Scribe_Values.Look<bool>(ref shear_corpses, "shear_corpses", true, false);
             Scribe_Values.Look<bool>(ref medical_alerts, "medical_alerts", true, false);
             Scribe_Values.Look<bool>(ref trade_tags, "trade_tags", true, false);
             Scribe_Values.Look<bool>(ref use_dispenser, "use_dispenser", true, false);
