@@ -48,9 +48,9 @@ For Windows users:
 
 [Development:](https://github.com/skyarkhangel/Hardcore-SK/tree/development) - The work-in-progress version which contains the latest content for the latest version of rimworld, but is more likely to contain bugs. Currently for version 1.3.
 
-[Alpha] (https://github.com/skyarkhangel/Hardcore-SK/tree/alpha) - The 1.4 Work in progress version that will eventually be moved into development.
+[Alpha:](https://github.com/skyarkhangel/Hardcore-SK/tree/alpha) - The 1.4 Work in progress version that will eventually be moved into development.
 
-1. Install either the [development](https://github.com/skyarkhangel/Hardcore-SK/tree/development) or [master](https://github.com/skyarkhangel/Hardcore-SK/tree/master) branch of the modpack for 1.3, or [Alpha] (https://github.com/skyarkhangel/Hardcore-SK/tree/alpha) for 1.4
+1. Install either the [development](https://github.com/skyarkhangel/Hardcore-SK/tree/development) or [master](https://github.com/skyarkhangel/Hardcore-SK/tree/master) branch of the modpack for 1.3, or [Alpha](https://github.com/skyarkhangel/Hardcore-SK/tree/alpha) for 1.4
 
 2. Go to the folder you installed the game in and delete all mods inside your `Rimworld\Mods\` folder.
 
