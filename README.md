@@ -44,15 +44,17 @@ For Windows users:
 
 ### Manual installation
 
-[Master:](https://github.com/skyarkhangel/Hardcore-SK/tree/master) - The stable version/branch of the modpack usually a version behind the latest Rimworld. Currently for version 1.2.
+[Master:](https://github.com/skyarkhangel/Hardcore-SK/tree/master) - The stable version/branch of the modpack usually a version behind the latest Rimworld. Currently for version 1.3.
 
 [Development:](https://github.com/skyarkhangel/Hardcore-SK/tree/development) - The work-in-progress version which contains the latest content for the latest version of rimworld, but is more likely to contain bugs. Currently for version 1.3.
 
-1. Install either the [development](https://github.com/skyarkhangel/Hardcore-SK/tree/development) or [master](https://github.com/skyarkhangel/Hardcore-SK/tree/master) branch of the modpack.
+[Alpha] (https://github.com/skyarkhangel/Hardcore-SK/tree/alpha) - The 1.4 Work in progress version that will eventually be moved into development.
+
+1. Install either the [development](https://github.com/skyarkhangel/Hardcore-SK/tree/development) or [master](https://github.com/skyarkhangel/Hardcore-SK/tree/master) branch of the modpack for 1.3, or [Alpha] (https://github.com/skyarkhangel/Hardcore-SK/tree/alpha) for 1.4
 
 2. Go to the folder you installed the game in and delete all mods inside your `Rimworld\Mods\` folder.
 
-3. Open up the downloaded Hardcore SK .zip file. Extract everything in the `Hardcore-SK-master\Mods\` OR `Hardcore-SK-Development\Mods\` folder into your empty `Rimworlds\Mods\` folder.
+3. Open up the downloaded Hardcore SK .zip file. Extract everything in the `Hardcore-SK-master\Mods\` OR `Hardcore-SK-Development\Mods\` `Hardcore-SK-Alpha\Mods\ OR folder into your empty `Rimworlds\Mods\` folder.
 
 4. Go to the RimWorld config folder and delete all the files that exist in that folder. Copy "`ModsConfig.xml`", which is at the root of the archive modpack. 
 
