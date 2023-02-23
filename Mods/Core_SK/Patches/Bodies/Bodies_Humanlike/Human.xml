@@ -1,30 +1,53 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <Patch>
 
-  <!-- Fixes permanent brain injury for humans and ogres -->
-  <Operation Class="PatchOperationReplace">
-    <xpath>Defs/BodyPartDef[defName="Brain" or defName="oBrain"]/permanentInjuryChanceFactor</xpath>
-    <value>
-      <permanentInjuryChanceFactor>16.5</permanentInjuryChanceFactor>
-    </value>
-  </Operation>
+	<!-- Fixes permanent brain injury for humans and ogres -->
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/BodyPartDef[defName="Brain" or defName="oBrain"]/permanentInjuryChanceFactor</xpath>
+		<value>
+			<permanentInjuryChanceFactor>16.5</permanentInjuryChanceFactor>
+		</value>
+	</Operation>
 
-  <!-- Fixes permanent brain injury for androids -->
-  <Operation Class="PatchOperationFindMod">
+	<!-- Fixes permanent brain injury for androids -->
+	<Operation Class="PatchOperationFindMod">
 		<mods>
 			<li>Androids</li>
 		</mods>
 		<match Class="PatchOperationSequence">
-		 <success>Normal</success>
-		 <operations>
-			<li Class="PatchOperationReplace">
-				<xpath>Defs/BodyPartDef[defName="ArtificialAndroidBrain"]/permanentInjuryChanceFactor</xpath>
+			<success>Normal</success>
+			<operations>
+				<li Class="PatchOperationReplace">
+					<xpath>
+						Defs/BodyPartDef[defName="ArtificialAndroidBrain"]/permanentInjuryChanceFactor</xpath>
+					<value>
+						<permanentInjuryChanceFactor>16.5</permanentInjuryChanceFactor>
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+
+	<!-- Set the root part of tongue to head -->
+	<Operation Class="PatchOperationSequence">
+		<operations>
+			<li Class="PatchOperationRemove">
+				<xpath>
+					Defs/BodyDef[defName="Human"]/corePart/parts/li[def="Neck"]/parts/li/parts/li[def="Jaw"]/parts/li</xpath>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/BodyDef[defName="Human"]/corePart/parts/li[def="Neck"]/parts/li/parts</xpath>
 				<value>
-					<permanentInjuryChanceFactor>16.5</permanentInjuryChanceFactor>
+					<li>
+						<def>Tongue</def>
+						<coverage>0</coverage>
+						<depth>Inside</depth>
+						<groups>
+							<li>FullHead</li>
+						</groups>
+					</li>
 				</value>
 			</li>
-		 </operations>
-		</match>
-   </Operation>
-
+		</operations>
+	</Operation>
 </Patch>
