@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.7.1
+- Fixed missing shape translations
+
+## 1.7.0
+- Added point shape (useful helper to measure distances or add doors)
+- Line shape now supports two types
+  - Simple Line: draw a line from A to B
+  - Line Grid
+- Added grid support for rectangles
+- Added shape modifier key
+  - Simple Line: draws a horizontal or vertical line
+  - other shapes: applies square modfier
+- Fixed missing map boundaries while pasting a plan
+- Fixed shape variants not remembering options
+- Fixed missing translations
+
 ## 1.6.1
 - Added Russian language support
 
