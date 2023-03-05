@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.7.3
+- Fixed plans not being drawn when outside visible area
+- Fixed disappearing vanilla plans while loading a map
+
+## 1.7.2
+- Added missing Russian translations
+
 ## 1.7.1
 - Fixed missing shape translations
 
