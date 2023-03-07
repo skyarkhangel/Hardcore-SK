@@ -48,7 +48,13 @@ public static class LoadUtil
 
     public static LoadoutConfigs ToConfig(this IEnumerable<Loadout> loadouts)
     {
-        return new LoadoutConfigs { configs = loadouts.ToConfig().configs };
+        return new LoadoutConfigs { configs = loadouts.Select(x => ToConfig(x)).ToArray() };
+        /*LoadoutConfigs result= new LoadoutConfigs();
+        foreach(var loadout in loadouts)
+        {
+            result.configs.AddItem(ToConfig(loadout));
+        }
+        return result;*/
     }
 
     public static Loadout[] FromConfig(LoadoutConfigs loadoutConfig, out List<string> unloadableDefNames)
@@ -65,21 +71,31 @@ public static class LoadUtil
 
     public static LoadoutConfig ToConfig(this Loadout loadout)
     {
-        int i = 0;
+        /*int i = 0;
         LoadoutSlotConfig[] temp = new LoadoutSlotConfig[loadout.ToConfig().slots.Length];
-
+        Log.Message("temp created");
         foreach (var loadoutSlot in loadout.ToConfig().slots)
         {
+            Traverse traverse = new Traverse(loadoutSlot);
+            Log.Message($"isGeneric {traverse.Field("isGenericDef").GetValue()}\ndefName {traverse.Field("defName").GetValue()}\ncount {traverse.Field("count").GetValue()}");
+            temp.AddItem(new LoadoutSlotConfig { 
+                isGenericDef = loadoutSlot.isGenericDef,
+                defName = loadoutSlot.defName,
+                count= loadoutSlot.count
+            });
+            *//*Log.Message("isGeneric");
             temp[i].isGenericDef = loadoutSlot.isGenericDef;
+            Log.Message("defName");
             temp[i].defName = loadoutSlot.defName;
+            Log.Message("Count");
             temp[i].count = loadoutSlot.count;
-            i++;
+            i++;*//*
         }
-
+        Log.Message("temp added");*/
         return new LoadoutConfig
         {
             label = loadout.label,
-            slots = temp
+            slots = loadout.ToConfig().slots.Select(x => new LoadoutSlotConfig { isGenericDef = x.isGenericDef,defName = x.defName,count= x.count}).ToArray()
         };
     }
 
@@ -112,11 +128,11 @@ public static class LoadUtil
         string uniqueLabel = loadoutConfig.label.IsUniqueLoadoutLabel()
             ? loadoutConfig.label
             : LoadoutManager.GetUniqueLabel(loadoutConfig.label);
-        
+
         Loadout loadout = new Loadout(uniqueLabel);
-        
+
         unloadableDefNames = new List<string>();
-        
+
         // Now create each of the slots
         foreach (LoadoutSlotConfig loadoutSlotConfig in loadoutConfig.slots)
         {
@@ -128,9 +144,9 @@ public static class LoadUtil
                 unloadableDefNames.Add(loadoutSlotConfig.defName);
                 continue;
             }
-            loadout.AddSlot(FromConfig(loadoutSlotConfig));		        
+            loadout.AddSlot(FromConfig(loadoutSlotConfig));
         }
-        
+
         return loadout;
     }
 }
@@ -150,7 +166,7 @@ public static class Dialog_ManageLoadouts_SaveLoad
     {
         var saveRect = canvas.RightPartPixels(Dialog_ManageLoadouts._topAreaHeight + Dialog_ManageLoadouts._margin);
         saveRect.height = saveRect.width = Dialog_ManageLoadouts._topAreaHeight;
-        
+
         if (Widgets.ButtonImage(saveRect, Textures.Save))
         {
             Find.WindowStack.Add(new Dialog_SaveLoad());
@@ -170,10 +186,11 @@ public class Dialog_SaveLoad : Window
     private Dictionary<Loadout, bool> _checkState = new();
     private Vector2 _loaudoutsScroll, _filesScroll;
     private Dictionary<string, ThingDef> _firstGenericCache = new();
-    
+
     public override Vector2 InitialSize => new(900, 600);
-    
-    public enum LoadStatus {
+
+    public enum LoadStatus
+    {
         Fine,
         Warning,
         Error
@@ -214,11 +231,13 @@ public class Dialog_SaveLoad : Window
         }
     }
 
-    private Loadout[] GetLoadouts() { 
+    private Loadout[] GetLoadouts()
+    {
         return _selectedFile == -1 ? LoadoutManager.Loadouts.Where(x => !x.defaultLoadout).ToArray() : _files[_selectedFile].loadouts;
     }
 
-    private static Texture2D StatusToTexture(LoadStatus status) => status switch {
+    private static Texture2D StatusToTexture(LoadStatus status) => status switch
+    {
         LoadStatus.Fine => Textures.Fine,
         LoadStatus.Warning => Textures.Warning,
         LoadStatus.Error => Textures.Error,
@@ -227,7 +246,8 @@ public class Dialog_SaveLoad : Window
 
     private Loadout[] GetCheckedLoadouts() => _checkState.Where(x => x.Value).Select(x => x.Key).ToArray();
 
-    private void DrawSaveFile(Rect rect, int fileNum) {
+    private void DrawSaveFile(Rect rect, int fileNum)
+    {
         float yPos = (fileNum + 1) * (elementHeight + margin * 2/* top and bottom*/);
         Rect lineRect = new(rect.x, rect.y + yPos, rect.width, elementHeight + margin * 2);
         Rect inlineRect = lineRect.ContractedBy(margin);
@@ -237,16 +257,22 @@ public class Dialog_SaveLoad : Window
         Rect fileNameRect = new(loadStatusRect.xMax + margin, inlineRect.y, fileNameWidth, elementHeight);
         Rect saveOrLoadIconRect = new(fileNameRect.xMax + margin, inlineRect.y, elementHeight, elementHeight);
         Rect deleteIconRect = new(saveOrLoadIconRect.xMax + margin, inlineRect.y, elementHeight, elementHeight);
-        if (fileNum == -1) {
+        if (fileNum == -1)
+        {
             // new file text entry
             _saveFileName = Widgets.TextField(fileNameRect, _saveFileName);
 
             if (Mouse.IsOver(saveOrLoadIconRect))
                 TooltipHandler.TipRegion(saveOrLoadIconRect, "CE_SL.Save".Translate());
-            if (Widgets.ButtonImage(saveOrLoadIconRect, Textures.Save)) {
-                if (!string.IsNullOrWhiteSpace(_saveFileName)) {
+            if (Widgets.ButtonImage(saveOrLoadIconRect, Textures.Save))
+            {
+                if (!string.IsNullOrWhiteSpace(_saveFileName))
+                {
                     XmlSerializer xmlSerializer = new XmlSerializer(typeof(LoadoutConfigs));
-                    using (TextWriter writer = new StreamWriter(new FileInfo(Path.Combine(_savePath, _saveFileName + ".xml")).FullName)) {
+                    /*foreach(var loadout in GetCheckedLoadouts())
+                        Log.Message($"ID:{loadout.uniqueID}\nLabel:{loadout.label}");*/
+                    using (TextWriter writer = new StreamWriter(new FileInfo(Path.Combine(_savePath, _saveFileName + ".xml")).FullName))
+                    {
                         xmlSerializer.Serialize(writer, GetCheckedLoadouts().ToConfig());
                     }
                     ReloadFiles();
@@ -254,15 +280,19 @@ public class Dialog_SaveLoad : Window
                         Close();
                 }
             }
-        } else {
+        }
+        else
+        {
             // existing file
             var file = _files[fileNum];
             Widgets.Label(fileNameRect, file.name);
 
-            if (file.status != LoadStatus.Error) {
+            if (file.status != LoadStatus.Error)
+            {
                 if (Mouse.IsOver(saveOrLoadIconRect))
                     TooltipHandler.TipRegion(saveOrLoadIconRect, "CE_SL.Load".Translate());
-                if (Widgets.ButtonImage(saveOrLoadIconRect, Textures.Load)) {
+                if (Widgets.ButtonImage(saveOrLoadIconRect, Textures.Load))
+                {
                     foreach (var loudout in GetCheckedLoadouts())
                     {
                         LoadoutManager.AddLoadout(loudout);
@@ -272,67 +302,80 @@ public class Dialog_SaveLoad : Window
             }
             if (Mouse.IsOver(deleteIconRect))
                 TooltipHandler.TipRegion(deleteIconRect, "CE_SL.Delete".Translate());
-            if (Widgets.ButtonImage(deleteIconRect, Textures.Delete)) {
+            if (Widgets.ButtonImage(deleteIconRect, Textures.Delete))
+            {
                 File.Delete(Path.Combine(_savePath, file.name + ".xml"));
                 _files.Remove(file);
                 _selectedFile = -1;
             }
-            
+
             GUI.DrawTexture(loadStatusRect, StatusToTexture(file.status));
-            if (Mouse.IsOver(loadStatusRect)) {
+            if (Mouse.IsOver(loadStatusRect))
+            {
                 TooltipHandler.TipRegion(loadStatusRect, file.loadStatusMessage);
                 Widgets.DrawHighlight(loadStatusRect);
             }
         }
 
-        if (Input.GetMouseButtonDown(0) && Mouse.IsOver(lineRect)) {
+        if (Input.GetMouseButtonDown(0) && Mouse.IsOver(lineRect))
+        {
             _selectedFile = fileNum;
         }
-        if (_selectedFile == fileNum) {
+        if (_selectedFile == fileNum)
+        {
             Widgets.DrawHighlight(lineRect);
         }
     }
 
-    private void DrawLoadoutsButtons(Rect rect) {
+    private void DrawLoadoutsButtons(Rect rect)
+    {
         Rect checkRect = new(rect.x, rect.y, elementHeight, elementHeight);
         Rect uncheckRect = new(checkRect.xMax + margin, rect.y, elementHeight, elementHeight);
 
         if (Mouse.IsOver(checkRect))
             TooltipHandler.TipRegion(checkRect, "CE_SL.CheckAll".Translate());
-        if (Widgets.ButtonImage(checkRect, Textures.Check)) {
+        if (Widgets.ButtonImage(checkRect, Textures.Check))
+        {
             _checkState = _checkState.ToDictionary(x => x.Key, y => true);
         }
         if (Mouse.IsOver(uncheckRect))
             TooltipHandler.TipRegion(uncheckRect, "CE_SL.UncheckAll".Translate());
-        if (Widgets.ButtonImage(uncheckRect, Textures.Uncheck)) {
+        if (Widgets.ButtonImage(uncheckRect, Textures.Uncheck))
+        {
             _checkState = _checkState.ToDictionary(x => x.Key, y => false);
         }
     }
 
-    private void DrawLoadouts(Rect rect, int fileNum, Loadout loadout) {
+    private void DrawLoadouts(Rect rect, int fileNum, Loadout loadout)
+    {
         float yPos = fileNum * (elementHeight + margin);
         Rect lineRect = new(rect.x, rect.y + yPos, rect.width, elementHeight + margin);
 
-        if (!_checkState.TryGetValue(loadout, out bool state)) {
+        if (!_checkState.TryGetValue(loadout, out bool state))
+        {
             _checkState.Add(loadout, state = true);
         }
 
         Widgets.CheckboxLabeled(lineRect, loadout.LabelCap, ref state);
         _checkState[loadout] = state;
-        if (Mouse.IsOver(lineRect)) {
+        if (Mouse.IsOver(lineRect))
+        {
             TooltipHandler.TipRegion(lineRect, string.Join("\n", loadout.Slots.Select(x => $"{x.LabelCap} x{x.count}")));
             Widgets.DrawHighlight(lineRect);
         }
 
         int slotCount = (loadout.Slots.Count < 0) ? 0 : (loadout.Slots.Count > 5) ? 5 : loadout.Slots.Count; // clamp 0:5
         var iconsRect = lineRect.RightPartPixels((elementHeight) * (slotCount + 1));
-        for (int i = 0; i < slotCount; i++) {
+        for (int i = 0; i < slotCount; i++)
+        {
             Rect iconRect = new(iconsRect) { width = elementHeight, height = elementHeight };
             iconRect.x += i * (elementHeight);
             var slot = loadout.Slots[i];
             ThingDef def;
-            if (slot.genericDef != null) {
-                if (!_firstGenericCache.TryGetValue(slot.genericDef.defName, out def)) {
+            if (slot.genericDef != null)
+            {
+                if (!_firstGenericCache.TryGetValue(slot.genericDef.defName, out def))
+                {
                     def = DefDatabase<ThingDef>.AllDefsListForReading.FirstOrDefault(x => slot.genericDef.lambda(x));
                     _firstGenericCache.Add(slot.genericDef.defName, def);
                 }
@@ -340,10 +383,11 @@ public class Dialog_SaveLoad : Window
             else def = slot.thingDef;
             Widgets.DefIcon(iconRect, def);
 
-			if (def != null && Mouse.IsOver(iconRect)) {
-				TooltipHandler.TipRegion(iconRect, def.DescriptionDetailed);
-				Widgets.DrawHighlight(iconRect);
-			}
+            if (def != null && Mouse.IsOver(iconRect))
+            {
+                TooltipHandler.TipRegion(iconRect, def.DescriptionDetailed);
+                Widgets.DrawHighlight(iconRect);
+            }
         }
     }
 
@@ -371,16 +415,17 @@ public class Dialog_SaveLoad : Window
             DrawSaveFile(leftRect, i);
         Widgets.EndScrollView();
         //
-        
+
 
         var rightButtonsRect = rightRect.TopPartPixels(elementHeight);
         var rightLoadoutsRect = rightRect.BottomPartPixels(rightRect.height - elementHeight);
 
         DrawLoadoutsButtons(rightButtonsRect);
-        
-        
+
+
         var loadouts = GetLoadouts();
-        if (loadouts != null) {
+        if (loadouts != null)
+        {
             viewRect = new(rightLoadoutsRect.x, rightLoadoutsRect.y, rightLoadoutsRect.width - 25f, loadouts.Length * (elementHeight + margin));
             Widgets.BeginScrollView(rightLoadoutsRect, ref _loaudoutsScroll, viewRect);
             rightLoadoutsRect.width -= 25f;
@@ -394,11 +439,12 @@ public class Dialog_SaveLoad : Window
         // Widgets.DrawHighlight(rightRect);
 
         // selected loadouts
-        if (_previousSelectedFile != _selectedFile) {
+        if (_previousSelectedFile != _selectedFile)
+        {
             _previousSelectedFile = _selectedFile;
             _checkState = new();
         }
     }
 }
-   
+
 
