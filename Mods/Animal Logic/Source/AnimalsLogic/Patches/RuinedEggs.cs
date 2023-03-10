@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using HarmonyLib;
 using RimWorld;
 using Verse;
@@ -26,18 +28,28 @@ namespace AnimalsLogic
                 {
                     ThingWithComps thing = __instance.parent;
                     Map map = thing.Map;
+                    List<ThingComp> toRemove = new List<ThingComp>();
                     foreach (var item in thing.AllComps)
                     {
                         if (item.props.GetType() == typeof(CompProperties_Hatcher))
                         {
                             thing.DeSpawn();
-                            thing.def = DefDatabase<ThingDef>.GetNamed("EggChickenUnfertilized");
+                            string name = thing.def.defName.ReplaceFirst("Egg","");
+                            name = thing.def.defName.ReplaceFirst("Fertilized", "");
+                            ThingDef foundEgg = DefDatabase<ThingDef>.AllDefsListForReading.Find(d => d.defName.Contains(name) && d.defName.Contains("Egg") && d.defName.Contains("Unfertilized"));
+                            if (foundEgg == null)
+                                thing.def = DefDatabase<ThingDef>.GetNamed("EggChickenUnfertilized");
                             thing.AllComps.Remove(__instance);
-                            thing.AllComps.Remove(item);
+                            toRemove.Add(item);
                             thing.SpawnSetup(map, true);
                             break;
                         }
                     }
+                    foreach (var item in toRemove)
+                    {
+                        thing.AllComps.Remove(item);
+                    }
+
                 }
             }
         }
