@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using HarmonyLib;
 using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace AnimalsLogic
@@ -27,28 +29,19 @@ namespace AnimalsLogic
                 if (Settings.convert_ruined_eggs && !__state && __instance.Ruined) // Thing is ruined after this tick
                 {
                     ThingWithComps thing = __instance.parent;
+                    IntVec3 pos = thing.Position;
                     Map map = thing.Map;
-                    List<ThingComp> toRemove = new List<ThingComp>();
-                    foreach (var item in thing.AllComps)
-                    {
-                        if (item.props.GetType() == typeof(CompProperties_Hatcher))
-                        {
-                            thing.DeSpawn();
-                            string name = thing.def.defName.ReplaceFirst("Egg","");
-                            name = thing.def.defName.ReplaceFirst("Fertilized", "");
-                            ThingDef foundEgg = DefDatabase<ThingDef>.AllDefsListForReading.Find(d => d.defName.Contains(name) && d.defName.Contains("Egg") && d.defName.Contains("Unfertilized"));
-                            if (foundEgg == null)
-                                thing.def = DefDatabase<ThingDef>.GetNamed("EggChickenUnfertilized");
-                            thing.AllComps.Remove(__instance);
-                            toRemove.Add(item);
-                            thing.SpawnSetup(map, true);
-                            break;
-                        }
-                    }
-                    foreach (var item in toRemove)
-                    {
-                        thing.AllComps.Remove(item);
-                    }
+                    ThingDef newThing = thing.def;
+                    
+                    thing.Destroy();
+                    CompProperties_EggLayer foundRace = DefDatabase<ThingDef>.AllDefsListForReading.Find(d => d.comps != null
+                        && d.GetCompProperties<CompProperties_EggLayer>() != null && d.GetCompProperties<CompProperties_EggLayer>().eggFertilizedDef == newThing).GetCompProperties<CompProperties_EggLayer>();
+                    Log.Message("unfertilised egg is: " + foundRace != null ? foundRace.eggUnfertilizedDef.defName : "Null");
+                    if (foundRace == null || foundRace.eggFertilizedDef == foundRace.eggUnfertilizedDef)
+                        newThing = DefDatabase<ThingDef>.GetNamed("EggChickenUnfertilized");
+                    else
+                        newThing = foundRace.eggUnfertilizedDef;
+                    GenSpawn.Spawn(newThing, pos, map);
 
                 }
             }
