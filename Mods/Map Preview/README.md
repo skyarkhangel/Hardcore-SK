@@ -61,7 +61,10 @@ This mod uses modified code and graphics from the mod Map Reroll created by Unli
 
 Idea for mod concept by orbittwz#2340
 
-Russian translation created by Dmitry6
+Included translations:
+- Korean submitted by Seanggag
+- Russian submitted by Dmitry6
+- Chinese Traditional submitted by shiuanyue
 
 
 # Links
