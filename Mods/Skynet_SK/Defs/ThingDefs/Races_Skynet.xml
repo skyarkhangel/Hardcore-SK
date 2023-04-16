@@ -5,6 +5,8 @@
 		<thingClass>Pawn</thingClass>
 		<category>Pawn</category>
 		<selectable>true</selectable>
+		<containedPawnsSelectable>true</containedPawnsSelectable>
+		<containedItemsSelectable>true</containedItemsSelectable>
 		<tickerType>Normal</tickerType>
 		<altitudeLayer>Pawn</altitudeLayer>
 		<useHitPoints>false</useHitPoints>
@@ -23,6 +25,9 @@
 			<li>ITab_Pawn_Guest</li>
 			<li>ITab_Pawn_Prisoner</li>
 			<li MayRequire="Ludeon.RimWorld.Ideology">ITab_Pawn_Slave</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">ITab_Pawn_Feeding</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">ITab_Genes</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">ITab_GenesPregnancy</li>
 			<li>ITab_Pawn_FormingCaravan</li>
 			<li>CombatExtended.ITab_Inventory</li>
 			<li>ITab_Pawn_Log</li>
@@ -46,7 +51,7 @@
 	<ThingDef ParentName="BasePawnSkynet" Name="BaseSkynet" Abstract="True">
 		<statBases>
 			<PsychicSensitivity>0</PsychicSensitivity>
-			<ToxicSensitivity>0</ToxicSensitivity>
+			<ToxicResistance>1</ToxicResistance>
 			<MentalBreakThreshold>0</MentalBreakThreshold>
 			<Flammability>0</Flammability>
 			<CarryWeight>150</CarryWeight>
@@ -68,10 +73,54 @@
 				<li>AndroidPassiveSet</li>
 				<li>ChjAndroidStandard</li>
 			</hediffGiverSets>
+			<lifeStageAges>
+				<li>
+					<def>HumanlikeBaby</def>
+					<minAge>0</minAge>
+				</li>
+				<li>
+				  <def>HumanlikeChild</def>
+				  <minAge>3</minAge>
+				</li>
+				<li MayRequire="Ludeon.RimWorld.Biotech">
+				  <def>HumanlikePreTeenager</def>
+				  <minAge>9</minAge>
+				</li>
+				<li>
+					<def>HumanlikeTeenager</def>
+					<minAge>13</minAge>
+				</li>
+				<li>
+					<def>HumanlikeAdult</def>
+					<minAge>18</minAge>
+				</li>
+			</lifeStageAges>
+			<ageGenerationCurve>
+				<points>
+					<li MayRequire="Ludeon.RimWorld.Biotech">(0,0)</li>
+					<li MayRequire="Ludeon.RimWorld.Biotech">(0.001,0)</li>
+					<li MayRequire="Ludeon.RimWorld.Biotech">(8,86)</li>
+					<li MayRequire="Ludeon.RimWorld.Biotech">(12.5,0)</li>  <!-- Exclude 12.5-13 years to avoid spawning pawns who are very close to becoming adults -->  
+					<li MayRequire="Ludeon.RimWorld.Biotech">(12.51,0)</li>  
+					<li MayRequire="Ludeon.RimWorld.Biotech">(13,0)</li>      
+					<li MayRequire="Ludeon.RimWorld.Biotech">(13.001,0)</li><!-- End exclude -->
+					<li MayRequire="Ludeon.RimWorld.Biotech">(13.999,0)</li>
+					<li>(14,0)</li>
+					<li MayRequire="Ludeon.RimWorld.Biotech">(14.001,0)</li>
+					<li>(18,80)</li>
+					<li>(20,180)</li>
+					<li>(30,200)</li>
+					<li>(50,70)</li>
+					<li>(100,20)</li>
+					<li>(140,0)</li>
+					<li>(150,0)</li>
+				</points>
+			</ageGenerationCurve>
 		</race>
 		<recipes Inherit="false">
 			<li>AndroidShutDown</li>
 			<li>AndroidRepairKit</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">TerminatePregnancy</li>
 		</recipes>
 	</ThingDef>
 
@@ -263,28 +312,6 @@
 					<li>(3.5, 0)</li>
 				</points>
 			</litterSizeCurve>
-			<lifeStageAges>
-				<li>
-					<def>HumanlikeBaby</def>
-					<minAge>0</minAge>
-				</li>
-				<li>
-					<def>HumanlikeToddler</def>
-					<minAge>0.3</minAge>
-				</li>
-				<li>
-					<def>HumanlikeChild</def>
-					<minAge>1</minAge>
-				</li>
-				<li>
-					<def>HumanlikeTeenager</def>
-					<minAge>1.5</minAge>
-				</li>
-				<li>
-					<def>HumanlikeAdult</def>
-					<minAge>2</minAge>
-				</li>
-			</lifeStageAges>
 			<soundMeleeHitPawn>Pawn_Melee_MechanoidSlash_HitPawn</soundMeleeHitPawn>
 			<soundMeleeHitBuilding>Pawn_Melee_MechanoidSlash_HitBuilding</soundMeleeHitBuilding>
 			<soundMeleeMiss>Pawn_Melee_MechanoidSlash_Miss</soundMeleeMiss>
@@ -416,28 +443,6 @@
 					<li>(3.5, 0)</li>
 				</points>
 			</litterSizeCurve>
-			<lifeStageAges>
-				<li>
-					<def>HumanlikeBaby</def>
-					<minAge>0</minAge>
-				</li>
-				<li>
-					<def>HumanlikeToddler</def>
-					<minAge>0.3</minAge>
-				</li>
-				<li>
-					<def>HumanlikeChild</def>
-					<minAge>1</minAge>
-				</li>
-				<li>
-					<def>HumanlikeTeenager</def>
-					<minAge>1.5</minAge>
-				</li>
-				<li>
-					<def>HumanlikeAdult</def>
-					<minAge>2</minAge>
-				</li>
-			</lifeStageAges>
 			<soundMeleeHitPawn>Pawn_Melee_MechanoidSlash_HitPawn</soundMeleeHitPawn>
 			<soundMeleeHitBuilding>Pawn_Melee_MechanoidSlash_HitBuilding</soundMeleeHitBuilding>
 			<soundMeleeMiss>Pawn_Melee_MechanoidSlash_Miss</soundMeleeMiss>
@@ -574,28 +579,6 @@
 					<li>(3.5, 0)</li>
 				</points>
 			</litterSizeCurve>
-			<lifeStageAges>
-				<li>
-					<def>HumanlikeBaby</def>
-					<minAge>0</minAge>
-				</li>
-				<li>
-					<def>HumanlikeToddler</def>
-					<minAge>0.3</minAge>
-				</li>
-				<li>
-					<def>HumanlikeChild</def>
-					<minAge>1</minAge>
-				</li>
-				<li>
-					<def>HumanlikeTeenager</def>
-					<minAge>1.5</minAge>
-				</li>
-				<li>
-					<def>HumanlikeAdult</def>
-					<minAge>2</minAge>
-				</li>
-			</lifeStageAges>
 			<soundMeleeHitPawn>Pawn_Melee_MechanoidSlash_HitPawn</soundMeleeHitPawn>
 			<soundMeleeHitBuilding>Pawn_Melee_MechanoidSlash_HitBuilding</soundMeleeHitBuilding>
 			<soundMeleeMiss>Pawn_Melee_MechanoidSlash_Miss</soundMeleeMiss>

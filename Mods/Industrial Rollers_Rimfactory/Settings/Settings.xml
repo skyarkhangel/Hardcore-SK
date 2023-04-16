@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Row Classes :
+    Rendering Operation.
+    - ProjectRimFactory.Common.TextRow               : Draw text content.
+    - ProjectRimFactory.Common.ImageRow              : Draw texture.
+    - ProjectRimFactory.Common.GapRow                : Insert Gap.
+    - ProjectRimFactory.Common.GapLineRow            : Insert Gap and Draw Line.
+
+    Rayout Operation.
+    - ProjectRimFactory.Common.ContainerRow          : Rows collection container.
+    - ProjectRimFactory.Common.SplitRow              : Split Row left and right
+
+    Patching Operation.
+    - ProjectRimFactory.Common.PatchItem             : On / Off setting for patch applying.
+    - ProjectRimFactory.Common.PatchTextValueItem    : On / Off setting for patch applying and text replacing.
+    - ProjectRimFactory.Common.PatchFloatValueItem   : On / Off setting for patch applying and float value replacing.
+    - ProjectRimFactory.Common.PatchIntValueItem     : On / Off setting for patch applying and integer value replacing.
+    - ProjectRimFactory.Common.PatchBoolValueItem    : On / Off setting for patch applying and boolean value replacing.
+    - ProjectRimFactory.Common.PatchEnumValueItem    : On / Off setting for patch applying and enum value replacing.
+    - ProjectRimFactory.Common.PatchSelectValueItem  : On / Off setting for patch applying and selection value replacing.
+-->
+<SettingRows>
+
+  <Row Class="ProjectRimFactory.Common.TextRow">
+    <font>Medium</font>
+    <anchor>MiddleCenter</anchor>
+    <height>30</height>
+    <backgroundColor>(0.5,0.5,0.5,1)</backgroundColor>
+    <!-- rich text https://docs.unity3d.com/560/Documentation/Manual/StyledText.html -->
+    <text>PRF.Settings.TopMessage</text>
+  </Row>
+  <Row Class="ProjectRimFactory.Common.TextRow">
+    <font>Small</font>
+    <anchor>MiddleCenter</anchor>
+    <text>PRF.Settings.restartMessage</text>
+  </Row>
+
+  <Row Class="ProjectRimFactory.Common.GapRow" />
+
+  <Row Class="ProjectRimFactory.Common.TextRow">
+    <font>Small</font>
+    <anchor>MiddleCenter</anchor>
+    <text>PRF.Settings.AssemblerMessage</text>
+  </Row>
+
+  <!-- swap texture -->
+  <Row Class="ProjectRimFactory.Common.PatchItem">
+    <key>turn.off.swap.texture</key>
+    <label>PRF.Settings.TurnOffSwapTexture.Label</label>
+    <description>PRF.Settings.TurnOffSwapTexture.Desc</description>
+    <Patch>
+      <Operation Class="PatchOperationRemove">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef/modExtensions/li[@Class="ProjectRimFactory.SAL3.Exposables.AssemblerDefModExtension"]/workingGraphicData</xpath>
+      </Operation>
+      <Operation Class="PatchOperationRemove">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef/modExtensions/li[@Class="ProjectRimFactory.SAL3.Exposables.AssemblerDefModExtension"]/powerOffGraphicData</xpath>
+      </Operation>
+    </Patch>
+  </Row>
+
+  <!-- draw status -->
+  <Row Class="ProjectRimFactory.Common.PatchItem">
+    <key>turn.off.draw.status</key>
+    <label>PRF.Settings.TurnOffDrawStatus.Label</label>
+    <description>PRF.Settings.TurnOffDrawStatus.Desc</description>
+    <Patch>
+      <Operation Class="PatchOperationRemove">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef/modExtensions/li[@Class="ProjectRimFactory.SAL3.Exposables.AssemblerDefModExtension"]/drawStatus</xpath>
+      </Operation>
+      <Operation Class="PatchOperationAdd">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef/modExtensions/li[@Class="ProjectRimFactory.SAL3.Exposables.AssemblerDefModExtension"]</xpath>
+        <value>
+          <drawStatus>false</drawStatus>
+        </value>
+      </Operation>
+    </Patch>
+  </Row>
+
+  <!-- doEffect -->
+  <Row Class="ProjectRimFactory.Common.PatchItem">
+    <key>turn.off.do.effect</key>
+    <label>PRF.Settings.TurnOffDoEffect.Label</label>
+    <description>PRF.Settings.TurnOffDoEffect.Desc</description>
+    <Patch>
+      <Operation Class="PatchOperationRemove">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef/modExtensions/li[@Class="ProjectRimFactory.SAL3.Exposables.AssemblerDefModExtension"]/doEffect</xpath>
+      </Operation>
+      <Operation Class="PatchOperationAdd">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef/modExtensions/li[@Class="ProjectRimFactory.SAL3.Exposables.AssemblerDefModExtension"]</xpath>
+        <value>
+          <doEffect>false</doEffect>
+        </value>
+      </Operation>
+    </Patch>
+  </Row>
+
+  <!-- Recipe DB Range -->
+  <Row Class="ProjectRimFactory.Common.PatchIntValueItem">
+    <key>set.range.recipe.db</key>
+    <label>PRF.Settings.recipeDB.Label</label>
+    <description>PRF.Settings.recipeDB.Desc</description>
+    <minValue>2</minValue>
+    <maxValue>32</maxValue>
+    <roundTo>1</roundTo>
+    <value>2</value>
+    <!-- PatchOperation executed at check on -->
+    <Patch>
+      <Operation Class="PatchOperationReplace">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef/comps/li[@Class="ProjectRimFactory.SAL3.Things.CompProperties_RecipeImportRange"]/range</xpath>
+        <value>
+          <!-- ${value} is replaced with the entered value. -->
+          <range>${value}</range>
+        </value>
+      </Operation>
+    </Patch>
+  </Row>
+
+
+  <!-- Gap row -->
+  <Row Class="ProjectRimFactory.Common.GapRow">
+    <height>30</height>
+  </Row>
+
+  <!-- Gap line row -->
+  <Row Class="ProjectRimFactory.Common.GapLineRow">
+    <height>10</height>
+    <color>(1,0,0,1)</color>
+  </Row>
+
+  <Row Class="ProjectRimFactory.Common.TextRow">
+    <font>Small</font>
+    <anchor>MiddleCenter</anchor>
+    <text>PRF.Settings.StorageMessage</text>
+  </Row>
+
+
+  <!-- storage settings -->
+  <Row Class="ProjectRimFactory.Common.PatchItem">
+    <key>turn.off.storage.default</key>
+    <label>PRF.Settings.TurnOffStorageDefault.Label</label>
+    <description>PRF.Settings.TurnOffStorageDefault.Desc</description>
+    <Patch>
+      <Operation Class="PatchOperationRemove">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef[defName="PRF_WoodCrate_I"  or defName="PRF_WoodCrate_II"  or defName="PRF_SteelCrate_I"  or defName="PRF_SteelCrate_II"  or defName="PRF_DigitalStorageUnit_I"]/building/fixedStorageSettings</xpath>
+      </Operation>
+      <Operation Class="PatchOperationRemove">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef[defName="PRF_WoodCrate_I"  or defName="PRF_WoodCrate_II"  or defName="PRF_SteelCrate_I"  or defName="PRF_SteelCrate_II"  or defName="PRF_DigitalStorageUnit_I"]/building/defaultStorageSettings</xpath>
+      </Operation>
+    </Patch>
+  </Row>
+
+  <!-- Destroy DSU -->
+  <Row Class="ProjectRimFactory.Common.PatchItem">
+    <key>turn.off.dsu.destroy</key>
+    <label>PRF.Settings.TurnOffDsuDestroy.Label</label>
+    <description>PRF.Settings.TurnOffDsuDestroy.Desc</description>
+    <Patch>
+      <Operation Class="PatchOperationReplace">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef/modExtensions/li[@Class="ProjectRimFactory.Storage.Editables.DefModExtension_Crate"]/destroyContainsItems</xpath>
+        <value>
+          <destroyContainsItems>false</destroyContainsItems>
+        </value>
+      </Operation>
+    </Patch>
+  </Row>
+
+  <!-- DSU limit -->
+  <Row Class="ProjectRimFactory.Common.PatchIntValueItem">
+    <key>turn.off.dsu.limit</key>
+    <label>PRF.Settings.DsuLimit.Label</label>
+    <description>PRF.Settings.DsuLimit.Desc</description>
+    <minValue>100</minValue>
+    <maxValue>2048</maxValue>
+    <roundTo>1</roundTo>
+    <value>768</value>
+    <!-- PatchOperation executed at check on -->
+    <Patch>
+      <Operation Class="PatchOperationReplace">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef/modExtensions/li[@Class="ProjectRimFactory.Storage.Editables.DefModExtension_Crate"]/limit</xpath>
+        <value>
+          <!-- ${value} is replaced with the entered value. -->
+          <limit>${value}</limit>
+        </value>
+      </Operation>
+    </Patch>
+  </Row>
+
+
+  <!-- Gap row -->
+  <Row Class="ProjectRimFactory.Common.GapRow">
+    <height>30</height>
+  </Row>
+
+  <!-- Gap line row -->
+  <Row Class="ProjectRimFactory.Common.GapLineRow">
+    <height>10</height>
+    <color>(1,0,0,1)</color>
+  </Row>
+
+  <Row Class="ProjectRimFactory.Common.TextRow">
+    <font>Small</font>
+    <anchor>MiddleCenter</anchor>
+    <text>PRF.Settings.OtherMessage</text>
+  </Row>
+
+  <!-- help button -->
+  <Row Class="ProjectRimFactory.Common.PatchItem">
+    <!-- save key. not duplicate -->
+    <key>turn.off.help.button</key>
+    <!-- label and description strings key. see Language/*/AllKeyed_Settings.xml -->
+    <label>PRF.Settings.TurnOffHelpButton.Label</label>
+    <description>PRF.Settings.TurnOffHelpButton.Desc</description>
+    <!-- PatchOperation executed at check on -->
+    <Patch>
+      <Operation Class="PatchOperationRemove">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef/comps/li[compClass="ProjectRimFactory.Common.CompPRFHelp"]</xpath>
+      </Operation>
+    </Patch>
+  </Row>
+
+  <!-- Grouping -->
+  <Row Class="ProjectRimFactory.Common.PatchItem">
+    <key>turn.off.grouping</key>
+    <label>PRF.Settings.TurnOffGrouping.Label</label>
+    <description>PRF.Settings.TurnOffGrouping.Desc</description>
+    <Patch>
+      <Operation Class="PatchOperationRemove">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef[defName="PRF_StoneWorks"]/designatorDropdown</xpath>
+      </Operation>
+      <Operation Class="PatchOperationRemove">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef[defName="PRF_Recycler"]/designatorDropdown</xpath>
+      </Operation>
+      <Operation Class="PatchOperationRemove">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef[defName="PRF_MetalRefinery"]/designatorDropdown</xpath>
+      </Operation>
+      <Operation Class="PatchOperationRemove">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef[defName="PRF_Sprinkler_I"]/designatorDropdown</xpath>
+      </Operation>
+      <Operation Class="PatchOperationRemove">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef[defName="PRF_RecipeDatabase"]/designatorDropdown</xpath>
+      </Operation>
+      <Operation Class="PatchOperationRemove">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef[defName="PRF_Slaughterhouse"]/designatorDropdown</xpath>
+      </Operation>
+      <Operation Class="PatchOperationRemove">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef[defName="PRF_IOPort_I"]/designatorDropdown</xpath>
+      </Operation>
+      <Operation Class="PatchOperationRemove">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef[defName="PRF_MeatGrinder"]/designatorDropdown</xpath>
+      </Operation>
+      <Operation Class="PatchOperationRemove">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef[defName="PRF_FermentingBarrel"]/designatorDropdown</xpath>
+      </Operation>
+      <Operation Class="PatchOperationRemove">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef[defName="PRF_SelfPrepper"]/designatorDropdown</xpath>
+      </Operation>
+    </Patch>
+  </Row>
+
+  <!-- T1 furnace fuel use -->
+  <Row Class="ProjectRimFactory.Common.PatchItem">
+    <key>turn.off.furnacefueluse</key>
+    <label>PRF.Settings.TurnOffFurnacefuel.Label</label>
+    <description>PRF.Settings.TurnOffFurnacefuel.Desc</description>
+    <Patch>
+      <Operation Class="PatchOperationRemove">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef[defName="PRF_FurnaceII"]/comps/li[@Class="CompProperties_Refuelable"]</xpath>
+      </Operation>
+    </Patch>
+  </Row>
+
+  <!-- Infestation -->
+  <Row Class="ProjectRimFactory.Common.PatchItem">
+    <key>turn.off.infestation</key>
+    <label>PRF.Settings.TurnOffInfestation.Label</label>
+    <description>PRF.Settings.TurnOffInfestation.Desc</description>
+    <Patch>
+      <Operation Class="PatchOperationRemove">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef[defName="PRF_DeepQuarry_mkI"]/comps/li[@Class="CompProperties_CreatesInfestations"]</xpath>
+      </Operation>
+      <Operation Class="PatchOperationRemove">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef[defName="PRF_DeepQuarry_mkII"]/comps/li[@Class="CompProperties_CreatesInfestations"]</xpath>
+      </Operation>
+    </Patch>
+  </Row>
+
+  <!-- Miners nerf -->
+  <Row Class="ProjectRimFactory.Common.PatchItem">
+    <key>turn.off.minersnerf</key>
+    <label>PRF.Settings.TurnOffMinerNerf.Label</label>
+    <description>PRF.Settings.TurnOffMinerNerf.Desc</description>
+    <Patch>
+      <Operation Class="PatchOperationRemove">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef/modExtensions/li[@Class="ProjectRimFactory.Common.ModExtension_Miner"]/excludeOres</xpath>
+      </Operation>
+      <Operation Class="PatchOperationRemove">
+        <success>Always</success>
+        <xpath>/Defs/ThingDef/modExtensions/li[@Class="ProjectRimFactory.Common.ModExtension_Miner"]/bonusYields</xpath>
+      </Operation>
+    </Patch>
+  </Row>
+
+
+</SettingRows>
+
