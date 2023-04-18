@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingDef ParentName="VG_MakeableDrugBase">
+		<defName>Synchronisity</defName>
+		<label>synchronisity powder</label>
+		<description>A refined powdery preparation of the exotic particle known as Synchronisity. The powder is typically found in gas giants in nebulae. It can be found on some terrestrial planets in small ammounts, but it is very rare. /n/ It is known to improve the psychic abilities of oragnics that ingest it. Overdosing on it can cause a psychic coma, which can take days to recover from. It is otherwise safe (for one's physiology) to consume. However, deeper insight into the realm of psyonics can be dangerous to one's mental state, with even experienced psychonauts being traumatized by a "bad trip." /n/ Tradiationally, it is harvested from desiri, who have a natural psychic sensitivity.</description>
+		<descriptionHyperlinks>
+			<HediffDef>SynchronisityHigh</HediffDef>
+			<HediffDef>SynchronisityTolerance</HediffDef>
+			<HediffDef>SynchronisityAddiction</HediffDef>
+			<HediffDef>PsychicComa</HediffDef>
+		</descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Item/Drug/Yayo</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<color>(175,150,255)</color>
+			<drawSize>0.75</drawSize>
+		</graphicData>
+		<rotatable>false</rotatable>
+		<statBases>
+			<WorkToMake>350</WorkToMake>
+			<MarketValue>21</MarketValue>
+			<Mass>0.05</Mass>
+		</statBases>
+		<techLevel>Neolithic</techLevel>
+		<minRewardCount>10</minRewardCount>
+		<ingestible>
+			<foodType>Processed</foodType>
+			<joyKind>Chemical</joyKind>
+			<joy>0.80</joy>
+			<drugCategory>Hard</drugCategory>
+			<baseIngestTicks>150</baseIngestTicks>
+			<ingestSound>Ingest_Snort</ingestSound>
+			<ingestHoldOffsetStanding>
+				<northDefault>
+					<offset>(0.21,0,0.05)</offset>
+				</northDefault>
+			</ingestHoldOffsetStanding>
+			<ingestHoldUsesTable>false</ingestHoldUsesTable>
+			<ingestCommandString>Snort {0}</ingestCommandString>
+			<ingestReportString>Snorting {0}.</ingestReportString>
+			<useEatingSpeedStat>false</useEatingSpeedStat>
+			<outcomeDoers>
+				<li Class="IngestionOutcomeDoer_GiveHediff">
+					<hediffDef>SynchronisityHigh</hediffDef>
+					<severity>0.75</severity>
+					<toleranceChemical>Synchronisity</toleranceChemical>
+				</li>
+				<li Class="IngestionOutcomeDoer_OffsetNeed">
+					<need>Rest</need>
+					<offset>0.4</offset>
+					<toleranceChemical>Synchronisity</toleranceChemical>
+				</li>
+				<li Class="IngestionOutcomeDoer_GiveHediff">
+					<hediffDef>SynchronisityTolerance</hediffDef>
+					<severity>0.040</severity>
+					<divideByBodySize>true</divideByBodySize>
+				</li>
+				<li Class="IngestionOutcomeDoer_OffsetPsyfocus">
+					<offset>0.15</offset>
+				</li>
+			</outcomeDoers>
+		</ingestible>
+		<recipeMaker>
+			<researchPrerequisite>SynchronisityRefining</researchPrerequisite>
+			<recipeUsers>
+				<li>DrugLab</li>
+			</recipeUsers>
+			<soundWorking>Recipe_Drug</soundWorking>
+		</recipeMaker>
+		<costList>
+			<Synchronite>8</Synchronite>
+		</costList>
+		<comps>
+			<li Class="CompProperties_Drug">
+				<chemical>Synchronisity</chemical>
+				<addictiveness>0.01</addictiveness>
+				<existingAddictionSeverityOffset>0.20</existingAddictionSeverityOffset>
+				<needLevelOffset>0.9</needLevelOffset>
+				<isCombatEnhancingDrug>true</isCombatEnhancingDrug>
+				<listOrder>100</listOrder>
+				<overdoseSeverityOffset>0.18~0.35</overdoseSeverityOffset>
+				<largeOverdoseChance>0.01</largeOverdoseChance>
+			</li>
+		</comps>
+		<allowedArchonexusCount>200</allowedArchonexusCount>
+	</ThingDef>
+
+
+
+	<HediffDef>
+		<defName>SynchronisityHigh</defName>
+		<label>synchronisity high</label>
+		<labelNoun>a synchronisity high</labelNoun>
+		<description>Active synchronisity within the bloodstream.</description>
+		<hediffClass>Hediff_High</hediffClass>
+		<defaultLabelColor>(1,0,0.5)</defaultLabelColor>
+		<scenarioCanAdd>true</scenarioCanAdd>
+		<maxSeverity>1.0</maxSeverity>
+		<isBad>false</isBad>
+		<comps>
+			<li Class="HediffCompProperties_SeverityPerDay">
+				<severityPerDay>-1.5</severityPerDay>
+				<showHoursToRecover>true</showHoursToRecover>
+			</li>
+		</comps>
+		<stages>
+			<li>
+				<restFallFactor>0.33</restFallFactor>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<offset>0.15</offset>
+					</li>
+				</capMods>
+				<statOffsets>
+					<PsychicSensitivity>0.2</PsychicSensitivity>
+				</statOffsets>
+			</li>
+		</stages>
+	</HediffDef>
+
+	<ThoughtDef>
+		<defName>SynchronisityHigh</defName>
+		<workerClass>ThoughtWorker_Hediff</workerClass>
+		<hediff>SynchronisityHigh</hediff>
+		<validWhileDespawned>true</validWhileDespawned>
+		<developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+		<stages>
+			<li>
+				<label>high on synchronisity</label>
+				<description>I feel in tune with the universe.</description>
+				<baseMoodEffect>20</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+	<!--addiction-->
+
+	<ChemicalDef>
+		<defName>Synchronisity</defName>
+		<label>synchronisity</label>
+		<addictionHediff>SynchronisityAddiction</addictionHediff>
+		<toleranceHediff>SynchronisityTolerance</toleranceHediff>
+		<onGeneratedAddictedToleranceChance>0.8</onGeneratedAddictedToleranceChance>
+		<onGeneratedAddictedEvents>
+			<li>
+				<hediff>PsychicComa</hediff>
+				<chance>0.15</chance>
+				<partsToAffect>
+					<li>Brain</li>
+				</partsToAffect>
+			</li>
+		</onGeneratedAddictedEvents>
+	</ChemicalDef>
+
+	<NeedDef ParentName="VG_DrugAddictionNeedBase">
+		<defName>Chemical_Synchronisity</defName>
+		<needClass>Need_Chemical</needClass>
+		<label>synchronisity</label>
+		<description>Because of a synchronisity addiction, this person needs to regularly consume the drug to avoid withdrawal symptoms.</description>
+		<listPriority>55</listPriority>
+	</NeedDef>
+
+	<HediffDef ParentName="VG_DrugToleranceBase">
+		<defName>SynchronisityTolerance</defName>
+		<label>synchronisity tolerance</label>
+		<description>A built-up tolerance to synchronisity. The more severe this tolerance is, the more synchronisity-based drugs it takes to get the same effect.</description>
+		<comps>
+			<li Class="HediffCompProperties_SeverityPerDay">
+				<severityPerDay>-0.015</severityPerDay>
+			</li>
+			<li Class="HediffCompProperties_DrugEffectFactor">
+				<chemical>Synchronisity</chemical>
+			</li>
+		</comps>
+		<hediffGivers>
+			<li Class="HediffGiver_RandomDrugEffect">
+				<hediff>PsychicComa</hediff>
+				<severityToMtbDaysCurve>
+					<points>
+						<li>(0.45, 99999)</li>
+						<li>(0.5, 180)</li>
+						<li>(1, 135)</li>
+					</points>
+				</severityToMtbDaysCurve>
+				<partsToAffect>
+					<li>Brain</li>
+				</partsToAffect>
+			</li>
+		</hediffGivers>
+	</HediffDef>
+
+	<HediffDef ParentName="VG_AddictionBase">
+		<defName>SynchronisityAddiction</defName>
+		<label>synchronisity addiction</label>
+		<description>A chemical addiction to synchronisity. Long-term presence of synchronisity has caused neurological adaptations at the cellular level, so the brain can no longer function properly without the drug.
+      \nWithout regular doses of synchronisity, withdrawal symptoms will begin. However, extended abstinence will force the brain to adapt back to its normal state, resolving the addiction.</description>
+		<hediffClass>Hediff_Addiction</hediffClass>
+		<causesNeed>Chemical_Synchronisity</causesNeed>
+		<comps>
+			<li Class="HediffCompProperties_SeverityPerDay">
+				<severityPerDay>-0.0333</severityPerDay>
+				<showDaysToRecover>true</showDaysToRecover>
+			</li>
+		</comps>
+		<stages>
+			<li/>
+			<li>
+				<label>withdrawal</label>
+				<restFallFactorOffset>0.3</restFallFactorOffset>
+				<socialFightChanceFactor>3.0</socialFightChanceFactor>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<offset>-0.20</offset>
+					</li>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>-0.20</offset>
+					</li>
+					<li>
+						<capacity>Manipulation</capacity>
+						<offset>-0.20</offset>
+					</li>
+				</capMods>
+				<statOffsets>
+					<PsychicSensitivity>-0.2</PsychicSensitivity>
+				</statOffsets>
+				<mentalStateGivers>
+					<li>
+						<mentalState>Binging_DrugExtreme</mentalState>
+						<mtbDays>40</mtbDays>
+					</li>
+					<li>
+						<mentalState>Wander_Psychotic</mentalState>
+						<mtbDays>10</mtbDays>
+					</li>
+				</mentalStateGivers>
+			</li>
+		</stages>
+	</HediffDef>
+
+	<ThoughtDef>
+		<defName>SynchronisityWithdrawal</defName>
+		<workerClass>ThoughtWorker_Hediff</workerClass>
+		<hediff>SynchronisityAddiction</hediff>
+		<validWhileDespawned>true</validWhileDespawned>
+		<developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+		<stages>
+			<li>
+				<visible>false</visible>
+			</li>
+			<li>
+				<label>synchronisity withdrawal</label>
+				<description>I feel like I've lost my insight, there is no hope...</description>
+				<baseMoodEffect>-35</baseMoodEffect>
+			</li>
+		</stages>
+	</ThoughtDef>
+
+</Defs>

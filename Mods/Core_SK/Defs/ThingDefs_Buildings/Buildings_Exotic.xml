@@ -98,6 +98,7 @@
 		<description>A psychic droner tuned to the {0} gender is driving {0}s mad.</description>
 		<letterText>A psychic droner machine has begun affecting this region.</letterText>
 		<canBePermanent>false</canBePermanent>
+		<natural>false</natural>
 	</GameConditionDef>
 
 	<!-- =============================== Defoliator ship part ============================ -->
@@ -147,7 +148,112 @@
 					</points>
 				</radiusPerDayCurve>
 			</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech" Class="CompProperties_PolluteOverTime">
+				<cellsToPollutePerDay>6</cellsToPollutePerDay>
+			</li>
 		</comps>
+	</ThingDef>
+
+
+	<!-- ========================= Shuttle ========================= -->
+
+	<ThingDef Name="ShuttleBase" ParentName="SK_BuildingBase">
+		<defName>Shuttle</defName>
+		<label>shuttle</label>
+		<description>A spacer-tech shuttle designed for transit between surface and orbit, or between moons of a planetary system.</description>
+		<altitudeLayer>Building</altitudeLayer>
+		<pathCost>50</pathCost>
+		<blockWind>true</blockWind>
+		<passability>Impassable</passability>
+		<fillPercent>1.0</fillPercent>
+		<size>(5,3)</size>
+		<graphicData>
+			<texPath>Things/Building/Misc/Shuttle</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(6,3)</drawSize>
+			<color>(162,164,149)</color>
+			<shadowData>
+				<volume>(4.1, 1.0, 1.8)</volume>
+				<offset>(0, 0, -0.1)</offset>
+			</shadowData>
+		</graphicData>
+		<statBases>
+			<MaxHitPoints>1000</MaxHitPoints>
+			<Flammability>1</Flammability>
+		</statBases>
+		<tickerType>Normal</tickerType>
+		<canOverlapZones>true</canOverlapZones>
+		<killedLeavings>
+			<Plasteel>50</Plasteel>
+			<Uranium>50</Uranium>
+			<Wire>40</Wire>
+			<ElectronicComponents>5</ElectronicComponents>
+			<Mechanism>14</Mechanism>
+			<ChunkSlagSteel>4</ChunkSlagSteel>
+			<ComponentIndustrial>4</ComponentIndustrial>
+		</killedLeavings>
+		<rotatable>false</rotatable>
+		<selectable>true</selectable>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<soundImpactDefault>BulletImpact_Metal</soundImpactDefault>
+		<preventSkyfallersLandingOn>true</preventSkyfallersLandingOn>
+		<drawerType>MapMeshOnly</drawerType>
+		<repairEffect>ConstructMetal</repairEffect>
+		<forceDebugSpawnable>true</forceDebugSpawnable>
+		<uiIconScale>1.4</uiIconScale>
+		<building>
+			<claimable>false</claimable>
+			<soundAmbient>ShuttleIdle_Ambience</soundAmbient>
+			<destroySound>BuildingDestroyed_Metal_Big</destroySound>
+		</building>
+		<inspectorTabs>
+			<li>ITab_ContentsTransporter</li>
+		</inspectorTabs>
+		<comps>
+			<li Class="CompProperties_Shuttle" />
+			<li Class="CompProperties_Transporter">
+				<massCapacity>1000</massCapacity>
+				<max1PerGroup>true</max1PerGroup>
+				<canChangeAssignedThingsAfterStarting>true</canChangeAssignedThingsAfterStarting>
+				<showOverallStats>false</showOverallStats>
+				<pawnLoadedSound>Shuttle_PawnLoaded</pawnLoadedSound>
+				<pawnExitSound>Shuttle_PawnExit</pawnExitSound>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="ShuttleBase" Name="ShuttleCrashedBase">
+		<defName>ShuttleCrashed</defName>
+		<label>crashed shuttle</label>
+		<graphicData>
+			<texPath>Things/Building/Misc/CrashedShuttle</texPath>
+		</graphicData>
+		<statBases>
+			<MaxHitPoints>200</MaxHitPoints>
+			<Flammability>1</Flammability>
+			<WorkToBuild>800</WorkToBuild>
+		</statBases>
+		<comps Inherit="False"/>
+		<killedLeavings Inherit="False">
+			<Plasteel>7</Plasteel>
+			<Wire>18</Wire>
+			<ElectronicComponents>3</ElectronicComponents>
+			<Mechanism>2</Mechanism>
+			<ChunkSlagSteel>2</ChunkSlagSteel>
+			<ComponentIndustrial>1</ComponentIndustrial>
+		</killedLeavings>
+		<costList>
+			<Steel>40</Steel>
+			<Plasteel>70</Plasteel>
+			<ComponentIndustrial>10</ComponentIndustrial>
+		</costList>
+		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+		<preventSkyfallersLandingOn>true</preventSkyfallersLandingOn>
+		<building Inherit="False">
+			<destroySound>BuildingDestroyed_Metal_Big</destroySound>
+			<claimable>false</claimable>
+			<alwaysDeconstructible>true</alwaysDeconstructible>
+		</building>
 	</ThingDef>
 
 
@@ -200,6 +306,7 @@
 			<ComponentSpacer>2</ComponentSpacer>
 			<ComponentIndustrial>6</ComponentIndustrial>
 			<Mechanism>2</Mechanism>
+			<ChunkSlagSteel>1</ChunkSlagSteel>
 		</costList>
 	</ThingDef>
 
@@ -241,6 +348,7 @@
 			<ComponentIndustrial>20</ComponentIndustrial>
 			<ComponentSpacer>3</ComponentSpacer>
 			<Mechanism>10</Mechanism>
+			<ChunkSlagSteel>3</ChunkSlagSteel>
 		</costList>
 	</ThingDef>
 
@@ -265,6 +373,7 @@
 			<ComponentIndustrial>20</ComponentIndustrial>
 			<ComponentSpacer>5</ComponentSpacer>
 			<Mechanism>10</Mechanism>
+			<ChunkSlagSteel>3</ChunkSlagSteel>
 		</costList>
 	</ThingDef>
 
@@ -295,6 +404,7 @@
 			<ComponentIndustrial>15</ComponentIndustrial>
 			<ComponentSpacer>3</ComponentSpacer>
 			<Mechanism>3</Mechanism>
+			<ChunkSlagSteel>1</ChunkSlagSteel>
 		</costList>
 	</ThingDef>
 
@@ -319,8 +429,8 @@
 			<ai_neverTrashThis>true</ai_neverTrashThis>
 		</building>
 	</ThingDef>
-	
-	
+
+
 	<ThingDef ParentName="GenstepBuilding" Name="GenstepArts" Abstract="True">
 		<thingClass>Building_Art</thingClass>
 		<altitudeLayer>Building</altitudeLayer>
@@ -429,7 +539,7 @@
 		<designationCategory>Joy</designationCategory>
 		<maxTechLevelToBuild>Medieval</maxTechLevelToBuild>
 	</ThingDef>
-	
+
 	<ThingDef ParentName="GenstepBuilding">
 		<defName>HeadPike</defName>
 		<label>headpike</label>
@@ -473,7 +583,7 @@
 		</comps>
 		<designationCategory>Joy</designationCategory>
 	</ThingDef>
-	
+
 	<ThingDef ParentName="GenstepBuilding">
 		<defName>AncientPowerPole</defName>
 		<label>ancient power pole</label>
@@ -613,10 +723,11 @@
 		</killedLeavings>
 		<costList>
 			<ComponentIndustrial>10</ComponentIndustrial>
-			<Plasteel>150</Plasteel>
+			<Plasteel>140</Plasteel>
 			<Wire>65</Wire>
 			<ElectronicComponents>12</ElectronicComponents>
 			<Mechanism>15</Mechanism>
+			<ChunkSlagSteel>5</ChunkSlagSteel>
 		</costList>
 		<building>
 			<isInert>true</isInert>

@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<!-- Base -->
+	<ThingDef ParentName="SK_BuildingBase" Name="SK_MechBuildingBase" Abstract="True">
+		<altitudeLayer>Building</altitudeLayer>
+		<pathCost>50</pathCost>
+		<blockWind>true</blockWind>
+		<passability>PassThroughOnly</passability>
+		<fillPercent>1.0</fillPercent>
+		<tickerType>Normal</tickerType>
+		<rotatable>true</rotatable>
+		<selectable>true</selectable>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<soundImpactDefault>BulletImpact_Metal</soundImpactDefault>
+		<drawerType>MapMeshOnly</drawerType>
+		<repairEffect>ConstructMetal</repairEffect>
+		<forceDebugSpawnable>true</forceDebugSpawnable>
+		<receivesSignals>true</receivesSignals>
+		<isMechClusterThreat>true</isMechClusterThreat>
+		<building>
+			<buildingTags>
+				<li>MechClusterMember</li>
+			</buildingTags>
+			<claimable>true</claimable>
+			<roofCollapseDamageMultiplier>0.2</roofCollapseDamageMultiplier>
+		</building>
+		<statBases>
+			<Flammability>0</Flammability>
+			<Beauty>-20</Beauty>
+		</statBases>
+		<damageMultipliers>
+			<li>
+				<damageDef>Flame</damageDef>
+				<multiplier>0</multiplier>
+			</li>
+		</damageMultipliers>
+	</ThingDef>
+
+	<!-- Burning power cell -->
+	<ThingDef ParentName="SK_MechBuildingBase">
+		<defName>BurningPowerCell</defName>
+		<label>burning power cell</label>
+		<description>A damaged mechanoid power generation unit. The cell has been destabilized by the death of the mechanoid, and is burning down in seconds. When critically damaged, this cell will explode.</description>
+		<thingClass>Building_BurningPowerCell</thingClass>
+		<altitudeLayer>ItemImportant</altitudeLayer>
+		<size>(1,1)</size>
+		<passability>PassThroughOnly</passability>
+		<drawerType>MapMeshAndRealTime</drawerType>
+		<fillPercent>0.35</fillPercent>
+		<pathCost>0</pathCost>
+		<rotatable>false</rotatable>
+		<isMechClusterThreat>false</isMechClusterThreat>
+		<clearBuildingArea>false</clearBuildingArea>
+		<statBases>
+			<MaxHitPoints>30</MaxHitPoints>
+			<Flammability>0</Flammability>
+			<Mass>15</Mass>
+			<MarketValue>0</MarketValue>
+		</statBases>
+		<graphicData>
+			<texPath>Things/Item/Special/BurningPowerCell</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(1,1)</drawSize>
+			<drawOffset>(0, 0.1, 0)</drawOffset>
+			<!-- draw just above corpses -->
+		</graphicData>
+		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
+		<placeWorkers>
+			<li>PlaceWorker_ShowExplosionRadius</li>
+		</placeWorkers>
+		<building>
+			<deconstructible>false</deconstructible>
+			<claimable>false</claimable>
+			<isEdifice>false</isEdifice>
+		</building>
+		<comps>
+			<li Class="CompProperties_Explosive">
+				<wickTicks>999</wickTicks>
+				<explosiveRadius>3.9</explosiveRadius>
+				<explosiveDamageType>Bomb</explosiveDamageType>
+				<explodeOnKilled>true</explodeOnKilled>
+				<startWickHitPointsPercent>0.15</startWickHitPointsPercent>
+				<drawWick>false</drawWick>
+				<startWickOnInternalDamageTaken>
+					<li>Deterioration</li>
+				</startWickOnInternalDamageTaken>
+			</li>
+			<li Class="CompProperties_DamageOnInterval">
+				<damageDef>Deterioration</damageDef>
+				<damage>1</damage>
+				<ticksBetweenDamage>60</ticksBetweenDamage>
+				<effectStages>
+					<li>
+						<minHitPointsPercent>9999</minHitPointsPercent>
+						<effecterDef>Power_Cell_Burning</effecterDef>
+					</li>
+					<li>
+						<minHitPointsPercent>0.1666</minHitPointsPercent>
+						<effecterDef>Power_Cell_Sparks</effecterDef>
+					</li>
+				</effectStages>
+			</li>
+		</comps>
+	</ThingDef>
+
+</Defs>
