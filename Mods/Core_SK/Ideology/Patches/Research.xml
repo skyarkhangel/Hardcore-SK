@@ -4,26 +4,26 @@
 	<Operation Class="PatchOperationSequence">
 		<operations>
 
-            <li Class="PatchOperationReplace">
-                <xpath>Defs/ResearchProjectDef[defName="Biosculpting"]/researchViewX</xpath>
-                <value>
-                    <researchViewX>13.00</researchViewX>
-                </value>
-            </li>
-            <li Class="PatchOperationReplace">
-                <xpath>Defs/ResearchProjectDef[defName="Biosculpting"]/researchViewY</xpath>
-                <value>
-                    <researchViewY>69.00</researchViewY>
-                </value>
-            </li>
+			<li Class="PatchOperationReplace">
+				<xpath>Defs/ResearchProjectDef[defName="Biosculpting"]/researchViewX</xpath>
+				<value>
+					<researchViewX>13.00</researchViewX>
+				</value>
+			</li>
+			<li Class="PatchOperationReplace">
+				<xpath>Defs/ResearchProjectDef[defName="Biosculpting"]/researchViewY</xpath>
+				<value>
+					<researchViewY>69.00</researchViewY>
+				</value>
+			</li>
 
-            <li Class="PatchOperationAdd">
-                <xpath>Defs/ResearchProjectDef[defName="Biosculpting"]</xpath>
-                <value>
-                    <tab>Buildings_SK</tab>
-                </value>
-            </li>
-			<li Class="PatchOperationConditional">
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/ResearchProjectDef[defName="Biosculpting"]</xpath>
+				<value>
+					<tab>Buildings_SK</tab>
+				</value>
+			</li>
+			<!-- <li Class="PatchOperationConditional">
 				<xpath>Defs/ResearchProjectDef[defName="Biosculpting"]/modExtensions/li[@Class="ResearchTreeSK.ResearchTreeSKModExtension"]</xpath>
 				<nomatch Class="PatchOperationConditional">
 					<xpath>Defs/ResearchProjectDef[defName="Biosculpting"]/modExtensions</xpath>
@@ -36,33 +36,75 @@
 					<nomatch Class="PatchOperationAdd">
 						<xpath>Defs/ResearchProjectDef[defName="Biosculpting"]</xpath>
 						<value>
-						<modExtensions>
-							<li Class="ResearchTreeSK.ResearchTreeSKModExtension"></li>
-						</modExtensions>
+							<modExtensions>
+								<li Class="ResearchTreeSK.ResearchTreeSKModExtension"></li>
+							</modExtensions>
 						</value>
 					</nomatch>
 				</nomatch>
+			</li> -->
+
+			<li Class="PatchOperationConditional">
+				<xpath>Defs/ResearchProjectDef[defName = "Biosculpting"]/modExtensions/li[@Class="ResearchTreeSK.ResearchTreeSKModExtension"]</xpath>
+				<nomatch Class="PatchOperationAddModExtension">
+					<xpath>Defs/ResearchProjectDef[defName = "Biosculpting"]</xpath>
+					<value>
+						<li Class="ResearchTreeSK.ResearchTreeSKModExtension"/>
+					</value>
+				</nomatch>
 			</li>
 
-            <li Class="PatchOperationReplace">
-                <xpath>Defs/ResearchProjectDef[defName="NeuralSupercharger"]/researchViewX</xpath>
-                <value>
-                    <researchViewX>13.00</researchViewX>
-                </value>
-            </li>
-            <li Class="PatchOperationReplace">
-                <xpath>Defs/ResearchProjectDef[defName="NeuralSupercharger"]/researchViewY</xpath>
-                <value>
-                    <researchViewY>70.00</researchViewY>
-                </value>
-            </li>
-            <li Class="PatchOperationAdd">
-                <xpath>Defs/ResearchProjectDef[defName="NeuralSupercharger"]</xpath>
-                <value>
-                    <tab>Buildings_SK</tab>
-                </value>
-            </li>
-			<li Class="PatchOperationConditional">
+
+
+
+			<li Class="PatchOperationAddModExtension">
+				<xpath>Defs/ResearchProjectDef[defName = "Biosculpting" or defName = "NeuralSupercharger"]</xpath>
+				<value>
+					<li Class="SK.AdvancedResearchExtension">
+						<requiredResearchBuildings>
+							<li>SimpleResearchBench</li>
+							<li>HiTechResearchBench</li>
+						</requiredResearchBuildings>
+					</li>
+				</value>
+			</li>
+
+			<li Class="PatchOperationReplace">
+				<xpath>Defs/ResearchProjectDef[defName = "Biosculpting" or defName = "NeuralSupercharger"]/requiredResearchBuilding</xpath>
+				<value>
+					<requiredResearchBuilding>SimpleResearchBench</requiredResearchBuilding>
+				</value>
+			</li>
+
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/ResearchProjectDef[defName = "Biosculpting" or defName = "NeuralSupercharger"]</xpath>
+				<value>
+					<requiredResearchFacilities>
+						<li>LabTerminal</li>
+					</requiredResearchFacilities>
+				</value>
+			</li>
+
+
+			<li Class="PatchOperationReplace">
+				<xpath>Defs/ResearchProjectDef[defName="NeuralSupercharger"]/researchViewX</xpath>
+				<value>
+					<researchViewX>13.00</researchViewX>
+				</value>
+			</li>
+			<li Class="PatchOperationReplace">
+				<xpath>Defs/ResearchProjectDef[defName="NeuralSupercharger"]/researchViewY</xpath>
+				<value>
+					<researchViewY>70.00</researchViewY>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/ResearchProjectDef[defName="NeuralSupercharger"]</xpath>
+				<value>
+					<tab>Buildings_SK</tab>
+				</value>
+			</li>
+			<!-- <li Class="PatchOperationConditional">
 				<xpath>Defs/ResearchProjectDef[defName="NeuralSupercharger"]/modExtensions/li[@Class="ResearchTreeSK.ResearchTreeSKModExtension"]</xpath>
 				<nomatch Class="PatchOperationConditional">
 					<xpath>Defs/ResearchProjectDef[defName="NeuralSupercharger"]/modExtensions</xpath>
@@ -75,39 +117,51 @@
 					<nomatch Class="PatchOperationAdd">
 						<xpath>Defs/ResearchProjectDef[defName="NeuralSupercharger"]</xpath>
 						<value>
-						<modExtensions>
-							<li Class="ResearchTreeSK.ResearchTreeSKModExtension"></li>
-						</modExtensions>
+							<modExtensions>
+								<li Class="ResearchTreeSK.ResearchTreeSKModExtension"></li>
+							</modExtensions>
 						</value>
 					</nomatch>
 				</nomatch>
+			</li> -->
+
+
+			<li Class="PatchOperationConditional">
+				<xpath>Defs/ResearchProjectDef[defName = "NeuralSupercharger"]/modExtensions/li[@Class="ResearchTreeSK.ResearchTreeSKModExtension"]</xpath>
+				<nomatch Class="PatchOperationAddModExtension">
+					<xpath>Defs/ResearchProjectDef[defName = "NeuralSupercharger"]</xpath>
+					<value>
+						<li Class="ResearchTreeSK.ResearchTreeSKModExtension"/>
+					</value>
+				</nomatch>
 			</li>
 
-            <li Class="PatchOperationReplace">
-                <xpath>Defs/ResearchProjectDef[defName="Bioregeneration"]/researchViewX</xpath>
-                <value>
-                    <researchViewX>18.00</researchViewX>
-                </value>
-            </li>
-            <li Class="PatchOperationReplace">
-                <xpath>Defs/ResearchProjectDef[defName="Bioregeneration"]/researchViewY</xpath>
-                <value>
-                    <researchViewY>69.00</researchViewY>
-                </value>
-            </li>
-            <li Class="PatchOperationAdd">
-                <xpath>Defs/ResearchProjectDef[defName="Bioregeneration"]</xpath>
-                <value>
-                    <tab>Medicine_SK</tab>
-                </value>
-            </li>
-            <li Class="PatchOperationReplace">
-                <xpath>Defs/ResearchProjectDef[defName="Bioregeneration"]/techLevel</xpath>
-                <value>
-                    <techLevel>Spacer</techLevel>
-                </value>
-            </li>
-			<li Class="PatchOperationConditional">
+
+			<li Class="PatchOperationReplace">
+				<xpath>Defs/ResearchProjectDef[defName="Bioregeneration"]/researchViewX</xpath>
+				<value>
+					<researchViewX>18.00</researchViewX>
+				</value>
+			</li>
+			<li Class="PatchOperationReplace">
+				<xpath>Defs/ResearchProjectDef[defName="Bioregeneration"]/researchViewY</xpath>
+				<value>
+					<researchViewY>69.00</researchViewY>
+				</value>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/ResearchProjectDef[defName="Bioregeneration"]</xpath>
+				<value>
+					<tab>Medicine_SK</tab>
+				</value>
+			</li>
+			<li Class="PatchOperationReplace">
+				<xpath>Defs/ResearchProjectDef[defName="Bioregeneration"]/techLevel</xpath>
+				<value>
+					<techLevel>Spacer</techLevel>
+				</value>
+			</li>
+			<!-- <li Class="PatchOperationConditional">
 				<xpath>Defs/ResearchProjectDef[defName="Bioregeneration"]/modExtensions/li[@Class="ResearchTreeSK.ResearchTreeSKModExtension"]</xpath>
 				<nomatch Class="PatchOperationConditional">
 					<xpath>Defs/ResearchProjectDef[defName="Bioregeneration"]/modExtensions</xpath>
@@ -120,14 +174,30 @@
 					<nomatch Class="PatchOperationAdd">
 						<xpath>Defs/ResearchProjectDef[defName="Bioregeneration"]</xpath>
 						<value>
-						<modExtensions>
-							<li Class="ResearchTreeSK.ResearchTreeSKModExtension"></li>
-						</modExtensions>
+							<modExtensions>
+								<li Class="ResearchTreeSK.ResearchTreeSKModExtension"></li>
+							</modExtensions>
 						</value>
 					</nomatch>
 				</nomatch>
+			</li> -->
+
+			<li Class="PatchOperationConditional">
+				<xpath>Defs/ResearchProjectDef[defName = "Bioregeneration"]/modExtensions/li[@Class="ResearchTreeSK.ResearchTreeSKModExtension"]</xpath>
+				<nomatch Class="PatchOperationAddModExtension">
+					<xpath>Defs/ResearchProjectDef[defName = "Bioregeneration"]</xpath>
+					<value>
+						<li Class="ResearchTreeSK.ResearchTreeSKModExtension"/>
+					</value>
+				</nomatch>
 			</li>
-			
+
+			<!-- <li Class="PatchOperationAttributeSet">
+				<xpath>Defs/ResearchProjectDef[defName = "Biosculpting" or  defName = "NeuralSupercharger"]</xpath>
+				<attribute>ParentName</attribute>
+				<value>IndustrialBase</value>
+			</li> -->
+
 		</operations>
-	</Operation>	
+	</Operation>
 </Patch>	
