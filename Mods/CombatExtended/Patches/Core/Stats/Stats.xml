@@ -106,21 +106,21 @@
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/StatDef[defName = "ArmorRating_Sharp"]/description</xpath>
 		<value>
-			<description>Mitigation effect on sharp damage such as bullets, knife stabs, and animal bites.\n\nThis armor rating is compared against an attack's armor penetration, with deflection occurring if armor is the higher stat. Otherwise, armor penetration has the armor rating subtracted from it, and damage is reduced by the ratio of modified to initial AP, as follows:\n\nModifiedAP = InitialAP - ArmorRating\nModifiedDamage = InitialDamage * (ModifiedAP / InitialAP)\n\nThese reductions apply for each layer the attack goes through, lowering its ability to penetrate and damage subsequent layers. If an attack is deflected, it's converted to blunt, and checked against the apparel's blunt armor rating.</description>
+      <description>Mitigation effect on sharp damage such as bullets, knife stabs, and animal bites.\n\nThis armor rating is compared against an attack's armor penetration, with deflection occurring if armor is the higher stat. Otherwise, damage is reduced based on the ratio of armor to AP (e.g: if a 8mm RHA armor is hit by a 10mm RHA projectile, the armor will block 80% of the damage). The internal formula is:\n\nModifiedAP=InitialAP - ArmorRating\nModifiedDamage=InitialDamage * (ModifiedAP / InitialAP)\n\nThese reductions apply for each layer the attack goes through, lowering its ability to penetrate and damage subsequent layers. If an attack is deflected, it's converted to blunt, the damage is recalculated based off the base blunt armor penetration and the ratio of pre-deflecton sharp armor penetration to base sharp penetration, and is checked against the apparel's blunt armor rating. If an attack penetrated with some of its damage blocked, then additional blunt damage is applied based off the attack's base blunt penetration influenced by the ratio of blocked damage and blocked armor penetration to base damage and base armor penetration.</description>
 		</value>
 	</Operation>
 
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/StatDef[defName = "ArmorRating_Blunt"]/description</xpath>
 		<value>
-			<description>Mitigation effect on blunt-force damage such as maces, explosions, and animal hoofs.\n\nThis armor rating is compared against an attack's armor penetration, with no damage occurring if armor is the higher stat. Otherwise, armor penetration has the armor rating subtracted from it, and damage is reduced by the ratio of modified to initial AP, as follows:\n\nModifiedAP = InitialAP - ArmorRating\nModifiedDamage = InitialDamage * (ModifiedAP / InitialAP)\n\nThese reductions apply for each layer the attack goes through, lowering its ability to penetrate and damage subsequent layers.</description>
+      <description>Mitigation effect on blunt-force damage such as maces, explosions, and animal hoofs.\n\nThis armor rating is compared against an attack's armor penetration, with no damage occurring if armor is the higher stat. Otherwise, damage is reduced based on the ratio of armor to AP (e.g: if a 8 MPa armor is hit by a 10 MPa impact, the armor will block 80% of the damage). The internal formula is:\n\nModifiedAP=InitialAP - ArmorRating\nModifiedDamage=InitialDamage * (ModifiedAP / InitialAP)\n\nThese reductions apply for each layer the attack goes through, lowering its ability to penetrate and damage subsequent layers.</description>
 		</value>
 	</Operation>
 
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/StatDef[defName = "ArmorRating_Heat"]/description</xpath>
 		<value>
-			<description>The chance to affect temperature-related damage like burns.\n\nUpon taking damage, first this armor rating is reduced by the attack's armor penetration value. The remaining armor forms a percentage reduction of damage.</description>
+      <description>Percentage reduction of damage from extreme heat such as fire and incendiary explosions.\n\nHaving a value of 100% or above makes the creature immune to all flame damage in that body region.</description>
 		</value>
 	</Operation>
 
