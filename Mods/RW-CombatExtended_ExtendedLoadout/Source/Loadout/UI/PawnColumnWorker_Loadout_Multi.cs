@@ -155,10 +155,17 @@ public class PawnColumnWorker_Loadout_Multi : PawnColumnWorker_Loadout
             {
                 Find.WindowStack.Add(new Dialog_ManageLoadouts_Extended(pawn, (pawn.GetLoadout() as Loadout_Multi)!.PersonalLoadout));
             }
-            TooltipHandler.TipRegion(personalLoadoutRect, new TipSignal(TextGetter("CE_Extended.PersonalLoadoutTip"), pawn.GetHashCode() * 6178));
+            TooltipHandler.TipRegion(personalLoadoutRect, new TipSignal("CE_Extended.PersonalLoadoutTip".Translate(), pawn.GetHashCode() * 6178));
         }
 
         // Main loadout button
+#if DEBUG
+        DbgLog.Msg($"Pawn:{pawn.Name}");
+        DbgLog.Msg($"Loadout:{pawn.GetLoadout().uniqueID}");
+        DbgLog.Msg($"Loadout as Multi:{(pawn.GetLoadout() as Loadout_Multi)?.uniqueID}");
+        DbgLog.Msg($"Current index:{index}, loadout:{(pawn.GetLoadout() as Loadout_Multi)?[index].label}");
+
+#endif
         string label = (pawn.GetLoadout() as Loadout_Multi)![index].label.Truncate(loadoutRect.width);
         Widgets.Dropdown(loadoutRect, pawn, p => (p.GetLoadout() as Loadout_Multi)![index], Btn_GenerateMenu, label, null, null, null, null, true);
 
@@ -174,12 +181,7 @@ public class PawnColumnWorker_Loadout_Multi : PawnColumnWorker_Loadout
             Find.WindowStack.Add(new Dialog_ManageLoadouts_Extended((pawn.GetLoadout() as Loadout_Multi)![index]));
         }
         // Added this next line.
-        TooltipHandler.TipRegion(assignTabRect, new TipSignal(TextGetter("CE_Loadouts"), pawn.GetHashCode() * 613));
+        TooltipHandler.TipRegion(assignTabRect, new TipSignal("CE_Loadouts".Translate(), pawn.GetHashCode() * 613));
         num3 += num2;
-    }
-
-    public string TextGetter(string text)
-    {
-        return text;
     }
 }
