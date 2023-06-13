@@ -67,7 +67,7 @@ public class ExtendedLoadoutMod : ModBase
         for (int i = 0; i < MaxColumnCount; i++)
         {
             int colId = i;
-            loadoutNames[i] = modSettingsPack.GetHandle($"LoadoutName_{i}", $"Loadout{i + 1}".Translate(), "", $"Loadout{i + 1}".Translate().RawText);
+            loadoutNames[i] = modSettingsPack.GetHandle($"LoadoutName_{i}", $"Loadout{i + 1}".Translate(), "Settings.LoadoutName.Desc".Translate(), $"Loadout{i + 1}".Translate().RawText);
             loadoutNames[i].VisibilityPredicate = () => (bool)UseMultiLoadouts && colId < (int)MultiLoadoutsCount;
             ((SettingHandle)loadoutNames[i]).ValueChanged += ((Action<SettingHandle>)delegate
             {

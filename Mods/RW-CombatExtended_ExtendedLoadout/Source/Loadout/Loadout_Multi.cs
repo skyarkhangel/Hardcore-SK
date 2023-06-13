@@ -62,7 +62,12 @@ public class Loadout_Multi : Loadout, IExposable, ILoadReferenceable
 
     public Loadout this[int index]
     {
-        get => _loadouts[index];
+        get 
+        {
+            if (_loadouts[index] == null)
+                _loadouts[index] = new Loadout();
+            return _loadouts[index];
+        }
         set
         {
             _loadouts[index] = value;
