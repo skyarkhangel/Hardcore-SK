@@ -4,7 +4,7 @@
 <!-- you cant center markdown images -->
 
 * **Discord:** <https://discord.gg/FMPRSKr> **(Validated Account Required)**
-* **Website/Forum:** <https://hardcore-sk.ru>
+* **Website/Forum:** <https://hardcore-sk.ru> If you encounter problems try typing the url in directly or into a google search and access the website that way - (if the url doesn't work.) alternatively look in the discord for pinned messages for the launcher download.
 
 First, I would like to thank the artists and developers of all the mods used in Hardcore SK.
 
