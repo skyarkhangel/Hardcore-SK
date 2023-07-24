@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>[1.0, 1.1] RimCuisine 2 Core</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<operations>
+				<!-- Change survival foods to make them bland rather than unappetizing -->
+				<li Class="PatchOperationReplace">
+					<xpath>Defs/ThingDef[defName="RC2_Hardtack" or defName="RC2_DriedMeat" or defName="RC2_PickledVegetables" or defName="RC2_DriedFruit" or defName="RC2_PreparedFruit"]/ingestible/preferability</xpath>
+					<value>
+						<preferability>RawTasty</preferability>
+					</value>
+				</li>
+				<li Class="PatchOperationReplace">
+					<xpath>Defs/ThingDef[defName="RC2_Hardtack"]/ingestible/optimalityOffsetHumanlikes</xpath>
+					<value>
+						<optimalityOffsetHumanlikes>-8</optimalityOffsetHumanlikes>
+					</value>
+				</li>
+				<li Class="PatchOperationReplace">
+					<xpath>Defs/ThingDef[defName="RC2_DriedMeat" or defName="RC2_PickledVegetables" or defName="RC2_DriedFruit"]/ingestible/optimalityOffsetHumanlikes</xpath>
+					<value>
+						<optimalityOffsetHumanlikes>-1</optimalityOffsetHumanlikes>
+					</value>
+				</li>
+				<li Class="PatchOperationRemove">
+					<xpath>Defs/ThingDef[defName="RC2_PreparedFruit" or defName="RC2_ThickPottage"]/ingestible/optimalityOffsetHumanlikes</xpath>
+				</li>
+				<!-- Remove drink category from foods not intended for nutrition -->
+					<li Class="PatchOperationReplace">
+					<xpath>Defs/ThingDef[defName="RC2_Syrup" or defName="RC2_Honey" or defName="RC2_AgaveNectar"]/ingestible/foodType</xpath>		
+					<value>
+						<foodType>Processed</foodType>
+					</value>
+				</li>		
+				<!-- Remove double nutrition resulting in double comp -->
+
+				<li Class="PatchOperationRemove">
+					<xpath>Defs/ThingDef[@Name="RC2_SurvivalFoodBase" or @Name="RC2_PreppedSurvivalFoodBase"]/statBases</xpath>			
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/ThingDef[defName="RC2_DriedFruit"]/statBases</xpath>
+					<value>
+						<Nutrition>.05</Nutrition>
+					</value>
+				</li>
+
+				<!-- Truffles and carrots are tasty, breadfruit is not-->
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/ThingDef[defName="RC2_RawCarrots" or defName="RC2_RawTruffles"]/ingestible</xpath>		
+					<value>
+						<preferability>RawTasty</preferability>
+					</value>
+				</li>	
+				<li Class="PatchOperationReplace">
+					<xpath>Defs/ThingDef[defName="RC2_RawBreadfruit"]/ingestible/preferability</xpath>		
+					<value>
+						<preferability>RawBad</preferability>
+					</value>
+				</li>				
+			</operations>
+		</match>
+	</Operation>
+</Patch>

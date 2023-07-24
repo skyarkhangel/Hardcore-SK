@@ -15,7 +15,9 @@
 		<label>30x29mm Grenades</label>
 		<ammoTypes>
 			<Ammo_30x29mmGrenade_HE>Bullet_30x29mmGrenade_HE</Ammo_30x29mmGrenade_HE>
+			<Ammo_30x29mmGrenade_HE_TFuzed>Bullet_30x29mmGrenade_HE_TFuzed</Ammo_30x29mmGrenade_HE_TFuzed>
 			<Ammo_30x29mmGrenade_EMP>Bullet_30x29mmGrenade_EMP</Ammo_30x29mmGrenade_EMP>
+			<Ammo_30x29mmGrenade_Smoke>Bullet_30x29mmGrenade_Smoke</Ammo_30x29mmGrenade_Smoke>
 		</ammoTypes>
 	</CombatExtended.AmmoSetDef>
 
@@ -53,6 +55,20 @@
 	</ThingDef>
 
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="30x29mmGrenadeBase">
+		<defName>Ammo_30x29mmGrenade_HE_TFuzed</defName>
+		<label>30x29mm grenade (HE Airburst)</label>
+		<graphicData>
+			<texPath>Things/Ammo/GrenadeLauncher/AIR</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>7.2</MarketValue>
+		</statBases>
+		<ammoClass>GrenadeHETF</ammoClass>
+		<detonateProjectile>Bullet_30x29mmGrenade_HE</detonateProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="30x29mmGrenadeBase">
 		<defName>Ammo_30x29mmGrenade_EMP</defName>
 		<label>30x29mm grenade (EMP)</label>
 		<graphicData>
@@ -65,6 +81,21 @@
 		<ammoClass>GrenadeEMP</ammoClass>
 		<generateAllowChance>0</generateAllowChance>
 		<detonateProjectile>Bullet_30x29mmGrenade_EMP</detonateProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="30x29mmGrenadeBase">
+		<defName>Ammo_30x29mmGrenade_Smoke</defName>
+		<label>30x29mm grenade (Smoke)</label>
+		<graphicData>
+			<texPath>Things/Ammo/GrenadeLauncher/SMK</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>2.31</MarketValue>
+		</statBases>
+		<ammoClass>Smoke</ammoClass>
+		<generateAllowChance>0</generateAllowChance>
+		<detonateProjectile>Bullet_30x29mmGrenade_Smoke</detonateProjectile>
 	</ThingDef>
 
 	<!-- ================== Projectiles ================== -->
@@ -82,7 +113,7 @@
 		</projectile>
 	</ThingDef>
 
-	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base30x29mmGrenadeBullet">
+	<ThingDef ParentName="Base30x29mmGrenadeBullet">
 		<defName>Bullet_30x29mmGrenade_HE</defName>
 		<label>30x29mm grenade (HE)</label>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
@@ -100,13 +131,48 @@
 		</comps>
 	</ThingDef>
 
-	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base30x29mmGrenadeBullet">
+	<ThingDef ParentName="Base30x29mmGrenadeBullet">
+		<defName>Bullet_30x29mmGrenade_HE_TFuzed</defName>
+		<thingClass>CombatExtended.ProjectileCE_Bursting</thingClass>
+		<label>30x29mm grenade (HE Airburst)</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<explosionRadius>1</explosionRadius>
+			<damageDef>Bomb</damageDef>
+			<damageAmountBase>20</damageAmountBase>
+			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<aimHeightOffset>1.4</aimHeightOffset>
+			<armingDelay>2</armingDelay>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Small>28</Fragment_Small>
+				</fragments>
+				<fragAngleRange>-89~-5</fragAngleRange>
+			</li>
+		</comps>
+	</ThingDef>
+	
+	<ThingDef ParentName="Base30x29mmGrenadeBullet">
 		<defName>Bullet_30x29mmGrenade_EMP</defName>
 		<label>30x29mm grenade (EMP)</label>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<explosionRadius>1.5</explosionRadius>
 			<damageDef>EMP</damageDef>
 			<damageAmountBase>35</damageAmountBase>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="Base30x29mmGrenadeBullet">
+		<defName>Bullet_30x29mmGrenade_Smoke</defName>
+		<label>30x29mm grenade (Smoke)</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<explosionRadius>2</explosionRadius>
+			<damageDef>Smoke</damageDef>
+			<suppressionFactor>0.0</suppressionFactor>
+			<dangerFactor>0.0</dangerFactor>
+			<postExplosionGasType>BlindSmoke</postExplosionGasType>
+			<preExplosionSpawnChance>1</preExplosionSpawnChance>
 		</projectile>
 	</ThingDef>
 
@@ -162,6 +228,55 @@
 	</RecipeDef>
 
 	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeAmmo_30x29mmGrenade_HE_TFuzed</defName>
+		<label>make 30x29mm HE airburst grenades x100</label>
+		<description>Craft 100 30x29mm HE airburst grenades.</description>
+		<jobString>Making 30x29mm HE airburst grenades.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Metallic</li>
+					</categories>
+				</filter>
+				<count>45</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Powder</li>
+						<li>FSX</li>
+					</thingDefs>
+				</filter>
+				<count>7</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>SLDBar</li>
+				<li>USLDBar</li>
+			</categories>
+			<thingDefs>
+				<li>FSX</li>
+				<li>Powder</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_30x29mmGrenade_HE_TFuzed>20</Ammo_30x29mmGrenade_HE_TFuzed>
+		</products>
+		<researchPrerequisite>Range_C2</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeBase">
 		<defName>MakeAmmo_30x29mmGrenade_EMP</defName>
 		<label>make 30x29mm EMP grenades x20</label>
 		<description>Craft 20 30x29mm EMP grenades.</description>
@@ -204,6 +319,53 @@
 		</fixedIngredientFilter>
 		<products>
 			<Ammo_30x29mmGrenade_EMP>20</Ammo_30x29mmGrenade_EMP>
+		</products>
+		<researchPrerequisite>Range_C2</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeAmmo_30x29mmGrenade_Smoke</defName>
+		<label>make 30x29mm smoke grenades x100</label>
+		<description>Craft 100 30x29mm smoke grenades.</description>
+		<jobString>Making 30x29mm smoke grenades.</jobString>
+        <ingredients>
+            <li>
+                <filter>
+                    <categories>
+                        <li>Metallic</li>
+                    </categories>
+                </filter>
+                <count>42</count>
+            </li>
+            <li>
+                <filter>
+                    <thingDefs>
+                        <li>Plastic</li>
+                    </thingDefs>
+                </filter>
+                <count>15</count>
+            </li>
+            <li>
+                <filter>
+                    <thingDefs>
+                        <li>ComponentIndustrial</li>
+                    </thingDefs>
+                </filter>
+                <count>6</count>
+            </li>
+        </ingredients>
+        <fixedIngredientFilter>
+            <categories>
+                <li>SLDBar</li>
+                <li>USLDBar</li>
+            </categories>
+            <thingDefs>
+                <li>Plastic</li>
+                <li>ComponentIndustrial</li>
+            </thingDefs>
+        </fixedIngredientFilter>
+		<products>
+			<Ammo_30x29mmGrenade_Smoke>20</Ammo_30x29mmGrenade_Smoke>
 		</products>
 		<researchPrerequisite>Range_C2</researchPrerequisite>
 	</RecipeDef>

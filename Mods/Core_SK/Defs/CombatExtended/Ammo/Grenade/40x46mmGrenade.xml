@@ -15,6 +15,8 @@
 		<label>40x46mm Grenades</label>
 		<ammoTypes>
 			<Ammo_40x46mmGrenade_HE>Bullet_40x46mmGrenade_HE</Ammo_40x46mmGrenade_HE>
+			<Ammo_40x46mmGrenade_HE_TFuzed>Bullet_40x46mmGrenade_HE_TFuzed</Ammo_40x46mmGrenade_HE_TFuzed>
+			<Ammo_40x46mmGrenade_HEDP>Bullet_40x46mmGrenade_HEDP</Ammo_40x46mmGrenade_HEDP>
 			<Ammo_40x46mmGrenade_EMP>Bullet_40x46mmGrenade_EMP</Ammo_40x46mmGrenade_EMP>
 			<Ammo_40x46mmGrenade_Smoke>Bullet_40x46mmGrenade_Smoke</Ammo_40x46mmGrenade_Smoke>
 		</ammoTypes>
@@ -54,6 +56,34 @@
 		<thingSetMakerTags>
 			<li>HSKCombatSuppliesAmmoHC</li>
 		</thingSetMakerTags>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="40x46mmGrenadeBase">
+		<defName>Ammo_40x46mmGrenade_HE_TFuzed</defName>
+		<label>40x46mm grenade (HE Time Fuzed)</label>
+		<graphicData>
+			<texPath>Things/Ammo/GrenadeLauncher/AIR</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>12</MarketValue>
+		</statBases>
+		<ammoClass>GrenadeHETF</ammoClass>
+		<detonateProjectile>Bullet_40x46mmGrenade_HE</detonateProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="40x46mmGrenadeBase">
+		<defName>Ammo_40x46mmGrenade_HEDP</defName>
+		<label>40x46mm grenade (HEDP)</label>
+		<graphicData>
+			<texPath>Things/Ammo/GrenadeLauncher/DP</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>11</MarketValue>
+		</statBases>
+		<ammoClass>GrenadeHEDP</ammoClass>
+		<detonateProjectile>Bullet_40x46mmGrenade_HE</detonateProjectile>
 	</ThingDef>
 
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="40x46mmGrenadeBase">
@@ -112,7 +142,8 @@
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<speed>30</speed>
 			<alwaysFreeIntercept>false</alwaysFreeIntercept>
-		</projectile>
+			<casingMoteDefname>Fleck_GrenadeLauncherAmmoCasings</casingMoteDefname>
+			<casingFilthDefname>Filth_GrenadeLauncherAmmoCasings</casingFilthDefname>		</projectile>
 	</ThingDef>
 
 	<ThingDef ParentName="Base40x46mmGrenadeBullet">
@@ -127,7 +158,54 @@
 		<comps>
 			<li Class="CombatExtended.CompProperties_Fragments">
 				<fragments>
-					<Fragment_GrenadeFrag>25</Fragment_GrenadeFrag>
+					<Fragment_GrenadeFrag>20</Fragment_GrenadeFrag>
+				</fragments>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="Base40x46mmGrenadeBullet">
+		<defName>Bullet_40x46mmGrenade_HE_TFuzed</defName>
+		<thingClass>CombatExtended.ProjectileCE_Bursting</thingClass>
+		<label>40x46mm grenade (HE-Airburst)</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<explosionRadius>1.0</explosionRadius>
+			<damageDef>Bomb</damageDef>
+			<damageAmountBase>55</damageAmountBase>
+			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<aimHeightOffset>1.4</aimHeightOffset>
+			<armingDelay>2</armingDelay>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Small>28</Fragment_Small>
+				</fragments>
+				<fragAngleRange>-89~-5</fragAngleRange>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="Base40x46mmGrenadeBullet">
+		<defName>Bullet_40x46mmGrenade_HEDP</defName>
+		<thingClass>CombatExtended.BulletCE</thingClass>
+		<label>40x46mm grenade (HEDP)</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>9</damageAmountBase>
+			<armorPenetrationSharp>25</armorPenetrationSharp>
+			<armorPenetrationBlunt>594</armorPenetrationBlunt>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<damageAmountBase>70</damageAmountBase>
+				<explosiveDamageType>Bomb</explosiveDamageType>
+				<explosiveRadius>0.5</explosiveRadius>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			</li>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Small>9</Fragment_Small>
 				</fragments>
 			</li>
 		</comps>
@@ -149,6 +227,8 @@
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<explosionRadius>2</explosionRadius>
 			<damageDef>Smoke</damageDef>
+			<suppressionFactor>0.0</suppressionFactor>
+			<dangerFactor>0.0</dangerFactor>
 			<postExplosionGasType>BlindSmoke</postExplosionGasType>
 			<preExplosionSpawnChance>1</preExplosionSpawnChance>
 		</projectile>
@@ -215,6 +295,123 @@
 		</products>
 		<researchPrerequisite>Range_C2</researchPrerequisite>
 	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeAmmo_40x46mmGrenade_HE_TFuzed</defName>
+		<label>make 40x46mm HE airburst grenades x100</label>
+		<description>Craft 100 40x46mm HE airburst grenades.</description>
+		<jobString>Making 40x46mm HE airburst grenades.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Metallic</li>
+					</categories>
+				</filter>
+				<count>40</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Powder</li>
+						<li>FSX</li>
+					</thingDefs>
+				</filter>
+				<count>10</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Mechanism</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>SLDBar</li>
+				<li>USLDBar</li>
+			</categories>
+			<thingDefs>
+				<li>Mechanism</li>
+				<li>FSX</li>
+				<li>Powder</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_40x46mmGrenade_HE_TFuzed>20</Ammo_40x46mmGrenade_HE_TFuzed>
+		</products>
+		<researchPrerequisite>Range_C2</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeAmmo_40x46mmGrenade_HEDP</defName>
+		<label>make 40x46mm HEDP grenades x100</label>
+		<description>Craft 100 40x46mm HEDP grenades.</description>
+		<jobString>Making 40x46mm HEDP grenades.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>Metallic</li>
+					</categories>
+				</filter>
+				<count>40</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Powder</li>
+						<li>FSX</li>
+					</thingDefs>
+				</filter>
+				<count>8</count>
+			</li>
+			<li>
+				<filter>
+					<categories>
+						<li>Chemical</li>
+					</categories>
+				</filter>
+				<count>5</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>SLDBar</li>
+				<li>USLDBar</li>
+				<li>Chemical</li>
+			</categories>
+			<thingDefs>
+				<li>FSX</li>
+				<li>Powder</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_40x46mmGrenade_HEDP>20</Ammo_40x46mmGrenade_HEDP>
+		</products>
+		<researchPrerequisite>Range_C2</researchPrerequisite>
+	</RecipeDef>
+
 
 	<RecipeDef ParentName="AmmoRecipeBase">
 		<defName>MakeAmmo_40x46mmGrenade_EMP</defName>
