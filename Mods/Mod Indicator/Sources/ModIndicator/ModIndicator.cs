@@ -15,10 +15,8 @@ namespace ModIndicator
 
         public ModTypeDef modTypeDef;
 
-        public void LoadDataFromXmlCustom(XmlNode xmlRoot)
-        {
-            mod = ParseHelper.FromString<string>(xmlRoot.Name);
-            DirectXmlCrossRefLoader.RegisterObjectWantsCrossRef(this, "modTypeDef", xmlRoot.FirstChild.Value);
-        }
+        public string link;
+
+        public List<string> requiredMods;
     }
 }
