@@ -161,7 +161,7 @@ public class PawnColumnWorker_Loadout_Multi : PawnColumnWorker_Loadout
         // Main loadout button
 #if DEBUG
         DbgLog.Msg($"Pawn:{pawn.Name}");
-        DbgLog.Msg($"Loadout:{pawn.GetLoadout().uniqueID}");
+        DbgLog.Msg($"Loadout:{pawn.GetLoadout().GetUniqueLoadID()}");
         DbgLog.Msg($"Loadout as Multi:{(pawn.GetLoadout() as Loadout_Multi)?.uniqueID}");
         DbgLog.Msg($"Current index:{index}, loadout:{(pawn.GetLoadout() as Loadout_Multi)?[index].label}");
 

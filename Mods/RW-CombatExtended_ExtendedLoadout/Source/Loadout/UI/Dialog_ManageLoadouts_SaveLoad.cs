@@ -182,7 +182,7 @@ public class Dialog_SaveLoad : Window
     private string _saveFileName;
     private List<(string name, Loadout[] loadouts, LoadStatus status, string loadStatusMessage)> _files;
     private int _selectedFile = -1, _previousSelectedFile = -1;
-    private string _savePath = GenFilePaths.FolderUnderSaveData("CE.ExtendedLoadouts");
+    private string _savePath = GenFilePaths.SaveDataFolderPath + "/CE.ExtendedLoadouts";
     private Dictionary<Loadout, bool> _checkState = new();
     private Vector2 _loaudoutsScroll, _filesScroll;
     private Dictionary<string, ThingDef> _firstGenericCache = new();
@@ -198,6 +198,9 @@ public class Dialog_SaveLoad : Window
 
     public Dialog_SaveLoad()
     {
+        DirectoryInfo directoryInfo = new DirectoryInfo(_savePath);
+        if (!directoryInfo.Exists)
+            directoryInfo.Create();
         doCloseButton = false;
         doCloseX = true;
         forcePause = true;

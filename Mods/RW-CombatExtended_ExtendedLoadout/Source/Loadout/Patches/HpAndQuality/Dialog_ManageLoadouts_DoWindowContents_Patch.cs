@@ -5,6 +5,7 @@ using HarmonyLib;
 using JetBrains.Annotations;
 using UnityEngine;
 using Verse;
+using Verse.AI;
 
 namespace CombatExtended.ExtendedLoadout;
 
@@ -64,8 +65,9 @@ public class Dialog_ManageLoadouts_DoWindowContents_Patch
         Rect hpRect = new(refillRect.xMin, refillRect.yMax + Dialog_ManageLoadouts._margin, refillRect.width, Dialog_ManageLoadouts._barHeight);
         Rect qualityRect = new(hpRect.xMin, hpRect.yMax + Dialog_ManageLoadouts._margin, hpRect.width, Dialog_ManageLoadouts._barHeight);
         var loadoutExtended = dialog.CurrentLoadout.Extended();
-        
-        GUI.color = Widgets.RangeControlTextColor;
+
+        GUI.color = (Color)AccessTools.Field(typeof(Widgets), "RangeControlTextColor").GetValue(new Color());
+
         loadoutExtended.RefillThreshold = Widgets.HorizontalSlider_NewTemp(refillRect, loadoutExtended.RefillThreshold, 0f, 1f, false, "CE_Extended.RefillThreshold".Translate(Mathf.RoundToInt(loadoutExtended.RefillThreshold * 100)), null, null, -1f);
         GUI.color = Color.white;
         

@@ -75,7 +75,7 @@ public class ExtendedLoadoutMod : ModBase
                 if (pawnColumnDef != null)
                 {
                     pawnColumnDef.label = loadoutNames[colId].Value;
-                    ((Def)pawnColumnDef).cachedLabelCap = null;
+                    ((Def)pawnColumnDef).ClearCachedData();
                 }
             });
         }
