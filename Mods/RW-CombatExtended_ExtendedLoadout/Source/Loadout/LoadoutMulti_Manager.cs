@@ -15,10 +15,31 @@ public static class LoadoutMulti_Manager
 
     public static void ExposeData(LoadoutManager __instance)
     {
-        Scribe_Collections.Look(ref assignedLoadoutsMulti, "assignedLoadoutsMulti", LookMode.Reference, LookMode.Deep, ref keysWorkingList, ref valuesWorkingList);
-
-        // fix for old saves
-        if (Scribe.mode == LoadSaveMode.PostLoadInit && assignedLoadoutsMulti == null)  
+        Scribe_Collections.Look(ref assignedLoadoutsMulti, "assignedLoadoutsMulti", LookMode.Reference, LookMode.Deep, ref keysWorkingList, ref valuesWorkingList, false);
+        switch (Scribe.mode)
+        {
+            case LoadSaveMode.PostLoadInit:
+                // fix for old saves
+                if (assignedLoadoutsMulti == null)
+                {
+                    assignedLoadoutsMulti = new Dictionary<Pawn, Loadout_Multi>();
+                    // assign CE loadouts
+                    if (LoadoutManager.AssignedLoadouts.Any())
+                    {
+                        foreach (var kv in LoadoutManager.AssignedLoadouts)
+                        {
+                            SetLoadout(kv.Key, kv.Value, 0);
+                        }
+                        //__instance._assignedLoadouts.Clear();
+                        DbgLog.Wrn($"LoadoutMulti_Manager ExposeData: moved assignmentLoadouts to assignedLoadoutsMulti");
+                    }
+                    break;
+                }
+                if (assignedLoadoutsMulti.RemoveAll(x => x.Key is null) > 0)
+                    Log.WarningOnce("[Extended Loadout]There are loadouts with null pawns. Those pawns aren't saved anywhere else. This could result in error when loading", 747510);
+                break;
+        }
+        /*if (Scribe.mode == LoadSaveMode.PostLoadInit && assignedLoadoutsMulti == null)
         {
             assignedLoadoutsMulti = new Dictionary<Pawn, Loadout_Multi>();
 
@@ -32,8 +53,7 @@ public static class LoadoutMulti_Manager
                 //__instance._assignedLoadouts.Clear();
                 DbgLog.Wrn($"LoadoutMulti_Manager ExposeData: moved assignmentLoadouts to assignedLoadoutsMulti");
             }
-        }
-
+        }*/
         DbgLog.Msg($"LoadoutMulti_Manager ExposeData");
     }
 
@@ -62,8 +82,9 @@ public static class LoadoutMulti_Manager
     [ClearDataOnNewGame]
     public static void ClearData()
     {
+        int count = assignedLoadoutsMulti.Count;
         assignedLoadoutsMulti.Clear();
-        DbgLog.Wrn($"[LoadoutMulti_Manager] Clear data");
+        Log.Message($"[LoadoutMulti_Manager] Clear data: cleared {count - assignedLoadoutsMulti.Count} loadouts");
     }
 
     public static int GetUniqueLoadoutID()
