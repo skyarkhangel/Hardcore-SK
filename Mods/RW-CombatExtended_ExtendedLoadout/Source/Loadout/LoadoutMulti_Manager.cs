@@ -15,7 +15,7 @@ public static class LoadoutMulti_Manager
 
     public static void ExposeData(LoadoutManager __instance)
     {
-        Scribe_Collections.Look(ref assignedLoadoutsMulti, "assignedLoadoutsMulti", LookMode.Reference, LookMode.Deep, ref keysWorkingList, ref valuesWorkingList);
+        Scribe_Collections.Look(ref assignedLoadoutsMulti, "assignedLoadoutsMulti", LookMode.Reference, LookMode.Deep, ref keysWorkingList, ref valuesWorkingList, false);
         switch (Scribe.mode)
         {
             case LoadSaveMode.PostLoadInit:
