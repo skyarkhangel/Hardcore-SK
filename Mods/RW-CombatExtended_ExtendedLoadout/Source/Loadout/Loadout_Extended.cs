@@ -88,8 +88,9 @@ public class Loadout_Extended
     [ClearDataOnNewGame]
     public static void ClearData()
     {
+        int count = Loadouts.Count;
         Loadouts.Clear();
-        DbgLog.Wrn($"[Loadout_Extended] Clear data");
+        DbgLog.Wrn($"[Loadout_Extended] Clear data: cleared {count - Loadouts.Count} loadouts");
     }
 
     [Conditional("DEBUG")]

@@ -16,9 +16,10 @@ public static class LoadoutMulti_Manager
     public static void ExposeData(LoadoutManager __instance)
     {
         Scribe_Collections.Look(ref assignedLoadoutsMulti, "assignedLoadoutsMulti", LookMode.Reference, LookMode.Deep, ref keysWorkingList, ref valuesWorkingList);
-
+        if (assignedLoadoutsMulti.RemoveAll(x => x.Key is null) > 0)
+            Log.WarningOnce("[Extended Loadout]There are loadouts with null pawns. Those pawns aren't saved anywhere else. This could result in error when loading", 747510);
         // fix for old saves
-        if (Scribe.mode == LoadSaveMode.PostLoadInit && assignedLoadoutsMulti == null)  
+        if (Scribe.mode == LoadSaveMode.PostLoadInit && assignedLoadoutsMulti == null)
         {
             assignedLoadoutsMulti = new Dictionary<Pawn, Loadout_Multi>();
 
@@ -62,8 +63,9 @@ public static class LoadoutMulti_Manager
     [ClearDataOnNewGame]
     public static void ClearData()
     {
+        int count = assignedLoadoutsMulti.Count;
         assignedLoadoutsMulti.Clear();
-        DbgLog.Wrn($"[LoadoutMulti_Manager] Clear data");
+        Log.Message($"[LoadoutMulti_Manager] Clear data: cleared {count - assignedLoadoutsMulti.Count} loadouts");
     }
 
     public static int GetUniqueLoadoutID()
