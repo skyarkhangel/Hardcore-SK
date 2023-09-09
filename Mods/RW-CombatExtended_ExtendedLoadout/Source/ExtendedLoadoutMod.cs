@@ -88,8 +88,10 @@ public class ExtendedLoadoutMod : ModBase
             int idx = columns.FindIndex((PawnColumnDef x) => x.defName.Equals("Loadout"));
             if (idx != -1)
             {
+                IEnumerable<PawnColumnDef> columnDefs = GeneratePawnColumnDefs(MultiLoadoutsCount);
+                DefDatabase<PawnColumnDef>.Add(columnDefs);
                 columns.RemoveAt(idx);
-                columns.InsertRange(idx, GeneratePawnColumnDefs(MultiLoadoutsCount));
+                columns.InsertRange(idx, columnDefs);
                 Loadout_Multi.ColumnsCount = MultiLoadoutsCount;
                 useMultiLoadouts = true;
                 Log.Message($"[CombatExtended.ExtendedLoadout] {MultiLoadoutsCount}x Loadout columns injected");
