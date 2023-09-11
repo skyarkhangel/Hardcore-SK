@@ -50,6 +50,7 @@
 		</thingCategories>
 		<stackLimit>200</stackLimit>
 		<tradeTags>
+			<li>CE_PreIndustrialAmmo</li>
 			<li>CE_AutoEnableTrade</li>
 			<li>CE_AutoEnableCrafting_FueledSmithy</li>
 			<li>CE_AutoEnableCrafting_ElectricSmithy</li>
@@ -161,7 +162,11 @@
 		</projectile>
 	</ThingDef>
 
-	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BaseArrowProjectile">
+	<!-- The amount of arrows usable over the ammo lifetime for each resource cost is equal to
+		[r / (1 - x)];
+			x = preExplosionSpawnChance,
+			r = resource cost. -->
+	<ThingDef ParentName="BaseArrowProjectile">
 		<defName>Projectile_Arrow_Stone</defName>
 		<label>arrow (stone)</label>
 		<graphicData>
@@ -198,7 +203,7 @@
 		</projectile>
 	</ThingDef>
 
-	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BaseArrowProjectile">
+	<ThingDef ParentName="BaseArrowProjectile">
 		<defName>Projectile_Arrow_Venom</defName>
 		<label>arrow (venom)</label>
 		<graphicData>
@@ -207,12 +212,11 @@
 		</graphicData>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<damageDef>ArrowVenom</damageDef>
-			<damageAmountBase>3</damageAmountBase>
-			<!-- <armorPenetrationBase>0.25</armorPenetrationBase> -->
-			<armorPenetrationSharp>2.5</armorPenetrationSharp>
-			<armorPenetrationBlunt>3.84</armorPenetrationBlunt>
-			<preExplosionSpawnChance>0.6</preExplosionSpawnChance>
-			<preExplosionSpawnThingDef>Ammo_Arrow_Venom</preExplosionSpawnThingDef>			
+			<damageAmountBase>7</damageAmountBase>
+			<armorPenetrationSharp>0.5</armorPenetrationSharp>
+			<armorPenetrationBlunt>3.02</armorPenetrationBlunt>
+			<preExplosionSpawnChance>0.666</preExplosionSpawnChance><!-- 29.94 arrows per resource -->
+			<preExplosionSpawnThingDef>Ammo_Arrow_Steel</preExplosionSpawnThingDef><!--Spawns steel arrow-->
 			<secondaryDamage>
 				<li>
 					<def>ArrowHighVelocity</def>
@@ -268,7 +272,7 @@
 	
 	<!-- ================== Projectiles (Recurve bow) ================== -->
 
-	<ThingDef Class="CombatExtended.AmmoDef" Name="BaseStreamlinedArrowProjectile" ParentName="SK_BaseBullet" Abstract="true">
+	<ThingDef Name="BaseStreamlinedArrowProjectile" ParentName="SK_BaseBullet" Abstract="true">
 		<graphicData>
 			<texPath>Things/Projectile/Arrow_Small</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
@@ -279,7 +283,7 @@
 		</projectile>
 	</ThingDef>
 
-	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BaseStreamlinedArrowProjectile">
+	<ThingDef ParentName="BaseStreamlinedArrowProjectile">
 		<defName>Projectile_StreamlinedArrow_Stone</defName>
 		<label>streamlined arrow (stone)</label>
 		<graphicData>
@@ -287,15 +291,16 @@
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
-			<damageAmountBase>11</damageAmountBase>
-			<armorPenetrationSharp>2.7</armorPenetrationSharp>
-			<armorPenetrationBlunt>4</armorPenetrationBlunt>
-			<preExplosionSpawnChance>0.333</preExplosionSpawnChance> <!-- 14.99 arrows per resource -->
+			<speed>40</speed>
+			<damageAmountBase>8</damageAmountBase>
+			<armorPenetrationSharp>0.5</armorPenetrationSharp>
+			<armorPenetrationBlunt>2.78</armorPenetrationBlunt>
+			<preExplosionSpawnChance>0.2</preExplosionSpawnChance>
 			<preExplosionSpawnThingDef>Ammo_Arrow_Stone</preExplosionSpawnThingDef>
 		</projectile>
 	</ThingDef>
 
-	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BaseStreamlinedArrowProjectile">
+	<ThingDef ParentName="BaseStreamlinedArrowProjectile">
 		<defName>Projectile_StreamlinedArrow_Steel</defName>
 		<label>streamlined arrow (metallic)</label>
 		<graphicData>
@@ -303,15 +308,15 @@
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
-			<damageAmountBase>15</damageAmountBase>
-			<armorPenetrationSharp>3.5</armorPenetrationSharp>
-			<armorPenetrationBlunt>4.5</armorPenetrationBlunt>
-			<preExplosionSpawnChance>0.666</preExplosionSpawnChance> <!-- 29.94 arrows per resource -->
+			<damageAmountBase>9</damageAmountBase>
+			<armorPenetrationSharp>1.0</armorPenetrationSharp>
+			<armorPenetrationBlunt>5.9</armorPenetrationBlunt>
+			<preExplosionSpawnChance>0.6</preExplosionSpawnChance>
 			<preExplosionSpawnThingDef>Ammo_Arrow_Steel</preExplosionSpawnThingDef>
 		</projectile>
 	</ThingDef>
 
-	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BaseStreamlinedArrowProjectile">
+	<ThingDef ParentName="BaseStreamlinedArrowProjectile">
 		<defName>Projectile_StreamlinedArrow_Venom</defName>
 		<label>streamlined arrow (venom)</label>
 		<graphicData>
@@ -320,11 +325,11 @@
 		</graphicData>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<damageDef>ArrowVenom</damageDef>
-			<damageAmountBase>3</damageAmountBase>
-			<armorPenetrationSharp>2.8</armorPenetrationSharp>
-			<armorPenetrationBlunt>4</armorPenetrationBlunt>
+			<damageAmountBase>9</damageAmountBase>
+			<armorPenetrationSharp>1.0</armorPenetrationSharp>
+			<armorPenetrationBlunt>5.9</armorPenetrationBlunt>
 			<preExplosionSpawnChance>0.6</preExplosionSpawnChance>
-			<preExplosionSpawnThingDef>Ammo_Arrow_Venom</preExplosionSpawnThingDef>			
+			<preExplosionSpawnThingDef>Ammo_Arrow_Steel</preExplosionSpawnThingDef>
 			<secondaryDamage>
 				<li>
 					<def>ArrowHighVelocity</def>
@@ -334,7 +339,7 @@
 		</projectile>
 	</ThingDef>
 
-	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BaseStreamlinedArrowProjectile">
+	<ThingDef ParentName="BaseStreamlinedArrowProjectile">
 		<defName>Projectile_StreamlinedArrow_Explosive</defName>
 		<label>streamlined arrow (explosive)</label>
 		<graphicData>
@@ -365,7 +370,7 @@
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 		  <explosionRadius>0.1</explosionRadius>
 		  <damageDef>ArrowFire</damageDef>
-		  <damageAmountBase>2</damageAmountBase>
+			<damageAmountBase>4</damageAmountBase>
 		  <preExplosionSpawnThingDef>Filth_Fuel</preExplosionSpawnThingDef>
 		  <preExplosionSpawnChance>0.16</preExplosionSpawnChance>
 		</projectile>

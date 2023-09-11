@@ -64,25 +64,47 @@
 		<techLevel>Spacer</techLevel>
 	</ThingDef>
 
+	<ThingDef Class="CombatExtended.AmmoDef" Name="SpacerAmmoBase" ParentName="AmmoBase" Abstract="True">
+		<techLevel>Spacer</techLevel>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="SpacerMediumAmmoBase" ParentName="AmmoBase" Abstract="True">
+		<techLevel>Spacer</techLevel>
+		<tradeTags Inherit="False">
+			<li>CE_AmmoInjector</li>
+			<li>CE_MediumAmmo</li>
+		</tradeTags>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="MediumAmmoBase" ParentName="AmmoBase" Abstract="True">
+		<tradeTags Inherit="False">
+			<li>CE_AmmoInjector</li>
+			<li>CE_MediumAmmo</li>
+		</tradeTags>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="HeavyAmmoBase" ParentName="AmmoBase" Abstract="True">
+		<tradeTags Inherit="False">
+			<li>CE_AmmoInjector</li>
+			<li>CE_HeavyAmmo</li>
+		</tradeTags>
+	</ThingDef>
 
 	<!-- ================== Projectiles ================== -->
 
-	<ThingDef Class="CombatExtended.AmmoDef" Name="SK_BaseBullet" ParentName="BaseBullet" Abstract="True">
-		<category>Projectile</category>
-		<tickerType>Normal</tickerType>
-		<altitudeLayer>Projectile</altitudeLayer>
+	<!-- 
+		    			BaseBulletCE
+							  |
+							  |
+						SK_BaseBullet
+						/			\
+					   /			 \
+				BaseFragment    BaseExplosiveBullet
+	-->
+	<ThingDef Class="CombatExtended.AmmoDef" Name="BaseBulletCE" ParentName="BaseBullet" Abstract="True">
 		<thingClass>CombatExtended.BulletCE</thingClass>
-		<label>bullet</label>
-		<useHitPoints>False</useHitPoints>
-		<neverMultiSelect>True</neverMultiSelect>
-		<graphicData>
-			<shaderType>Transparent</shaderType>
-		</graphicData>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
-			<explosionDamageFalloff>true</explosionDamageFalloff><!--
-            <suppressionFactor>3</suppressionFactor>
-            <dangerFactor>0.8</dangerFactor>
-            <airborneSuppressionFactor>3.5</airborneSuppressionFactor>-->
+			<explosionDamageFalloff>true</explosionDamageFalloff>
 		</projectile>
 	</ThingDef>
 
@@ -95,14 +117,7 @@
 		</projectile>
 	</ThingDef>
 
-	<ThingDef Class="CombatExtended.AmmoDef" Name="BaseBulletCE" ParentName="SK_BaseBullet" Abstract="True">
-		<thingClass>CombatExtended.BulletCE</thingClass>
-		<projectile Class="CombatExtended.ProjectilePropertiesCE">
-			<explosionDamageFalloff>true</explosionDamageFalloff>
-		</projectile>
-	</ThingDef>
-
-	<ThingDef Name="BaseExplosiveBullet" ParentName="BaseBulletCE" Abstract="True">
+	<ThingDef Name="BaseExplosiveBullet" ParentName="SK_BaseBullet" Abstract="True">
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<suppressionFactor>3.0</suppressionFactor>
 			<dangerFactor>2.0</dangerFactor>
@@ -118,6 +133,28 @@
 			</li>		
 		</comps>
 	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="SK_BaseBullet" ParentName="BaseBulletCE" Abstract="True">
+		<category>Projectile</category>
+		<tickerType>Normal</tickerType>
+		<altitudeLayer>Projectile</altitudeLayer>
+		<label>bullet</label>
+		<useHitPoints>False</useHitPoints>
+		<neverMultiSelect>True</neverMultiSelect>
+		<graphicData>
+			<shaderType>Transparent</shaderType>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<explosionDamageFalloff>true</explosionDamageFalloff><!--
+            <suppressionFactor>3</suppressionFactor>
+            <dangerFactor>0.8</dangerFactor>
+            <airborneSuppressionFactor>3.5</airborneSuppressionFactor>-->
+		</projectile>
+	</ThingDef>
+
+	
+
+	
 
 	<!-- ==================== Recipes ========================== -->
 
@@ -204,6 +241,18 @@
 		<recipeUsers>
 			<li>TableMachining</li>
 		</recipeUsers>
+	</RecipeDef>
+
+	<RecipeDef Name="AdvancedAmmoRecipeBase" ParentName="AmmoRecipeBase" Abstract="true">
+		<skillRequirements>
+			<Crafting>10</Crafting>
+		</skillRequirements>
+	</RecipeDef>
+
+	<RecipeDef Name="LauncherAmmoRecipeBase" ParentName="AmmoRecipeBase" Abstract="true">
+		<skillRequirements>
+			<Crafting>12</Crafting>
+		</skillRequirements>
 	</RecipeDef>
 
 </Defs>
