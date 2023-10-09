@@ -17,7 +17,7 @@ You can tell colonists to pick up an item and keep it in their inventory. They w
 Want field-doctoring to be even better? Use [Smart Medicine](https://steamcommunity.com/sharedfiles/filedetails/?id=1309994319) by Uuugggg and doctors will automatically use the meds in their inventory.
 
 ## Limitations
-- Only player-owned humanlikes can use their inventory to haul. Rule of thumb: If you can order it to equip a gun or wear a pair of pants, it'll use their inventory to haul for you. No guests, animals pretending to be robots, dogs, prisoners, or whatever else.
+- All player-owned pawns that have a hauling inventory should be able to use it. In regards to animals this means only pack animals. No guests or prisoners.
 
 - The unloading isn't 100% perfect, but it's pretty darn close.
 

@@ -30,6 +30,9 @@
 		<inspectorTabs>
 			<li>ITab_Art</li>
 		</inspectorTabs>
+		<tradeTags>
+			<li>WeaponRanged</li>
+		</tradeTags>
 		<comps>
 			<li Class="CompProperties_Forbiddable" />
 			<li>
@@ -79,6 +82,9 @@
 		<inspectorTabs>
 			<li>ITab_Art</li>
 		</inspectorTabs>
+		<tradeTags>
+			<li>WeaponRanged</li>
+		</tradeTags>
 		<comps>
 			<li Class="CompProperties_Forbiddable" />
 			<li>
@@ -94,14 +100,15 @@
 			</li>
 		</comps>
 		<smeltable>true</smeltable>
-		<smeltProducts>
+		<!-- Anything that inherits this needs a <smeltProducts>-->
+		<!--<smeltProducts>
 			<Weapon_Parts>6</Weapon_Parts>
-		</smeltProducts>
+		</smeltProducts>-->
 		<thingSetMakerTags>
 			<li>RewardStandardMidFreq</li>
 		</thingSetMakerTags>
 	</ThingDef>
-	
+
 	<ThingDef ParentName="BaseGunCR" Name="BaseGunCR_Extended" Abstract="True">
 		<relicChance>1</relicChance>
 		<comps>
@@ -214,8 +221,8 @@
 				<capacities>
 					<li>Blunt</li>
 				</capacities>
-				<power>14</power>
-				<cooldownTime>1.8</cooldownTime>
+				<power>13</power>
+				<cooldownTime>1.9</cooldownTime>
 				<armorPenetrationBlunt>2.5</armorPenetrationBlunt>
 				<linkedBodyPartsGroup>Barrel</linkedBodyPartsGroup>
 			</li>
@@ -243,7 +250,7 @@
 		<category>Projectile</category>
 		<tickerType>Normal</tickerType>
 		<altitudeLayer>Projectile</altitudeLayer>
-		<thingClass>Bullet</thingClass>
+		<thingClass>CombatExtended.BulletCE</thingClass>
 		<label>bullet</label>
 		<useHitPoints>False</useHitPoints>
 		<neverMultiSelect>True</neverMultiSelect>
@@ -259,11 +266,17 @@
 			<texPath>Things/Projectile/Foam</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
-		<projectile>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<flyOverhead>false</flyOverhead>
 			<damageDef>Extinguish</damageDef>
-			<damageAmountBase>8</damageAmountBase>
-			<speed>20</speed>
+			<damageAmountBase>4</damageAmountBase>
+			<preExplosionSpawnThingDef>Filth_FireFoam</preExplosionSpawnThingDef>
+			<preExplosionSpawnChance>1</preExplosionSpawnChance>
+			<speed>10</speed>
+            <suppressionFactor>6</suppressionFactor>
+            <dangerFactor>0.5</dangerFactor>
+            <airborneSuppressionFactor>5</airborneSuppressionFactor>
+			<soundAmbient>RocketPropelledLoop_Small</soundAmbient>
 		</projectile>
 	</ThingDef>
 	<!-- FIRE EXTINGUISHER -->
@@ -279,17 +292,16 @@
 		<techLevel>Industrial</techLevel>
 		<statBases>
 			<MarketValue>800</MarketValue>
-			<AccuracyTouch>0.5</AccuracyTouch>
-			<AccuracyShort>0.4</AccuracyShort>
-			<AccuracyMedium>0.3</AccuracyMedium>
-			<AccuracyLong>0.2</AccuracyLong>
+			<SightsEfficiency>0.9</SightsEfficiency>
+			<ShotSpread>0.15</ShotSpread>
+			<SwayFactor>1.4</SwayFactor>
 			<RangedWeapon_Cooldown>0.66</RangedWeapon_Cooldown>
 			<Bulk>12.00</Bulk>
 			<Mass>6.00</Mass>
 		</statBases>
 		<verbs>
-			<li>
-				<verbClass>Verb_Shoot</verbClass>
+			<li Class="CombatExtended.VerbPropertiesCE">
+				<verbClass>CombatExtended.Verb_ShootCE</verbClass>
 				<defaultProjectile>Bullet_FireExtinguisher</defaultProjectile>
 				<hasStandardCommand>true</hasStandardCommand>
 				<targetParams>
@@ -299,10 +311,45 @@
 				<burstShotCount>20</burstShotCount>
 				<ticksBetweenBurstShots>2</ticksBetweenBurstShots>
 				<range>6</range>
-				<!--<soundCast>FireExtinguisher</soundCast>-->
+				<!--<soundCast>FoamSpray_Resolve</soundCast>-->
 				<soundCastTail>GunTail_Medium</soundCastTail>
 			</li>
 		</verbs>
+		<tools>
+		  <li Class="CombatExtended.ToolCE">
+			<label>handle</label>
+			<capacities>
+			  <li>Poke</li>
+			</capacities>
+			<power>2</power>
+			<chanceFactor>0.33</chanceFactor>
+			<cooldownTime>1.59</cooldownTime>
+			<armorPenetrationBlunt>0.425</armorPenetrationBlunt>
+			<linkedBodyPartsGroup>Handle</linkedBodyPartsGroup>
+		  </li>            
+		  <li Class="CombatExtended.ToolCE">
+			<label>tank</label>
+			<capacities>
+			  <li>Blunt</li>
+			</capacities>
+			<power>9</power>
+			<cooldownTime>1.68</cooldownTime>
+			<armorPenetrationBlunt>2.375</armorPenetrationBlunt>
+			<linkedBodyPartsGroup>Head</linkedBodyPartsGroup>
+		  </li>
+		</tools>
+        <comps>
+            <li Class="CombatExtended.CompProperties_FireModes">
+                <aiAimMode>AimedShot</aiAimMode>
+				<noSingleShot>true</noSingleShot>
+				<noSnapshot>true</noSnapshot>
+            </li>
+            <li Class="CombatExtended.CompProperties_AmmoUser">
+                <magazineSize>60</magazineSize>
+                <reloadTime>5</reloadTime>
+                <ammoSet>AmmoSet_FirefoamFuel</ammoSet>
+            </li>
+        </comps>
 		<weaponTags>
 			<li>Utility</li>
 			<li>CE_OneHandedWeapon</li>
@@ -311,7 +358,71 @@
 			<li>SpecialWeapons</li>
 		</thingCategories>
 		<smeltProducts>
-			<Weapon_Parts>8</Weapon_Parts>
+			<Weapon_Parts>3</Weapon_Parts>
+			<ComponentIndustrial>5</ComponentIndustrial>
 		</smeltProducts>
 	</ThingDef>
+	
+	<!-- AMMO -->
+	
+	<ThingCategoryDef>
+		<defName>AmmoFirefoamFuel</defName>
+		<label>firefoam Fuel</label>
+		<parent>AmmoAdvanced</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberFuel</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_FirefoamFuel</defName>
+		<label>Firefoam Fuel</label>
+		<ammoTypes>
+			<Surfactant>Bullet_FireExtinguisher</Surfactant>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="FirefoamFuelBase" ParentName="AmmoBase" Abstract="True">
+		<description>Container holding fuel for firefoam weapons/utilities.</description>
+		<statBases>
+			<Mass>0.2</Mass>
+			<Bulk>0.25</Bulk>
+		</statBases>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>Exotic</li>
+		</tradeTags>
+		<thingCategories>
+			<li>AmmoFirefoamFuel</li>
+			<li>Chemical</li>
+		</thingCategories>
+		<stackLimit>150</stackLimit>
+	</ThingDef>
+	
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="FirefoamFuelBase">
+		<defName>Surfactant</defName>
+		<label>Surfactant Fuel</label>
+		<description>Surfactants are a product of Salt, Sulfur and Alcohol or various other methods. Effective foam base for fighting fires.</description>
+		<graphicData>
+			<texPath>Things/Item/Resource/SurfactantFuel</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<color>(255,255,255)</color>
+		</graphicData>
+		<soundInteract>Standard_Drop</soundInteract>
+		<soundDrop>Standard_Drop</soundDrop>
+		<tickerType>Rare</tickerType>
+		<techLevel>Industrial</techLevel>
+		<statBases>
+			<MarketValue>0.4</MarketValue>
+			<DeteriorationRate>0</DeteriorationRate>
+			<Flammability>3</Flammability>
+			<Mass>0.06</Mass>
+			<Bulk>0.06</Bulk>
+		</statBases>
+		<ammoClass>FoamFuel</ammoClass>
+		<generateAllowChance>0</generateAllowChance>
+	</ThingDef>
+	
 </Defs>

@@ -92,6 +92,9 @@
 		<building>
 			<isMealSource>true</isMealSource>
 			<uninstallWork>350</uninstallWork>
+			<buildingTags>
+				<li>NoOutdoorPenaltyUnderRoof</li>
+			</buildingTags>
 		</building>
 		<researchPrerequisites>
 			<li>Food_B3</li>
@@ -125,6 +128,7 @@
 			<WorkTableWorkSpeedFactor>0.7</WorkTableWorkSpeedFactor>
 			<WorkTableEfficiencyFactor>0.7</WorkTableEfficiencyFactor>
 			<Mass>1</Mass>
+			<Cleanliness>-16</Cleanliness>
 		</statBases>
 		<scatterableOnMapGen>false</scatterableOnMapGen>
 		<useHitPoints>False</useHitPoints>
@@ -136,6 +140,7 @@
 			<sowTag>SupportPlantsOnly</sowTag>
 			<canPlaceOverImpassablePlant>false</canPlaceOverImpassablePlant>
 			<ai_chillDestination>false</ai_chillDestination>
+			<wakeDormantPawnsOnConstruction>false</wakeDormantPawnsOnConstruction>
 			<artificialForMeditationPurposes>false</artificialForMeditationPurposes>
 			<buildingTags>
 				<li>Production</li>
@@ -204,12 +209,15 @@
 			<MaxHitPoints>140</MaxHitPoints>
 			<Flammability>0</Flammability>
 			<Mass>500</Mass>
+			<Cleanliness>-15</Cleanliness>
 		</statBases>
 		<size>(1,1)</size>
 		<designationCategory>Production</designationCategory>
 		<pathCost>60</pathCost>
 		<building>
 			<uninstallWork>650</uninstallWork>
+			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+			<paintable>true</paintable>
 		</building>
 		<recipes>
 			<li>ButcherCorpseFlesh</li>
@@ -271,6 +279,7 @@
 			<MaxHitPoints>140</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Mass>500</Mass>
+			<Cleanliness>-10</Cleanliness>
 		</statBases>
 		<size>(3,1)</size>
 		<designationCategory>Production</designationCategory>
@@ -290,6 +299,8 @@
 			<li>MakeFruitDrink</li>
 			<li>HalfCoconut</li>
 			<li>SaltMeat</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">Make_BabyFood</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">Make_BabyFoodBulk</li>
 		</recipes>
 		<comps>
 			<li Class="CompProperties_AffectedByFacilities">
@@ -346,8 +357,14 @@
 			<MaxHitPoints>180</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<WorkTableWorkSpeedFactor>0.9</WorkTableWorkSpeedFactor>
+			<Cleanliness>-8</Cleanliness>
+			<Mass>200</Mass>
 		</statBases>
 		<size>(2,1)</size>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<thingCategories>
+			<li>BuildingsProduction</li>
+		</thingCategories>
 		<designationCategory>Production</designationCategory>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
 		<fillPercent>0.6</fillPercent>
@@ -394,12 +411,19 @@
 				<compClass>CompReportWorkSpeed</compClass>
 			</li>
 		</comps>
+		<recipes>
+			<li MayRequire="Ludeon.RimWorld.Biotech">Make_BabyFood</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">Make_BabyFoodBulk</li>
+		</recipes>
 		<placeWorkers>
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
 			<li>PlaceWorker_ReportWorkSpeedPenalties</li>
 		</placeWorkers>
 		<building>
 			<isMealSource>true</isMealSource>
+			<buildingTags>
+				<li>NoOutdoorPenaltyUnderRoof</li>
+			</buildingTags>
 		</building>
 		<researchPrerequisites>
 			<li>Food_B4</li>
@@ -436,17 +460,14 @@
 		<costList>
 			<ComponentMedieval>5</ComponentMedieval>
 		</costList>
-		<minifiedDef>MinifiedThing</minifiedDef>
 		<fillPercent>0.6</fillPercent>
-		<thingCategories>
-			<li>BuildingsProduction</li>
-		</thingCategories>
 		<statBases>
 			<WorkToBuild>2000</WorkToBuild>
 			<MaxHitPoints>280</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<WorkTableWorkSpeedFactor>0.7</WorkTableWorkSpeedFactor>
 			<Mass>500</Mass>
+			<Cleanliness>-8</Cleanliness>
 		</statBases>
 		<size>(2,2)</size>
 		<designationCategory>Production</designationCategory>
@@ -514,7 +535,86 @@
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
 	</ThingDef>
-	
+
+    <ThingDef ParentName="UniversalFermenterBase" Class="UniversalFermenterSK.ThingDef_UF">
+        <defName>SK_Windmill</defName>
+        <label>windmill</label>
+        <description>A giant wheel that spins from the force of winds. Can be used to grind down corn or wheat into flour.</description>
+        <soundImpactDefault>BulletImpact_Ground</soundImpactDefault>
+        <drawerType>MapMeshAndRealTime</drawerType>
+        <graphicData>
+            <texPath>Things/Building/Production/Windmill/Windmill_Tower</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+            <shaderType>CutoutComplex</shaderType>
+            <drawSize>(5,5)</drawSize>
+            <damageData>
+                <rect>(0.2,0.0,2.6,3.0)</rect>
+            </damageData>
+            <shadowData>
+                <volume>(1.6,3.0,1.6)</volume>
+                <offset>(0,0,-0.6)</offset>
+            </shadowData>
+        </graphicData>
+        <altitudeLayer>Building</altitudeLayer>
+        <passability>PassThroughOnly</passability>
+        <canOverlapZones>false</canOverlapZones>
+        <statBases>
+            <MaxHitPoints>240</MaxHitPoints>
+            <WorkToBuild>1600</WorkToBuild>
+            <Flammability>0.7</Flammability>
+            <Mass>400</Mass>
+            <Beauty>30</Beauty>
+        </statBases>
+        <size>(2,3)</size>
+        <stuffCategories>
+            <li>Woody</li>
+        </stuffCategories><!--
+        <costStuffCount>200</costStuffCount>
+        <costList>
+            <Plasteel>50</Plasteel>
+            <ComponentMedieval>5</ComponentMedieval>
+            <ComponentIndustrial>5</ComponentIndustrial>
+			<Mechanism>3</Mechanism>
+        </costList>-->
+		<costStuffCount>85</costStuffCount>
+        <costList>
+			<ComponentMedieval>8</ComponentMedieval>
+			<ComponentIndustrial>2</ComponentIndustrial>
+			<Mechanism>1</Mechanism>
+			<SoftClay>25</SoftClay>
+			<ClayBrick>20</ClayBrick>
+        </costList>
+        <defaultPlacingRot>North</defaultPlacingRot>
+        <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+        <designationCategory>Production</designationCategory>
+        <!-- custom -->
+        <resourcesFractionWhenDeconstructed>0.2</resourcesFractionWhenDeconstructed>
+        <fillPercent>0.5</fillPercent>
+        <tickerType>Normal</tickerType>
+        <rotatable>false</rotatable>
+		<researchPrerequisites>
+			<li>Bakery_B2</li>
+		</researchPrerequisites>
+		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+		<canBeUsedUnderRoof>False</canBeUsedUnderRoof>
+		<holdsRoof>False</holdsRoof>
+		<!-- UF -->
+		<showProductIcon>true</showProductIcon>
+		<barOffset>(0.0, 0.25)</barOffset>
+		<barScale>(1.0, 1.0)</barScale>
+		<slotsCount>4</slotsCount>
+		<comps>
+			<li Class="SK.CompProperties_WindMill">
+				<windMillFanTexPath>Things/Building/Production/Windmill/Windmill_Wing</windMillFanTexPath>
+			</li>
+			<li Class="CompProperties_Flickable"/>
+			<li Class="CompProperties_Breakdownable"/>
+		</comps>
+		<placeWorkers>
+			<li>PlaceWorker_NotUnderRoof</li>
+		</placeWorkers>
+    </ThingDef>
+
 	<ThingDef ParentName="WorkTable">
 		<defName>ElectricOven</defName>
 		<label>electric oven</label>
@@ -551,8 +651,14 @@
 			<MaxHitPoints>150</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<WorkTableWorkSpeedFactor>1.1</WorkTableWorkSpeedFactor>
+			<Cleanliness>-8</Cleanliness>
+			<Mass>500</Mass>
 		</statBases>
 		<size>(1,1)</size>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<thingCategories>
+			<li>BuildingsProduction</li>
+		</thingCategories>
 		<designationCategory>Production</designationCategory>
 		<recipes>
 			<li>MeltSugar</li>
@@ -641,6 +747,7 @@
 			<MaxHitPoints>220</MaxHitPoints>
 			<Flammability>0</Flammability>
 			<Mass>500</Mass>
+			<Cleanliness>-6</Cleanliness>
 		</statBases>
 		<size>(2,1)</size>
 		<designationCategory>Production</designationCategory>
@@ -724,6 +831,7 @@
 			<MaxHitPoints>210</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Mass>50</Mass>
+			<Cleanliness>-10</Cleanliness>
 		</statBases>
 		<size>(1,1)</size>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
@@ -796,6 +904,7 @@
 			<MaxHitPoints>210</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Mass>50</Mass>
+			<Cleanliness>-10</Cleanliness>
 		</statBases>
 		<size>(1,1)</size>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
@@ -932,6 +1041,9 @@
 			<ComponentIndustrial>2</ComponentIndustrial>
 		</costList>
 		<building>
+			<isHopper>true</isHopper>
+			<storageGroupTag>Hopper</storageGroupTag>
+			<blueprintClass>Blueprint_Storage</blueprintClass>
 			<fixedStorageSettings>
 				<priority>Important</priority>
 				<filter>
@@ -1000,6 +1112,8 @@
 			<Flammability>1.0</Flammability>
 			<WorkTableWorkSpeedFactor>0.6</WorkTableWorkSpeedFactor>
 			<Mass>500</Mass>
+			<Cleanliness>-4</Cleanliness>
+			<OutdoorWorkRateFactor>0.7</OutdoorWorkRateFactor>
 		</statBases>
 		<size>(2,1)</size>
 		<designationCategory>Production</designationCategory>
@@ -1101,6 +1215,7 @@
 			<MaxHitPoints>160</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Mass>500</Mass>
+			<Cleanliness>-4</Cleanliness>
 		</statBases>
 		<size>(2,1)</size>
 		<designationCategory>Production</designationCategory>
@@ -1142,7 +1257,7 @@
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>9</constructionSkillPrerequisite>
 	</ThingDef>
-	
+
 	<!-- Alcohol Fermenting Barrel -->
 	<ThingDef ParentName="UniversalFermenterBase" Class="UniversalFermenterSK.ThingDef_UF">
 		<!--<defName>FermentingBarrel</defName>-->
@@ -1196,14 +1311,14 @@
 			<li>Brewing</li>
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>4</constructionSkillPrerequisite>
-		
+
 		<!-- ThingDef_UF fields -->
 		<showProductIcon>true</showProductIcon>
 		<barOffset>(0.0, 0.25)</barOffset>
 		<barScale>(1.0, 1.0)</barScale>
 		<slotsCount>1</slotsCount>
 	</ThingDef>
-	
+
 	<!-- Jerky Drying Rack -->
 	<ThingDef ParentName="UniversalFermenterBase" Class="UniversalFermenterSK.ThingDef_UF">
 		<defName>JerkyRack</defName>
@@ -1234,6 +1349,7 @@
 			<Mass>60</Mass>
 			<MaxHitPoints>100</MaxHitPoints>
 			<Flammability>1.0</Flammability>
+			<Cleanliness>-3</Cleanliness>
 		</statBases>
 		<stuffCategories>
 			<li>Woody</li>
@@ -1253,14 +1369,14 @@
 			<li Class="CompProperties_Forbiddable"/>
 		</comps>
 		<constructionSkillPrerequisite>2</constructionSkillPrerequisite>
-		
+
 		<!-- ThingDef_UF fields -->
 		<showProductIcon>true</showProductIcon>
 		<barOffset>(0.0, 0.25)</barOffset>
 		<barScale>(1.0, 1.0)</barScale>
 		<slotsCount>10</slotsCount>
 	</ThingDef>
-	
+
 	<!-- Drying Rack -->
 	<ThingDef ParentName="UniversalFermenterBase" Class="UniversalFermenterSK.ThingDef_UF">
 		<defName>DryingRack</defName>
@@ -1292,6 +1408,7 @@
 			<Mass>20</Mass>
 			<MaxHitPoints>100</MaxHitPoints>
 			<Flammability>1.0</Flammability>
+			<Cleanliness>-3</Cleanliness>
 		</statBases>
 		<description>Drying rack used for drying berries, smokeleaf and tobacco leaves.</description>
 		<stuffCategories>
@@ -1312,14 +1429,14 @@
 		<rotatable>true</rotatable>
 		<designationCategory>Production</designationCategory>
 		<constructionSkillPrerequisite>2</constructionSkillPrerequisite>
-		
+
 		<!-- ThingDef_UF fields -->
 		<showProductIcon>true</showProductIcon>
 		<barOffset>(0.0, 0.25)</barOffset>
 		<barScale>(1.0, 1.0)</barScale>
 		<slotsCount>10</slotsCount>
 	</ThingDef>
-	
+
 	<!-- Cheesemaking Basin -->
 	<ThingDef ParentName="UniversalFermenterBase" Class="UniversalFermenterSK.ThingDef_UF">
 		<defName>CheeseBasin</defName>
@@ -1348,6 +1465,7 @@
 			<Mass>10</Mass>
 			<MaxHitPoints>100</MaxHitPoints>
 			<Flammability>1.0</Flammability>
+			<Cleanliness>-4</Cleanliness>
 		</statBases>
 		<description>Basin for creating cheese from milk.</description>
 		<stuffCategories>
@@ -1371,14 +1489,14 @@
 		<researchPrerequisites>
 			<li>Food_B1</li>
 		</researchPrerequisites>
-		
+
 		<!-- ThingDef_UF fields -->
 		<showProductIcon>true</showProductIcon>
 		<barOffset>(0.0, -0.25)</barOffset>
 		<barScale>(1.0, 1.0)</barScale>
 		<slotsCount>10</slotsCount>
 	</ThingDef>
-	
+
 	<!-- Cheesemaking Vat -->
 	<ThingDef ParentName="UniversalFermenterBase" Class="UniversalFermenterSK.ThingDef_UF">
 		<defName>CheeseVat</defName>
@@ -1402,6 +1520,7 @@
 			<WorkToBuild>1200</WorkToBuild>
 			<MaxHitPoints>230</MaxHitPoints>
 			<Flammability>1.0</Flammability>
+			<Cleanliness>-4</Cleanliness>
 		</statBases>
 		<description>Big industrial vat for cheese production with electrical temperature control.</description>
 		<stuffCategories>
@@ -1435,14 +1554,14 @@
 		<researchPrerequisites>
 			<li>Food_C6</li>
 		</researchPrerequisites>
-		
+
 		<!-- ThingDef_UF fields -->
 		<showProductIcon>true</showProductIcon>
 		<barOffset>(0.0, -1.0)</barOffset>
 		<barScale>(1.0, 1.0)</barScale>
 		<slotsCount>60</slotsCount>
 	</ThingDef>
-	
+
 	<!-- Silage Pile -->
 	<ThingDef ParentName="UniversalFermenterBase" Class="UniversalFermenterSK.ThingDef_UF">
 		<defName>SilagePile</defName>
@@ -1469,6 +1588,7 @@
 			<WorkToBuild>2200</WorkToBuild>
 			<MaxHitPoints>300</MaxHitPoints>
 			<Flammability>0.0</Flammability>
+			<Cleanliness>-12</Cleanliness>
 		</statBases>
 		<description>Huge pile where plant matter is fermented into silage.</description>
 		<size>(4,4)</size>
@@ -1482,14 +1602,14 @@
 		<rotatable>true</rotatable>
 		<constructionSkillPrerequisite>2</constructionSkillPrerequisite>
 		<designationCategory>Production</designationCategory>
-		
+
 		<!-- ThingDef_UF fields -->
 		<showProductIcon>false</showProductIcon>
 		<barOffset>(0.0, 0.25)</barOffset>
 		<barScale>(1.0, 1.0)</barScale>
 		<slotsCount>30</slotsCount>
 	</ThingDef>
-	
+
 	<!-- Saltpeter Pit -->
 	<ThingDef ParentName="UniversalFermenterBase" Class="UniversalFermenterSK.ThingDef_UF">
 		<defName>Saltpeter_pit</defName>
@@ -1530,14 +1650,14 @@
 		<researchPrerequisites>
 			<li>RecurveBow</li>
 		</researchPrerequisites>
-		
+
 		<!-- ThingDef_UF fields -->
 		<showProductIcon>true</showProductIcon>
 		<barOffset>(0.0, 0.25)</barOffset>
 		<barScale>(1.0, 1.0)</barScale>
 		<slotsCount>10</slotsCount>
 	</ThingDef>
-	
+
 	<ThingDef ParentName="WorkTable">
 		<defName>DrugLab</defName>
 		<label>drug lab</label>
@@ -1585,6 +1705,7 @@
 		<interactionCellOffset>(1,0,-1)</interactionCellOffset>
 		<building>
 			<uninstallWork>950</uninstallWork>
+			<paintable>true</paintable>
 		</building>
 		<comps>
 			<li Class="CompProperties_AffectedByFacilities">
@@ -1710,7 +1831,7 @@
 			<WorkToBuild>700</WorkToBuild>
 			<MaxHitPoints>170</MaxHitPoints>
 			<Flammability>1.0</Flammability>
-			<Cleanliness>-3</Cleanliness>
+			<Cleanliness>-7</Cleanliness>
 			<Mass>500</Mass>
 		</statBases>
 		<size>(2,1)</size>
@@ -1770,10 +1891,6 @@
 			<li>Bricks</li>
 		</stuffCategories>
 		<costStuffCount>240</costStuffCount>
-		<minifiedDef>MinifiedThing</minifiedDef>
-		<thingCategories>
-			<li>BuildingsProduction</li>
-		</thingCategories>
 		<statBases>
 			<WorkToBuild>3000</WorkToBuild>
 			<MaxHitPoints>280</MaxHitPoints>
@@ -1786,9 +1903,6 @@
 		<designationCategory>Production</designationCategory>
 		<interactionCellOffset>(0,0,-2)</interactionCellOffset>
 		<fillPercent>0.7</fillPercent>
-		<building>
-			<uninstallWork>1450</uninstallWork>
-		</building>
 		<recipes>
 			<li>MakeCharcoal_Hand</li>
 			<li>MakeTinBars_Hand</li>
@@ -1872,10 +1986,6 @@
 			<li>Bricks</li>
 		</stuffCategories>
 		<costStuffCount>230</costStuffCount>
-		<minifiedDef>MinifiedThing</minifiedDef>
-		<thingCategories>
-			<li>BuildingsProduction</li>
-		</thingCategories>
 		<statBases>
 			<WorkToBuild>3000</WorkToBuild>
 			<MaxHitPoints>270</MaxHitPoints>
@@ -2161,6 +2271,8 @@
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
 		<building>
 			<uninstallWork>1450</uninstallWork>
+			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+			<paintable>true</paintable>
 		</building>
 		<comps>
 			<li Class="CompProperties_AffectedByFacilities">
@@ -2227,8 +2339,10 @@
 		<designationCategory>Production</designationCategory>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
 		<building>
+			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
 			<uninstallWork>1450</uninstallWork>
 			<unpoweredWorkTableWorkSpeedFactor>0.6</unpoweredWorkTableWorkSpeedFactor>
+			<paintable>true</paintable>
 		</building>
 		<tickerType>Normal</tickerType>
 		<comps>
@@ -2348,7 +2462,7 @@
 		</placeWorkers>
 		<constructionSkillPrerequisite>7</constructionSkillPrerequisite>
 	</ThingDef>
-	
+
 	<ThingDef ParentName="WorkTable">
 		<defName>HandMendingWorkbench</defName>
 		<label>hand mending workbench</label>
@@ -2624,16 +2738,13 @@
 			<ComponentMedieval>12</ComponentMedieval>
 			<Mechanism>8</Mechanism>
 		</costList>
-		<minifiedDef>MinifiedThing</minifiedDef>
-		<thingCategories>
-			<li>BuildingsProduction</li>
-		</thingCategories>
 		<statBases>
 			<WorkToBuild>1700</WorkToBuild>
 			<MaxHitPoints>250</MaxHitPoints>
 			<Flammability>1.0</Flammability>
 			<Cleanliness>-12</Cleanliness>
 			<Mass>1000</Mass>
+			<OutdoorWorkRateFactor>0.8</OutdoorWorkRateFactor>
 		</statBases>
 		<pathCost>90</pathCost>
 		<size>(3,3)</size>
@@ -2641,7 +2752,9 @@
 		<interactionCellOffset>(0,0,2)</interactionCellOffset>
 		<fillPercent>0.85</fillPercent>
 		<building>
-			<uninstallWork>1450</uninstallWork>
+			<buildingTags>
+				<li>NoOutdoorPenaltyUnderRoof</li>
+			</buildingTags>
 		</building>
 		<comps>
 			<li Class="CompProperties_Flickable"/>
@@ -2805,6 +2918,7 @@
 			<uninstallWork>1450</uninstallWork>
 			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
 			<heatPerTickWhileWorking>0.5</heatPerTickWhileWorking>
+			<paintable>true</paintable>
 		</building>
 		<comps>
 			<li Class="CompProperties_AffectedByFacilities">
@@ -2859,6 +2973,8 @@
 		<minifiedDef>MinifiedThing</minifiedDef>
 		<building>
 			<uninstallWork>1450</uninstallWork>
+			<spawnedConceptLearnOpportunity>BillsTab</spawnedConceptLearnOpportunity>
+			<paintable>true</paintable>
 		</building>
 		<thingCategories>
 			<li>BuildingsProduction</li>
@@ -2867,7 +2983,7 @@
 			<WorkToBuild>2800</WorkToBuild>
 			<MaxHitPoints>210</MaxHitPoints>
 			<Flammability>1.0</Flammability>
-			<Cleanliness>-7</Cleanliness>
+			<Cleanliness>-8</Cleanliness>
 			<Mass>500</Mass>
 		</statBases>
 		<size>(3,1)</size>
@@ -2963,7 +3079,7 @@
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>8</constructionSkillPrerequisite>
 	</ThingDef>
-	
+
 	<ThingDef ParentName="UniversalFermenterBase" Class="UniversalFermenterSK.ThingDef_UF">
 		<defName>CompostBarrel</defName>
 		<label>compost barrel</label>
@@ -2990,7 +3106,7 @@
 			<Mass>10</Mass>
 			<MaxHitPoints>100</MaxHitPoints>
 			<Flammability>1.0</Flammability>
-			<Cleanliness>-8</Cleanliness>
+			<Cleanliness>-10</Cleanliness>
 		</statBases>
 		<stuffCategories>
 			<li>StrongMetallic</li>
@@ -3013,14 +3129,14 @@
 			<li>SewageSludgeComposting</li>
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>3</constructionSkillPrerequisite>
-		
+
 		<!-- ThingDef_UF fields -->
 		<showProductIcon>true</showProductIcon>
 		<barOffset>(0.0, 0.25)</barOffset>
 		<barScale>(1.0, 1.0)</barScale>
 		<slotsCount>10</slotsCount>
 	</ThingDef>
-	
+
 	<ThingDef ParentName="WorkTable">
 		<defName>CraftingSpot</defName>
 		<label>craftsman table</label>
@@ -3075,6 +3191,7 @@
 		</comps>
 		<building>
 			<uninstallWork>70</uninstallWork>
+			<wakeDormantPawnsOnConstruction>false</wakeDormantPawnsOnConstruction>
 			<artificialForMeditationPurposes>false</artificialForMeditationPurposes>
 			<buildingTags>
 				<li>Production</li>
@@ -3256,7 +3373,7 @@
 		<label>ammo crafting table</label>
 		<description>A crafting table that produces ammunition for use in guns and turrets. Can also produce sulfur from iron ore. Power needed: 500 W. Can work without electricity at 30% of normal speed.</description>
 		<graphicData>
-			<texPath>Things/Building/AmmoBench/ammobench</texPath>
+			<texPath>Things/Building/AmmoBench/AmmoBench</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>
 			<shaderType>CutoutComplex</shaderType>
 			<drawSize>(3.5,1.5)</drawSize>
@@ -3363,10 +3480,6 @@
 			<ComponentIndustrial>15</ComponentIndustrial>
 			<Mechanism>15</Mechanism>
 		</costList>
-		<minifiedDef>MinifiedThing</minifiedDef>
-		<thingCategories>
-			<li>BuildingsProduction</li>
-		</thingCategories>
 		<statBases>
 			<WorkToBuild>5500</WorkToBuild>
 			<MaxHitPoints>220</MaxHitPoints>

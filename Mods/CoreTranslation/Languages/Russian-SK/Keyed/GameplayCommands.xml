@@ -101,7 +101,7 @@
   <!-- EN: Are you sure you want to do this? -->
   <AreYouSure>Вы уверены?</AreYouSure>
   <!-- EN: Changing bed use affects the whole room (since prisoners, slaves and colonists cannot sleep in the same room).\n\nThese people will lose ownership of their beds: -->
-  <ChangingOwnerTypeBedWarning>Смена режима у кровати влияет тип всей комнаты (поскольку поселенцы, пленники и рабы не могут спать в одной комнате).\n\nЭти люди потеряют назначенные им кровати:</ChangingOwnerTypeBedWarning>
+  <ChangingOwnerTypeBedWarning>Смена режима у кровати повлияет на тип всей комнаты (поскольку пленники не могут спать в одной комнате с поселенцами или рабами).\n\nЭти люди потеряют назначенные им кровати:</ChangingOwnerTypeBedWarning>
 
 
   <!-- EN: Detonate -->
@@ -128,13 +128,13 @@
 
   <!-- EN: Copy settings -->
   <CommandCopyZoneSettingsLabel>Копировать настройки</CommandCopyZoneSettingsLabel>
-  <!-- EN: Copy this zone's settings to the clipboard so you can paste them onto another zone. -->
-  <CommandCopyZoneSettingsDesc>Копировать настройки этой области для последующего применения к другим областям.</CommandCopyZoneSettingsDesc>
+  <!-- EN: Copy this storage's settings to the clipboard so you can paste them onto another zone. -->
+  <CommandCopyZoneSettingsDesc>Копировать настройки этого хранилища для последующего применения к другим хранилищам.</CommandCopyZoneSettingsDesc>
 
   <!-- EN: Paste settings -->
   <CommandPasteZoneSettingsLabel>Установить настройки</CommandPasteZoneSettingsLabel>
-  <!-- EN: Overwrite this zone's settings with those previously copied to the clipboard. -->
-  <CommandPasteZoneSettingsDesc>Установить ранее скопированные настройки к данной области.</CommandPasteZoneSettingsDesc>
+  <!-- EN: Overwrite this storage's settings with those previously copied to the clipboard. -->
+  <CommandPasteZoneSettingsDesc>Применить ранее скопированные настройки к этому хранилищу.</CommandPasteZoneSettingsDesc>
 
   <!-- EN: Allow sowing -->
   <CommandAllowSow>Разрешить сеять</CommandAllowSow>
@@ -143,8 +143,13 @@
 
   <!-- EN: Allow cutting -->
   <CommandAllowCut>Разрешить рубить</CommandAllowCut>
-  <!-- EN: When disabled, colonists will never cut plants in this zone. They will still sow new plants in spaces that are already empty, and harvest. -->
+  <!-- EN: When disabled, colonists will never cut plants in this zone. They will still sow new plants in spaces that are already empty, and harvest plants matching the growing zone plant type. -->
   <CommandAllowCutDesc>Отключив эту опцию, вы запретите поселенцам рубить растения в этой области, однако они продолжат сеять новые растения в незанятых клетках, а также собирать урожай.</CommandAllowCutDesc>
+  
+  <!-- EN: Select {0_label} -->
+  <CommandSelectStoredThing>Выбрать {lookup: {0_label}; Case; 3}</CommandSelectStoredThing>
+  <!-- EN: Select the item stored in here. -->
+  <CommandSelectStoredThingDesc>Выбрать хранящийся здесь предмет.</CommandSelectStoredThingDesc>
 
   <!-- Artillery -->
   <!-- EN: Set forced target -->
@@ -271,12 +276,14 @@
   <!-- reload -->
   <!-- EN: No {CHARGENOUN_plural} left. -->
   <CommandReload_NoCharges>{CHARGENOUN_plural} закончились</CommandReload_NoCharges>
+  <!-- EN: {COOLDOWNGERUND} for {TIME}. -->
+  <CommandReload_Cooldown>{COOLDOWNGERUND} {TIME}.</CommandReload_Cooldown>
   <!-- EN: Needs to be reloaded with {COUNT} {AMMO_label}. -->
-  <CommandReload_NoAmmo>Для перезарядки необходимо {COUNT} {AMMO_label}</CommandReload_NoAmmo>
+  <CommandReload_NoAmmo>Для перезарядки необходимо {COUNT} ед. {lookup: {AMMO_label}; Case; 1}</CommandReload_NoAmmo> <!-- Подставляется CompProperties_Reloadable.ammoDef. Сейчас во всех случаях везде это неисчисляемое существительное: сталь, химтопливо и прочее. Отсюда ед.ч. р.п. -->
   
   <!-- Select plant to grow -->
   <!-- EN: Select plant to grow -->
-  <CommandSelectPlantToGrowMulti>Выберите растение для высадки</CommandSelectPlantToGrowMulti>
+  <CommandSelectPlantToGrowMulti>Выбрать растение для высадки</CommandSelectPlantToGrowMulti>
   <!-- EN: Plant: {0} -->
   <CommandSelectPlantToGrow>Растение: {0}</CommandSelectPlantToGrow>
   <!-- EN: Determine which plant should be sown here. -->
@@ -285,6 +292,8 @@
   <!-- Select mineral to scan for (long-range mineral scanner) -->
   <!-- EN: Tuned to -->
   <CommandSelectMineralToScanFor>Ищется</CommandSelectMineralToScanFor>
+  <!-- EN: Select the mineral type to scan for. -->
+  <CommandSelectMineralToScanForDesc>Выбрать тип ресурса для сканирования.</CommandSelectMineralToScanForDesc><!-- text_todo -->
 
   <!-- Build copy -->
   <!-- EN: Build copy -->
@@ -297,6 +306,8 @@
   <CommandFormCaravan>Снарядить караван</CommandFormCaravan>
   <!-- EN: Form a group of colonists able to travel to new areas. The colonists will gather all the assigned supplies and accompanying animals, leave their current area, and await further orders. -->
   <CommandFormCaravanDesc>Отправить группу поселенцев в путешествие. Поселенцы соберут все подготовленные для пути вещи и возьмут с собой животных, а затем покинут это место и будут ждать ваших указаний.</CommandFormCaravanDesc>
+  <!-- EN: This spot will be used as a meeting point for the caravan. All goods and animals will be brought here before leaving. -->
+  <CommandFormCaravanDescAtSpot>Это место будет местом сбора каравана. Все предметы и животные будут перемещены сюда перед отправлением.</CommandFormCaravanDescAtSpot>
   
   <!-- Reform caravan -->
   <!-- EN: Reform caravan -->
@@ -374,7 +385,7 @@
   <!-- EN: Trade with this faction. -->
   <CommandTradeDesc>Торговать с этой фракцией.</CommandTradeDesc>
   <!-- EN: There isn't any conscious and capable negotiator. -->
-  <CommandTradeFailNoNegotiator>Нет ни одного человека, способного вести переговоры и торговать, не сломленного и в сознании.</CommandTradeFailNoNegotiator>
+  <CommandTradeFailNoNegotiator>Нет ни одного не сломленного человека в сознании, способного вести переговоры и торговать.</CommandTradeFailNoNegotiator>
   <!-- EN: None of your people have the required faction permission: {0} -->
   <CommandTradeFailNeedPermit>Никто из ваших людей не имеет нужной привилегии: {0}</CommandTradeFailNeedPermit>
 
@@ -418,7 +429,7 @@
   <!-- EN: Cancel load -->
   <CommandCancelLoad>Отменить погрузку</CommandCancelLoad>
   <!-- EN: Cancel loading this with people or items and eject everything already loaded. -->
-  <CommandCancelLoadDesc>Отменить погрузку вещей и посадку пассажиров и выгрузить то, что уже погружено.</CommandCancelLoadDesc>
+  <CommandCancelLoadDesc>Отменить погрузку вещей или людей и выгрузить то, что уже погружено.</CommandCancelLoadDesc> <!-- Применяется, помимо транспорта, также и в строениях-контейнерах: инкубатор, душегуб и пр. -->
   
   <!-- Launch group -->
   <!-- EN: Launch -->
@@ -555,7 +566,31 @@
   <CommandDropPawn>Бросить {0_nameDef}</CommandDropPawn>
   <!-- EN: Drop the person being carried. -->
   <CommandDropPawnDesc>Бросить человека.</CommandDropPawnDesc>
-  
+  <!-- EN: Select {0_nameDef} -->
+  <CommandSelectCarriedPawn>Выбрать {0_nameDef}</CommandSelectCarriedPawn>
+  <!-- EN: Select the creature being carried. -->
+  <CommandSelectCarriedPawnDesc>Выбрать переносимое существо.</CommandSelectCarriedPawnDesc>
+  <!-- EN: Select {0_label} -->
+  <CommandSelectCarriedThing>Выбрать {lookup: {0_label}; Case; 3}</CommandSelectCarriedThing>
+  <!-- EN: Select the carried item. -->
+  <CommandSelectCarriedThingDesc>Выбрать переносимый предмет.</CommandSelectCarriedThingDesc>
+  <!-- EN: Select {0_label} -->
+  <CommandSelectContainerThing>Выбрать {lookup: {0_label}; Case; 3}</CommandSelectContainerThing>
+  <!-- EN: Select the containing item. -->
+  <CommandSelectContainerThingDesc>Выбрать контейнер.</CommandSelectContainerThingDesc>
+  <!-- EN: Select {0_nameDef} -->
+  <CommandSelectCarryingPawn>Выбрать {0_nameDef}</CommandSelectCarryingPawn>
+  <!-- EN: Select the carrying creature. -->
+  <CommandSelectCarryingPawnDesc>Выбрать переносящее существо.</CommandSelectCarryingPawnDesc>
+  <!-- EN: Select {0_nameDef} -->
+  <CommandSelectContainedPawn>Выбрать {0_nameDef}</CommandSelectContainedPawn>
+  <!-- EN: Select the contained creature. -->
+  <CommandSelectContainedPawnDesc>Выбрать хранимое существо.</CommandSelectContainedPawnDesc>
+  <!-- EN: Select {0_label} -->
+  <CommandSelectContainedThing>Выбрать {0_label}</CommandSelectContainedThing>
+  <!-- EN: Select the contained item. -->
+  <CommandSelectContainedThingDesc>Выбрать хранимый предмет.</CommandSelectContainedThingDesc>
+
   <!-- Take a drug -->
   <!-- EN: Take drug... -->
   <TakeDrug>Принять наркотик...</TakeDrug>
@@ -580,5 +615,32 @@
   <CommandCancelRitualDesc>Прервать {RITUAL_labelDef} немедленно. Необходимость проведения ритуала останется. Позже вы сможете начать его заново.</CommandCancelRitualDesc>
   <!-- EN: Are you sure you want to cancel {RITUAL_labelDef}? -->
   <CommandCancelRitualConfirm>Вы уверены, что хотите прервать {RITUAL_labelDef}?</CommandCancelRitualConfirm>
+
+  <!-- Storage linking -->
+  <!-- EN: Link settings -->
+  <LinkStorageSettings>Сгруппировать хранилища</LinkStorageSettings>
+  <!-- EN: Link storage settings for multiple selected buildings so that they share storage settings.\n\nThe group will start with the settings of whatever you selected first. -->
+  <LinkStorageSettingsDesc>Связать настройки хранения для нескольких выбранных хранилищ.\n\nНастройками по умолчанию для этой группы будут считаться настройки первого выбранного хранилища.</LinkStorageSettingsDesc>
+  <!-- EN: You must select two or more buildings to link their storage settings. -->
+  <LinkStorageDisabledSelectTwo>Вы должны выбрать 2 или более хранилища, чтобы сгруппировать их.</LinkStorageDisabledSelectTwo>
+  <!-- EN: Already linked. -->
+  <AlreadyLinked>Уже сгруппировано</AlreadyLinked>
+  <!-- EN: Unlink settings -->
+  <UnlinkStorageSettings>Отменить группировку</UnlinkStorageSettings>
+  <!-- EN: Unlink this from other buildings' storage settings so its settings can be set independently. -->
+  <UnlinkStorageSettingsDesc>Отмена группировки позволит устанавливать отдельные настройки для этого хранилища.</UnlinkStorageSettingsDesc>
+  <!-- EN: Linked storage settings -->
+  <LinkedStorageSettings>Сгруппировано</LinkedStorageSettings>
+  <!-- EN: {0} buildings -->
+  <NumBuildings>{0_numCase ? хранилище : хранилища : хранилищ}</NumBuildings>
+  <!-- EN: Stores -->
+  <StoresThings>Хранит</StoresThings>
+  <!-- EN: Select all linked -->
+  <SelectAllLinked>Выбрать группу</SelectAllLinked>
+  <!-- EN: Select all storage buildings linked to this. -->
+  <SelectAllLinkedDesc>Выбрать все хранилища этой группы.</SelectAllLinkedDesc>
+
+  <!-- EN: {0_labelShort} is unconscious. -->
+  <CommandDisabledUnconscious>{0_labelShort} без сознания.</CommandDisabledUnconscious>
   
 </LanguageData>

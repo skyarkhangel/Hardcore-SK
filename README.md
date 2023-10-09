@@ -1,5 +1,4 @@
-# Rimworld Hardcore SK v.1.3 (Dev. branch supports 1.4)
-
+# Rimworld Hardcore SK v.1.4
 
 [![Logo](https://i.imgur.com/WP7w2sM.png)](https://github.com/skyarkhangel/Hardcore-SK)
 <!-- you cant center markdown images -->

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <Patch>
 
 	<!-- ========== Patch item bulk ========== -->
@@ -41,25 +41,16 @@
 	</Operation>
 
 	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="GoJuice"]/statBases</xpath>
+		<value>
+			<Bulk>0.2</Bulk>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
 		<xpath>Defs/ThingDef[defName="Yayo"]/statBases</xpath>
 		<value>
 			<Bulk>0.05</Bulk>
-		</value>
-	</Operation>
-	
-	<!-- ========== Patch addictiveness ========== -->
-
-	<Operation Class="PatchOperationAdd">
-		<xpath>Defs/ThingDef[defName="GoJuice"]/comps/li[@Class="CompProperties_Drug"]</xpath>
-		<value>
-			<minToleranceToAddict>0.05</minToleranceToAddict>
-		</value>
-	</Operation>
-
-	<Operation Class="PatchOperationReplace">
-		<xpath>Defs/HediffDef[defName="GoJuiceHigh"]/comps/li[@Class="HediffCompProperties_SeverityPerDay"]/severityPerDay</xpath>
-		<value>
-			<severityPerDay>-0.8</severityPerDay>
 		</value>
 	</Operation>
 
@@ -83,7 +74,7 @@
 		</value>
 	</Operation>
 
-	<!-- ========== Patch beer ========== -->
+	<!-- ========== Patch beer ========== Disabled for now, wierd issues with consumables being weapons when spawned by raiders.
 
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/ThingDef[defName="Beer"]/tools</xpath>
@@ -117,6 +108,7 @@
 		<xpath>Defs/ThingDef[defName="Beer"]/statBases</xpath>
 		<value>
 			<MeleeCounterParryBonus>0.33</MeleeCounterParryBonus>
+			<Bulk>0.35</Bulk>
 		</value>
 	</Operation>
 
@@ -131,20 +123,14 @@
 		</value>
 	</Operation>
 
-	<Operation Class="PatchOperationSequence">
-		<success>Always</success>
-		<operations>
-			<li Class="PatchOperationTest">
-				<xpath>Defs/ThingDef[defName="Beer"]/weaponTags</xpath>
-				<success>Invert</success>
-			</li>
-			<li Class="PatchOperationAdd">
-				<xpath>Defs/ThingDef[defName="Beer"]</xpath>
-				<value>
-					<weaponTags />
-				</value>
-			</li>
-		</operations>
+	<Operation Class="PatchOperationConditional">
+		<xpath>Defs/ThingDef[defName="Beer"]/weaponTags</xpath>
+		<nomatch Class="PatchOperationAdd">
+			<xpath>Defs/ThingDef[defName="Beer"]</xpath>
+			<value>
+				<weaponTags />
+			</value>
+		</nomatch>
 	</Operation>
 
 	<Operation Class="PatchOperationAdd">
@@ -153,5 +139,5 @@
 			<li>CE_OneHandedWeapon</li>
 		</value>
 	</Operation>
-
+-->
 </Patch>

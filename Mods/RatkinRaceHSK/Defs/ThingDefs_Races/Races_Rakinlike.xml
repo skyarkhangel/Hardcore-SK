@@ -3,7 +3,7 @@
 	<AlienRace.ThingDef_AlienRace ParentName="RK_PawnBase">
 		<defName>Ratkin</defName>
 		<label>Ratkin</label>
-		<description>설치류 유전자와 흡사한 인간입니다. 출처는 알 수 없으나 주로 농경사회를 기반으로 한 왕정을 이루고 살고 있습니다. 여성 개체가 남성보다 많으며 외부에서 보았을때 개체의 성별 구분이 힘듭니다.</description>
+		<description>Humans with rodent genes. The source is unknown, but they live in a monarchy based on an agricultural society. There are more female objects than males, and it is difficult to distinguish the gender of objects when viewed from the outside.</description>
 		<alienRace>
 			<generalSettings>
 				<!-- 기본 설정 -->
@@ -18,23 +18,40 @@
 					<!-- 얼굴 및 신체 바리에이션 -->
 					<atlasScale>2</atlasScale>
 					<borderScale>1</borderScale>
-					<aliencrowntypes>
-						<li>Average_Normal</li>
-						<li>Average_Wide</li>
-						<li>Average_Pointy</li>
-						<li>Narrow_Normal</li>
-						<li>Narrow_Wide</li>
-						<li>Narrow_Pointy</li>
-					</aliencrowntypes>
-					<alienbodytypes>
+					<headTypes>
+						<li>Male_AverageNormal</li>
+						<li>Male_AverageWide</li>
+						<li>Male_AveragePointy</li>
+						<li>Male_NarrowNormal</li>
+						<li>Male_NarrowWide</li>
+						<li>Male_NarrowPointy</li>
+						<li>Female_AverageNormal</li>
+						<li>Female_AverageWide</li>
+						<li>Female_AveragePointy</li>
+						<li>Female_NarrowNormal</li>
+						<li>Female_NarrowWide</li>
+						<li>Female_NarrowPointy</li>
+					</headTypes>
+					<bodyTypes>
+						<li MayRequire="Ludeon.RimWorld.Biotech">Baby</li>
+						<li MayRequire="Ludeon.RimWorld.Biotech">Child</li>
 						<li>Thin</li>
-					</alienbodytypes>
+					</bodyTypes>
+					<!--<getsGreyAt>50</getsGreyAt>-->
+					<oldHairAgeRange>50.0~70.0</oldHairAgeRange>
 					<headOffset>(0.0, -0.09)</headOffset>	
-					<!-- 성별 별개사용 유무 -->
-					<useGenderedHeads>false</useGenderedHeads>
-					<useGenderedBodies>false</useGenderedBodies>
 					<!-- 색상관련 -->
 					<colorChannels>
+						<!--<li>
+							<name>skin</name>
+							<first Class="AlienRace.ColorGenerator_SkinColorMelanin">
+							  <minMelanin>0</minMelanin>
+							  <maxMelanin>1</maxMelanin>
+							</first>
+							<second Class="AlienRace.ColorGenerator_CustomAlienChannel">
+							  <colorChannel>skin_ratkin</colorChannel>
+							</second>
+						</li>-->
 						<li>
 							<name>skin</name>
 							<first Class="ColorGenerator_Options">
@@ -69,6 +86,9 @@
 							</li>
 								</options>
 							</first>
+							<second Class="AlienRace.ColorGenerator_CustomAlienChannel">
+							  <colorChannel>skin_1</colorChannel>
+							</second>
 						</li>
 						<li>
 							<name>hair</name>
@@ -214,6 +234,9 @@
 							</li>
 								</options>
 							</first>
+							<second Class="ColorGenerator_Single">
+							  <color>RGBA(128, 255, 0, 255)</color>
+							</second>
 						</li>
 					</colorChannels>
 					<!-- 신체 드로잉 크기 -->
@@ -224,23 +247,34 @@
 						<li>
 							<drawSize>1</drawSize>
 							<path>Body/RK_Tail</path>
-							<bodyPart>tail</bodyPart>
+							<bodyPart>RK_RatTail</bodyPart>
+							<!--<bodyPartLabel>rat tail</bodyPartLabel>-->
+							<defaultOffset>Tail</defaultOffset>
 							<inFrontOfBody>false</inFrontOfBody>
-							<colorChannel>skin</colorChannel>
+							<!--<colorChannel>skin</colorChannel>-->
+							<scaleWithPawnDrawsize>true</scaleWithPawnDrawsize>
+							<geneRequirement MayRequire="Ludeon.RimWorld.Biotech">Tail_Ratkin</geneRequirement>
 							<offsets>
 								<south>
 									<bodyTypes>
 										<Thin>(-0.01,-0.5)</Thin>
+										<Baby MayRequire="Ludeon.RimWorld.Biotech">(-0.01,-0.5)</Baby>
+										<Child MayRequire="Ludeon.RimWorld.Biotech">(-0.01,-0.5)</Child>
 									</bodyTypes>
 								</south>
 								<north>
 									<bodyTypes>
-										<Thin>(-0.01,-0.5)</Thin>
+										<Thin>(-0.01,0.05)</Thin>
+										<Baby MayRequire="Ludeon.RimWorld.Biotech">(-0.01,0.14)</Baby>
+										<Child MayRequire="Ludeon.RimWorld.Biotech">(-0.01,0.05)</Child>
 									</bodyTypes>
+									<layerOffset>-0.28</layerOffset>
 								</north>
 								<east>
 									<bodyTypes>
-										<Thin>(0.39,-0.37)</Thin>
+										<Thin>(0.02,-0.16)</Thin>
+										<Baby MayRequire="Ludeon.RimWorld.Biotech">(-0.016,-0.062)</Baby>
+										<Child MayRequire="Ludeon.RimWorld.Biotech">(-0.028,-0.12)</Child>
 									</bodyTypes>
 								</east>
 							</offsets>
@@ -249,34 +283,56 @@
 						<li>
 							<drawSize>1</drawSize>
 							<path>Body/RK_EarLeft</path>
-							<bodyPart>left ear</bodyPart>
+							<bodyPart>Ear</bodyPart>
+							<bodyPartLabel>left ear</bodyPartLabel>
 							<inFrontOfBody>true</inFrontOfBody>
 							<colorChannel>skin</colorChannel>
 							<scaleWithPawnDrawsize>true</scaleWithPawnDrawsize>
 							<layerInvert>false</layerInvert>
+							<defaultOffset>Head</defaultOffset>
+							<alignWithHead>true</alignWithHead>
+							<geneRequirement MayRequire="Ludeon.RimWorld.Biotech">Ears_Ratkin</geneRequirement>
 							<offsets>
 								<south>
 									<bodyTypes>
-										<Thin>(-0.015,0.4)</Thin>
+										<Thin>(-0.035,-0.4)</Thin>
+										<Female>(-0.035,-0.4)</Female>
+										<Baby MayRequire="Ludeon.RimWorld.Biotech">(-0.035,-0.4)</Baby>
+										<Child MayRequire="Ludeon.RimWorld.Biotech">(-0.035,-0.4)</Child>
 									</bodyTypes>
 									<portraitBodyTypes>
-										<Thin>(-0.015,0.4)</Thin>
+										<Thin>(-0.035,-0.4)</Thin>
+										<Female>(-0.035,-0.4)</Female>
+										<Baby MayRequire="Ludeon.RimWorld.Biotech">(-0.035,-0.4)</Baby>
+										<Child MayRequire="Ludeon.RimWorld.Biotech">(-0.035,-0.4)</Child>
 									</portraitBodyTypes>
 								</south>
 								<north>
 									<bodyTypes>
-										<Thin>(0.03,0.39)</Thin>
+										<Thin>(0.03,-0.27)</Thin>
+										<Female>(0.03,-0.27)</Female>
+										<Baby MayRequire="Ludeon.RimWorld.Biotech">(0.03,-0.27)</Baby>
+										<Child MayRequire="Ludeon.RimWorld.Biotech">(0.03,-0.27)</Child>
 									</bodyTypes>
 									<portraitBodyTypes>
-										<Thin>(0.03,0.39)</Thin>
+										<Thin>(0.03,-0.27)</Thin>
+										<Female>(0.03,-0.27)</Female>
+										<Baby MayRequire="Ludeon.RimWorld.Biotech">(0.03,-0.27)</Baby>
+										<Child MayRequire="Ludeon.RimWorld.Biotech">(0.03,-0.27)</Child>
 									</portraitBodyTypes>
 								</north>
 								<east>
 									<bodyTypes>
-										<Thin>(0.012,0.5)</Thin>
+										<Thin>(0.125,-0.3)</Thin>
+										<Female>(0.112,-0.3)</Female>
+										<Baby MayRequire="Ludeon.RimWorld.Biotech">(0.125,-0.3)</Baby>
+										<Child MayRequire="Ludeon.RimWorld.Biotech">(0.125,-0.3)</Child>
 									</bodyTypes>
 									<portraitBodyTypes>
-										<Thin>(0.012,0.5)</Thin>
+										<Thin>(0.125,-0.3)</Thin>
+										<Female>(0.112,-0.3)</Female>
+										<Baby MayRequire="Ludeon.RimWorld.Biotech">(0.125,-0.3)</Baby>
+										<Child MayRequire="Ludeon.RimWorld.Biotech">(0.125,-0.3)</Child>
 									</portraitBodyTypes>
 								</east>
 							</offsets>
@@ -288,34 +344,56 @@
 						<li>
 							<drawSize>1</drawSize>
 							<path>Body/RK_EarRight</path>
-							<bodyPart>right ear</bodyPart>
+							<bodyPart>Ear</bodyPart>
+							<bodyPartLabel>right ear</bodyPartLabel>
 							<inFrontOfBody>true</inFrontOfBody>
 							<colorChannel>skin</colorChannel>
 							<scaleWithPawnDrawsize>true</scaleWithPawnDrawsize>
 							<layerInvert>false</layerInvert>
+							<defaultOffset>Head</defaultOffset>
+							<alignWithHead>true</alignWithHead>
+							<geneRequirement MayRequire="Ludeon.RimWorld.Biotech">Ears_Ratkin</geneRequirement>
 							<offsets>
 								<south>
 									<bodyTypes>
-										<Thin>(0.015,0.4)</Thin>
+										<Thin>(0.035,-0.4)</Thin>
+										<Female>(0.035,-0.4)</Female>
+										<Baby MayRequire="Ludeon.RimWorld.Biotech">(0.035,-0.4)</Baby>
+										<Child MayRequire="Ludeon.RimWorld.Biotech">(0.035,-0.4)</Child>
 									</bodyTypes>
 									<portraitBodyTypes>
-										<Thin>(0.015,0.4)</Thin>
+										<Thin>(0.035,-0.4)</Thin>
+										<Female>(0.035,-0.4)</Female>
+										<Baby MayRequire="Ludeon.RimWorld.Biotech">(0.035,-0.4)</Baby>
+										<Child MayRequire="Ludeon.RimWorld.Biotech">(0.035,-0.4)</Child>
 									</portraitBodyTypes>
 								</south>
 								<north>
 									<bodyTypes>
-										<Thin>(-0.01,0.39)</Thin>
+										<Thin>(-0.01,-0.25)</Thin>
+										<Female>(-0.01,-0.25)</Female>
+										<Baby MayRequire="Ludeon.RimWorld.Biotech">(-0.01,-0.25)</Baby>
+										<Child MayRequire="Ludeon.RimWorld.Biotech">(-0.01,-0.25)</Child>
 									</bodyTypes>
 									<portraitBodyTypes>
-										<Thin>(-0.01,0.39)</Thin>
+										<Thin>(-0.01,-0.25)</Thin>
+										<Female>(-0.01,-0.25)</Female>
+										<Baby MayRequire="Ludeon.RimWorld.Biotech">(-0.01,-0.25)</Baby>
+										<Child MayRequire="Ludeon.RimWorld.Biotech">(-0.01,-0.25)</Child>
 									</portraitBodyTypes>
 								</north>
 								<east>
 									<bodyTypes>
-										<Thin>(0.012,0.5)</Thin>
+										<Thin>(0.118,-0.3)</Thin>
+										<Female>(0.112,-0.3)</Female>
+										<Baby MayRequire="Ludeon.RimWorld.Biotech">(0.118,-0.3)</Baby>
+										<Child MayRequire="Ludeon.RimWorld.Biotech">(0.118,-0.3)</Child>
 									</bodyTypes>
 									<portraitBodyTypes>
-										<Thin>(0.012,0.5)</Thin>
+										<Thin>(0.118,-0.3)</Thin>
+										<Female>(0.112,-0.3)</Female>
+										<Baby MayRequire="Ludeon.RimWorld.Biotech">(0.118,-0.3)</Baby>
+										<Child MayRequire="Ludeon.RimWorld.Biotech">(0.118,-0.3)</Child>
 									</portraitBodyTypes>
 								</east>
 							</offsets>
@@ -335,15 +413,61 @@
 						<defName>CreepyBreathing</defName>
 					</li>
 				</disallowedTraits>
-
+				<growthAges>
+				  <li>5</li>
+				  <li>8</li>
+				  <li>11</li>
+				</growthAges>
+				<reproduction>
+					<femaleFertilityAgeFactor>
+					  <points>
+						<li>(14, 0)</li>
+						<li>(20, 1)</li>
+						<li>(28, 1)</li>
+						<li>(35, 0.5)</li>
+						<li>(40, 0.1)</li>
+						<li>(45, 0.02)</li>
+						<li>(50, 0)</li>
+					  </points>
+					</femaleFertilityAgeFactor>
+					<maleFertilityAgeFactor>
+					  <points>
+						<li>(14, 0)</li>
+						<li>(18, 1)</li>
+						<li>(50, 1)</li>
+						<li>(90, 0)</li>
+					  </points>
+					</maleFertilityAgeFactor>
+				</reproduction>
 			</generalSettings>
 
 			<graphicPaths>
-				<li>
-					<body>Things/Ratkin/Bodies/</body>
-					<head>Things/Ratkin/Heads/</head>
-					<skeleton>Things/Pawn/Humanlike/Bodies/Dessicated/Dessicated_Thin</skeleton>
-				</li>
+				<body>
+					<!--<path>Things/Ratkin/Bodies/</path>-->
+					<bodytypeGraphics>
+					  <Thin>Things/Ratkin/Bodies/Naked_Thin</Thin>
+					  <Child MayRequire="Ludeon.RimWorld.Biotech">Things/Ratkin/Bodies/Naked_Child</Child>
+					  <Baby MayRequire="Ludeon.RimWorld.Biotech">Things/Pawn/Humanlike/Bodies/Naked_Child</Baby>
+					</bodytypeGraphics>
+				</body>
+				<head>
+					<!--<path>Things/Ratkin/Heads/</path>-->
+					<headtypeGraphics>
+					  <Male_AverageNormal>Things/Ratkin/Heads/Male_Average_Normal</Male_AverageNormal>
+					  <Female_AverageNormal>Things/Ratkin/Heads/Female_Average_Normal</Female_AverageNormal>
+					  <Male_AveragePointy>Things/Ratkin/Heads/Male_Average_Pointy</Male_AveragePointy>
+					  <Female_AveragePointy>Things/Ratkin/Heads/Female_Average_Pointy</Female_AveragePointy>
+					  <Male_AverageWide>Things/Ratkin/Heads/Male_Average_Wide</Male_AverageWide>
+					  <Female_AverageWide>Things/Ratkin/Heads/Female_Average_Wide</Female_AverageWide>
+					  <Male_NarrowNormal>Things/Ratkin/Heads/Male_Narrow_Normal</Male_NarrowNormal>
+					  <Female_NarrowNormal>Things/Ratkin/Heads/Female_Narrow_Normal</Female_NarrowNormal>
+					  <Male_NarrowPointy>Things/Ratkin/Heads/Male_Narrow_Pointy</Male_NarrowPointy>
+					  <Female_NarrowPointy>Things/Ratkin/Heads/Female_Narrow_Pointy</Female_NarrowPointy>
+					  <Male_NarrowWide>Things/Ratkin/Heads/Male_Narrow_Wide</Male_NarrowWide>
+					  <Female_NarrowWide>Things/Ratkin/Heads/Female_Narrow_Wide</Female_NarrowWide>
+					</headtypeGraphics>
+				</head>
+				<skeleton>Things/Pawn/Humanlike/Bodies/Dessicated/Dessicated_Thin</skeleton>
 			</graphicPaths>
 
 			<styleSettings>
@@ -468,7 +592,7 @@
 			<ImmunityGainSpeed>1.07</ImmunityGainSpeed>
 			<CarryingCapacity>45</CarryingCapacity>
 			<PainShockThreshold>0.7</PainShockThreshold>
-			<ToxicSensitivity>0.85</ToxicSensitivity>
+			<ToxicResistance>0.25</ToxicResistance>
 			<SmokeSensitivity>0.85</SmokeSensitivity>
 			<EatingSpeed>1.2</EatingSpeed>
 			<MeatAmount>35</MeatAmount>
@@ -605,12 +729,12 @@
 					<minAge>0</minAge>
 				</li>
 				<li>
-					<def>HumanlikeToddler</def>
-					<minAge>1.2</minAge>
-				</li>
-				<li>
 					<def>HumanlikeChild</def>
-					<minAge>4</minAge>
+					<minAge>2</minAge>
+				</li>
+				<li MayRequire="Ludeon.RimWorld.Biotech">
+				  <def>HumanlikePreTeenager</def>
+				  <minAge>6</minAge>
 				</li>
 				<li>
 					<def>HumanlikeTeenager</def>
@@ -621,6 +745,29 @@
 					<minAge>16</minAge>
 				</li>
 			</lifeStageAges>
+			<lifeStageWorkSettings MayRequire="Ludeon.RimWorld.Biotech">
+				<Firefighter>5</Firefighter>
+				<Patient>0</Patient>
+				<Doctor>8</Doctor>
+				<PatientBedRest>0</PatientBedRest>
+				<Childcare MayRequire="Ludeon.RimWorld.Biotech">0</Childcare>
+				<BasicWorker>5</BasicWorker>
+				<Warden>8</Warden>
+				<Handling>5</Handling>
+				<Cooking>5</Cooking>
+				<Hunting>5</Hunting>
+				<Construction>8</Construction>
+				<Growing>5</Growing>
+				<Mining>5</Mining>
+				<PlantCutting>5</PlantCutting>
+				<Smithing>11</Smithing>
+				<Tailoring>5</Tailoring>
+				<Art>8</Art>
+				<Crafting>5</Crafting>
+				<Hauling>2</Hauling>
+				<Cleaning>2</Cleaning>
+				<Research>11</Research>
+			</lifeStageWorkSettings>
 			<soundMeleeHitPawn>Pawn_Melee_Punch_HitPawn</soundMeleeHitPawn>
 			<soundMeleeHitBuilding>Pawn_Melee_Punch_HitBuilding</soundMeleeHitBuilding>
 			<soundMeleeMiss>Pawn_Melee_Punch_Miss</soundMeleeMiss>
@@ -630,12 +777,21 @@
 			</specialShadowData>
 			<ageGenerationCurve>
 				<points>
+					<li MayRequire="Ludeon.RimWorld.Biotech">(0,0)</li>
+					<li MayRequire="Ludeon.RimWorld.Biotech">(0.001,0)</li>
+					<li MayRequire="Ludeon.RimWorld.Biotech">(8,86)</li>
+					<li MayRequire="Ludeon.RimWorld.Biotech">(12.5,0)</li>  <!-- Exclude 12.5-13 years to avoid spawning pawns who are very close to becoming adults -->  
+					<li MayRequire="Ludeon.RimWorld.Biotech">(12.51,0)</li>  
+					<li MayRequire="Ludeon.RimWorld.Biotech">(13,0)</li>      
+					<li MayRequire="Ludeon.RimWorld.Biotech">(13.001,0)</li><!-- End exclude -->
+					<li MayRequire="Ludeon.RimWorld.Biotech">(13.999,0)</li>
 					<li>(14,0)</li>
+					<li MayRequire="Ludeon.RimWorld.Biotech">(14.001,30)</li>
 					<li>(18,50)</li>
 					<li>(23,100)</li>
 					<li>(30,20)</li>
 					<li>(60,3)</li>
-					<li>(80,0)</li>
+					<li>(70,0)</li>
 				</points>
 			</ageGenerationCurve>
 			<hediffGiverSets>
@@ -648,11 +804,6 @@
 				<bodyShape>Humanoid</bodyShape>
 			</li>
 		</modExtensions>
-		<comps>
-			<li>
-				<compClass>CombatExtended.CompPawnGizmo</compClass>
-			</li>
-		</comps>
 		<recipes>
 			<li>RK_InstallFakeEar</li>
 			<li>RK_InstallFakeTail</li>

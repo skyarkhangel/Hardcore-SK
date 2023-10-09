@@ -1,7 +1,10 @@
 
 ## Current
 
-* Reduced fossil abundance from mudstone and claystone
+* Many balancing changes
+* The speed of mining can be changed independent of hit points
+* More data displayed in inspect window for most things
+* Dynamic mineral distribution now based on growth needs automatically
 
 
 ## v1.3.1

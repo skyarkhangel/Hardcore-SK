@@ -1,82 +1,140 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  
-  <LifeStageDef>
+
+  <LifeStageDef Name="AsariLifeStageBase" Abstract="True">
+    <hairStyleFilter>
+      <whitelist>true</whitelist>
+      <tags>
+        <li>AsariHair</li>
+      </tags>
+    </hairStyleFilter>
+  </LifeStageDef>
+
+  <LifeStageDef ParentName="AsariLifeStageBase">
     <defName>AsariBaby</defName>
     <label>baby</label>
     <bodySizeFactor>0.2</bodySizeFactor>
+    <bodyWidth>0.95</bodyWidth>
+    <bodyDrawOffset>(0, 0, -0.03)</bodyDrawOffset>
+    <voxPitch>1.6</voxPitch>
+    <headSizeFactor>0.5</headSizeFactor>
+    <eyeSizeFactor>0.7</eyeSizeFactor>
+    <foodMaxFactor>0.625</foodMaxFactor> <!-- bodySizeFactor * foodMaxFactor = maxFood = 0.125 -->
+    <hungerRateFactor>0.125</hungerRateFactor> <!-- consumes 2x maxFood per day -->
     <healthScaleFactor>0.2</healthScaleFactor>
-	<foodMaxFactor>1.5</foodMaxFactor>
-    <hungerRateFactor>0.2</hungerRateFactor>
     <marketValueFactor>0.5</marketValueFactor>
-	<meleeDamageFactor>0.5</meleeDamageFactor>
+    <meleeDamageFactor>0.5</meleeDamageFactor>
+    <developmentalStage>Baby</developmentalStage>
+    <fallAsleepMaxThresholdOverride>.60</fallAsleepMaxThresholdOverride>
+    <naturalWakeThresholdOverride>1.0</naturalWakeThresholdOverride>
+    <alwaysDowned>true</alwaysDowned>
+    <claimable>true</claimable>
+    <involuntarySleepIsNegativeEvent>false</involuntarySleepIsNegativeEvent> <!-- Babies just fall asleep randomly and they're cool with it. -->
+    <thinkTreeMainOverride MayRequire="Ludeon.RimWorld.Biotech">HumanlikeBaby</thinkTreeMainOverride>
+    <thinkTreeConstantOverride MayRequire="Ludeon.RimWorld.Biotech">HumanlikeBabyConstant</thinkTreeConstantOverride>
+    <canDoRandomMentalBreaks>false</canDoRandomMentalBreaks> <!-- Babies have crying/giggling fits instead of mental breaks. -->
+    <canSleepWhileHeld>true</canSleepWhileHeld>
+    <canVoluntarilySleep>false</canVoluntarilySleep> <!-- Babies fall asleep randomly when they're tired. -->
+    <canSleepWhenStarving>false</canSleepWhenStarving>
+    <canInitiateSocialInteraction>false</canInitiateSocialInteraction>
+    <customMoodTipString>Mood represents how happy or stressed someone is. Babies with low mood are more likely to cry, while babies with a high mood are more likely to giggle.</customMoodTipString>
     <statFactors>
       <MoveSpeed>0.2</MoveSpeed>
     </statFactors>
-  </LifeStageDef>
-  
-  <LifeStageDef>
-    <defName>AsariToddler</defName>
-    <label>toddler</label>
-    <bodySizeFactor>0.32</bodySizeFactor>
-    <foodMaxFactor>1.5</foodMaxFactor>
-    <healthScaleFactor>0.4</healthScaleFactor>
-    <hungerRateFactor>0.4</hungerRateFactor>
-    <marketValueFactor>0.7</marketValueFactor>
-    <meleeDamageFactor>0.6</meleeDamageFactor>
-    <statFactors>
-      <MoveSpeed>0.3</MoveSpeed>
-    </statFactors>
+    <statOffsets>
+      <ComfyTemperatureMin>-46</ComfyTemperatureMin><!--should map to -30C-->
+      <ComfyTemperatureMax>4</ComfyTemperatureMax><!--should map to 30C-->
+    </statOffsets>
+    <involuntarySleepMTBDaysFromRest>
+      <points>
+        <li>(.00, 0)</li>
+        <li>(.01, .01)</li>
+        <li>(.15, .166)</li>
+        <li>(.30, 1)</li>
+        <li>(.59, 10)</li>
+        <li>(.60, Infinity)</li>
+      </points>
+    </involuntarySleepMTBDaysFromRest>
   </LifeStageDef>
 
-  <LifeStageDef>
+  <LifeStageDef ParentName="AsariLifeStageBase">
     <defName>AsariChild</defName>
     <label>child</label>
-    <bodySizeFactor>0.5</bodySizeFactor>
+    <workerClass MayRequire="Ludeon.RimWorld.Biotech">LifeStageWorker_HumanlikeChild</workerClass>
+    <bodySizeFactor>0.35</bodySizeFactor>
+    <bodyWidth>1.125</bodyWidth>
+    <bodyDrawOffset>(0, 0, -0.1)</bodyDrawOffset>
+    <voxPitch>1.2</voxPitch>
+    <headSizeFactor>0.75</headSizeFactor>
+    <eyeSizeFactor>0.85</eyeSizeFactor>
     <healthScaleFactor>0.5</healthScaleFactor>
-    <hungerRateFactor>0.6</hungerRateFactor>
+    <foodMaxFactor>2.286</foodMaxFactor> <!-- bodySizeFactor * foodMaxFactor = maxFood = 0.8 -->
+    <hungerRateFactor>0.8</hungerRateFactor>
     <marketValueFactor>0.9</marketValueFactor>
-	<meleeDamageFactor>0.7</meleeDamageFactor>
+    <meleeDamageFactor>0.7</meleeDamageFactor>
+    <developmentalStage>Child</developmentalStage>
+    <equipmentDrawDistanceFactor>0.55</equipmentDrawDistanceFactor>
+    <sittingOffset>0.3</sittingOffset>
     <statFactors>
-      <MoveSpeed>0.65</MoveSpeed>
+      <MoveSpeed>0.75</MoveSpeed>
     </statFactors>
   </LifeStageDef>
-  
-  <LifeStageDef>
+ 
+  <LifeStageDef ParentName="AsariLifeStageBase">
     <defName>AsariTeenager</defName>
     <label>teenager</label>
+    <workerClass MayRequire="Ludeon.RimWorld.Biotech">LifeStageWorker_HumanlikeAdult</workerClass>
     <adjective>teenage</adjective>
     <reproductive>true</reproductive>
-    <bodySizeFactor>0.85</bodySizeFactor>
+    <bodySizeFactor>0.8</bodySizeFactor>
     <healthScaleFactor>0.90</healthScaleFactor>
+    <foodMaxFactor>1.25</foodMaxFactor> <!-- bodySizeFactor * foodMaxFactor = maxFood = 1.0 -->
     <meleeDamageFactor>0.75</meleeDamageFactor>
+    <equipmentDrawDistanceFactor>0.65</equipmentDrawDistanceFactor>
+    <sittingOffset>0.23</sittingOffset>
     <statFactors>
       <MoveSpeed>0.95</MoveSpeed>
     </statFactors>
   </LifeStageDef>
 
-  <LifeStageDef>
+  <LifeStageDef ParentName="AsariLifeStageBase">
+    <defName>AsariAdult</defName>
+    <label>adult stage</label>
+	<adjective>maiden</adjective>
+    <workerClass MayRequire="Ludeon.RimWorld.Biotech">LifeStageWorker_HumanlikeAdult</workerClass>
+    <visible>false</visible>
+    <reproductive>true</reproductive>
+    <sittingOffset>0.18</sittingOffset>
+  </LifeStageDef>
+
+  <LifeStageDef ParentName="AsariLifeStageBase">
     <defName>AsariAdultMaiden</defName>
     <label>maiden stage</label>
 	<adjective>maiden</adjective>
+    <workerClass MayRequire="Ludeon.RimWorld.Biotech">LifeStageWorker_HumanlikeAdult</workerClass>
     <visible>false</visible>
     <reproductive>true</reproductive>
+    <sittingOffset>0.18</sittingOffset>
   </LifeStageDef>
 
-  <LifeStageDef>
+  <LifeStageDef ParentName="AsariLifeStageBase">
     <defName>AsariMatron</defName>
     <label>matron stage</label>
 	<adjective>matron</adjective>
+    <workerClass MayRequire="Ludeon.RimWorld.Biotech">LifeStageWorker_HumanlikeAdult</workerClass>
     <visible>false</visible>
     <reproductive>true</reproductive>
+    <sittingOffset>0.18</sittingOffset>
   </LifeStageDef>
   
-  <LifeStageDef>
+  <LifeStageDef ParentName="AsariLifeStageBase">
     <defName>AsariMatriarch</defName>
     <label>matriarch stage</label>
 	<adjective>matriarch</adjective>
+    <workerClass MayRequire="Ludeon.RimWorld.Biotech">LifeStageWorker_HumanlikeAdult</workerClass>
     <visible>false</visible>
     <reproductive>true</reproductive>
+    <sittingOffset>0.18</sittingOffset>
 	<statFactors>
 	  <ImmunityGainSpeed>0.92</ImmunityGainSpeed>
 	</statFactors>

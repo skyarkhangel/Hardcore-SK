@@ -41,15 +41,26 @@
 			<li>CE_OneHandedWeapon</li>
 		</weaponTags>
 		<weaponClasses>
-		  <li>Ranged</li>
+			<li>Ranged</li>
 		</weaponClasses>
 		<relicChance>0</relicChance>
 		<tickerType>Normal</tickerType>
 		<resourceReadoutPriority>First</resourceReadoutPriority>
-		<smeltable>true</smeltable>
-		<smeltProducts>
-			<Weapon_Parts>1</Weapon_Parts>
-		</smeltProducts>
+		<smeltable>true</smeltable> 
+		<!--any Grenades that Inherit this must add a smeltProducts -->
+		<!--<smeltProducts/>-->
+		<tools>
+			<li Class="CombatExtended.ToolCE">
+				<label>Body</label>
+				<capacities>
+					<li>Blunt</li>
+				</capacities>
+				<power>8</power>
+				<cooldownTime>1.75</cooldownTime>
+				<armorPenetrationBlunt>1.0</armorPenetrationBlunt>
+				<linkedBodyPartsGroup>Base</linkedBodyPartsGroup>
+			</li>
+		</tools>
 	</ThingDef>
 
 	<!-- PROJECTILES -->
@@ -67,6 +78,9 @@
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<speed>9</speed>
 			<flyOverhead>false</flyOverhead>
+			<suppressionFactor>3.0</suppressionFactor>
+			<dangerFactor>2.0</dangerFactor>
+			<airborneSuppressionFactor>0.25</airborneSuppressionFactor>
 		</projectile>
 	</ThingDef>
 
@@ -87,6 +101,10 @@
 			<explosionDelay>175</explosionDelay>
 			<soundExplode>Explosion_Bomb</soundExplode>
 			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<speed>8</speed>
+			<suppressionFactor>3.0</suppressionFactor>
+			<dangerFactor>2.0</dangerFactor>
+			<airborneSuppressionFactor>0.25</airborneSuppressionFactor>
 		</projectile>
 	</ThingDef>
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BaseGrenadeEquipment">
@@ -112,9 +130,11 @@
 			<li>GrenadeDestructive</li>
 			<li>CE_GrenadeNeolithic</li>
 			<li>GrenadeTierZero</li>
+			<li>CE_AI_Grenade</li>
+			<li>CE_AI_AOE</li>
 		</weaponTags>
 		<weaponClasses>
-		  <li>Neolithic</li>
+			<li>Neolithic</li>
 		</weaponClasses>
 		<thingCategories>
 			<li>Grenades</li>
@@ -129,7 +149,6 @@
 				<warmupTime>1.35</warmupTime>
 				<noiseRadius>4</noiseRadius>
 				<minRange>2</minRange>
-				<ai_AvoidFriendlyFireRadius>3</ai_AvoidFriendlyFireRadius>
 				<ai_IsBuildingDestroyer>true</ai_IsBuildingDestroyer>
 				<soundCast>ThrowGrenade</soundCast>
 				<targetParams>
@@ -138,6 +157,7 @@
 				<defaultProjectile>Proj_GrenadeStickBomb</defaultProjectile>
 				<onlyManualCast>true</onlyManualCast>
 				<ignorePartialLoSBlocker>true</ignorePartialLoSBlocker>
+				<ai_AvoidFriendlyFireRadius>6</ai_AvoidFriendlyFireRadius>
 			</li>
 		</verbs>
 		<detonateProjectile>Proj_GrenadeStickBomb</detonateProjectile>
@@ -165,6 +185,9 @@
 			<explosionDelay>150</explosionDelay>
 			<soundExplode>Explosion_Bomb</soundExplode>
 			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<suppressionFactor>2.5</suppressionFactor>
+			<dangerFactor>2.0</dangerFactor>
+			<airborneSuppressionFactor>0.25</airborneSuppressionFactor>
 		</projectile>
 		<comps>
 			<li Class="CombatExtended.CompProperties_Fragments">
@@ -202,9 +225,10 @@
 			<li>GrenadeTierOne</li>
 			<li>Norbhammar</li>
 			<li>CE_AI_Grenade</li>
+			<li>CE_AI_AOE</li>
 		</weaponTags>
 		<weaponClasses>
-		  <li>Medieval</li>
+			<li>Medieval</li>
 		</weaponClasses>
 		<thingCategories>
 			<li>Grenades</li>
@@ -257,6 +281,9 @@
 			<ai_IsIncendiary>true</ai_IsIncendiary>
 			<explosionDelay>30</explosionDelay>
 			<dropsCasings>false</dropsCasings>
+			<suppressionFactor>2.0</suppressionFactor>
+			<dangerFactor>1.5</dangerFactor>
+			<airborneSuppressionFactor>0.2</airborneSuppressionFactor>
 		</projectile>
 	</ThingDef>
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BaseGrenadeEquipment">
@@ -288,6 +315,8 @@
 			<li>GrenadeDestructive</li>
 			<li>GrenadeTierTwo</li>
 			<li>CE_AI_Grenade</li>
+			<li>CE_AI_AOE</li>
+			<li>GrenadeFlame</li>
 		</weaponTags>
 		<thingCategories>
 			<li>Grenades</li>
@@ -318,6 +347,7 @@
 			<Cloth>3</Cloth>
 			<Napalm>1</Napalm>
 		</smeltProducts>
+		<rotateInShelves>false</rotateInShelves>
 	</ThingDef>
 
 	<!-- High explosive -->
@@ -335,8 +365,12 @@
 			<explosionDelay>180</explosionDelay>
 			<soundExplode>Explosion_Bomb</soundExplode>
 			<dropsCasings>true</dropsCasings>
-			<casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
+			<casingMoteDefname>Fleck_GrenadePin</casingMoteDefname>
+			<casingFilthDefname>Filth_GrenadeAmmoCasings</casingFilthDefname>
 			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<suppressionFactor>3.5</suppressionFactor>
+			<dangerFactor>2.5</dangerFactor>
+			<airborneSuppressionFactor>0.35</airborneSuppressionFactor>
 		</projectile>
 		<comps>
 			<li Class="CombatExtended.CompProperties_Fragments">
@@ -372,6 +406,7 @@
 			<li>GrenadeDestructive</li>
 			<li>GrenadeTierTwo</li>
 			<li>CE_AI_Grenade</li>
+			<li>CE_AI_AOE</li>
 		</weaponTags>
 		<thingCategories>
 			<li>Grenades</li>
@@ -421,8 +456,12 @@
 			<explosionDelay>180</explosionDelay>
 			<soundExplode>Explosion_Bomb</soundExplode>
 			<dropsCasings>true</dropsCasings>
-			<casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
+			<casingMoteDefname>Fleck_GrenadePin</casingMoteDefname>
+			<casingFilthDefname>Filth_GrenadeAmmoCasings</casingFilthDefname>
 			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<suppressionFactor>3.0</suppressionFactor>
+			<dangerFactor>2.0</dangerFactor>
+			<airborneSuppressionFactor>0.25</airborneSuppressionFactor>
 		</projectile>
 		<comps>
 			<li Class="CombatExtended.CompProperties_Fragments">
@@ -458,6 +497,7 @@
 			<li>GrenadeDestructive</li>
 			<li>GrenadeTierThree</li>
 			<li>CE_AI_Grenade</li>
+			<li>CE_AI_AOE</li>
 		</weaponTags>
 		<thingCategories>
 			<li>Grenades</li>
@@ -504,7 +544,11 @@
 			<damageAmountBase>110</damageAmountBase>
 			<explosionDelay>180</explosionDelay>
 			<dropsCasings>true</dropsCasings>
-			<casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
+			<casingMoteDefname>Fleck_GrenadePin</casingMoteDefname>
+			<casingFilthDefname>Filth_GrenadeAmmoCasings</casingFilthDefname>
+			<suppressionFactor>1.5</suppressionFactor>
+			<dangerFactor>1.2</dangerFactor>
+			<airborneSuppressionFactor>0.15</airborneSuppressionFactor>
 		</projectile>
 	</ThingDef>
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BaseGrenadeEquipment">
@@ -534,6 +578,7 @@
 		<weaponTags>
 			<li>GrenadeEMP</li>
 			<li>CE_AI_Grenade</li>
+			<li>CE_AI_AOE</li>
 		</weaponTags>
 		<thingCategories>
 			<li>Grenades</li>
@@ -575,20 +620,26 @@
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
-			<explosionRadius>3.5</explosionRadius>
+			<explosionRadius>4</explosionRadius>
 			<damageDef>Stun</damageDef>
-			<damageAmountBase>50</damageAmountBase>
-			<explosionDelay>130</explosionDelay>
+			<damageAmountBase>55</damageAmountBase>
+			<explosionDelay>30</explosionDelay>
 			<soundExplode>Explosion_Stun</soundExplode>
 			<dropsCasings>true</dropsCasings>
-			<casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
+			<casingMoteDefname>Fleck_GrenadePin</casingMoteDefname>
+			<casingFilthDefname>Filth_GrenadeAmmoCasings</casingFilthDefname>
+			<speed>10</speed>
+			<screenShakeFactor>0</screenShakeFactor>
+			<suppressionFactor>2.0</suppressionFactor>
+			<dangerFactor>1.5</dangerFactor>
+			<airborneSuppressionFactor>0.25</airborneSuppressionFactor>
 		</projectile>
 	</ThingDef>
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BaseGrenadeEquipment">
 		<defName>Weapon_GrenadeFlashbang</defName>
 		<equipmentType>Primary</equipmentType>
 		<label>flashbang grenade</label>
-		<description>Electromagnetic pulse grenades damaging to electronic equipment.</description>
+		<description>Pyrotechnic charge designed to produce a blinding flash of light and loud noise, temporarily blinding and disorienting anyone nearby.</description>
 		<graphicData>
 			<texPath>Things/Ammo/HandGrenades/Flashbang</texPath>
 			<graphicClass>Graphic_StackCount</graphicClass>
@@ -605,6 +656,7 @@
 		<weaponTags>
 			<li>CE_GrenadeFlashbang</li>
 			<li>CE_AI_Nonlethal</li>
+			<li>CE_AI_AOE</li>
 		</weaponTags>
 		<thingCategories>
 			<li>Grenades</li>
@@ -614,11 +666,10 @@
 				<label>throw flashbang grenade</label>
 				<verbClass>CombatExtended.Verb_ShootCEOneUse</verbClass>
 				<hasStandardCommand>true</hasStandardCommand>
-				<range>12</range>
+				<range>10</range>
 				<minRange>4</minRange>
-				<warmupTime>1.10</warmupTime>
+				<warmupTime>0.8</warmupTime>
 				<noiseRadius>4</noiseRadius>
-				<ai_AvoidFriendlyFireRadius>4</ai_AvoidFriendlyFireRadius>
 				<ai_IsBuildingDestroyer>false</ai_IsBuildingDestroyer>
 				<soundCast>ThrowGrenade</soundCast>
 				<targetParams>
@@ -627,9 +678,17 @@
 				<defaultProjectile>Proj_GrenadeFlashbang</defaultProjectile>
 				<onlyManualCast>true</onlyManualCast>
 				<ignorePartialLoSBlocker>true</ignorePartialLoSBlocker>
+				<ai_AvoidFriendlyFireRadius>5</ai_AvoidFriendlyFireRadius>
 			</li>
 		</verbs>
-		<detonateProjectile>Proj_GrenadeFlashbang</detonateProjectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<damageAmountBase>25</damageAmountBase>
+				<explosiveDamageType>Stun</explosiveDamageType>
+				<explosiveRadius>4</explosiveRadius>
+				<explosionSound>Explosion_Stun</explosionSound>
+			</li>
+		</comps>
 		<smeltProducts>
 			<Plasteel>3</Plasteel>
 			<Powder>1</Powder>
@@ -653,7 +712,11 @@
 			<preExplosionSpawnThingDef>Filth_Fuel</preExplosionSpawnThingDef>
 			<ai_IsIncendiary>true</ai_IsIncendiary>
 			<dropsCasings>true</dropsCasings>
-			<casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
+			<casingMoteDefname>Fleck_GrenadePin</casingMoteDefname>
+			<casingFilthDefname>Filth_GrenadeAmmoCasings</casingFilthDefname>
+			<suppressionFactor>2.5</suppressionFactor>
+			<dangerFactor>1.7</dangerFactor>
+			<airborneSuppressionFactor>0.25</airborneSuppressionFactor>
 		</projectile>
 	</ThingDef>
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BaseGrenadeEquipment">
@@ -684,6 +747,8 @@
 			<li>GrenadeDestructive</li>
 			<li>GrenadeTierThree</li>
 			<li>CE_AI_Grenade</li>
+			<li>CE_AI_AOE</li>
+			<li>GrenadeFlame</li>
 		</weaponTags>
 		<thingCategories>
 			<li>Grenades</li>
@@ -727,11 +792,15 @@
 			<explosionRadius>4</explosionRadius>
 			<damageDef>Smoke</damageDef>
 			<explosionDelay>130</explosionDelay>
-			<postExplosionSpawnThingDef>Gas_Smoke</postExplosionSpawnThingDef>
-			<postExplosionSpawnChance>1</postExplosionSpawnChance>
-			<postExplosionSpawnThingCount>1</postExplosionSpawnThingCount>
+			<postExplosionGasType>BlindSmoke</postExplosionGasType>
 			<dropsCasings>true</dropsCasings>
-			<casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
+			<casingMoteDefname>Fleck_GrenadePin</casingMoteDefname>
+			<casingFilthDefname>Filth_GrenadeAmmoCasings</casingFilthDefname>
+			<arcHeightFactor>0.2</arcHeightFactor>
+			<shadowSize>0.6</shadowSize>
+			<suppressionFactor>0.0</suppressionFactor>
+			<dangerFactor>0.0</dangerFactor>
+			<airborneSuppressionFactor>0.05</airborneSuppressionFactor>
 		</projectile>
 	</ThingDef>
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BaseGrenadeEquipment">
@@ -753,7 +822,7 @@
 			<RangedWeapon_Cooldown>1</RangedWeapon_Cooldown>
 		</statBases>
 		<weaponTags>
-			<li>CE_GrenadeSmoke</li>
+			<li>CE_AI_SMOKE</li>
 			<li>CE_AI_Nonlethal</li>
 		</weaponTags>
 		<thingCategories>
@@ -777,7 +846,14 @@
 				<ignorePartialLoSBlocker>true</ignorePartialLoSBlocker>
 			</li>
 		</verbs>
-		<detonateProjectile>Proj_GrenadeSmoke</detonateProjectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<damageAmountBase>4</damageAmountBase>
+				<explosiveDamageType>Smoke</explosiveDamageType>
+				<postExplosionGasType>BlindSmoke</postExplosionGasType>
+				<preExplosionSpawnChance>1</preExplosionSpawnChance>
+			</li>
+		</comps>
 		<smeltProducts>
 			<Plasteel>5</Plasteel>
 			<Plastic>2</Plastic>
@@ -794,14 +870,19 @@
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
-			<explosionRadius>4</explosionRadius>
-			<damageAmountBase>50</damageAmountBase>
+			<explosionRadius>6.5</explosionRadius>
 			<damageDef>Extinguish</damageDef>
-			<explosionDelay>130</explosionDelay>
+			<suppressionFactor>0.0</suppressionFactor>
+			<dangerFactor>0.0</dangerFactor>
+			<explosionDelay>30</explosionDelay>
+			<dropsCasings>true</dropsCasings>
+			<casingMoteDefname>Fleck_GrenadePin</casingMoteDefname>
+			<casingFilthDefname>Filth_GrenadeAmmoCasings</casingFilthDefname>
 			<postExplosionSpawnThingDef>Filth_FireFoam</postExplosionSpawnThingDef>
 			<preExplosionSpawnChance>1</preExplosionSpawnChance>
-			<dropsCasings>true</dropsCasings>
-			<casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
+			<speed>12</speed>
+			<screenShakeFactor>0</screenShakeFactor>
+			<airborneSuppressionFactor>0.05</airborneSuppressionFactor>
 		</projectile>
 	</ThingDef>
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BaseGrenadeEquipment">
@@ -824,6 +905,7 @@
 		</statBases>
 		<weaponTags>
 			<li>CE_AI_Nonlethal</li>
+			<li>CE_AI_AOE</li>
 		</weaponTags>
 		<thingCategories>
 			<li>Grenades</li>
@@ -846,7 +928,15 @@
 				<ignorePartialLoSBlocker>true</ignorePartialLoSBlocker>
 			</li>
 		</verbs>
-		<detonateProjectile>Proj_GrenadeFirefoam</detonateProjectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<explosiveDamageType>Extinguish</explosiveDamageType>
+				<explosiveRadius>3.5</explosiveRadius>
+				<postExplosionSpawnThingDef>Filth_FireFoam</postExplosionSpawnThingDef>
+				<postExplosionSpawnChance>1</postExplosionSpawnChance>
+				<postExplosionSpawnThingCount>3</postExplosionSpawnThingCount>
+			</li>
+		</comps>
 		<smeltProducts>
 			<Plasteel>4</Plasteel>
 			<Plastic>1</Plastic>
@@ -872,8 +962,12 @@
 			<explosionDelay>150</explosionDelay>
 			<ai_IsIncendiary>true</ai_IsIncendiary>
 			<dropsCasings>true</dropsCasings>
-			<casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
+			<casingMoteDefname>Fleck_GrenadePin</casingMoteDefname>
+			<casingFilthDefname>Filth_GrenadeAmmoCasings</casingFilthDefname>
 			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<suppressionFactor>3.5</suppressionFactor>
+			<dangerFactor>2.5</dangerFactor>
+			<airborneSuppressionFactor>0.25</airborneSuppressionFactor>
 		</projectile>
 	</ThingDef>
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BaseGrenadeEquipment">
@@ -902,6 +996,7 @@
 			<li>GrenadeDestructive</li>
 			<li>GrenadeTierFour</li>
 			<li>CE_AI_Grenade</li>
+			<li>CE_AI_AOE</li>
 		</weaponTags>
 		<thingCategories>
 			<li>Grenades</li>
@@ -930,6 +1025,8 @@
 		</verbs>
 		<detonateProjectile>Proj_GrenadePlasma</detonateProjectile>
 		<smeltProducts>
+			<Plasteel>3</Plasteel>
+			<ComponentAdvanced>1</ComponentAdvanced>
 			<Weapon_Parts>1</Weapon_Parts>
 		</smeltProducts>
 	</ThingDef>
@@ -949,8 +1046,12 @@
 			<explosionDelay>190</explosionDelay>
 			<soundExplode>MortarBomb_Explode</soundExplode>
 			<dropsCasings>true</dropsCasings>
-			<casingMoteDefname>Mote_GrenadePin</casingMoteDefname>
+			<casingMoteDefname>Fleck_GrenadePin</casingMoteDefname>
+			<casingFilthDefname>Filth_GrenadeAmmoCasings</casingFilthDefname>
 			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<suppressionFactor>4.0</suppressionFactor>
+			<dangerFactor>3.0</dangerFactor>
+			<airborneSuppressionFactor>0.25</airborneSuppressionFactor>
 		</projectile>
 	</ThingDef>
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BaseGrenadeEquipment">
@@ -979,6 +1080,7 @@
 			<li>GrenadeDestructive</li>
 			<li>GrenadeTierFour</li>
 			<li>CE_AI_Grenade</li>
+			<li>CE_AI_AOE</li>
 		</weaponTags>
 		<thingCategories>
 			<li>Grenades</li>
@@ -1006,6 +1108,8 @@
 		</verbs>
 		<detonateProjectile>Proj_GrenadeFusion</detonateProjectile>
 		<smeltProducts>
+			<Plasteel>3</Plasteel>
+			<ComponentAdvanced>1</ComponentAdvanced>
 			<Weapon_Parts>1</Weapon_Parts>
 		</smeltProducts>
 	</ThingDef>

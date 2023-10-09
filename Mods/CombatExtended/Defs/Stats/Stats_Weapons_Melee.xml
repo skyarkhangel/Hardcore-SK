@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
   <StatDef>
@@ -12,6 +12,55 @@
 	<toStringStyle>FloatTwo</toStringStyle>
   </StatDef>
 
+  <!-- Used for stuffable weapons. Multiplies the material's sharp armour by this stat's value. -->
+  <StatDef>
+    <defName>StuffEffectMultiplierToughness</defName>
+    <label>Toughness - Material effect multiplier</label>
+    <category>Weapon</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <alwaysHide>true</alwaysHide>
+    <displayPriorityInCategory>1</displayPriorityInCategory>
+  </StatDef>
+
+  <!-- Base value for toughness. Acts as a base for further final value modifiers. Final value is (ToughnessRating + StuffEffectMultiplierToughness * StuffPower_Armor_Sharp) * Modifiers. -->
+  <StatDef ParentName="ArmorRatingBase">
+    <defName>ToughnessRating</defName>
+    <label>Toughness</label>
+    <labelForFullStatList>Toughness (weapon stat)</labelForFullStatList>
+		<description>Mitigation effect on damage taken by a weapon when it is used to parry an attack.\n\nAgainst blunt attacks, this rating is multiplied by 1.5 and is considered as the blunt armor rating, otherwise it's taken as it is as sharp armor rating. This rating is compared against the attack's armor penetration, then the damage is reduced by the ratio of remaining to initial penetration and by a flat 50% factor (e.g: if 8mm RHA toughness weapon is used to parry a 15 MPa blunt attack, the weapon will take 10% of the damage).\n\nThis stat is affected by the skill of the user.\n\nWe suggest to read the description of sharp and blunt armor ratings to find more in-depth info about how the damage is affected.</description>
+	<category>Weapon</category>
+    <displayPriorityInCategory>6</displayPriorityInCategory>
+	<toStringStyle>FloatMaxTwo</toStringStyle>
+	<showOnDefaultValue>true</showOnDefaultValue>
+    <workerClass>CombatExtended.StatWorker_WeaponToughness</workerClass>
+    <formatString>{0} mm RHA</formatString>
+    <parts Inherit="False">
+      <li Class="StatPart_Stuff">
+        <priority>100</priority>
+        <stuffPowerStat>StuffPower_Armor_Sharp</stuffPowerStat>
+        <multiplierStat>StuffEffectMultiplierToughness</multiplierStat>
+      </li>
+      <li Class="StatPart_Quality">
+        <factorAwful>0.5</factorAwful>
+        <factorPoor>0.75</factorPoor>
+        <factorNormal>1</factorNormal>
+        <factorGood>1.15</factorGood>
+        <factorExcellent>1.3</factorExcellent>
+        <factorMasterwork>1.5</factorMasterwork>
+        <factorLegendary>1.75</factorLegendary>
+      </li>
+      <li Class="StatPart_Health">
+        <curve>
+          <points>
+            <li>(0, 0.25)</li>
+            <li>(0.8, 1.0)</li>
+          </points>
+        </curve>
+      </li>
+    </parts>
+  </StatDef>
+  
   <StatDef>
     <defName>MeleePenetrationFactor</defName>
 	<workerClass>CombatExtended.StatWorker_MeleeStats</workerClass>
@@ -23,12 +72,12 @@
     <showIfUndefined>true</showIfUndefined>
     <parts>
       <li Class="StatPart_Quality">
-        <factorAwful>0.5</factorAwful>
+        <factorAwful>0.65</factorAwful>
         <factorPoor>0.85</factorPoor>
         <factorNormal>1</factorNormal>
         <factorGood>1.1</factorGood>
-        <factorExcellent>1.3</factorExcellent>
-        <factorMasterwork>1.4</factorMasterwork>
+        <factorExcellent>1.2</factorExcellent>
+        <factorMasterwork>1.35</factorMasterwork>
         <factorLegendary>1.5</factorLegendary>
       </li>
       <li Class="StatPart_Health">
@@ -43,7 +92,7 @@
     <displayPriorityInCategory>5</displayPriorityInCategory>
   </StatDef>
 
-<!--
+	<!--
   <StatDef ParentName="MeleeArmorPenetrationBase">
     <defName>MeleeArmorPenetration_Weapon</defName>
     <category>Weapon</category>
@@ -55,7 +104,7 @@
       <defName>MeleeCounterParryBonus</defName>
 	  <workerClass>CombatExtended.StatWorker_MeleeStats</workerClass>
       <label>melee counter parry bonus</label>
-      <description>When attacking an opponent with this weapon, the opponent's parry chance is divided by this value.\n\nThis is applied prior to determining the final parry chance.</description>
+      <description>When attacking an opponent with this weapon, the attacker's parry chance is multiplied by this value plus one.</description>
       <category>Weapon</category>
       <defaultBaseValue>1</defaultBaseValue>
       <toStringStyle>FloatTwo</toStringStyle>

@@ -38,13 +38,29 @@
 					</li>
 				</forcedRaceTraitEntries>
 				<alienPartGenerator>
-					<aliencrowntypes>
-						<li>Average_Normal</li>
-					</aliencrowntypes>
-					<alienbodytypes>
+					<headTypes>
+						<li>Male_AverageNormal</li>
+						<li>Female_AverageNormal</li>
+					</headTypes>
+					<bodyTypes>
+						<li MayRequire="Ludeon.RimWorld.Biotech">Baby</li>
+						<li MayRequire="Ludeon.RimWorld.Biotech">Child</li>
 						<li>Female</li>
-					</alienbodytypes>
+					</bodyTypes>
+					<!--<getsGreyAt>1000</getsGreyAt>-->
+					<oldHairAgeRange>1000.0~1200.0</oldHairAgeRange>
 					<colorChannels>
+						<!--<li>
+							<name>skin</name>
+							<first Class="AlienRace.ColorGenerator_SkinColorMelanin">
+							  <minMelanin>0</minMelanin>
+							  <maxMelanin>1</maxMelanin>
+							  <naturalMelanin>false</naturalMelanin>
+							</first>
+							<second Class="AlienRace.ColorGenerator_CustomAlienChannel">
+							  <colorChannel>skin_1</colorChannel>
+							</second>
+						</li>-->
 						<li>
 							<name>skin</name>
 							<first Class="ColorGenerator_Options">
@@ -67,6 +83,9 @@
 									</li>
 								</options>
 							</first>
+							<second Class="AlienRace.ColorGenerator_CustomAlienChannel">
+							  <colorChannel>skin_1</colorChannel>
+							</second>
 						</li>
 						<li>
 							<name>tattoo</name>
@@ -80,15 +99,54 @@
 							</first>
 						</li>
 					</colorChannels>
+					<bodyAddons>
+					</bodyAddons>
 					<customDrawSize>(1.0, 1.0)</customDrawSize>
 					<customPortraitDrawSize>(1.0, 1.0)</customPortraitDrawSize>
 				</alienPartGenerator>
+				<growthAges>
+				  <li>8</li>
+				  <li>11</li>
+				  <li>14</li>
+				</growthAges>
+				<reproduction>
+					<femaleFertilityAgeFactor>
+					  <points>
+						<li>(14, 0)</li>
+						<li>(20, 1)</li>
+						<li>(300, 1)</li>
+						<li>(600, 0.5)</li>
+						<li>(800, 0.1)</li>
+						<li>(1000, 0.02)</li>
+						<li>(1200, 0)</li>
+					  </points>
+					</femaleFertilityAgeFactor>
+					<maleFertilityAgeFactor>
+					  <points>
+						<li>(14, 0)</li>
+						<li>(18, 1)</li>
+						<li>(800, 1)</li>
+						<li>(1200, 0)</li>
+					  </points>
+					</maleFertilityAgeFactor>
+				</reproduction>
 			</generalSettings>
 			<graphicPaths>
-				<li>
-					<head>Things/Pawn/Humanlike/Asari/Head/</head>
-					<body>Things/Pawn/Humanlike/Asari/Body/</body>
-				</li>
+				<head>
+					<path>Things/Pawn/Humanlike/Asari/Head/</path>
+					<headtypeGraphics>
+					  <Male_AverageNormal>Things/Pawn/Humanlike/Asari/Head/Male_Average_Normal</Male_AverageNormal>
+					  <Female_AverageNormal>Things/Pawn/Humanlike/Asari/Head/Female_Average_Normal</Female_AverageNormal>
+					</headtypeGraphics>
+				</head>
+				<body>
+					<path>Things/Pawn/Humanlike/Asari/Body/</path>
+					<bodytypeGraphics>
+						<Female>Things/Pawn/Humanlike/Asari/Body/Naked_Female</Female>
+						<Child MayRequire="Ludeon.RimWorld.Biotech">Things/Pawn/Humanlike/Bodies/Child/Naked_Child</Child>
+						<Baby MayRequire="Ludeon.RimWorld.Biotech">Things/Pawn/Humanlike/Bodies/Naked_Baby</Baby>
+					</bodytypeGraphics>
+				</body>
 			</graphicPaths>
 			<styleSettings>
 				<li>
@@ -107,6 +165,15 @@
 						<styleTagsOverride>
 							<li>NoBeard</li>
 						</styleTagsOverride>
+					</value>
+				</li>
+				<li>
+					<key>TattooDef</key>
+					<value>
+						<hasStyle>false</hasStyle>
+						<styleTags>
+                            <li>AsariTattoo</li>
+                        </styleTags>
 					</value>
 				</li>
 			</styleSettings>
@@ -151,15 +218,25 @@
 						<ingredientThought>AteHumanlikeMeatAsIngredientCannibal</ingredientThought>
 					</li>
 				</ateThoughtSpecific>
-			</thoughtSettings>			
+			</thoughtSettings>
+			<raceRestriction>
+				<blackEndoCategories MayRequire="Ludeon.RimWorld.Biotech">
+				  <li>Melanin</li> <!-- this was commented out -->
+				  <!--<li>HairColor</li>-->
+				  <li>Head</li>
+				</blackEndoCategories>
+				<whiteXenotypeList>
+					<li MayRequire="Ludeon.RimWorld.Biotech">Baseline_Asari</li>
+				</whiteXenotypeList>
+			</raceRestriction>
 		</alienRace>
 		<statBases>
 			<Mass>65</Mass>
 			<PsychicSensitivity>1.5</PsychicSensitivity>
-			<StuffPower_Armor_Heat>0.5</StuffPower_Armor_Heat>
+			<ArmorRating_Heat>0.5</ArmorRating_Heat>
 			<ImmunityGainSpeed>1.2</ImmunityGainSpeed>
 			<GlobalLearningFactor>1.2</GlobalLearningFactor>
-			<ToxicSensitivity>0.75</ToxicSensitivity>
+			<ToxicResistance>0.25</ToxicResistance>
 			<MarketValue>6000</MarketValue>
 			<MoveSpeed>5.0</MoveSpeed>
 			<Flammability>1</Flammability>
@@ -239,16 +316,20 @@
 					<minAge>0</minAge>
 				</li>
 				<li>
-					<def>AsariToddler</def>
+					<def>HumanlikeChild</def>
+					<minAge>4</minAge>
+				</li>
+				<li MayRequire="Ludeon.RimWorld.Biotech">
+					<def>AsariPreTeenager</def>
 					<minAge>8</minAge>
 				</li>
 				<li>
-					<def>AsariChild</def>
+					<def>AsariTeenager</def>
 					<minAge>14</minAge>
 				</li>
 				<li>
-					<def>AsariTeenager</def>
-					<minAge>30</minAge>
+					<def>HumanlikeAdult</def>
+					<minAge>22</minAge>
 				</li>
 				<li>
 					<def>AsariAdultMaiden</def>
@@ -272,7 +353,17 @@
 			</specialShadowData>
 			<ageGenerationCurve Inherit="false">
 				<points>
-					<li>(20,0)</li>
+					<li MayRequire="Ludeon.RimWorld.Biotech">(0,0)</li>
+					<li MayRequire="Ludeon.RimWorld.Biotech">(0.001,0)</li>
+					<li MayRequire="Ludeon.RimWorld.Biotech">(8,86)</li>
+					<li MayRequire="Ludeon.RimWorld.Biotech">(12.5,0)</li>  <!-- Exclude 12.5-13 years to avoid spawning pawns who are very close to becoming adults -->  
+					<li MayRequire="Ludeon.RimWorld.Biotech">(12.51,0)</li>  
+					<li MayRequire="Ludeon.RimWorld.Biotech">(13,0)</li>      
+					<li MayRequire="Ludeon.RimWorld.Biotech">(13.001,0)</li><!-- End exclude -->
+					<li MayRequire="Ludeon.RimWorld.Biotech">(13.999,0)</li>
+					<li>(14,0)</li>
+					<li MayRequire="Ludeon.RimWorld.Biotech">(14.001,30)</li>
+					<li>(20,60)</li>
 					<li>(20,100)</li>
 					<li>(50,100)</li>
 					<li>(600,30)</li>
