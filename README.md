@@ -44,11 +44,11 @@ For Windows users:
 
 ### Manual installation
 
-[Master:](https://github.com/skyarkhangel/Hardcore-SK/tree/master) - The stable version/branch of the project usually a version behind the latest Rimworld. Currently for version 1.3.
+[Master:](https://github.com/skyarkhangel/Hardcore-SK/tree/master) - The stable version/branch of the project usually a version behind the latest Rimworld. Currently for version 1.4.
 
 [Development:](https://github.com/skyarkhangel/Hardcore-SK/tree/development) - The work-in-progress version which contains the latest content for the latest version of rimworld, but is more likely to contain bugs. Already for latest version 1.4.
 
-1. Install either the [development](https://github.com/skyarkhangel/Hardcore-SK/tree/development) branch for version 1.4 or [master](https://github.com/skyarkhangel/Hardcore-SK/tree/master) for 1.3.
+1. Install either the [development](https://github.com/skyarkhangel/Hardcore-SK/tree/development) branch for version 1.4 Development or [master](https://github.com/skyarkhangel/Hardcore-SK/tree/master) for 1.4 Stable.
 
 2. Go to the folder you installed the game in and delete all mods inside your `Rimworld\Mods\` folder.
 
