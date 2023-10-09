@@ -20,7 +20,7 @@ This project has language support for English, Russian, and partial support for 
 
 ### Project launcher (Windows only)
 
-* **Download installer:** <https://hardcore-sk.ru/installer/HSK-Launcher-Setup.exe>
+* **Download installer:** <https://github.com/skyarkhangel/HSK-Launcher>
 * **Mirror:** <https://drive.google.com/file/d/1jk8Rv1Vy30_aY1ZHNA9whCnFxyeW8eSU>
 
 #### Features
@@ -85,8 +85,8 @@ These are some extensive and unique mods which are not derivative of others and 
 
 The HSK community also manages a list of mods which can be found on our Discord channel:
 
-* **Known Compatible Optional Mods:** <https://discord.com/channels/272340793174392832/994316234915061891>
-* **Patched Optional Mods:** <https://discord.com/channels/272340793174392832/880973340653809714>
+* **Known Compatible Optional Mods:** <https://discord.com/channels/272340793174392832/1029866379974803468>
+* **Patched Optional Mods:** <https://discord.com/channels/272340793174392832/1029833992385597522>
 
 Other mods which are not included in this project are not recommended.
 
