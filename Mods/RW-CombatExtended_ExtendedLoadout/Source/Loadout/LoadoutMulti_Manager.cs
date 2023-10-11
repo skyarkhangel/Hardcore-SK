@@ -95,7 +95,7 @@ public static class LoadoutMulti_Manager
 
     public static Loadout GetLoadout(Pawn pawn)
     {
-        if (!assignedLoadoutsMulti.ContainsKey(pawn) || !assignedLoadoutsMulti.TryGetValue(pawn, out var loadout))
+        if (!assignedLoadoutsMulti.TryGetValue(pawn, out var loadout))
         {
             loadout = new Loadout_Multi(pawn);
             assignedLoadoutsMulti.Add(pawn, loadout);
