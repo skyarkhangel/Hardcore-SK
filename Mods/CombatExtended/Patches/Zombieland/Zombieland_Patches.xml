@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Patch>
 
 	<Operation Class="PatchOperationFindMod">
@@ -83,12 +83,95 @@
 					</value>
 				</li>
 
+				<!-- ===== Zombie Spitter ===== -->
+
+				<li Class="PatchOperationConditional">
+					<xpath>Defs/BodyDef[defName="ZombieSpitterBody"]/corePart/groups</xpath>
+					<nomatch Class="PatchOperationAdd">
+						<xpath>Defs/BodyDef[defName="ZombieSpitterBody"]/corePart</xpath>
+						<value>
+							<groups>
+								<li>CoveredByNaturalArmor</li>
+							</groups>
+						</value>
+					</nomatch>
+					<match Class="PatchOperationAdd">
+						<xpath>Defs/BodyDef[defName="ZombieSpitterBody"]/corePart/groups</xpath>
+						<value>
+							<li>CoveredByNaturalArmor</li>
+						</value>
+					</match>
+				</li>
+
 				<li Class="PatchOperationAddModExtension">
-				  <xpath>Defs/DamageDef[defName="ZombieBite"]</xpath>
+					<xpath>Defs/ThingDef[defName="ZombieSpitter"]</xpath>
+					<value>
+						<li Class="CombatExtended.RacePropertiesExtensionCE">
+							<bodyShape>QuadrupedLow</bodyShape>
+						</li>
+					</value>
+				</li>
+
+				<li Class="PatchOperationReplace">
+					<xpath>Defs/ThingDef[defName="ZombieSpitter"]/statBases/ArmorRating_Blunt</xpath>
+					<value>
+						<ArmorRating_Blunt>20</ArmorRating_Blunt>
+					</value>
+				</li>
+
+				<li Class="PatchOperationReplace">
+					<xpath>Defs/ThingDef[defName="ZombieSpitter"]/statBases/ArmorRating_Sharp</xpath>
+					<value>
+						<ArmorRating_Sharp>16</ArmorRating_Sharp>
+					</value>
+				</li>
+
+				<li Class="PatchOperationConditional">
+					<xpath>Defs/ThingDef[defName="ZombieSpitter"]/comps</xpath>
+					<nomatch Class="PatchOperationAdd">
+						<xpath>Defs/ThingDef[defName="ZombieSpitter"]</xpath>
+						<value>
+							<comps />
+						</value>
+					</nomatch>
+				</li>
+
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/ThingDef[defName="ZombieSpitter"]/comps</xpath>
+					<value>
+						<li Class="CombatExtended.CompProperties_ArmorDurability">
+							<Durability>2000</Durability>
+							<Regenerates>false</Regenerates>
+							<RegenInterval>600</RegenInterval>
+							<RegenValue>5</RegenValue>
+							<MinArmorPct>0.5</MinArmorPct>
+						</li>
+					</value>
+				</li>
+
+				<!-- ===== Misc Stuff ===== -->
+
+				<li Class="PatchOperationReplace">
+					<xpath>Defs/ThingDef[defName="Chainsaw"]/tools</xpath>
 				  <value>
-					  <li Class="CombatExtended.DamageDefExtensionCE">
-						  <harmOnlyOutsideLayers>true</harmOnlyOutsideLayers>
+						<tools>
+							<li Class="CombatExtended.ToolCE">
+								<label>blade</label>
+								<capacities>
+									<li>Cut</li>
+								</capacities>
+								<power>4</power>
+								<cooldownTime>0.25</cooldownTime>
+								<armorPenetrationSharp>0.5</armorPenetrationSharp>
 					  </li>
+						</tools>
+					</value>
+				</li>
+
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/ThingDef[defName="Chainsaw"]/statBases</xpath>
+					<value>
+						<Bulk>5</Bulk>
 				  </value>
 				</li>
 

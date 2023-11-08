@@ -29,7 +29,7 @@ public class JobGiver_UpdateLoadout_FindPickup_LambdaValidator_Patch
     {
         string version = Assembly.GetAssembly(typeof(JobGiver_UpdateLoadout)).GetName().Version.ToString();
         Log.Message("Combat Extended ver " + version + " Loaded");
-        if (version == "1.1.2.1")
+        if (version == "1.1.2.0")
             innerType = AccessTools.Inner(typeof(JobGiver_UpdateLoadout), "<>c__DisplayClass9_0");
         return AccessTools.Method(innerType, "<FindPickup>b__3");
     }
