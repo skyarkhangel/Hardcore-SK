@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/MainButtonDef[defName="Achievements"]</xpath>
+    <success>Always</success>
+    <match Class="PatchOperationSequence">
+      <success>Always</success>
+      <operations>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs</xpath>
+          <value>
+            <AchievementsExpanded.AchievementTabDef>
+              <defName>Mlie_Originals</defName>
+              <label>Mlies Mods</label>
+            </AchievementsExpanded.AchievementTabDef>
+          </value>
+        </li>
+        <li Class="PatchOperationConditional">
+          <success>Always</success>
+          <xpath>/Defs/AchievementsExpanded.AchievementDef[@Name="Mlie_OriginalAchievementParent"]</xpath>
+          <nomatch Class="PatchOperationAdd">
+            <xpath>Defs</xpath>
+            <value>
+              <AchievementsExpanded.AchievementDef Name="Mlie_OriginalAchievementParent" Abstract="true">
+                <bgtexPath>Achievements/OriginalAchievmentsBG</bgtexPath>
+                <tab>Mlie_Originals</tab>
+              </AchievementsExpanded.AchievementDef>
+            </value>
+          </nomatch>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs</xpath>
+          <value>
+            <AchievementsExpanded.AchievementDef ParentName="Mlie_OriginalAchievementParent">
+              <defName>ABE_GoAway</defName>
+              <label>Go away</label>
+              <description>Turn away 10 visitor groups</description>
+              <tracker Class="AskBeforeEnter.RefusalTracker">
+                <count>10</count>
+              </tracker>
+              <texPath>Achievements/ABE_GoAway</texPath>
+              <points>10</points>
+            </AchievementsExpanded.AchievementDef>
+          </value>
+        </li>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs</xpath>
+          <value>
+            <AchievementsExpanded.AchievementDef ParentName="Mlie_OriginalAchievementParent">
+              <defName>ABE_ISaidGoAway</defName>
+              <label>I said go away!</label>
+              <description>Turn away 25 visitor groups</description>
+              <tracker Class="AskBeforeEnter.RefusalTracker">
+                <count>25</count>
+              </tracker>
+              <texPath>Achievements/ABE_ISaidGoAway</texPath>
+              <points>25</points>
+            </AchievementsExpanded.AchievementDef>
+          </value>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+</Patch>
