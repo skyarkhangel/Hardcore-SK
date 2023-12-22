@@ -52,7 +52,7 @@ For Windows users:
 
 2. Go to the folder you installed the game in and delete all mods inside your `Rimworld\Mods\` folder.
 
-3. Open up the downloaded Hardcore SK .zip file. Extract everything in the `Hardcore-SK-master\Mods\` OR `Hardcore-SK-Development\Mods\` `Hardcore-SK-Alpha\Mods\ OR folder into your empty `Rimworlds\Mods\` folder.
+3. Open up the downloaded Hardcore SK .zip file. Extract everything in the `Hardcore-SK-master\Mods\` OR `Hardcore-SK-Development\Mods\` OR `Hardcore-SK-Alpha\Mods\` folder into your empty `Rimworlds\Mods\` folder.
 
 4. Go to the RimWorld config folder and delete all the files that exist in that folder. Copy "`ModsConfig.xml`", which is at the root of the archive modpack. 
 
