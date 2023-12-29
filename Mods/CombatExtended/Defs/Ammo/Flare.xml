@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!-- ==================== ThingCategoryDef ========================== -->
+
+	<ThingCategoryDef>
+		<defName>AmmoFlare</defName>
+		<label>flare</label>
+		<parent>AmmoShotguns</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberFlare</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_Flare</defName>
+		<label>flare shell</label>
+		<ammoTypes>
+			<Ammo_Flare>Bullet_Flare</Ammo_Flare>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="FlareBase" ParentName="SmallAmmoBase" Abstract="True">
+		<description>A flare round for illumination.</description>
+		<statBases>
+			<Mass>0.023</Mass>
+			<Bulk>0.06</Bulk>
+		</statBases>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting</li>
+		</tradeTags>
+		<thingCategories>
+			<li>AmmoFlare</li>
+		</thingCategories>
+		<stackLimit>2000</stackLimit>
+	</ThingDef>
+
+	<ThingDef>
+		<defName>Flare</defName>
+		<label>Flare</label>
+		<thingClass>CombatExtended.Flare</thingClass>
+		<tickerType>Normal</tickerType>
+		<drawerType>RealtimeOnly</drawerType>
+		<drawOffscreen>true</drawOffscreen>
+		<altitudeLayer>MoteOverheadLow</altitudeLayer>
+		<comps>
+			<li Class="CompProperties_Glower">
+				<glowRadius>17</glowRadius>
+				<glowColor>(255, 204, 128)</glowColor>
+			</li>
+			<li Class="CompProperties_HeatPusher">
+				<compClass>CompHeatPusherPowered</compClass>
+				<heatPerSecond>30</heatPerSecond>
+				<heatPushMaxTemperature>100</heatPushMaxTemperature>
+			</li>
+		</comps>
+		<graphicData>
+			<graphicClass>Graphic_Single</graphicClass>
+			<texPath>Things/Mote/BrightFlash</texPath>
+			<shaderType>MoteGlow</shaderType>
+			<color>(255, 204, 0)</color>
+		</graphicData>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="FlareBase">
+		<defName>Ammo_Flare</defName>
+		<label>flare round</label>
+		<graphicData>
+			<texPath>Things/Ammo/Flare</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+			<drawSize>0.5</drawSize>
+		</graphicData>
+		<statBases>
+			<Mass>0.048</Mass>
+			<MarketValue>0.2</MarketValue>
+		</statBases>
+		<ammoClass>Flare</ammoClass>
+		<cookOffProjectile>Bullet_Flare</cookOffProjectile>
+	</ThingDef>
+
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef Name="BaseFlareBullet" ParentName="BaseBulletCE" Abstract="true">
+		<thingClass>CombatExtended.ProjectileCE_Flare</thingClass>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>0</speed>
+			<flyOverhead>true</flyOverhead>
+			<dropsCasings>false</dropsCasings>
+			<gravityFactor>5</gravityFactor>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseFlareBullet">
+		<defName>Bullet_Flare</defName>
+		<label>flare</label>
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_big</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Smoke</damageDef>
+			<suppressionFactor>0.0</suppressionFactor>
+			<dangerFactor>0.0</dangerFactor>
+			<armorPenetrationSharp>0</armorPenetrationSharp>
+			<armorPenetrationBlunt>0</armorPenetrationBlunt>
+		</projectile>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeAmmo_Flare</defName>
+		<label>make flare x200</label>
+		<description>Craft 200 flare shells.</description>
+		<jobString>Making flare shells.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>20</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Prometheum</li>
+					</thingDefs>
+				</filter>
+				<count>3</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>Prometheum</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_Flare>200</Ammo_Flare>
+		</products>
+		<workAmount>2000</workAmount>
+	</RecipeDef>
+
+</Defs>

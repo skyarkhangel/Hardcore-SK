@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>Ammo8x40mmCharged</defName>
+		<label>8x40mm Charged</label>
+		<parent>AmmoAdvanced</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberCharge</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_8x40mmCharged</defName>
+		<label>8x40mm Charged</label>
+		<ammoTypes>
+			<Ammo_8x40mmCharged>Bullet_8x40mmCharged</Ammo_8x40mmCharged>
+		</ammoTypes>
+		<similarTo>AmmoSet_MechCharged</similarTo>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="8x40mmChargedBase" ParentName="SpacerAmmoBase" Abstract="True">
+		<description>Mechanoid-built high power charged shot ammo used in long range assault weapons.</description>
+		<statBases>
+			<Mass>0.021</Mass>
+			<Bulk>0.01</Bulk>
+		</statBases>
+		<thingCategories>
+			<li>Ammo8x40mmCharged</li>
+		</thingCategories>
+		<tradeTags>
+			<li>CE_AutoEnableTrade_Sellable</li>
+			<li MayRequire="Ludeon.RimWorld.Biotech">CE_AutoEnableCrafting_FabricationBench</li>
+		</tradeTags>
+		<stackLimit>5000</stackLimit>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="8x40mmChargedBase">
+		<defName>Ammo_8x40mmCharged</defName>
+		<label>8x40mm Charged</label>
+		<graphicData>
+			<texPath>Things/Ammo/Charged/MediumMech</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>0.49</MarketValue><!-- value intentionally decreased to help reduce wealth bloat/free silver -->
+		</statBases>
+		<ammoClass>Charged</ammoClass>
+	</ThingDef>
+
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef Name="Base8x40mmChargedBullet" ParentName="BaseBulletCE" Abstract="true">
+		<graphicData>
+			<texPath>Things/Projectile/Charged/ChargeShot</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(1.15,1.15)</drawSize>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bullet</damageDef>
+			<speed>178</speed>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="Base8x40mmChargedBullet">
+		<defName>Bullet_8x40mmCharged</defName>
+		<label>8x40mm Charged bullet</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageAmountBase>22</damageAmountBase>
+			<secondaryDamage>
+				<li>
+					<def>Bomb_Secondary</def>
+					<amount>7</amount>
+				</li>
+			</secondaryDamage>
+			<armorPenetrationSharp>16</armorPenetrationSharp>
+			<armorPenetrationBlunt>90</armorPenetrationBlunt>
+		</projectile>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef ParentName="ChargeAmmoRecipeBase" MayRequire="Ludeon.RimWorld.Biotech">
+		<defName>MakeAmmo_8x40mmCharged</defName>
+		<label>make 8x40mm Charged cartridge x500</label>
+		<description>Craft 500 8x40mm Charged cartridges.</description>
+		<jobString>Making 8x40mm Charged cartridges.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Plasteel</li>
+					</thingDefs>
+				</filter>
+				<count>18</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>12</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>9</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Plasteel</li>
+				<li>Steel</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_8x40mmCharged>500</Ammo_8x40mmCharged>
+		</products>
+		<workAmount>15180</workAmount><!-- 10% more work -->
+		<skillRequirements>
+			<Crafting>8</Crafting>
+		</skillRequirements>
+	</RecipeDef>
+
+</Defs>

@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>Ammo57mmRocket</defName>
+		<label>57mm Rocket</label>
+		<parent>AmmoRockets</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberRocket</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_57mmRocket_direct</defName>
+		<label>57mm Rocket</label>
+		<ammoTypes>
+			<Ammo_57mmRocket_HE>Bullet_57mmRocket_HE</Ammo_57mmRocket_HE>
+			<Ammo_57mmRocket_HEAT>Bullet_57mmRocket_HEAT</Ammo_57mmRocket_HEAT>
+			<Ammo_57mmRocket_Thermobaric>Bullet_57mmRocket_Thermobaric</Ammo_57mmRocket_Thermobaric>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_57mmRocket_indirect</defName>
+		<label>57mm Rocket</label>
+		<ammoTypes>
+			<Ammo_57mmRocket_HE>Bullet_57mmRocket_HE_indirect</Ammo_57mmRocket_HE>
+			<Ammo_57mmRocket_HEAT>Bullet_57mmRocket_HEAT_indirect</Ammo_57mmRocket_HEAT>
+			<Ammo_57mmRocket_Thermobaric>Bullet_57mmRocket_Thermobaric_indirect</Ammo_57mmRocket_Thermobaric>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="57mmRocketBase" ParentName="MediumAmmoBase" Abstract="True">
+		<description>An unguided rocket launched from 57mm tubes and equipped with 55mm explosive warhead.</description>
+		<statBases>
+			<MaxHitPoints>150</MaxHitPoints>
+		</statBases>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting_TableMachining</li>
+		</tradeTags>
+		<thingCategories>
+			<li>Ammo57mmRocket</li>
+		</thingCategories>
+		<stackLimit>25</stackLimit>
+		<cookOffFlashScale>25</cookOffFlashScale>
+		<cookOffSound>MortarBomb_Explode</cookOffSound>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="50mmRocketBase">
+		<defName>Ammo_57mmRocket_HE</defName>
+		<label>57mm rocket (HE)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Rocket/57mmS5/HE</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>67.77</MarketValue>
+			<Mass>4.82</Mass>
+			<Bulk>7.05</Bulk>
+		</statBases>
+		<ammoClass>RocketHE</ammoClass>
+		<detonateProjectile>Bullet_57mmRocket_HE</detonateProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="50mmRocketBase">
+		<defName>Ammo_57mmRocket_HEAT</defName>
+		<label>57mm rocket (HEAT)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Rocket/57mmS5/HEAT</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>50.52</MarketValue>
+			<Mass>4.5</Mass>
+			<Bulk>7.04</Bulk>
+		</statBases>
+		<ammoClass>RocketHEAT</ammoClass>
+		<detonateProjectile>Bullet_57mmRocket_HEAT</detonateProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="50mmRocketBase">
+		<defName>Ammo_57mmRocket_Thermobaric</defName>
+		<label>57mm rocket (Thermobaric)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Rocket/57mmS5/Thermobaric</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>71.7</MarketValue>
+			<Mass>5.01</Mass>
+			<Bulk>7.7</Bulk>
+		</statBases>
+		<ammoClass>RocketThermobaric</ammoClass>
+		<detonateProjectile>Bullet_57mmRocket_Thermobaric</detonateProjectile>
+	</ThingDef>
+
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef Name="Base57mmRocket" ParentName="BaseExplosiveBullet" Abstract="true">
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		<graphicData>
+			<texPath>Things/Projectile/Rocket/70mmAPKWS</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>TransparentPostLight</shaderType>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>120</speed>
+			<soundAmbient>RocketPropelledLoop_Small</soundAmbient>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef Name="Base57mmRocket_indirect" ParentName="Base57mmRocket" Abstract="true">
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>0</speed>
+			<dropsCasings>false</dropsCasings>
+			<flyOverhead>true</flyOverhead>
+			<gravityFactor>5</gravityFactor>
+			<shellingProps>
+				<iconPath>Things/WorldObjects/Munitions/Rocket</iconPath>
+				<tilesPerTick>0.35</tilesPerTick>
+				<range>12</range>
+				<damage>0.43</damage>
+			</shellingProps>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base57mmRocket">
+		<defName>Bullet_57mmRocket_HE</defName>
+		<label>57mm Rocket (HE)</label>
+		<graphicData>
+			<texPath>Things/Projectile/Rocket/S5/HE</texPath>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bomb</damageDef>
+			<damageAmountBase>187</damageAmountBase>
+			<explosionRadius>3</explosionRadius>
+			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Large>13</Fragment_Large>
+					<Fragment_Small>34</Fragment_Small>
+				</fragments>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base57mmRocket">
+		<defName>Bullet_57mmRocket_HEAT</defName>
+		<label>57mm Rocket (HEAT)</label>
+		<thingClass>CombatExtended.BulletCE</thingClass>
+		<graphicData>
+			<texPath>Things/Projectile/Rocket/S5/HEAT</texPath>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>158</damageAmountBase>
+			<armorPenetrationSharp>172</armorPenetrationSharp>
+			<armorPenetrationBlunt>26.312</armorPenetrationBlunt>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<damageAmountBase>88</damageAmountBase>
+				<explosiveDamageType>Bomb</explosiveDamageType>
+				<explosiveRadius>1</explosiveRadius>
+				<explosionSound>MortarBomb_Explode</explosionSound>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			</li>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Large>8</Fragment_Large>
+					<Fragment_Small>5</Fragment_Small>
+				</fragments>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base57mmRocket">
+		<defName>Bullet_57mmRocket_Thermobaric</defName>
+		<label>57mm Rocket (Thermobaric)</label>
+		<graphicData>
+			<texPath>Things/Projectile/Rocket/S5/Thermobaric</texPath>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Thermobaric</damageDef>
+			<damageAmountBase>160</damageAmountBase>
+			<explosionRadius>3.5</explosionRadius>
+			<armorPenetrationSharp>0</armorPenetrationSharp>
+			<armorPenetrationBlunt>0</armorPenetrationBlunt>
+			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<ai_IsIncendiary>true</ai_IsIncendiary>
+		</projectile>
+	</ThingDef>
+	
+	<!-- indirect -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base57mmRocket_indirect">
+		<defName>Bullet_57mmRocket_HE_indirect</defName>
+		<label>57mm Rocket (HE)</label>
+		<graphicData>
+			<texPath>Things/Projectile/Rocket/S5/HE</texPath>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bomb</damageDef>
+			<damageAmountBase>187</damageAmountBase>
+			<explosionRadius>3</explosionRadius>
+			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Large>13</Fragment_Large>
+					<Fragment_Small>34</Fragment_Small>
+				</fragments>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base57mmRocket_indirect">
+		<defName>Bullet_57mmRocket_HEAT_indirect</defName>
+		<label>57mm Rocket (HEAT)</label>
+		<thingClass>CombatExtended.BulletCE</thingClass>
+		<graphicData>
+			<texPath>Things/Projectile/Rocket/S5/HEAT</texPath>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>158</damageAmountBase>
+			<armorPenetrationSharp>172</armorPenetrationSharp>
+			<armorPenetrationBlunt>26.312</armorPenetrationBlunt>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<damageAmountBase>88</damageAmountBase>
+				<explosiveDamageType>Bomb</explosiveDamageType>
+				<explosiveRadius>1</explosiveRadius>
+				<explosionSound>MortarBomb_Explode</explosionSound>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			</li>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Large>8</Fragment_Large>
+					<Fragment_Small>5</Fragment_Small>
+				</fragments>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base57mmRocket_indirect">
+		<defName>Bullet_57mmRocket_Thermobaric_indirect</defName>
+		<label>57mm Rocket (Thermobaric)</label>
+		<graphicData>
+			<texPath>Things/Projectile/Rocket/S5/Thermobaric</texPath>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Thermobaric</damageDef>
+			<damageAmountBase>160</damageAmountBase>
+			<explosionRadius>3.5</explosionRadius>
+			<armorPenetrationSharp>0</armorPenetrationSharp>
+			<armorPenetrationBlunt>0</armorPenetrationBlunt>
+			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<ai_IsIncendiary>true</ai_IsIncendiary>
+		</projectile>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef ParentName="LauncherAmmoRecipeBase">
+		<defName>MakeAmmo_57mmRocket_HE</defName>
+		<label>make 57mm HE rockets x5</label>
+		<description>Craft 5 57mm HE rockets.</description>
+		<jobString>Making 57mm HE rockets.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>50</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>FSX</li>
+					</thingDefs>
+				</filter>
+				<count>14</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>FSX</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_57mmRocket_HE>5</Ammo_57mmRocket_HE>
+		</products>
+		<workAmount>13000</workAmount>
+	</RecipeDef>
+
+	<RecipeDef ParentName="LauncherAmmoRecipeBase">
+		<defName>MakeAmmo_57mmRocket_HEAT</defName>
+		<label>make 57mm HEAT rockets x5</label>
+		<description>Craft 5 57mm HEAT rockets.</description>
+		<jobString>Making 57mm HEAT rockets.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>46</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>FSX</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>FSX</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_57mmRocket_HEAT>5</Ammo_57mmRocket_HEAT>
+		</products>
+		<workAmount>8600</workAmount>
+	</RecipeDef>
+
+	<RecipeDef ParentName="LauncherAmmoRecipeBase">
+		<defName>MakeAmmo_57mmRocket_Thermobaric</defName>
+		<label>make 57mm thermobaric rockets x5</label>
+		<description>Craft 5 57mm thermobaric rockets.</description>
+		<jobString>Making 57mm thermobaric rockets.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>52</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>FSX</li>
+					</thingDefs>
+				</filter>
+				<count>16</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>FSX</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_57mmRocket_Thermobaric>5</Ammo_57mmRocket_Thermobaric>
+		</products>
+		<workAmount>14000</workAmount>
+	</RecipeDef>
+
+</Defs>
