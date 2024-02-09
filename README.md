@@ -106,7 +106,7 @@ JailBot, Dibbura, donnie, ignorer, korovyev, NiciusB, Nightray, Vuursteen and Е
 * **Discord moderators** - Ziemens, MightyGooga, GG, Szara Kryik, Ashardalon, Xx-Nelson-xX, AndreiAvinov (Kiri), GuardianDll, Pacas
 * **Artists** - Cattleya (<https://www.patreon.com/cattleya>), Vile Heathen
 * **Coders** - Jeremy(PirateBY), TGC, Void, Dusty Breeches, Glucocorticoid, qwerty19106, AndreiAvinov (Kiri), MasakiTenchi 
-* **XML modders** - Sidfu, ArpoMo6, GuardianDll, Spaniard829, Vile Heathen, Pacas
+* **XML modders** - Sidfu, ArpoMo6, GuardianDll, Spaniard829, Vile Heathen, Pacas, Xx-Nelson-xX
 
 ### Special thanks to
 
