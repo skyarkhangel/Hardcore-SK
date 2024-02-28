@@ -14,27 +14,27 @@ The idea for this project came to me after playing with mod packs. I discovered 
 
 The focus of Hardcore SK is to add a growing complexity to gameplay while immersing the player deep in the story. What awaits you is an improved and elaborate production chain, over 100 technologies to research, new events and challenges to face, impressive new foods, wardrobe and arsenal, enhanced AI features, quality of life options, and virtually everything retextured. As soon as you make landfall, you'll understand immediately that this is no longer just modded Rimworld - this is Hardcore SK. The campfire welcomes you.
 
-This project has language support for English, Russian, and partial support for Spanish and Korean. Chinese translation available via a separate [mod](https://steamcommunity.com/sharedfiles/filedetails/?id=2469653495).
+This project has language support for English, Russian, and partial support for Spanish and Korean. Chinese translation available via separate mods: [Core](https://steamcommunity.com/sharedfiles/filedetails/?id=2469653495) & [Everything else](https://steamcommunity.com/sharedfiles/filedetails/?id=2469654237).
 
 ## DOWNLOADING
 
 ### Project launcher (Windows only)
 
-* **Download installer:** <https://github.com/skyarkhangel/HSK-Launcher>
-* **Mirror:** <https://drive.google.com/file/d/1jk8Rv1Vy30_aY1ZHNA9whCnFxyeW8eSU>
+* **Download installer:** <https://github.com/HardcoreSK/HSK-Launcher/releases/latest>
 
 #### Features
 
 * Update HSK (Hardcore SK) in just a few clicks!
-* Optional update Modconfig if needed.
-* Option to launch game via Steam or direct path.
+* Built-in proxy if github is unavailable.
+* Optional ModsConfig update if needed.
+* Launch game via Steam or from custom location.
 * Ability to check for new updates at startup.
-* Ability to update HSK with using downloaded github master tree archive (if launcher for some reason couldn't download it).
+* Install HSK from archive (if you need some specific version).
 
 #### Requirements
 
-* If Rimworld was installed for the first time, you need to start it before updating HSK. (The game at startup generates configuration files).
-* [Net Framework 4.5](https://www.microsoft.com/en-us/download/details.aspx?id=30653) (goes by default since Windows 8. There is no support for Windows XP and previously released OS).
+- Launch Rimworld once to generate necessary folders and configuration files.
+- .Net 6 Desktop Runtime (installed by windows Update Center starting with Windows 10).
 
 It will ask for the RimWorld executable location.
 
@@ -103,10 +103,10 @@ JailBot, Dibbura, donnie, ignorer, korovyev, NiciusB, Nightray, Vuursteen and Е
 
 * **Lead developers** - Skyarkhangel, TheLoneTec
 * **Coordinators** - Zakhad, Sidfu, Dzeniba, A.Ziemens(Duotian)
-* **Discord moderators** - Ziemens, MightyGooga, GG, Szara Kryik, Ashardalon, Xx-Nelson-xX, AndreiAvinov (Kiri), GuardianDll, Pacas,
+* **Discord moderators** - Ziemens, MightyGooga, GG, Szara Kryik, Ashardalon, Xx-Nelson-xX, AndreiAvinov (Kiri), GuardianDll, Pacas
 * **Artists** - Cattleya (<https://www.patreon.com/cattleya>), Vile Heathen
 * **Coders** - Jeremy(PirateBY), TGC, Void, Dusty Breeches, Glucocorticoid, qwerty19106, AndreiAvinov (Kiri), MasakiTenchi 
-* **XML modders** - Sidfu, ArpoMo6, GuardianDll, Spaniard829, Vile Heathen, Pacas, Xx-Nelson-xX 
+* **XML modders** - Sidfu, ArpoMo6, GuardianDll, Spaniard829, Vile Heathen, Pacas, Xx-Nelson-xX
 
 ### Special thanks to
 
