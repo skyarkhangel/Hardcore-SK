@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<CombatExtended.AmmoCategoryDef>
+		<defName>Catapult_Boulder</defName>
+		<label>boulder</label>
+		<labelShort>boulder</labelShort>
+		<description>A large, heavy boulder.</description>
+	</CombatExtended.AmmoCategoryDef>
+
+	<!-- ==================== Thing Categories ========================== -->
+
+	<ThingCategoryDef>
+		<defName>AmmoCatapult</defName>
+		<label>catapult ammo</label>
+		<parent>AmmoNeolithic</parent>
+		<iconPath>Things/Ammo/Medieval/Catapult/CatapultStone_a</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_Catapult</defName>
+		<label>siege engine ammunition</label>
+		<ammoTypes>
+			<Ammo_Catapult_Boulder>Projectile_CatapultBullet_Boulder</Ammo_Catapult_Boulder>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+	<ThingDef Class="CombatExtended.AmmoDef" Name="CatapultShellBase" ParentName="MediumAmmoBase" Abstract="True">
+		<thingCategories>
+			<li>AmmoCatapult</li>
+		</thingCategories>
+		<stackLimit>5</stackLimit>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting_TableMachining</li>
+		</tradeTags>
+		<isMortarAmmo>true</isMortarAmmo>
+		<techLevel>Medieval</techLevel>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="CatapultShellBase">
+		<defName>Ammo_Catapult_Boulder</defName>
+		<label>boulder</label>
+		<description>A heavy stone, cut to an appropriate size and shape to be thrown by a siege engine.</description>
+		<graphicData>
+			<texPath>Things/Ammo/Medieval/Catapult/CatapultStone_a</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>0.80</drawSize>
+			<color>(105,95,97)</color>
+		</graphicData>
+		<statBases>
+			<Mass>12.5</Mass>
+			<MarketValue>0.5</MarketValue>
+		</statBases>
+		<ammoClass>Catapult_Boulder</ammoClass>
+	</ThingDef>
+
+	<!-- ================== Projectile ================== -->
+	<ThingDef Name="BaseCatapultBullet" ParentName="BaseExplosiveBullet" Abstract="true">
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>0</speed>
+			<soundHitThickRoof>Artillery_HitThickRoof</soundHitThickRoof>
+			<soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
+			<soundAmbient>MortarRound_Ambient</soundAmbient>
+			<soundExplode>MortarBomb_Explode</soundExplode>
+			<flyOverhead>true</flyOverhead>
+			<dropsCasings>false</dropsCasings>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseCatapultBullet">
+		<defName>Projectile_CatapultBullet_Boulder</defName>
+		<label>boulder</label>
+		<graphicData>
+			<texPath>Things/Ammo/Medieval/Catapult</texPath>
+			<graphicClass>Graphic_Random</graphicClass>
+			<flipExtraRotation>80</flipExtraRotation>
+			<drawSize>0.80</drawSize>
+			<color>(105,95,97)</color>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Blunt</damageDef>
+			<preExplosionSpawnChance>0.4</preExplosionSpawnChance>
+			<preExplosionSpawnThingDef>Filth_RubbleRock</preExplosionSpawnThingDef>
+			<damageAmountBase>250</damageAmountBase>
+			<explosionRadius>1.5</explosionRadius>
+			<soundExplode>Roof_Collapse</soundExplode>
+			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<ai_IsIncendiary>true</ai_IsIncendiary>
+		</projectile>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef ParentName="MakeStoneBlocksBase">
+		<defName>MakeAmmo_Catapult_Boulder</defName>
+		<label>cut stone chunk into boulder</label>
+		<description>Cuts a stone chunk down to size to be thrown by a siege engine.</description>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>StoneChunks</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>StoneChunks</li>
+			</categories>
+		</fixedIngredientFilter>
+		<recipeUsers Inherit="False">
+			<li>TableStonecutter</li>
+		</recipeUsers>
+		<products>
+			<Ammo_Catapult_Boulder>1</Ammo_Catapult_Boulder>
+		</products>
+	</RecipeDef>
+
+</Defs>

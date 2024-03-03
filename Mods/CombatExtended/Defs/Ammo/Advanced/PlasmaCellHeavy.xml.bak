@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>AmmoPlasmaCellHeavy</defName>
+		<label>Plasma Heavy Power Cell</label>
+		<parent>AmmoAdvanced</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberPlasmaLarge</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_PlasmaCellHeavy</defName>
+		<label>Plasma Heavy Power Cell</label>
+		<ammoTypes>
+			<Ammo_PlasmaCellHeavy>Bullet_PlasmaCellHeavy</Ammo_PlasmaCellHeavy>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="SpacerMediumAmmoBase">
+		<defName>Ammo_PlasmaCellHeavy</defName>
+		<label>plasma heavy power cell</label>
+		<description>Plasma containment power cell optimized for heavy weapons</description>
+		<statBases>
+			<Mass>0.134</Mass>
+			<Bulk>0.51</Bulk>
+			<MarketValue>2.52</MarketValue>
+		</statBases>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting_FabricationBench</li>
+			<!-- Plasma ammo can't be handloaded, and the containment cell must be precision-machined anyway -->
+		</tradeTags>
+		<thingCategories>
+			<li>AmmoPlasmaCellHeavy</li>
+		</thingCategories>
+		<stackLimit>75</stackLimit>
+		<graphicData>
+			<texPath>Things/Ammo/PlasmaCell/Heavy</texPath>
+			<graphicClass>CombatExtended.Graphic_StackCountRanged</graphicClass>
+		</graphicData>
+		<ammoClass>Plasma</ammoClass>
+		<comps>
+			<!-- Arbitarily defined cookoff explosive stats; represents a plasma containment system failing -->
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<damageAmountBase>35</damageAmountBase>
+				<explosiveDamageType>Bomb</explosiveDamageType>
+				<explosiveRadius>0.5</explosiveRadius>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			</li>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Large>2</Fragment_Large>
+					<Fragment_Small>10</Fragment_Small>
+				</fragments>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef ParentName="BaseExplosiveBullet">
+		<defName>Bullet_PlasmaCellHeavy</defName>
+		<label>Plasma Bolt</label>
+		<graphicData>
+			<texPath>Things/Projectile/Charged/ChargeShot</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>165</speed>
+			<damageDef>Bomb</damageDef>
+			<damageAmountBase>18</damageAmountBase>
+			<explosionRadius>1</explosionRadius>
+			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<secondaryDamage>
+				<li>
+					<def>Flame_Secondary</def>
+					<amount>66</amount>
+				</li>
+			</secondaryDamage>
+			<screenShakeFactor>0</screenShakeFactor>
+		</projectile>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef ParentName="ChargeAmmoRecipeBase">
+		<defName>MakeAmmo_PlasmaCellHeavy</defName>
+		<label>make Plasma Heavy Power Cells</label>
+		<description>Craft 75 shots' worth of Plasma Heavy Power Cells.</description>
+		<jobString>Making Plasma Heavy Power Cells.</jobString>
+		<workAmount>6800</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>20</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Plasteel</li>
+					</thingDefs>
+				</filter>
+				<count>9</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>Plasteel</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_PlasmaCellHeavy>75</Ammo_PlasmaCellHeavy>
+		</products>
+	</RecipeDef>
+
+</Defs>

@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_Javelins</defName>
+		<label>javelins</label>
+		<ammoTypes>
+			<Pila>Pilum_Fired</Pila>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef ParentName="BaseProjectileNeolithic" Name="BasePilumProjectile" Abstract="true">
+		<graphicData>
+			<texPath>Things/Projectile/Neolithic/Pilum</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>RangedStab</damageDef>
+			<gravityFactor>1.5</gravityFactor>
+		</projectile>
+	</ThingDef>
+
+	<!-- The amount of arrows usable over the ammo lifetime for each resource cost is equal to
+	[r / (1 - x)];
+		x = preExplosionSpawnChance,
+		r = resource cost. -->
+
+	<ThingDef ParentName="BasePilumProjectile">
+		<defName>Pilum_Thrown</defName>
+		<label>pilum (thrown)</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageAmountBase>14</damageAmountBase>
+			<speed>14</speed>
+			<armorPenetrationBlunt>6.54</armorPenetrationBlunt>
+			<armorPenetrationSharp>3</armorPenetrationSharp>
+			<preExplosionSpawnChance>0.75</preExplosionSpawnChance><!-- 4 javelins per resource -->
+			<preExplosionSpawnThingDef>Pila</preExplosionSpawnThingDef>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="BasePilumProjectile">
+		<defName>Pilum_Fired</defName>
+		<label>pilum (fired)</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageAmountBase>28</damageAmountBase>
+			<speed>30</speed>
+			<armorPenetrationBlunt>48.6</armorPenetrationBlunt>
+			<armorPenetrationSharp>9</armorPenetrationSharp>
+			<preExplosionSpawnChance>0.4</preExplosionSpawnChance><!-- 1.67 javelins per resource -->
+			<preExplosionSpawnThingDef>Pila</preExplosionSpawnThingDef>
+		</projectile>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+	<RecipeDef ParentName="AmmoRecipeNeolithicBase">
+		<defName>MakeAmmo_Pilum</defName>
+		<label>make pila x5</label>
+		<description>Craft 5 pila.</description>
+		<workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+		<workSkill>Crafting</workSkill>
+		<skillRequirements>
+			<Crafting>3</Crafting>
+		</skillRequirements>
+		<recipeUsers>
+			<li>ElectricSmithy</li>
+			<li>FueledSmithy</li>
+			<li>CraftingSpot</li>
+		</recipeUsers>
+		<effectWorking>Smelt</effectWorking>
+		<unfinishedThingDef>UnfinishedAmmo</unfinishedThingDef>
+		<workAmount>2400</workAmount>
+		<jobString>Making pila.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>WoodLog</li>
+					</thingDefs>
+				</filter>
+				<count>18</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>6</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>WoodLog</li>
+				<li>Steel</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Pila>5</Pila>
+		</products>
+		<displayPriority>500</displayPriority>
+	</RecipeDef>
+
+</Defs>

@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>MiniCannonBall</defName>
+		<label>Mini Cannon Ball</label>
+		<parent>AmmoShells</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberCannon</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_MiniCannonBall</defName>
+		<label>Mini Cannon Ball</label>
+		<ammoTypes>
+			<Ammo_MiniCannonBall_Round>Bullet_MiniCannonBall_Round</Ammo_MiniCannonBall_Round>
+			<Ammo_MiniCannonBall_Grape>Bullet_MiniCannonBall_Grape</Ammo_MiniCannonBall_Grape>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="MiniCannonBallBase" ParentName="HeavyAmmoBase" Abstract="True">
+		<thingCategories>
+			<li>MiniCannonBall</li>
+		</thingCategories>
+		<stackLimit>500</stackLimit>
+		<graphicData>
+			<drawSize>1.0</drawSize>
+		</graphicData>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting_FueledSmithy</li>
+			<li>CE_AutoEnableCrafting_ElectricSmithy</li>
+		</tradeTags>
+		<statBases>
+			<MaxHitPoints>200</MaxHitPoints>
+			<Mass>0.27</Mass>
+			<Bulk>0.38</Bulk>
+		</statBases>
+		<techLevel>Medieval</techLevel>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="MiniCannonBallBase">
+		<defName>Ammo_MiniCannonBall_Round</defName>
+		<label>mini round shot</label>
+		<description>A solid ball of metal, capable of delivering significant damage on a direct hit.</description>
+		<graphicData>
+			<texPath>Things/Ammo/Cannon/BlackPowder/Cannon_Round</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>1.12</MarketValue>
+		</statBases>
+		<ammoClass>CannonBall</ammoClass>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="MiniCannonBallBase">
+		<defName>Ammo_MiniCannonBall_Grape</defName>
+		<label>mini grape shot shell</label>
+		<description>A canister of numerous metal balls, fired in a wide spread to deal horrific damage against enemy infantry.</description>
+		<graphicData>
+			<texPath>Things/Ammo/Cannon/BlackPowder/Cannon_Grape</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>1.12</MarketValue>
+		</statBases>
+		<ammoClass>Grapeshot</ammoClass>
+	</ThingDef>
+
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef Name="BaseMiniCannonBall" ParentName="BaseExplosiveBullet" Abstract="true">
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_Big</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>1.5,1.5</drawSize>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>73</speed>
+			<soundExplode>MortarBomb_Explode</soundExplode>
+			<flyOverhead>false</flyOverhead>
+			<dropsCasings>false</dropsCasings>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseMiniCannonBall">
+		<defName>Bullet_MiniCannonBall_Round</defName>
+		<label>mini round shot</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>50</damageAmountBase>
+			<armorPenetrationSharp>6</armorPenetrationSharp>
+			<armorPenetrationBlunt>207</armorPenetrationBlunt>
+			<suppressionFactor>1.0</suppressionFactor>
+			<dangerFactor>1.0</dangerFactor>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="Base12GaugeChargedBullet">
+		<defName>Bullet_MiniCannonBall_Grape</defName>
+		<label>mini grape shot</label>
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_Big</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>1,1</drawSize>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageAmountBase>15</damageAmountBase>
+			<armorPenetrationSharp>3</armorPenetrationSharp>
+			<armorPenetrationBlunt>20.7</armorPenetrationBlunt>
+			<pelletCount>10</pelletCount>
+			<spreadMult>17.8</spreadMult>
+		</projectile>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeAmmo_MiniCannonBall_Round</defName>
+		<label>make mini round shot cannon balls x50</label>
+		<description>Craft 50 mini round shot cannon balls.</description>
+		<jobString>Making mini round shot cannon balls.</jobString>
+		<researchPrerequisite>CE_Gunpowder</researchPrerequisite>
+		<workAmount>2800</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>28</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_MiniCannonBall_Round>50</Ammo_MiniCannonBall_Round>
+		</products>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeAmmo_MiniCannonBall_Grape</defName>
+		<label>Make mini grape shot cannon shells x50</label>
+		<description>Craft 50 mini grape shot cannon shells.</description>
+		<jobString>Making mini grape shot cannon shells.</jobString>
+		<researchPrerequisite>CE_Gunpowder</researchPrerequisite>
+		<workAmount>2800</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>28</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_MiniCannonBall_Grape>50</Ammo_MiniCannonBall_Grape>
+		</products>
+	</RecipeDef>
+
+</Defs>

@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>CannonBall</defName>
+		<label>Cannon Ball</label>
+		<parent>AmmoShells</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberCannon</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_CannonBall</defName>
+		<label>Cannon Ball</label>
+		<ammoTypes>
+			<Ammo_CannonBall_Round>Bullet_CannonBall_Round</Ammo_CannonBall_Round>
+			<Ammo_CannonBall_Bursting>Bullet_CannonBall_Bursting</Ammo_CannonBall_Bursting>
+			<Ammo_CannonBall_Incendiary>Bullet_CannonBall_Incendiary</Ammo_CannonBall_Incendiary>
+			<Ammo_CannonBall_Grape>Bullet_CannonBall_Grape</Ammo_CannonBall_Grape>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- Alternate AmmoSet for indirect artillery. -->
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_CannonBall_Mortar</defName>
+		<label>Cannon Ball</label>
+		<ammoTypes>
+			<Ammo_CannonBall_Bursting>Bullet_CannonBall_Bursting_Mortar</Ammo_CannonBall_Bursting>
+			<Ammo_CannonBall_Incendiary>Bullet_CannonBall_Incendiary_Mortar</Ammo_CannonBall_Incendiary>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="CannonBallBase" ParentName="HeavyAmmoBase" Abstract="True">
+		<thingCategories>
+			<li>CannonBall</li>
+		</thingCategories>
+		<stackLimit>25</stackLimit>
+		<graphicData>
+			<drawSize>1.50</drawSize>
+		</graphicData>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting_FueledSmithy</li>
+			<li>CE_AutoEnableCrafting_ElectricSmithy</li>
+		</tradeTags>
+		<statBases>
+			<MaxHitPoints>300</MaxHitPoints>
+			<Mass>6.6</Mass>
+			<Bulk>3.99</Bulk>
+		</statBases>
+		<techLevel>Medieval</techLevel>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="CannonBallBase">
+		<defName>Ammo_CannonBall_Round</defName>
+		<label>round shot</label>
+		<description>A solid ball of metal fired, capable of delivering significant damage on a direct hit.</description>
+		<graphicData>
+			<texPath>Things/Ammo/Cannon/BlackPowder/Cannon_Round</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>26.18</MarketValue>
+		</statBases>
+		<ammoClass>CannonBall</ammoClass>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="CannonBallBase">
+		<defName>Ammo_CannonBall_Bursting</defName>
+		<label>bursting shell</label>
+		<description>A round shell, hollow and filled with explosives, exploding on impact and producing razor-sharp metal splinters.</description>
+		<graphicData>
+			<texPath>Things/Ammo/Cannon/BlackPowder/Cannon_Bursting</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>32.45</MarketValue>
+		</statBases>
+		<ammoClass>BurstingShell</ammoClass>
+		<cookOffProjectile>Bullet_CannonBall_Bursting</cookOffProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="CannonBallBase">
+		<defName>Ammo_CannonBall_Incendiary</defName>
+		<label>incendiary shell</label>
+		<description>A round shell, hollow and filled with flammable liquid, spreading fire across a small area on impact.</description>
+		<graphicData>
+			<texPath>Things/Ammo/Cannon/BlackPowder/Cannon_Bursting</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>28.72</MarketValue>
+		</statBases>
+		<ammoClass>FireShell</ammoClass>
+		<cookOffProjectile>Bullet_CannonBall_Incendiary</cookOffProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="CannonBallBase">
+		<defName>Ammo_CannonBall_Grape</defName>
+		<label>grape shot shell</label>
+		<description>A canister of numerous metal balls, fired in a wide spread to deal horrific damage against enemy infantry.</description>
+		<graphicData>
+			<texPath>Things/Ammo/Cannon/BlackPowder/Cannon_Grape</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>26.18</MarketValue>
+		</statBases>
+		<ammoClass>Grapeshot</ammoClass>
+	</ThingDef>
+
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef Name="BaseCannonBall" ParentName="BaseExplosiveBullet" Abstract="true">
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_Big</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>2,2</drawSize>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>99</speed>
+			<soundExplode>MortarBomb_Explode</soundExplode>
+			<flyOverhead>false</flyOverhead>
+			<dropsCasings>false</dropsCasings>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseCannonBall">
+		<defName>Bullet_CannonBall_Round</defName>
+		<label>round shot</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>293</damageAmountBase>
+			<armorPenetrationSharp>20</armorPenetrationSharp>
+			<armorPenetrationBlunt>11491</armorPenetrationBlunt>
+			<suppressionFactor>1.0</suppressionFactor>
+			<dangerFactor>1.0</dangerFactor>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseCannonBall">
+		<defName>Bullet_CannonBall_Bursting</defName>
+		<label>bursting shell</label>
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>99</speed>
+			<damageDef>Bomb</damageDef>
+			<damageAmountBase>82</damageAmountBase>
+			<armorPenetrationSharp>0</armorPenetrationSharp>
+			<armorPenetrationBlunt>0</armorPenetrationBlunt>
+			<explosionRadius>2.0</explosionRadius>
+			<soundExplode>MortarBomb_Explode</soundExplode>
+			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Large>9</Fragment_Large>
+					<Fragment_Small>19</Fragment_Small>
+				</fragments>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseCannonBall">
+		<defName>Bullet_CannonBall_Incendiary</defName>
+		<label>flaming shell</label>
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>99</speed>
+			<damageDef>PrometheumFlame</damageDef>
+			<damageAmountBase>6</damageAmountBase>
+			<explosionRadius>4.5</explosionRadius>
+			<preExplosionSpawnThingDef>FilthPrometheum</preExplosionSpawnThingDef>
+			<preExplosionSpawnChance>0.25</preExplosionSpawnChance>
+			<soundExplode>MortarIncendiary_Explode</soundExplode>
+		</projectile>
+	</ThingDef>
+
+	<!-- Different parent, because it doesn't work with 'BaseCannonBall' for some reason. -->
+	<ThingDef ParentName="Base12GaugeChargedBullet">
+		<defName>Bullet_CannonBall_Grape</defName>
+		<label>grape shot</label>
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_Big</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>1,1</drawSize>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageAmountBase>63</damageAmountBase>
+			<armorPenetrationSharp>8.5</armorPenetrationSharp>
+			<armorPenetrationBlunt>420.68</armorPenetrationBlunt>
+			<pelletCount>27</pelletCount>
+			<spreadMult>26.7</spreadMult>
+		</projectile>
+	</ThingDef>
+
+	<!-- ================== Projectiles - Mortar ================== -->
+
+	<ThingDef Name="BaseCannonBall_Mortar" ParentName="BaseExplosiveBullet" Abstract="true">
+		<graphicData>
+			<shaderType>TransparentPostLight</shaderType>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>0</speed>
+			<soundHitThickRoof>Artillery_HitThickRoof</soundHitThickRoof>
+			<soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
+			<soundAmbient>MortarRound_Ambient</soundAmbient>
+			<flyOverhead>true</flyOverhead>
+			<dropsCasings>false</dropsCasings>
+			<gravityFactor>5</gravityFactor>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseCannonBall_Mortar">
+		<defName>Bullet_CannonBall_Bursting_Mortar</defName>
+		<label>bursting shell</label>
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_Big</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bomb</damageDef>
+			<damageAmountBase>82</damageAmountBase>
+			<explosionRadius>2.0</explosionRadius>
+			<soundExplode>MortarBomb_Explode</soundExplode>
+			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Large>9</Fragment_Large>
+					<Fragment_Small>19</Fragment_Small>
+				</fragments>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseCannonBall_Mortar">
+		<defName>Bullet_CannonBall_Incendiary_Mortar</defName>
+		<label>flaming shell</label>
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_Big</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>PrometheumFlame</damageDef>
+			<damageAmountBase>6</damageAmountBase>
+			<explosionRadius>4.5</explosionRadius>
+			<preExplosionSpawnThingDef>FilthPrometheum</preExplosionSpawnThingDef>
+			<preExplosionSpawnChance>0.25</preExplosionSpawnChance>
+			<soundExplode>MortarIncendiary_Explode</soundExplode>
+		</projectile>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeAmmo_CannonBall_Round</defName>
+		<label>make round shot cannon balls x5</label>
+		<description>Craft 5 round shot cannon balls.</description>
+		<jobString>Making round shot cannon balls.</jobString>
+		<researchPrerequisite>CE_Gunpowder</researchPrerequisite>
+		<workAmount>6600</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>66</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_CannonBall_Round>5</Ammo_CannonBall_Round>
+		</products>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeAmmo_CannonBall_Bursting</defName>
+		<label>make bursting shells cannon balls x5</label>
+		<description>Craft 5 bursting shells cannon balls.</description>
+		<jobString>Making bursting shells cannon balls.</jobString>
+		<researchPrerequisite>CE_Gunpowder</researchPrerequisite>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>66</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>FSX</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>FSX</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_CannonBall_Bursting>5</Ammo_CannonBall_Bursting>
+		</products>
+		<workAmount>8200</workAmount>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeAmmo_CannonBall_Incendiary</defName>
+		<label>make incendiary shells cannon balls x5</label>
+		<description>Craft 5 incendiary shells cannon balls.</description>
+		<jobString>Making incendiary shells cannon balls.</jobString>
+		<researchPrerequisite>CE_Gunpowder</researchPrerequisite>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>66</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Prometheum</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>Prometheum</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_CannonBall_Incendiary>5</Ammo_CannonBall_Incendiary>
+		</products>
+		<workAmount>7400</workAmount>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeAmmo_CannonBall_Grape</defName>
+		<label>Make grape shot cannon shells x5</label>
+		<description>Craft 5 grape shot cannon shells.</description>
+		<jobString>Making grape shot cannon shells.</jobString>
+		<researchPrerequisite>CE_Gunpowder</researchPrerequisite>
+		<workAmount>6600</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>66</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_CannonBall_Grape>5</Ammo_CannonBall_Grape>
+		</products>
+	</RecipeDef>
+
+</Defs>
