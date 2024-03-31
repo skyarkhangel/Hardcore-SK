@@ -1,0 +1,6 @@
+# Fishery
+![](About/Preview.png?raw=true)  
+  
+Modding Library for RimWorld. Used by Performance Fish.  
+Useful functions include various abstractions around IL in FishTranspiler, to make writing of transpilers easier and more robust. A couple collections like Dictionary and Span have extension methods for fast and convenient lookups. Some functionalities of Microsoft's Community Toolkit are included, expanded upon and modified to better fit Unity. Equality includes generic extension methods to use in place of Equals on structs without memory allocations. Convert provides a faster, generic alternative to System.Convert.ToType. FisheryLib.Reflection provides a couple reflection helpers, Aliases has a methodof function intended to be utilized with `global using static Aliases` to directly retrieve method infos from static method groups.  
+Additionally this includes a fast and much more versatile System.Collections.Generic.Dictionary replacement in FisheryLib.Collections.FishTable, loosely based on Malte Skarupke's ska::bytell_hash_map, as well as several extensions and helpers for Mono.Cecil, which is utilized by Prepatcher.
