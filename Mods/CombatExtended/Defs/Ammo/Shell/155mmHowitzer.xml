@@ -12,9 +12,10 @@
 
 	<CombatExtended.AmmoSetDef>
 		<defName>AmmoSet_155mmHowitzerShell</defName>
-		<label>155mm Howitzer shells</label>
+		<label>155mm howitzer shells</label>
 		<ammoTypes>
 			<Ammo_155mmHowitzerShell_HE>Bullet_155mmHowitzerShell_HE</Ammo_155mmHowitzerShell_HE>
+			<Ammo_155mmHowitzerShell_HE_HFuzed>Bullet_155mmHowitzerShell_HE_HFuzed</Ammo_155mmHowitzerShell_HE_HFuzed>
 			<Ammo_155mmHowitzerShell_Incendiary>Bullet_155mmHowitzerShell_Incendiary</Ammo_155mmHowitzerShell_Incendiary>
 			<Ammo_155mmHowitzerShell_EMP>Bullet_155mmHowitzerShell_EMP</Ammo_155mmHowitzerShell_EMP>
 			<Ammo_155mmHowitzerShell_Smoke>Bullet_155mmHowitzerShell_Smoke</Ammo_155mmHowitzerShell_Smoke>
@@ -24,7 +25,7 @@
 
 	<CombatExtended.AmmoSetDef>
 		<defName>AmmoSet_155mmHowitzerShell_directfire</defName>
-		<label>155mm Howitzer shells</label>
+		<label>155mm howitzer shells</label>
 		<ammoTypes>
 			<Ammo_155mmHowitzerShell_HE>Bullet_155mmHowitzerShell_HE_directfire</Ammo_155mmHowitzerShell_HE>
 			<Ammo_155mmHowitzerShell_Incendiary>Bullet_155mmHowitzerShell_Incendiary_directfire</Ammo_155mmHowitzerShell_Incendiary>
@@ -67,6 +68,20 @@
 			<MarketValue>384.6</MarketValue>
 		</statBases>
 		<ammoClass>GrenadeHE</ammoClass>
+		<detonateProjectile>Bullet_155mmHowitzerShell_HE</detonateProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="155mmHowitzerShellBase">
+		<defName>Ammo_155mmHowitzerShell_HE_HFuzed</defName>
+		<label>155mm Howitzer shell (Airburst)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Cannon/Howitzer/AB</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>449.6</MarketValue>
+		</statBases>
+		<ammoClass>GrenadeHETF</ammoClass>
 		<detonateProjectile>Bullet_155mmHowitzerShell_HE</detonateProjectile>
 	</ThingDef>
 
@@ -160,6 +175,36 @@
 					<Fragment_Large>40</Fragment_Large>
 					<Fragment_Small>80</Fragment_Small>
 				</fragments>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="Base155mmHowitzerShell">
+		<defName>Bullet_155mmHowitzerShell_HE_HFuzed</defName>
+		<label>155mm Howitzer shell (Airburst)</label>
+		<thingClass>CombatExtended.ProjectileCE_HeightFuse</thingClass>
+		<graphicData>
+			<texPath>Things/Projectile/Cannon/Howitzer/AB</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Smoke</damageDef>
+			<damageAmountBase>0</damageAmountBase>
+			<explosionRadius>5.5</explosionRadius>
+			<soundExplode>MortarBomb_Explode</soundExplode>
+			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<aimHeightOffset>12</aimHeightOffset>
+			<shellingProps>
+				<damage>0.33</damage>
+			</shellingProps>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Large>40</Fragment_Large>
+					<Fragment_Small>80</Fragment_Small>
+				</fragments>
+				<fragAngleRange>-90~-40</fragAngleRange>	
 			</li>
 		</comps>
 	</ThingDef>
@@ -341,9 +386,9 @@
 
 	<RecipeDef ParentName="AmmoRecipeBase">
 		<defName>MakeAmmo_155mmHowitzerShell_HE</defName>
-		<label>make 155mm HE Howitzer shells x1</label>
-		<description>Craft 1 155mm HE Howitzer shells.</description>
-		<jobString>Making 155mm HE Howitzer shells.</jobString>
+		<label>make 155mm HE howitzer shells x1</label>
+		<description>Craft 1 155mm HE howitzer shells.</description>
+		<jobString>Making 155mm HE howitzer shells.</jobString>
 		<workAmount>17400</workAmount>
 		<ingredients>
 			<li>
@@ -387,8 +432,55 @@
 	</RecipeDef>
 
 	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeAmmo_155mmHowitzerShell_HE_HFuzed</defName>
+		<label>make 155mm airburst howitzer shells x1</label>
+		<description>Craft 1 155mm airburst howitzer shells.</description>
+		<jobString>Making 155mm airburst howitzer shells.</jobString>
+		<workAmount>18600</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>94</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>FSX</li>
+					</thingDefs>
+				</filter>
+				<count>17</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>ComponentIndustrial</li>
+				<li>FSX</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_155mmHowitzerShell_HE_HFuzed>1</Ammo_155mmHowitzerShell_HE_HFuzed>
+		</products>
+		<skillRequirements>
+			<Crafting>5</Crafting>
+		</skillRequirements>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeBase">
 		<defName>MakeAmmo_155mmHowitzerShell_Incendiary</defName>
-		<label>make 155mm Incendiary Howitzer shells x1</label>
+		<label>make 155mm Incendiary howitzer shells x1</label>
 		<description>Craft 155mm Incendiary Howitzer shell.</description>
 		<jobString>Making 155mm Incendiary Howitzer shell.</jobString>
 		<workAmount>12600</workAmount>
@@ -435,7 +527,7 @@
 
 	<RecipeDef ParentName="AmmoRecipeBase">
 		<defName>MakeAmmo_155mmHowitzerShell_EMP</defName>
-		<label>make 155mm EMP Howitzer shells x1</label>
+		<label>make 155mm EMP howitzer shells x1</label>
 		<description>Craft 155mm EMP Howitzer shell.</description>
 		<jobString>Making 155mm EMP Howitzer shell.</jobString>
 		<researchPrerequisite>MicroelectronicsBasics</researchPrerequisite>
@@ -474,7 +566,7 @@
 
 	<RecipeDef ParentName="AmmoRecipeBase">
 		<defName>MakeAmmo_155mmHowitzerShell_Smoke</defName>
-		<label>make 155mm Smoke Howitzer shells x1</label>
+		<label>make 155mm Smoke howitzer shells x1</label>
 		<description>Craft 155mm Smoke Howitzer shell.</description>
 		<jobString>Making 155mm Smoke Howitzer shell.</jobString>
 		<workAmount>11400</workAmount>
