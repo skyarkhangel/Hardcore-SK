@@ -16,6 +16,7 @@
 		<ammoTypes>
 			<!-- Overrides vanilla artillery shell -->
 			<Shell_HighExplosive>Bullet_81mmMortarShell_HE</Shell_HighExplosive>
+      <Shell_HighExplosive_HFuzed>Bullet_81mmMortarShell_HE_HFuzed</Shell_HighExplosive_HFuzed>
 			<Shell_Incendiary>Bullet_81mmMortarShell_Incendiary</Shell_Incendiary>
 			<Shell_EMP>Bullet_81mmMortarShell_EMP</Shell_EMP>
 			<Shell_Firefoam>Bullet_81mmMortarShell_Firefoam</Shell_Firefoam>
@@ -65,6 +66,22 @@
 		<ammoClass>GrenadeHE</ammoClass>
 		<detonateProjectile>Bullet_81mmMortarShell_HE</detonateProjectile>
 	</ThingDef>
+
+  <ThingDef Class="CombatExtended.AmmoDef" ParentName="81mmMortarShellBaseCraftableBase">
+    <defName>Shell_HighExplosive_HFuzed</defName>
+    <label>81mm mortar shell (Airburst)</label>
+    <graphicData>
+      <texPath>Things/Ammo/Mortar/Airburst</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>63.09</MarketValue>
+      <Mass>5.27</Mass>
+      <Bulk>8.17</Bulk>
+    </statBases>
+    <ammoClass>GrenadeHETF</ammoClass>
+    <detonateProjectile>Bullet_81mmMortarShell_HE</detonateProjectile>
+  </ThingDef>
 
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="81mmMortarShellBaseCraftableBase">
 		<defName>Shell_Incendiary</defName>
@@ -230,6 +247,38 @@
 			</li>
 		</comps>
 	</ThingDef>
+
+  <ThingDef ParentName="Base81mmMortarShell">
+    <defName>Bullet_81mmMortarShell_HE_HFuzed</defName>
+    <label>81mm mortar shell (Airburst)</label>
+    <thingClass>CombatExtended.ProjectileCE_HeightFuse</thingClass>
+    <graphicData>
+      <texPath>Things/Projectile/Mortar/Airburst</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
+      <damageDef>Smoke</damageDef>
+      <damageAmountBase>0</damageAmountBase>
+      <explosionRadius>1</explosionRadius>
+      <flyOverhead>true</flyOverhead>
+      <soundExplode>MortarBomb_Explode</soundExplode>
+      <applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+      <ai_IsIncendiary>true</ai_IsIncendiary>
+      <aimHeightOffset>8</aimHeightOffset>
+			<shellingProps>
+				<damage>0.013</damage>
+			</shellingProps>
+    </projectile>
+    <comps>
+      <li Class="CombatExtended.CompProperties_Fragments">
+        <fragments>
+          <Fragment_Large>12</Fragment_Large>
+          <Fragment_Small>24</Fragment_Small>
+        </fragments>
+        <fragAngleRange>-90~-48</fragAngleRange>
+      </li>
+    </comps>
+  </ThingDef>
 
 	<ThingDef ParentName="Base81mmMortarShell">
 		<defName>Bullet_81mmMortarShell_Incendiary</defName>
@@ -407,6 +456,53 @@
 		</skillRequirements>
 		<workAmount>10600</workAmount>
 	</RecipeDef>
+
+  <RecipeDef ParentName="AmmoRecipeBase">
+    <defName>MakeShell_HighExplosive_HFuzed</defName>
+    <label>make 81mm airburst mortar shells x5</label>
+    <description>Craft 5 81mm airburst mortar shells.</description>
+    <jobString>Making 81mm airburst mortar shells.</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Steel</li>
+          </thingDefs>
+        </filter>
+        <count>54</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>FSX</li>
+          </thingDefs>
+        </filter>
+        <count>10</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>ComponentIndustrial</li>
+          </thingDefs>
+        </filter>
+        <count>4</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Steel</li>
+        <li>FSX</li>
+        <li>ComponentIndustrial</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Shell_HighExplosive_HFuzed>5</Shell_HighExplosive_HFuzed>
+    </products>
+    <skillRequirements>
+      <Crafting>5</Crafting>
+    </skillRequirements>
+    <workAmount>11800</workAmount>
+  </RecipeDef>
 
 	<RecipeDef ParentName="AmmoRecipeBase">
 		<defName>MakeShell_Incendiary</defName>
