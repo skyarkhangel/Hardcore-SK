@@ -39,6 +39,16 @@ namespace LetsGoExplore
 
         public static ThingDef Ambrosia;
 
+        public static ThingDef InfiniteChemreactor;
+
+        public static ThingDef VanometricPowerCell;
+
+        public static ThingDef TechprofSubpersonaCore;
+
+        public static ThingDef MechSerumHealer;
+
+        public static ThingDef MechSerumResurrector;
+
         public static PawnKindDef Warg;
 
         public static HediffDef AmbrosiaAddiction;

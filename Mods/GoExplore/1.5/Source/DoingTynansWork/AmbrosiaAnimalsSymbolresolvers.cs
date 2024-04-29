@@ -30,9 +30,9 @@ namespace LetsGoExplore
             if(eventPoints > 4000f)
             {
                 eventPoints *= 0.9f;
-                if(eventPoints > 7000f)
+                if(eventPoints > 9000f)
                 {
-                    eventPoints = 7000f;
+                    eventPoints = 9000f;
                 }
             }
             if(eventPoints < 400f)
@@ -55,10 +55,19 @@ namespace LetsGoExplore
             MotherAmbrosiaLGE motherAmbrosia = (MotherAmbrosiaLGE)GenSpawn.Spawn(DefsOfLGE.Plant_MotherAmbrosiaLGE, motherVec, map, WipeMode.Vanish);
             motherAmbrosia.Growth = Rand.Range(0.9f, 0.98f);
 
-            PawnKindDef animalKind;
-            (from k in map.Biome.AllWildAnimals
-             where Find.World.tileTemperatures.SeasonAndOutdoorTemperatureAcceptableFor(map.Tile, k.race)
-             select k).TryRandomElement(out animalKind);
+            PawnKindDef animalKind = null;
+            //try to find animal that has enough combat power to provide a challenge while not flooding the map.
+            for (int i = 0; i < 12; i++)
+            {
+                (from k in map.Biome.AllWildAnimals
+                 where Find.World.tileTemperatures.SeasonAndOutdoorTemperatureAcceptableFor(map.Tile, k.race)
+                 select k).TryRandomElement(out animalKind);
+                if(eventPoints / animalKind.combatPower < 200)
+                {
+                    break;
+                }
+            }
+            //Failsave if no animalkind was found
             if (animalKind == null)
             {
                 animalKind = ThingDefOfVanilla.Warg;

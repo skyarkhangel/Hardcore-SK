@@ -13,7 +13,8 @@
         public override void Resolve(ResolveParams rp)
         {
             Map map = BaseGen.globalSettings.map;
-            Faction faction = rp.faction ?? Find.FactionManager.RandomNonHostileFaction();
+            
+            Faction faction = BaseGen.globalSettings.map.Parent.GetComponent<PrisonerRescueQuestComp>().requestingFaction ?? Find.FactionManager.RandomNonHostileFaction();
 
             Lord singlePawnLord = rp.singlePawnLord ?? LordMaker.MakeNewLord(faction, new LordJob_RelaxAsAPrisoner(rp.rect.CenterCell), map);
 

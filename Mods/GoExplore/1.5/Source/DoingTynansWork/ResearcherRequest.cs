@@ -105,15 +105,12 @@ namespace LetsGoExplore
                                                             where x.CanStartNow
                                                             select x);
 
-            ResearchProjectDef currentResearch = researchManager.currentProj;
             researchList.TryRandomElementByWeight((ResearchProjectDef x) => 1 / x.baseCost, out research);
 
             //points need to multiplied 
             points *= 121f;
 
-            researchManager.currentProj = research;
-            researchManager.ResearchPerformed(points, null);
-            researchManager.currentProj = currentResearch;
+            researchManager.AddProgress(research, points);
 
             return research;
         }

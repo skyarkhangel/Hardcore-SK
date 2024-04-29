@@ -6,6 +6,7 @@ using Verse;
 using RimWorld;
 using RimWorld.BaseGen;
 using System.Reflection;
+using Verse.Noise;
 
 namespace LetsGoExplore
 {
@@ -140,6 +141,8 @@ namespace LetsGoExplore
                     Building core = new Building();
                     try
                     {
+                        //Type defDatabase = DefDatabase<EnemyShipDef>.AllDefs.Where(def => def.sizeX <= xMax && def.sizeZ <= zMax).RandomElement();
+                        //alte Version
                         Type defDatabase = typeof(DefDatabase<>).MakeGenericType(new Type[] { Type.GetType("RimWorld.EnemyShipDef,ShipsHaveInsides") });
 
                         if (defDatabase == null)

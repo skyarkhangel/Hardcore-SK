@@ -218,7 +218,7 @@ namespace LetsGoExplore
             }
             if (!GenStep_ElevateEvelationForUnderground.tmpCells.Any<IntVec3>())
             {
-                Log.Warning("Could not find any valid edge cell.", false);
+                Log.Warning("Could not find any valid edge cell.");
                 return group.RandomElement<IntVec3>();
             }
             return GenStep_ElevateEvelationForUnderground.tmpCells.RandomElement<IntVec3>();

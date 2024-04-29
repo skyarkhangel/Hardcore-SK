@@ -148,7 +148,7 @@ namespace LetsGoExplore
             IntVec3 c = (from x in GenRadial.RadialCellsAround(base.Position, Radius, true)
                          where x.InBounds(base.Map)
                          select x).RandomElementByWeight((IntVec3 x) => 1f - Mathf.Min(x.DistanceTo(base.Position) / 15f, 1f) + 0.05f);
-            FireUtility.TryStartFireIn(c, base.Map, Rand.Range(0.1f, 0.925f));
+            FireUtility.TryStartFireIn(c, base.Map, Rand.Range(0.1f, 0.925f), this);
             BombardmentBeamLGE.tmpThings.Clear();
             BombardmentBeamLGE.tmpThings.AddRange(c.GetThingList(base.Map));
             for (int i = 0; i < BombardmentBeamLGE.tmpThings.Count; i++)

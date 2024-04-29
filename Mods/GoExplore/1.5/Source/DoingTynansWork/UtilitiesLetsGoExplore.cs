@@ -16,8 +16,9 @@ namespace LetsGoExplore
             if (Rand.Chance(singleRewardChance))
             {
                 List<ThingDef> potentialList = new List<ThingDef>();
-                potentialList.Add(ThingDefOf.TechprofSubpersonaCore);
                 potentialList.Add(ThingDefOf.AIPersonaCore);
+                potentialList.Add(ThingDefOfVanilla.TechprofSubpersonaCore);
+                potentialList.Add(ThingDefOfVanilla.MechSerumResurrector);
 
                 ThingDef rewardDef;
                 potentialList.TryRandomElement(out rewardDef);
@@ -36,6 +37,7 @@ namespace LetsGoExplore
                     potentialList.Add(ThingDefOfVanilla.Apparel_PsychicInsanityLance);
                     potentialList.Add(ThingDefOfVanilla.Apparel_PsychicShockLance);
                     potentialList.Add(ThingDefOfVanilla.PsychicSoothePulser);
+                    potentialList.Add(ThingDefOfVanilla.MechSerumHealer);
 
                     int artifactCount = Rand.RangeInclusive(3, 4);
                     ThingDef rewardDef;
@@ -129,8 +131,8 @@ namespace LetsGoExplore
         {
             List<ThingDef> potentialList = new List<ThingDef>();
             potentialList.Add(ThingDefOf.PsychicEmanator);
-            potentialList.Add(ThingDefOf.InfiniteChemreactor);
-            potentialList.Add(ThingDefOf.VanometricPowerCell);
+            potentialList.Add(ThingDefOfVanilla.InfiniteChemreactor);
+            potentialList.Add(ThingDefOfVanilla.VanometricPowerCell);
 
             potentialList.TryRandomElement(out rewardDef);
         }

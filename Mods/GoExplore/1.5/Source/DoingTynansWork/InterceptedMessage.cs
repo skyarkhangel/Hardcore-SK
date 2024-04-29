@@ -93,16 +93,16 @@ namespace LetsGoExplore
                     incidentParms.points = MinimumPointThreshold;
                 }
                 PawnKindDef animalKind;
-                if (!ManhunterPackIncidentUtility.TryFindManhunterAnimalKind(this.AdjustedPoints(incidentParms.points), incidentParms.target.Tile, out animalKind) && !ManhunterPackIncidentUtility.TryFindManhunterAnimalKind(this.AdjustedPoints(incidentParms.points), -1, out animalKind))
+                if (!AggressiveAnimalIncidentUtility.TryFindAggressiveAnimalKind(this.AdjustedPoints(incidentParms.points), incidentParms.target.Tile, out animalKind) && !AggressiveAnimalIncidentUtility.TryFindAggressiveAnimalKind(this.AdjustedPoints(incidentParms.points), -1, out animalKind))
                 {
-                    Log.Warning("Could not find any valid animal kind for " + this.def + " incident. Going with Wargs", false);
+                    Log.Warning("Could not find any valid animal kind for " + this.def + " incident. Going with Wargs");
                     animalKind = ThingDefOfVanilla.Warg;
                 }
-                List<Pawn> list = ManhunterPackIncidentUtility.GenerateAnimals(animalKind, incidentParms.target.Tile, this.AdjustedPoints(incidentParms.points));
+                List<Pawn> list = AggressiveAnimalIncidentUtility.GenerateAnimals(animalKind, incidentParms.target.Tile, this.AdjustedPoints(incidentParms.points));
                 Map map = CaravanIncidentUtility.SetupCaravanAttackMap(caravan, list, false);
                 for (int i = 0; i < list.Count; i++)
                 {
-                    list[i].mindState.mentalStateHandler.TryStartMentalState(MentalStateDefOf.ManhunterPermanent, null, false, false, null, false);
+                    list[i].mindState.mentalStateHandler.TryStartMentalState(MentalStateDefOf.ManhunterPermanent);
                 }
                 Find.TickManager.CurTimeSpeed = TimeSpeed.Paused;
                 GlobalTargetInfo lookTarget = (!list.Any<Pawn>()) ? GlobalTargetInfo.Invalid : new GlobalTargetInfo(list[0].Position, map, false);
@@ -166,16 +166,16 @@ namespace LetsGoExplore
                     incidentParms.points = MinimumPointThreshold + 100f;
                 }
                 PawnKindDef animalKind;
-                if (!ManhunterPackIncidentUtility.TryFindManhunterAnimalKind(this.AdjustedPoints(incidentParms.points), incidentParms.target.Tile, out animalKind) && !ManhunterPackIncidentUtility.TryFindManhunterAnimalKind(this.AdjustedPoints(incidentParms.points), -1, out animalKind))
+                if (!AggressiveAnimalIncidentUtility.TryFindAggressiveAnimalKind(this.AdjustedPoints(incidentParms.points), incidentParms.target.Tile, out animalKind) && !AggressiveAnimalIncidentUtility.TryFindAggressiveAnimalKind(this.AdjustedPoints(incidentParms.points), -1, out animalKind))
                 {
-                    Log.Warning("Could not find any valid animal kind for " + this.def + " incident. Going with Wargs", false);
+                    Log.Warning("Could not find any valid animal kind for " + this.def + " incident. Going with Wargs");
                     animalKind = ThingDefOfVanilla.Warg;
                 }
-                List<Pawn> pawnList = ManhunterPackIncidentUtility.GenerateAnimals(animalKind, incidentParms.target.Tile, this.AdjustedPoints(incidentParms.points));
+                List<Pawn> pawnList = AggressiveAnimalIncidentUtility.GenerateAnimals(animalKind, incidentParms.target.Tile, this.AdjustedPoints(incidentParms.points));
                 Map map = CaravanIncidentUtility.SetupCaravanAttackMap(caravan, pawnList, false);
                 for (int i = 0; i < pawnList.Count; i++)
                 {
-                    pawnList[i].mindState.mentalStateHandler.TryStartMentalState(MentalStateDefOf.ManhunterPermanent, null, false, false, null, false);
+                    pawnList[i].mindState.mentalStateHandler.TryStartMentalState(MentalStateDefOf.ManhunterPermanent);
                 }
                 Find.TickManager.CurTimeSpeed = TimeSpeed.Paused;
                 GlobalTargetInfo lookTarget = (!pawnList.Any<Pawn>()) ? GlobalTargetInfo.Invalid : new GlobalTargetInfo(pawnList[0].Position, map, false);
