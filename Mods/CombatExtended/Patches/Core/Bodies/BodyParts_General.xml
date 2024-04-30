@@ -38,4 +38,30 @@
     </value>
   </Operation>
 
+	<!-- ========== Set parts as squishy ========== -->
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/BodyPartDef[defName="Eye" or defName="Jaw"]/tags</xpath>
+		<value>
+			<li>OutsideSquishy</li>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationConditional">
+		<xpath>Defs/BodyPartDef[defName="Nose"]/tags</xpath>
+		<match Class="PatchOperationAdd">
+			<xpath>Defs/BodyPartDef[defName="Nose"]/tags</xpath>
+			<value>
+				<li>OutsideSquishy</li>
+			</value>
+		</match>
+		<nomatch Class="PatchOperationAdd">
+			<xpath>Defs/BodyPartDef[defName="Nose"]</xpath>
+			<value>
+				<tags>
+					<li>OutsideSquishy</li>
+				</tags>
+			</value>
+		</nomatch>
+	</Operation>
+
 </Patch>
