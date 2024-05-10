@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Patch>
+
+	<!-- 
+		Removes: 
+		- Gun_AutocannonTurret (20x102mm)
+		- Gun_MediumTurret (762x51mm)
+	-->
+	<Operation Class="PatchOperationRemove">
+		<xpath>Defs/ThingDef[	defName="Gun_AutocannonTurret" or
+								defName="Gun_MediumTurret"
+								]</xpath>
+	</Operation>
+
+	<Operation Class="PatchOperationAttributeSet">
+		<xpath>Defs/ThingDef[@Name="BaseTurretGun" and @ParentName="BaseGun"]</xpath>
+		<attribute>ParentName</attribute>
+		<value>SK.SK_BaseGunDummy</value>
+	</Operation>
+
+	<Operation Class="SK.PatchOperationReplaceExtended">
+		<xpath>Defs/ThingDef[@Name="BaseTurretGun"]</xpath>
+		<value>
+			<destroyOnDrop>True</destroyOnDrop>
+			<drawerType>MapMeshAndRealTime</drawerType>
+			<graphicData>
+				<graphicClass>Graphic_Single</graphicClass>
+			</graphicData>
+			<relicChance>0</relicChance>
+			<canGenerateDefaultDesignator>false</canGenerateDefaultDesignator>
+			<alwaysHaulable>False</alwaysHaulable>
+			<tradeability>None</tradeability>
+			<useHitPoints>false</useHitPoints>
+			<soundInteract>Interact_Rifle</soundInteract>
+			<weaponTags>
+				<li>Gun</li>
+				<li>TurretGun</li>
+			</weaponTags>
+			<weaponClasses>
+				<li>Ranged</li>
+			</weaponClasses>
+			<smeltProducts IsNull="True" Inherit="False"/>
+			<generateAllowChance>0</generateAllowChance>
+			<allowedArchonexusCount>0</allowedArchonexusCount>
+			<modExtensions>
+				<li Class="CombatExtended.ThingDefExtensionCE">
+					<MenuHidden>True</MenuHidden>
+				</li>
+			</modExtensions>
+		</value>
+	</Operation>
+
+	<Operation Class="SK.PatchOperationReplaceExtended">
+		<xpath>Defs/ThingDef[defName="Gun_BlasterTurret"]</xpath>
+		<value>
+			<label>Sentry blaster gun</label>
+			<graphicData>
+				<texPath>Things/Building/Security/BlasterTurret_Top</texPath>
+				<graphicClass>Graphic_Single</graphicClass>
+			</graphicData>
+			<description>Charge blaster attached to a turret mount.</description>
+			<soundInteract>Interact_ChargeRifle</soundInteract>
+			<techLevel>Spacer</techLevel>
+			<statBases>
+				<MarketValue>2000</MarketValue>
+				<SightsEfficiency>1.55</SightsEfficiency>
+				<ShotSpread>0.08</ShotSpread>
+				<SwayFactor>1.80</SwayFactor>
+				<RangedWeapon_Cooldown>1.5</RangedWeapon_Cooldown>
+			</statBases>
+			<verbs>
+				<li Class="CombatExtended.VerbPropertiesCE">
+					<recoilAmount>0.41</recoilAmount>
+					<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+					<hasStandardCommand>true</hasStandardCommand>
+					<defaultProjectile>Bullet_Blaster</defaultProjectile>
+					<warmupTime>1.20</warmupTime>
+					<range>40</range>
+					<ticksBetweenBurstShots>5</ticksBetweenBurstShots>
+					<burstShotCount>10</burstShotCount>
+					<soundCast>ShotChargeBlaster</soundCast>
+					<soundCastTail>GunTail_Heavy</soundCastTail>
+					<muzzleFlashScale>9</muzzleFlashScale>
+					<recoilPattern>Mounted</recoilPattern>
+				</li>
+			</verbs>
+			<comps>
+				<li Class="CombatExtended.CompProperties_AmmoUser">
+					<magazineSize>300</magazineSize>
+					<reloadTime>6.00</reloadTime>
+					<!-- <spawnUnloaded>true</spawnUnloaded> -->
+					<ammoSet>AmmoSet_BlasterBolt</ammoSet>
+				</li>
+				<li Class="CombatExtended.CompProperties_FireModes">
+					<aimedBurstShotCount>3</aimedBurstShotCount>
+					<aiUseBurstMode>FALSE</aiUseBurstMode>
+					<aiAimMode>Snapshot</aiAimMode>
+					<noSnapshot>true</noSnapshot>
+					<noSingleShot>true</noSingleShot>
+				</li>
+			</comps>
+		</value>
+	</Operation>
+
+	<!-- Gun_AutocannonTurret to Gun_HeavyTurret (both uses 145x114mm)-->
+	<Operation Class="SK.PatchOperationReplaceExtended">
+		<xpath>Defs/ThingDef[defName="Gun_HeavyTurret"]</xpath>
+		<value>
+			<label>Sentry heavy gun</label>
+			<graphicData>
+				<texPath>Things/Building/Security/SentryHeavyTurret_Top</texPath>
+				<graphicClass>Graphic_Single</graphicClass>
+			</graphicData>
+			<description>Large caliber gun on a turret mount.</description>
+			<statBases>
+				<MarketValue>2000</MarketValue>
+				<SightsEfficiency>1.35</SightsEfficiency>
+				<ShotSpread>0.08</ShotSpread>
+				<SwayFactor>2.35</SwayFactor>
+				<RangedWeapon_Cooldown>1.5</RangedWeapon_Cooldown>
+			</statBases>
+			<verbs>
+				<li Class="CombatExtended.VerbPropertiesCE">
+					<recoilAmount>0.78</recoilAmount>
+					<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+					<hasStandardCommand>true</hasStandardCommand>
+					<defaultProjectile>Bullet_145x114mm_FMJ</defaultProjectile>
+					<warmupTime>1.80</warmupTime>
+					<range>60</range>
+					<ticksBetweenBurstShots>6</ticksBetweenBurstShots>
+					<burstShotCount>5</burstShotCount>
+					<soundCast>HeavyMG</soundCast>
+					<soundCastTail>GunTail_Heavy</soundCastTail>
+					<muzzleFlashScale>16</muzzleFlashScale>
+					<recoilPattern>Mounted</recoilPattern>
+				</li>
+			</verbs>
+			<comps>
+				<li Class="CombatExtended.CompProperties_AmmoUser">
+					<magazineSize>100</magazineSize>
+					<reloadTime>6.00</reloadTime>
+					<ammoSet>AmmoSet_145x114mm</ammoSet>
+				</li>
+				<li Class="CombatExtended.CompProperties_FireModes">
+					<aimedBurstShotCount>3</aimedBurstShotCount>
+					<aiUseBurstMode>FALSE</aiUseBurstMode>
+					<aiAimMode>Snapshot</aiAimMode>
+					<noSnapshot>true</noSnapshot>
+					<noSingleShot>true</noSingleShot>
+				</li>
+			</comps>
+		</value>
+	</Operation>
+	<Operation Class="SK.PatchOperationReplaceExtended">
+		<xpath>Defs/ThingDef[defName="Gun_TurretSniper"]</xpath>
+		<value>
+			<label>Laser Turret Gun</label>
+			<description>Laser gun for turret.</description>
+			<graphicData>
+				<texPath>Things/Building/Security/PrecisionTurretGun</texPath>
+				<graphicClass>Graphic_Single</graphicClass>
+			</graphicData>
+			<soundInteract>Interact_ChargeRifle</soundInteract>
+			<techLevel>Spacer</techLevel>
+			<statBases>
+				<MarketValue>4400</MarketValue>
+				<SightsEfficiency>1.65</SightsEfficiency>
+				<ShotSpread>0.05</ShotSpread>
+				<SwayFactor>1.30</SwayFactor>
+				<RangedWeapon_Cooldown>1.2</RangedWeapon_Cooldown>
+			</statBases>
+			<verbs>
+				<li Class="CombatExtended.VerbPropertiesCE">
+					<recoilAmount>0.45</recoilAmount>
+					<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+					<hasStandardCommand>true</hasStandardCommand>
+					<defaultProjectile>Bullet_Laserbeam</defaultProjectile>
+					<burstShotCount>6</burstShotCount>
+					<ticksBetweenBurstShots>3</ticksBetweenBurstShots>
+					<warmupTime>1.60</warmupTime>
+					<minRange>6</minRange>
+					<range>80</range>
+					<soundCast>LaserBeam</soundCast>
+					<soundCastTail>GunTail_Medium</soundCastTail>
+					<muzzleFlashScale>12</muzzleFlashScale>
+					<recoilPattern>Mounted</recoilPattern>
+				</li>
+			</verbs>
+			<comps>
+				<li Class="CombatExtended.CompProperties_AmmoUser">
+					<magazineSize>60</magazineSize>
+					<reloadTime>4.00</reloadTime>
+					<!-- <spawnUnloaded>true</spawnUnloaded> -->
+					<ammoSet>AmmoSet_ChargedLaser</ammoSet>
+				</li>
+				<li Class="CombatExtended.CompProperties_FireModes">
+					<aiAimMode>Snapshot</aiAimMode>
+					<noSnapshot>true</noSnapshot>
+					<noSingleShot>true</noSingleShot>
+				</li>
+			</comps>
+		</value>
+	</Operation>
+
+
+	<Operation Class="PatchOperationAttributeSet">
+		<xpath>Defs/ThingDef[	defName="Gun_KPV" or
+								defName="Gun_M240B" or
+								defName="Gun_FlakTurret" or
+								defName="Gun_AGSThirty"
+								]
+		</xpath>
+		<attribute>ParentName</attribute>
+		<value>SK.BaseGun_TurretDummy</value>
+	</Operation>
+	<Operation Class="SK.PatchOperationReplaceExtended">
+		<xpath>Defs/ThingDef[defName="Gun_KPV"]</xpath>
+		<value>
+			<label>14.5mm KPV MG</label>
+			<graphicData>
+				<texPath>Things/Building/Security/KPVT_Top</texPath>
+				<graphicClass>Graphic_Single</graphicClass>
+			</graphicData>
+			<description>Heavy machine gun for use against light vehicles.</description>
+			<statBases>
+				<MarketValue>2000</MarketValue>
+				<SightsEfficiency>1.8</SightsEfficiency>
+				<ShotSpread>0.07</ShotSpread>
+				<SwayFactor>0.85</SwayFactor>
+				<RangedWeapon_Cooldown>1.8</RangedWeapon_Cooldown>
+			</statBases>
+			<verbs>
+				<li Class="CombatExtended.VerbPropertiesCE">
+					<recoilPattern>Mounted</recoilPattern>
+					<recoilAmount>1.03</recoilAmount>
+					<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+					<hasStandardCommand>true</hasStandardCommand>
+					<defaultProjectile>Bullet_145x114mm_FMJ</defaultProjectile>
+					<warmupTime>1.50</warmupTime>
+					<range>65</range>
+					<minRange>3</minRange>
+					<ticksBetweenBurstShots>6</ticksBetweenBurstShots>
+					<burstShotCount>12</burstShotCount>
+					<soundCast>50Cal_Browning</soundCast>
+					<soundCastTail>GunTail_Heavy</soundCastTail>
+					<muzzleFlashScale>16</muzzleFlashScale>
+				</li>
+			</verbs>
+			<comps>
+				<li Class="CombatExtended.CompProperties_AmmoUser">
+					<magazineSize>120</magazineSize>
+					<reloadTime>6.00</reloadTime>
+					<!-- <spawnUnloaded>true</spawnUnloaded> -->
+					<ammoSet>AmmoSet_145x114mm</ammoSet>
+				</li>
+				<li Class="CombatExtended.CompProperties_FireModes">
+					<aimedBurstShotCount>5</aimedBurstShotCount>
+				</li>
+			</comps>
+			<modExtensions>
+				<li Class="CombatExtended.GunDrawExtension">
+					<!--I'm bothered enough to go watch a video and find out KPV ejects towards front-left-->
+					<CasingAngleOffset>-110</CasingAngleOffset>
+				</li>
+			</modExtensions>
+		</value>
+	</Operation>
+	<Operation Class="SK.PatchOperationReplaceExtended">
+		<xpath>Defs/ThingDef[defName="Gun_M240B"]</xpath>
+		<value>
+			<label>M240B machine gun</label>
+			<graphicData>
+				<texPath>Things/Building/Security/M240_Top</texPath>
+				<graphicClass>Graphic_Single</graphicClass>
+			</graphicData>
+			<description>M240B machine gun mounted on a tripod.</description>
+			<statBases>
+				<MarketValue>200</MarketValue>
+				<SightsEfficiency>1.4</SightsEfficiency>
+				<ShotSpread>0.07</ShotSpread>
+				<SwayFactor>1.12</SwayFactor>
+				<RangedWeapon_Cooldown>1.3</RangedWeapon_Cooldown>
+			</statBases>
+			<verbs>
+				<li Class="CombatExtended.VerbPropertiesCE">
+					<recoilPattern>Mounted</recoilPattern>
+					<recoilAmount>0.85</recoilAmount>
+					<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+					<hasStandardCommand>true</hasStandardCommand>
+					<defaultProjectile>Bullet_762x51mmNATO_FMJ</defaultProjectile>
+					<warmupTime>0.90</warmupTime>
+					<range>55</range>
+					<ticksBetweenBurstShots>5</ticksBetweenBurstShots>
+					<burstShotCount>25</burstShotCount>
+					<soundCast>Shot_m240</soundCast>
+					<soundCastTail>GunTail_Medium</soundCastTail>
+					<muzzleFlashScale>10</muzzleFlashScale>
+				</li>
+			</verbs>
+			<comps>
+				<li Class="CombatExtended.CompProperties_AmmoUser">
+					<magazineSize>200</magazineSize>
+					<reloadTime>5.50</reloadTime>
+					<ammoSet>AmmoSet_762x51mmNATO</ammoSet>
+				</li>
+				<li Class="CombatExtended.CompProperties_FireModes">
+					<aimedBurstShotCount>5</aimedBurstShotCount>
+				</li>
+			</comps>
+		</value>
+	</Operation>
+	<Operation Class="SK.PatchOperationReplaceExtended">
+		<xpath>Defs/ThingDef[defName="Gun_FlakTurret"]</xpath>
+		<value>
+			<label>90mm Flak gun</label>
+			<graphicData>
+				<texPath>Things/Building/Security/FLAC_Top</texPath>
+				<graphicClass>Graphic_Single</graphicClass>
+			</graphicData>
+			<description>90mm Flak cannon on a stationary emplacement.</description>
+			<soundInteract>Artillery_ShellLoaded</soundInteract>
+			<techLevel>Industrial</techLevel>
+			<statBases>
+				<MarketValue>2000</MarketValue>
+				<SightsEfficiency>1.8</SightsEfficiency>
+				<ShotSpread>0.17</ShotSpread>
+				<SwayFactor>1.2</SwayFactor>
+				<RangedWeapon_Cooldown>2</RangedWeapon_Cooldown>
+			</statBases>
+			<verbs>
+				<li Class="CombatExtended.VerbPropertiesCE">
+					<recoilAmount>4.74</recoilAmount>
+					<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+					<hasStandardCommand>true</hasStandardCommand>
+					<defaultProjectile>Bullet_90mmCannonShell_HEAT</defaultProjectile>
+					<!--<forcedMissRadius>3</forcedMissRadius>-->
+					<circularError>1.2</circularError>
+					<warmupTime>3.5</warmupTime>
+					<minRange>16</minRange>
+					<range>92</range>
+					<burstShotCount>1</burstShotCount>
+					<soundCast>120mm</soundCast>
+					<targetParams>
+						<canTargetLocations>true</canTargetLocations>
+					</targetParams>
+					<soundCastTail>GunTail_Heavy</soundCastTail>
+					<muzzleFlashScale>20</muzzleFlashScale>
+					<indirectFirePenalty>0.2</indirectFirePenalty>
+					<recoilPattern>Mounted</recoilPattern>
+				</li>
+			</verbs>
+			<comps>
+				<li Class="CombatExtended.CompProperties_AmmoUser">
+					<magazineSize>1</magazineSize>
+					<reloadTime>7.5</reloadTime>
+					<!-- <spawnUnloaded>true</spawnUnloaded> -->
+					<ammoSet>AmmoSet_90mmCannonShell</ammoSet>
+				</li>
+				<li Class="CombatExtended.CompProperties_FireModes" />
+			</comps>
+			<modExtensions>
+				<li Class="CombatExtended.GunDrawExtension">
+					<CasingOffset>0,-1</CasingOffset>
+					<CasingAngleOffset>90</CasingAngleOffset>
+				</li>
+			</modExtensions>
+		</value>
+	</Operation>
+	<Operation Class="SK.PatchOperationReplaceExtended">
+		<xpath>Defs/ThingDef[defName="Gun_AGSThirty"]</xpath>
+		<value>
+			<label>AGS-17 Grenade launcher</label>
+			<graphicData>
+				<texPath>Things/Building/Security/AGS17</texPath>
+				<graphicClass>Graphic_Single</graphicClass>
+			</graphicData>
+			<description>AGS-17 attached to a tripod.</description>
+			<techLevel>Industrial</techLevel>
+			<statBases>
+				<MarketValue>2500</MarketValue>
+				<SightsEfficiency>1.1</SightsEfficiency>
+				<ShotSpread>0.13</ShotSpread>
+				<SwayFactor>0.42</SwayFactor>
+				<RangedWeapon_Cooldown>1.45</RangedWeapon_Cooldown>
+			</statBases>
+			<verbs>
+				<li Class="CombatExtended.VerbPropertiesCE">
+					<recoilPattern>Mounted</recoilPattern>
+					<recoilAmount>1.65</recoilAmount>
+					<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+					<hasStandardCommand>true</hasStandardCommand>
+					<defaultProjectile>Bullet_30x29mmGrenade_HE</defaultProjectile>
+					<warmupTime>2.50</warmupTime>
+					<minRange>8</minRange>
+					<circularError>1.5</circularError>
+					<range>95</range>
+					<ticksBetweenBurstShots>9</ticksBetweenBurstShots>
+					<burstShotCount>3</burstShotCount>
+					<soundCast>AGS</soundCast>
+					<soundCastTail>GunTail_Heavy</soundCastTail>
+					<muzzleFlashScale>14</muzzleFlashScale>
+					<targetParams>
+						<canTargetLocations>true</canTargetLocations>
+					</targetParams>
+					<ignorePartialLoSBlocker>true</ignorePartialLoSBlocker>
+				</li>
+			</verbs>
+			<comps>
+				<li Class="CombatExtended.CompProperties_AmmoUser">
+					<magazineSize>15</magazineSize>
+					<reloadTime>5.8</reloadTime>
+					<ammoSet>AmmoSet_30x29mmGrenade</ammoSet>
+				</li>
+			</comps>
+		</value>
+	</Operation>
+</Patch>
