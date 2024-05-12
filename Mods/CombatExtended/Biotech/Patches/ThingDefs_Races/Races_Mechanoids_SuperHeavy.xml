@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Patch>
 
+	<!-- ========== Adjust combatPower ========== -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/PawnKindDef[defName="Mech_Apocriton"]/combatPower</xpath>
+		<value>
+			<combatPower>900</combatPower>
+		</value>
+	</Operation>
+
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/PawnKindDef[defName="Mech_Centurion"]/combatPower</xpath>
 		<value>
@@ -22,6 +31,20 @@
 		</value>
 	</Operation>
 
+	<!-- ========== Loadouts ========== -->
+
+	<Operation Class="PatchOperationAddModExtension">
+		<xpath>Defs/PawnKindDef[defName="Mech_Apocriton"]</xpath>
+		<value>
+			<li Class="CombatExtended.LoadoutPropertiesExtension">
+				<primaryMagazineCount>
+					<min>9</min>
+					<max>10</max>
+				</primaryMagazineCount>
+			</li>
+		</value>
+	</Operation>
+
 	<!-- ========== Super Heavy Mechanoid ========== -->
 
 	<Operation Class="PatchOperationReplace">
@@ -35,6 +58,111 @@
 		<xpath>Defs/ThingDef[@Name="SuperHeavyMechanoid"]/statBases/ArmorRating_Sharp</xpath>
 		<value>
 			<ArmorRating_Sharp>24</ArmorRating_Sharp>
+		</value>
+	</Operation>
+
+	<!-- ========== Apocriton ========== -->
+
+	<Operation Class="PatchOperationAddModExtension">
+		<xpath>Defs/ThingDef[defName="Mech_Apocriton"]</xpath>
+		<value>
+			<li Class="CombatExtended.RacePropertiesExtensionCE">
+				<bodyShape>Humanoid</bodyShape>
+			</li>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Mech_Apocriton"]/statBases</xpath>
+		<value>
+			<ArmorRating_Heat>0.5</ArmorRating_Heat>
+			<CarryWeight>75</CarryWeight>
+			<CarryBulk>40</CarryBulk>
+			<MeleeDodgeChance>0.07</MeleeDodgeChance>
+			<MeleeCritChance>0.13</MeleeCritChance>
+			<MeleeParryChance>0.13</MeleeParryChance>
+			<MaxHitPoints>600</MaxHitPoints>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Mech_Apocriton"]/statBases/ArmorRating_Blunt</xpath>
+		<value>
+			<ArmorRating_Blunt>60</ArmorRating_Blunt>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Mech_Apocriton"]/statBases/ArmorRating_Sharp</xpath>
+		<value>
+			<ArmorRating_Sharp>24</ArmorRating_Sharp>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Mech_Apocriton"]/statBases/EnergyShieldRechargeRate</xpath>
+		<value>
+			<EnergyShieldRechargeRate>0.375</EnergyShieldRechargeRate>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Mech_Apocriton"]/statBases/EnergyShieldEnergyMax</xpath>
+		<value>
+			<EnergyShieldEnergyMax>2.25</EnergyShieldEnergyMax>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Mech_Apocriton"]/tools</xpath>
+		<value>
+			<tools>
+				<li Class="CombatExtended.ToolCE">
+					<label>head</label>
+					<capacities>
+						<li>Blunt</li>
+					</capacities>
+					<power>10</power>
+					<cooldownTime>2.0</cooldownTime>
+					<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+					<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+					<armorPenetrationBlunt>2.5</armorPenetrationBlunt>
+				</li>
+			</tools>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationConditional">
+		<xpath>Defs/ThingDef[defName="Mech_Apocriton"]/comps</xpath>
+		<nomatch Class="PatchOperationAdd">
+			<xpath>Defs/ThingDef[defName="Mech_Apocriton"]</xpath>
+			<value>
+				<comps />
+			</value>
+		</nomatch>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Mech_Apocriton"]/comps</xpath>
+		<value>
+			<li Class="CombatExtended.CompProperties_ArmorDurability">
+				<Durability>3100</Durability>
+				<Regenerates>true</Regenerates>
+				<RegenInterval>1250</RegenInterval>
+				<RegenValue>5</RegenValue>
+				<Repairable>true</Repairable>
+				<RepairIngredients>
+					<Steel>5</Steel>
+					<Plasteel>5</Plasteel>
+				</RepairIngredients>
+				<RepairTime>300</RepairTime>
+				<RepairValue>200</RepairValue>
+				<CanOverHeal>true</CanOverHeal>
+				<MaxOverHeal>310</MaxOverHeal>
+				<MinArmorPct>0.5</MinArmorPct>
+				<MinArmorValueSharp>14</MinArmorValueSharp>
+				<MinArmorValueBlunt>35</MinArmorValueBlunt>
+			</li>
 		</value>
 	</Operation>
 
@@ -70,7 +198,7 @@
 			<CarryWeight>50</CarryWeight>
 			<CarryBulk>50</CarryBulk>
 			<AimingAccuracy>1.0</AimingAccuracy>
-			<ShootingAccuracyPawn>1</ShootingAccuracyPawn>
+			<ShootingAccuracyPawn>1.0</ShootingAccuracyPawn>
 			<MeleeDodgeChance>0.02</MeleeDodgeChance>
 			<MeleeCritChance>0.20</MeleeCritChance>
 			<MeleeParryChance>0.57</MeleeParryChance>
@@ -169,8 +297,8 @@
 			<ArmorRating_Heat>0.5</ArmorRating_Heat>
 			<CarryWeight>75</CarryWeight>
 			<CarryBulk>50</CarryBulk>
-			<AimingAccuracy>1.0</AimingAccuracy>
-			<ShootingAccuracyPawn>1</ShootingAccuracyPawn>
+			<AimingAccuracy>1.3</AimingAccuracy>
+			<ShootingAccuracyPawn>1.25</ShootingAccuracyPawn>
 			<MeleeDodgeChance>0.02</MeleeDodgeChance>
 			<MeleeCritChance>0.22</MeleeCritChance>
 			<MeleeParryChance>0.64</MeleeParryChance>
@@ -249,12 +377,11 @@
 			<ArmorRating_Heat>0.5</ArmorRating_Heat>
 			<CarryWeight>75</CarryWeight>
 			<CarryBulk>60</CarryBulk>
-			<AimingAccuracy>1.0</AimingAccuracy>
-			<ShootingAccuracyPawn>1.5</ShootingAccuracyPawn>
+			<AimingAccuracy>1.3</AimingAccuracy>
+			<ShootingAccuracyPawn>1.25</ShootingAccuracyPawn>
 			<MeleeDodgeChance>0.03</MeleeDodgeChance>
 			<MeleeCritChance>0.42</MeleeCritChance>
 			<MeleeParryChance>0.64</MeleeParryChance>
-			<AimingDelayFactor>1.25</AimingDelayFactor>
 			<MaxHitPoints>600</MaxHitPoints>
 		</value>
 	</Operation>
