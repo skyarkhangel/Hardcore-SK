@@ -51,7 +51,7 @@ def build_dict():
                         #print(path)
                         root = ET.parse(path).getroot()
                         mod = Mod(package_id=root.find("packageId").text.lower(),
-                                  path=os.path.sep.join(path.split(os.path.sep)[0:2]),
+                                  path=entry.path,
                                   supported_versions=[x.text for x in root.find("supportedVersions").iter()])
                         folder_dict[mod.package_id] = mod
                 break
