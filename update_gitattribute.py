@@ -5,11 +5,20 @@ so they won't be included in the exported zip file (or when using download zip).
 """
 
 # pylint: disable=C0116,C0114
+from dataclasses import dataclass, field
 import os
 import xml.etree.ElementTree as ET
 
 
-folder_dict: dict[str, str] = {}
+@dataclass
+class Mod:
+    package_id: str
+    path: str
+    supported_versions: list[str] = field(default_factory=list)
+
+folder_dict: dict[str, Mod] = {}
+
+
 
 
 def get_modsconfig() -> list[str]:
@@ -41,8 +50,10 @@ def build_dict():
                         path = os.path.join(cur, directory, 'About.xml')
                         #print(path)
                         root = ET.parse(path).getroot()
-                        package_id = root.find("packageId").text.lower()
-                        folder_dict[package_id] = entry.path
+                        mod = Mod(package_id=root.find("packageId").text.lower(),
+                                  path=os.path.sep.join(path.split(os.path.sep)[0:2]),
+                                  supported_versions=[x.text for x in root.find("supportedVersions").iter()])
+                        folder_dict[mod.package_id] = mod
                 break
 
 
@@ -50,8 +61,8 @@ def output(enabled: list[str]) -> None:
     with open(".gitattributes", "w", encoding='utf-8') as f:
         for k, v in folder_dict.items():
             print(f"{k} {v}")
-            if k not in enabled:
-                f.write(f"\"{v.removeprefix('./')}\" export-ignore\n")
+            if k not in enabled and '1.5' not in v.supported_versions:
+                f.write(f"\"{v.path.removeprefix('./')}\" export-ignore\n")
 
 
 def main():
