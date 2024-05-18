@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+	<!-- Check if Name=MechtechBase->requiresMechanitor exists, change it to 'false' 
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+			<li Class="PatchOperationTest">
+				<xpath>*/ResearchProjectDef[@Name='MechtechBase']/requiresMechanitor</xpath>
+			</li>
+			<li Class="PatchOperationReplace">
+				<xpath>*/ResearchProjectDef[@Name='MechtechBase']/requiresMechanitor/text()</xpath>
+				<value>false</value>
+			</li>
+		</operations>
+	</Operation> -->
+
+	<!-- Check if BasicMechtech->requiresMechanitor exists, change it to 'false' -->
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+			<li Class="PatchOperationTest">
+				<xpath>*/ResearchProjectDef[defName = "BasicMechtech"]/requiresMechanitor</xpath>
+			</li>
+			<li Class="PatchOperationReplace">
+				<xpath>*/ResearchProjectDef[defName = "BasicMechtech"]</xpath>
+				<value>false</value>
+			</li>
+		</operations>
+	</Operation>
+
+	<!-- Check if BasicMechtech but no requiresMechanitor exists, add it with 'false' -->
+	<Operation Class="PatchOperationSequence">
+		<success>Always</success>
+		<operations>
+			<li Class="PatchOperationTest">
+				<xpath>*/ResearchProjectDef[defName = "BasicMechtech"]</xpath>
+			</li>
+			<li Class="PatchOperationTest">
+				<xpath>*/ResearchProjectDef[defName = "BasicMechtech"]/requiresMechanitor</xpath>
+				<success>Invert</success>
+			</li>
+			<li Class="PatchOperationAdd">
+				<xpath>*/ResearchProjectDef[defName = "BasicMechtech"]</xpath>
+				<value>
+					<requiresMechanitor>false</requiresMechanitor>
+				</value>
+			</li>
+		</operations>
+	</Operation>
+
+</Patch>
