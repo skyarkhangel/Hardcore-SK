@@ -38,13 +38,11 @@ def build_dict():
             for cur, dirs, _ in os.walk(subdir_path):
                 for directory in dirs:
                     if 'About.xml' in os.listdir(os.path.join(cur, directory)):
-                        path = os.path.join(cur, directory, 'About.xml').replace("\\", "/")
+                        path = os.path.join(cur, directory, 'About.xml')
                         #print(path)
                         root = ET.parse(path).getroot()
                         package_id = root.find("packageId").text.lower()
-                        folder_dict[package_id] = "/".join(
-                            entry.path.split(os.path.sep)[0:2]
-                        )
+                        folder_dict[package_id] = entry.path
                 break
 
 
