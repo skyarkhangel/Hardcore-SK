@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>AmmoPlasmaCannon</defName>
+		<label>Plasma canister</label>
+		<parent>AmmoAdvanced</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberHighCaliber</iconPath>
+	</ThingCategoryDef>
+
+	<!-- === Ammo Sets === -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_PlasmaCanister_Pistol</defName>
+		<label>plasma canister</label>
+		<ammoTypes>
+			<Ammo_PlasmaCanister>Bullet_PlasmaPistol</Ammo_PlasmaCanister>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_PlasmaCanister_Rifle</defName>
+		<label>plasma canister</label>
+		<ammoTypes>
+			<Ammo_PlasmaCanister>Bullet_PlasmaRifle</Ammo_PlasmaCanister>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_PlasmaCanister_Cannon</defName>
+		<label>plasma canister</label>
+		<ammoTypes>
+			<Ammo_PlasmaCanister>Bullet_PlasmaCannon</Ammo_PlasmaCanister>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- For Warhammer 40k - Imperium Weaponry -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_PlasmaCanister_Pistol_Relic</defName>
+		<label>plasma canister</label>
+		<ammoTypes>
+			<Ammo_PlasmaCanister>Bullet_PlasmaPistol_Relic</Ammo_PlasmaCanister>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_PlasmaCanister_Rifle_Relic</defName>
+		<label>plasma canister</label>
+		<ammoTypes>
+			<Ammo_PlasmaCanister>Bullet_PlasmaRifle_Relic</Ammo_PlasmaCanister>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="AmmoPlasmaCannonBase" ParentName="SmallAmmoBase" Abstract="True">
+		<description>A canister of pressurized hydrogen that serves as a containment vessel for the ionization of the gas into plasma.</description>
+		<statBases>
+			<Mass>0.15</Mass>
+			<Bulk>0.5</Bulk>
+		</statBases>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting</li>
+		</tradeTags>
+		<thingCategories>
+			<li>AmmoPlasmaCannon</li>
+		</thingCategories>
+		<stackLimit>200</stackLimit>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="AmmoPlasmaCannonBase">
+		<defName>Ammo_PlasmaCanister</defName>
+		<label>plasma canister</label>
+		<graphicData>
+			<texPath>ThirdParty/Warhammer/PlasmaCanister</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>1.04</MarketValue>
+		</statBases>
+		<ammoClass>Plasma</ammoClass>
+		<comps>
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>0.5</explosiveRadius>
+				<explosiveDamageType>Bomb</explosiveDamageType>
+				<explosiveExpandPerStackcount>0.033</explosiveExpandPerStackcount>
+				<startWickHitPointsPercent>0.33</startWickHitPointsPercent>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+				<explodeOnKilled>True</explodeOnKilled>
+				<wickTicks>60~90</wickTicks>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<!-- ==================== Projectiles ========================== -->
+
+	<ThingDef Name="BasePlasmaBullet" ParentName="BaseBulletCE" Abstract="True">
+		<graphicData>
+			<texPath>ThirdParty/Warhammer/MeltaProjectile</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>TransparentPostLight</shaderType>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bullet</damageDef>
+		</projectile>
+		<thingClass>CombatExtended.BulletCE</thingClass>
+	</ThingDef>
+
+	<ThingDef ParentName="BasePlasmaBullet">
+		<defName>Bullet_PlasmaPistol</defName>
+		<label>plasma pistol bolt</label>
+		<graphicData>
+			<drawSize>1</drawSize>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>60</speed>
+			<damageAmountBase>36</damageAmountBase>
+			<armorPenetrationSharp>40</armorPenetrationSharp>
+			<armorPenetrationBlunt>4</armorPenetrationBlunt>
+			<extraDamages>
+				<li>
+					<def>EMP</def>
+					<amount>8</amount>
+					<armorPenetration>2</armorPenetration>
+					<chance>0.4</chance>
+				</li>
+			</extraDamages>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="BasePlasmaBullet">
+		<defName>Bullet_PlasmaRifle</defName>
+		<label>plasma rifle bolt</label>
+		<graphicData>
+			<drawSize>1.2</drawSize>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>65</speed>
+			<damageAmountBase>48</damageAmountBase>
+			<armorPenetrationSharp>50</armorPenetrationSharp>
+			<armorPenetrationBlunt>4</armorPenetrationBlunt>
+			<extraDamages>
+				<li>
+					<def>EMP</def>
+					<amount>10</amount>
+					<armorPenetration>2</armorPenetration>
+					<chance>0.5</chance>
+				</li>
+			</extraDamages>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<damageAmountBase>25</damageAmountBase>
+				<explosiveDamageType>Burn</explosiveDamageType>
+				<explosiveRadius>1</explosiveRadius>
+				<explosionSound>MortarBomb_Explode</explosionSound>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="BasePlasmaBullet">
+		<defName>Bullet_PlasmaCannon</defName>
+		<label>plasma cannon bolt</label>
+		<graphicData>
+			<drawSize>1.5</drawSize>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>80</speed>
+			<damageAmountBase>88</damageAmountBase>
+			<armorPenetrationSharp>80</armorPenetrationSharp>
+			<extraDamages>
+				<li>
+					<def>EMP</def>
+					<amount>14</amount>
+					<armorPenetration>3</armorPenetration>
+					<chance>0.7</chance>
+				</li>
+			</extraDamages>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<damageAmountBase>45</damageAmountBase>
+				<explosiveDamageType>Burn</explosiveDamageType>
+				<explosiveRadius>1.5</explosiveRadius>
+				<explosionSound>MortarBomb_Explode</explosionSound>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<!-- For Warhammer 40k - Imperium Weaponry -->
+
+	<ThingDef ParentName="BasePlasmaBullet">
+		<defName>Bullet_PlasmaPistol_Relic</defName>
+		<label>plasma pistol bolt</label>
+		<graphicData>
+			<drawSize>1</drawSize>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>60</speed>
+			<damageAmountBase>40</damageAmountBase>
+			<armorPenetrationSharp>40</armorPenetrationSharp>
+			<armorPenetrationBlunt>4</armorPenetrationBlunt>
+			<extraDamages>
+				<li>
+					<def>EMP</def>
+					<amount>10</amount>
+					<armorPenetration>2</armorPenetration>
+					<chance>0.45</chance>
+				</li>
+			</extraDamages>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="BasePlasmaBullet">
+		<defName>Bullet_PlasmaRifle_Relic</defName>
+		<label>plasma rifle bolt</label>
+		<graphicData>
+			<drawSize>1.2</drawSize>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>65</speed>
+			<damageAmountBase>52</damageAmountBase>
+			<armorPenetrationSharp>54</armorPenetrationSharp>
+			<armorPenetrationBlunt>4</armorPenetrationBlunt>
+			<extraDamages>
+				<li>
+					<def>EMP</def>
+					<amount>12</amount>
+					<armorPenetration>2</armorPenetration>
+					<chance>0.55</chance>
+				</li>
+			</extraDamages>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<damageAmountBase>25</damageAmountBase>
+				<explosiveDamageType>Burn</explosiveDamageType>
+				<explosiveRadius>1</explosiveRadius>
+				<explosionSound>MortarBomb_Explode</explosionSound>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeAmmo_PlasmaCanister</defName>
+		<label>make plasma canister x50</label>
+		<description>Craft 50 plasma canisters.</description>
+		<jobString>Making plasma canisters.</jobString>
+		<workAmount>6000</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Chemfuel</li>
+					</thingDefs>
+				</filter>
+				<count>50</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>25</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Chemfuel</li>
+				<li>Steel</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_PlasmaCanister>50</Ammo_PlasmaCanister>
+		</products>
+	</RecipeDef>
+
+</Defs>
