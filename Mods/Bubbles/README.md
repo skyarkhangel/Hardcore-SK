@@ -1,8 +1,8 @@
 # Interaction Bubbles
 
-![Mod Version](https://img.shields.io/badge/Mod_Version-2.5-blue)
-![RimWorld Version](https://img.shields.io/badge/Built_for_RimWorld-1.4-blue)
-![Harmony Version](https://img.shields.io/badge/Powered_by_Harmony-2.2-blue)\
+![Mod Version](https://img.shields.io/badge/Mod_Version-3.1-blue)
+![RimWorld Version](https://img.shields.io/badge/Built_for_RimWorld-1.5-blue)
+![Harmony Version](https://img.shields.io/badge/Powered_by_Harmony-2.3.3-blue)\
 [![Steam Subscribers](https://img.shields.io/steam/downloads/1516158345?color=blue&label=Steam%20Downloads&logo=Steam)](https://steamcommunity.com/sharedfiles/filedetails/?id=1516158345)
 [![GitHub Downloads](https://img.shields.io/github/downloads/Jaxe-Dev/Bubbles/total?color=blue&label=GitHub%20Downloads&logo=GitHub)](https://github.com/Jaxe-Dev/Bubbles)
 
