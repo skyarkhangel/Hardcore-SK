@@ -43,25 +43,32 @@
 
 	<!-- ========== Hellcat Rifle ========== -->
 
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Gun_HellcatRifle"]/description</xpath>
+		<value>
+			<description>A versatile assault rifle with a shortened barrel, trading range and stopping power for decreased weight and bulk.\n\nIt also comes equipped with a hardened, bioferrite mini-burner capable of setting nearby targets ablaze with a stream of burning accelerant.</description>
+		</value>
+	</Operation>
+
 	<Operation Class="CombatExtended.PatchOperationMakeGunCECompatible">
 		<defName>Gun_HellcatRifle</defName>
 		<statBases>
-			<Mass>4.7</Mass>
+			<Mass>4.35</Mass>
 			<RangedWeapon_Cooldown>0.36</RangedWeapon_Cooldown>
 			<SightsEfficiency>1.00</SightsEfficiency>
-			<ShotSpread>0.08</ShotSpread>
-			<SwayFactor>1.65</SwayFactor>
-			<Bulk>12.12</Bulk>
+			<ShotSpread>0.14</ShotSpread>
+			<SwayFactor>1.17</SwayFactor>
+			<Bulk>9.5</Bulk> <!-- Increased from base due to underbarrel weapon. -->
 		</statBases>
 		<Properties>
-			<recoilAmount>1.15</recoilAmount>
+			<recoilAmount>1.16</recoilAmount>
 			<verbClass>CombatExtended.Verb_ShootCE</verbClass>
 			<hasStandardCommand>true</hasStandardCommand>
-			<defaultProjectile>Bullet_545x39mmSoviet_FMJ</defaultProjectile>
+			<defaultProjectile>Bullet_556x45mmNATO_FMJ_SB</defaultProjectile>
 			<warmupTime>1.1</warmupTime>
-			<range>51</range>
+			<range>48</range>
 			<burstShotCount>6</burstShotCount>
-			<ticksBetweenBurstShots>6</ticksBetweenBurstShots>
+			<ticksBetweenBurstShots>5</ticksBetweenBurstShots>
 			<soundCast>Shot_AssaultRifle</soundCast>
 			<soundCastTail>GunTail_Medium</soundCastTail>
 			<muzzleFlashScale>9</muzzleFlashScale>
@@ -69,7 +76,7 @@
 		<AmmoUser>
 			<magazineSize>30</magazineSize>
 			<reloadTime>4</reloadTime>
-			<ammoSet>AmmoSet_545x39mmSoviet</ammoSet>
+			<ammoSet>AmmoSet_556x45mmNATO_SB</ammoSet>
 		</AmmoUser>
 		<FireModes>
 			<aiUseBurstMode>TRUE</aiUseBurstMode>
@@ -87,6 +94,8 @@
 		<xpath>Defs/ThingDef[defName="Gun_HellcatRifle"]/comps/li[@Class="CompProperties_EquippableAbilityReloadable"]</xpath>
 		<value>
 			<li Class="CombatExtended.CompProperties_UnderBarrel">
+				<standardLabel>switch to rifle</standardLabel>
+				<underBarrelLabel>switch to flamethrower</underBarrelLabel>
 				<propsUnderBarrel>
 					<magazineSize>20</magazineSize>
 					<reloadTime>5</reloadTime>
@@ -123,5 +132,118 @@
 	</Operation>
 
 	<!-- ========== Incinerator ========== -->	
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Gun_Incinerator"]/description</xpath>
+		<value>
+    		<description>A heavy weapon with a hardened bioferrite housing that can spray a stream of flame into an area.\n\nThe weapon also comes equipped with a pressure control module, allowing the wielder to set a small area ablaze with a concentrated spray of fuel.</description>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Gun_Incinerator"]/statBases/RangedWeapon_Cooldown</xpath>
+		<value>
+			<SightsEfficiency>1</SightsEfficiency>
+			<ShotSpread>5.0</ShotSpread>
+			<SwayFactor>1.38</SwayFactor>
+			<Bulk>10</Bulk>
+			<RangedWeapon_Cooldown>1.49</RangedWeapon_Cooldown>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Gun_Incinerator"]/statBases/Mass</xpath>
+		<value>
+			<Mass>7</Mass>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Gun_Incinerator"]/weaponTags</xpath>
+		<value>
+			<li>GunHeavy</li>
+			<li>CE_AI_AOE</li>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Gun_Incinerator"]/verbs</xpath>
+		<value>
+			<verbs>
+				<li Class="CombatExtended.VerbPropertiesCE">
+					<recoilAmount>0.33</recoilAmount>
+					<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+					<hasStandardCommand>true</hasStandardCommand>
+					<defaultProjectile>Bullet_Flamethrower_Prometheum</defaultProjectile>
+					<ai_AvoidFriendlyFireRadius>3</ai_AvoidFriendlyFireRadius>
+					<warmupTime>1.1</warmupTime>
+					<range>11</range>
+					<minRange>3</minRange>
+					<ticksBetweenBurstShots>3</ticksBetweenBurstShots>
+					<burstShotCount>20</burstShotCount>
+					<soundCast>HissFlamethrower</soundCast>
+					<muzzleFlashScale>0</muzzleFlashScale>
+					<targetParams>
+						<canTargetLocations>true</canTargetLocations>
+					</targetParams>
+				</li>
+			</verbs>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Gun_Incinerator"]/comps</xpath>
+		<value>
+			<li Class="CombatExtended.CompProperties_AmmoUser">
+				<magazineSize>60</magazineSize>
+				<reloadTime>5</reloadTime>
+				<ammoSet>AmmoSet_Flamethrower</ammoSet>
+			</li>
+			<li Class="CombatExtended.CompProperties_FireModes">
+				<aiUseBurstMode>true</aiUseBurstMode>
+				<aimedBurstShotCount>10</aimedBurstShotCount>
+				<aiAimMode>SuppressFire</aiAimMode>
+			</li>	
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Gun_Incinerator"]/comps/li[@Class="CompProperties_EquippableAbilityReloadable"]</xpath>
+		<value>
+			<li Class="CombatExtended.CompProperties_UnderBarrel">
+				<standardLabel>switch to standard pressure</standardLabel>
+				<underBarrelLabel>switch to high pressure</underBarrelLabel>
+				<oneAmmoHolder>True</oneAmmoHolder>
+				<propsUnderBarrel>
+					<magazineSize>60</magazineSize>
+					<reloadTime>5</reloadTime>
+					<ammoSet>AmmoSet_Incinerator_Burst</ammoSet>
+				</propsUnderBarrel>
+				<verbPropsUnderBarrel>
+					<recoilAmount>0.33</recoilAmount>
+					<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+					<hasStandardCommand>true</hasStandardCommand>
+					<defaultProjectile>Bullet_Incinerator_Burst_Prometheum</defaultProjectile>
+					<ai_AvoidFriendlyFireRadius>3</ai_AvoidFriendlyFireRadius>
+					<warmupTime>1.1</warmupTime>
+					<range>11</range>
+					<minRange>3</minRange>
+					<soundCast>HissFlamethrower</soundCast>
+					<muzzleFlashScale>0</muzzleFlashScale>
+					<ammoConsumedPerShotCount>20</ammoConsumedPerShotCount>
+					<targetParams>
+						<canTargetLocations>true</canTargetLocations>
+					</targetParams>
+				</verbPropsUnderBarrel>
+				<propsFireModesUnderBarrel>
+					<aiAimMode>AimedShot</aiAimMode>
+					<noSingleShot>true</noSingleShot>	
+				</propsFireModesUnderBarrel>
+			</li>
+			<li>
+				<compClass>CompEquippable</compClass>
+			</li>
+		</value>
+	</Operation>
 
 </Patch>
