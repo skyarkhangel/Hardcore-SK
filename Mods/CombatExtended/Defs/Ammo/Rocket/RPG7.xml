@@ -1,0 +1,352 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>AmmoRPG7Grenades</defName>
+		<label>RPG-7 grenades</label>
+		<parent>AmmoRockets</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberRocket</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_RPG7Grenade</defName>
+		<label>RPG-7 Grenades</label>
+		<ammoTypes>
+			<Ammo_RPG7Grenade_HEAT>Bullet_RPG7Grenade_HEAT</Ammo_RPG7Grenade_HEAT>
+			<Ammo_RPG7Grenade_Thermobaric>Bullet_RPG7Grenade_Thermobaric</Ammo_RPG7Grenade_Thermobaric>
+			<Ammo_RPG7Grenade_Frag>Bullet_RPG7Grenade_Frag</Ammo_RPG7Grenade_Frag>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="RPG7GrenadeBase" ParentName="MediumAmmoBase" Abstract="True">
+		<description>Rocket-propelled grenade designed for the RPG-7 launcher. After being fired a rocket motor kicks in to propel the grenade further.</description>
+		<statBases>
+			<MaxHitPoints>150</MaxHitPoints>
+		</statBases>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting_TableMachining</li>
+		</tradeTags>
+		<thingCategories>
+			<li>AmmoRPG7Grenades</li>
+		</thingCategories>
+		<stackLimit>25</stackLimit>
+		<cookOffFlashScale>40</cookOffFlashScale>
+		<cookOffSound>MortarBomb_Explode</cookOffSound>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="RPG7GrenadeBase">
+		<defName>Ammo_RPG7Grenade_HEAT</defName>
+		<label>RPG-7 grenade (HEAT)</label>
+		<graphicData>
+			<texPath>Things/Ammo/RPG/HEAT</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>52.78</MarketValue>
+			<Mass>2.8</Mass>
+			<Bulk>7.14</Bulk>
+		</statBases>
+		<ammoClass>RocketHEAT</ammoClass>
+		<detonateProjectile>Bullet_RPG7Grenade_HEAT</detonateProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="RPG7GrenadeBase">
+		<defName>Ammo_RPG7Grenade_Thermobaric</defName>
+		<label>RPG-7 grenade (Thermobaric)</label>
+		<graphicData>
+			<texPath>Things/Ammo/RPG/Thermobaric</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>104.58</MarketValue>
+			<Mass>4.7</Mass>
+			<Bulk>8.61</Bulk>
+		</statBases>
+		<ammoClass>RocketThermobaric</ammoClass>
+		<detonateProjectile>Bullet_RPG7Grenade_Thermobaric</detonateProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="RPG7GrenadeBase">
+		<defName>Ammo_RPG7Grenade_Frag</defName>
+		<label>RPG-7 grenade (Frag)</label>
+		<graphicData>
+			<texPath>Things/Ammo/RPG/Frag</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>37.86</MarketValue>
+			<Mass>2.2</Mass>
+			<Bulk>3.4</Bulk>
+		</statBases>
+		<stackLimit>100</stackLimit>
+		<ammoClass>RocketFrag</ammoClass>
+		<detonateProjectile>Bullet_RPG7Grenade_Frag</detonateProjectile>
+	</ThingDef>
+
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef Name="BaseRPG7Grenade" ParentName="BaseExplosiveBullet" Abstract="true">
+		<graphicData>
+			<shaderType>TransparentPostLight</shaderType>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>73</speed>
+			<soundAmbient>RocketPropelledLoop_Small</soundAmbient>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ProjectileFleck">
+				<FleckDatas>
+					<li>
+						<fleck>Fleck_CERocketFlame</fleck>
+						<emissionsPerTick>7</emissionsPerTick>
+						<flecksPerEmission>3</flecksPerEmission>
+						<scale>1</scale>
+						<cutoffTickRange>25~30</cutoffTickRange>
+						<originOffset>0.4</originOffset>
+					</li>
+					<li>
+						<fleck>Fleck_CERocketSmokeTrail</fleck>
+						<emissionsPerTick>2</emissionsPerTick>
+						<rotation>0~360</rotation>
+						<scale>0.5</scale>
+						<flecksPerEmission>1</flecksPerEmission>
+					</li>
+					<li>
+						<fleck>Fleck_CERocketSmoke</fleck>
+						<emissionsPerTick>2</emissionsPerTick>
+						<rotation>0~360</rotation>
+						<flecksPerEmission>2</flecksPerEmission>
+						<cutoffTickRange>25~60</cutoffTickRange>
+					</li>
+				</FleckDatas>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseRPG7Grenade">
+		<defName>Bullet_RPG7Grenade_HEAT</defName>
+		<label>RPG-7 grenade (HEAT)</label>
+		<graphicData>
+			<texPath>Things/Projectile/RPG/HEAT</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>275</damageAmountBase>
+			<armorPenetrationSharp>500</armorPenetrationSharp>
+			<armorPenetrationBlunt>44.956</armorPenetrationBlunt>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<damageAmountBase>150</damageAmountBase>
+				<explosiveDamageType>Bomb</explosiveDamageType>
+				<explosiveRadius>1.5</explosiveRadius>
+				<explosionSound>MortarBomb_Explode</explosionSound>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			</li>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Large>3</Fragment_Large>
+					<Fragment_Small>12</Fragment_Small>
+				</fragments>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseRPG7Grenade">
+		<defName>Bullet_RPG7Grenade_Thermobaric</defName>
+		<label>RPG-7 grenade (Thermobaric)</label>
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		<!-- Use "CombatExtended.ProjectileCE_BunkerBuster" for the special bunker buster property -->
+		<graphicData>
+			<texPath>Things/Projectile/RPG/Thermobaric</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<explosionRadius>5</explosionRadius>
+			<damageDef>Thermobaric</damageDef>
+			<damageAmountBase>300</damageAmountBase>
+			<armorPenetrationSharp>0</armorPenetrationSharp>
+			<armorPenetrationBlunt>0</armorPenetrationBlunt>
+			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<ai_IsIncendiary>true</ai_IsIncendiary>
+			<!-- <fuze_delay>2</fuze_delay>
+      		<HP_penetration>true</HP_penetration>
+     		<HP_penetration_ratio>300</HP_penetration_ratio> -->
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseRPG7Grenade">
+		<defName>Bullet_RPG7Grenade_Frag</defName>
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		<label>RPG-7 grenade (Frag)</label>
+		<graphicData>
+			<texPath>Things/Projectile/RPG/Frag</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<explosionRadius>1.5</explosionRadius>
+			<damageDef>Bomb</damageDef>
+			<armorPenetrationSharp>0</armorPenetrationSharp>
+			<damageAmountBase>58</damageAmountBase>
+			<armorPenetrationBlunt>0</armorPenetrationBlunt>
+			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Small>50</Fragment_Small>
+				</fragments>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef ParentName="LauncherAmmoRecipeBase">
+		<defName>MakeAmmo_RPG7Grenade_HEAT</defName>
+		<label>make RPG-7 HEAT grenades x5</label>
+		<description>Craft 5 RPG-7 HEAT grenades.</description>
+		<jobString>Making RPG-7 HEAT grenades.</jobString>
+		<workAmount>9200</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>28</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>FSX</li>
+					</thingDefs>
+				</filter>
+				<count>10</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>FSX</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_RPG7Grenade_HEAT>5</Ammo_RPG7Grenade_HEAT>
+		</products>
+	</RecipeDef>
+
+	<RecipeDef ParentName="LauncherAmmoRecipeBase">
+		<defName>MakeAmmo_RPG7Grenade_Thermobaric</defName>
+		<label>make RPG-7 thermobaric grenades x5</label>
+		<description>Craft 5 RPG-7 thermobaric grenades.</description>
+		<jobString>Making RPG-7 thermobaric grenades.</jobString>
+		<workAmount>20400</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>48</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>FSX</li>
+					</thingDefs>
+				</filter>
+				<count>16</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Prometheum</li>
+					</thingDefs>
+				</filter>
+				<count>22</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>FSX</li>
+				<li>Prometheum</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_RPG7Grenade_Thermobaric>5</Ammo_RPG7Grenade_Thermobaric>
+		</products>
+	</RecipeDef>
+
+	<RecipeDef ParentName="LauncherAmmoRecipeBase">
+		<defName>MakeAmmo_RPG7Grenade_Frag</defName>
+		<label>make RPG-7 frag grenades x5</label>
+		<description>Craft 5 RPG-7 frag grenades.</description>
+		<jobString>Making RPG-7 frag grenades.</jobString>
+		<workAmount>5400</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>22</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>FSX</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>FSX</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_RPG7Grenade_Frag>5</Ammo_RPG7Grenade_Frag>
+		</products>
+	</RecipeDef>
+
+</Defs>

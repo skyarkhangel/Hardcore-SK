@@ -20,10 +20,18 @@ public class JobGiver_UpdateLoadout_FindPickup_LambdaValidator_Patch
 {
     static bool Prepare() => ExtendedLoadoutMod.Instance.useHpAndQualityInLoadouts;
 
+    #region temp
+    static System.Type innerType = AccessTools.Inner(typeof(JobGiver_UpdateLoadout), "<>c__DisplayClass8_0");
+    #endregion
+
     [UsedImplicitly]
     public static MethodBase TargetMethod()
     {
-        return AccessTools.Method(AccessTools.Inner(typeof(JobGiver_UpdateLoadout), "<>c__DisplayClass8_0"), "<FindPickup>b__3");
+        string version = Assembly.GetAssembly(typeof(JobGiver_UpdateLoadout)).GetName().Version.ToString();
+        Log.Message("Combat Extended ver " + version + " Loaded");
+        if (version == "1.1.2.0")
+            innerType = AccessTools.Inner(typeof(JobGiver_UpdateLoadout), "<>c__DisplayClass9_0");
+        return AccessTools.Method(innerType, "<FindPickup>b__3");
     }
 
     [HarmonyTranspiler]
@@ -39,7 +47,7 @@ public class JobGiver_UpdateLoadout_FindPickup_LambdaValidator_Patch
           IL_001a:  brtrue.s   IL_0043
          */
         var isForbidden = AccessTools.Method(typeof(ForbidUtility), nameof(ForbidUtility.IsForbidden), new[] { typeof(Thing), typeof(Pawn) });
-        var thisPawn = AccessTools.Field(AccessTools.Inner(typeof(JobGiver_UpdateLoadout), "<>c__DisplayClass8_0"), "pawn");
+        var thisPawn = AccessTools.Field(innerType, "pawn");
         var idx = code.FindIndex(ci => ci.Calls(isForbidden));
         if (idx == -1)
         {

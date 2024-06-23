@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>AmmoBlunderbussShot</defName>
+		<label>Blunderbuss Shot</label>
+		<parent>AmmoRifles</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberRifle</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_BlunderbussShot</defName>
+		<label>Blunderbuss Shot</label>
+		<ammoTypes>
+			<Ammo_BlunderbussShot>Bullet_BlunderbussShot</Ammo_BlunderbussShot>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="BlunderbussShotBase" ParentName="AmmoBase" Abstract="True">
+		<description>A paper cartridge sealed with wax containing several round projectiles and black powder, fired by early, smoothbore blunderbusses.</description>
+		<statBases>
+			<Mass>0.12</Mass>
+			<Bulk>0.21</Bulk>
+		</statBases>
+		<tradeTags>
+			<li>CE_PreIndustrialAmmo</li>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting_FueledSmithy</li>
+			<li>CE_AutoEnableCrafting_ElectricSmithy</li>
+		</tradeTags>
+		<thingCategories>
+			<li>AmmoBlunderbussShot</li>
+		</thingCategories>
+		<techLevel>Medieval</techLevel>
+		<stackLimit>1000</stackLimit>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BlunderbussShotBase">
+		<defName>Ammo_BlunderbussShot</defName>
+		<label>blunderbuss shot</label>
+		<graphicData>
+			<texPath>Things/Ammo/Medieval/Blunderbuss/Paper</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>0.48</MarketValue>
+		</statBases>
+		<ammoClass>BuckShot</ammoClass>
+	</ThingDef>
+
+	<!-- ================== Projectile ================== -->
+
+	<ThingDef Name="BlunderbussShotBullet" ParentName="BaseBulletCE" Abstract="true">
+		<graphicData>
+			<texPath>Things/Projectile/Shotgun_Pellet</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile>
+			<damageDef>Bullet</damageDef>
+			<dropsCasings>false</dropsCasings>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="BlunderbussShotBullet">
+		<defName>Bullet_BlunderbussShot</defName>
+		<label>blunderbuss pellet</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>73</speed>
+			<damageAmountBase>7</damageAmountBase>
+			<pelletCount>20</pelletCount>
+			<armorPenetrationSharp>3.5</armorPenetrationSharp>
+			<armorPenetrationBlunt>3.14</armorPenetrationBlunt>
+			<spreadMult>17.8</spreadMult>
+		</projectile>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeAmmo_BlunderbussShot</defName>
+		<label>make blunderbuss shot x100</label>
+		<description>Craft 100 blunderbuss shots.</description>
+		<jobString>Making blunderbuss shots.</jobString>
+		<researchPrerequisite>CE_Gunpowder</researchPrerequisite>
+		<workAmount>2400</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>24</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_BlunderbussShot>100</Ammo_BlunderbussShot>
+		</products>
+	</RecipeDef>
+
+</Defs>

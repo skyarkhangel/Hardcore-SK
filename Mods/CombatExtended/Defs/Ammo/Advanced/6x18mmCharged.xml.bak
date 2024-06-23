@@ -1,0 +1,278 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>Ammo6x18mmCharged</defName>
+		<label>6x18mm Charged</label>
+		<parent>AmmoAdvanced</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberCharge</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_6x18mmCharged</defName>
+		<label>6x18mm Charged</label>
+		<ammoTypes>
+			<Ammo_6x18mmCharged>Bullet_6x18mmCharged</Ammo_6x18mmCharged>
+			<Ammo_6x18mmCharged_AP>Bullet_6x18mmCharged_AP</Ammo_6x18mmCharged_AP>
+			<Ammo_6x18mmCharged_Ion>Bullet_6x18mmCharged_Ion</Ammo_6x18mmCharged_Ion>
+		</ammoTypes>
+		<similarTo>AmmoSet_ChargedPistol</similarTo>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="6x18mmChargedBase" ParentName="SpacerSmallAmmoBase" Abstract="True">
+		<description>Charged shot ammo used by advanced SMG designs.</description>
+		<statBases>
+			<Mass>0.008</Mass>
+			<Bulk>0.01</Bulk>
+		</statBases>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting_FabricationBench</li>
+		</tradeTags>
+		<thingCategories>
+			<li>Ammo6x18mmCharged</li>
+		</thingCategories>
+		<stackLimit>5000</stackLimit>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="6x18mmChargedBase">
+		<defName>Ammo_6x18mmCharged</defName>
+		<label>6x18mm Charged</label>
+		<graphicData>
+			<texPath>Things/Ammo/Charged/SmallRegular</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>0.5</MarketValue>
+		</statBases>
+		<ammoClass>Charged</ammoClass>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="6x18mmChargedBase">
+		<defName>Ammo_6x18mmCharged_AP</defName>
+		<label>6x18mm Charged (Conc.)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Charged/SmallConc</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>0.5</MarketValue>
+		</statBases>
+		<ammoClass>ChargedAP</ammoClass>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="6x18mmChargedBase">
+		<defName>Ammo_6x18mmCharged_Ion</defName>
+		<label>6x18mm Charged (Ion)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Charged/SmallIon</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>0.5</MarketValue>
+		</statBases>
+		<ammoClass>Ionized</ammoClass>
+		<generateAllowChance>0.5</generateAllowChance>
+	</ThingDef>
+
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef Name="Base6x18mmChargedBullet" ParentName="BaseBulletCE" Abstract="true">
+		<graphicData>
+			<texPath>Things/Projectile/Charged/ChargeShot</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bullet</damageDef>
+			<speed>122</speed>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="Base6x18mmChargedBullet">
+		<defName>Bullet_6x18mmCharged</defName>
+		<label>6x18mm Charged bullet</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageAmountBase>10</damageAmountBase>
+			<secondaryDamage>
+				<li>
+					<def>Bomb_Secondary</def>
+					<amount>3</amount>
+				</li>
+			</secondaryDamage>
+			<armorPenetrationSharp>12</armorPenetrationSharp>
+			<armorPenetrationBlunt>14.4</armorPenetrationBlunt>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="Base6x18mmChargedBullet">
+		<defName>Bullet_6x18mmCharged_AP</defName>
+		<label>6x18mm Charged bullet (Conc.)</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageAmountBase>8</damageAmountBase>
+			<secondaryDamage>
+				<li>
+					<def>Bomb_Secondary</def>
+					<amount>1</amount>
+				</li>
+			</secondaryDamage>
+			<armorPenetrationSharp>24</armorPenetrationSharp>
+			<armorPenetrationBlunt>14.4</armorPenetrationBlunt>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="Base6x18mmChargedBullet">
+		<defName>Bullet_6x18mmCharged_Ion</defName>
+		<label>6x18mm Charged bullet (Ion)</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageAmountBase>8</damageAmountBase>
+			<secondaryDamage>
+				<li>
+					<def>EMP</def>
+					<amount>5</amount>
+				</li>
+			</secondaryDamage>
+			<armorPenetrationSharp>18</armorPenetrationSharp>
+			<armorPenetrationBlunt>14.4</armorPenetrationBlunt>
+			<empShieldBreakChance>0.2</empShieldBreakChance>
+		</projectile>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef ParentName="ChargeAmmoRecipeBase">
+		<defName>MakeAmmo_6x18mmCharged</defName>
+		<label>make 6x18mm Charged cartridge x500</label>
+		<description>Craft 500 6x18mm Charged cartridges.</description>
+		<jobString>Making 6x18mm Charged cartridges.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Plasteel</li>
+					</thingDefs>
+				</filter>
+				<count>8</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>5</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Plasteel</li>
+				<li>Steel</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_6x18mmCharged>500</Ammo_6x18mmCharged>
+		</products>
+		<workAmount>6600</workAmount>
+	</RecipeDef>
+
+	<RecipeDef ParentName="ChargeAmmoRecipeBase">
+		<defName>MakeAmmo_6x18mmCharged_AP</defName>
+		<label>make 6x18mm Charged (Conc.) cartridge x500</label>
+		<description>Craft 500 6x18mm Charged (Conc.) cartridges.</description>
+		<jobString>Making 6x18mm Charged (Conc.) cartridges.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Plasteel</li>
+					</thingDefs>
+				</filter>
+				<count>8</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>5</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Plasteel</li>
+				<li>Steel</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_6x18mmCharged_AP>500</Ammo_6x18mmCharged_AP>
+		</products>
+		<workAmount>6600</workAmount>
+	</RecipeDef>
+
+	<RecipeDef ParentName="ChargeAmmoRecipeBase">
+		<defName>MakeAmmo_6x18mmCharged_Ion</defName>
+		<label>make 6x18mm Charged (Ion) cartridge x500</label>
+		<description>Craft 500 6x18mm Charged (Ion) cartridges.</description>
+		<jobString>Making 6x18mm Charged (Ion) cartridges.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Plasteel</li>
+					</thingDefs>
+				</filter>
+				<count>8</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>5</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Plasteel</li>
+				<li>Steel</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_6x18mmCharged_Ion>500</Ammo_6x18mmCharged_Ion>
+		</products>
+		<workAmount>6600</workAmount>
+	</RecipeDef>
+
+</Defs>

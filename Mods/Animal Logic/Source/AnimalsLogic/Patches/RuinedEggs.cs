@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 using HarmonyLib;
 using RimWorld;
@@ -31,26 +32,29 @@ namespace AnimalsLogic
                     ThingWithComps thing = __instance.parent;
                     IntVec3 pos = thing.Position;
                     Map map = thing.Map;
-                    ThingDef newThing = thing.def;
+                    ThingWithComps newThing = (ThingWithComps)ThingMaker.MakeThing(thing.def);
+                    newThing.stackCount = thing.stackCount;
+
                     float progress = thing.TryGetComp<CompRottable>().RotProgress;
 
                     thing.Destroy();
                     CompProperties_EggLayer foundRace = DefDatabase<ThingDef>.AllDefsListForReading.Find(d => d.comps != null
-                        && d.GetCompProperties<CompProperties_EggLayer>() != null && d.GetCompProperties<CompProperties_EggLayer>().eggFertilizedDef == newThing).GetCompProperties<CompProperties_EggLayer>();
+                        && d.GetCompProperties<CompProperties_EggLayer>() != null && d.GetCompProperties<CompProperties_EggLayer>().eggFertilizedDef == newThing.def).GetCompProperties<CompProperties_EggLayer>();
                     //Log.Message("unfertilised egg is: " + foundRace != null ? foundRace.eggUnfertilizedDef.defName : "Null");
-                    if (foundRace == null || foundRace.eggUnfertilizedDef == null || foundRace.eggFertilizedDef == foundRace.eggUnfertilizedDef)
-                        newThing = DefDatabase<ThingDef>.GetNamed("EggChickenUnfertilized");
+                    if (foundRace == null || foundRace.eggUnfertilizedDef == null || (foundRace.eggFertilizedDef != null && foundRace.eggFertilizedDef == foundRace.eggUnfertilizedDef))
+                        newThing.def = DefDatabase<ThingDef>.GetNamed("EggChickenUnfertilized");
                     else
-                        newThing = foundRace.eggUnfertilizedDef;
+                        newThing.def = foundRace.eggUnfertilizedDef;
                     //CompProperties_Rottable rottable = newThing.GetCompProperties<CompProperties_Rottable>();
                     //if (rottable != null)
 
-                    GenSpawn.Spawn(newThing, pos, map);
+                    GenPlace.TryPlaceThing(newThing, pos, map, ThingPlaceMode.Near);
+                    //GenSpawn.Spawn(newThing, pos, map);
 
                     foreach (var item in pos.GetThingList(map))
                     {
                         CompRottable rot = null;
-                        if (item.def == newThing)
+                        if (item.def == newThing.def)
                             rot = item.TryGetComp<CompRottable>();
                         if (progress > 0 && rot != null && rot.RotProgress < 30)
                             rot.RotProgress = progress;

@@ -203,6 +203,12 @@
 			<uninstallWork>300</uninstallWork>
 			<paintable>true</paintable>
 		</building>
+		<comps>
+			<li Class="CompProperties_AffectedByFacilities">
+				<linkableFacilities>
+				</linkableFacilities>
+			</li>
+		</comps>
 		<interactionCellOffset>(0,0,-1)</interactionCellOffset>
 		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
 		<designationCategory>Misc</designationCategory>
@@ -502,8 +508,13 @@
 			<MaxHitPoints>180</MaxHitPoints>
 			<WorkToBuild>3550</WorkToBuild>
 			<Flammability>1.0</Flammability>
+			<Mass>200</Mass>
 		</statBases>
 		<size>(2,1)</size>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<thingCategories>
+			<li>BuildingsMisc</li>
+		</thingCategories>
 		<stuffCategories>
 			<li>StrongMetallic</li>
 		</stuffCategories>
@@ -1354,7 +1365,7 @@
 		<fillPercent>0.15</fillPercent>
 		<costList>
 			<ComponentIndustrial>5</ComponentIndustrial>
-			<Plastic>15</Plastic>
+			<Surfactant>25</Surfactant>
 			<ElectronicComponents>1</ElectronicComponents>
 			<Mechanism>1</Mechanism>
 		</costList>
@@ -1420,6 +1431,7 @@
 			<ai_chillDestination>false</ai_chillDestination>
 			<destroySound>BuildingDestroyed_Metal_Small</destroySound>
 		</building>
+		<minifiedDef>MinifiedThing</minifiedDef>
 		<specialDisplayRadius>6.9</specialDisplayRadius>
 		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
 		<pathCost>25</pathCost>
@@ -1434,7 +1446,7 @@
 	<ThingDef ParentName="StandartBuilding">
 		<defName>FertilizerPump</defName>
 		<label>terraforming pump</label>
-		<description>A single use pump that slowly expands a field of growable soil around itself. Requires power.</description>
+		<description>A single use pump that slowly expands a field of growable soil around itself. Requires power. Requires water and compost in order to function.</description>
 		<thingClass>SK.Building_FertilizerPump</thingClass>
 		<graphicData>
 			<texPath>Things/Building/Misc/Fertigator</texPath>
@@ -1449,7 +1461,7 @@
 		</graphicData>
 		<passability>Standable</passability>
 		<fillPercent>0.2</fillPercent>
-		<tickerType>Rare</tickerType>	
+		<tickerType>Normal</tickerType>	
 		<statBases>
 			<MaxHitPoints>240</MaxHitPoints>
 			<WorkToBuild>1700</WorkToBuild>
@@ -1458,6 +1470,10 @@
 			<Mass>30</Mass>
 		</statBases>
 		<size>(1,1)</size>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<thingCategories>
+			<li>BuildingsMisc</li>
+		</thingCategories>
 		<costList>
 			<ComponentIndustrial>8</ComponentIndustrial>
 			<Rubber>30</Rubber>
@@ -1478,6 +1494,21 @@
 				<compClass>CompPowerTrader</compClass>
 				<shortCircuitInRain>false</shortCircuitInRain>
 				<basePowerConsumption>300</basePowerConsumption>
+			</li>
+			<li Class="CompProperties_Refuelable">
+				<consumeFuelOnlyWhenPowered>true</consumeFuelOnlyWhenPowered>
+				<fuelConsumptionRate>60.0</fuelConsumptionRate>
+				<fuelCapacity>10.0</fuelCapacity>
+				<fuelConsumptionPerTickInRain>-10</fuelConsumptionPerTickInRain>
+				<fuelFilter>
+					<thingDefs>
+						<li>Compost</li>
+					</thingDefs>
+				</fuelFilter>
+				<initialFuelPercent>0</initialFuelPercent>
+				<showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+				<showFuelGizmo>true</showFuelGizmo>
+				<fuelGizmoLabel>Compost</fuelGizmoLabel>
 			</li>
 			<li>
 				<compClass>CompQuality</compClass>
@@ -2250,6 +2281,7 @@
 		<uiIconPath>Things/Building/MenuIcon_MobileMineralSonar</uiIconPath>
 		<thingClass>SK.Building_MobileMineralSonar</thingClass>
 		<tickerType>Normal</tickerType>
+		<drawerType>RealtimeOnly</drawerType>
 		<placeWorkers>
 			<li>SK.PlaceWorker_MobileMineralSonar</li>
 		</placeWorkers>
@@ -2510,6 +2542,10 @@
 			<li Class="CompProperties_Breakdownable"/>
 		</comps>
 		<size>(1,1)</size>
+		<minifiedDef>MinifiedThing</minifiedDef>
+		<thingCategories>
+			<li>BuildingsMisc</li>
+		</thingCategories>
 		<building>
 			<ai_chillDestination>false</ai_chillDestination>
 		</building>
@@ -2734,7 +2770,7 @@
 	<ThingDef>
 		<defName>BombardmentBeacon</defName>
 		<label>bombardment beacon</label>
-		<description>A beacon. When a battleship receives this signal, it will destroy the nearest enemy base.</description>
+		<description>A beacon. When a battleship receives this signal, it will destroy the nearest enemy base.\n\nTo use this item you need to infiltrate an enemy base and place beacon near buildings. After a short delay a bombardment will begin and settlement will be destroyed once you leave the map. Can't be used on home map.</description>
 		<tickerType>Normal</tickerType>
 		<category>Building</category>
 		<thingClass>SK.Events.Building_BombardmentBeacon</thingClass>
@@ -2773,7 +2809,7 @@
 	<ThingDef>
 		<defName>BombardmentBeaconSecond</defName>
 		<label>safe distance bombardment beacon</label>
-		<description>A beacon. When a battleship receives this signal, it will destroy the nearest enemy base once you leave the area.</description>
+		<description>A beacon. When a battleship receives this signal, it will destroy the nearest enemy base once you leave the area.\n\nTo use this item you need to infiltrate an enemy base and place beacon near buildings. Once you leave the map a bombardment will begin and settlement will be destroyed. Can't be used on home map.</description>
 		<tickerType>Normal</tickerType>
 		<category>Building</category>
 		<thingClass>SK.Events.Building_BombardmentBeacon2</thingClass>

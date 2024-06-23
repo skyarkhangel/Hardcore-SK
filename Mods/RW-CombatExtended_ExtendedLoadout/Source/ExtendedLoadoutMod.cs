@@ -67,7 +67,7 @@ public class ExtendedLoadoutMod : ModBase
         for (int i = 0; i < MaxColumnCount; i++)
         {
             int colId = i;
-            loadoutNames[i] = modSettingsPack.GetHandle($"LoadoutName_{i}", $"Loadout{i + 1}".Translate(), "", $"Loadout{i + 1}".Translate().RawText);
+            loadoutNames[i] = modSettingsPack.GetHandle($"LoadoutName_{i}", $"Loadout{i + 1}".Translate(), "Settings.LoadoutName.Desc".Translate(), $"Loadout{i + 1}".Translate().RawText);
             loadoutNames[i].VisibilityPredicate = () => (bool)UseMultiLoadouts && colId < (int)MultiLoadoutsCount;
             ((SettingHandle)loadoutNames[i]).ValueChanged += ((Action<SettingHandle>)delegate
             {
@@ -75,7 +75,7 @@ public class ExtendedLoadoutMod : ModBase
                 if (pawnColumnDef != null)
                 {
                     pawnColumnDef.label = loadoutNames[colId].Value;
-                    ((Def)pawnColumnDef).cachedLabelCap = null;
+                    ((Def)pawnColumnDef).ClearCachedData();
                 }
             });
         }
@@ -88,8 +88,10 @@ public class ExtendedLoadoutMod : ModBase
             int idx = columns.FindIndex((PawnColumnDef x) => x.defName.Equals("Loadout"));
             if (idx != -1)
             {
+                IEnumerable<PawnColumnDef> columnDefs = GeneratePawnColumnDefs(MultiLoadoutsCount);
+                DefDatabase<PawnColumnDef>.Add(columnDefs);
                 columns.RemoveAt(idx);
-                columns.InsertRange(idx, GeneratePawnColumnDefs(MultiLoadoutsCount));
+                columns.InsertRange(idx, columnDefs);
                 Loadout_Multi.ColumnsCount = MultiLoadoutsCount;
                 useMultiLoadouts = true;
                 Log.Message($"[CombatExtended.ExtendedLoadout] {MultiLoadoutsCount}x Loadout columns injected");

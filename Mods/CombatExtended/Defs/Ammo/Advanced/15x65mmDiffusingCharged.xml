@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>Ammo15x65mmDiffusingCharged</defName>
+		<label>15x65mm Diffusing Charged</label>
+		<parent>AmmoAdvanced</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberChargeLarge</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_15x65mmDiffusingCharged</defName>
+		<label>15x65mm Diffusing Charged</label>
+		<ammoTypes>
+			<Ammo_15x65mmDiffusingCharged>Bullet_15x65mmDiffusingCharged</Ammo_15x65mmDiffusingCharged>
+		</ammoTypes>
+		<similarTo>AmmoSet_ChargedShotgun</similarTo>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="15x65mmDiffusingChargedBase" ParentName="SpacerMediumAmmoBase" Abstract="True">
+		<description>Mechanoid-built cartridge designed to split upon firing.</description>
+		<statBases>
+			<Mass>0.11</Mass>
+			<Bulk>0.04</Bulk>
+		</statBases>
+		<thingCategories>
+			<li>Ammo15x65mmDiffusingCharged</li>
+		</thingCategories>
+		<tradeTags>
+			<li>CE_AutoEnableTrade_Sellable</li>
+		</tradeTags>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="15x65mmDiffusingChargedBase">
+		<defName>Ammo_15x65mmDiffusingCharged</defName>
+		<label>15x65mm Diffusing Charged</label>
+		<graphicData>
+			<texPath>Things/Ammo/Charged/ShotgunMech</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>3.26</MarketValue><!-- value intentionally decreased to help reduce wealth bloat/free silver -->
+		</statBases>
+		<ammoClass>BuckShot</ammoClass>
+		<cookOffProjectile>Bullet_15x65mmDiffusingCharged</cookOffProjectile>
+	</ThingDef>
+
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef Name="Base15x65mmDiffusingChargedBullet" ParentName="BaseBulletCE" Abstract="true">
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bullet</damageDef>
+			<speed>119</speed>
+			<casingMoteDefname>Fleck_ShotgunShell</casingMoteDefname>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="Base15x65mmDiffusingChargedBullet">
+		<defName>Bullet_15x65mmDiffusingCharged</defName>
+		<label>diffusing charged shot</label>
+		<graphicData>
+			<texPath>Things/Projectile/Charged/ChargeShot</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageAmountBase>22</damageAmountBase>
+			<pelletCount>5</pelletCount>
+			<secondaryDamage>
+				<li>
+					<def>Bomb_Secondary</def>
+					<amount>7</amount>
+				</li>
+			</secondaryDamage>
+			<armorPenetrationSharp>8</armorPenetrationSharp>
+			<armorPenetrationBlunt>50.46</armorPenetrationBlunt>
+			<spreadMult>8.9</spreadMult>
+		</projectile>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef ParentName="ChargeAmmoRecipeBase" MayRequire="Ludeon.RimWorld.Biotech">
+		<defName>MakeAmmo_15x65mmDiffusingCharged</defName>
+		<label>make 15x65mm Diffusing Charged cartridge x200</label>
+		<description>Craft 200 15x65mm Diffusing Charged cartridges.</description>
+		<jobString>Making 15x65mm Diffusing Charged cartridges.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Plasteel</li>
+					</thingDefs>
+				</filter>
+				<count>60</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>14</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>22</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Plasteel</li>
+				<li>Steel</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_12x64mmCharged>200</Ammo_12x64mmCharged>
+		</products>
+		<skillRequirements>
+			<Crafting>8</Crafting>
+		</skillRequirements>
+		<workAmount>42460</workAmount><!-- 10% more work -->
+	</RecipeDef>
+
+</Defs>

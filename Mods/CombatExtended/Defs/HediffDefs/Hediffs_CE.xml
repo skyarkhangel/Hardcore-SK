@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
   <!-- Global -->
@@ -6,24 +6,25 @@
   <HediffDef>
     <defName>WearingGasMask</defName>
     <hediffClass>HediffWithComps</hediffClass>
-    <defaultLabelColor>(0.88, 0.83, 0.78)</defaultLabelColor>
-    <isBad>false</isBad>
-    <label>mask</label>
+    <defaultLabelColor>(0.88, 0.88, 0.88)</defaultLabelColor>
+		<label>gas mask</label>
 	<description>Wearing a gas mask</description>
     <makesSickThought>false</makesSickThought>
     <scenarioCanAdd>false</scenarioCanAdd>
+		<everCurableByItem>false</everCurableByItem>
     <stages>
       <li>
         <label>wearing</label>
         <minSeverity>0</minSeverity>
+        <restFallFactorOffset>0.1</restFallFactorOffset>
         <capMods>
+					<li>
+						<capacity>Sight</capacity>
+						<offset>-0.1</offset>
+					</li>
           <li>
-            <capacity>Breathing</capacity>
-            <offset>-0.25</offset>
-          </li>
-          <li>
-            <capacity>Sight</capacity>
-            <offset>-0.1</offset>
+			<capacity>Eating</capacity>
+			<offset>-0.5</offset>
           </li>
           <li>
             <capacity>Talking</capacity>
@@ -413,7 +414,7 @@
         <severityPerDay>-12</severityPerDay>
       </li>
       <li Class="CombatExtended.HediffCompProperties_Prometheum" />
-	  <li Class="HediffCompProperties_DisappearsOnDeath"/>												
+			<li Class="HediffCompProperties_DisappearsOnDeath" />
     </comps>
     <stages>
       <li>
@@ -452,7 +453,7 @@
   <HediffDef>
 	<defName>Tranquilizer</defName>
 	<label>tranquilizer</label>
-    <description>the effects of a tranquilizer dart</description>	
+		<description>The effects of a tranquilizer dart</description>
 	<hediffClass>HediffWithComps</hediffClass>
 	<defaultLabelColor>(0.8, 0.8, 0.35)</defaultLabelColor>
     <initialSeverity>0.001</initialSeverity>
@@ -477,6 +478,87 @@
     </stages>
   </HediffDef>
 
+	<HediffDef>
+		<defName>Neuralizer</defName>
+		<label>neuralizer</label>
+		<description>Stunned by a powerful but nonlethal energy pulse, disrupting the nervous system.</description>
+		<hediffClass>HediffWithComps</hediffClass>
+		<defaultLabelColor>(0.8, 0.8, 0.35)</defaultLabelColor>
+		<initialSeverity>0.001</initialSeverity>
+		<isBad>false</isBad>
+		<comps>
+			<li Class="HediffCompProperties_Disappears">
+				<disappearsAfterTicks>
+					<min>7500</min>
+					<max>15000</max>
+				</disappearsAfterTicks>
+			</li>
+		</comps>
+		<stages>
+			<li>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<setMax>0.1</setMax>
+					</li>
+				</capMods>
+			</li>
+		</stages>
+	</HediffDef>
+
+	<HediffDef>
+		<defName>Flashbanged</defName>
+		<label>blinded by a flash</label>
+		<description>Vision and hearing temporarily compromised due to a bright flash.</description>
+		<hediffClass>HediffWithComps</hediffClass>
+		<maxSeverity>1</maxSeverity>
+		<comps>
+			<li Class="HediffCompProperties_SeverityPerDay">
+				<severityPerDay>-60</severityPerDay>
+			</li>
+		</comps>
+		<stages>
+			<li>
+				<minSeverity>0</minSeverity>
+				<label>irritated</label>
+				<capMods>
+					<li>
+						<capacity>Sight</capacity>
+						<offset>-0.1</offset>
+					</li>
+				</capMods>
+			</li>
+			<li>
+				<minSeverity>0.2</minSeverity>
+				<label>disoriented</label>
+				<capMods>
+					<li>
+						<capacity>Sight</capacity>
+						<offset>-0.5</offset>
+					</li>
+					<li>
+						<capacity>Hearing</capacity>
+						<offset>-0.4</offset>
+					</li>
+				</capMods>
+			</li>
+			<li>
+				<minSeverity>0.4</minSeverity>
+				<label>blinded</label>
+				<capMods>
+					<li>
+						<capacity>Sight</capacity>
+						<setMax>0</setMax>
+					</li>
+					<li>
+						<capacity>Hearing</capacity>
+						<setMax>0.2</setMax>
+					</li>
+				</capMods>
+			</li>
+		</stages>
+	</HediffDef>
+
   <!-- Injuries -->
 
   <HediffDef ParentName="Bruise">
@@ -484,7 +566,7 @@
     <label>beanbag bruise</label>
     <labelNoun>a beanbag bruise</labelNoun>
     <comps>
-      <li Class="CombatExtended.HediffCompProperties_Beanbag"/>
+			<li Class="CombatExtended.HediffCompProperties_Beanbag" />
     </comps>
   </HediffDef>
 
@@ -493,7 +575,7 @@
     <label>beanbag crack</label>
     <labelNoun>a beanbag crack</labelNoun>
     <comps>
-      <li Class="CombatExtended.HediffCompProperties_Beanbag"/>
+			<li Class="CombatExtended.HediffCompProperties_Beanbag" />
     </comps>
   </HediffDef>
   
@@ -502,7 +584,7 @@
 		<label>puncture</label>
 		<labelNoun>a puncture wound from taser barbs</labelNoun>
 		<comps>
-		<li Class="CombatExtended.HediffCompProperties_Beanbag"/>
+			<li Class="CombatExtended.HediffCompProperties_Beanbag" />
 		</comps>
 		<injuryProps>
 			<bleedRate>0.01</bleedRate>

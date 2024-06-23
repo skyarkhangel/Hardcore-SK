@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>Ammo16Gauge</defName>
+		<label>16 gauge</label>
+		<parent>AmmoShotguns</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberShotgun</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_16Gauge</defName>
+		<label>16 Gauge</label>
+		<ammoTypes>
+			<Ammo_16Gauge_Buck>Bullet_16Gauge_Buck</Ammo_16Gauge_Buck>
+			<Ammo_16Gauge_Slug>Bullet_16Gauge_Slug</Ammo_16Gauge_Slug>
+			<Ammo_16Gauge_Beanbag>Bullet_16Gauge_Beanbag</Ammo_16Gauge_Beanbag>
+			<Ammo_16Gauge_ElectroSlug>Bullet_16Gauge_ElectroSlug</Ammo_16Gauge_ElectroSlug>
+		</ammoTypes>
+		<similarTo>AmmoSet_Shotgun</similarTo>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="16GaugeBase" ParentName="SmallAmmoBase" Abstract="True">
+		<description>Common shotgun caliber used for medium game hunting.</description>
+		<statBases>
+			<Mass>0.048</Mass>
+			<Bulk>0.05</Bulk>
+		</statBases>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting</li>
+		</tradeTags>
+		<thingCategories>
+			<li>Ammo16Gauge</li>
+		</thingCategories>
+		<stackLimit>5000</stackLimit>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="16GaugeBase">
+		<defName>Ammo_16Gauge_Buck</defName>
+		<label>16 gauge shell (Buck)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Shotgun/Shot</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>0.22</MarketValue>
+		</statBases>
+		<ammoClass>BuckShot</ammoClass>
+		<cookOffProjectile>Bullet_16Gauge_Buck</cookOffProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="16GaugeBase">
+		<defName>Ammo_16Gauge_Slug</defName>
+		<label>16 gauge shell (Slug)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Shotgun/Slug</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<Mass>0.04</Mass>
+			<MarketValue>0.18</MarketValue>
+		</statBases>
+		<ammoClass>Slug</ammoClass>
+		<cookOffProjectile>Bullet_16Gauge_Slug</cookOffProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="16GaugeBase">
+		<defName>Ammo_16Gauge_Beanbag</defName>
+		<label>16 gauge shell (Bean)</label>
+		<generateAllowChance>0</generateAllowChance>
+		<graphicData>
+			<texPath>Things/Ammo/Shotgun/Beanbag</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<Mass>0.051</Mass>
+			<MarketValue>0.29</MarketValue>
+		</statBases>
+		<ammoClass>Beanbag</ammoClass>
+		<cookOffProjectile>Bullet_16Gauge_Beanbag</cookOffProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="16GaugeBase">
+		<defName>Ammo_16Gauge_ElectroSlug</defName>
+		<label>16 gauge shell (EMP)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Shotgun/EMP</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<Mass>0.045</Mass>
+			<MarketValue>0.69</MarketValue>
+		</statBases>
+		<ammoClass>ElectroSlug</ammoClass>
+		<generateAllowChance>0.5</generateAllowChance>
+		<cookOffProjectile>Bullet_16Gauge_ElectroSlug</cookOffProjectile>
+	</ThingDef>
+
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef Name="Base16GaugeBullet" ParentName="BaseBulletCE" Abstract="true">
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bullet</damageDef>
+			<speed>85</speed>
+			<dropsCasings>true</dropsCasings>
+			<casingMoteDefname>Fleck_ShotgunShell</casingMoteDefname>
+			<casingFilthDefname>Filth_ShotgunAmmoCasings</casingFilthDefname>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="Base16GaugeBullet">
+		<defName>Bullet_16Gauge_Buck</defName>
+		<label>buckshot pellet</label>
+		<graphicData>
+			<texPath>Things/Projectile/Shotgun_Pellet</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageAmountBase>7</damageAmountBase>
+			<pelletCount>12</pelletCount>
+			<armorPenetrationSharp>3.5</armorPenetrationSharp>
+			<armorPenetrationBlunt>3.5</armorPenetrationBlunt>
+			<spreadMult>9.9</spreadMult>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="Base16GaugeBullet">
+		<defName>Bullet_16Gauge_Slug</defName>
+		<label>shotgun slug</label>
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_big</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>104</speed>
+			<damageAmountBase>23</damageAmountBase>
+			<armorPenetrationSharp>5</armorPenetrationSharp>
+			<armorPenetrationBlunt>54.02</armorPenetrationBlunt>
+			<casingMoteDefname>Fleck_ShotgunShell_Green</casingMoteDefname>
+			<casingFilthDefname>Filth_ShotgunAmmoCasings_Green</casingFilthDefname>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="Base16GaugeBullet">
+		<defName>Bullet_16Gauge_Beanbag</defName>
+		<label>beanbag</label>
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_big</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>30</speed>
+			<damageDef>Beanbag</damageDef>
+			<damageAmountBase>8</damageAmountBase>
+			<armorPenetrationSharp>0</armorPenetrationSharp>
+			<armorPenetrationBlunt>2.76</armorPenetrationBlunt>
+			<spreadMult>2</spreadMult>
+			<casingMoteDefname>Fleck_ShotgunShell_White</casingMoteDefname>
+			<casingFilthDefname>Filth_ShotgunAmmoCasings_White</casingFilthDefname>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="Base16GaugeBullet">
+		<defName>Bullet_16Gauge_ElectroSlug</defName>
+		<label>EMP slug</label>
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_big</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<color>(68,210,215)</color>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>43</speed>
+			<damageDef>EMP</damageDef>
+			<damageAmountBase>11</damageAmountBase>
+			<armorPenetrationSharp>0</armorPenetrationSharp>
+			<armorPenetrationBlunt>0</armorPenetrationBlunt>
+			<empShieldBreakChance>0.2</empShieldBreakChance>
+			<casingMoteDefname>Fleck_ShotgunShell_Black</casingMoteDefname>
+			<casingFilthDefname>Filth_ShotgunAmmoCasings_Black</casingFilthDefname>
+		</projectile>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeAmmo_16Gauge_Buck</defName>
+		<label>make 16 gauge (Buck) shell x200</label>
+		<description>Craft 200 16 gauge (Buck) shells.</description>
+		<jobString>Making 16 gauge (Buck) shells.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>22</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_16Gauge_Buck>200</Ammo_16Gauge_Buck>
+		</products>
+		<workAmount>2200</workAmount>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeAmmo_16Gauge_Slug</defName>
+		<label>make 16 gauge (Slug) shell x200</label>
+		<description>Craft 200 16 gauge (Slug) shells.</description>
+		<jobString>Making 16 gauge (Slug) shells.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>18</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_16Gauge_Slug>200</Ammo_16Gauge_Slug>
+		</products>
+		<workAmount>1800</workAmount>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeAmmo_16Gauge_Beanbag</defName>
+		<label>make 16 gauge (Beanbag) shell x200</label>
+		<description>Craft 200 16 gauge (Beanbag) shells.</description>
+		<jobString>Making 16 gauge (Beanbag) shells.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>22</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Cloth</li>
+					</thingDefs>
+				</filter>
+				<count>9</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>Cloth</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_16Gauge_Beanbag>200</Ammo_16Gauge_Beanbag>
+		</products>
+		<workAmount>3100</workAmount>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeAmmo_16Gauge_ElectroSlug</defName>
+		<label>make 16 gauge (EMP) shell x200</label>
+		<description>Craft 200 16 gauge (EMP) shells.</description>
+		<jobString>Making 16 gauge (EMP) shells.</jobString>
+		<researchPrerequisite>MicroelectronicsBasics</researchPrerequisite>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>22</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>3</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_16Gauge_ElectroSlug>200</Ammo_16Gauge_ElectroSlug>
+		</products>
+		<skillRequirements>
+			<Crafting>4</Crafting>
+		</skillRequirements>
+		<workAmount>3800</workAmount>
+	</RecipeDef>
+
+</Defs>

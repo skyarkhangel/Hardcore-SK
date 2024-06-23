@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+	<!-- airwire headset -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Apparel_AirwireHeadset"]/costList</xpath>
+		<value>
+			<costList>
+			  <Plastic>40</Plastic>
+			  <Wire>15</Wire>
+			  <ReinforcedGlass>10</ReinforcedGlass>
+			  <ComponentIndustrial>4</ComponentIndustrial>
+			  <ElectronicComponents>2</ElectronicComponents>
+			  <Electronics>1</Electronics>
+			</costList>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Apparel_AirwireHeadset"]/recipeMaker/skillRequirements</xpath>
+		<value>
+		  <skillRequirements>
+			<Crafting>9</Crafting>
+		  </skillRequirements>
+		</value>
+	</Operation>
+
+	<!-- array headset -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Apparel_ArrayHeadset"]/costList</xpath>
+		<value>
+			<costList>
+			  <Plastic>45</Plastic>
+			  <Wire>20</Wire>
+			  <ReinforcedGlass>15</ReinforcedGlass>
+			  <ComponentIndustrial>6</ComponentIndustrial>
+			  <ElectronicComponents>4</ElectronicComponents>
+			  <Electronics>2</Electronics>
+			</costList>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Apparel_ArrayHeadset"]/recipeMaker/skillRequirements</xpath>
+		<value>
+		  <skillRequirements>
+			<Crafting>13</Crafting>
+		  </skillRequirements>
+		</value>
+	</Operation>
+
+	<!-- other -->
+
+	<Operation Class="PatchOperationSequence">
+		<success>Normal</success>
+		<operations>
+
+			<!-- Redirect to ArmorSpacerBase -->
+			<li Class="PatchOperationReplace">
+				<xpath>Defs/ThingDef[defName="Apparel_MechlordSuit" or 
+					defName="Apparel_ArmorHelmetMechlordHelmet"]/recipeMaker</xpath>
+				<value>
+					<recipeMaker>
+						<workSpeedStat>SmithingSpeed</workSpeedStat>
+						<workSkill>Crafting</workSkill>
+						<effectWorking>Smith</effectWorking>
+						<soundWorking>Recipe_Machining</soundWorking>
+						<recipeUsers>
+							<li>HyperTailoringBench</li>
+						</recipeUsers>
+						<skillRequirements>
+							<Crafting>16</Crafting>
+						</skillRequirements>
+						<unfinishedThingDef>UnfinishedArmor</unfinishedThingDef>
+					</recipeMaker>
+				</value>
+			</li>
+			<li Class="PatchOperationReplace">
+				<xpath>Defs/ThingDef[defName="Apparel_MechlordSuit" or 
+					defName="Apparel_ArmorHelmetMechlordHelmet" or
+					defName="Apparel_ArmorHelmetMechCommander"]/tradeTags</xpath>
+				<value>
+					<tradeTags>
+						<li>Armor</li>
+					</tradeTags>
+				</value>
+			</li>
+
+			<li Class="PatchOperationReplace">
+				<xpath>Defs/ThingDef[defName="Apparel_ArmorHelmetMechCommander"]/recipeMaker</xpath>
+				<value>
+					<recipeMaker>
+						<workSpeedStat>SmithingSpeed</workSpeedStat>
+						<workSkill>Crafting</workSkill>
+						<effectWorking>Smith</effectWorking>
+						<soundWorking>Recipe_Machining</soundWorking>
+						<recipeUsers>
+							<li>ElectricTailoringBench</li>
+						</recipeUsers>
+						<skillRequirements>
+							<Crafting>10</Crafting>
+						</skillRequirements>
+						<unfinishedThingDef>UnfinishedArmor</unfinishedThingDef>
+					</recipeMaker>
+				</value>
+			</li>
+
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/ThingDef[defName="Apparel_MechlordSuit" or 
+					defName="Apparel_ArmorHelmetMechlordHelmet" or
+					defName="Apparel_ArmorHelmetMechCommander"]</xpath>
+				<value>
+					<thingClass>Apparel</thingClass>
+				</value>
+			</li>
+
+			<!-- This Miraculously Could Fix the Inheritance Issue -->
+			<li Class="PatchOperationAdd">
+				<xpath>Defs</xpath>
+				<value>
+					<ThingDef ParentName="ArmorSpacerBase" Abstract="True" Name="DummyParentNodeSpacer" />
+					<ThingDef ParentName="ArmorIndustrialBase" Abstract="True" Name="DummyParentNodeIndustrial" />
+				</value>
+			</li>
+
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/ThingDef[defName="Apparel_MechlordSuit"]/apparel</xpath>
+				<value>
+					<bodyPartGroups>
+						<li>Torso</li>
+						<li>Neck</li>
+						<li>Shoulders</li>
+						<li>Arms</li>
+						<li>Hands</li>
+						<li>Legs</li>
+						<li>Feet</li>
+					</bodyPartGroups>
+					<layers>
+						<li>Shell</li>
+						<li>Middle</li>
+					</layers>
+				</value>
+			</li>
+
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/ThingDef[defName="Apparel_ArmorHelmetMechlordHelmet" or defName="Apparel_ArmorHelmetMechCommander"]/apparel</xpath>
+				<value>
+					<bodyPartGroups>
+						<li>FullHead</li>
+					</bodyPartGroups>
+					<layers>
+						<li>Overhead</li>
+					</layers>
+				</value>
+			</li>
+
+			<li Class="PatchOperationAttributeSet">
+				<xpath>Defs/ThingDef[defName="Apparel_MechlordSuit" or defName="Apparel_ArmorHelmetMechlordHelmet"]</xpath>
+				<attribute>ParentName</attribute>
+				<value>DummyParentNodeSpacer</value>
+			</li>
+
+
+			<li Class="PatchOperationAttributeSet">
+				<xpath>Defs/ThingDef[defName="Apparel_ArmorHelmetMechCommander"]</xpath>
+				<attribute>ParentName</attribute>
+				<value>DummyParentNodeIndustrial</value>
+			</li>
+
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/ThingDef[defName="Apparel_MechlordSuit"]</xpath>
+				<value>
+					<thingCategories Inherit="false">
+						<li>MediumUpperArmorCat</li>
+						<li>Setpowerarmor</li>
+					</thingCategories>
+				</value>
+			</li>
+
+			<li Class="PatchOperationReplace">
+				<xpath>Defs/ThingDef[defName="Apparel_MechlordSuit"]/costList</xpath>
+				<value>
+					<stuffCategories>
+						<li>StrongMetallic</li>
+					</stuffCategories>
+					<costStuffCount>120</costStuffCount>
+					<costList>
+						<NanostructuringChip>2</NanostructuringChip>
+						<PowerfocusChip>1</PowerfocusChip>
+						<ComponentSpacer>2</ComponentSpacer>
+						<Carbon>10</Carbon>
+						<MagneticMaterial>2</MagneticMaterial>
+						<SyntheticFibers>6</SyntheticFibers>
+						<Hexcell>2</Hexcell>
+					</costList>
+				</value>
+			</li>
+
+			<li Class="PatchOperationReplace">
+				<xpath>Defs/ThingDef[defName="Apparel_MechlordSuit"]/statBases</xpath>
+				<value>
+					<statBases>
+						<WorkToMake>60000</WorkToMake>
+						<MaxHitPoints>120</MaxHitPoints>
+						<Flammability>0.6</Flammability>
+						<Mass>3.5</Mass>
+						<Bulk>25</Bulk>
+						<WornBulk>10</WornBulk>
+						<EquipDelay>11</EquipDelay>
+						<Insulation_Cold>32</Insulation_Cold>
+						<Insulation_Heat>9</Insulation_Heat>		
+						<StuffEffectMultiplierInsulation_Cold>0.75</StuffEffectMultiplierInsulation_Cold>
+						<StuffEffectMultiplierInsulation_Heat>0.75</StuffEffectMultiplierInsulation_Heat>
+						<StuffEffectMultiplierArmor>3.47</StuffEffectMultiplierArmor>
+						<ArmorRating_Sharp>8</ArmorRating_Sharp>
+						<ArmorRating_Blunt>15.96</ArmorRating_Blunt>
+						<ArmorRating_Heat>0.125</ArmorRating_Heat>
+					</statBases>
+				</value>
+			</li>
+
+			<li Class="PatchOperationReplace">
+				<xpath>Defs/ThingDef[defName="Apparel_MechlordSuit"]/equippedStatOffsets</xpath>
+				<value>
+					<equippedStatOffsets>
+						<CarryWeight>20</CarryWeight>
+						<CarryBulk>15</CarryBulk>
+						<MoveSpeed>-0.3</MoveSpeed>
+						<WorkSpeedGlobal>-0.15</WorkSpeedGlobal>
+						<MentalBreakThreshold>-0.04</MentalBreakThreshold>
+						<PsychicSensitivity>-0.1</PsychicSensitivity>
+						<MechBandwidth>12</MechBandwidth>
+						<ShootingAccuracyPawn>-0.08</ShootingAccuracyPawn>
+						<AimingDelayFactor>0.05</AimingDelayFactor>
+						<MeleeWeapon_CooldownMultiplier>0.05</MeleeWeapon_CooldownMultiplier>
+						<ImmunityGainSpeed>0.2</ImmunityGainSpeed>
+						<Suppressability>-0.2</Suppressability>
+						<ArmorRating_Toxin>0.16</ArmorRating_Toxin>
+						<GermResistance>0.04</GermResistance>
+						<GermContainment>0.04</GermContainment>
+					</equippedStatOffsets>
+				</value>
+			</li>
+
+			<!-- Bandolier -->
+
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/ThingDef[defName="Apparel_Bandolier"]</xpath>
+				<value>
+					<costList>
+						<ComponentIndustrial>4</ComponentIndustrial>
+					</costList>
+				</value>
+			</li>
+
+			<li Class="PatchOperationReplace">
+				<xpath>Defs/ThingDef[defName="Apparel_Bandolier"]/statBases</xpath>
+				<value>
+					<statBases>
+						<MaxHitPoints>50</MaxHitPoints>
+						<WorkToMake>3500</WorkToMake>
+						<Bulk>3</Bulk>
+						<WornBulk>1</WornBulk>
+						<Mass>1.5</Mass>
+						<StuffEffectMultiplierArmor>1</StuffEffectMultiplierArmor>
+						<StuffEffectMultiplierInsulation_Cold>0.1</StuffEffectMultiplierInsulation_Cold>
+						<StuffEffectMultiplierInsulation_Heat>0.1</StuffEffectMultiplierInsulation_Heat>
+						<EquipDelay>1.5</EquipDelay>
+					</statBases>
+				</value>
+			</li>
+
+			<li Class="PatchOperationReplace">
+				<xpath>Defs/ThingDef[defName="Apparel_Bandolier"]/equippedStatOffsets</xpath>
+				<value>
+					<equippedStatOffsets>
+						<CarryBulk>10</CarryBulk>
+						<ReloadSpeed>0.1</ReloadSpeed>
+						<MoveSpeed>-0.02</MoveSpeed>
+						<WorkSpeedGlobal>-0.02</WorkSpeedGlobal>
+						<AimingDelayFactor>-0.04</AimingDelayFactor>
+						<GermResistance>0.02</GermResistance>
+						<GermContainment>0.02</GermContainment>
+					</equippedStatOffsets>
+				</value>
+			</li>
+
+			<li Class="PatchOperationReplace">
+				<xpath>Defs/ThingDef[defName="Apparel_Bandolier"]/apparel/layers</xpath>
+				<value>
+					<layers>
+						<li>Webbing</li>
+					</layers>
+				</value>
+			</li>
+
+			<!-- Apparel_Sash -->
+
+			<li Class="PatchOperationReplace">
+				<xpath>Defs/ThingDef[defName="Apparel_Sash"]/statBases</xpath>
+				<value>
+					<statBases>
+						<MaxHitPoints>45</MaxHitPoints>
+						<WorkToMake>700</WorkToMake>
+						<Mass>1</Mass>
+						<Bulk>1</Bulk>
+						<WornBulk>0.5</WornBulk>
+						<StuffEffectMultiplierArmor>1</StuffEffectMultiplierArmor>
+						<StuffEffectMultiplierInsulation_Cold>0.1</StuffEffectMultiplierInsulation_Cold>
+						<StuffEffectMultiplierInsulation_Heat>0.1</StuffEffectMultiplierInsulation_Heat>
+						<EquipDelay>1.5</EquipDelay>
+					</statBases>
+				</value>
+			</li>
+
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/ThingDef[defName="Apparel_Sash"]</xpath>
+				<value>
+					<equippedStatOffsets>
+						<MoveSpeed>-0.15</MoveSpeed>
+						<WorkSpeedGlobal>-0.05</WorkSpeedGlobal>
+						<ShootingAccuracyPawn>-0.03</ShootingAccuracyPawn>
+						<AimingDelayFactor>0.02</AimingDelayFactor>
+						<MeleeHitChance>-0.06</MeleeHitChance>
+						<MeleeWeapon_CooldownMultiplier>0.05</MeleeWeapon_CooldownMultiplier>
+						<Suppressability>-0.04</Suppressability>
+						<GermResistance>0.02</GermResistance>
+						<GermContainment>0.02</GermContainment>
+					</equippedStatOffsets>
+				</value>
+			</li>
+
+		</operations>
+	</Operation>
+
+</Patch>

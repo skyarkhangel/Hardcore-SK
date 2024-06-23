@@ -1,10 +1,10 @@
-# Rimworld Hardcore SK
+# Rimworld Hardcore SK v.1.4
 
 [![Logo](https://i.imgur.com/WP7w2sM.png)](https://github.com/skyarkhangel/Hardcore-SK)
 <!-- you cant center markdown images -->
 
 * **Discord:** <https://discord.gg/FMPRSKr> **(Validated Account Required)**
-* **Website/Forum:** <https://hardcore-sk.ru>
+* **Website/Forum:** <https://hardcore-sk.ru> If you encounter problems try typing the url in directly or into a google search and access the website that way - (if the url doesn't work.) alternatively look in the discord for pinned messages for the launcher download.
 
 First, I would like to thank the artists and developers of all the mods used in Hardcore SK.
 
@@ -14,27 +14,27 @@ The idea for this project came to me after playing with mod packs. I discovered 
 
 The focus of Hardcore SK is to add a growing complexity to gameplay while immersing the player deep in the story. What awaits you is an improved and elaborate production chain, over 100 technologies to research, new events and challenges to face, impressive new foods, wardrobe and arsenal, enhanced AI features, quality of life options, and virtually everything retextured. As soon as you make landfall, you'll understand immediately that this is no longer just modded Rimworld - this is Hardcore SK. The campfire welcomes you.
 
-This project has language support for English, Russian, and partial support for Spanish and Korean. Chinese translation available via a separate [mod](https://steamcommunity.com/sharedfiles/filedetails/?id=2469653495).
+This project has language support for English, Russian, and partial support for Spanish and Korean. Chinese translation available via separate mods: [Core](https://steamcommunity.com/sharedfiles/filedetails/?id=2469653495) & [Everything else](https://steamcommunity.com/sharedfiles/filedetails/?id=2469654237).
 
 ## DOWNLOADING
 
 ### Project launcher (Windows only)
 
-* **Download installer:** <https://hardcore-sk.ru/installer/HSK-Launcher-Setup.exe>
-* **Mirror:** <https://drive.google.com/file/d/1jk8Rv1Vy30_aY1ZHNA9whCnFxyeW8eSU>
+* **Download installer:** <https://github.com/HardcoreSK/HSK-Launcher/releases/latest>
 
 #### Features
 
 * Update HSK (Hardcore SK) in just a few clicks!
-* Optional update Modconfig if needed.
-* Option to launch game via Steam or direct path.
+* Built-in proxy if github is unavailable.
+* Optional ModsConfig update if needed.
+* Launch game via Steam or from custom location.
 * Ability to check for new updates at startup.
-* Ability to update HSK with using downloaded github master tree archive (if launcher for some reason couldn't download it).
+* Install HSK from archive (if you need some specific version).
 
 #### Requirements
 
-* If Rimworld was installed for the first time, you need to start it before updating HSK. (The game at startup generates configuration files).
-* [Net Framework 4.5](https://www.microsoft.com/en-us/download/details.aspx?id=30653) (goes by default since Windows 8. There is no support for Windows XP and previously released OS).
+- Launch Rimworld once to generate necessary folders and configuration files.
+- .Net 6 Desktop Runtime (installed by windows Update Center starting with Windows 10).
 
 It will ask for the RimWorld executable location.
 
@@ -44,17 +44,15 @@ For Windows users:
 
 ### Manual installation
 
-[Master:](https://github.com/skyarkhangel/Hardcore-SK/tree/master) - The stable version/branch of the modpack usually a version behind the latest Rimworld. Currently for version 1.3.
+[Master:](https://github.com/skyarkhangel/Hardcore-SK/tree/master) - The stable version/branch of the project usually a version behind the latest Rimworld. Currently for version 1.4.
 
-[Development:](https://github.com/skyarkhangel/Hardcore-SK/tree/development) - The work-in-progress version which contains the latest content for the latest version of rimworld, but is more likely to contain bugs. Currently for version 1.3.
+[Development:](https://github.com/skyarkhangel/Hardcore-SK/tree/development) - The work-in-progress version which contains the latest content for the latest version of rimworld, but is more likely to contain bugs. Already for latest version 1.4.
 
-[Alpha:](https://github.com/skyarkhangel/Hardcore-SK/tree/alpha) - The 1.4 Work in progress version that will eventually be moved into development.
-
-1. Install either the [development](https://github.com/skyarkhangel/Hardcore-SK/tree/development) or [master](https://github.com/skyarkhangel/Hardcore-SK/tree/master) branch of the modpack for 1.3, or [Alpha](https://github.com/skyarkhangel/Hardcore-SK/tree/alpha) for 1.4
+1. Install either the [development](https://github.com/skyarkhangel/Hardcore-SK/tree/development) branch for version 1.4 Development or [master](https://github.com/skyarkhangel/Hardcore-SK/tree/master) for 1.4 Stable.
 
 2. Go to the folder you installed the game in and delete all mods inside your `Rimworld\Mods\` folder.
 
-3. Open up the downloaded Hardcore SK .zip file. Extract everything in the `Hardcore-SK-master\Mods\` OR `Hardcore-SK-Development\Mods\` `Hardcore-SK-Alpha\Mods\ OR folder into your empty `Rimworlds\Mods\` folder.
+3. Open up the downloaded Hardcore SK .zip file. Extract everything in the `Hardcore-SK-master\Mods\` OR `Hardcore-SK-Development\Mods\` OR `Hardcore-SK-Alpha\Mods\` folder into your empty `Rimworlds\Mods\` folder.
 
 4. Go to the RimWorld config folder and delete all the files that exist in that folder. Copy "`ModsConfig.xml`", which is at the root of the archive modpack. 
 
@@ -87,8 +85,8 @@ These are some extensive and unique mods which are not derivative of others and 
 
 The HSK community also manages a list of mods which can be found on our Discord channel:
 
-* **Known Compatible Optional Mods:** <https://discord.com/channels/272340793174392832/994316234915061891>
-* **Patched Optional Mods:** <https://discord.com/channels/272340793174392832/880973340653809714>
+* **Known Compatible Optional Mods:** <https://discord.com/channels/272340793174392832/1029866379974803468>
+* **Patched Optional Mods:** <https://discord.com/channels/272340793174392832/1029833992385597522>
 
 Other mods which are not included in this project are not recommended.
 
@@ -103,12 +101,12 @@ JailBot, Dibbura, donnie, ignorer, korovyev, NiciusB, Nightray, Vuursteen and Е
 
 ### SK Team
 
-* **Lead developer** - Skyarkhangel
-* **Coordinators** - Zakhad, Sidfu, Dzeniba
-* **Discord moderators** - Ziemens, MightyGooga, GG, Szara Kryik, Ashardalon, Xx-Nelson-xX, AndreiAvinov (Kiri), GuardianDll
+* **Lead developers** - Skyarkhangel, TheLoneTec
+* **Coordinators** - Zakhad, Sidfu, Dzeniba, A.Ziemens(Duotian)
+* **Discord moderators** - Ziemens, MightyGooga, GG, Szara Kryik, Ashardalon, Xx-Nelson-xX, AndreiAvinov (Kiri), GuardianDll, Pacas
 * **Artists** - Cattleya (<https://www.patreon.com/cattleya>), Vile Heathen
-* **Coders** - Jeremy(PirateBY), TGC, Void, Dusty Breeches, Glucocorticoid, qwerty19106
-* **XML modders** - Sidfu, ArpoMo6, AndreiAvinov (Kiri), GuardianDll, Spaniard829, Vile Heathen
+* **Coders** - Jeremy(PirateBY), TGC, Void, Dusty Breeches, Glucocorticoid, qwerty19106, AndreiAvinov (Kiri), MasakiTenchi 
+* **XML modders** - Sidfu, ArpoMo6, GuardianDll, Spaniard829, Vile Heathen, Pacas, Xx-Nelson-xX
 
 ### Special thanks to
 
@@ -116,7 +114,7 @@ SpoonShortage, Mrofa, Fluffy, Zhentar, Brrainz, Dubwise, Erdelf, Greeny, Hunt3rK
 Lambert2191, Vuursteen, Tuvia, Dunkhan, jnkyacc, Jalordon, Varmonger, funs777, olizit, 
 Quelling, pongvin, lex1975, evgeny-k, Moon, Leiarr, Voker57, Pardonius,
  Sonsalt, Rhyssia, Adenia, Abhay (artwork), ApelAirplane (artwork),
-SomethingCrunchy (dev), NotFood (dev), Murdantiks, Adenia, Soyaman, Tombomcbombo
+SomethingCrunchy (dev), NotFood (dev), Murdantiks, Adenia, Soyaman, Tombomcbombo, LimeTreeSnake
 
 Thanks to translators Rey, Ivanzyfer, FaHT1k, mora145, totobrother, Desert Rain
 

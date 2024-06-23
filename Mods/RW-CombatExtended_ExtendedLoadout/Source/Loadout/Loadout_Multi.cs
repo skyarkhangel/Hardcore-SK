@@ -23,7 +23,7 @@ public class Loadout_Multi : Loadout, IExposable, ILoadReferenceable
     private Pawn? _pawn;
     private Loadout? _personalLoadout;
     public Loadout? PersonalLoadout => _personalLoadout;
-    public new int uniqueID;
+    new public int uniqueID;
     public new int SlotCount => Slots.Count;
     public new List<LoadoutSlot> Slots { get; private set; } = new();
     private List<Loadout> _loadouts;
@@ -62,7 +62,12 @@ public class Loadout_Multi : Loadout, IExposable, ILoadReferenceable
 
     public Loadout this[int index]
     {
-        get => _loadouts[index];
+        get 
+        {
+            if (_loadouts[index] == null)
+                _loadouts[index] = new Loadout();
+            return _loadouts[index];
+        }
         set
         {
             _loadouts[index] = value;

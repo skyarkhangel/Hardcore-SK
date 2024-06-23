@@ -22,7 +22,7 @@
 		<pathCostIgnoreRepeat>true</pathCostIgnoreRepeat>
 		<passability>PassThroughOnly</passability>
 		<castEdgeShadows>true</castEdgeShadows>
-		<fillPercent>0.65</fillPercent>
+		<fillPercent>0.6</fillPercent>
 		<canOverlapZones>false</canOverlapZones>
 		<statBases>
 			<MaxHitPoints>300</MaxHitPoints>
@@ -37,6 +37,9 @@
 			<blueprintGraphicData>
 				<texPath>Things/Building/Linked/Sandbags_Blueprint_Atlas</texPath>
 			</blueprintGraphicData>
+			<buildingTags>
+				<li>ForceBuildDuringSiege</li>
+			</buildingTags>
 		</building>
 		<placingDraggableDimensions>1</placingDraggableDimensions>
 		<stuffCategories>
@@ -118,7 +121,7 @@
 	<ThingDef ParentName="SK_BuildingBase">
 		<defName>Barricade</defName>
 		<label>barricade</label>
-		<description>A waist-high barrier for use as cover from incoming shots. Barricades are ugly, but provide better cover than other low objects.</description>
+		<description>A waist-high barrier for use as cover from incoming shots. Barricades are ugly, but provide better cover than other low objects. Barricades will block certain kinds of animals the same way that fences do.</description>
 		<graphicData>
 			<texPath>Things/Building/Linked/Barricade_Atlas</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
@@ -133,7 +136,7 @@
 		<altitudeLayer>Building</altitudeLayer>
 		<pathCost>85</pathCost>
 		<pathCostIgnoreRepeat>true</pathCostIgnoreRepeat>
-		<passability>Impassable</passability>
+		<passability>PassThroughOnly</passability>
 		<castEdgeShadows>true</castEdgeShadows>
 		<fillPercent>0.65</fillPercent>
 		<statBases>
@@ -145,10 +148,14 @@
 		<building>
 			<ai_chillDestination>false</ai_chillDestination>
 			<isInert>true</isInert>
+			<isFence>true</isFence>
 			<isPlaceOverableWall>true</isPlaceOverableWall>
 			<blueprintGraphicData>
 				<texPath>Things/Building/Linked/Barricade_Blueprint_Atlas</texPath>
 			</blueprintGraphicData>
+			<buildingTags>
+				<li>ForceBuildDuringSiege</li>
+			</buildingTags>
 			<paintable>true</paintable>
 		</building>
 		<placingDraggableDimensions>1</placingDraggableDimensions>
@@ -208,6 +215,9 @@
 			<uninstallWork>800</uninstallWork>
 			<ai_chillDestination>false</ai_chillDestination>
 			<isInert>true</isInert>
+			<buildingTags>
+				<li>ForceBuildDuringSiege</li>
+			</buildingTags>
 		</building>
 		<description>A defensive barrier made of sharpened sticks. It is weak but slow to climb over.</description>
 		<costList>
@@ -282,13 +292,16 @@
 			<blueprintGraphicData>
 				<texPath>Things/Building/Embrasure/Embrasure_Blueprint_Atlas</texPath>
 			</blueprintGraphicData>
+			<buildingTags>
+				<li>ForceBuildDuringSiege</li>
+			</buildingTags>
 		</building>
 		<description>A waist-high stone wall built for defense.</description>
 		<placingDraggableDimensions>1</placingDraggableDimensions>
 		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
 		<rotatable>false</rotatable>
 		<coversFloor>true</coversFloor>
-		<holdsRoof>false</holdsRoof>
+		<holdsRoof>true</holdsRoof>
 		<neverMultiSelect>true</neverMultiSelect>
 		<useStuffTerrainAffordance>true</useStuffTerrainAffordance>
 		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
@@ -311,26 +324,30 @@
 	<ThingDef ParentName="SK_BuildingBase">
 		<defName>WallWire</defName>
 		<label>barbed wire</label>
+		<thingClass>Building_TrapDamager</thingClass>
 		<graphicData>
-			<texPath>Things/Building/Security/Wire/Razor_Wire_Atlas</texPath>
+			<texPath>Things/Building/Security/BarbedWire/BarbedWire_Atlas</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<linkType>Basic</linkType>
 			<linkFlags>
 				<li>Custom3</li>
 			</linkFlags>	
 		</graphicData>
-		<uiIconPath>Things/Building/Security/Wire/Razor_Wire_MenuIcon</uiIconPath>
+		<uiIconPath>Things/Building/Security/BarbedWire/BarbedWire_UI</uiIconPath>
 		<altitudeLayer>Building</altitudeLayer>
 		<pathCost>78</pathCost>
 		<pathCostIgnoreRepeat>False</pathCostIgnoreRepeat>
 		<passability>PassThroughOnly</passability>
 		<castEdgeShadows>false</castEdgeShadows>
+		<tickerType>Normal</tickerType>  
 		<fillPercent>0.05</fillPercent>
 		<minifiedDef>MinifiedThing</minifiedDef>
 		<thingCategories>
 			<li>BuildingsSecurity</li>
 		</thingCategories>
 		<statBases>
+			<TrapMeleeDamage>5</TrapMeleeDamage>
+			<TrapSpringChance>0.5</TrapSpringChance>
 			<MaxHitPoints>100</MaxHitPoints>
 			<Beauty>-5</Beauty>
 			<WorkToBuild>400</WorkToBuild>
@@ -339,11 +356,19 @@
 		</statBases>
 		<building>
 			<uninstallWork>700</uninstallWork>
+			<allowAutoroof>false</allowAutoroof>
+			<isTrap>true</isTrap>
+			<trapDestroyOnSpring>false</trapDestroyOnSpring>		  
+			<trapDamageCategory>Sharp</trapDamageCategory>
 			<ai_chillDestination>false</ai_chillDestination>
+			<expandHomeArea>false</expandHomeArea>
 			<isInert>true</isInert>
 			<blueprintGraphicData>
-				<texPath>Things/Building/Security/Wire/Razor_Wire_Blueprint_Atlas</texPath>
+				<texPath>Things/Building/Security/BarbedWire/BarbedWireBlueprint_Atlas</texPath>
 			</blueprintGraphicData>
+			<buildingTags>
+				<li>ForceBuildDuringSiege</li>
+			</buildingTags>
 		</building>
 		<description>Good fences make for good neighbor. This fencing is made out of razor wire to keep most people away.</description>
 		<placingDraggableDimensions>1</placingDraggableDimensions>
@@ -385,6 +410,9 @@
 			<blueprintGraphicData>
 				<texPath>Things/Building/Walls/MoatAtlasBlueprint</texPath>
 			</blueprintGraphicData>
+			<buildingTags>
+				<li>ForceBuildDuringSiege</li>
+			</buildingTags>
 		</building>
 		<altitudeLayer>LowPlant</altitudeLayer>
 		<uiIconPath>Things/Building/Walls/MenuMoatIcon</uiIconPath>

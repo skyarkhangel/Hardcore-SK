@@ -107,7 +107,7 @@ This template demonstrates that whitespace is obeyed in the description.\n\nSo a
       <timeStoringTakes>1000</timeStoringTakes> - how many Ticks storing takes
          1000 is a long while, 300 is a bit, 0 is no time at all (like a vanilla shelf)
       Scaling storing time:
-      <minTimeStoringTakes>300</minTimeStoringTakes>
+      <minTimeStoringTakes>300</minTimeStoringTakes> - Required otherwise store time will be 16 seconds
       <additionalTimeEachStack>100</additionalTimeEachStack> - each stack already in that cell
           So if you are putting catfood in a bowl, but it already has 2 dogfood and 1 fishfood,
           this will get added three times.
@@ -136,7 +136,6 @@ This template demonstrates that whitespace is obeyed in the description.\n\nSo a
   -->
 
 	<ThingDef Name="LWM_DeepStorage" ParentName="StandartBuilding" Abstract="true">
-		<defName>LWM_DeepStorage</defName>
 		<thingClass>Building_Storage</thingClass>
 		<altitudeLayer>Building</altitudeLayer>
 		<passability>PassThroughOnly</passability>
@@ -432,6 +431,7 @@ This template demonstrates that whitespace is obeyed in the description.\n\nSo a
 				</filter>
 			</fixedStorageSettings>
 		</building>
+		<tickerType>Rare</tickerType>
 		<comps>
 			<li Class="RimFridge.CompProperties_SecondLayer">
 				<graphicData>
@@ -514,7 +514,18 @@ This template demonstrates that whitespace is obeyed in the description.\n\nSo a
 				</filter>
 			</fixedStorageSettings>
 		</building>
+		<drawerType>MapMeshAndRealTime</drawerType>
+		<tickerType>Rare</tickerType>
 		<comps>
+			<li Class="RimFridge.CompProperties_SecondLayer">
+				<graphicData>
+					<texPath>Things/Building/Storage/VileSkip/VileSkip_Overlay</texPath>
+					<graphicClass>Graphic_Multi</graphicClass>
+					<shaderType>CutoutComplex</shaderType>
+					<drawSize>(2.6,2.6)</drawSize>
+				</graphicData>
+				<altitudeLayer>Projectile</altitudeLayer>
+			</li>
 			<li Class="LWM.DeepStorage.Properties" >
 				<maxNumberStacks>8</maxNumberStacks>
 				<minTimeStoringTakes>15</minTimeStoringTakes>
@@ -658,6 +669,7 @@ This template demonstrates that whitespace is obeyed in the description.\n\nSo a
 			</fixedStorageSettings>
 		</building>
 		<staticSunShadowHeight>1</staticSunShadowHeight>
+		<tickerType>Rare</tickerType>
 		<comps>
 			<li Class="LWM.DeepStorage.Properties">
 				<maxNumberStacks>7</maxNumberStacks>
@@ -693,7 +705,9 @@ This template demonstrates that whitespace is obeyed in the description.\n\nSo a
 			<graphicClass>Graphic_Multi</graphicClass>
 			<drawSize>(2.9,2.9)</drawSize>
 		</graphicData>
+		<uiIconPath>Things/Building/Storage/DisplayCase_ico</uiIconPath>
 		<drawerType>MapMeshAndRealTime</drawerType>
+		<tickerType>Rare</tickerType>
 		<fillPercent>0.8</fillPercent>
 		<castEdgeShadows>true</castEdgeShadows>
 		<stuffCategories>
@@ -1264,21 +1278,22 @@ This template demonstrates that whitespace is obeyed in the description.\n\nSo a
 
 			Note that you can only fit so many giant corpses into one space, even if you stack them.  The frame will only hold so much weight.</description>
 		<graphicData>
-			<texPath>Things/Building/Storage/meathook</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
+			<texPath>Things/Building/Storage/MeatHook</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
 			<drawSize>(3.3,2.2)</drawSize>
+			<shaderType>CutoutComplex</shaderType>
 			<shadowData>
 				<volume>(0,0,0)</volume>
 			</shadowData>
-			<!--<drawRotated>false</drawRotated>-->
+			<drawRotated>true</drawRotated>
 		</graphicData>
 		<defaultPlacingRot>North</defaultPlacingRot>
-		<rotatable>false</rotatable>
+		<rotatable>true</rotatable>
 		<drawGUIOverlay>false</drawGUIOverlay>
 		<castEdgeShadows>true</castEdgeShadows>
 		<size>(2,1)</size>
 		<pathCost>50</pathCost>
-		<altitudeLayer>Projectile</altitudeLayer>
+		<!--<altitudeLayer>Projectile</altitudeLayer>-->
 		<statBases>
 			<MaxHitPoints>80</MaxHitPoints>
 			<WorkToBuild>600</WorkToBuild>
@@ -1317,7 +1332,18 @@ This template demonstrates that whitespace is obeyed in the description.\n\nSo a
 				</filter>
 			</defaultStorageSettings>
 		</building>
+		<drawerType>MapMeshAndRealTime</drawerType>
+		<tickerType>Rare</tickerType>
 		<comps>
+			<li Class="RimFridge.CompProperties_SecondLayer">
+				<graphicData>
+					<texPath>Things/Building/Storage/MeatHook_Overlay</texPath>
+					<graphicClass>Graphic_Multi</graphicClass>
+					<shaderType>CutoutComplex</shaderType>
+					<drawSize>(3.3,2.2)</drawSize>
+				</graphicData>
+				<altitudeLayer>Projectile</altitudeLayer>
+			</li>
 			<li Class="LWM.DeepStorage.Properties" >
 				<minNumberStacks>2</minNumberStacks>
 				<!-- minimum one in the air, one on the ground -->
@@ -1489,9 +1515,12 @@ This template demonstrates that whitespace is obeyed in the description.\n\nSo a
 		<description>This structure can be used to store hay, silage, and various other plant materials to keep it dry and protect it from the weather.</description>
 		<graphicData>
 			<graphicClass>Graphic_Multi</graphicClass>
-			<texPath>Things/Building/Storage/HayLoft</texPath>
+			<texPath>Things/Building/Storage/HayLoft_Top</texPath>
 			<drawSize>(4,2)</drawSize>
+			<maskPath>Things/Building/Storage/HayLoft_Top_south</maskPath>
 		</graphicData>
+		<drawerType>MapMeshAndRealTime</drawerType>
+		<uiIconPath>Things/Building/Storage/HayLoft_ico</uiIconPath>
 		<staticSunShadowHeight>1</staticSunShadowHeight>
 		<size>(2,1)</size>
 		<statBases>
@@ -1548,15 +1577,15 @@ This template demonstrates that whitespace is obeyed in the description.\n\nSo a
 				<compClass>SK.CompRotModified</compClass>
 				<rotmodifier>0.75</rotmodifier>
 			</li>
-			<!--<li Class="RimFridge.CompProperties_SecondLayer">
+			<li Class="RimFridge.CompProperties_SecondLayer">
 				<graphicData>
 					<texPath>Things/Building/Storage/HayLoft_Top</texPath>
 					<graphicClass>Graphic_Multi</graphicClass>
 					<shaderType>CutoutComplex</shaderType>
-					<drawSize>(4.4,2.2)</drawSize>
+					<drawSize>(4,2)</drawSize>
 				</graphicData>
 				<altitudeLayer>Projectile</altitudeLayer>
-			</li>-->
+			</li>
 		</comps>
 		<constructionSkillPrerequisite>4</constructionSkillPrerequisite>
 		<researchPrerequisites>
@@ -1906,6 +1935,7 @@ This template demonstrates that whitespace is obeyed in the description.\n\nSo a
 			</li>
 			<li Class="LWM.DeepStorage.Properties" >
 				<maxNumberStacks>4</maxNumberStacks>
+				<minTimeStoringTakes>25</minTimeStoringTakes>
 				<!--<timeStoringTakes>10</timeStoringTakes>-->
 				<additionalTimeEachDef>30</additionalTimeEachDef> 
 				<showContents>false</showContents>
@@ -2386,7 +2416,7 @@ This template demonstrates that whitespace is obeyed in the description.\n\nSo a
 	<ThingDef ParentName="LWM_DeepStorage">
 		<defName>Storage_ExplosiveContainer</defName>
 		<label>armored ammo box</label>
-		<description>Stores and protects ammo; prevents deterioration. Up to 8 items.</description>
+		<description>Stores and protects ammo; prevents deterioration. Up to 10 items.</description>
 		<graphicData>
 			<texPath>Things/Building/Storage/ArmoredAmmoStorage</texPath>
 			<graphicClass>Graphic_Multi</graphicClass>

@@ -1,26 +1,8 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <Patch>
 
-	<!-- ========== Replace damage workers with CE ones ========== -->
-
-<!--
-	<Operation Class="PatchOperationReplace">
-  	<xpath>Defs/DamageDef[workerClass = "DamageWorker_AddInjury"]/workerClass</xpath>
-  	<value>
-      <workerClass>CombatExtended.DamageWorker_AddInjuryCE</workerClass>
-  	</value>
-	</Operation>
-
-	<Operation Class="PatchOperationReplace">
-  	<xpath>Defs/DamageDef[workerClass = "DamageWorker_Flame"]/workerClass</xpath>
-  	<value>
-      <workerClass>CombatExtended.DamageWorker_FlameCE</workerClass>
-  	</value>
-	</Operation>
--->
-
 	<!-- ========== Add DefModExtension ========== -->
-
+<!--
 	<Operation Class="PatchOperationAddModExtension">
   	<xpath>Defs/DamageDef[defName="Blunt"]</xpath>
   	<value>
@@ -29,7 +11,7 @@
   		</li>
   	</value>
 	</Operation>
-
+-->
 	<Operation Class="PatchOperationAddModExtension">
   	<xpath>Defs/DamageDef[defName="Scratch"]</xpath>
   	<value>
@@ -58,156 +40,141 @@
 	</Operation>
 
 	<Operation Class="PatchOperationAddModExtension">
-  	<xpath>Defs/DamageDef[defName="Flame"]</xpath>
-  	<value>
-  		<li Class="CombatExtended.DamageDefExtensionCE">
-  			<harmOnlyOutsideLayers>true</harmOnlyOutsideLayers>
-  			<isAmbientDamage>true</isAmbientDamage>
-  		</li>
-  	</value>
+		<xpath>Defs/DamageDef[defName="Flame"]</xpath>
+		<value>
+			<li Class="CombatExtended.DamageDefExtensionCE">
+				<harmOnlyOutsideLayers>true</harmOnlyOutsideLayers>
+				<isAmbientDamage>true</isAmbientDamage>
+			</li>
+		</value>
 	</Operation>
 
 	<Operation Class="PatchOperationAddModExtension">
-  	<xpath>Defs/DamageDef[defName="Frostbite"]</xpath>
-  	<value>
-  		<li Class="CombatExtended.DamageDefExtensionCE">
-  			<harmOnlyOutsideLayers>true</harmOnlyOutsideLayers>
-  			<isAmbientDamage>true</isAmbientDamage>
-  		</li>
-  	</value>
+		<xpath>Defs/DamageDef[defName="Frostbite"]</xpath>
+		<value>
+			<li Class="CombatExtended.DamageDefExtensionCE">
+				<harmOnlyOutsideLayers>true</harmOnlyOutsideLayers>
+				<isAmbientDamage>true</isAmbientDamage>
+			</li>
+		</value>
 	</Operation>
 
-  <Operation Class="PatchOperationAddModExtension">
-    <xpath>Defs/DamageDef[defName="EMP"]</xpath>
-    <value>
-      <li Class="CombatExtended.DamageDefExtensionCE">
-        <isAmbientDamage>true</isAmbientDamage>
-      </li>
-    </value>
-  </Operation>
+	<Operation Class="PatchOperationAddModExtension">
+		<xpath>Defs/DamageDef[defName="EMP"]</xpath>
+		<value>
+			<li Class="CombatExtended.DamageDefExtensionCE">
+				<isAmbientDamage>true</isAmbientDamage>
+			</li>
+		</value>
+	</Operation>
 
 	<!-- ========== Add Names for secondary damage inheritance ========== -->
 
-<!--
 	<Operation Class="PatchOperationAttributeSet">
-  	<xpath>Defs/DamageDef[defName="Blunt"]</xpath>
-    <attribute>Name</attribute>
-    <value>BluntDamage</value>
-	</Operation>
--->
-
-	<Operation Class="PatchOperationAttributeSet">
-  	<xpath>Defs/DamageDef[defName="Bullet"]</xpath>
-    <attribute>Name</attribute>
-    <value>Bullet</value>
+		<xpath>Defs/DamageDef[defName="Bullet"]</xpath>
+		<attribute>Name</attribute>
+		<value>Bullet</value>
 	</Operation>
 
-<!--
-	<Operation Class="PatchOperationAttributeSet">
-  	<xpath>Defs/DamageDef[defName="Bomb"]</xpath>
-    <attribute>Name</attribute>
-    <value>BombDamage</value>
+	<!-- ========== Change Bomb hediff ========== -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/DamageDef[defName="Bomb"]/hediff</xpath>
+		<value>
+			<hediff>Blast</hediff>
+		</value>
 	</Operation>
 
-	<Operation Class="PatchOperationAttributeSet">
-  	<xpath>Defs/DamageDef[defName="Burn"]</xpath>
-    <attribute>Name</attribute>
-    <value>BurnDamage</value>
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/DamageDef[defName="Bomb"]/armorCategory</xpath>
+		<value>
+			<armorCategory>Blunt</armorCategory>
+		</value>
 	</Operation>
--->
 
-  <!-- ========== Change Bomb hediff ========== -->
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/DamageDef[defName="Bomb"]/minDamageToFragment</xpath>
+		<value>
+			<minDamageToFragment>4</minDamageToFragment>
+		</value>
+	</Operation>
 
-  <Operation Class="PatchOperationReplace">
-    <xpath>Defs/DamageDef[defName="Bomb"]/hediff</xpath>
-    <value>
-      <hediff>Blast</hediff>
-    </value>
-  </Operation>
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/DamageDef[defName="Bomb"]/defaultDamage</xpath>
+		<value>
+			<defaultDamage>400</defaultDamage> <!-- HSK increased effectiveness -->
+		</value>
+	</Operation>
 
-  <Operation Class="PatchOperationReplace">
-    <xpath>Defs/DamageDef[defName="Bomb"]/armorCategory</xpath>
-    <value>
-      <armorCategory>Blunt</armorCategory>
-    </value>
-  </Operation>
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/DamageDef[defName="Bomb"]/defaultArmorPenetration</xpath>
+		<value>
+			<defaultArmorPenetration>120</defaultArmorPenetration> <!-- HSK increased effectiveness -->
+		</value>
+	</Operation>
 
-  <Operation Class="PatchOperationReplace">
-    <xpath>Defs/DamageDef[defName="Bomb"]/minDamageToFragment</xpath>
-    <value>
-      <minDamageToFragment>4</minDamageToFragment>
-    </value>
-  </Operation>
-  
-  <Operation Class="PatchOperationReplace">
-    <xpath>Defs/DamageDef[defName="Bomb"]/defaultDamage</xpath>
-    <value>
-      <defaultDamage>100</defaultDamage>
-    </value>
-  </Operation>
-  
-  <Operation Class="PatchOperationReplace">
-    <xpath>Defs/DamageDef[defName="Bomb"]/defaultArmorPenetration</xpath>
-    <value>
-      <defaultArmorPenetration>20</defaultArmorPenetration>
-    </value>
-  </Operation>
-  
-  <!-- ========== Change Thump hediff ========== -->
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/DamageDef[defName="BombSuper"]/defaultDamage</xpath>
+		<value>
+			<defaultDamage>800</defaultDamage>
+		</value>
+	</Operation>
 
-  <Operation Class="PatchOperationReplace">
-    <xpath>Defs/DamageDef[defName="Thump"]/hediff</xpath>
-    <value>
-      <hediff>Blast</hediff>
-    </value>
-  </Operation>
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/DamageDef[defName="BombSuper"]/defaultArmorPenetration</xpath>
+		<value>
+			<defaultArmorPenetration>264</defaultArmorPenetration>
+		</value>
+	</Operation>
 
-  <Operation Class="PatchOperationReplace">
-    <xpath>Defs/DamageDef[defName="Thump"]/armorCategory</xpath>
-    <value>
-      <armorCategory>Blunt</armorCategory>
-    </value>
-  </Operation>
+	<!-- ========== Change Thump hediff ========== -->
 
-  <!-- ========== Remove vanilla DamageWorker ========== -->
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/DamageDef[defName="Thump"]/hediff</xpath>
+		<value>
+			<hediff>Blast</hediff>
+		</value>
+	</Operation>
 
-  <Operation Class="PatchOperationReplace">
-    <xpath>Defs/DamageDef[defName="Cut" or defName="Poke" or defName="Stab" or defName="Scratch" or defName="Bite"]/workerClass</xpath>
-    <value>
-      <workerClass>DamageWorker_AddInjury</workerClass>
-    </value>
-  </Operation>
-  
-    <Operation Class="PatchOperationReplace">
-    <xpath>Defs/DamageDef[defName="Blunt"]/workerClass</xpath>
-    <value>
-      <workerClass>CombatExtended.DamageWorker_BluntCE</workerClass>
-    </value>
-  </Operation>
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/DamageDef[defName="Thump"]/armorCategory</xpath>
+		<value>
+			<armorCategory>Blunt</armorCategory>
+		</value>
+	</Operation>
 
-<!-- ========== Patch-out vanilla melee stun mechanic from blunt damage ========== -->
+	<!-- ========== Patch-out vanilla melee stun mechanic from blunt damage ========== -->
 
 	<Operation Class="PatchOperationRemove">
 		<xpath>Defs/DamageDef[@Name="BluntBase"]/*[self::bluntStunDuration or self::bluntStunChancePerDamagePctOfCorePartToHeadCurve or self::bluntStunChancePerDamagePctOfCorePartToBodyCurve]</xpath>
-	</Operation>	
+	</Operation>
 
-  <!-- ========== Add electric armor to EMP damage ========== -->
+	<!-- ========== Add electric armor to EMP damage ========== -->
 
-  <Operation Class="PatchOperationAdd">
-    <xpath>Defs/DamageDef[defName="EMP"]</xpath>
-    <value>
-      <armorCategory>Electric</armorCategory>
-    </value>
-  </Operation>
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/DamageDef[defName="EMP"]</xpath>
+		<value>
+			<armorCategory>Electric</armorCategory>
+		</value>
+	</Operation>
 
-  <!-- ========== Venom Bite & Scratch ========== -->
+	<!-- ========== Add heat armor to Frostbite damage ========== -->
 
-  <Operation Class="PatchOperationAdd">
-    <xpath>Defs/DamageDef[defName="ToxicBite"]</xpath>
-    <value>
-      <hediff>VenomousBite</hediff>
-    </value>
-  </Operation>
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/DamageDef[defName="Frostbite"]</xpath>
+		<value>
+			<armorCategory>Heat</armorCategory>
+		</value>
+	</Operation>
+
+	<!-- ========== Venom Bite & Scratch ========== -->
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/DamageDef[defName="ToxicBite"]</xpath>
+		<value>
+			<hediff>VenomousBite</hediff>
+		</value>
+	</Operation>
 
 	<Operation Class="PatchOperationAddModExtension">
   	<xpath>Defs/DamageDef[defName="ToxicBite"]</xpath>
@@ -218,16 +185,16 @@
   	</value>
 	</Operation>
 
-  <Operation Class="PatchOperationRemove">
-    <xpath>Defs/DamageDef[defName="ToxicBite"]/additionalHediffs/li[hediff="ToxicBuildup"]</xpath>
-  </Operation>
+	<Operation Class="PatchOperationRemove">
+		<xpath>Defs/DamageDef[defName="ToxicBite"]/additionalHediffs/li[hediff="ToxicBuildup"]</xpath>
+	</Operation>
 
-  <Operation Class="PatchOperationAdd">
-    <xpath>Defs/DamageDef[defName="ScratchToxic"]</xpath>
-    <value>
-      <hediff>VenomousScratch</hediff>
-    </value>
-  </Operation>
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/DamageDef[defName="ScratchToxic"]</xpath>
+		<value>
+			<hediff>VenomousScratch</hediff>
+		</value>
+	</Operation>
 
 	<Operation Class="PatchOperationAddModExtension">
   	<xpath>Defs/DamageDef[defName="ScratchToxic"]</xpath>
@@ -238,25 +205,24 @@
   	</value>
 	</Operation>
 
-  <Operation Class="PatchOperationRemove">
-    <xpath>Defs/DamageDef[defName="ScratchToxic"]/additionalHediffs/li[hediff="ToxicBuildup"]</xpath>
-  </Operation>
-  
-  <!-- ========== Fix harm layers for stab attacks ========== -->
-  
-  <Operation Class="PatchOperationAdd">
-    <xpath>Defs/DamageDef[defName="Stab"]</xpath>
-    <value>
-      <harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
-    </value>
-  </Operation>
-	
-  <Operation Class="PatchOperationAdd">
-    <xpath>Defs/DamageDef[defName="RangedStab"]</xpath>
-    <value>
-      <harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
-    </value>
-  </Operation>
-  
-</Patch>
+	<Operation Class="PatchOperationRemove">
+		<xpath>Defs/DamageDef[defName="ScratchToxic"]/additionalHediffs/li[hediff="ToxicBuildup"]</xpath>
+	</Operation>
 
+	<!-- ========== Fix harm layers for stab attacks ========== -->
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/DamageDef[defName="Stab"]</xpath>
+		<value>
+			<harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/DamageDef[defName="RangedStab"]</xpath>
+		<value>
+			<harmAllLayersUntilOutside>true</harmAllLayersUntilOutside>
+		</value>
+	</Operation>
+
+</Patch>

@@ -3,7 +3,7 @@
 
 A mod for the game Rimworld.
 
-Adds 32 landforms to the game, which generate biome-independently.
+Adds 36 landforms to the game, which generate biome-independently.
 
 The goal of this mod is to make map generation more interesting and varied, compared to the vanilla experience of simply potentially having either a cliff or a coast on one edge of your map.
 
@@ -25,6 +25,8 @@ The landforms are optimized for the standard map size (250x250). Using a larger 
 - Lone Mountain and Caldera
 - Oasis, Ice Oasis and Swamp Hill
 - Badlands and Desert Plateau
+- Cave Entrance and Surface Cave
+- Sinkhole and Secluded Valley
 
 
 # Add-ons
@@ -50,8 +52,11 @@ How is this mod different from other map generation mods?
 How do events and raids work on islands?
 - All landforms (should) always leave at least one part of the map edge walkable, which allows events and raids to happen normally. For islands specifically, at least one side will always have shallow water to allow entering and leaving the map.
 
-Can I safely add or remove this mod from existing saves?
-- Yes, it can safely be added or removed at any time. After removing it from an ongoing game there will an error appearing in the log once, which is harmless and can be ignored.
+Can I add this mod to an existing save?
+- Yes, it can be added at any time. Of course existing colony maps will not be affected, only new ones generated after the mod was added.
+
+Can I safely remove this mod from an existing save?
+- Yes, unless you have settled on an impassable mountains tile, which is not supported by vanilla. In that case, move to a normal tile before removing the mod.
 
 How can I easily find a specific landform on the world map?
 - Select any tile, open the "Terrain" tab and click the "Search for specific landform nearby" button. Alternatively, you can install Prepare Landing which allows filtering all world tiles based on selected criteria. Geological Landforms contains an integration patch that adds a filter for landforms, you can find it in the "Terrain II & Temp" tab.
