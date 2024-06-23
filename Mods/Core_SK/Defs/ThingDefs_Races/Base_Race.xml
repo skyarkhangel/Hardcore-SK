@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-	<!-- Should someday use patches onto vanilla BasePawn -->
 	<ThingDef Name="SK_BasePawn" Abstract="True">
 		<thingClass>Pawn</thingClass>
 		<category>Pawn</category>
@@ -13,6 +12,7 @@
 		<useHitPoints>false</useHitPoints>
 		<hasTooltip>true</hasTooltip>
 		<soundImpactDefault>BulletImpact_Flesh</soundImpactDefault>
+		<drawHighlight>true</drawHighlight>
 		<statBases>
 			<Mass>70</Mass>
 			<MeleeDodgeChance>0</MeleeDodgeChance>
@@ -38,7 +38,6 @@
 			<li MayRequire="Ludeon.RimWorld.Anomaly">ITab_Entity</li>
 			<li>ITab_Pawn_FormingCaravan</li>
 			<li>CombatExtended.ITab_Inventory</li>
-			<li>ITab_Pawn_Gear</li>
 			<li>ITab_Pawn_Log</li>
 		</inspectorTabs>
 		<comps>
@@ -69,7 +68,7 @@
 			<MeleeDodgeChance>0</MeleeDodgeChance>
 			<MeleeCritChance>0</MeleeCritChance>
 			<MeleeParryChance>0</MeleeParryChance>
-			<Flammability>0.7</Flammability>
+			<Flammability>0.7</Flammability>			
 		</statBases>
 		<inspectorTabs>
 			<li>ITab_Pawn_Health</li>
@@ -107,9 +106,6 @@
 			<GermContainment>0.04</GermContainment>
 		</statBases>
 		<race>
-			<bloodDef>Filth_Blood</bloodDef>
-			<bloodSmearDef>Filth_BloodSmear</bloodSmearDef>
-			<renderTree>Animal</renderTree>
 			<thinkTreeMain>Animal</thinkTreeMain>
 			<thinkTreeConstant>AnimalConstant</thinkTreeConstant>
 			<hasGenders>true</hasGenders>
@@ -119,6 +115,10 @@
 			<manhunterOnTameFailChance>0.005</manhunterOnTameFailChance>
 			<nameOnTameChance>0.5</nameOnTameChance>
 			<trainability>None</trainability>
+			<bloodDef>Filth_Blood</bloodDef>
+			<bloodSmearDef>Filth_BloodSmear</bloodSmearDef>
+			<canBecomeShambler>true</canBecomeShambler>
+			<renderTree>Animal</renderTree>
 			<hediffGiverSets>
 				<li>OrganicStandard</li>
 				<li>Animal</li>
@@ -138,11 +138,25 @@
 			<li>Sterilize</li>
 			<li MayRequire="Ludeon.RimWorld.Royalty">CureBloodRot</li>
 			<li MayRequire="Ludeon.RimWorld.Biotech">TerminatePregnancy</li>
+			<li MayRequire="Ludeon.RimWorld.Anomaly">SurgicalInspection</li>
 		</recipes>
+		<comps>
+			<!-- For shambler animals -->
+			<li Class="CompProperties_HoldingPlatformTarget" MayRequire="Ludeon.RimWorld.Anomaly">
+				<baseEscapeIntervalMtbDays>120</baseEscapeIntervalMtbDays>
+				<getsColdContainmentBonus>true</getsColdContainmentBonus>
+			</li>
+			<li MayRequire="Ludeon.RimWorld.Anomaly" Class="CompProperties_Studiable">
+				<frequencyTicks>120000</frequencyTicks>
+				<knowledgeCategory MayRequire="Ludeon.RimWorld.Anomaly">Basic</knowledgeCategory>
+				<anomalyKnowledge>1</anomalyKnowledge>
+				<requiresImprisonment>true</requiresImprisonment>
+				<minMonolithLevelForStudy>1</minMonolithLevelForStudy>
+			</li>
+		</comps>
 	</ThingDef>
 
-	<!-- Why this empty abstarct node ever exists? 
-	 		I see. Vanilla also has one empty abstract AnimalKindBase -->
-	<PawnKindDef Name="SK_AnimalKindBase" Abstract="True" />
+	<PawnKindDef Name="SK_AnimalKindBase" Abstract="True">
+	</PawnKindDef>
 
 </Defs>
