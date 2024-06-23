@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+	<!-- ALWAYS clean when you get that job -->
+	<Operation Class="PatchOperationConditional">
+		<success>Always</success>
+		<xpath>/Defs/JobDef[defName = "PrisonerAttemptRecruit" or defName = "PrisonerConvert" or defName = "PrisonerEnslave" or defName = "SpectateCeremony"]</xpath>
+		<match Class="PatchOperationAddModExtension">
+			<xpath>/Defs/JobDef[defName = "PrisonerAttemptRecruit" or defName = "PrisonerConvert" or defName = "PrisonerEnslave" or defName = "SpectateCeremony"]</xpath>
+			<value>
+				<li Class="CommonSense.CleanOnOpportunity">
+					<doClean>True</doClean>
+				</li>
+			</value>
+		</match>
+	</Operation>
+	
+	<!-- NEVER clean when you get that job -->
+	<Operation Class="PatchOperationConditional">
+		<success>Always</success>
+		<xpath>/Defs/JobDef[defName = "PlaceNoCostFrame" or defName = "FinishFrame"]</xpath>
+		<match Class="PatchOperationAddModExtension">
+			<xpath>/Defs/JobDef[defName = "PlaceNoCostFrame" or defName = "FinishFrame"]</xpath>
+			<value>
+				<li Class="CommonSense.CleanOnOpportunity">
+					<doClean>False</doClean>
+				</li>
+			</value>
+		</match>
+	</Operation>
+</Patch>

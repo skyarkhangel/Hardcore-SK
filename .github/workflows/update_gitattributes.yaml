@@ -1,0 +1,26 @@
+name: Update Git Attributes
+
+on:
+  push:
+    branches:
+      - 1.5-alpha
+
+jobs:
+  update_gitattributes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run update_gitattribute.py
+        run: |
+            ls -la
+            python update_gitattribute.py
+
+      - name: Update .gitattributes
+        run: |
+            git config user.name "GitHub Actions"
+            git config user.email "<>"
+            git add .gitattributes
+            git commit -m "Update .gitattributes" || echo "No changes to commit"
+            git push

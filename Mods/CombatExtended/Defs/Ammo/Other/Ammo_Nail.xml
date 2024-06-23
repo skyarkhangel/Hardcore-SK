@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>AmmoNail</defName>
+		<label>nail</label>
+		<parent>AmmoRifles</parent>
+		<iconPath>Things/Ammo/Nail/Nail_c</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_Nail</defName>
+		<label>nail</label>
+		<ammoTypes>
+			<Ammo_Nail>Bullet_Nail</Ammo_Nail>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+	
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_Nail_HV</defName>
+		<label>nail</label>
+		<ammoTypes>
+			<Ammo_Nail>Bullet_Nail_HV</Ammo_Nail>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="BaseNailShot" ParentName="SmallAmmoBase" Abstract="True">
+		<description>A pointed carpentry nail a few inches long. Not suitable for combat when used with conventional tools.</description>
+		<statBases>
+			<Mass>0.01</Mass>
+			<Bulk>0.01</Bulk>
+		</statBases>
+		<tradeTags>
+			<li>CE_AutoEnableTrade_Sellable</li>
+			<li>CE_AutoEnableCrafting</li>
+			<li>CE_AutoEnableCrafting_FueledSmithy</li>
+			<li>CE_AutoEnableCrafting_ElectricSmithy</li>
+		</tradeTags>
+		<thingCategories>
+			<li>AmmoNail</li>
+		</thingCategories>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="BaseNailShot">
+		<defName>Ammo_Nail</defName>
+		<label>nail</label>
+		<graphicData>
+			<texPath>Things/Ammo/Nail</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>0.02</MarketValue>
+		</statBases>
+		<ammoClass>Nail</ammoClass>
+	</ThingDef>
+
+	<!-- ================== Projectiles ================== -->
+	
+	<ThingDef Name="NailShotBullet" ParentName="BaseBulletCE" Abstract="true">
+		<label>nail</label>
+		<graphicData>
+			<texPath>Things/Projectile/Shotgun_Pellet</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile>
+			<damageDef>Bullet</damageDef>
+			<dropsCasings>false</dropsCasings>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="NailShotBullet">
+		<defName>Bullet_Nail</defName>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>9</speed>
+			<damageAmountBase>1</damageAmountBase>
+			<armorPenetrationBlunt>0.06</armorPenetrationBlunt>
+			<armorPenetrationSharp>0.2</armorPenetrationSharp>
+		</projectile>
+	</ThingDef>
+	
+	<ThingDef ParentName="NailShotBullet">
+		<defName>Bullet_Nail_HV</defName>
+		<label>nail</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>32</speed>
+			<damageAmountBase>3</damageAmountBase>
+			<armorPenetrationBlunt>0.82</armorPenetrationBlunt>
+			<armorPenetrationSharp>3</armorPenetrationSharp>
+		</projectile>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeAmmo_Nail</defName>
+		<label>make nails x500</label>
+		<description>Craft 500 steel nails.</description>
+		<jobString>Making nails.</jobString>
+		<workAmount>400</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_Nail>500</Ammo_Nail>
+		</products>
+	</RecipeDef>
+	
+</Defs>
