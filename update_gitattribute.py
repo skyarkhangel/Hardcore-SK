@@ -1,6 +1,6 @@
 """
 Generate .gitattributes file for HSK mods.
-Unused mods will be marked as export-ignore, 
+Unused or currently unsupported mods will be marked as export-ignore, 
 so they won't be included in the exported zip file (or when using download zip).
 """
 
