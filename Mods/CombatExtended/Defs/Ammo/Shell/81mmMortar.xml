@@ -23,6 +23,7 @@
 			<Shell_Smoke>Bullet_81mmMortarShell_Smoke</Shell_Smoke>
 			<Shell_AntigrainWarhead>Bullet_81mmMortarShell_Antigrain</Shell_AntigrainWarhead>
 			<Shell_Toxic MayRequire="Ludeon.RimWorld.Biotech">Bullet_81mmMortarShell_Tox</Shell_Toxic>
+			<Shell_Deadlife MayRequire="Ludeon.RimWorld.Anomaly">Bullet_81mmMortarShell_Deadlife</Shell_Deadlife>			
 		</ammoTypes>
 		<isMortarAmmoSet>true</isMortarAmmoSet>
 	</CombatExtended.AmmoSetDef>
@@ -172,6 +173,7 @@
 			<!-- Vanilla values -->
 			<li Class="CompProperties_Explosive">
 				<explosiveRadius>14.9</explosiveRadius>
+				<damageAmountBase>300</damageAmountBase>
 				<explosiveDamageType>BombSuper</explosiveDamageType>
 				<startWickHitPointsPercent>0.7</startWickHitPointsPercent>
 				<chanceToStartFire>0.22</chanceToStartFire>
@@ -199,6 +201,22 @@
 		</statBases>
 		<ammoClass>Toxic</ammoClass>
 		<detonateProjectile>Bullet_81mmMortarShell_Tox</detonateProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="81mmMortarShellBaseCraftableBase" MayRequire="Ludeon.RimWorld.Anomaly">
+		<defName>Shell_Deadlife</defName>
+		<label>81mm mortar shell (Deadlife)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Mortar/Deadlife</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>41.03</MarketValue>
+			<Mass>4.4</Mass>
+			<Bulk>10.01</Bulk>
+		</statBases>
+		<ammoClass>Deadlife</ammoClass>
+		<detonateProjectile>Bullet_81mmMortarShell_Deadlife</detonateProjectile>
 	</ThingDef>
 
 	<!-- ================== Projectiles ================== -->
@@ -361,6 +379,9 @@
 			<preExplosionSpawnChance>1</preExplosionSpawnChance>
 			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
 			<explosionEffect>ExtinguisherExplosion</explosionEffect>
+			<shellingProps>
+				<damage>0</damage>
+			</shellingProps>			
 		</projectile>
 	</ThingDef>
 
@@ -373,6 +394,7 @@
 		</graphicData>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<damageDef>BombSuper</damageDef>
+			<damageAmountBase>800</damageAmountBase>
 			<explosionRadius>50</explosionRadius>
 			<explosionChanceToStartFire>0.22</explosionChanceToStartFire>
 			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
@@ -407,6 +429,33 @@
 			<soundAmbient>MortarRound_Ambient</soundAmbient>
 			<postExplosionSpawnThingDef>Shell_Toxic_Releasing</postExplosionSpawnThingDef>
 			<postExplosionSpawnThingDefWater>Shell_Toxic_Releasing_Water</postExplosionSpawnThingDefWater>
+			<shellingProps>
+				<damage>0.12</damage>
+			</shellingProps>			
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="Base81mmMortarShell" MayRequire="Ludeon.RimWorld.Anomaly">
+		<defName>Bullet_81mmMortarShell_Deadlife</defName>
+		<label>81mm mortar shell (Deadlife)</label>
+		<graphicData>
+			<texPath>Things/Projectile/Mortar/Deadlife</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>DeadlifeDust</damageDef>
+			<armorPenetrationSharp>0</armorPenetrationSharp>
+			<armorPenetrationBlunt>0</armorPenetrationBlunt>
+			<explosionRadius>0.1</explosionRadius>
+			<flyOverhead>true</flyOverhead>
+			<soundHitThickRoof>Artillery_HitThickRoof</soundHitThickRoof>
+			<soundExplode>ToxicShellLanded</soundExplode>
+			<soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
+			<soundAmbient>MortarRound_Ambient</soundAmbient>
+			<postExplosionSpawnThingDef>Shell_Deadlife_Releasing</postExplosionSpawnThingDef>
+			<shellingProps>
+				<damage>0</damage>
+			</shellingProps>		
 		</projectile>
 	</ThingDef>
 
@@ -736,10 +785,10 @@
     <label>make 81mm deadlife mortar shells x5</label>
     <description>Craft 5 81mm deadlife mortar shells.</description>
     <jobString>Making 81mm deadlife mortar shells.</jobString>
-		<researchPrerequisites>
-			<li>DeadlifeDust</li>
-      <li>Mortars</li>
-		</researchPrerequisites>
+	<researchPrerequisites>
+		<li>DeadlifeDust</li>
+		<li>Mortars</li>
+	</researchPrerequisites>
     <recipeUsers Inherit="false">
       <li>BioferriteShaper</li>
     </recipeUsers> 
@@ -766,7 +815,7 @@
             <li>Bioferrite</li>
           </thingDefs>
         </filter>
-        <count>45</count>
+        <count>25</count>
       </li>
     </ingredients>
     <fixedIngredientFilter>
