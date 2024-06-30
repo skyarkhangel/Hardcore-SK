@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef ParentName="BaseRPG7Grenade">
+		<defName>Bullet_M72LAW</defName>
+		<label>M72 LAW grenade</label>
+		<graphicData>
+			<texPath>Things/Projectile/Rocket/M72LAW</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>TransparentPostLight</shaderType>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>42</speed>
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>248</damageAmountBase>
+			<armorPenetrationSharp>300</armorPenetrationSharp>
+			<armorPenetrationBlunt>31.584</armorPenetrationBlunt>
+			<soundAmbient>RocketPropelledLoop_Small</soundAmbient>
+			<dropsCasings>true</dropsCasings>
+			<casingMoteDefname>Fleck_DisposableLauncherCasing</casingMoteDefname>
+			<casingFilthDefname>Filth_DisposableLauncherCasings</casingFilthDefname>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<damageAmountBase>105</damageAmountBase>
+				<explosiveDamageType>Bomb</explosiveDamageType>
+				<explosiveRadius>1</explosiveRadius>
+				<explosionSound>MortarBomb_Explode</explosionSound>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			</li>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Large>3</Fragment_Large>
+					<Fragment_Small>7</Fragment_Small>
+				</fragments>
+			</li>
+			<li Class="CombatExtended.CompProperties_ProjectileFleck">
+				<FleckDatas>
+					<!--
+          Rocket Trail Guidelines
+          Faster projectile > more emissions per tick to fill the gap
+                              shorter difference between flame cutoff min to cutoff max approx 10~15 ticks
+                              
+          Slower projectile > less emissions per tick to reduce density, and since they'll stay airborne for longer thus generate more flecks, reduced fleck count is desired to prevent lag.
+                              longer difference between flame cutoff min to cutoff max
+                              
+          Meanings of each variable:
+          emissionsPerTick: how many emissions per tick. for values larger than 1, multiple emissions will be done to fill the gap between last position and current position. For values smaller than 1, an emission will be done after 1/EPT ticks.
+          flecksPerEmission: how many flecks will be generated per emission. Used to increase density.
+          scale:....fleck scale.
+          cutoffTickRange: flecks generated after min value has passed after launch will be gradually smaller until max value, when it'll stop generating. Used to create a smooth engine shutdown.
+          originOffset: how far (by unit of distance traveled per tick) the motes start to generate relative to projectile draw center. Used to adjust rocket flame's position if it's too close or too far.
+          -->
+					<li>
+						<fleck>Fleck_CERocketFlame</fleck>
+						<emissionsPerTick>7</emissionsPerTick>
+						<flecksPerEmission>3</flecksPerEmission>
+						<scale>1</scale>
+						<cutoffTickRange>25~30</cutoffTickRange>
+					</li>
+					<li>
+						<fleck>Fleck_CERocketSmokeTrail</fleck>
+						<emissionsPerTick>2</emissionsPerTick>
+						<flecksPerEmission>1</flecksPerEmission>
+					</li>
+					<li>
+						<fleck>Fleck_CERocketSmoke</fleck>
+						<emissionsPerTick>2</emissionsPerTick>
+						<flecksPerEmission>2</flecksPerEmission>
+						<cutoffTickRange>25~60</cutoffTickRange>
+					</li>
+				</FleckDatas>
+			</li>
+		</comps>
+	</ThingDef>
+
+</Defs>

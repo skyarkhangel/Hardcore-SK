@@ -1,0 +1,412 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>AmmoSPG9Rockets</defName>
+		<label>SPG9 rocket</label>
+		<parent>AmmoRockets</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberRocket</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_SPG9Rocket</defName>
+		<label>SPG9 Rocket</label>
+		<ammoTypes>
+			<Ammo_SPG9Rocket_HEAT>Bullet_SPG9Rocket_HEAT</Ammo_SPG9Rocket_HEAT>
+			<Ammo_SPG9Rocket_Thermobaric>Bullet_SPG9Rocket_Thermobaric</Ammo_SPG9Rocket_Thermobaric>
+			<Ammo_SPG9Rocket_Frag>Bullet_SPG9Rocket_Frag</Ammo_SPG9Rocket_Frag>
+			<Ammo_SPG9Rocket_EMP>Bullet_SPG9Rocket_EMP</Ammo_SPG9Rocket_EMP>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="SPG9RocketBase" ParentName="MediumAmmoBase" Abstract="True">
+		<description>Tube launched rocket-propelled grenade used by SPG-9 recoilless launcher and the BMP-1's 2A28 Grom cannon. After being fired, a rocket motor kicks in to propel the grenade further.</description>
+		<statBases>
+			<MaxHitPoints>150</MaxHitPoints>
+		</statBases>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting_TableMachining</li>
+		</tradeTags>
+		<thingCategories>
+			<li>AmmoSPG9Rockets</li>
+		</thingCategories>
+		<stackLimit>25</stackLimit>
+		<cookOffFlashScale>40</cookOffFlashScale>
+		<cookOffSound>MortarBomb_Explode</cookOffSound>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="SPG9RocketBase">
+		<defName>Ammo_SPG9Rocket_HEAT</defName>
+		<label>SPG9 Rocket (HEAT)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Rocket/SPG9/HEAT</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>53.69</MarketValue>
+			<Mass>5.35</Mass>
+			<Bulk>11.56</Bulk>
+		</statBases>
+		<ammoClass>RocketHEAT</ammoClass>
+		<detonateProjectile>Bullet_SPG9Rocket_HEAT</detonateProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="SPG9RocketBase">
+		<defName>Ammo_SPG9Rocket_Thermobaric</defName>
+		<label>SPG-9 Rocket (Thermobaric)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Rocket/SPG9/Thermobaric</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>110.13</MarketValue>
+			<Mass>6.2</Mass>
+			<Bulk>11.56</Bulk>
+		</statBases>
+		<ammoClass>RocketThermobaric</ammoClass>
+		<detonateProjectile>Bullet_SPG9Rocket_Thermobaric</detonateProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="SPG9RocketBase">
+		<defName>Ammo_SPG9Rocket_Frag</defName>
+		<label>SPG-9 Rocket (HE)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Rocket/SPG9/Frag</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>61.58</MarketValue>
+			<Mass>5.5</Mass>
+			<Bulk>13.34</Bulk>
+		</statBases>
+		<ammoClass>RocketFrag</ammoClass>
+		<detonateProjectile>Bullet_SPG9Rocket_Frag</detonateProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="SPG9RocketBase">
+		<defName>Ammo_SPG9Rocket_EMP</defName>
+		<label>SPG-9 Rocket (EMP)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Rocket/SPG9/EMP</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>93.72</MarketValue>
+			<Mass>5.5</Mass>
+			<Bulk>11.5</Bulk>
+		</statBases>
+		<ammoClass>GrenadeEMP</ammoClass>
+		<detonateProjectile>Bullet_SPG9Rocket_EMP</detonateProjectile>
+	</ThingDef>
+
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef Name="BaseSPG9Rocket" ParentName="BaseExplosiveBullet" Abstract="true">
+		<graphicData>
+			<shaderType>TransparentPostLight</shaderType>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>75</speed>
+			<soundAmbient>RocketPropelledLoop_Small</soundAmbient>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ProjectileFleck">
+				<FleckDatas>
+					<li>
+						<fleck>Fleck_CERocketFlame</fleck>
+						<emissionsPerTick>9</emissionsPerTick>
+						<flecksPerEmission>2</flecksPerEmission>
+						<cutoffTickRange>25~30</cutoffTickRange>
+						<originOffset>0.2</originOffset>
+					</li>
+					<li>
+						<fleck>Fleck_CERocketSmokeTrail</fleck>
+						<emissionsPerTick>2</emissionsPerTick>
+						<rotation>0~360</rotation>
+						<flecksPerEmission>1</flecksPerEmission>
+					</li>
+					<li>
+						<fleck>Fleck_CERocketSmoke</fleck>
+						<emissionsPerTick>2</emissionsPerTick>
+						<rotation>0~360</rotation>
+						<flecksPerEmission>3</flecksPerEmission>
+						<cutoffTickRange>25~60</cutoffTickRange>
+					</li>
+				</FleckDatas>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseSPG9Rocket">
+		<defName>Bullet_SPG9Rocket_HEAT</defName>
+		<label>SPG-9 Rocket (HEAT)</label>
+		<graphicData>
+			<texPath>Things/Projectile/Rocket/SPG9/HEAT</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>96</speed>
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>248</damageAmountBase>
+			<armorPenetrationSharp>400</armorPenetrationSharp>
+			<armorPenetrationBlunt>26.53</armorPenetrationBlunt>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<damageAmountBase>88</damageAmountBase>
+				<explosiveDamageType>Bomb</explosiveDamageType>
+				<explosiveRadius>1.0</explosiveRadius>
+				<explosionSound>MortarBomb_Explode</explosionSound>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			</li>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Large>9</Fragment_Large>
+					<Fragment_Small>5</Fragment_Small>
+				</fragments>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseSPG9Rocket">
+		<defName>Bullet_SPG9Rocket_Thermobaric</defName>
+		<label>SPG-9 Rocket (Thermobaric)</label>
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		<graphicData>
+			<texPath>Things/Projectile/Rocket/SPG9/Thermobaric</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<explosionRadius>5</explosionRadius>
+			<damageDef>Thermobaric</damageDef>
+			<damageAmountBase>277</damageAmountBase>
+			<armorPenetrationSharp>0</armorPenetrationSharp>
+			<armorPenetrationBlunt>0</armorPenetrationBlunt>
+			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<ai_IsIncendiary>true</ai_IsIncendiary>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseSPG9Rocket">
+		<defName>Bullet_SPG9Rocket_Frag</defName>
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		<label>SPG-9 Rocket (HE)</label>
+		<graphicData>
+			<texPath>Things/Projectile/Rocket/SPG9/Frag</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<explosionRadius>2.0</explosionRadius>
+			<damageDef>Bomb</damageDef>
+			<armorPenetrationSharp>0</armorPenetrationSharp>
+			<damageAmountBase>111</damageAmountBase>
+			<armorPenetrationBlunt>0</armorPenetrationBlunt>
+			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<soundExplode>MortarBomb_Explode</soundExplode>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Small>80</Fragment_Small>
+				</fragments>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseSPG9Rocket">
+		<defName>Bullet_SPG9Rocket_EMP</defName>
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		<label>SPG-9 Rocket (EMP)</label>
+		<graphicData>
+			<texPath>Things/Projectile/Rocket/SPG9/EMP</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>EMP</damageDef>
+			<damageAmountBase>111</damageAmountBase>
+			<armorPenetrationSharp>0</armorPenetrationSharp>
+			<armorPenetrationBlunt>0</armorPenetrationBlunt>
+			<explosionRadius>4.5</explosionRadius>
+		</projectile>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef ParentName="LauncherAmmoRecipeBase">
+		<defName>MakeAmmo_SPG9Rocket_HEAT</defName>
+		<label>make SPG-9 HEAT rockets x5</label>
+		<description>Craft 5 SPG-9 HEAT rockets.</description>
+		<jobString>Making SPG-9 HEAT rockets.</jobString>
+		<workAmount>9400</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>54</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>FSX</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>FSX</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_SPG9Rocket_HEAT>5</Ammo_SPG9Rocket_HEAT>
+		</products>
+	</RecipeDef>
+
+	<RecipeDef ParentName="LauncherAmmoRecipeBase">
+		<defName>MakeAmmo_SPG9Rocket_Thermobaric</defName>
+		<label>make SPG-9 thermobaric rockets x5</label>
+		<description>Craft 5 SPG-9 thermobaric rockets.</description>
+		<jobString>Making SPG-9 thermobaric rockets.</jobString>
+		<workAmount>23800</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>62</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>FSX</li>
+					</thingDefs>
+				</filter>
+				<count>38</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>FSX</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_SPG9Rocket_Thermobaric>5</Ammo_SPG9Rocket_Thermobaric>
+		</products>
+	</RecipeDef>
+
+	<RecipeDef ParentName="LauncherAmmoRecipeBase">
+		<defName>MakeAmmo_SPG9Rocket_Frag</defName>
+		<label>make SPG-9 HE rockets x5</label>
+		<description>Craft 5 SPG-9 HE rockets.</description>
+		<jobString>Making SPG-9 HE rockets.</jobString>
+		<workAmount>11400</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>66</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>FSX</li>
+					</thingDefs>
+				</filter>
+				<count>6</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>FSX</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_SPG9Rocket_Frag>5</Ammo_SPG9Rocket_Frag>
+		</products>
+	</RecipeDef>
+
+	<RecipeDef ParentName="LauncherAmmoRecipeBase">
+		<defName>MakeAmmo_SPG9Rocket_EMP</defName>
+		<label>make SPG-9 EMP rockets x5</label>
+		<description>Craft 5 SPG-9 EMP rockets.</description>
+		<jobString>Making SPG-9 EMP rockets.</jobString>
+		<researchPrerequisites>
+			<li>MicroelectronicsBasics</li>
+			<li>CE_Launchers</li>
+		</researchPrerequisites>
+		<workAmount>12200</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>56</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>11</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>FSX</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_SPG9Rocket_EMP>5</Ammo_SPG9Rocket_EMP>
+		</products>
+	</RecipeDef>
+
+</Defs>

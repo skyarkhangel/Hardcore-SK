@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>AmmoSlingBullet</defName>
+		<label>sling bullets</label>
+		<parent>AmmoNeolithic</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberStone</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_SlingBullet</defName>
+		<label>sling bullets</label>
+		<ammoTypes>
+			<Ammo_SlingBullet_Stone>Projectile_SlingBullet_Stone</Ammo_SlingBullet_Stone>
+			<Ammo_SlingBullet_Steel>Projectile_SlingBullet_Steel</Ammo_SlingBullet_Steel>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="AmmoSlingBulletBase" ParentName="NeolithicAmmoBase" Abstract="True">
+		<description>An aerodynamic stone or metal pellet. Perfect for being launched by a sling.</description>
+		<statBases>
+			<Mass>0.03</Mass>
+			<Bulk>0.04</Bulk>
+		</statBases>
+		<thingCategories>
+			<li>AmmoSlingBullet</li>
+		</thingCategories>
+		<stackLimit>5000</stackLimit>
+		<tradeTags>
+			<li>CE_PreIndustrialAmmo</li>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting_FueledSmithy</li>
+			<li>CE_AutoEnableCrafting_ElectricSmithy</li>
+		</tradeTags>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="AmmoSlingBulletBase">
+		<defName>Ammo_SlingBullet_Stone</defName>
+		<label>sling bullet (stone)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Neolithic/SlingBullet/Stone</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>0.07</MarketValue>
+		</statBases>
+		<ammoClass>StoneSlingBullet</ammoClass>
+		<tradeTags>
+			<li>CE_AutoEnableCrafting_CraftingSpot</li>
+		</tradeTags>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="AmmoSlingBulletBase">
+		<defName>Ammo_SlingBullet_Steel</defName>
+		<label>sling bullet (steel)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Neolithic/SlingBullet/Steel</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<Mass>0.085</Mass>
+			<MarketValue>0.36</MarketValue>
+		</statBases>
+		<ammoClass>SteelSlingBullet</ammoClass>
+	</ThingDef>
+
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef Name="BaseSlingBullet" ParentName="BaseBulletCE" Abstract="true">
+		<graphicData>
+			<texPath>Things/Mote/Stone</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Blunt</damageDef>
+			<speed>18</speed>
+		</projectile>
+	</ThingDef>
+
+	<!-- The amount of arrows usable over the ammo lifetime for each resource cost is equal to
+		[r / (1 - x)];
+			x = preExplosionSpawnChance,
+			r = resource cost. -->
+
+	<ThingDef ParentName="BaseSlingBullet">
+		<defName>Projectile_SlingBullet_Stone</defName>
+		<label>sling bullet (stone)</label>
+		<graphicData>
+			<texPath>Things/Projectile/Sling/Stone</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageAmountBase>5</damageAmountBase>
+			<armorPenetrationBlunt>0.6</armorPenetrationBlunt>
+			<preExplosionSpawnChance>0.166</preExplosionSpawnChance><!-- 11.99 stones per resource -->
+			<preExplosionSpawnThingDef>Ammo_SlingBullet_Stone</preExplosionSpawnThingDef>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseSlingBullet">
+		<defName>Projectile_SlingBullet_Steel</defName>
+		<label>sling bullet (steel)</label>
+		<graphicData>
+			<texPath>Things/Projectile/Sling/Steel</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageAmountBase>8</damageAmountBase>
+			<armorPenetrationBlunt>1.72</armorPenetrationBlunt>
+			<preExplosionSpawnChance>0.5</preExplosionSpawnChance><!-- 20 stones per resource -->
+			<preExplosionSpawnThingDef>Ammo_SlingBullet_Steel</preExplosionSpawnThingDef>
+		</projectile>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef ParentName="AmmoRecipeNeolithicBase">
+		<defName>MakeAmmo_SlingBullet_Stone</defName>
+		<label>make stone sling bullets x500</label>
+		<description>Make 500 stone sling bullets.</description>
+		<jobString>Making stone sling bullets.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>StoneChunks</li>
+					</categories>
+				</filter>
+				<count>1</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>StoneChunks</li>
+			</categories>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_SlingBullet_Stone>500</Ammo_SlingBullet_Stone>
+		</products>
+		<workAmount>600</workAmount>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeNeolithicBase">
+		<defName>MakeAmmo_SlingBullet_Steel</defName>
+		<label>make steel sling bullets x100</label>
+		<description>Make 100 steel sling bullets.</description>
+		<jobString>Making steel sling bullets.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>18</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_SlingBullet_Steel>100</Ammo_SlingBullet_Steel>
+		</products>
+		<workAmount>1800</workAmount>
+	</RecipeDef>
+
+</Defs>

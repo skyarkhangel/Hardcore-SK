@@ -1,0 +1,738 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>Ammo81mmMortarShells</defName>
+		<label>81mm mortar shell</label>
+		<parent>AmmoShells</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberMortar</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_81mmMortarShell</defName>
+		<label>81mm mortar shells</label>
+		<ammoTypes>
+			<!-- Overrides vanilla artillery shell -->
+			<Shell_HighExplosive>Bullet_81mmMortarShell_HE</Shell_HighExplosive>
+      <Shell_HighExplosive_HFuzed>Bullet_81mmMortarShell_HE_HFuzed</Shell_HighExplosive_HFuzed>
+			<Shell_Incendiary>Bullet_81mmMortarShell_Incendiary</Shell_Incendiary>
+			<Shell_EMP>Bullet_81mmMortarShell_EMP</Shell_EMP>
+			<Shell_Firefoam>Bullet_81mmMortarShell_Firefoam</Shell_Firefoam>
+			<Shell_Smoke>Bullet_81mmMortarShell_Smoke</Shell_Smoke>
+			<Shell_AntigrainWarhead>Bullet_81mmMortarShell_Antigrain</Shell_AntigrainWarhead>
+			<Shell_Toxic MayRequire="Ludeon.RimWorld.Biotech">Bullet_81mmMortarShell_Tox</Shell_Toxic>
+		</ammoTypes>
+		<isMortarAmmoSet>true</isMortarAmmoSet>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="81mmMortarShellBase" ParentName="HeavyAmmoBase" Abstract="True">
+		<description>Low-velocity shell designed to be fired from a mortar.</description>
+		<statBases>
+			<MaxHitPoints>200</MaxHitPoints>
+		</statBases>
+		<thingCategories>
+			<li>Ammo81mmMortarShells</li>
+		</thingCategories>
+		<stackLimit>25</stackLimit>
+		<cookOffFlashScale>30</cookOffFlashScale>
+		<cookOffSound>MortarBomb_Explode</cookOffSound>
+		<isMortarAmmo>true</isMortarAmmo>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="81mmMortarShellBaseCraftableBase" ParentName="81mmMortarShellBase" Abstract="True">
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting_TableMachining</li>
+		</tradeTags>
+	</ThingDef>
+
+	<!-- Need to override mortar shell because of hardcoded vanilla references -->
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="81mmMortarShellBaseCraftableBase">
+		<defName>Shell_HighExplosive</defName>
+		<label>81mm mortar shell (HE)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Mortar/HE</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>50.09</MarketValue>
+			<Mass>5.27</Mass>
+			<Bulk>8.17</Bulk>
+		</statBases>
+		<ammoClass>GrenadeHE</ammoClass>
+		<detonateProjectile>Bullet_81mmMortarShell_HE</detonateProjectile>
+	</ThingDef>
+
+  <ThingDef Class="CombatExtended.AmmoDef" ParentName="81mmMortarShellBaseCraftableBase">
+    <defName>Shell_HighExplosive_HFuzed</defName>
+    <label>81mm mortar shell (Airburst)</label>
+    <graphicData>
+      <texPath>Things/Ammo/Mortar/Airburst</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <statBases>
+      <MarketValue>63.09</MarketValue>
+      <Mass>5.27</Mass>
+      <Bulk>8.17</Bulk>
+    </statBases>
+    <ammoClass>GrenadeHETF</ammoClass>
+    <detonateProjectile>Bullet_81mmMortarShell_HE</detonateProjectile>
+  </ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="81mmMortarShellBaseCraftableBase">
+		<defName>Shell_Incendiary</defName>
+		<label>81mm mortar shell (Incendiary)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Mortar/Incendiary</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>42.34</MarketValue>
+			<Mass>5.65</Mass>
+			<Bulk>9.0</Bulk>
+		</statBases>
+		<ammoClass>GrenadeIncendiary</ammoClass>
+		<detonateProjectile>Bullet_81mmMortarShell_Incendiary</detonateProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="81mmMortarShellBaseCraftableBase">
+		<defName>Shell_EMP</defName>
+		<label>81mm mortar shell (EMP)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Mortar/EMP</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>112.42</MarketValue>
+			<Mass>5.27</Mass>
+			<Bulk>8.17</Bulk>
+		</statBases>
+		<ammoClass>GrenadeEMP</ammoClass>
+		<detonateProjectile>Bullet_81mmMortarShell_EMP</detonateProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="81mmMortarShellBaseCraftableBase">
+		<defName>Shell_Firefoam</defName>
+		<label>81mm mortar shell (Foam)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Mortar/Firefoam</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>37.03</MarketValue>
+			<Mass>4.1</Mass>
+			<Bulk>10.01</Bulk>
+		</statBases>
+		<ammoClass>FoamFuel</ammoClass>
+		<detonateProjectile>Bullet_81mmMortarShell_Firefoam</detonateProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="81mmMortarShellBaseCraftableBase">
+		<defName>Shell_Smoke</defName>
+		<label>81mm mortar shell (Smoke)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Mortar/Smoke</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>37.03</MarketValue>
+			<Mass>4.1</Mass>
+			<Bulk>10.01</Bulk>
+		</statBases>
+		<ammoClass>Smoke</ammoClass>
+		<detonateProjectile>Bullet_81mmMortarShell_Smoke</detonateProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="81mmMortarShellBase">
+		<defName>Shell_AntigrainWarhead</defName>
+		<label>81mm mortar shell (Anti)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Mortar/Antigrain</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>1500</MarketValue>
+			<Mass>6.5</Mass>
+			<Bulk>6</Bulk>
+		</statBases>
+		<thingSetMakerTags>
+			<li>RewardStandardCore</li>
+		</thingSetMakerTags>
+		<tradeTags>
+			<li>CE_AutoEnableTrade_Sellable</li>
+		</tradeTags>
+		<ammoClass>Antigrain</ammoClass>
+		<comps>
+			<!-- Vanilla values -->
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>14.9</explosiveRadius>
+				<explosiveDamageType>BombSuper</explosiveDamageType>
+				<startWickHitPointsPercent>0.7</startWickHitPointsPercent>
+				<chanceToStartFire>0.22</chanceToStartFire>
+				<damageFalloff>true</damageFalloff>
+				<explosionEffect>GiantExplosion</explosionEffect>
+				<explosionSound>Explosion_GiantBomb</explosionSound>
+				<wickTicks>60~120</wickTicks>
+				<explodeOnKilled>True</explodeOnKilled>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="81mmMortarShellBaseCraftableBase" MayRequire="Ludeon.RimWorld.Biotech">
+		<defName>Shell_Toxic</defName>
+		<label>81mm mortar shell (Toxic)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Mortar/Toxic</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>37.03</MarketValue>
+			<Mass>4.1</Mass>
+			<Bulk>10.01</Bulk>
+		</statBases>
+		<ammoClass>Toxic</ammoClass>
+		<detonateProjectile>Bullet_81mmMortarShell_Tox</detonateProjectile>
+	</ThingDef>
+
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef Name="Base81mmMortarShell" ParentName="BaseExplosiveBullet" Abstract="true">
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		<graphicData>
+			<shaderType>TransparentPostLight</shaderType>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>0</speed>
+			<soundHitThickRoof>Artillery_HitThickRoof</soundHitThickRoof>
+			<soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
+			<soundAmbient>MortarRound_Ambient</soundAmbient>
+			<flyOverhead>true</flyOverhead>
+			<dropsCasings>false</dropsCasings>
+			<gravityFactor>5</gravityFactor>
+			<shellingProps>
+				<iconPath>Things/WorldObjects/Munitions/Mortar</iconPath>
+				<tilesPerTick>0.06</tilesPerTick>
+				<range>10</range>
+			</shellingProps>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="Base81mmMortarShell">
+		<defName>Bullet_81mmMortarShell_HE</defName>
+		<label>81mm mortar shell (HE)</label>
+		<graphicData>
+			<texPath>Things/Projectile/Mortar/HE</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bomb</damageDef>
+			<damageAmountBase>156</damageAmountBase>
+			<explosionRadius>2.5</explosionRadius>
+			<flyOverhead>true</flyOverhead>
+			<soundExplode>MortarBomb_Explode</soundExplode>
+			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<ai_IsIncendiary>true</ai_IsIncendiary>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Large>16</Fragment_Large>
+					<Fragment_Small>25</Fragment_Small>
+				</fragments>
+			</li>
+		</comps>
+	</ThingDef>
+
+  <ThingDef ParentName="Base81mmMortarShell">
+    <defName>Bullet_81mmMortarShell_HE_HFuzed</defName>
+    <label>81mm mortar shell (Airburst)</label>
+    <thingClass>CombatExtended.ProjectileCE_HeightFuse</thingClass>
+    <graphicData>
+      <texPath>Things/Projectile/Mortar/Airburst</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
+      <damageDef>Smoke</damageDef>
+      <damageAmountBase>0</damageAmountBase>
+      <explosionRadius>1</explosionRadius>
+      <flyOverhead>true</flyOverhead>
+      <soundExplode>MortarBomb_Explode</soundExplode>
+      <applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+      <ai_IsIncendiary>true</ai_IsIncendiary>
+      <aimHeightOffset>8</aimHeightOffset>
+			<shellingProps>
+				<damage>0.013</damage>
+			</shellingProps>
+    </projectile>
+    <comps>
+      <li Class="CombatExtended.CompProperties_Fragments">
+        <fragments>
+          <Fragment_Large>12</Fragment_Large>
+          <Fragment_Small>24</Fragment_Small>
+        </fragments>
+        <fragAngleRange>-90~-48</fragAngleRange>
+      </li>
+    </comps>
+  </ThingDef>
+
+	<ThingDef ParentName="Base81mmMortarShell">
+		<defName>Bullet_81mmMortarShell_Incendiary</defName>
+		<label>81mm mortar shell (Incendiary)</label>
+		<graphicData>
+			<texPath>Things/Projectile/Mortar/Incendiary</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>PrometheumFlame</damageDef>
+			<damageAmountBase>11</damageAmountBase>
+			<explosionRadius>6.5</explosionRadius>
+			<flyOverhead>true</flyOverhead>
+			<preExplosionSpawnThingDef>FilthPrometheum</preExplosionSpawnThingDef>
+			<preExplosionSpawnChance>0.15</preExplosionSpawnChance>
+			<soundExplode>MortarIncendiary_Explode</soundExplode>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="Base81mmMortarShell">
+		<defName>Bullet_81mmMortarShell_EMP</defName>
+		<label>81mm mortar shell (EMP)</label>
+		<graphicData>
+			<texPath>Things/Projectile/Mortar/EMP</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>EMP</damageDef>
+			<damageAmountBase>156</damageAmountBase>
+			<flyOverhead>true</flyOverhead>
+			<explosionRadius>5.5</explosionRadius>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="Base81mmMortarShell">
+		<defName>Bullet_81mmMortarShell_Firefoam</defName>
+		<label>81mm mortar shell (Foam)</label>
+		<graphicData>
+			<texPath>Things/Projectile/Mortar/Firefoam</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Extinguish</damageDef>
+			<suppressionFactor>0.0</suppressionFactor>
+			<dangerFactor>0.0</dangerFactor>
+			<explosionRadius>5</explosionRadius>
+			<flyOverhead>true</flyOverhead>
+			<soundHitThickRoof>Artillery_HitThickRoof</soundHitThickRoof>
+			<soundExplode>Explosion_EMP</soundExplode>
+			<soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
+			<soundAmbient>MortarRound_Ambient</soundAmbient>
+			<postExplosionSpawnThingDef>Filth_FireFoam</postExplosionSpawnThingDef>
+			<postExplosionSpawnChance>1</postExplosionSpawnChance>
+			<postExplosionSpawnThingCount>3</postExplosionSpawnThingCount>
+			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<explosionEffect>ExtinguisherExplosion</explosionEffect>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="Base81mmMortarShell">
+		<defName>Bullet_81mmMortarShell_Smoke</defName>
+		<label>81mm mortar shell (Smoke)</label>
+		<graphicData>
+			<texPath>Things/Projectile/Mortar/Smoke</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Smoke</damageDef>
+			<suppressionFactor>0.0</suppressionFactor>
+			<dangerFactor>0.0</dangerFactor>
+			<explosionRadius>6</explosionRadius>
+			<flyOverhead>true</flyOverhead>
+			<soundHitThickRoof>Artillery_HitThickRoof</soundHitThickRoof>
+			<soundExplode>Explosion_EMP</soundExplode>
+			<soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
+			<soundAmbient>MortarRound_Ambient</soundAmbient>
+			<postExplosionGasType>BlindSmoke</postExplosionGasType>
+			<preExplosionSpawnChance>1</preExplosionSpawnChance>
+			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<explosionEffect>ExtinguisherExplosion</explosionEffect>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="Base81mmMortarShell">
+		<defName>Bullet_81mmMortarShell_Antigrain</defName>
+		<label>81mm mortar shell (Anti)</label>
+		<graphicData>
+			<texPath>Things/Projectile/Mortar/Antigrain</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>BombSuper</damageDef>
+			<explosionRadius>50</explosionRadius>
+			<explosionChanceToStartFire>0.22</explosionChanceToStartFire>
+			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<flyOverhead>true</flyOverhead>
+			<explosionEffect>GiantExplosion</explosionEffect>
+			<soundHitThickRoof>Artillery_HitThickRoof</soundHitThickRoof>
+			<soundExplode>Explosion_GiantBomb</soundExplode>
+			<soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
+			<soundAmbient>MortarRound_Ambient</soundAmbient>
+			<shellingProps>
+				<damage>0.85</damage>
+			</shellingProps>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="Base81mmMortarShell" MayRequire="Ludeon.RimWorld.Biotech">
+		<defName>Bullet_81mmMortarShell_Tox</defName>
+		<label>81mm mortar shell (Toxic)</label>
+		<graphicData>
+			<texPath>Things/Projectile/Mortar/Toxic</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>ToxGas</damageDef>
+			<armorPenetrationSharp>0</armorPenetrationSharp>
+			<armorPenetrationBlunt>0</armorPenetrationBlunt>
+			<explosionRadius>0.1</explosionRadius>
+			<flyOverhead>true</flyOverhead>
+			<soundHitThickRoof>Artillery_HitThickRoof</soundHitThickRoof>
+			<soundExplode>ToxicShellLanded</soundExplode>
+			<soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
+			<soundAmbient>MortarRound_Ambient</soundAmbient>
+			<postExplosionSpawnThingDef>Shell_Toxic_Releasing</postExplosionSpawnThingDef>
+			<postExplosionSpawnThingDefWater>Shell_Toxic_Releasing_Water</postExplosionSpawnThingDefWater>
+		</projectile>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeShell_HighExplosive</defName>
+		<label>make 81mm HE mortar shells x5</label>
+		<description>Craft 5 81mm HE mortar shells.</description>
+		<jobString>Making 81mm HE mortar shells.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>54</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>FSX</li>
+					</thingDefs>
+				</filter>
+				<count>10</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>FSX</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Shell_HighExplosive>5</Shell_HighExplosive>
+		</products>
+		<skillRequirements>
+			<Crafting>4</Crafting>
+		</skillRequirements>
+		<workAmount>10600</workAmount>
+	</RecipeDef>
+
+  <RecipeDef ParentName="AmmoRecipeBase">
+    <defName>MakeShell_HighExplosive_HFuzed</defName>
+    <label>make 81mm airburst mortar shells x5</label>
+    <description>Craft 5 81mm airburst mortar shells.</description>
+    <jobString>Making 81mm airburst mortar shells.</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Steel</li>
+          </thingDefs>
+        </filter>
+        <count>54</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>FSX</li>
+          </thingDefs>
+        </filter>
+        <count>10</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>ComponentIndustrial</li>
+          </thingDefs>
+        </filter>
+        <count>4</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Steel</li>
+        <li>FSX</li>
+        <li>ComponentIndustrial</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Shell_HighExplosive_HFuzed>5</Shell_HighExplosive_HFuzed>
+    </products>
+    <skillRequirements>
+      <Crafting>5</Crafting>
+    </skillRequirements>
+    <workAmount>11800</workAmount>
+  </RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeShell_Incendiary</defName>
+		<label>make 81mm incendiary mortar shells x5</label>
+		<description>Craft 5 81mm incendiary mortar shells.</description>
+		<jobString>Making 81mm incendiary mortar shells.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>58</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Prometheum</li>
+					</thingDefs>
+				</filter>
+				<count>5</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>Prometheum</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Shell_Incendiary>5</Shell_Incendiary>
+		</products>
+		<skillRequirements>
+			<Crafting>4</Crafting>
+		</skillRequirements>
+		<workAmount>9000</workAmount>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeShell_EMP</defName>
+		<label>make 81mm EMP mortar shells x5</label>
+		<description>Craft 5 81mm EMP mortar shells.</description>
+		<jobString>Making 81mm EMP mortar shells.</jobString>
+		<researchPrerequisite>MicroelectronicsBasics</researchPrerequisite>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>54</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>14</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Shell_EMP>5</Shell_EMP>
+		</products>
+		<skillRequirements>
+			<Crafting>4</Crafting>
+		</skillRequirements>
+		<workAmount>13800</workAmount>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeShell_Firefoam</defName>
+		<label>make 81mm firefoam mortar shells x5</label>
+		<description>Craft 5 81mm firefoam mortar shells.</description>
+		<jobString>Making 81mm firefoam mortar shells.</jobString>
+		<researchPrerequisite>Firefoam</researchPrerequisite>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>42</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<categories>
+						<li>MeatRaw</li>
+					</categories>
+				</filter>
+				<count>17</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+			<categories>
+				<li>MeatRaw</li>
+			</categories>
+		</fixedIngredientFilter>
+		<products>
+			<Shell_Firefoam>5</Shell_Firefoam>
+		</products>
+		<skillRequirements>
+			<Crafting>4</Crafting>
+		</skillRequirements>
+		<workAmount>8800</workAmount>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeShell_Smoke</defName>
+		<label>make 81mm smoke mortar shells x5</label>
+		<description>Craft 5 81mm smoke mortar shells.</description>
+		<jobString>Making 81mm smoke mortar shells.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>42</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Prometheum</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>Prometheum</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Shell_Smoke>5</Shell_Smoke>
+		</products>
+		<skillRequirements>
+			<Crafting>4</Crafting>
+		</skillRequirements>
+		<workAmount>6600</workAmount>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeBase" MayRequire="Ludeon.RimWorld.Biotech">
+		<defName>MakeShell_Toxic</defName>
+		<label>make 81mm tox mortar shells x5</label>
+		<description>Craft 5 81mm tox mortar shells.</description>
+		<jobString>Making 81mm tox mortar shells.</jobString>
+		<researchPrerequisite>ToxGas</researchPrerequisite>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>42</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Prometheum</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>Prometheum</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Shell_Toxic>5</Shell_Toxic>
+		</products>
+		<skillRequirements>
+			<Crafting>4</Crafting>
+		</skillRequirements>
+		<workAmount>6600</workAmount>
+	</RecipeDef>
+
+</Defs>

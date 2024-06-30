@@ -1,9 +1,173 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Patch>
 
+	<!-- airwire headset -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Apparel_AirwireHeadset"]/costList</xpath>
+		<value>
+			<costList>
+			  <Plastic>40</Plastic>
+			  <Wire>15</Wire>
+			  <ReinforcedGlass>10</ReinforcedGlass>
+			  <ComponentIndustrial>4</ComponentIndustrial>
+			  <ElectronicComponents>2</ElectronicComponents>
+			  <Electronics>1</Electronics>
+			</costList>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Apparel_AirwireHeadset"]/recipeMaker/skillRequirements</xpath>
+		<value>
+		  <skillRequirements>
+			<Crafting>9</Crafting>
+		  </skillRequirements>
+		</value>
+	</Operation>
+
+	<!-- array headset -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Apparel_ArrayHeadset"]/costList</xpath>
+		<value>
+			<costList>
+			  <Plastic>45</Plastic>
+			  <Wire>20</Wire>
+			  <ReinforcedGlass>15</ReinforcedGlass>
+			  <ComponentIndustrial>6</ComponentIndustrial>
+			  <ElectronicComponents>4</ElectronicComponents>
+			  <Electronics>2</Electronics>
+			</costList>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Apparel_ArrayHeadset"]/recipeMaker/skillRequirements</xpath>
+		<value>
+		  <skillRequirements>
+			<Crafting>13</Crafting>
+		  </skillRequirements>
+		</value>
+	</Operation>
+
+	<!-- other -->
+
 	<Operation Class="PatchOperationSequence">
 		<success>Normal</success>
 		<operations>
+
+			<!-- Redirect to ArmorSpacerBase -->
+			<li Class="PatchOperationReplace">
+				<xpath>Defs/ThingDef[defName="Apparel_MechlordSuit" or 
+					defName="Apparel_ArmorHelmetMechlordHelmet"]/recipeMaker</xpath>
+				<value>
+					<recipeMaker>
+						<workSpeedStat>SmithingSpeed</workSpeedStat>
+						<workSkill>Crafting</workSkill>
+						<effectWorking>Smith</effectWorking>
+						<soundWorking>Recipe_Machining</soundWorking>
+						<recipeUsers>
+							<li>HyperTailoringBench</li>
+						</recipeUsers>
+						<skillRequirements>
+							<Crafting>16</Crafting>
+						</skillRequirements>
+						<unfinishedThingDef>UnfinishedArmor</unfinishedThingDef>
+					</recipeMaker>
+				</value>
+			</li>
+			<li Class="PatchOperationReplace">
+				<xpath>Defs/ThingDef[defName="Apparel_MechlordSuit" or 
+					defName="Apparel_ArmorHelmetMechlordHelmet" or
+					defName="Apparel_ArmorHelmetMechCommander"]/tradeTags</xpath>
+				<value>
+					<tradeTags>
+						<li>Armor</li>
+					</tradeTags>
+				</value>
+			</li>
+
+			<li Class="PatchOperationReplace">
+				<xpath>Defs/ThingDef[defName="Apparel_ArmorHelmetMechCommander"]/recipeMaker</xpath>
+				<value>
+					<recipeMaker>
+						<workSpeedStat>SmithingSpeed</workSpeedStat>
+						<workSkill>Crafting</workSkill>
+						<effectWorking>Smith</effectWorking>
+						<soundWorking>Recipe_Machining</soundWorking>
+						<recipeUsers>
+							<li>ElectricTailoringBench</li>
+						</recipeUsers>
+						<skillRequirements>
+							<Crafting>10</Crafting>
+						</skillRequirements>
+						<unfinishedThingDef>UnfinishedArmor</unfinishedThingDef>
+					</recipeMaker>
+				</value>
+			</li>
+
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/ThingDef[defName="Apparel_MechlordSuit" or 
+					defName="Apparel_ArmorHelmetMechlordHelmet" or
+					defName="Apparel_ArmorHelmetMechCommander"]</xpath>
+				<value>
+					<thingClass>Apparel</thingClass>
+				</value>
+			</li>
+
+			<!-- This Miraculously Could Fix the Inheritance Issue -->
+			<li Class="PatchOperationAdd">
+				<xpath>Defs</xpath>
+				<value>
+					<ThingDef ParentName="ArmorSpacerBase" Abstract="True" Name="DummyParentNodeSpacer" />
+					<ThingDef ParentName="ArmorIndustrialBase" Abstract="True" Name="DummyParentNodeIndustrial" />
+				</value>
+			</li>
+
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/ThingDef[defName="Apparel_MechlordSuit"]/apparel</xpath>
+				<value>
+					<bodyPartGroups>
+						<li>Torso</li>
+						<li>Neck</li>
+						<li>Shoulders</li>
+						<li>Arms</li>
+						<li>Hands</li>
+						<li>Legs</li>
+						<li>Feet</li>
+					</bodyPartGroups>
+					<layers>
+						<li>Shell</li>
+						<li>Middle</li>
+					</layers>
+				</value>
+			</li>
+
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/ThingDef[defName="Apparel_ArmorHelmetMechlordHelmet" or defName="Apparel_ArmorHelmetMechCommander"]/apparel</xpath>
+				<value>
+					<bodyPartGroups>
+						<li>FullHead</li>
+					</bodyPartGroups>
+					<layers>
+						<li>Overhead</li>
+					</layers>
+				</value>
+			</li>
+
+			<li Class="PatchOperationAttributeSet">
+				<xpath>Defs/ThingDef[defName="Apparel_MechlordSuit" or defName="Apparel_ArmorHelmetMechlordHelmet"]</xpath>
+				<attribute>ParentName</attribute>
+				<value>DummyParentNodeSpacer</value>
+			</li>
+
+
+			<li Class="PatchOperationAttributeSet">
+				<xpath>Defs/ThingDef[defName="Apparel_ArmorHelmetMechCommander"]</xpath>
+				<attribute>ParentName</attribute>
+				<value>DummyParentNodeIndustrial</value>
+			</li>
 
 			<li Class="PatchOperationAdd">
 				<xpath>Defs/ThingDef[defName="Apparel_MechlordSuit"]</xpath>

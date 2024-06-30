@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>Ammo130mmType63</defName>
+		<label>130mm Type 63 Rocket</label>
+		<parent>AmmoRockets</parent>
+		<iconPath>Things/Ammo/Rocket/130mmType63/130mmType63_a</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_130mmType63</defName>
+		<label>130mm Type 63 Rockets</label>
+		<ammoTypes>
+			<Ammo_130mmType63_HE>Bullet_130mmType63_HE</Ammo_130mmType63_HE>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="130mmType63Base" ParentName="MediumAmmoBase" Abstract="True">
+		<description>130mm heavy rocket typically used in multi-barrel rocket artillery launchers.</description>
+		<statBases>
+			<MaxHitPoints>300</MaxHitPoints>
+		</statBases>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting_TableMachining</li>
+		</tradeTags>
+		<thingCategories>
+			<li>Ammo130mmType63</li>
+		</thingCategories>
+		<stackLimit>25</stackLimit>
+		<cookOffFlashScale>25</cookOffFlashScale>
+		<cookOffSound>MortarBomb_Explode</cookOffSound>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="130mmType63Base">
+		<defName>Ammo_130mmType63_HE</defName>
+		<label>130mm Type 63 Rocket (HE)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Rocket/130mmType63</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>192.94</MarketValue>
+			<Mass>33</Mass>
+			<Bulk>43.81</Bulk>
+		</statBases>
+		<ammoClass>GrenadeHE</ammoClass>
+		<detonateProjectile>Bullet_130mmType63_HE</detonateProjectile>
+	</ThingDef>
+
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef Name="Base130mmType63" ParentName="BaseExplosiveBullet" Abstract="true">
+		<graphicData>
+			<shaderType>TransparentPostLight</shaderType>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<speed>96</speed>
+			<soundExplode>MortarBomb_Explode</soundExplode>
+			<soundHitThickRoof>Artillery_HitThickRoof</soundHitThickRoof>
+			<soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
+			<soundAmbient>RocketPropelledLoop_Big</soundAmbient>
+			<flyOverhead>true</flyOverhead>
+			<gravityFactor>5</gravityFactor>
+			<shellingProps>
+				<iconPath>Things/WorldObjects/Munitions/Rocket</iconPath>
+				<tilesPerTick>0.4</tilesPerTick>
+				<range>20</range>
+				<damage>0.3</damage>
+			</shellingProps>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef ParentName="Base130mmType63">
+		<defName>Bullet_130mmType63_HE</defName>
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		<label>130mm Type 63 Rocket (HE)</label>
+		<graphicData>
+			<texPath>Things/Projectile/Rocket/130mmType63</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bomb</damageDef>
+			<damageAmountBase>254</damageAmountBase>
+			<explosionRadius>3.5</explosionRadius>
+			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Large>40</Fragment_Large>
+					<Fragment_Small>57</Fragment_Small>
+				</fragments>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef ParentName="LauncherAmmoRecipeBase">
+		<defName>MakeAmmo_130mmType63_HE</defName>
+		<label>make 130mm Type63 HE rockets x5</label>
+		<description>Craft 5 130mm Type63 HE rockets.</description>
+		<jobString>Making 130mm Type63 HE rockets.</jobString>
+		<workAmount>44600</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>330</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>FSX</li>
+					</thingDefs>
+				</filter>
+				<count>23</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>ComponentIndustrial</li>
+				<li>FSX</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_130mmType63_HE>5</Ammo_130mmType63_HE>
+		</products>
+	</RecipeDef>
+
+</Defs>
