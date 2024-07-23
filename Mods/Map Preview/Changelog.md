@@ -1,4 +1,9 @@
 
+v1.12.15
+
+- Fixed compatibility patch for recently updated mod Vehicle Framework
+- Fixed preview not auto-refreshing when settings are changed
+
 v1.12.14
 
 - Adjust logging for compatibility with the new Harmony enhanced stacktraces
