@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <Patch>
-
+<!--
 	<Operation Class="PatchOperationAdd">
 	  <xpath>Defs/ThingDef[defName="Plant_Nutrifungus"]/plant</xpath>
 	  <value>
@@ -10,6 +10,15 @@
 		</sowResearchPrerequisites>
 	  </value>
 	</Operation>	
+-->
+	<Operation Class="PatchOperationReplace">
+	  <xpath>Defs/ThingDef[defName="Plant_Nutrifungus"]/plant/cavePlantWeight</xpath>
+	  <value>
+			<wildClusterRadius>3</wildClusterRadius>
+			<wildClusterWeight>3</wildClusterWeight>
+			<cavePlantWeight>0.6</cavePlantWeight>
+	  </value>
+	</Operation>
 
 	<Operation Class="PatchOperationAdd">
 	  <xpath>Defs/ThingDef[defName="Plant_Timbershroom"]/plant/sowResearchPrerequisites</xpath>
@@ -17,7 +26,6 @@
 		<li>Fungiponics_A1</li>
 	  </value>
 	</Operation>		
-
 
 	<Operation Class="PatchOperationAdd">
 	  <xpath>Defs/ThingDef[defName="Plant_Timbershroom"]/plant</xpath>
@@ -44,6 +52,71 @@
 	  </value>
 	</Operation>
 
+	<Operation Class="PatchOperationAdd">
+	  <xpath>Defs/ThingDef[defName="Plant_Timbershroom"]</xpath>
+	  <value>
+		<selectable>true</selectable>
+	  </value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+	  <xpath>Defs/ThingDef[defName="Plant_Timbershroom"]/plant/wildClusterWeight</xpath>
+	  <value>
+			<wildClusterRadius>3</wildClusterRadius>
+			<wildClusterWeight>3</wildClusterWeight>
+			<cavePlantWeight>0.5</cavePlantWeight>
+	  </value>
+	</Operation>
+
+	<Operation Class="PatchOperationRemove">
+	  <xpath>Defs/ThingDef[defName="Plant_Timbershroom"]/plant/wildClusterWeight</xpath>
+	</Operation>
+
+	<Operation Class="PatchOperationRemove">
+	  <xpath>Defs/ThingDef[defName="Plant_TreeBonsai"]/plant/harvestTag</xpath>
+	</Operation>	
+
+	<Operation Class="PatchOperationRemove">
+	  <xpath>Defs/ThingDef[defName="Plant_TreeBonsai"]/plant/harvestYield</xpath>
+	</Operation>	
+
+	<Operation Class="PatchOperationAdd">
+	  <xpath>Defs/ThingDef[defName="Plant_TreeBonsai"]/plant</xpath>
+	  <value>
+		<harvestedThingDef IsNull="true"/>
+	  </value>
+	</Operation>
+
+	<Operation Class="PatchOperationConditional">
+		<xpath>Defs/BiomeDef/wildPlants[Plant_Grass > 4]</xpath>
+		<match Class="PatchOperationSequence">
+			<operations>
+			
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/BiomeDef/wildPlants[Plant_Grass > 4]</xpath>
+					<value>
+						<Plant_Fibercorn>0.2</Plant_Fibercorn>
+					</value>
+				</li>
 		
+			</operations>
+		</match>
+	</Operation>
+
+	<Operation Class="PatchOperationConditional">
+		<xpath>Defs/BiomeDef/wildPlants[Plant_Grass > 2 and 4 > Plant_Grass]</xpath>
+		<match Class="PatchOperationSequence">
+			<operations>
+			
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/BiomeDef/wildPlants[Plant_Grass > 2 and 4 > Plant_Grass]</xpath>
+					<value>
+						<Plant_Fibercorn>0.1</Plant_Fibercorn>
+					</value>
+				</li>
+		
+			</operations>
+		</match>
+	</Operation>
 
 </Patch>
