@@ -1,5 +1,31 @@
 # Changelog
 
+## 1.11.0
+- Added Spanish language support
+- Fixed case where default texture set is not set to 'Round'
+
+## 1.10.0
+- Added support for RimWorld 1.5
+- Changed default texture set to 'Round'
+
+## 1.9.1
+- Fixed removal of planning designations when canceling orders
+
+## 1.9.0
+- Added new shapes: pentagons, ellipses
+- Added diagonal option for rectangle resulting in rhombus
+- Added filled shapes
+
+## 1.8.0
+- Added new shapes: triangles, hexagons, octagons
+- Added new shape dimensions modifiers
+  - equilateral triangle
+  - regular hexagon
+- Added shape rotation for
+  - triangles: north, east, south, west
+  - hexagons: horizontal, vertical
+- Added German language support
+
 ## 1.7.3
 - Fixed plans not being drawn when outside visible area
 - Fixed disappearing vanilla plans while loading a map

@@ -40,7 +40,7 @@
 
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base90mmRecoillessAmmo">
 		<defName>Ammo_90mmRCR_HEAT</defName>
-		<label>90mm recoilless rifle round (HEAT)</label>
+		<label>90mm recoilless cartridge (HEAT)</label>
 		<graphicData>
 			<texPath>Things/Ammo/Rocket/90mmHEAT</texPath>
 			<graphicClass>Graphic_StackCount</graphicClass>
@@ -56,18 +56,32 @@
 
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Base90mmRecoillessAmmo">
 		<defName>Ammo_90mmRCR_CAN</defName>
-		<label>90mm recoilless rifle round (CAN)</label>
+		<label>90mm recoilless cartridge (CAN)</label>
 		<graphicData>
 			<texPath>Things/Ammo/Rocket/90mmCanister</texPath>
 			<graphicClass>Graphic_StackCount</graphicClass>
 		</graphicData>
 		<statBases>
-			<MarketValue>25.7</MarketValue>
-			<Mass>3.08</Mass>
+			<MarketValue>24.9</MarketValue>
+			<Mass>2.78</Mass>
 			<Bulk>9.3</Bulk>
 		</statBases>
-		<ammoClass>Grapeshot</ammoClass>
-		<detonateProjectile>Bullet_90mmRCR_CAN</detonateProjectile>
+		<ammoClass>BuckShot</ammoClass>
+		<comps>
+			<li Class="CompProperties_Explosive">
+				<damageAmountBase>25</damageAmountBase>
+				<explosiveRadius>1.0</explosiveRadius>
+				<explosiveDamageType>Bomb</explosiveDamageType>
+				<explosiveExpandPerStackcount>1.0</explosiveExpandPerStackcount>
+				<startWickOnDamageTaken>
+					<li>Bomb</li>
+				</startWickOnDamageTaken>
+				<startWickHitPointsPercent>0.5</startWickHitPointsPercent>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+				<explodeOnKilled>True</explodeOnKilled>
+				<wickTicks>90~120</wickTicks>
+			</li>
+		</comps>
 	</ThingDef>
 
 	<!-- ================== Projectiles ================== -->
@@ -112,20 +126,23 @@
 		</comps>
 	</ThingDef>
 
-	<ThingDef ParentName="Base12GaugeBullet">
+	<ThingDef ParentName="BaseBulletCE">
 		<defName>Bullet_90mmRCR_CAN</defName>
 		<label>Flechette</label>
 		<graphicData>
-			<texPath>Things/Projectile/Shotgun_Pellet</texPath>
+			<texPath>Things/Projectile/Bullet_Small</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 		</graphicData>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bullet</damageDef>
 			<speed>87</speed>
-			<damageAmountBase>27</damageAmountBase>
-			<pelletCount>120</pelletCount><!-- Originally 2400 flechettes are present, changed to 120 buffed projectile -->
+			<damageAmountBase>31</damageAmountBase>
+			<pelletCount>60</pelletCount>
+			<!-- Originally 2400 flechettes are present, changed to 60 buffed projectile -->
 			<armorPenetrationSharp>5</armorPenetrationSharp>
-			<armorPenetrationBlunt>14.52</armorPenetrationBlunt>
-			<spreadMult>35.6</spreadMult><!-- x4 the normal spread -->
+			<armorPenetrationBlunt>21.78</armorPenetrationBlunt>
+			<spreadMult>26.7</spreadMult>
+			<!-- x3 the normal spread -->
 		</projectile>
 	</ThingDef>
 
@@ -133,9 +150,9 @@
 
 	<RecipeDef ParentName="LauncherAmmoRecipeBase">
 		<defName>MakeAmmo_90mmRCR_HEAT</defName>
-		<label>make 90mm recoilless HEAT rockets x5</label>
-		<description>Craft 5 90mm recoilless HEAT rockets.</description>
-		<jobString>Making 90mm recoilless HEAT rockets.</jobString>
+		<label>make 90mm recoilless (HEAT) rockets x5</label>
+		<description>Craft 5 90mm recoilless (HEAT) rockets.</description>
+		<jobString>Making 90mm recoilless (HEAT) rockets.</jobString>
 		<workAmount>9200</workAmount>
 		<ingredients>
 			<li>
@@ -177,10 +194,10 @@
 
 	<RecipeDef ParentName="LauncherAmmoRecipeBase">
 		<defName>MakeAmmo_90mmRCR_CAN</defName>
-		<label>Make 90mm recoilless canister shells x5</label>
-		<description>Craft 90mm recoilless canister shells.</description>
-		<jobString>Making 90mm recoilless canister shells.</jobString>
-		<workAmount>7400</workAmount>
+		<label>Make 90mm recoilless (Canister) shells x5</label>
+		<description>Craft 90mm recoilless (Canister) shells.</description>
+		<jobString>Making 90mm recoilless (Canister) shells.</jobString>
+		<workAmount>4200</workAmount>
 		<ingredients>
 			<li>
 				<filter>
@@ -188,7 +205,7 @@
 						<li>Steel</li>
 					</thingDefs>
 				</filter>
-				<count>32</count>
+				<count>30</count>
 			</li>
 			<li>
 				<filter>

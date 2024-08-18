@@ -65,6 +65,7 @@ Included translations:
 - Korean submitted by Seanggag
 - Russian submitted by Dmitry6
 - Chinese Traditional submitted by shiuanyue
+- Turkish submitted by penu1881
 
 
 # Links

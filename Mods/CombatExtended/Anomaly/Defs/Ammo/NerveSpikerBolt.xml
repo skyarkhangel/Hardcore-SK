@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>AmmoNerveSpiker</defName>
+		<label>nerve spiker</label>
+		<parent>AmmoNeolithic</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberArrow</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_NerveSpikerBolt</defName>
+		<label>nerve spiker bolts</label>
+		<ammoTypes>
+			<Ammo_NerveSpikerBolt>Projectile_NerveSpikerBolt</Ammo_NerveSpikerBolt>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="AmmoCrossbowBoltBase">
+		<defName>Ammo_NerveSpikerBolt</defName>
+		<label>nerve spiker bolt</label>
+		<description>A heavy bioferrite bolt, shaped to be fired from a nerve spiker.\n\nThough simple to make, these bolts are brittle and tend to deform or break on impact.</description>		
+		<graphicData>
+			<texPath>Things/Ammo/Medieval/Bolt/Bioferrite</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<Mass>0.098</Mass>
+			<Bulk>0.34</Bulk>
+			<Flammability>0.75</Flammability>
+			<MarketValue>0.92</MarketValue> <!-- The value of 1 bioferrite input into the ammo spreadsheet instead of plasteel, 10 bioferrite per batch for 200 work per material -->
+		</statBases>
+		<thingCategories>
+			<li>AmmoNerveSpiker</li>
+		</thingCategories>
+		<stackLimit>2000</stackLimit>
+		<tradeTags inherit="false">
+			<li>CE_PreIndustrialAmmo</li>
+		</tradeTags>
+		<ammoClass>Nerve</ammoClass>
+	</ThingDef>
+
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef ParentName="BaseCrossbowBoltProjectile">
+		<defName>Projectile_NerveSpikerBolt</defName>
+		<label>nerve spiker bolt</label>
+		<graphicData>
+			<texPath>Things/Projectile/Arrows/Arrow_Bioferrite</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>NerveBioferrite</damageDef>
+			<speed>34</speed>			
+			<damageAmountBase>11</damageAmountBase>
+			<armorPenetrationBlunt>10.8</armorPenetrationBlunt>
+			<armorPenetrationSharp>5</armorPenetrationSharp>
+			<preExplosionSpawnChance>0.5</preExplosionSpawnChance>
+			<preExplosionSpawnThingDef>Ammo_NerveSpikerBolt</preExplosionSpawnThingDef>
+		</projectile>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef ParentName="AmmoRecipeNeolithicBase">
+		<defName>MakeAmmo_NerveSpikerBolt</defName>
+		<label>make nerve spiker bolts x10</label>
+		<description>Craft 10 nerve spiker bolts.</description>
+		<jobString>Making nerve spiker bolts.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Bioferrite</li>
+					</thingDefs>
+				</filter>
+				<count>10</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Bioferrite</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_NerveSpikerBolt>10</Ammo_NerveSpikerBolt>
+		</products>
+		<workAmount>2000</workAmount>
+	</RecipeDef>
+
+</Defs>

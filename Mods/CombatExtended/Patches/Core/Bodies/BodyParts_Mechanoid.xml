@@ -98,4 +98,30 @@
     </value>
   </Operation>
 
+	<!-- ========== Set parts as squishy ========== -->
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/BodyPartDef[defName="SightSensor" or defName="HearingSensor"]/tags</xpath>
+		<value>
+			<li>OutsideSquishy</li>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationConditional">
+		<xpath>Defs/BodyPartDef[defName="SmellSensor"]/tags</xpath>
+		<match Class="PatchOperationAdd">
+			<xpath>Defs/BodyPartDef[defName="SmellSensor"]/tags</xpath>
+			<value>
+				<li>OutsideSquishy</li>
+			</value>
+		</match>
+		<nomatch Class="PatchOperationAdd">
+			<xpath>Defs/BodyPartDef[defName="SmellSensor"]</xpath>
+			<value>
+				<tags>
+					<li>OutsideSquishy</li>
+				</tags>
+			</value>
+		</nomatch>
+	</Operation>
+
 </Patch>
