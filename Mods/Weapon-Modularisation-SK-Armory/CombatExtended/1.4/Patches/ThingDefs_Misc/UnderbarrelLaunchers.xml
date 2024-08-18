@@ -21,133 +21,229 @@
 		<xpath>Defs/ThingDef[defName="Bullet_UBGL"]</xpath>
 	</Operation>
 
-	<Operation Class='CombatExtended.PatchOperationMakeGunCECompatible'>
-		<defName>Module_UBGL</defName>
-
-		<statBases>
-			<WorkToMake>3000</WorkToMake>
-			<SightsEfficiency>1</SightsEfficiency>
-			<ShotSpread>0.18</ShotSpread>
-			<SwayFactor>1.31</SwayFactor>
-			<Mass>1.36</Mass>
-			<Bulk>2.4</Bulk>
-			<RangedWeapon_Cooldown>0.67</RangedWeapon_Cooldown>
-		</statBases>
-
-		<Properties>
-			<verbClass>CombatExtended.Verb_ShootCE</verbClass>
-			<hasStandardCommand>True</hasStandardCommand>
-			<defaultProjectile>Bullet_40x46mmGrenade_HE</defaultProjectile>
-			<warmupTime>0.62</warmupTime>
-			<range>30</range>
-			<minRange>4</minRange>
-			<soundCast>Shot_Autopistol</soundCast>
-			<soundCastTail>GunTail_Light</soundCastTail>
-			<muzzleFlashScale>14</muzzleFlashScale>
-			<recoilAmount>2.93</recoilAmount>
-			<ai_IsBuildingDestroyer>true</ai_IsBuildingDestroyer>
-			<targetParams>
-				<canTargetLocations>true</canTargetLocations>
-			</targetParams>
-		</Properties>
-
-		<AmmoUser>
-			<magazineSize>1</magazineSize>
-			<reloadTime>4</reloadTime>
-			<ammoSet>AmmoSet_40x46mmGrenade</ammoSet>
-		</AmmoUser>
-		<!-- <FireModes>
-			<aiUseBurstMode>False</aiUseBurstMode>
-			<aiAimMode>SuppressFire</aiAimMode>
-		</FireModes> -->
-		<researchPrerequisite>Grenade_launchers_C1</researchPrerequisite>
+	<Operation Class="PatchOperationRemove">
+		<xpath>Defs/ThingDef[defName="Module_UBGL"]/verbs</xpath>
 	</Operation>
-	
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Module_UBGL"]/statBases</xpath>
+		<value>
+			<statBases>
+				<WorkToMake>3000</WorkToMake>
+				<MarketValue>1100</MarketValue>
+				<SightsEfficiency>1</SightsEfficiency>
+				<ShotSpread>0.18</ShotSpread>
+				<SwayFactor>1.31</SwayFactor>
+				<Mass>1.36</Mass>
+				<Bulk>2.4</Bulk>
+				<RangedWeapon_Cooldown>0.67</RangedWeapon_Cooldown>
+			</statBases>
+		</value>
+	</Operation>
+
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/ThingDef[defName="Module_UBGL"]/comps/li[@Class="RW_ModularizationWeapon.CompProperties_ModularizationWeapon"]</xpath>
+        <value><!--
+			<verbPropertiesOffseter>
+				<li>
+					<warmupTime>0.3</warmupTime>
+				</li>
+			</verbPropertiesOffseter>
+			<statMultiplier>
+			</statMultiplier>
+			<statOffset>
+				<RangedWeapon_Cooldown>0.6</RangedWeapon_Cooldown>
+			</statOffset>-->
+            <extraComp>
+			  <li Class="CombatExtended.CompProperties_UnderBarrel">
+				  <propsUnderBarrel>
+					  <magazineSize>1</magazineSize>
+					  <reloadTime>4</reloadTime>
+					  <ammoSet>AmmoSet_40x46mmGrenade</ammoSet>
+				  </propsUnderBarrel>
+				  <verbPropsUnderBarrel>
+					  <verbClass>CombatExtended.Verb_ShootCE</verbClass>
+					  <hasStandardCommand>true</hasStandardCommand>
+					  <defaultProjectile>Bullet_40x46mmGrenade_HE</defaultProjectile>
+					  <warmupTime>0.62</warmupTime>
+					  <range>30</range>
+					  <minRange>4</minRange>
+					  <soundCast>Shot_Autopistol</soundCast>
+					  <soundCastTail>GunTail_Light</soundCastTail>
+					  <muzzleFlashScale>14</muzzleFlashScale>
+					  <recoilAmount>2.93</recoilAmount>
+					  <ai_IsBuildingDestroyer>true</ai_IsBuildingDestroyer>
+				  </verbPropsUnderBarrel>
+				  <propsFireModesUnderBarrel>
+					  <aiUseBurstMode>FALSE</aiUseBurstMode>
+					  <aiAimMode>SuppressFire</aiAimMode>
+					  <!--<aimedBurstShotCount>1</aimedBurstShotCount>-->
+				  </propsFireModesUnderBarrel>
+			  </li>
+            </extraComp>
+        </value>
+    </Operation>
+
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/ThingDef[defName="Module_UBGL"]</xpath>
+        <value>
+			<descriptionHyperlinks>
+				<CombatExtended.AmmoSetDef>AmmoSet_40x46mmGrenade</CombatExtended.AmmoSetDef>
+			</descriptionHyperlinks>
+        </value>
+    </Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Module_UBGL"]/recipeMaker/researchPrerequisite</xpath>
+		<value>
+			<researchPrerequisite>Grenade_launchers_C1</researchPrerequisite>
+		</value>
+	</Operation>
+
 	<Operation Class="PatchOperationRemove">
 		<xpath>Defs/ThingDef[defName="Module_UBGL"]/comps/li[@Class="RW_ModularizationWeapon.CompProperties_ModularizationWeapon"]/attachmentProperties</xpath>
 	</Operation>
 
-	<Operation Class='CombatExtended.PatchOperationMakeGunCECompatible'>
-		<defName>Module_UBGLLight</defName>
-
-		<statBases>
-			<WorkToMake>7200</WorkToMake>
-			<SightsEfficiency>1</SightsEfficiency>
-			<ShotSpread>0.18</ShotSpread>
-			<SwayFactor>1.31</SwayFactor>
-			<Mass>1.02</Mass>
-			<Bulk>2</Bulk>
-			<RangedWeapon_Cooldown>0.59</RangedWeapon_Cooldown>
-		</statBases>
-
-		<Properties>
-			<verbClass>CombatExtended.Verb_ShootCE</verbClass>
-			<hasStandardCommand>True</hasStandardCommand>
-			<defaultProjectile>Bullet_40x46mmGrenade_HE</defaultProjectile>
-			<warmupTime>0.54</warmupTime>
-			<range>28</range>
-			<minRange>4</minRange>
-			<soundCast>Shot_Autopistol</soundCast>
-			<soundCastTail>GunTail_Light</soundCastTail>
-			<muzzleFlashScale>14</muzzleFlashScale>
-			<recoilAmount>2.93</recoilAmount>
-			<ai_IsBuildingDestroyer>true</ai_IsBuildingDestroyer>
-			<targetParams>
-				<canTargetLocations>true</canTargetLocations>
-			</targetParams>
-		</Properties>
-
-		<AmmoUser>
-			<magazineSize>1</magazineSize>
-			<reloadTime>4</reloadTime>
-			<ammoSet>AmmoSet_40x46mmGrenade</ammoSet>
-		</AmmoUser>
-		<!-- <FireModes>
-			<aiUseBurstMode>False</aiUseBurstMode>
-			<aiAimMode>SuppressFire</aiAimMode>
-		</FireModes> -->
-		<researchPrerequisite>Grenade_launchers_C1</researchPrerequisite>
+	<Operation Class="PatchOperationRemove">
+		<xpath>Defs/ThingDef[defName="Module_UBGLLight"]/verbs</xpath>
 	</Operation>
-	
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Module_UBGLLight"]/statBases</xpath>
+		<value>
+			<statBases>
+				<WorkToMake>7200</WorkToMake>
+				<MarketValue>860</MarketValue>
+				<SightsEfficiency>1</SightsEfficiency>
+				<ShotSpread>0.18</ShotSpread>
+				<SwayFactor>1.31</SwayFactor>
+				<Mass>1.02</Mass>
+				<Bulk>2</Bulk>
+				<RangedWeapon_Cooldown>0.59</RangedWeapon_Cooldown>
+			</statBases>
+		</value>
+	</Operation>
+
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/ThingDef[defName="Module_UBGLLight"]/comps/li[@Class="RW_ModularizationWeapon.CompProperties_ModularizationWeapon"]</xpath>
+        <value>
+            <extraComp>
+			  <li Class="CombatExtended.CompProperties_UnderBarrel">
+				  <propsUnderBarrel>
+					  <magazineSize>1</magazineSize>
+					  <reloadTime>4</reloadTime>
+					  <ammoSet>AmmoSet_40x46mmGrenade</ammoSet>
+				  </propsUnderBarrel>
+				  <verbPropsUnderBarrel>
+					  <verbClass>CombatExtended.Verb_ShootCE</verbClass>
+					  <hasStandardCommand>True</hasStandardCommand>
+					  <defaultProjectile>Bullet_40x46mmGrenade_HE</defaultProjectile>
+					  <warmupTime>0.54</warmupTime>
+					  <range>28</range>
+					  <minRange>4</minRange>
+					  <soundCast>Shot_Autopistol</soundCast>
+					  <soundCastTail>GunTail_Light</soundCastTail>
+					  <muzzleFlashScale>14</muzzleFlashScale>
+					  <recoilAmount>2.93</recoilAmount>
+					  <ai_IsBuildingDestroyer>true</ai_IsBuildingDestroyer>
+					  <targetParams>
+					      <canTargetLocations>true</canTargetLocations>
+					  </targetParams>
+				  </verbPropsUnderBarrel>
+				  <propsFireModesUnderBarrel>
+					  <aiUseBurstMode>FALSE</aiUseBurstMode>
+					  <aiAimMode>SuppressFire</aiAimMode>
+					  <!--<aimedBurstShotCount>1</aimedBurstShotCount>-->
+				  </propsFireModesUnderBarrel>
+			  </li>
+            </extraComp>
+        </value>
+    </Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Module_UBGLLight"]/recipeMaker/researchPrerequisite</xpath>
+		<value>
+			<researchPrerequisite>Grenade_launchers_C1</researchPrerequisite>
+		</value>
+	</Operation>
+
 	<Operation Class="PatchOperationRemove">
 		<xpath>Defs/ThingDef[defName="Module_UBGLLight"]/comps/li[@Class="RW_ModularizationWeapon.CompProperties_ModularizationWeapon"]/attachmentProperties</xpath>
 	</Operation>
 	
-	<Operation Class='CombatExtended.PatchOperationMakeGunCECompatible'>
-        <defName>Module_MasterKey</defName>
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/ThingDef[defName="Module_UBGLLight"]</xpath>
+        <value>
+			<descriptionHyperlinks>
+				<CombatExtended.AmmoSetDef>AmmoSet_40x46mmGrenade</CombatExtended.AmmoSetDef>
+			</descriptionHyperlinks>
+        </value>
+    </Operation>
 
-		<statBases>
-			<SightsEfficiency>1</SightsEfficiency>
-			<ShotSpread>0.19</ShotSpread>
-			<SwayFactor>2.34</SwayFactor>
-			<WorkToMake>6800</WorkToMake>
-			<MarketValue>300</MarketValue>
-			<Mass>2.2</Mass>
-			<Bulk>2.8</Bulk>
-			<RangedWeapon_Cooldown>0.43</RangedWeapon_Cooldown>
-		</statBases>
-
-		<Properties>
-			<verbClass>CombatExtended.Verb_ShootCE</verbClass>
-			<hasStandardCommand>True</hasStandardCommand>
-			<defaultProjectile>Bullet_12Gauge_Buck</defaultProjectile>
-			<burstShotCount>1</burstShotCount>
-			<warmupTime>0.42</warmupTime>
-			<range>14</range>
-			<soundCast>Shot_Shotgun</soundCast>
-			<soundCastTail>GunTail_Heavy</soundCastTail>
-			<muzzleFlashScale>9</muzzleFlashScale>
-		</Properties>
-
-		<AmmoUser>
-			<magazineSize>4</magazineSize>
-			<reloadOneAtATime>true</reloadOneAtATime>
-			<reloadTime>0.6</reloadTime>
-			<ammoSet>AmmoSet_12Gauge</ammoSet>
-		</AmmoUser>
-		<!-- <FireModes>
-			<aiAimMode>AimedShot</aiAimMode>
-		</FireModes> -->
+	<Operation Class="PatchOperationRemove">
+		<xpath>Defs/ThingDef[defName="Module_MasterKey"]/verbs</xpath>
 	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Module_MasterKey"]/statBases</xpath>
+		<value>
+			<statBases>
+				<SightsEfficiency>1</SightsEfficiency>
+				<ShotSpread>0.19</ShotSpread>
+				<SwayFactor>2.34</SwayFactor>
+				<WorkToMake>6800</WorkToMake>
+				<MarketValue>300</MarketValue>
+				<Mass>2.2</Mass>
+				<Bulk>2.8</Bulk>
+				<RangedWeapon_Cooldown>0.43</RangedWeapon_Cooldown>
+			</statBases>
+		</value>
+	</Operation>
+
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/ThingDef[defName="Module_MasterKey"]/comps/li[@Class="RW_ModularizationWeapon.CompProperties_ModularizationWeapon"]</xpath>
+        <value>
+            <extraComp>
+			  <li Class="CombatExtended.CompProperties_UnderBarrel">
+				  <propsUnderBarrel>
+					  <magazineSize>4</magazineSize>
+					  <reloadOneAtATime>true</reloadOneAtATime>
+					  <reloadTime>0.6</reloadTime>
+					  <ammoSet>AmmoSet_12Gauge</ammoSet>
+				  </propsUnderBarrel>
+				  <verbPropsUnderBarrel>
+					  <verbClass>CombatExtended.Verb_ShootCE</verbClass>
+					  <hasStandardCommand>True</hasStandardCommand>
+					  <defaultProjectile>Bullet_12Gauge_Buck</defaultProjectile>
+					  <burstShotCount>1</burstShotCount>
+					  <warmupTime>0.42</warmupTime>
+					  <range>14</range>
+					  <soundCast>Shot_Shotgun</soundCast>
+					  <soundCastTail>GunTail_Heavy</soundCastTail>
+					  <muzzleFlashScale>9</muzzleFlashScale>
+				  </verbPropsUnderBarrel>
+				  <propsFireModesUnderBarrel>
+					  <aiAimMode>AimedShot</aiAimMode>
+				  </propsFireModesUnderBarrel>
+			  </li>
+            </extraComp>
+        </value>
+    </Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Module_MasterKey"]/recipeMaker/researchPrerequisite</xpath>
+		<value>
+			<researchPrerequisite>Shotgun_C2</researchPrerequisite>
+		</value>
+	</Operation>
+	
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/ThingDef[defName="Module_MasterKey"]</xpath>
+        <value>
+			<descriptionHyperlinks>
+				<CombatExtended.AmmoSetDef>AmmoSet_12Gauge</CombatExtended.AmmoSetDef>
+			</descriptionHyperlinks>
+        </value>
+    </Operation>
 	
 </Patch>

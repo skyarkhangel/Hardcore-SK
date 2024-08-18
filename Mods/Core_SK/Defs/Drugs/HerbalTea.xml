@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+	<ThingDef ParentName="DrugPillBase">
+		<defName>HerbalTea</defName>
+		<label>Herbal Tea</label>
+		<description>Simple but effective way to help a little with food poisoning and reduce stress and minor pain, but makes your tired. Several doses of tea are required until stomache settles.</description>
+		<descriptionHyperlinks>
+			<HediffDef>FoodPoisoning</HediffDef>
+		</descriptionHyperlinks>
+		<graphicData>
+			<texPath>Things/Item/Drug/HerbalTea</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<rotatable>false</rotatable>
+		<statBases>
+			<WorkToMake>640</WorkToMake>
+			<MarketValue>36</MarketValue>
+			<Mass>0.002</Mass>
+		</statBases>
+		<techLevel>Industrial</techLevel>
+		<thingCategories>
+			<li>MedicalDrugs</li>
+		</thingCategories>
+		<ingestible>
+			<preferability>NeverForNutrition</preferability>
+			<maxNumToIngestAtOnce>3</maxNumToIngestAtOnce>
+			<drugCategory>Medical</drugCategory>
+			<outcomeDoers>
+				<li Class="SK.IngestionOutcomeDoer_SubstractHediffSeverity">
+					<targetHediff>FoodPoisoning</targetHediff>
+					<surstractValue>0.35</surstractValue>
+					<removeIfBelowZero>true</removeIfBelowZero>
+				</li>
+				<li Class="IngestionOutcomeDoer_OffsetNeed">
+					<need>Rest</need>
+					<offset>-0.05</offset>
+				</li>
+				<li Class="IngestionOutcomeDoer_GiveHediff">
+          			<hediffDef>HerbalTeaConsumed</hediffDef>
+          			<severity>1.0</severity>
+        		</li>
+			</outcomeDoers>
+		</ingestible>
+		<comps>
+			<li Class="CompProperties_Drug">
+				<listOrder>1000</listOrder>
+				<overdoseSeverityOffset>
+					<min>0.08</min>
+					<max>0.14</max>
+				</overdoseSeverityOffset>
+				<addictiveness>0</addictiveness>
+			</li>
+    	</comps>
+	</ThingDef>
+
+	<HediffDef>
+		<defName>HerbalTeaConsumed</defName>
+		<label>Herbal Tea</label>
+		<description>Herbal tea consumed</description>
+		<hediffClass>HediffWithComps</hediffClass>
+		<defaultLabelColor>(1,0,0.5)</defaultLabelColor>
+		<scenarioCanAdd>false</scenarioCanAdd>
+		<maxSeverity>3.0</maxSeverity>
+		<comps>
+			<li Class="HediffCompProperties_SeverityPerDay">
+				<severityPerDay>-1.0</severityPerDay>
+				<showDaysToRecover>true</showDaysToRecover>
+			</li>
+		</comps>
+		<stages>
+			<li>
+				<minSeverity>0.01</minSeverity>
+				<label>Herbal Tea is wearing off...</label>
+				<painFactor>0.95</painFactor>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<offset>-0.05</offset>
+					</li>
+					<li>
+						<capacity>Metabolism</capacity>
+						<offset>0.1</offset>
+					</li>
+				</capMods>
+			</li>
+			<li>
+				<minSeverity>0.2</minSeverity>
+				<label>Soothed by Herbal Tea</label>
+				<painFactor>0.9</painFactor>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<offset>-0.1</offset>
+					</li>
+					<li>
+						<capacity>Metabolism</capacity>
+						<offset>0.2</offset>
+					</li>
+				</capMods>
+				<restFallFactorOffset>0.1</restFallFactorOffset>
+			</li>
+		</stages>
+	</HediffDef>
+	
+	<RecipeDef>
+		<defName>MakeHerbalTea</defName>
+		<label>Make herbal tea</label>
+		<description>Make herbal tea from herbs. Produces 6.</description>
+		<jobString>Making herbal tea</jobString>
+		<effectWorking>Cook</effectWorking>
+		<soundWorking>Recipe_Drug</soundWorking>
+		<allowMixingIngredients>true</allowMixingIngredients>
+		<workAmount>780</workAmount>
+		<targetCountAdjustment>1</targetCountAdjustment>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>WildRose</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Hypericum</li>
+					</thingDefs>
+				</filter>
+				<count>1</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>MintLeaves</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>WildRose</li>
+				<li>Hypericum</li>
+				<li>MintLeaves</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<HerbalTea>6</HerbalTea>
+		</products>
+		<researchPrerequisite>DrugProduction</researchPrerequisite>
+		<workSpeedStat>DrugCookingSpeed</workSpeedStat>
+		<workSkill>Medicine</workSkill>
+		<recipeUsers>
+			<li>Brewery</li>
+			<li>ElectricBrewery</li>
+			<li>meditable</li>
+			<li>DrugLab</li>
+		</recipeUsers>
+		<skillRequirements>
+			<Medicine>3</Medicine>
+			<Cooking>5</Cooking>
+		</skillRequirements>
+	</RecipeDef>
+</Defs>
