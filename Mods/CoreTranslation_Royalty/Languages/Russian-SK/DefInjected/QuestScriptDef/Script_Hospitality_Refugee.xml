@@ -53,19 +53,19 @@
     <li>lodgersArriveLetterLabel->[lodgersLabelSingularOrPlural] [arrived]</li>
     <li>lodgersArriveLetterText->[lodgersSingularOrPluralDef] [arrived]. [lodgersPronoun] [willStay] у вас на [questDurationTicks_duration], чтобы набраться сил и собраться в дальнейший путь.</li>
     <li>questOver->Задание «[resolvedQuestName]» завершено.</li>
-    <li>lodgerDiedMemoryThoughtLetterLabel->[lodgerSingle] погиб: злость</li>
+    <li>lodgerDiedMemoryThoughtLetterLabel->[lodgersLabel] [died]: злость</li>
     <li>lodgerDiedMemoryThoughtLetterText->[letterIntroDeath]\n\n[appalledButNoAction]</li>
-    <li>lodgerDiedAttackPlayerLetterLabel->[lodgerSingle] погиб: месть</li>
+    <li>lodgerDiedAttackPlayerLetterLabel->[lodgersLabel] [died]: месть</li>
     <li>lodgerDiedAttackPlayerLetterText->[letterIntroDeath]\n\n[turnedViolent]</li>
-    <li>lodgerDiedLeaveMapLetterLabel->[lodgerSingle] погиб: уход</li>
+    <li>lodgerDiedLeaveMapLetterLabel->[lodgersLabel] [died]: уход</li>
     <li>lodgerDiedLeaveMapLetterText->[letterIntroDeath]\n\n[decidedToLeave]</li>
     <li>lodgersAllDiedLetterLabel->Задание провалено</li>
     <li>lodgersAllDiedLetterText->{SUBJECT_definite}, [lastOfTheDesperateLodgers], {SUBJECT_gender ? погиб : погибла}.\n\n[questOver]</li>
-    <li>lodgerArrestedMemoryThoughtLetterLabel->[lodgerSingle] арестован: злость</li>
+    <li>lodgerArrestedMemoryThoughtLetterLabel->[lodgersLabel] [arrested]: злость</li>
     <li>lodgerArrestedMemoryThoughtLetterText->[letterIntroArrested]\n\n[appalledButNoAction]</li>
-    <li>lodgerArrestedAttackPlayerLetterLabel->[lodgerSingle] арестован: месть</li>
+    <li>lodgerArrestedAttackPlayerLetterLabel->[lodgersLabel] [arrested]: месть</li>
     <li>lodgerArrestedAttackPlayerLetterText->[letterIntroArrested]\n\n[turnedViolent]</li>
-    <li>lodgerArrestedLeaveMapLetterLabel->[lodgerSingle] арестован: уход</li>
+    <li>lodgerArrestedLeaveMapLetterLabel->[lodgersLabel] [arrested]: уход</li>
     <li>lodgerArrestedLeaveMapLetterText->[letterIntroArrested]\n\n[decidedToLeave]</li>
     <li>lodgersAllArrestedLetterLabel->Задание провалено</li>
     <li>lodgersAllArrestedLetterText->{SUBJECT_definite}, [lastOfTheDesperateLodgers], {SUBJECT_gender ? арестован : арестована}.\n\n[questOver]</li>
@@ -82,10 +82,10 @@
     <li>letterIntroViolated->{SUBJECT_definite}, [oneOfTheDesperateLodgers], {SUBJECT_gender ? был подвергнут : была подвергнута} несогласованному, надругательскому хирургическому вмешательству.</li>
     <li>letterIntroDeath->{SUBJECT_definite}, [oneOfTheDesperateLodgers], {SUBJECT_gender ? погиб : погибла}.</li>
     <li>letterIntroArrested->{SUBJECT_definite}, [oneOfTheDesperateLodgers], {SUBJECT_gender ? арестован : арестована}.</li>
-    <li>appalledButNoAction->{PAWNSALIVECOUNT_multiple ? остальные, кажется : оставшийся [lodgerSingle]} в ужасе, но ничего делать по этому поводу не {PAWNSALIVECOUNT_multiple ? собираются: собирается}.</li>
+    <li>appalledButNoAction->{PAWNSALIVECOUNT_multiple ? остальные, кажется, : оставшийся [lodgersLabel]} в ужасе, но ничего делать по этому поводу не {PAWNSALIVECOUNT_multiple ? собираются : собирается}.</li>
     <li>turnedViolent->[othersWillNotAccept] и {PAWNSALIVECOUNT_multiple ? становятся вашими врагами : становится вашим врагом} .</li>
     <li>decidedToLeave->[othersWillNotAccept] и {PAWNSALIVECOUNT_multiple ? решают : решает} покинуть вас.</li>
-    <li>othersWillNotAccept->{PAWNSALIVECOUNT_multiple ? остальные : оставшийся [lodgerSingle]} {PAWNSALIVECOUNT_multiple ? отказываются : отказывается} с этим мириться</li>
+    <li>othersWillNotAccept->{PAWNSALIVECOUNT_multiple ? остальные : оставшийся [lodgersLabel]} {PAWNSALIVECOUNT_multiple ? отказываются : отказывается} с этим мириться</li>
     <li>oneOfTheDesperateLodgers(lodgerCount==1)->[theDesperateLodger]</li>
     <li>oneOfTheDesperateLodgers(lodgerCount>=2)->{SUBJECT_gender ? один : одна} из отчаянных [lodgersLabelPluralGen], [whoAskedToStay]</li>
     <li>lastOfTheDesperateLodgers(lodgerCount==1)->[theDesperateLodger]</li>
@@ -110,10 +110,12 @@
     <li>willStay(lodgerCount>=2)->останутся</li>
     <li>wasViolated(lodgers0_gender==Male)->был подвергнут</li>
     <li>wasViolated(lodgers0_gender==Female)->была подвергнута</li>
-    <li>died(lodgers0_gender==Male)->погиб</li>
-    <li>died(lodgers0_gender==Female)->погибла</li>
-    <li>arrested(lodgers0_gender==Male)->арестован</li>
-    <li>arrested(lodgers0_gender==Female)->арестована</li>
+    <li>died(lodgerCount==1,lodgers0_gender==Male)->погиб</li>
+    <li>died(lodgerCount==1,lodgers0_gender==Female)->погибла</li>
+    <li>died(lodgerCount>=2)->погибли</li>
+    <li>arrested(lodgerCount==1,lodgers0_gender==Male)->арестован</li>
+    <li>arrested(lodgerCount==1,lodgers0_gender==Female)->арестована</li>
+    <li>arrested(lodgerCount>=2)->арестованы</li>
     <li>leaving(lodgerCount==1)->уходит</li>
     <li>leaving(lodgerCount>=2)->уходят</li>
     <li>areIs(lodgerCount==1)->находится</li>
@@ -124,7 +126,6 @@
     <li>lodgersLabelPlural->refugees</li>
   -->
   <Hospitality_Refugee.questDescriptionAndNameRules.rulesStrings>
-    <li>lodgerSingle->беженец</li>
     <li>lodgersLabel(lodgers0_gender==Male)->беженец</li>
     <li>lodgersLabel(lodgers0_gender==Female)->беженка</li>
     <li>lodgersLabelPlural->беженцы</li>
@@ -387,7 +388,7 @@
     <li>lodgersLabelSingularOrPlural(lodgerCount>=2)->[lodgersLabelPlural]</li>
     <li>otherLodgers(lodgerCount==1)-></li>
     <li>otherLodgers(lodgerCount==2)->и ещё один [faction_pawnSingular]</li>
-    <li>otherLodgers(lodgerCount>=3)->и ещё несколько [lodgersLabelPlural]</li>
+    <li>otherLodgers(lodgerCount>=3)->и ещё несколько [lodgersLabelPluralGen]</li>
     <li>hasLearned(factionOpponent_gender==Male)->прознал</li>
     <li>hasLearned(factionOpponent_gender==Female)->прознала</li>
     <li>areIs(lodgerCount==1)->находится</li>
@@ -397,7 +398,7 @@
     <li>questName->Betrayal offer: [factionOpponent_nameDef]</li>
   -->
   <RefugeeBetrayal.questNameRules.rulesStrings>
-    <li>Предложение предательства: [factionOpponent_nameDef]</li>
+    <li>questName->Предложение предательства: [factionOpponent_nameDef]</li>
   </RefugeeBetrayal.questNameRules.rulesStrings>
   
   <!-- EN:
