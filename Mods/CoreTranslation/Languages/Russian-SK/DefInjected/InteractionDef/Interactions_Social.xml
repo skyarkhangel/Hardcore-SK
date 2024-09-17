@@ -4,9 +4,11 @@
   <!-- EN: chitchat -->
   <Chitchat.label>беседа</Chitchat.label>
   <!-- EN:
-    <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] [TalkTopicLight].</li>
-    <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [TalkTopicLight] with [RECIPIENT_nameDef].</li>
-    <li>r_logentry(p=0.8)->[INITIATOR_nameDef] [commentedabout] [TalkTopicLight] to [RECIPIENT_nameDef].</li>
+    <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] [subject].</li>
+    <li>r_logentry->[INITIATOR_nameDef] [talkedabout] [subject] with [RECIPIENT_nameDef].</li>
+    <li>r_logentry(p=0.8)->[INITIATOR_nameDef] [commentedabout] [subject] to [RECIPIENT_nameDef].</li>
+    <li>subject(INITIATOR_cubeInterest==false)->[TalkTopicLight]</li>
+    <li>subject(INITIATOR_cubeInterest==true)->[TalkTopicCube]</li>
     <li>talkedabout(p=4)->chatted about</li>
     <li>talkedabout->shared a word about</li>
     <li>talkedabout->spoke about</li>
@@ -21,8 +23,10 @@
     <li>commentedabout->told a joke about</li>
   -->
   <Chitchat.logRulesInitiator.rulesStrings>
-    <li>r_logentry->[INITIATOR_nameDef] и [RECIPIENT_nameDef] [talkedabout_plural] [TalkTopicLight].</li>
-    <li>r_logentry->[INITIATOR_nameDef] [talkedabout] с [RECIPIENT_nameDef] [TalkTopicLight].</li>
+    <li>r_logentry->[INITIATOR_nameDef] и [RECIPIENT_nameDef] [talkedabout_plural] [subject].</li>
+    <li>r_logentry->[INITIATOR_nameDef] [talkedabout] с [RECIPIENT_nameDef] [subject].</li>
+    <li>subject(INITIATOR_cubeInterest==false)->[TalkTopicLight]</li>
+    <li>subject(INITIATOR_cubeInterest==true)->[TalkTopicCube]</li>
     <li>talkedabout_plural(p=4)->болтают</li>
     <li>talkedabout_plural->беседуют</li>
     <li>talkedabout_plural->говорят</li>
@@ -52,7 +56,8 @@
     <li>talkedabout->talked quietly about</li>
     <li>talkedabout->talked deeply about</li>
     <li>talkedabout->connected on the topic of</li>
-    <li>subject->[TalkTopicHeavy]</li>
+    <li>subject(INITIATOR_cubeInterest==false)->[TalkTopicHeavy]</li>
+    <li>subject(INITIATOR_cubeInterest==true)->[TalkTopicCube]</li>
   -->
   <DeepTalk.logRulesInitiator.rulesStrings>
     <li>r_logentry->[INITIATOR_nameDef] и [RECIPIENT_nameDef] [talkedabout_plural].</li>
@@ -74,16 +79,21 @@
     <li>talk_type->серьёзный разговор</li>
     <li>talk_type->искренний разговор</li>
     <li>talk_type->глубокий разговор</li>
-    <li>subject(p=2)->[TalkTopicHeavy]</li>
-    <li>subject->[TalkTopicLight]</li>
+    <li>subject(INITIATOR_cubeInterest==false)->[TalkTopicHeavy]</li>
+    <li>subject(INITIATOR_cubeInterest==true)->[TalkTopicCube]</li>
   </DeepTalk.logRulesInitiator.rulesStrings>
   
   <!-- EN: insult -->
   <Insult.label>оскорбление</Insult.label>
   <!-- EN:
-    <li>r_logentry(p=3)->[INITIATOR_nameDef] [insulted] [target]'s [PersonalCharacteristic].</li>
-    <li>r_logentry->[INITIATOR_nameDef] compared [target] to a [insultcomparison].</li>
-    <li>r_logentry->[INITIATOR_nameDef] called [target] a [insultcomparison].</li>
+    <li>r_logentry(p=3)->[INITIATOR_nameDef] [insulted] [target]'s [characteristic].</li>
+    <li>r_logentry->[INITIATOR_nameDef] compared [target] to [insultcomparison].</li>
+    <li>r_logentry->[INITIATOR_nameDef] called [target] [insultcomparison].</li>
+    <li>r_logentry(INITIATOR_cubeInterest==false,RECIPIENT_cubeInterest==true)->[INITIATOR_nameDef] called [target] a false idol worshipper.</li>
+    <li>r_logentry(INITIATOR_cubeInterest==false,RECIPIENT_cubeInterest==true)->[INITIATOR_nameDef] implied that [target] had been driven insane by the golden cube.</li>
+    <li>r_logentry(INITIATOR_cubeInterest==false,RECIPIENT_cubeInterest==true)->[INITIATOR_nameDef] [insulted] the golden cube.</li>
+    <li>characteristic(INITIATOR_cubeInterest==false)->[PersonalCharacteristic]</li>
+    <li>characteristic(INITIATOR_cubeInterest==true)->[PersonalCharacteristicCube]</li>
     <li>target(p=4)->[RECIPIENT_nameDef]</li>
     <li>target->[RECIPIENT_nameDef]'s [PersonFamily]</li>
     <li>insulted(p=3)->insulted</li>
@@ -96,13 +106,17 @@
     <li>insulted->slandered</li>
     <li>insulted->hurled invective about</li>
     <li>insulted->derided</li>
-    <li>insultcomparison(p=2)->[Animal]</li>
-    <li>insultcomparison->[Enemy]</li>
+    <li>insultcomparison(INITIATOR_cubeInterest==false,p=2)->a [Animal]</li>
+    <li>insultcomparison(INITIATOR_cubeInterest==false)->a [Enemy]</li>
+    <li>insultcomparison(INITIATOR_cubeInterest==true)->a sphere</li>
+    <li>insultcomparison(INITIATOR_cubeInterest==true)->something totally pointless</li>
+    <li>insultcomparison(INITIATOR_cubeInterest==true)->a non-cubic platonic object</li>
   -->
   <Insult.logRulesInitiator.rulesStrings>
-    <li>r_logentry->[INITIATOR_nameDef] [insult_adv] [insulted_char] [target_char].</li>
+    <li>r_logentry->[INITIATOR_nameDef] [insult_adv] [insulted] [RECIPIENT_nameDef], [insulting_participal] [target_char].</li>
     <li>r_logentry->[INITIATOR_nameDef] [insult_adv] [insulted] [target].</li>
     <li>r_logentry(p=2)->[INITIATOR_nameDef] [compare_clause].</li>
+    <li>r_logentry(p=0.5,INITIATOR_cubeInterest==false,RECIPIENT_cubeInterest==true)->[INITIATOR_nameDef] намекает, что [RECIPIENT_nameDef] {RECIPIENT_gender ? тронулся : тронулась} умом из-за золотистого куба.</li>
     <li>insult_adv(p=3)-></li>
     <li>insult_adv->открыто</li>
     <li>insult_adv->во всеуслышание</li>
@@ -111,12 +125,6 @@
     <li>insult_adv->грубо</li>
     <li>insult_adv->жёстко</li>
     <li>insult_adv->злобно</li>
-    <li>insulted_char->высмеивает</li>
-    <li>insulted_char->поднимает на смех</li>
-    <li>insulted_char->срамит</li>
-    <li>insulted_char->посрамляет</li>
-    <li>insulted_char->выставляет на позор</li>
-    <li>insulted_char->позорит</li>
     <li>insulted(p=3)->оскорбляет</li>
     <li>insulted->очерняет</li>
     <li>insulted->порочит</li>
@@ -124,10 +132,18 @@
     <li>insulted->поливает грязью</li>
     <li>insulted->смешивает с грязью</li>
     <li>insulted->унижает</li>
-    <li>target_char(p=4)->[PersonalCharacteristic] [RECIPIENT_nameDef]</li>
-    <li>target_char->[PersonalCharacteristic] [target_family_gen] [RECIPIENT_nameDef]</li>
+    <li>insulting_participal->высмеивая</li>
+    <li>insulting_participal->поднимая на смех</li>
+    <li>insulting_participal->посрамляя</li>
+    <li>insulting_participal->выставляя на позор</li>
+    <li>insulting_participal->позоря</li>
+    <li>target_char(p=4)->[RECIPIENT_possessive] [characteristic]</li>
+    <li>target_char->[characteristic] [RECIPIENT_possessive] [PersonFamily_gen]</li>
+    <li>characteristic(INITIATOR_cubeInterest==false)->[PersonalCharacteristic]</li>
+    <li>characteristic(INITIATOR_cubeInterest==true)->[PersonalCharacteristicCube]</li>
     <li>target->[RECIPIENT_nameDef]</li>
     <li>target->[target_family_acc] [RECIPIENT_nameDef]</li>
+    <li>target(INITIATOR_cubeInterest==false,RECIPIENT_cubeInterest==true)->золотистый куб</li>
     <li>compare_clause(p=2,RECIPIENT_gender==Male)->сравнивает [RECIPIENT_nameDef] с [insultcomparison_masc]</li>
     <li>compare_clause(p=2,RECIPIENT_gender==Male)->называет [RECIPIENT_nameDef] [insultcomparison_masc]</li>
     <li>compare_clause(p=2,RECIPIENT_gender==Female)->сравнивает [RECIPIENT_nameDef] с [insultcomparison_fem]</li>
@@ -136,8 +152,6 @@
     <li>compare_clause->называет [target_family_acc_fem] [RECIPIENT_nameDef] [insultcomparison_fem]</li>
     <li>compare_clause->обзывает [target_family_acc_masc] [RECIPIENT_nameDef] [insultcomparison_masc]</li>
     <li>compare_clause->обзывает [target_family_acc_fem] [RECIPIENT_nameDef] [insultcomparison_fem]</li>
-    <li>target_family_gen->[target_family_gen_masc]</li>
-    <li>target_family_gen->[target_family_gen_fem]</li>
     <li>target_family_acc->[target_family_acc_masc]</li>
     <li>target_family_acc->[target_family_acc_fem]</li>
     <li>target_family_acc_masc->отца</li>
@@ -152,22 +166,16 @@
     <li>target_family_acc_fem->сестру</li>
     <li>target_family_acc_fem->племянницу</li>
     <li>target_family_acc_fem->тётю</li>
-    <li>target_family_gen_masc->отца</li>
-    <li>target_family_gen_masc->деда</li>
-    <li>target_family_gen_masc->сына</li>
-    <li>target_family_gen_masc->брата</li>
-    <li>target_family_gen_masc->племянника</li>
-    <li>target_family_gen_masc->дяди</li>
-    <li>target_family_gen_fem->матери</li>
-    <li>target_family_gen_fem->бабушки</li>
-    <li>target_family_gen_fem->дочери</li>
-    <li>target_family_gen_fem->сестры</li>
-    <li>target_family_gen_fem->племянницы</li>
-    <li>target_family_gen_fem->тёти</li>
-    <li>insultcomparison_masc->[adj_masc] [animal_masc]</li>
-    <li>insultcomparison_masc->[adj_masc] [enemy_masc]</li>
-    <li>insultcomparison_fem->[adj_fem] [animal_fem]</li>
-    <li>insultcomparison_fem->[adj_fem] [enemy_fem]</li>
+    <li>insultcomparison_masc(INITIATOR_cubeInterest==true)->[adj_masc] [noncube_masc]</li>
+    <li>insultcomparison_fem(INITIATOR_cubeInterest==true)->[adj_masc] [noncube_masc]</li> <!-- noncube_masc нормально сочетается с женским объектом оскорбления -->
+    <li>insultcomparison_masc(INITIATOR_cubeInterest==false,RECIPIENT_cubeInterest==true)->[adj_masc] [enemy_cube_masc]</li>
+    <li>insultcomparison_masc(INITIATOR_cubeInterest==false,RECIPIENT_cubeInterest==true)->[adj_cube_masc] [enemy_masc]</li>
+    <li>insultcomparison_fem(INITIATOR_cubeInterest==false,RECIPIENT_cubeInterest==true)->[adj_fem] [enemy_cube_fem]</li>
+    <li>insultcomparison_fem(INITIATOR_cubeInterest==false,RECIPIENT_cubeInterest==true)->[adj_cube_fem] [enemy_fem]</li>
+    <li>insultcomparison_masc(INITIATOR_cubeInterest==false)->[adj_masc] [animal_masc]</li>
+    <li>insultcomparison_masc(INITIATOR_cubeInterest==false)->[adj_masc] [enemy_masc]</li>
+    <li>insultcomparison_fem(INITIATOR_cubeInterest==false)->[adj_fem] [animal_fem]</li>
+    <li>insultcomparison_fem(INITIATOR_cubeInterest==false)->[adj_fem] [enemy_fem]</li>
     <li>adj_masc->глупым</li>
     <li>adj_masc->безмозглым</li>
     <li>adj_masc->жалким</li>
@@ -275,12 +283,39 @@
     <li>enemy_fem->сучкой</li>
     <li>enemy_fem->дурой</li>
     <li>enemy_fem->засранкой</li>
+    <li>adj_cube_masc->кубофильным</li>
+    <li>adj_cube_masc->кубическим</li>
+    <li>adj_cube_masc->кубоголовым</li>
+    <li>adj_cube_masc->кубанутым</li>
+    <li>adj_cube_fem->кубофильной</li>
+    <li>adj_cube_fem->кубической</li>
+    <li>adj_cube_fem->кубоголовой</li>
+    <li>adj_cube_fem->кубанутой</li>
+    <li>enemy_cube_masc->кубопоклонником</li>
+    <li>enemy_cube_masc->кубофилом</li>
+    <li>enemy_cube_masc->куболюбом</li>
+    <li>enemy_cube_masc->кубоизвращенцем</li>
+    <li>enemy_cube_fem->кубопоклонницей</li>
+    <li>enemy_cube_fem->кубофилкой</li>
+    <li>enemy_cube_fem->куболюбкой</li>
+    <li>enemy_cube_fem->кубоизвращенкой</li>
+    <li>noncube_masc->тетраэдром</li>
+    <li>noncube_masc->икосаэдром</li>
+    <li>noncube_masc->додекаэдром</li>
+    <li>noncube_masc->шаром</li>
+    <li>noncube_masc->эллипсоидом</li>
+    <li>noncube_masc->цилиндром</li>
+    <li>noncube_masc->конусом</li>
+    <li>noncube_masc->некубическим многогранником</li>
+    <li>noncube_masc->неправильным многогранником</li>
   </Insult.logRulesInitiator.rulesStrings>
   
   <!-- EN: kind words -->
   <KindWords.label>поддержка</KindWords.label>
   <!-- EN:
-    <li>r_logentry->[INITIATOR_nameDef] [complimented] [RECIPIENT_nameDef]'s [PersonalCharacteristic].</li>
+    <li>r_logentry->[INITIATOR_nameDef] [complimented] [RECIPIENT_nameDef]'s [characteristic].</li>
+    <li>characteristic(INITIATOR_cubeInterest==false)->[PersonalCharacteristic]</li>
+    <li>characteristic(INITIATOR_cubeInterest==true)->[PersonalCharacteristicCube]</li>
     <li>complimented(p=3)->complimented</li>
     <li>complimented->praised</li>
     <li>complimented->commended</li>
@@ -296,7 +331,9 @@
     <li>complimented->said good things about</li>
   -->
   <KindWords.logRulesInitiator.rulesStrings>
-    <li>r_logentry->[INITIATOR_nameDef] [complimented] [PersonalCharacteristic] [RECIPIENT_nameDef].</li>
+    <li>r_logentry->[INITIATOR_nameDef] [complimented] [RECIPIENT_nameDef] за [RECIPIENT_possessive] [characteristic].</li>
+    <li>characteristic(INITIATOR_cubeInterest==false)->[PersonalCharacteristic]</li>
+    <li>characteristic(INITIATOR_cubeInterest==true)->[PersonalCharacteristicCube]</li>
     <li>complimented(p=3)->хвалит</li>
     <li>complimented->осыпает комплиментами</li>
     <li>complimented->по достоинству оценивает</li>
@@ -313,7 +350,9 @@
   <!-- EN: slight -->
   <Slight.label>неуважение</Slight.label>
   <!-- EN:
-    <li>r_logentry->[INITIATOR_nameDef] [madefunof] [target]'s [PersonalCharacteristic].</li>
+    <li>r_logentry->[INITIATOR_nameDef] [madefunof] [target]'s [characteristic].</li>
+    <li>characteristic(INITIATOR_cubeInterest==false)->[PersonalCharacteristic]</li>
+    <li>characteristic(INITIATOR_cubeInterest==true)->[PersonalCharacteristicCube]</li>
     <li>target(p=4)->[RECIPIENT_nameDef]</li>
     <li>target->[RECIPIENT_nameDef]'s [PersonFamily]</li>
     <li>madefunof->made fun of</li>
@@ -330,22 +369,42 @@
     <li>madefunof->offered a backhanded compliment about</li>
   -->
   <Slight.logRulesInitiator.rulesStrings>
-    <li>r_logentry->[INITIATOR_nameDef] [madefunof] [target].</li>
-    <li>target(p=4)->[PersonalCharacteristic] [RECIPIENT_nameDef]</li>
-    <li>target->[PersonalCharacteristic] [PersonFamily_gen] [RECIPIENT_nameDef]</li>
-    <li>madefunof->[madefunof_adverb] высмеивает</li>
-    <li>madefunof->[madefunof_adverb] шутит про</li>
-    <li>madefunof->[madefunof_adverb] говорит про</li>
-    <li>madefunof->[madefunof_adverb] упоминает</li>
-    <li>madefunof->говорит неприятные вещи про</li>
-    <li>madefunof->говорит двусмысленные вещи про</li>
-    <li>madefunof->отпускает колкий комментарий про</li>
-    <li>madefunof->задаёт ехидный вопрос про</li>
-    <li>madefunof->делает сомнительный комплимент про</li>
-    <li>madefunof_adverb->обидно</li>
-    <li>madefunof_adverb->презрительно</li>
-    <li>madefunof_adverb->неуважительно</li>
-    <li>madefunof_adverb->брезгливо</li>
+    <li>r_logentry->[INITIATOR_nameDef] [maybe_slight_adverb] [madefunof_target].</li>
+    <li>r_logentry->[INITIATOR_nameDef] [madefunof_target], [mention_participal] [target_char].</li>
+    <li>madefunof_target->подкалывает [RECIPIENT_nameDef]</li>
+    <li>madefunof_target->поддразнивает [RECIPIENT_nameDef]</li>
+    <li>madefunof_target->шутит над [RECIPIENT_nameDef]</li>
+    <li>madefunof_target->иронизирует над [RECIPIENT_nameDef]</li>
+    <li>mention_participal->отпуская [slight_adj] комментарий про</li>
+    <li>mention_participal->задавая [slight_adj] вопрос про</li>
+    <li>mention_participal->делая [slight_adj] комплимент про</li>
+    <li>mention_participal->[slight_adverb] говоря про</li>
+    <li>mention_participal->[slight_adverb] упоминая</li>
+    <li>mention_participal->[maybe_slight_adverb] высмеивая</li>
+    <li>target_char(p=4)->[RECIPIENT_possessive] [characteristic]</li>
+    <li>target_char->[characteristic] [RECIPIENT_possessive] [PersonFamily_gen]</li>
+    <li>maybe_slight_adverb-></li>
+    <li>maybe_slight_adverb(p=2)->[slight_adverb]</li>
+    <li>slight_adverb->едко</li>
+    <li>slight_adverb->ехидно</li>
+    <li>slight_adverb->колко</li>
+    <li>slight_adverb->обидно</li>
+    <li>slight_adverb->презрительно</li>
+    <li>slight_adverb->неуважительно</li>
+    <li>slight_adverb->брезгливо</li>
+    <li>slight_adj->едкий</li>
+    <li>slight_adj->ехидный</li>
+    <li>slight_adj->колкий</li>
+    <li>slight_adj->обидный</li>
+    <li>slight_adj->презрительный</li>
+    <li>slight_adj->неуважительный</li>
+    <li>slight_adj->двусмысленный</li>
+    <li>slight_adj->сомнительный</li>
+    <li>slight_adj->скользкий</li>
+    <li>slight_adj->непристойный</li>
+    <li>slight_adj->брезгливый</li>
+    <li>characteristic(INITIATOR_cubeInterest==false)->[PersonalCharacteristic]</li>
+    <li>characteristic(INITIATOR_cubeInterest==true)->[PersonalCharacteristicCube]</li>
   </Slight.logRulesInitiator.rulesStrings>
   
 </LanguageData>
