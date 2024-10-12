@@ -64,7 +64,7 @@ For Linux users: `/home/your user name/.config/unity3d/Ludeon Studios/RimWorld`
 
 For Mac users: `/Users/your user name/Library/Application Support/RimWorld`
 
-6. Copy folders `Config` and `Character Editor` from the root of the archive into %userprofile%\appdata\locallow\Ludeon Studios\RimWorld by Ludeon Studios or whatever directory is your Rimworld config folder. 
+6. Copy folders `Config` and `Character Editor` from the root of the archive into `%userprofile%\appdata\locallow\Ludeon Studios\RimWorld by Ludeon Studios` or whatever directory is your Rimworld config folder. 
 
 7. Copy `ModsConfig.xml` from the root of the archive into `Config` folder. 
 
