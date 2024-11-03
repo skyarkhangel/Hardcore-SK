@@ -52,6 +52,16 @@
 		</ammoTypes>
 	</CombatExtended.AmmoSetDef>
 
+	<!-- For Grimhammer - Vehicles -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_PlasmaCanister_Destroyer</defName>
+		<label>plasma canister</label>
+		<ammoTypes>
+			<Ammo_PlasmaCanister>Bullet_Laser_PlasmaDestroyer</Ammo_PlasmaCanister>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
 	<!-- ==================== Ammo ========================== -->
 
 	<ThingDef Class="CombatExtended.AmmoDef" Name="AmmoPlasmaCannonBase" ParentName="SmallAmmoBase" Abstract="True">
@@ -63,6 +73,7 @@
 		<tradeTags>
 			<li>CE_AutoEnableTrade</li>
 			<li>CE_AutoEnableCrafting</li>
+			<li>CE_AutoEnableCrafting_GWAmmoBench</li>			
 		</tradeTags>
 		<thingCategories>
 			<li>AmmoPlasmaCannon</li>
@@ -74,7 +85,7 @@
 		<defName>Ammo_PlasmaCanister</defName>
 		<label>plasma canister</label>
 		<graphicData>
-			<texPath>ThirdParty/Warhammer/PlasmaCanister</texPath>
+			<texPath>ThirdParty/Warhammer/Ammo/PlasmaCanister</texPath>
 			<graphicClass>Graphic_StackCount</graphicClass>
 		</graphicData>
 		<statBases>
@@ -98,7 +109,7 @@
 
 	<ThingDef Name="BasePlasmaBullet" ParentName="BaseBulletCE" Abstract="True">
 		<graphicData>
-			<texPath>ThirdParty/Warhammer/MeltaProjectile</texPath>
+			<texPath>ThirdParty/Warhammer/Projectiles/MeltaProjectile</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
 			<shaderType>TransparentPostLight</shaderType>
 		</graphicData>
@@ -244,6 +255,52 @@
 				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
 			</li>
 		</comps>
+	</ThingDef>
+
+	<!-- For Grimhammer - Vehicles -->
+
+	<ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" ParentName="BaseBulletCE">
+		<defName>Bullet_Laser_PlasmaDestroyer</defName>
+		<label>plasma beam</label>
+		<thingClass>CombatExtended.Lasers.LaserBeamCE</thingClass>
+		<graphicData>
+			<texPath>ThirdParty/Warhammer/Projectiles/MeltaBeam</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>Transparent</shaderType>
+			<color>(255,255,255)</color>
+		</graphicData>
+		<altitudeLayer>Projectile</altitudeLayer>
+		<beamGraphic>BeamGraphic</beamGraphic>
+		<beamWidth>0.6</beamWidth>
+		<textures>
+			<li>ThirdParty/Warhammer/Projectiles/MeltaBeam</li>
+		</textures>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<isInstant>true</isInstant>
+			<damageDef>CE_Laser</damageDef>
+			<damageAmountBase>250</damageAmountBase>
+			<armorPenetrationSharp>500</armorPenetrationSharp>
+			<armorPenetrationBlunt>0.001</armorPenetrationBlunt><!-- The overall pressure exerted by a laser beam striking something is, unsuprisingly, negligable. -->
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<damageAmountBase>140</damageAmountBase>
+				<explosiveDamageType>Bomb</explosiveDamageType>
+				<explosiveRadius>2.9</explosiveRadius>
+				<explosionSound>MortarBomb_Explode</explosionSound>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			</li>
+		</comps>		
+		<modExtensions>
+			<li Class="ProjectileImpactFX.EffectProjectileExtension">
+				<AutoAssign>false</AutoAssign>
+				<CreateTerrainEffects>false</CreateTerrainEffects>
+				<explosionFleckDef>Fleck_HeatGlow_API</explosionFleckDef>
+				<explosionFleckSize>4</explosionFleckSize>
+				<ImpactGlowFleckDef>ExplosionFlash</ImpactGlowFleckDef>
+				<ImpactGlowFleckSize>5</ImpactGlowFleckSize>
+			</li>
+		</modExtensions>
 	</ThingDef>
 
 	<!-- ==================== Recipes ========================== -->
