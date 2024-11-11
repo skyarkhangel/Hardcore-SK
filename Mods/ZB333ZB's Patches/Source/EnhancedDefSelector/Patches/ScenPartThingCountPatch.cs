@@ -156,7 +156,7 @@ namespace EnhancedDefSelector.Patches
 
             var qualityOptions = new List<FloatMenuOption>
             {
-                new FloatMenuOption(
+                new(
                     DEFAULT_TRANSLATION_KEY.Translate().ToString().CapitalizeFirst(),
                     () => Cache.Quality.SetValue(instance, null))
             };

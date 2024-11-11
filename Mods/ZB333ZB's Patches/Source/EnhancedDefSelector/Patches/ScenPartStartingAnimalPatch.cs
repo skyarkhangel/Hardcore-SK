@@ -82,7 +82,7 @@ namespace EnhancedDefSelector.Patches
         {
             var rect = listing.GetScenPartRect(__instance, ScenPart.RowHeight * 2f);
 
-            Listing_Standard listingStandard = new Listing_Standard();
+            Listing_Standard listingStandard = new();
             listingStandard.Begin(rect.TopHalf());
             listingStandard.ColumnWidth = rect.width;
 

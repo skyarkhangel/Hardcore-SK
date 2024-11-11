@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
@@ -64,7 +63,7 @@ namespace ToggleRimefellerGridsPatch
 
     public static class GridManager
     {
-        private static readonly List<IGridStrategy> _strategies = new List<IGridStrategy>
+        private static readonly List<IGridStrategy> _strategies = new()
         {
             new OilGridStrategy(),
             new DeepOilGridStrategy()
@@ -117,7 +116,6 @@ namespace ToggleRimefellerGridsPatch
     [HarmonyPatch(typeof(PlaySettings), nameof(PlaySettings.DoPlaySettingsGlobalControls))]
     public static class Patch_PlaySettings_DoPlaySettingsGlobalControls
     {
-        //Icon made by Skoll from game-icons: https://github.com/game-icons/icons/tree/master/skoll
         private static readonly Texture2D ShowRimefellerGridsIcon = ContentFinder<Texture2D>.Get("Rimefeller/UI/ShowRimefellerGrids");
 
         public static void Postfix(WidgetRow row, bool worldView)
@@ -177,7 +175,7 @@ namespace ToggleRimefellerGridsPatch
         {
             var oilStrategy = GridManager.GetStrategies().OfType<OilGridStrategy>().FirstOrDefault();
             if (oilStrategy?.IsActive != true) return true;
-            
+
             GridDrawer.DrawOilGrid();
             return false;
         }
@@ -190,7 +188,7 @@ namespace ToggleRimefellerGridsPatch
         {
             var deepOilStrategy = GridManager.GetStrategies().OfType<DeepOilGridStrategy>().FirstOrDefault();
             if (deepOilStrategy?.IsActive != true) return true;
-            
+
             GridDrawer.DrawDeepOilGrid();
             return false;
         }
