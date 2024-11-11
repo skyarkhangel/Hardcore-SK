@@ -22,7 +22,7 @@ namespace EnhancedDefSelector.Windows
         private const float SCROLLBAR_WIDTH = 16f;
         private const float PADDING = 5f;
 
-        public override Vector2 InitialSize => new Vector2(WINDOW_WIDTH, WINDOW_HEIGHT);
+        public override Vector2 InitialSize => new(WINDOW_WIDTH, WINDOW_HEIGHT);
 
         public DefSelectionWindow(IScenarioDefPatch patch)
         {
@@ -92,7 +92,7 @@ namespace EnhancedDefSelector.Windows
                 var def = filteredDefs[i];
                 float itemY = i * actualItemHeight;
 
-                Rect itemRect = new Rect(
+                Rect itemRect = new(
                     PADDING,
                     itemY + BUTTON_SPACING/2,
                     listingRect.width - SCROLLBAR_WIDTH - PADDING * 2,

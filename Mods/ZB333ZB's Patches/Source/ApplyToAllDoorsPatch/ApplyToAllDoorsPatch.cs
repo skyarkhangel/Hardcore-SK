@@ -55,7 +55,7 @@ namespace LocksPatches.ApplyToAllDoors
 
             float applyToAllWidth = CalculateButtonWidth("ApplyToAllDoorsPatch_Button".Translate(), UIConstants.MIN_BUTTON_WIDTH, maxApplyToAllWidth);
 
-            Rect applyToAllButtonRect = new Rect(UIConstants.LEFT_PADDING, buttonYPosition, applyToAllWidth, UIConstants.BUTTON_HEIGHT);
+            Rect applyToAllButtonRect = new(UIConstants.LEFT_PADDING, buttonYPosition, applyToAllWidth, UIConstants.BUTTON_HEIGHT);
 
             if (Widgets.ButtonText(applyToAllButtonRect, "ApplyToAllDoorsPatch_Button".Translate()))
             {
@@ -93,9 +93,8 @@ namespace LocksPatches.ApplyToAllDoors
 
                 var allPlayerDoors = selectedDoor.Map.listerThings.AllThings
                     .OfType<Building_Door>()
-                    .Where(d => d is ThingWithComps && d.Faction == Faction.OfPlayer && d != selectedDoor)
+                    .Where(d => d is not null && d.Faction == Faction.OfPlayer && d != selectedDoor)
                     .Cast<ThingWithComps>();
-
 
                 foreach (var door in allPlayerDoors)
                 {
