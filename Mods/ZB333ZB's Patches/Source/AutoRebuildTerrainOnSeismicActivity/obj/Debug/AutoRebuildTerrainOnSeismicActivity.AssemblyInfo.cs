@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AutoRebuildTerrainOnSeismicActivity")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ea187ca206404c65e1d12568e670b6cfc02aa8f8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("AutoRebuildTerrainOnSeismicActivity")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AutoRebuildTerrainOnSeismicActivity")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

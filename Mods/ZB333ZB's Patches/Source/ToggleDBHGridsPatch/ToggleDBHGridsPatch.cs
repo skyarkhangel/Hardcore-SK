@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using DubsBadHygiene;
 using HarmonyLib;
@@ -15,21 +15,28 @@ namespace ToggleDBHGridsPatch
         static HarmonyPatcher()
         {
             new Harmony("com.ZB333ZB.ToggleDBHGridsPatch").PatchAll();
+
+            // Add debug logging
+            var deepWaterResearch = DefDatabase<ResearchProjectDef>.GetNamed(ModSettingsLoader.Settings.deepWaterResearchDefName, false);
+            if (deepWaterResearch == null)
+            {
+                Log.Error($"[ToggleDBHGridsPatch] Could not find research project with defName: {ModSettingsLoader.Settings.deepWaterResearchDefName}");
+            }
         }
     }
 
-    public class ModSettings : Def
+    public class ToggleDBHGridsPatchDef : Def
     {
         public string deepWaterResearchDefName;
     }
 
     public static class ModSettingsLoader
     {
-        public static ModSettings Settings { get; private set; }
+        public static ToggleDBHGridsPatchDef Settings { get; private set; }
 
         static ModSettingsLoader()
         {
-            Settings = DefDatabase<ModSettings>.GetNamed("ToggleDBHGridsPatchSettings");
+            Settings = DefDatabase<ToggleDBHGridsPatchDef>.GetNamed("ToggleDBHGridsPatch");
         }
     }
 
@@ -55,7 +62,16 @@ namespace ToggleDBHGridsPatch
     {
         public bool IsActive { get; set; }
         public void DrawGrid() => GridDrawer.DrawDeepWaterGrid();
-        public bool IsResearchCompleted() => DefDatabase<ResearchProjectDef>.GetNamed(ModSettingsLoader.Settings.deepWaterResearchDefName).IsFinished;
+        public bool IsResearchCompleted()
+        {
+            var research = DefDatabase<ResearchProjectDef>.GetNamed(ModSettingsLoader.Settings.deepWaterResearchDefName, false);
+            if (research == null)
+            {
+                Log.Warning($"[ToggleDBHGridsPatch] Research check failed - could not find: {ModSettingsLoader.Settings.deepWaterResearchDefName}");
+                return false;
+            }
+            return research.IsFinished;
+        }
         public string GetResearchMessage() => "DeepWaterResearchMessage".Translate(DefDatabase<ResearchProjectDef>.GetNamed(ModSettingsLoader.Settings.deepWaterResearchDefName).label);
         public string GetOptionLabel() => "DeepWaterGridOption".Translate();
     }
