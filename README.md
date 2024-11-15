@@ -54,7 +54,7 @@ For Windows users:
 
 3. Open up the downloaded Hardcore SK .zip file. Extract everything in the `Hardcore-SK-master\Mods\` OR `Hardcore-SK-Development\Mods\` OR `Hardcore-SK-Alpha\Mods\` folder into your empty `Rimworlds\Mods\` folder.
 
-4. Go to the RimWorld config folder and delete all the files that exist in that folder. Copy "`ModsConfig.xml`", which is at the root of the archive modpack. 
+4. Go to the RimWorld config folder and delete all the files that exist in that folder. Copy "`ModsConfig.xml`", which is at the root of the archive modpack. And Copy all config files inside the `Config` Folder we provide into that folder too. Do also copy the `Character Editor` folder into the same directory the `Config` folder is in.
 
 For Windows users:
 
