@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
 using RimWorld;
@@ -15,10 +15,23 @@ namespace ToggleRimefellerGridsPatch
         static HarmonyPatcher()
         {
             new Harmony("com.ZB333ZB.ToggleRimefellerGridsPatch").PatchAll();
+
+            // Add debug logging
+            var oilResearch = DefDatabase<ResearchProjectDef>.GetNamed(ModSettingsLoader.Settings.oilResearchDefName, false);
+            var deepOilResearch = DefDatabase<ResearchProjectDef>.GetNamed(ModSettingsLoader.Settings.deepOilResearchDefName, false);
+
+            if (oilResearch == null)
+            {
+                Log.Error($"[ToggleRimefellerGridsPatch] Could not find research project with defName: {ModSettingsLoader.Settings.oilResearchDefName}");
+            }
+            if (deepOilResearch == null)
+            {
+                Log.Error($"[ToggleRimefellerGridsPatch] Could not find research project with defName: {ModSettingsLoader.Settings.deepOilResearchDefName}");
+            }
         }
     }
 
-    public class ModSettings : Def
+    public class ToggleRimefellerGridsPatchDef : Def
     {
         public string oilResearchDefName;
         public string deepOilResearchDefName;
@@ -26,11 +39,11 @@ namespace ToggleRimefellerGridsPatch
 
     public static class ModSettingsLoader
     {
-        public static ModSettings Settings { get; private set; }
+        public static ToggleRimefellerGridsPatchDef Settings { get; private set; }
 
         static ModSettingsLoader()
         {
-            Settings = DefDatabase<ModSettings>.GetNamed("ToggleRimefellerGridsPatchSettings");
+            Settings = DefDatabase<ToggleRimefellerGridsPatchDef>.GetNamed("ToggleRimefellerGridsPatch");
         }
     }
 
@@ -47,7 +60,16 @@ namespace ToggleRimefellerGridsPatch
     {
         public bool IsActive { get; set; }
         public void DrawGrid() => GridDrawer.DrawOilGrid();
-        public bool IsResearchCompleted() => DefDatabase<ResearchProjectDef>.GetNamed(ModSettingsLoader.Settings.oilResearchDefName).IsFinished;
+        public bool IsResearchCompleted()
+        {
+            var research = DefDatabase<ResearchProjectDef>.GetNamed(ModSettingsLoader.Settings.oilResearchDefName, false);
+            if (research == null)
+            {
+                Log.Warning($"[ToggleRimefellerGridsPatch] Research check failed - could not find: {ModSettingsLoader.Settings.oilResearchDefName}");
+                return false;
+            }
+            return research.IsFinished;
+        }
         public string GetResearchMessage() => "OilResearchMessage".Translate(DefDatabase<ResearchProjectDef>.GetNamed(ModSettingsLoader.Settings.oilResearchDefName).label);
         public string GetOptionLabel() => "OilGridOption".Translate();
     }
@@ -56,7 +78,16 @@ namespace ToggleRimefellerGridsPatch
     {
         public bool IsActive { get; set; }
         public void DrawGrid() => GridDrawer.DrawDeepOilGrid();
-        public bool IsResearchCompleted() => DefDatabase<ResearchProjectDef>.GetNamed(ModSettingsLoader.Settings.deepOilResearchDefName).IsFinished;
+        public bool IsResearchCompleted()
+        {
+            var research = DefDatabase<ResearchProjectDef>.GetNamed(ModSettingsLoader.Settings.deepOilResearchDefName, false);
+            if (research == null)
+            {
+                Log.Warning($"[ToggleRimefellerGridsPatch] Research check failed - could not find: {ModSettingsLoader.Settings.deepOilResearchDefName}");
+                return false;
+            }
+            return research.IsFinished;
+        }
         public string GetResearchMessage() => "DeepOilResearchMessage".Translate(DefDatabase<ResearchProjectDef>.GetNamed(ModSettingsLoader.Settings.deepOilResearchDefName).label);
         public string GetOptionLabel() => "DeepOilGridOption".Translate();
     }
