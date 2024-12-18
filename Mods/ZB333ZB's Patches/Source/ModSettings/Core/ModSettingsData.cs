@@ -7,7 +7,7 @@ namespace ZB333ZB_Patches
         public bool applyToAllDoorsEnabled = true;
         public bool autoRebuildTerrainEnabled = true;
         public bool enhancedDefSelectorEnabled = true;
-        public bool storageSelectorEnabled = true;
+        public bool storageSelectorEnabled = false;
         public bool toggleDBHGridsEnabled = true;
         public bool toggleRimefellerGridsEnabled = true;
 
@@ -29,7 +29,7 @@ namespace ZB333ZB_Patches
             Scribe_Values.Look(ref applyToAllDoorsEnabled, "applyToAllDoorsEnabled", true);
             Scribe_Values.Look(ref autoRebuildTerrainEnabled, "autoRebuildTerrainEnabled", true);
             Scribe_Values.Look(ref enhancedDefSelectorEnabled, "enhancedDefSelectorEnabled", true);
-            Scribe_Values.Look(ref storageSelectorEnabled, "storageSelectorEnabled", true);
+            Scribe_Values.Look(ref storageSelectorEnabled, "storageSelectorEnabled", false);
             Scribe_Values.Look(ref toggleDBHGridsEnabled, "toggleDBHGridsEnabled", true);
             Scribe_Values.Look(ref toggleRimefellerGridsEnabled, "toggleRimefellerGridsEnabled", true);
             Scribe_Values.Look(ref hideZeroCountIngredients, "hideZeroCountIngredients", true);
@@ -78,7 +78,7 @@ namespace ZB333ZB_Patches
             applyToAllDoorsEnabled = true;
             autoRebuildTerrainEnabled = true;
             enhancedDefSelectorEnabled = true;
-            storageSelectorEnabled = true;
+            storageSelectorEnabled = false;
             toggleDBHGridsEnabled = true;
             toggleRimefellerGridsEnabled = true;
             hideZeroCountIngredients = true;
