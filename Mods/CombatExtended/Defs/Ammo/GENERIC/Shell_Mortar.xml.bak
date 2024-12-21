@@ -1,0 +1,958 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+	<!-- ==================== Categories ========================== -->
+
+	<ThingCategoryDef>
+		<defName>AmmoMortarShell</defName>
+		<label>mortar shell</label>
+		<parent>AmmoShells</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberMortar</iconPath>
+	</ThingCategoryDef>
+
+	<ThingCategoryDef>
+		<defName>AmmoMortarShellHeavy</defName>
+		<label>heavy mortar shell</label>
+		<parent>AmmoShells</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberCannon</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_MortarShell</defName>
+		<label>mortar shell</label>
+		<ammoTypes>
+			<Ammo_MortarShell_HighExplosive>Bullet_81mmMortarShell_HE</Ammo_MortarShell_HighExplosive>
+			<Ammo_MortarShell_HighExplosive_HFuzed>Bullet_81mmMortarShell_HE_HFuzed</Ammo_MortarShell_HighExplosive_HFuzed>
+			<Ammo_MortarShell_Incendiary>Bullet_81mmMortarShell_Incendiary</Ammo_MortarShell_Incendiary>
+			<Ammo_MortarShell_EMP>Bullet_81mmMortarShell_EMP</Ammo_MortarShell_EMP>
+			<Ammo_MortarShell_Firefoam>Bullet_81mmMortarShell_Firefoam</Ammo_MortarShell_Firefoam>
+			<Ammo_MortarShell_Smoke>Bullet_81mmMortarShell_Smoke</Ammo_MortarShell_Smoke>
+			<Ammo_MortarShell_AntigrainWarhead>Bullet_81mmMortarShell_Antigrain</Ammo_MortarShell_AntigrainWarhead>
+			<Ammo_MortarShell_Toxic MayRequire="Ludeon.RimWorld.Biotech">Bullet_81mmMortarShell_Tox</Ammo_MortarShell_Toxic>
+			<Ammo_MortarShell_Deadlife MayRequire="Ludeon.RimWorld.Anomaly">Bullet_81mmMortarShell_Deadlife</Ammo_MortarShell_Deadlife>
+		</ammoTypes>
+		<isMortarAmmoSet>true</isMortarAmmoSet>
+	</CombatExtended.AmmoSetDef>
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_ArtilleryShell</defName>
+		<label>artillery shell</label>
+		<ammoTypes>
+			<Ammo_ArtilleryShell_HE>Bullet_155mmHowitzerShell_HE</Ammo_ArtilleryShell_HE>
+			<Ammo_ArtilleryShell_HE_HFuzed>Bullet_155mmHowitzerShell_HE_HFuzed</Ammo_ArtilleryShell_HE_HFuzed>
+			<Ammo_ArtilleryShell_Incendiary>Bullet_155mmHowitzerShell_Incendiary</Ammo_ArtilleryShell_Incendiary>
+			<Ammo_ArtilleryShell_EMP>Bullet_155mmHowitzerShell_EMP</Ammo_ArtilleryShell_EMP>
+			<Ammo_ArtilleryShell_Smoke>Bullet_155mmHowitzerShell_Smoke</Ammo_ArtilleryShell_Smoke>
+		</ammoTypes>
+		<isMortarAmmoSet>true</isMortarAmmoSet>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<!-- Light shells-->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="GenericMortarShellBase" ParentName="HeavyAmmoBase" Abstract="True">
+		<description>Low-velocity shell designed to be fired from a mortar.</description>
+		<statBases>
+			<MaxHitPoints>200</MaxHitPoints>
+		</statBases>
+		<thingCategories>
+			<li>AmmoMortarShell</li>
+		</thingCategories>
+		<stackLimit>25</stackLimit>
+		<cookOffFlashScale>30</cookOffFlashScale>
+		<cookOffSound>MortarBomb_Explode</cookOffSound>
+		<isMortarAmmo>true</isMortarAmmo>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="GenericMortarShellBaseCraftableBase" ParentName="GenericMortarShellBase" Abstract="True">
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting_TableMachining</li>
+		</tradeTags>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="GenericMortarShellBaseCraftableBase">
+		<defName>Ammo_MortarShell_HighExplosive</defName>
+		<label>mortar shell (HE)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Mortar/HE</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>50.09</MarketValue>
+			<Mass>5.27</Mass>
+			<Bulk>8.17</Bulk>
+		</statBases>
+		<ammoClass>GrenadeHE</ammoClass>
+		<detonateProjectile>Bullet_81mmMortarShell_HE</detonateProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="GenericMortarShellBaseCraftableBase">
+		<defName>Ammo_MortarShell_HighExplosive_HFuzed</defName>
+		<label>mortar shell (Airburst)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Mortar/Airburst</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>63.09</MarketValue>
+			<Mass>5.27</Mass>
+			<Bulk>8.17</Bulk>
+		</statBases>
+		<ammoClass>GrenadeHETF</ammoClass>
+		<detonateProjectile>Bullet_81mmMortarShell_HE</detonateProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="GenericMortarShellBaseCraftableBase">
+		<defName>Ammo_MortarShell_Incendiary</defName>
+		<label>mortar shell (Incendiary)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Mortar/Incendiary</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>42.34</MarketValue>
+			<Mass>5.65</Mass>
+			<Bulk>9.0</Bulk>
+		</statBases>
+		<ammoClass>GrenadeIncendiary</ammoClass>
+		<detonateProjectile>Bullet_81mmMortarShell_Incendiary</detonateProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="GenericMortarShellBaseCraftableBase">
+		<defName>Ammo_MortarShell_EMP</defName>
+		<label>mortar shell (EMP)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Mortar/EMP</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>112.42</MarketValue>
+			<Mass>5.27</Mass>
+			<Bulk>8.17</Bulk>
+		</statBases>
+		<ammoClass>GrenadeEMP</ammoClass>
+		<detonateProjectile>Bullet_81mmMortarShell_EMP</detonateProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="GenericMortarShellBaseCraftableBase">
+		<defName>Ammo_MortarShell_Firefoam</defName>
+		<label>mortar shell (Foam)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Mortar/Firefoam</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>37.03</MarketValue>
+			<Mass>4.1</Mass>
+			<Bulk>10.01</Bulk>
+		</statBases>
+		<ammoClass>FoamFuel</ammoClass>
+		<detonateProjectile>Bullet_81mmMortarShell_Firefoam</detonateProjectile>
+		<spawnAsSiegeAmmo>false</spawnAsSiegeAmmo>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="GenericMortarShellBaseCraftableBase">
+		<defName>Ammo_MortarShell_Smoke</defName>
+		<label>81mm mortar shell (Smoke)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Mortar/Smoke</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>37.03</MarketValue>
+			<Mass>4.1</Mass>
+			<Bulk>10.01</Bulk>
+		</statBases>
+		<ammoClass>Smoke</ammoClass>
+		<detonateProjectile>Bullet_81mmMortarShell_Smoke</detonateProjectile>
+		<spawnAsSiegeAmmo>false</spawnAsSiegeAmmo>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="GenericMortarShellBase">
+		<defName>Ammo_MortarShell_AntigrainWarhead</defName>
+		<label>mortar shell (Anti)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Mortar/Antigrain</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>1500</MarketValue>
+			<Mass>6.5</Mass>
+			<Bulk>6</Bulk>
+		</statBases>
+		<thingSetMakerTags>
+			<li>RewardStandardCore</li>
+		</thingSetMakerTags>
+		<tradeTags>
+			<li>CE_AutoEnableTrade_Sellable</li>
+		</tradeTags>
+		<ammoClass>Antigrain</ammoClass>
+		<spawnAsSiegeAmmo>false</spawnAsSiegeAmmo>
+		<comps>
+			<!-- Vanilla values -->
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>14.9</explosiveRadius>
+				<damageAmountBase>300</damageAmountBase>
+				<explosiveDamageType>BombSuper</explosiveDamageType>
+				<startWickHitPointsPercent>0.7</startWickHitPointsPercent>
+				<chanceToStartFire>0.22</chanceToStartFire>
+				<damageFalloff>true</damageFalloff>
+				<explosionEffect>GiantExplosion</explosionEffect>
+				<explosionSound>Explosion_GiantBomb</explosionSound>
+				<wickTicks>60~120</wickTicks>
+				<explodeOnKilled>True</explodeOnKilled>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="GenericMortarShellBaseCraftableBase" MayRequire="Ludeon.RimWorld.Biotech">
+		<defName>Ammo_MortarShell_Toxic</defName>
+		<label>mortar shell (Toxic)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Mortar/Toxic</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>37.03</MarketValue>
+			<Mass>4.1</Mass>
+			<Bulk>10.01</Bulk>
+		</statBases>
+		<ammoClass>Toxic</ammoClass>
+		<detonateProjectile>Bullet_81mmMortarShell_Tox</detonateProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="GenericMortarShellBaseCraftableBase"
+		MayRequire="Ludeon.RimWorld.Anomaly">
+		<defName>Ammo_MortarShell_Deadlife</defName>
+		<label>mortar shell (Deadlife)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Mortar/Deadlife</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>41.03</MarketValue>
+			<Mass>4.4</Mass>
+			<Bulk>10.01</Bulk>
+		</statBases>
+		<ammoClass>Deadlife</ammoClass>
+		<detonateProjectile>Bullet_81mmMortarShell_Deadlife</detonateProjectile>
+	</ThingDef>
+
+	<!-- Heavy shells-->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="HeavyMortarShellBase" ParentName="HeavyAmmoBase" Abstract="True">
+		<description>Large cannon shell used by howitzers.</description>
+		<thingCategories>
+			<li>AmmoMortarShellHeavy</li>
+		</thingCategories>
+		<stackLimit>25</stackLimit>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting_TableMachining</li>
+		</tradeTags>
+		<statBases>
+			<MaxHitPoints>300</MaxHitPoints>
+			<Mass>46.7</Mass>
+			<Bulk>47.67</Bulk>
+		</statBases>
+		<cookOffFlashScale>40</cookOffFlashScale>
+		<cookOffSound>MortarBomb_Explode</cookOffSound>
+		<isMortarAmmo>true</isMortarAmmo>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="HeavyMortarShellBase">
+		<defName>Ammo_ArtilleryShell_HE</defName>
+		<label>artillery shell (HE)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Cannon/Howitzer/HE</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>384.6</MarketValue>
+		</statBases>
+		<ammoClass>GrenadeHE</ammoClass>
+		<detonateProjectile>Bullet_155mmHowitzerShell_HE</detonateProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="HeavyMortarShellBase">
+		<defName>Ammo_ArtilleryShell_HE_HFuzed</defName>
+		<label>artillery shell (Airburst)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Cannon/Howitzer/AB</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>449.6</MarketValue>
+		</statBases>
+		<ammoClass>GrenadeHETF</ammoClass>
+		<detonateProjectile>Bullet_155mmHowitzerShell_HE</detonateProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="HeavyMortarShellBase">
+		<defName>Ammo_ArtilleryShell_Incendiary</defName>
+		<label>artillery shell (Incendiary)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Cannon/Howitzer/INC</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>283.1</MarketValue>
+		</statBases>
+		<ammoClass>GrenadeIncendiary</ammoClass>
+		<detonateProjectile>Bullet_155mmHowitzerShell_Incendiary</detonateProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="HeavyMortarShellBase">
+		<defName>Ammo_ArtilleryShell_EMP</defName>
+		<label>artillery shell (EMP)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Cannon/Howitzer/EMP</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>673.94</MarketValue>
+		</statBases>
+		<ammoClass>GrenadeEMP</ammoClass>
+		<detonateProjectile>Bullet_155mmHowitzerShell_EMP</detonateProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="HeavyMortarShellBase">
+		<defName>Ammo_ArtilleryShell_Smoke</defName>
+		<label>artillery shell (Smoke)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Cannon/Howitzer/SMK</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>262.5</MarketValue>
+		</statBases>
+		<ammoClass>Smoke</ammoClass>
+		<spawnAsSiegeAmmo>false</spawnAsSiegeAmmo>
+		<detonateProjectile>Bullet_155mmHowitzerShell_Smoke</detonateProjectile>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+	<!-- Light shells -->
+
+	<RecipeDef ParentName="ArtilleryAmmoRecipeBase">
+		<defName>MakeAmmo_MortarShell_HighExplosive</defName>
+		<label>make mortar shells (HE) x5</label>
+		<description>Craft 5 mortar shells (HE).</description>
+		<jobString>Making mortar shells (HE).</jobString>
+		<workAmount>10600</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>54</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>FSX</li>
+					</thingDefs>
+				</filter>
+				<count>10</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>FSX</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_MortarShell_HighExplosive>5</Ammo_MortarShell_HighExplosive>
+		</products>
+	</RecipeDef>
+
+	<RecipeDef ParentName="ArtilleryAmmoRecipeBase">
+		<defName>MakeAmmo_MortarShell_HighExplosive_HFuzed</defName>
+		<label>make mortar shells (Airburst) x5</label>
+		<description>Craft 5 mortar shells (Airburst).</description>
+		<jobString>Making mortar shells (Airburst).</jobString>
+		<workAmount>11800</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>54</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>FSX</li>
+					</thingDefs>
+				</filter>
+				<count>10</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>FSX</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_MortarShell_HighExplosive_HFuzed>5</Ammo_MortarShell_HighExplosive_HFuzed>
+		</products>
+		<skillRequirements>
+			<Crafting>5</Crafting>
+		</skillRequirements>
+	</RecipeDef>
+
+	<RecipeDef ParentName="ArtilleryAmmoRecipeBase">
+		<defName>MakeAmmo_MortarShell_Incendiary</defName>
+		<label>make mortar shells (Incendiary) x5</label>
+		<description>Craft 5 mortar shells (Incendiary).</description>
+		<jobString>Making mortar shells (Incendiary).</jobString>
+		<workAmount>9000</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>58</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Prometheum</li>
+					</thingDefs>
+				</filter>
+				<count>5</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>Prometheum</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_MortarShell_Incendiary>5</Ammo_MortarShell_Incendiary>
+		</products>
+	</RecipeDef>
+
+	<RecipeDef ParentName="ArtilleryAmmoRecipeBase">
+		<defName>MakeAmmo_MortarShell_EMP</defName>
+		<label>make mortar shells (EMP) x5</label>
+		<description>Craft 5 mortar shells (EMP).</description>
+		<jobString>Making mortar shells (EMP).</jobString>
+		<researchPrerequisite Inherit="False" />
+		<researchPrerequisites>
+			<li>Mortars</li>
+			<li>MicroelectronicsBasics</li>
+		</researchPrerequisites>
+		<workAmount>13800</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>54</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>14</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_MortarShell_EMP>5</Ammo_MortarShell_EMP>
+		</products>
+	</RecipeDef>
+
+	<RecipeDef ParentName="ArtilleryAmmoRecipeBase">
+		<defName>MakeAmmo_MortarShell_Firefoam</defName>
+		<label>make mortar shells (Firefoam) x5</label>
+		<description>Craft 5 mortar shells (Firefoam).</description>
+		<jobString>Making mortar shells (Firefoam).</jobString>
+		<researchPrerequisite Inherit="False" />
+		<researchPrerequisites>
+			<li>Mortars</li>
+			<li>Firefoam</li>
+		</researchPrerequisites>
+		<workAmount>8800</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>42</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<categories>
+						<li>MeatRaw</li>
+					</categories>
+				</filter>
+				<count>17</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+			<categories>
+				<li>MeatRaw</li>
+			</categories>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_MortarShell_Firefoam>5</Ammo_MortarShell_Firefoam>
+		</products>
+	</RecipeDef>
+
+	<RecipeDef ParentName="ArtilleryAmmoRecipeBase">
+		<defName>MakeAmmo_MortarShell_Smoke</defName>
+		<label>make mortar shells (Smoke) x5</label>
+		<description>Craft 5 mortar shells (Smoke).</description>
+		<jobString>Making mortar shells (Smoke).</jobString>
+		<workAmount>6600</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>42</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Prometheum</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>Prometheum</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_MortarShell_Smoke>5</Ammo_MortarShell_Smoke>
+		</products>
+	</RecipeDef>
+
+	<RecipeDef ParentName="ArtilleryAmmoRecipeBase" MayRequire="Ludeon.RimWorld.Biotech">
+		<defName>MakeAmmo_MortarShell_Toxic</defName>
+		<label>make mortar shells (Tox) x5</label>
+		<description>Craft 5 mortar shells (Tox).</description>
+		<jobString>Making mortar shells (Tox).</jobString>
+		<researchPrerequisite Inherit="False" />
+		<researchPrerequisites>
+			<li>Mortars</li>
+			<li>ToxGas</li>
+		</researchPrerequisites>
+		<workAmount>6600</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>42</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Prometheum</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>Prometheum</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_MortarShell_Toxic>5</Ammo_MortarShell_Toxic>
+		</products>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeBase" MayRequire="Ludeon.RimWorld.Anomaly">
+		<defName>MakeAmmo_MortarShell_Deadlife</defName>
+		<label>make deadlife mortar shells x5</label>
+		<description>Craft 5 deadlife mortar shells.</description>
+		<jobString>Making deadlife mortar shells.</jobString>
+		<researchPrerequisites>
+			<li>DeadlifeDust</li>
+			<li>Mortars</li>
+		</researchPrerequisites>
+		<recipeUsers Inherit="false">
+			<li>BioferriteShaper</li>
+		</recipeUsers>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>42</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Bioferrite</li>
+					</thingDefs>
+				</filter>
+				<count>25</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>Bioferrite</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_MortarShell_Deadlife>5</Ammo_MortarShell_Deadlife>
+		</products>
+		<skillRequirements>
+			<Crafting>4</Crafting>
+		</skillRequirements>
+		<workAmount>6600</workAmount>
+	</RecipeDef>
+
+	<!-- Heavy shells-->
+
+	<RecipeDef ParentName="ArtilleryAmmoRecipeBase">
+		<defName>MakeAmmo_ArtilleryShell_HE</defName>
+		<label>make artillery shells (HE) x2</label>
+		<description>Craft 2 artillery shells (HE).</description>
+		<jobString>Making artillery shells (HE).</jobString>
+		<researchPrerequisite Inherit="False" />
+		<researchPrerequisites>
+			<li>Mortars</li>
+			<li>CE_TurretHeavyWeapons</li>
+		</researchPrerequisites>
+		<workAmount>17400</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>94</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>FSX</li>
+					</thingDefs>
+				</filter>
+				<count>17</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>ComponentIndustrial</li>
+				<li>FSX</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_ArtilleryShell_HE>2</Ammo_ArtilleryShell_HE>
+		</products>
+	</RecipeDef>
+
+	<RecipeDef ParentName="ArtilleryAmmoRecipeBase">
+		<defName>MakeAmmo_ArtilleryShell_HE_HFuzed</defName>
+		<label>make artillery shells (Airburst) x2</label>
+		<description>Craft 2 155mm (Airburst) artillery shells.</description>
+		<jobString>Making 155mm (Airburst) artillery shells.</jobString>
+		<researchPrerequisite Inherit="False" />
+		<researchPrerequisites>
+			<li>Mortars</li>
+			<li>CE_TurretHeavyWeapons</li>
+		</researchPrerequisites>
+		<workAmount>18600</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>94</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>FSX</li>
+					</thingDefs>
+				</filter>
+				<count>17</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>ComponentIndustrial</li>
+				<li>FSX</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_ArtilleryShell_HE_HFuzed>2</Ammo_ArtilleryShell_HE_HFuzed>
+		</products>
+		<skillRequirements>
+			<Crafting>5</Crafting>
+		</skillRequirements>
+	</RecipeDef>
+
+	<RecipeDef ParentName="ArtilleryAmmoRecipeBase">
+		<defName>MakeAmmo_ArtilleryShell_Incendiary</defName>
+		<label>make artillery shells (Incendiary) x2</label>
+		<description>Craft 2 artillery shells (Incendiary).</description>
+		<jobString>Making artillery shell (Incendiary).</jobString>
+		<researchPrerequisite Inherit="False" />
+		<researchPrerequisites>
+			<li>Mortars</li>
+			<li>CE_TurretHeavyWeapons</li>
+		</researchPrerequisites>
+		<workAmount>12600</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>94</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Prometheum</li>
+					</thingDefs>
+				</filter>
+				<count>5</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>ComponentIndustrial</li>
+				<li>Prometheum</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_ArtilleryShell_Incendiary>2</Ammo_ArtilleryShell_Incendiary>
+		</products>
+	</RecipeDef>
+
+	<RecipeDef ParentName="ArtilleryAmmoRecipeBase">
+		<defName>MakeAmmo_ArtilleryShell_EMP</defName>
+		<label>make artillery shells (EMP) x2</label>
+		<description>Craft 2 artillery shells (EMP).</description>
+		<jobString>Making artillery shells (EMP).</jobString>
+		<researchPrerequisite Inherit="False" />
+		<researchPrerequisites>
+			<li>Mortars</li>
+			<li>CE_TurretHeavyWeapons</li>
+			<li>MicroelectronicsBasics</li>
+		</researchPrerequisites>
+		<workAmount>18400</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>94</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>15</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_ArtilleryShell_EMP>2</Ammo_ArtilleryShell_EMP>
+		</products>
+	</RecipeDef>
+
+	<RecipeDef ParentName="ArtilleryAmmoRecipeBase">
+		<defName>MakeAmmo_ArtilleryShell_Smoke</defName>
+		<label>make artillery shells (Smoke) x2</label>
+		<description>Craft 2 artillery shells (Smoke).</description>
+		<jobString>Making artillery shells (Smoke).</jobString>
+		<researchPrerequisite Inherit="False" />
+		<researchPrerequisites>
+			<li>Mortars</li>
+			<li>CE_TurretHeavyWeapons</li>
+		</researchPrerequisites>
+		<workAmount>11400</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>90</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Prometheum</li>
+					</thingDefs>
+				</filter>
+				<count>3</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>Prometheum</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_ArtilleryShell_Smoke>2</Ammo_ArtilleryShell_Smoke>
+		</products>
+	</RecipeDef>
+
+</Defs>
