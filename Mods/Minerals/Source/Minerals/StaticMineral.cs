@@ -1410,17 +1410,6 @@ namespace Minerals
             {
                 return c => c.DistanceTo(myPosition) <= spawnRadius && CanSpawnAt(myMap, c);
             }
-
-            Predicate<IntVec3> isValidSiteDebug(Map myMap, IntVec3 myPosition)
-            {
-                return c =>
-                {
-                    Log.Message("TryFindReproductionDestination: isValidSiteDebug: c: " + c);
-                    Log.Message("TryFindReproductionDestination: isValidSiteDebug: c.DistanceTo(myPosition): " + c.DistanceTo(myPosition));
-                    Log.Message("TryFindReproductionDestination: isValidSiteDebug: CanSpawnAt(myMap, c): " + CanSpawnAt(myMap, c));
-                    return c.DistanceTo(myPosition) <= spawnRadius && CanSpawnAt(myMap, c);
-                };
-            }
         }
 
 

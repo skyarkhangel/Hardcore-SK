@@ -19,77 +19,37 @@ using SK;
 
 namespace Minerals
 {
-
-
-
-    /* Replace slate with basalt in the Alpha biomes Pyroclastic Conflagration biome*/
-    [HarmonyPatch(typeof(World))]
-    [HarmonyPatch("NaturalRockTypesIn")]
+    [HarmonyPatch(typeof(World), nameof(World.NaturalRockTypesIn))]
     public static class Minerals_World_NaturalRockTypesIn_Patch
     {
+        private static List<ThingDef> allRockDefs;
 
         [HarmonyPostfix]
-        public static void MakeRocksAccordingToBiome(int tile, ref World __instance, ref IEnumerable<ThingDef> __result)
+        public static IEnumerable<ThingDef> MakeRocksAccordingToBiome(IEnumerable<ThingDef> results, int tile)
         {
-            if (__instance.grid.tiles[tile].biome.defName == "AB_PyroclasticConflagration")
+            if (allRockDefs.NullOrEmpty())
             {
-                List<ThingDef> replacedList = new List<ThingDef>();
-                ThingDef item = DefDatabase<ThingDef>.GetNamed("AB_Obsidianstone");
-                replacedList.Add(item);
-                replacedList.Add(DefDatabase<ThingDef>.GetNamed("ZF_BasaltBase"));
-
-                __result = replacedList;
+                allRockDefs = DefDatabase<ThingDef>.AllDefs.Where(x =>
+                                                                  (x.building?.buildingTags?.Contains("BaseRock") ?? false) && !x.IsSmoothed)
+                                                                  .ToList();
             }
-            else if (__instance.grid.tiles[tile].biome.defName == "AB_OcularForest" || __instance.grid.tiles[tile].biome.defName == "AB_GallatrossGraveyard" || __instance.grid.tiles[tile].biome.defName == "AB_GelatinousSuperorganism" || __instance.grid.tiles[tile].biome.defName == "AB_MechanoidIntrusion" || __instance.grid.tiles[tile].biome.defName == "AB_RockyCrags") {
-                return;
-            }
-            else
+            // Pick a set of random rocks
+            Rand.PushState();
+            Rand.Seed = tile;
+            int num = Rand.RangeInclusive(MineralsMain.Settings.terrainCountRangeSetting.min, MineralsMain.Settings.terrainCountRangeSetting.max);
+            if (num > allRockDefs.Count)
             {
-                // Pick a set of random rocks
-                Rand.PushState();
-                Rand.Seed = tile;
-
-                // Disabled since found great impact on tps. Skyarkhangel. 01.04.2024.
-                // Made list of stones hardcoded, until not found solution.
-
-                //List<ThingDef> list = (from d in DefDatabase<ThingDef>.AllDefs
-                //                       where d.category == ThingCategory.Building && d.building.isNaturalRock && !d.building.isResourceRock &&
-                //                       !d.IsSmoothed && d.defName != "GU_RoseQuartz" && d.defName != "AB_SlimeStone" &&
-                //                       d.defName != "GU_AncientMetals" && d.defName != "AB_Cragstone" && d.defName != "AB_Obsidianstone" &&
-                //                       d.defName != "BiomesIslands_CoralRock" && d.defName != "LavaRock" && d.defName != "AB_Mudstone"
-                //                       select d).ToList<ThingDef>();
-
-                List<ThingDef> list = new List<ThingDef>
-                {
-                    ThingDefOf.Sandstone,
-                    ThingDefOf.Granite,
-                    ThingDef.Named("Slate"),
-                    ThingDef.Named("Limestone"),
-                    ThingDef.Named("Marble"),
-                    ThingDef.Named("ZF_BasaltBase"),
-                    ThingDef.Named("ZF_ClaystoneBase"),
-                    ThingDef.Named("ZF_MudstoneBase")
-                };
-
-                int num = Rand.RangeInclusive(MineralsMain.Settings.terrainCountRangeSetting.min, MineralsMain.Settings.terrainCountRangeSetting.max);
-                if (num > list.Count)
-                {
-                    num = list.Count;
-                }
-                List<ThingDef> list2 = new List<ThingDef>();
-                for (int i = 0; i < num; i++)
-                {
-                    ThingDef item = list.RandomElement<ThingDef>();
-                    list.Remove(item);
-                    list2.Add(item);
-                }
-                Rand.PopState();
-                __result = list2;
+                num = allRockDefs.Count;
             }
+            List<ThingDef> tempRockDefList = new List<ThingDef>(allRockDefs).Distinct().ToList();
+            List<ThingDef> resultList = tempRockDefList.TakeRandom(num).ToList();
+            for (int i = 0; i < num; i++)
+            {
+                yield return resultList[i];
+            }
+            Rand.PopState();
         }
     }
-
-
 
     [StaticConstructorOnStartup]
     static class HarmonyPatches
@@ -98,21 +58,15 @@ namespace Minerals
         static HarmonyPatches()
         {
             Harmony harmony = new Harmony("com.zacharyfoster.minerals");
-
             // Spawn rocks on map generation
             MethodInfo targetmethod = AccessTools.Method(typeof(GenStep_RockChunks), "Generate");
             HarmonyMethod postfixmethod = new HarmonyMethod(typeof(HarmonyPatches).GetMethod("initNewMapRocks"));
             harmony.Patch(targetmethod, null, postfixmethod);
-
             // Spawn ice after plants
             MethodInfo icetargetmethod = AccessTools.Method(typeof(GenStep_Plants), "Generate");
             HarmonyMethod icepostfixmethod = new HarmonyMethod(typeof(HarmonyPatches).GetMethod("initNewMapIce"));
             harmony.Patch(icetargetmethod, null, icepostfixmethod);
-
-
             harmony.PatchAll();
-
-
         }
 
         public static void initNewMapRocks(GenStep_RockChunks __instance, Map map)
@@ -127,7 +81,7 @@ namespace Minerals
 
         [HarmonyPatch(typeof(SK.SkyfallerUtil))]
         [HarmonyPatch("SpawnSkyfaller")]
-        [HarmonyPatch(new Type[] {typeof(ThingDef), typeof(IEnumerable<Thing>), typeof(IntVec3), typeof(Map) })]
+        [HarmonyPatch(new Type[] { typeof(ThingDef), typeof(IEnumerable<Thing>), typeof(IntVec3), typeof(Map) })]
         static class ImpactPatch
         {
             [HarmonyPrefix]
@@ -137,7 +91,7 @@ namespace Minerals
                 foreach (Thing item in things)
                 {
                     Thing toReturn = item;
-                    if (item.def.mineable && (! StaticMineral.isMineral(item)))
+                    if (item.def.mineable && (!StaticMineral.isMineral(item)))
                     {
                         // check if any of the minerals replace this one 
                         foreach (ThingDef_StaticMineral mineralType in DefDatabase<ThingDef_StaticMineral>.AllDefs)
@@ -149,7 +103,7 @@ namespace Minerals
 
                             if (mineralType.ThingsToReplace.Any(item.def.defName.Equals))
                             {
-                                toReturn = (StaticMineral) ThingMaker.MakeThing(mineralType);
+                                toReturn = (StaticMineral)ThingMaker.MakeThing(mineralType);
                                 break;
                             }
                         }
@@ -163,7 +117,7 @@ namespace Minerals
 
         [HarmonyPatch(typeof(GenStep_PreciousLump))]
         [HarmonyPatch("Generate")]
-        [HarmonyPatch(new Type[] { typeof(Map), typeof(GenStepParams)})]
+        [HarmonyPatch(new Type[] { typeof(Map), typeof(GenStepParams) })]
         static class GenStep_PreciousLump_Patch
         {
             [HarmonyPrefix]
@@ -187,8 +141,8 @@ namespace Minerals
                     int count = mineral.randomlyDropResources.Count;
                     __instance.count = 1;
                     float randomRangeAmount = __instance.totalValueRange.RandomInRange;
-                    int minimumLumps = Mathf.Max(Mathf.RoundToInt((averageMarketValue / __instance.totalValueRange.min) * 6),2);
-                    __instance.forcedLumpSize = Mathf.Max(Mathf.RoundToInt(randomRangeAmount / 
+                    int minimumLumps = Mathf.Max(Mathf.RoundToInt((averageMarketValue / __instance.totalValueRange.min) * 6), 2);
+                    __instance.forcedLumpSize = Mathf.Max(Mathf.RoundToInt(randomRangeAmount /
                         ((averageDropAmount / count) * (averageMarketValue / count))), 1) + Rand.Range(minimumLumps, minimumLumps * 2);
 
                     float preRoundedValue = randomRangeAmount / (averageDropAmount / count) * (averageMarketValue / count);
@@ -203,7 +157,7 @@ namespace Minerals
                         forcedLumpSize = __instance.forcedLumpSize
                     };
 
-                    gen.Generate(map,parms);
+                    gen.Generate(map, parms);
 
                     return false;
                 }
@@ -219,7 +173,7 @@ namespace Minerals
             [HarmonyPostfix]
             public static void Postfix(CompLongRangeMineralScanner __instance)
             {
-                Traverse.Create(__instance).Field("targetMineable").SetValue(DefDatabase<ThingDef>.GetNamed("SolidOreGold"));
+                Traverse.Create(__instance).Field("targetMineable").SetValue(ThingDefOfLocal.SolidOreGold);
             }
         }
     }
