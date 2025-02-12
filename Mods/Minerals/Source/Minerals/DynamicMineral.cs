@@ -127,7 +127,7 @@ namespace Minerals
             if (sizeDiff > 0.1f || (sizeDiff > 0.02f && attributes.fastGraphicRefresh))
             {
                 sizeWhenLastPrinted = apparentSize;
-                base.Map.mapDrawer.MapMeshDirty(base.Position, MapMeshFlag.Things);
+                base.Map.mapDrawer.MapMeshDirty(base.Position, MapMeshFlagDefOf.Things);
                 initializeTextureLocations();
             }
 
@@ -516,11 +516,11 @@ namespace Minerals
         }
         public override float valueAtPos(DynamicMineral aMineral)
         {
-            return aMineral.Map.glowGrid.GameGlowAt(aMineral.Position);
+            return aMineral.Map.glowGrid.GroundGlowAt(aMineral.Position);
         }
         public override float valueAtPos(ThingDef_DynamicMineral myDef, IntVec3 aPosition, Map aMap)
         {
-            return aMap.glowGrid.GameGlowAt(aPosition);
+            return aMap.glowGrid.GroundGlowAt(aPosition);
         }
         public override float valueAtMap(Map aMap)
         {
