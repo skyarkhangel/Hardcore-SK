@@ -1,4 +1,4 @@
-
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -124,6 +124,7 @@ namespace Minerals
 
         public virtual void incPctYeild(float amount, Pawn miner)
         {
+            //Log.Message("incPctYeild Entered with Pawn: " + miner.def.defName + ". Amount: " + amount);
             // Increase yeild for when it is destroyed
             float minerYield = 1f;
             if (miner.def.race.IsMechanoid)
@@ -172,6 +173,7 @@ namespace Minerals
             {
                 minerSkill = miner.skills.GetSkill(SkillDefOf.Mining).Level;
             }
+            //Log.Message("minerSkill is: " + minerSkill);
             float proportionDamaged = (float) Mathf.Min(amount, HitPoints) / (float) MaxHitPoints;
             float proportionMined = proportionDamaged * minerYield;
             yieldPct += proportionMined;
