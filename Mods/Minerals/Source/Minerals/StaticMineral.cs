@@ -1,4 +1,4 @@
-
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -124,6 +124,7 @@ namespace Minerals
 
         public virtual void incPctYeild(float amount, Pawn miner)
         {
+            //Log.Message("incPctYeild Entered with Pawn: " + miner.def.defName + ". Amount: " + amount);
             // Increase yeild for when it is destroyed
             float minerYield = 1f;
             if (miner.def.race.IsMechanoid)
@@ -172,6 +173,7 @@ namespace Minerals
             {
                 minerSkill = miner.skills.GetSkill(SkillDefOf.Mining).Level;
             }
+            //Log.Message("minerSkill is: " + minerSkill);
             float proportionDamaged = (float) Mathf.Min(amount, HitPoints) / (float) MaxHitPoints;
             float proportionMined = proportionDamaged * minerYield;
             yieldPct += proportionMined;
@@ -921,7 +923,7 @@ namespace Minerals
     {
         // How far away it can spawn from an existing location
         // Even though it is a static mineral, the map initialization uses "reproduction" to make clusters 
-        public int spawnRadius = 1; 
+        public float spawnRadius = 1; 
 
         // The probability that this mineral type will be spawned at all on a given map
         public float perMapProbability = 0.5f; 
@@ -1375,7 +1377,7 @@ namespace Minerals
             GenSpawn.Spawn(output, dest, map, WipeMode.Vanish);
             //category = originalDef;
             output.size = size;
-            map.mapDrawer.MapMeshDirty(dest, MapMeshFlag.Buildings);
+            map.mapDrawer.MapMeshDirty(dest, MapMeshFlagDefOf.Buildings);
             //Log.Message("Spawned " + defName + " at " + dest);
             return output;
         }
@@ -1407,17 +1409,6 @@ namespace Minerals
             Predicate<IntVec3> isValidSite(Map myMap, IntVec3 myPosition)
             {
                 return c => c.DistanceTo(myPosition) <= spawnRadius && CanSpawnAt(myMap, c);
-            }
-
-            Predicate<IntVec3> isValidSiteDebug(Map myMap, IntVec3 myPosition)
-            {
-                return c =>
-                {
-                    Log.Message("TryFindReproductionDestination: isValidSiteDebug: c: " + c);
-                    Log.Message("TryFindReproductionDestination: isValidSiteDebug: c.DistanceTo(myPosition): " + c.DistanceTo(myPosition));
-                    Log.Message("TryFindReproductionDestination: isValidSiteDebug: CanSpawnAt(myMap, c): " + CanSpawnAt(myMap, c));
-                    return c.DistanceTo(myPosition) <= spawnRadius && CanSpawnAt(myMap, c);
-                };
             }
         }
 
@@ -1510,7 +1501,17 @@ namespace Minerals
         // The probablility of spawning at each point when a map is created
         public virtual float mapSpawnProbFactor(Map map)
         {
-            return tileSpawnProbFactor(map.Tile);
+            float result;
+            try
+            {
+                result = tileSpawnProbFactor(map.IsPocketMap? (map.Parent as PocketMapParent).sourceMap.Tile : map.Tile);
+            }
+            catch (Exception e)
+            {
+                Log.Warning("Minerals: mapSpawnProbFactor: exception caught: " + e + "\n" + map + "\n" + map.Tile + "\n" + map.IsPocketMap + "\n" + (map.Parent as PocketMapParent).sourceMap.Tile);
+                return 0;
+            }
+            return result;
         }
 
         // The probablility of spawning at each point when a map is created

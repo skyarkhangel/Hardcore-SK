@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Defs>
-	<!-- ========================= bases ==========================-->
+<Defs> 
+
+
 	<ThingDef Name="BuildingBaseADS" Abstract="True">
 		<category>Building</category>
 		<thingClass>Building</thingClass>
@@ -15,6 +16,8 @@
 			<SellPriceFactor>0.70</SellPriceFactor>
 		</statBases>
 	</ThingDef>
+
+
 	<ThingDef Name="BenchBaseADS" ParentName="BuildingBaseADS" Abstract="True">
 		<canOverlapZones>false</canOverlapZones>
 		<minifiedDef>MinifiedThing</minifiedDef>
@@ -25,6 +28,12 @@
 		<statBases>
 			<Mass>20</Mass>
 		</statBases>
+		<building>
+			<buildingTags>
+				<li>Production</li>
+			</buildingTags>
+			<paintable>true</paintable>
+		</building>
 		<interactionCellIcon>DiningChair</interactionCellIcon>
 		<comps>
 			<li Class="CompProperties_ReportWorkSpeed">
@@ -39,7 +48,10 @@
 				<li>Production</li>
 			</buildingTags>
 		</building>
+		<castEdgeShadows>true</castEdgeShadows>
+		<staticSunShadowHeight>0.20</staticSunShadowHeight>
 	</ThingDef>
+
 	<!-- ========================= Prosthetics bench ==========================-->
 	<ThingDef ParentName="BenchBaseADS">
 		<defName>TableAnimalProsthetics</defName>
@@ -58,9 +70,14 @@
 			</damageData>
 		</graphicData>
 		<size>(2,1)</size>
+		<stuffCategories>
+			<li>StrongMetallic</li>
+			<li>Woody</li>
+		</stuffCategories>
+		<costStuffCount>120</costStuffCount>
 		<costList>
-			<Steel>80</Steel>
-			<WoodLog>50</WoodLog>
+			<ComponentIndustrial>12</ComponentIndustrial>
+			<Mechanism>8</Mechanism>
 		</costList>
 		<altitudeLayer>Building</altitudeLayer>
 		<fillPercent>0.5</fillPercent>
@@ -91,20 +108,27 @@
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerTrader</compClass>
 				<shortCircuitInRain>true</shortCircuitInRain>
-				<basePowerConsumption>100</basePowerConsumption>
+				<basePowerConsumption>350</basePowerConsumption>
+				<soundPowerOn>Power_OnSmall</soundPowerOn>
+				<soundPowerOff>Power_OffSmall</soundPowerOff>				
 			</li>
 			<li Class="CompProperties_AffectedByFacilities">
 				<linkableFacilities>
 					<li>ToolCabinet</li>
+					<li>PodChair</li>
 				</linkableFacilities>
 			</li>
 			<li Class="CompProperties_Flickable"/>
 			<li Class="CompProperties_Breakdownable"/>
+			<li Class="SK.CompProperties_LowIdleDraw">
+				<compClass>SK.CompPowerLowIdleDraw</compClass>
+				<idlePowerFactor>0.1</idlePowerFactor>
+			</li>			
 		</comps>
 		<placeWorkers>
 			<li>PlaceWorker_ShowFacilitiesConnections</li>
-			<li>PlaceWorker_PreventInteractionSpotOverlap</li>
 		</placeWorkers>
 		<constructionSkillPrerequisite>4</constructionSkillPrerequisite>
 	</ThingDef>
+
 </Defs>
