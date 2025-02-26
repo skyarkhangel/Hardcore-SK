@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Buildings>
+
+	<ThingDef Name="BuildingBase" Abstract="True">
+		<category>Building</category>
+		<thingClass>Building</thingClass>
+		<soundImpactDefault>BulletImpactMetal</soundImpactDefault>
+		<selectable>true</selectable>
+		<drawerType>MapMeshAndRealTime</drawerType>
+		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+		<repairEffect>Repair</repairEffect>
+		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+		<filthLeaving>Filth_RubbleBuilding</filthLeaving>
+	</ThingDef>
+
+	<ThingDef ParentName="BuildingBase">
+		<defName>QRY_Quarry</defName>
+		<thingClass>Quarry.Building_Quarry</thingClass>
+		<label>quarry</label>
+		<description>Eine große Grube, um tief vorborgene Rohstoffe abzubauen.</description>
+		<graphicData>
+			<texPath>Cupro/Object/Quarry</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(12,12)</drawSize>
+		</graphicData>
+		<drawOffscreen>true</drawOffscreen>
+		<constructEffect>ConstructDirt</constructEffect>
+		<altitudeLayer>FloorEmplacement</altitudeLayer>
+		<fillPercent>0</fillPercent>
+		<destroyable>true</destroyable>
+		<useHitPoints>false</useHitPoints>
+		<statBases>
+			<Flammability>0</Flammability>
+			<WorkToBuild>50000</WorkToBuild>
+			<Beauty>-75</Beauty>
+		</statBases>
+		<size>(12,12)</size>
+		<passability>PassThroughOnly</passability>
+		<canOverlapZones>false</canOverlapZones>
+		<pathCost>20</pathCost>
+		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
+		<holdsRoof>false</holdsRoof>
+		<surfaceType>Item</surfaceType>
+		<rotatable>true</rotatable>
+		<neverMultiSelect>true</neverMultiSelect>
+		<designationCategory>Production</designationCategory>
+		<building>
+			<isInert>true</isInert>
+			<deconstructible>true</deconstructible>
+		</building>
+		<comps>
+			<li Class="CompProperties_Forbiddable" />
+			<li Class="CompProperties_AffectedByFacilities">
+				<linkableFacilities>
+					<li>QRY_Platform</li>
+				</linkableFacilities>
+			</li>
+		</comps>
+		<costList>
+			<Steel>100</Steel>
+		</costList>
+		<placeWorkers>
+			<li>Quarry.PlaceWorker_Quarry</li>
+		</placeWorkers>
+	</ThingDef>
+
+	<ThingDef ParentName="BuildingBase">
+		<defName>QRY_Platform</defName>
+		<label>quarry platform</label>
+		<altitudeLayer>LowPlant</altitudeLayer>
+		<description>Eine Plattform für den Steinbruch, auf der die Arbeiter Rohstoffe ablegen. Plattform muss neben dem Steinbruch platziert werden; am Besten nah der Leitern. Pro Steinbruch maximal 2 Plattformen möglich.</description>
+		<graphicData>
+			<texPath>Cupro/Object/Platform</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<drawSize>(3,3)</drawSize>
+			<damageData>
+				<cornerTL>Damage/Corner</cornerTL>
+				<cornerTR>Damage/Corner</cornerTR>
+				<cornerBL>Damage/Corner</cornerBL>
+				<cornerBR>Damage/Corner</cornerBR>
+			</damageData>
+		</graphicData>
+		<passability>Standable</passability>
+		<castEdgeShadows>false</castEdgeShadows>
+		<designationCategory>Misc</designationCategory>
+		<pathCost>0</pathCost>
+		<fillPercent>0</fillPercent>
+		<canOverlapZones>false</canOverlapZones>
+		<stuffCategories>
+			<li>Woody</li>
+		</stuffCategories>
+		<costStuffCount>50</costStuffCount>
+		<leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+		<staticSunShadowHeight>0</staticSunShadowHeight>
+		<surfaceType>Item</surfaceType>
+		<statBases>
+			<MaxHitPoints>150</MaxHitPoints>
+			<WorkToBuild>300</WorkToBuild>
+			<Mass>5</Mass>
+			<Flammability>1.0</Flammability>
+			<Beauty>1</Beauty>
+		</statBases>
+		<size>(3,3)</size>
+		<rotatable>false</rotatable>
+		<comps>
+			<li Class="CompProperties_Facility">
+				<maxSimultaneous>2</maxSimultaneous>
+				<mustBePlacedAdjacent>true</mustBePlacedAdjacent>
+			</li>
+		</comps>
+		<placeWorkers>
+			<li>PlaceWorker_ShowFacilitiesConnections</li>
+		</placeWorkers>
+	</ThingDef>
+
+</Buildings>
