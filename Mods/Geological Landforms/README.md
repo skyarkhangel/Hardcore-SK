@@ -98,6 +98,7 @@ Landform ideas:
 
 Included translations:
 - Korean submitted by Seanggag
+- Russian submitted by dodther
 
 This mod is inspired by multiple great mods from earlier versions which unfortunately seem to be abandoned. Geological Landforms does not use any content or code from these mods though.
 

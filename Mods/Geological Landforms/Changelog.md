@@ -1,4 +1,43 @@
 
+v1.7.3.1
+
+- Updated translation (submitted by @dodther)
+
+v1.7.3
+
+- Added Russian translation (submitted by @dodther)
+
+v1.7.2
+
+- Fixed compatibility with the 'BetterLoading' mod
+
+v1.7.1
+
+- Fixed noisy/ugly areas and improved overall look of biome transitions
+- Fixed compatibility with the 'Configurable Maps' mod
+- Fixed an issue that caused inaccurate previews in the 'Map Reroll' mod
+- Fixed rivers generating incompletely on very large maps (500x500+)
+- Added new inputs to the 'Terrain Patches' node in the landform editor
+
+v1.7.0
+
+- Added new landform 'River' (replaces vanilla rivers)
+- Added new landform 'River Confluence'
+- Added new landform 'River Source'
+- Added new landform 'River Delta'
+- Added new landform 'River Island'
+- Added new landform 'Glacier'
+- Added new landform 'Gorge'
+- Reworked world tile requirements UI in the landform editor
+- Added various new nodes for the landform editor
+- Added new condition that checks whether a certain world object is nearby
+- Fixed biome grid errors that could occur during load/save
+- Fixed compatibility issue with Research Reinvented
+
+v1.6.11
+
+- Fixed incompatibility with Vanilla Factions Expanded Insectoids 2
+
 v1.6.10
 
 - Fixed an error that occured when clicking "Any" or "Any POI" in the landform search
