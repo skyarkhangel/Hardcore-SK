@@ -111,7 +111,7 @@ SpoonShortage, Mrofa, Fluffy, Zhentar, Brrainz, Dubwise, Erdelf, Greeny, Hunt3rK
 Lambert2191, Vuursteen, Tuvia, Dunkhan, jnkyacc, Jalordon, Varmonger, funs777, olizit, 
 Quelling, pongvin, lex1975, evgeny-k, Moon, Leiarr, Voker57, Pardonius,
  Sonsalt, Rhyssia, Adenia, Abhay (artwork), ApelAirplane (artwork),
-SomethingCrunchy (dev), NotFood (dev), Murdantiks, Adenia, Soyaman, Tombomcbombo, LimeTreeSnake
+SomethingCrunchy (dev), NotFood (dev), Murdantiks, Adenia, Soyaman, Tombomcbombo, LimeTreeSnake, Raseri13
 
 Thanks to translators Rey, Ivanzyfer, FaHT1k, mora145, totobrother, Desert Rain
 
