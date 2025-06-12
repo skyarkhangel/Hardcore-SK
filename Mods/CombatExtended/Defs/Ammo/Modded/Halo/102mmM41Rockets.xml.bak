@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>AmmoM41Rockets</defName>
+		<label>M41 rockets</label>
+		<parent>AmmoRockets</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberRocket</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_M41Rocket</defName>
+		<label>M41 Rockets</label>
+		<ammoTypes>
+			<Ammo_M41Rocket_HEAT>Bullet_M41Rocket_HEAT</Ammo_M41Rocket_HEAT>
+			<Ammo_M41Rocket_HE>Bullet_M41Rocket_HE</Ammo_M41Rocket_HE>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="M41RocketBase" ParentName="HeavyAmmoBase" Abstract="True">
+		<description>Rockets designed for the M41 launcher. After being fired, a rocket motor kicks in to propel the Rocket further.</description>
+		<statBases>
+			<MaxHitPoints>150</MaxHitPoints>
+		</statBases>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting_TableMachining</li>
+		</tradeTags>
+		<thingCategories>
+			<li>AmmoM41Rockets</li>
+		</thingCategories>
+		<stackLimit>25</stackLimit>
+		<cookOffFlashScale>40</cookOffFlashScale>
+		<cookOffSound>MortarBomb_Explode</cookOffSound>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="M41RocketBase">
+		<defName>Ammo_M41Rocket_HEAT</defName>
+		<label>M41 rocket (HEAT)</label>
+		<graphicData>
+			<texPath>Things/Ammo/RPG/RPG32_HEAT</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<Mass>5.5</Mass>
+			<Bulk>9.45</Bulk>
+		</statBases>
+		<ammoClass>RocketHEAT</ammoClass>
+		<generateAllowChance>0.2</generateAllowChance>
+		<detonateProjectile>Bullet_M41Rocket_HEAT</detonateProjectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="M41RocketBase">
+		<defName>Ammo_M41Rocket_HE</defName>
+		<label>M41 Rocket (Anti-personnel)</label>
+		<graphicData>
+			<texPath>Things/Ammo/RPG/RPG32_Thermobaric</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<Mass>5.5</Mass>
+			<Bulk>9.45</Bulk>
+		</statBases>
+		<ammoClass>GrenadeHE</ammoClass>
+		<generateAllowChance>0.2</generateAllowChance>
+		<detonateProjectile>Bullet_M41Rocket_HE</detonateProjectile>
+	</ThingDef>
+
+	<!-- ================== Projectiles ================== -->
+
+	<ThingDef ParentName="BaseRPG7Grenade">
+		<defName>Bullet_M41Rocket_HEAT</defName>
+		<label>M19 102mm missile (HEAT)</label>
+		<graphicData>
+			<texPath>Things/Projectile/Rocket/SMAW_Thermobaric</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>264</damageAmountBase>
+			<armorPenetrationSharp>650</armorPenetrationSharp>
+			<armorPenetrationBlunt>41.818</armorPenetrationBlunt>
+			<speed>51</speed>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<damageAmountBase>139</damageAmountBase>
+				<explosiveDamageType>Bomb</explosiveDamageType>
+				<explosiveRadius>1</explosiveRadius>
+				<explosionSound>MortarBomb_Explode</explosionSound>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			</li>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Large>6</Fragment_Large>
+					<Fragment_Small>42</Fragment_Small>
+				</fragments>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="BaseRPG7Grenade">
+		<defName>Bullet_M41Rocket_HE</defName>
+		<label>M21 102mm missile (Anti-Personnel)</label>
+		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		<graphicData>
+			<texPath>Things/Projectile/Rocket/SMAW_Thermobaric</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<explosionRadius>3.5</explosionRadius>
+			<damageDef>Bomb</damageDef>
+			<damageAmountBase>240</damageAmountBase>
+			<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			<speed>51</speed>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_Fragments">
+				<fragments>
+					<Fragment_Large>24</Fragment_Large>
+					<Fragment_Small>148</Fragment_Small>
+				</fragments>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeAmmo_M41Rocket_HEAT</defName>
+		<label>make M19 HEAT rockets x5</label>
+		<description>Craft 5 M19 HEAT rockets.</description>
+		<jobString>Making M19 HEAT rockets.</jobString>
+		<workAmount>13000</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>80</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>FSX</li>
+					</thingDefs>
+				</filter>
+				<count>10</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>FSX</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_M41Rocket_HEAT>5</Ammo_M41Rocket_HEAT>
+		</products>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeAmmo_M41Rocket_HE</defName>
+		<label>make M21 Anti-personnel rockets x5</label>
+		<description>Craft 5 M21 Anti-personnel rockets.</description>
+		<jobString>Making M21 Anti-personnel rockets.</jobString>
+		<workAmount>25000</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>80</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>FSX</li>
+					</thingDefs>
+				</filter>
+				<count>16</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>4</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>FSX</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_M41Rocket_HE>5</Ammo_M41Rocket_HE>
+		</products>
+	</RecipeDef>
+
+</Defs>

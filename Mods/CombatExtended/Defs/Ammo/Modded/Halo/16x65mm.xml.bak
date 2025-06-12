@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>Ammo16x65mm</defName>
+		<label>16x65mm</label>
+		<parent>AmmoHighCaliber</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberHighCaliber</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_16x65mm</defName>
+		<label>16x65mm</label>
+		<ammoTypes>
+			<Ammo_16x65mm_HE>Bullet_16x65mm_HE</Ammo_16x65mm_HE>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="Ammo16x65mmBase" ParentName="SpacerAmmoBase" Abstract="True">
+		<description>The M645 Ferric-Tungsten Projectile - High Explosive is a 16x65mm slug round used by Acheron Security's ARC-920 railgun.</description>
+		<statBases>
+			<Mass>0.12</Mass>
+			<Bulk>0.24</Bulk>
+		</statBases>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting_FabricationBench</li>
+		</tradeTags>
+		<thingCategories>
+			<li>Ammo16x65mm</li>
+		</thingCategories>
+		<stackLimit>2000</stackLimit>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="Ammo16x65mmBase">
+		<defName>Ammo_16x65mm_HE</defName>
+		<label>16x65mm cartridge (HE)</label>
+		<graphicData>
+			<texPath>Things/Ammo/HighCaliber/HE</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<ammoClass>ExplosiveAP</ammoClass>
+		<cookOffProjectile>Bullet_16x65mm_HE</cookOffProjectile>
+	</ThingDef>
+
+	<!-- ================== Projectile ================== -->
+
+	<ThingDef ParentName="Base145x114mmBullet">
+		<defName>Bullet_16x65mm_HE</defName>
+		<label>16x65mm bullet (HE)</label>
+		<graphicData>
+			<texPath>Things/Projectile/Bullet_Big</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bullet</damageDef>
+			<speed>406</speed>
+			<damageAmountBase>72</damageAmountBase>
+			<armorPenetrationSharp>300</armorPenetrationSharp>
+			<armorPenetrationBlunt>920.88</armorPenetrationBlunt>
+			<secondaryDamage>
+				<li>
+					<def>Bomb_Secondary</def>
+					<amount>36</amount>
+				</li>
+			</secondaryDamage>
+			<dropsCasings>false</dropsCasings>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<damageAmountBase>30</damageAmountBase>
+				<explosiveDamageType>Bomb</explosiveDamageType>
+				<explosiveRadius>0.9</explosiveRadius>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			</li>
+		</comps>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef ParentName="AdvancedAmmoRecipeBase">
+		<defName>MakeAmmo_16x65mm_HE</defName>
+		<label>make 16x65mm (HE) cartridge x100</label>
+		<description>Craft 100 16x65mm (HE) cartridges.</description>
+		<jobString>Making 16x65mm (HE) cartridges.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>40</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Uranium</li>
+					</thingDefs>
+				</filter>
+				<count>10</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>FSX</li>
+					</thingDefs>
+				</filter>
+				<count>8</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>Uranium</li>
+				<li>FSX</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_16x65mm_HE>100</Ammo_16x65mm_HE>
+		</products>
+		<workAmount>10000</workAmount>
+	</RecipeDef>
+
+</Defs>
