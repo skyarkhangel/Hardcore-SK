@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!-- === Spartan Laser Beam === -->
+
+	<ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" ParentName="LaserBulletRed">
+		<defName>Bullet_Laser_SpartanLaserInf</defName>
+		<label>laser beam</label>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>CE_Laser</damageDef>
+			<damageAmountBase>100</damageAmountBase>
+			<armorPenetrationSharp>600</armorPenetrationSharp>
+			<armorPenetrationBlunt>0.001</armorPenetrationBlunt>
+			<secondaryDamage>
+				<li>
+					<def>Burn</def>
+					<amount>100</amount>
+				</li>
+			</secondaryDamage>
+		</projectile>
+		<comps>
+			<li Class="CombatExtended.CompProperties_ExplosiveCE">
+				<damageAmountBase>100</damageAmountBase>
+				<explosiveDamageType>Bomb</explosiveDamageType>
+				<explosiveRadius>1.0</explosiveRadius>
+				<explosionSound>MortarBomb_Explode</explosionSound>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+			</li>
+		</comps>
+		<seam>2</seam>
+	</ThingDef>
+
+	<!-- === Spartan Laser Battery === -->
+
+	<ThingCategoryDef>
+		<defName>AmmoHeavyLaserChargePack</defName>
+		<label>heavy laser charge pack</label>
+		<parent>AmmoAdvanced</parent>
+		<iconPath>UI/Icons/ThingCategories/CaliberCharge</iconPath>
+	</ThingCategoryDef>
+
+	<!-- ==================== AmmoSet ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_SpartanLaser</defName>
+		<label>Spartan laser battery cell</label>
+		<ammoTypes>
+			<Ammo_HeavyLaserChargePack>Bullet_Laser_SpartanLaserInf</Ammo_HeavyLaserChargePack>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+
+	<ThingDef Class="CombatExtended.AmmoDef" Name="HeavyLaserChargePackBase" ParentName="SpacerMediumAmmoBase" Abstract="True">
+		<description>A battery pack for a heavy laser weapon.</description>
+		<statBases>
+			<Mass>0.5</Mass>
+			<Bulk>1</Bulk>
+		</statBases>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting</li>
+		</tradeTags>
+		<thingCategories>
+			<li>AmmoHeavyLaserChargePack</li>
+		</thingCategories>
+		<stackLimit>200</stackLimit>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="LaserChargePackBase">
+		<defName>Ammo_HeavyLaserChargePack</defName>
+		<label>heavy laser charge pack</label>
+		<graphicData>
+			<texPath>Things/Ammo/PlasmaCell/Heavy</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<ammoClass>Charged</ammoClass>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+
+	<RecipeDef ParentName="ChargeAmmoRecipeBase">
+		<defName>MakeAmmo_HeavyLaserChargePack</defName>
+		<label>make laser charge pack x10</label>
+		<description>Craft 10 laser charge pack.</description>
+		<jobString>Making laser charge pack.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Plasteel</li>
+					</thingDefs>
+				</filter>
+				<count>10</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>10</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>6</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Plasteel</li>
+				<li>Steel</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_HeavyLaserChargePack>10</Ammo_HeavyLaserChargePack>
+		</products>
+		<workAmount>8400</workAmount>
+	</RecipeDef>
+
+</Defs>
