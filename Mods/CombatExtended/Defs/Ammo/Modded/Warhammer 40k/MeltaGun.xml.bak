@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<ThingCategoryDef>
+		<defName>AmmoMeltaGun</defName>
+		<label>melta canister</label>
+		<parent>AmmoAdvanced</parent>
+		<iconPath>ThirdParty/Warhammer/UI/MeltaGunAmmoUI</iconPath>
+	</ThingCategoryDef>
+
+	<!-- === Ammo Sets === -->
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_MeltaCharge</defName>
+		<label>melta charge</label>
+		<ammoTypes>
+			<Ammo_MeltaGun>Bullet_Laser_MeltaCharge</Ammo_MeltaGun>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== Ammo ========================== -->
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="SpacerMediumAmmoBase">
+		<defName>Ammo_MeltaGun</defName>
+		<label>Meltagun Ammo Canister</label>
+		<description>Canister of Pyrum-petrol fuel for Meltaguns</description>
+		<statBases>
+			<Mass>0.09</Mass>
+			<Bulk>0.081</Bulk>
+		</statBases>
+		<tradeTags>
+			<li>CE_AutoEnableTrade</li>
+			<li>CE_AutoEnableCrafting_FabricationBench</li>
+			<li>CE_AutoEnableCrafting_GWAmmoBench</li>
+    		<li>CE_40K_MediumAmmo</li>
+		</tradeTags>
+		<ammoClass>Melta</ammoClass>
+		<graphicData>
+			<texPath>ThirdParty/Warhammer/Ammo/MeltaGun</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<thingCategories>
+			<li>AmmoMeltaGun</li>
+		</thingCategories>
+		<comps>
+			<li Class="CompProperties_Explosive">
+				<explosiveRadius>3.5</explosiveRadius>
+				<damageAmountBase>12</damageAmountBase>
+				<explosiveDamageType>PrometheumFlame</explosiveDamageType>
+				<explosiveExpandPerStackcount>0.15</explosiveExpandPerStackcount>
+				<startWickHitPointsPercent>0.10</startWickHitPointsPercent>
+				<applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+				<explodeOnKilled>True</explodeOnKilled>
+				<wickTicks>30~50</wickTicks>
+			</li>
+		</comps>
+		<stackLimit>75</stackLimit>
+	</ThingDef>
+
+	<!-- ================== Projectiles ================== -->
+	<ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" ParentName="BaseBulletCE">
+		<defName>Bullet_Laser_MeltaCharge</defName>
+		<label>melta beam</label>
+		<thingClass>CombatExtended.Lasers.LaserBeamCE</thingClass>
+		<graphicData>
+			<texPath>ThirdParty/Warhammer/Projectiles/MeltaBeam</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+			<shaderType>Transparent</shaderType>
+			<color>(255,255,255)</color>
+		</graphicData>
+		<altitudeLayer>Projectile</altitudeLayer>
+		<beamGraphic>BeamGraphic</beamGraphic>
+		<beamWidth>0.4</beamWidth>
+		<textures>
+			<li>ThirdParty/Warhammer/Projectiles/MeltaBeam</li>
+		</textures>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<isInstant>true</isInstant>
+			<damageDef>CE_Laser</damageDef>
+			<damageAmountBase>150</damageAmountBase>
+			<armorPenetrationSharp>500</armorPenetrationSharp>
+			<armorPenetrationBlunt>0.001</armorPenetrationBlunt><!-- The overall pressure exerted by a laser beam striking something is, unsuprisingly, negligable. -->
+		</projectile>
+		<modExtensions>
+			<li Class="ProjectileImpactFX.EffectProjectileExtension">
+				<AutoAssign>false</AutoAssign>
+				<CreateTerrainEffects>false</CreateTerrainEffects>
+				<explosionFleckDef>Fleck_HeatGlow_API</explosionFleckDef>
+				<explosionFleckSize>4</explosionFleckSize>
+				<ImpactGlowFleckDef>ExplosionFlash</ImpactGlowFleckDef>
+				<ImpactGlowFleckSize>5</ImpactGlowFleckSize>
+			</li>
+		</modExtensions>
+	</ThingDef>
+
+	<!-- ==================== Recipes ========================== -->
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeAmmo_MeltaGun</defName>
+		<label>make meltagun canisters x20</label>
+		<description>Craft 20 meltagun canisters</description>
+		<jobString>Making 20 shots worth of meltagun canisters</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>20</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Plasteel</li>
+					</thingDefs>
+				</filter>
+				<count>10</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Prometheum</li>
+					</thingDefs>
+				</filter>
+				<count>20</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>ComponentIndustrial</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>Plasteel</li>
+				<li>Prometheum</li>
+				<li>ComponentIndustrial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_MeltaGun>20</Ammo_MeltaGun>
+		</products>
+		<workAmount>15200</workAmount>
+	</RecipeDef>
+
+</Defs>

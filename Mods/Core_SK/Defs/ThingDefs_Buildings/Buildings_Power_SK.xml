@@ -32,6 +32,7 @@
 		</graphicData>
 		<uiIconPath>Things/Building/Linked/PowerConduit_MenuIcon</uiIconPath>
 		<building>
+			<isPowerConduit>true</isPowerConduit>
 			<ai_chillDestination>false</ai_chillDestination>
 			<isInert>true</isInert>
 			<isEdifice>false</isEdifice>
@@ -98,6 +99,7 @@
 		<uiIconPath>Things/Building/Linked/WaterproofConduit_MenuIcon</uiIconPath>
 		<terrainAffordanceNeeded>ShallowWater</terrainAffordanceNeeded>
 		<building>
+			<isPowerConduit>true</isPowerConduit>
 			<ai_chillDestination>false</ai_chillDestination>
 			<isInert>true</isInert>
 			<isEdifice>false</isEdifice>
@@ -162,6 +164,7 @@
 		</graphicData>
 		<uiIconPath>Things/Building/Linked/PowerConduit_MenuIcon</uiIconPath>
 		<building>
+			<isPowerConduit>true</isPowerConduit>
 			<ai_chillDestination>false</ai_chillDestination>
 			<isInert>true</isInert>
 			<isEdifice>false</isEdifice>
@@ -212,7 +215,7 @@
 	</ThingDef>
 
 	<ThingDef ParentName="SK_BuildingBase">
-		<defName>PowerConduitInvisible</defName>
+		<defName>HiddenConduit</defName>
 		<label>hidden power conduit</label>
 		<thingClass>Building</thingClass>
 		<graphicData>
@@ -228,6 +231,10 @@
 		</graphicData>
 		<uiIconPath>Things/Building/Linked/PowerConduit_Invisible_MenuIcon</uiIconPath>
 		<building>
+			<ai_neverTrashThis>true</ai_neverTrashThis>
+			<isTargetable>false</isTargetable>
+			<expandHomeArea>false</expandHomeArea>
+			<canBeDamagedByAttacks>false</canBeDamagedByAttacks>
 			<isInert>true</isInert>
 			<isEdifice>false</isEdifice>
 			<blueprintGraphicData>
@@ -502,6 +509,12 @@
 				<transmitsPower>true</transmitsPower>
 			</li>
 			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_Stunnable">
+				<useLargeEMPEffecter>true</useLargeEMPEffecter>
+				<affectedDamageDefs>
+					<li>EMP</li>
+				</affectedDamageDefs>
+			</li>
 		</comps>
 		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
 		<designationCategory>Power</designationCategory>
@@ -577,6 +590,12 @@
 				<explosiveDamageType>Bomb</explosiveDamageType>
 			</li>
 			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_Stunnable">
+				<useLargeEMPEffecter>true</useLargeEMPEffecter>
+				<affectedDamageDefs>
+					<li>EMP</li>
+				</affectedDamageDefs>
+			</li>
 		</comps>
 		<canOverlapZones>false</canOverlapZones>
 		<terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
@@ -585,7 +604,7 @@
 			<li>Electrical_engineering_E1</li>
 		</researchPrerequisites>
 		<constructionSkillPrerequisite>15</constructionSkillPrerequisite>
-	</ThingDef>   
+	</ThingDef>
 
 
 	<ThingDef ParentName="StandartBuilding">
@@ -635,6 +654,13 @@
 				<glowColor>(1,213,238,0)</glowColor>
 			</li>
 			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_Stunnable">
+				<useLargeEMPEffecter>true</useLargeEMPEffecter>
+				<empChancePerTick>0.03</empChancePerTick>
+				<affectedDamageDefs>
+					<li>EMP</li>
+				</affectedDamageDefs>
+			</li>
 		</comps>
 		<building>
 			<destroySound>BuildingDestroyed_Metal_Big</destroySound>
@@ -663,7 +689,7 @@
 				<offset>(0,0,0)</offset>
 			</shadowData>
 		</graphicData>
-		<uiIconPath>Things/Building/Power/Advanced_solarpanel/advSolarPane_icon</uiIconPath>	
+		<uiIconPath>Things/Building/Power/Advanced_solarpanel/advSolarPane_icon</uiIconPath>
 		<altitudeLayer>Building</altitudeLayer>
 		<passability>PassThroughOnly</passability>
 		<rotatable>false</rotatable>
@@ -700,6 +726,13 @@
 				<glowColor>(1,213,238,0)</glowColor>
 			</li>
 			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_Stunnable">
+				<useLargeEMPEffecter>true</useLargeEMPEffecter>
+				<empChancePerTick>0.03</empChancePerTick>
+				<affectedDamageDefs>
+					<li>EMP</li>
+				</affectedDamageDefs>
+			</li>
 		</comps>
 		<building>
 			<destroySound>BuildingDestroyed_Metal_Big</destroySound>
@@ -718,19 +751,22 @@
 		<defName>WindTurbine</defName>
 		<thingClass>Building</thingClass>
 		<label>wind turbine</label>
-		<description>A wind-powered electrical generator. Requires a large clear space in front and behind for optimal air flow. Power output: 1,050 W at maximum wind speed.</description>
+		<description>A wind-powered electrical generator. Requires a large clear space in front and behind for optimal air flow.</description>
 		<drawerType>MapMeshAndRealTime</drawerType>
 		<graphicData>
-			<texPath>Things/Building/Power/WindTurbineBody</texPath>
-			<graphicClass>Graphic_Single</graphicClass>
+			<texPath>Things/Building/Power/WindTurbine/WindTurbineBody</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
 			<drawSize>(5,2)</drawSize>
 			<shadowData>
-				<volume>(0.2, 1.0, 0.8)</volume>
+				<volume>(0.6, 1.0, 1.6)</volume>
+				<offset>(-0.1,0,-0.08)</offset>
 			</shadowData>
 			<damageData>
 				<rect>(2,0.15,1,1.4)</rect>
 			</damageData>
 		</graphicData>
+		<uiIconPath>Things/Building/Power/WindTurbine/WindTurbine_MenuIcon</uiIconPath>
+		<altitudeLayer>Building</altitudeLayer>
 		<passability>PassThroughOnly</passability>
 		<pathCost>50</pathCost>
 		<fillPercent>0.5</fillPercent>
@@ -742,7 +778,7 @@
 		</statBases>
 		<blockWind>true</blockWind>
 		<tickerType>Normal</tickerType>
-		<size>(5,2)</size>
+		<size>(7,2)</size>
 		<drawPlaceWorkersWhileSelected>true</drawPlaceWorkersWhileSelected>
 		<rotatable>true</rotatable>
 		<canOverlapZones>false</canOverlapZones>
@@ -773,6 +809,15 @@
 			<li Class="CompProperties_Breakdownable"/>
 			<li>
 				<compClass>CompAutoCutWindTurbine</compClass>
+			</li>
+			<li Class="CompProperties_Stunnable">
+				<useLargeEMPEffecter>true</useLargeEMPEffecter>
+				<empEffecterDimensions>(1.8,0,0.5)</empEffecterDimensions>
+				<empEffecterOffset>(0,0,-0.5)</empEffecterOffset>
+				<empChancePerTick>0.3</empChancePerTick>
+				<affectedDamageDefs>
+					<li>EMP</li>
+				</affectedDamageDefs>
 			</li>
 		</comps>
 		<researchPrerequisites>
@@ -842,6 +887,15 @@
 			<li Class="CompProperties_Breakdownable"/>
 			<li>
 				<compClass>CompAutoCutWindTurbine</compClass>
+			</li>
+			<li Class="CompProperties_Stunnable">
+				<useLargeEMPEffecter>true</useLargeEMPEffecter>
+				<empEffecterDimensions>(1.8,0,0.5)</empEffecterDimensions>
+				<empEffecterOffset>(0,0,-0.5)</empEffecterOffset>
+				<empChancePerTick>0.3</empChancePerTick>
+				<affectedDamageDefs>
+					<li>EMP</li>
+				</affectedDamageDefs>
 			</li>
 		</comps>
 		<researchPrerequisites>
@@ -921,13 +975,14 @@
 				<offset>(0,0,0)</offset>
 			</shadowData>
 		</graphicData>
+		<passability>PassThroughOnly</passability>
+		<blockWind>true</blockWind>
 		<statBases>
 			<MaxHitPoints>350</MaxHitPoints>
 			<WorkToBuild>2100</WorkToBuild>
 			<Flammability>1.0</Flammability>
 		</statBases>
-		<description>The basic Steam Generator that produces electricity. Can be fueled with Charcoal, Kindling and wooden stuff.
-Power output: around 750 W.</description>
+		<description>The basic Steam Generator that produces electricity. Can be fueled with Charcoal, Kindling and wooden stuff.\nMax. power output: 2,250 W.</description>
 		<size>(2,2)</size>
 		<building>
 			<destroySound>BuildingDestroyed_Metal_Medium</destroySound>
@@ -978,6 +1033,12 @@ Power output: around 750 W.</description>
 					</categories>
 				</fuelFilter>
 			</li>
+			<li Class="CompProperties_Stunnable">
+				<useLargeEMPEffecter>true</useLargeEMPEffecter>
+				<affectedDamageDefs>
+					<li>EMP</li>
+				</affectedDamageDefs>
+			</li>
 		</comps>
 		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
 		<designationCategory>Power</designationCategory>
@@ -1018,8 +1079,7 @@ Power output: around 750 W.</description>
 			<Mass>500</Mass>
 		</statBases>
 		<tickerType>Normal</tickerType>
-		<description>A bio-generator that produces electricity. Requires Biodiesel for a fuel source.
-Power output: 1200 W.</description>
+		<description>A bio-generator that produces electricity. Requires Biodiesel for a fuel source.\nMax. power output: 1,200 W.</description>
 		<size>(2,2)</size>
 		<stuffCategories>
 			<li>RuggedMetallic</li>
@@ -1097,14 +1157,14 @@ Power output: 1200 W.</description>
 		</graphicData>
 		<passability>PassThroughOnly</passability>
 		<fillPercent>0.9</fillPercent>
+		<blockWind>true</blockWind>
 		<statBases>
 			<MaxHitPoints>400</MaxHitPoints>
 			<WorkToBuild>4200</WorkToBuild>
 			<Flammability>1.0</Flammability>
 			<Beauty>-60</Beauty>
 		</statBases>
-		<description>The Coal Power Plant that produces electricity by burning coal-like fuels. Can be fueled with Coal or Peat.
-Power output: 2,000 W.</description>
+		<description>The Coal Power Plant that produces electricity by burning coal-like fuels. Can be fueled with Coal or Peat.\nMax. power output: 2,500 W.</description>
 		<size>(3,2)</size>
 		<stuffCategories>
 			<li>RuggedMetallic</li>
@@ -1155,6 +1215,12 @@ Power output: 2,000 W.</description>
 					</thingDefs>
 				</fuelFilter>
 			</li>
+			<li Class="CompProperties_Stunnable">
+				<useLargeEMPEffecter>true</useLargeEMPEffecter>
+				<affectedDamageDefs>
+					<li>EMP</li>
+				</affectedDamageDefs>
+			</li>
 		</comps>
 		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
 		<designationCategory>Power</designationCategory>
@@ -1184,6 +1250,7 @@ Power output: 2,000 W.</description>
 		</graphicData>
 		<passability>PassThroughOnly</passability>
 		<fillPercent>0.9</fillPercent>
+		<blockWind>true</blockWind>
 		<statBases>
 			<MaxHitPoints>400</MaxHitPoints>
 			<WorkToBuild>6500</WorkToBuild>
@@ -1191,7 +1258,7 @@ Power output: 2,000 W.</description>
 			<Beauty>-60</Beauty>
 		</statBases>
 		<tickerType>Normal</tickerType>
-		<description>A Fuel Power Plant that produces electricity. Can be fueled with Chemfuel, Prometheum or FSX.</description>
+		<description>A Fuel Power Plant that produces electricity. Can be fueled with Chemfuel, Prometheum or FSX.\nMax. power output: 3,938 W</description>
 		<size>(3,2)</size>
 		<stuffCategories>
 			<li>RuggedMetallic</li>
@@ -1241,6 +1308,12 @@ Power output: 2,000 W.</description>
 					</thingDefs>
 				</fuelFilter>
 			</li>
+			<li Class="CompProperties_Stunnable">
+				<useLargeEMPEffecter>true</useLargeEMPEffecter>
+				<affectedDamageDefs>
+					<li>EMP</li>
+				</affectedDamageDefs>
+			</li>
 		</comps>
 		<terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
 		<designationCategory>Power</designationCategory>
@@ -1281,8 +1354,7 @@ Power output: 2,000 W.</description>
 			<Beauty>-40</Beauty>
 		</statBases>
 		<tickerType>Normal</tickerType>
-		<description>Produces electricity from geothermal steam geysers. Must be placed on a steam geyser.
-Power output: 2,500 W.</description>
+		<description>Produces electricity from geothermal steam geysers. Must be placed on a steam geyser.\nMax. power output: 2,500 W.</description>
 		<size>(6,6)</size>
 		<stuffCategories>
 			<li>RuggedMetallic</li>
@@ -1301,6 +1373,12 @@ Power output: 2,500 W.</description>
 				<transmitsPower>true</transmitsPower>
 			</li>
 			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_Stunnable">
+				<useLargeEMPEffecter>true</useLargeEMPEffecter>
+				<affectedDamageDefs>
+					<li>EMP</li>
+				</affectedDamageDefs>
+			</li>
 		</comps>
 		<rotatable>false</rotatable>
 		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
@@ -1376,9 +1454,15 @@ Power output: 2,500 W.</description>
 				<soundAmbientProducingPower>WaterMill_Ambience</soundAmbientProducingPower>
 			</li>
 			<li Class="CompProperties_Breakdownable"/>
+			<li Class="CompProperties_Stunnable">
+				<useLargeEMPEffecter>true</useLargeEMPEffecter>
+				<affectedDamageDefs>
+					<li>EMP</li>
+				</affectedDamageDefs>
+			</li>
 		</comps>
 		<rotatable>true</rotatable>
-		<terrainAffordanceNeeded/>
+		<terrainAffordanceNeeded />
 		<!-- handled by the placeworker -->
 		<designationCategory>Power</designationCategory>
 		<placeWorkers>
@@ -1446,6 +1530,12 @@ Power output: 2,500 W.</description>
 					<li>ClutterUWallLight</li>
 				</thingDefs>
 			</li>
+			<li Class="CompProperties_Stunnable">
+				<useLargeEMPEffecter>true</useLargeEMPEffecter>
+				<affectedDamageDefs>
+					<li>EMP</li>
+				</affectedDamageDefs>
+			</li>
 		</comps>
 		<rotatable>true</rotatable>
 		<terrainAffordanceNeeded>Heavy</terrainAffordanceNeeded>
@@ -1489,7 +1579,7 @@ Power output: 2,500 W.</description>
 			<Flammability>0</Flammability>
 			<Beauty>-180</Beauty>
 		</statBases>
-		<description>A Nuclear Power Plant with 24,000 W power output. Requires a hopper with Enriched Uranium as a fuel source. WARNING: In case of a nuclear meltdown, build walls around the debris to contain the radiation!</description>
+		<description>A Nuclear Power Plant with 24,000 W max. power output. Requires a hopper with Enriched Uranium as a fuel source. WARNING: In case of a nuclear meltdown, build walls around the debris to contain the radiation!</description>
 		<size>(6,6)</size>
 		<building>
 			<soundAmbient>MatterFab</soundAmbient>
@@ -1604,7 +1694,7 @@ Power output: 2,500 W.</description>
 		<defName>GauseWindTurbine</defName>
 		<label>Gause Wind Turbine</label>
 		<thingClass>Building</thingClass>
-		<description>A wind-powered gause electrical generator. Please keep all limbs and pets away from the turbine area! Power output: 2250 W at maximum wind speed.</description>
+		<description>A wind-powered gause electrical generator. Please keep all limbs and pets away from the turbine area!\nMax. power output: 2,250 W at maximum wind speed.</description>
 		<drawerType>MapMeshAndRealTime</drawerType>
 		<graphicData>
 			<texPath>Things/Building/Power/HorizontalWindTurbine/HorizontalWindTurbineOFF</texPath>
@@ -1657,6 +1747,12 @@ Power output: 2,500 W.</description>
 			</li>
 			<li Class="CompProperties_Breakdownable"/>
 			<li Class="CompProperties_Flickable" />
+			<li Class="CompProperties_Stunnable">
+				<useLargeEMPEffecter>true</useLargeEMPEffecter>
+				<affectedDamageDefs>
+					<li>EMP</li>
+				</affectedDamageDefs>
+			</li>
 		</comps>
 		<researchPrerequisites>
 			<li>Renewable_energy_D1</li>
@@ -1669,9 +1765,9 @@ Power output: 2,500 W.</description>
 	</ThingDef>
 
 	<ThingDef ParentName="StandartBuilding">
-		<defName>TeslaLigthningPower</defName>
+		<defName>TeslaLightningPower</defName>
 		<label>tesla lightning generator</label>
-		<thingClass>SK.TeslaLigthningPower</thingClass>
+		<thingClass>SK.TeslaLightningPower</thingClass>
 		<drawerType>MapMeshAndRealTime</drawerType>
 		<graphicData>
 			<shaderType>Transparent</shaderType>
@@ -1691,7 +1787,7 @@ Power output: 2,500 W.</description>
 			<Beauty>-10</Beauty>
 		</statBases>
 		<tickerType>Normal</tickerType>
-		<description>Harness the incredible power source of lightning through the invention of Nikola Tesla, the Tesla Lightning Generator! It needs to cool off from time to time when it gets too hot. Power output: 6,000 W.</description>
+		<description>Harness the incredible power source of lightning through the invention of Nikola Tesla, the Tesla Lightning Generator! It needs to cool off from time to time when it gets too hot.\nMax. power output: 6,000 W.</description>
 		<size>(5,5)</size>
 		<stuffCategories>
 			<li>RuggedMetallic</li>
@@ -1707,7 +1803,7 @@ Power output: 2,500 W.</description>
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerPlant</compClass>
 				<basePowerConsumption>1</basePowerConsumption>
-				<transmitsPower>true</transmitsPower>	
+				<transmitsPower>true</transmitsPower>
 			</li>
 			<li Class="CompProperties_Glower">
 				<glowRadius>5</glowRadius>
@@ -1812,6 +1908,12 @@ Power output: 2,500 W.</description>
 					<li>SteamGeyser</li>
 				</restrictedThing>
 			</li>
+			<li Class="CompProperties_Stunnable">
+				<useLargeEMPEffecter>true</useLargeEMPEffecter>
+				<affectedDamageDefs>
+					<li>EMP</li>
+				</affectedDamageDefs>
+			</li>
 		</comps>
 		<rotatable>false</rotatable>
 		<designationCategory>Power</designationCategory>
@@ -1879,6 +1981,12 @@ Power output: 2,500 W.</description>
 			</li>
 			<li Class="CompProperties_Breakdownable"/>
 			<li Class="CompProperties_Flickable" />
+			<li Class="CompProperties_Stunnable">
+				<useLargeEMPEffecter>true</useLargeEMPEffecter>
+				<affectedDamageDefs>
+					<li>EMP</li>
+				</affectedDamageDefs>
+			</li>
 		</comps>
 		<rotatable>false</rotatable>
 		<canOverlapZones>false</canOverlapZones>
@@ -1935,7 +2043,7 @@ Power output: 2,500 W.</description>
 			<li Class="CompProperties_Power">
 				<compClass>CompPowerPlant</compClass>
 				<basePowerConsumption>-1</basePowerConsumption>
-				<transmitsPower>true</transmitsPower>	
+				<transmitsPower>true</transmitsPower>
 			</li>
 			<li Class="CompProperties_Glower">
 				<glowRadius>4</glowRadius>
@@ -1953,6 +2061,12 @@ Power output: 2,500 W.</description>
 			</li>
 			<li Class="CompProperties_Breakdownable"/>
 			<li Class="CompProperties_Flickable" />
+			<li Class="CompProperties_Stunnable">
+				<useLargeEMPEffecter>true</useLargeEMPEffecter>
+				<affectedDamageDefs>
+					<li>EMP</li>
+				</affectedDamageDefs>
+			</li>
 		</comps>
 		<placeWorkers>
 			<li>SK.PlaceWorker_OnlyOnThing</li>
@@ -1973,7 +2087,7 @@ Power output: 2,500 W.</description>
 	<ThingDef ParentName="PowerFueled">
 		<defName>AntimatterReactor</defName>
 		<label>antimatter reactor</label>
-		<description>The contained antimatter separates from normal matter by magnetic fields so that no unintended reactions take place. The energy would then be extracted in much the same way that nuclear reactors capture the expended heat and light energy from fission reactions. Power output: 32,000 W.</description>
+		<description>The contained antimatter separates from normal matter by magnetic fields so that no unintended reactions take place. The energy would then be extracted in much the same way that nuclear reactors capture the expended heat and light energy from fission reactions.\nMax. power output: 38,000 W.</description>
 		<thingClass>SK.Building_AntimatterReactor</thingClass>
 		<drawerType>MapMeshAndRealTime</drawerType>
 		<graphicData>
@@ -2038,6 +2152,12 @@ Power output: 2,500 W.</description>
 			<li Class="CompProperties_Explosive">
 				<explosiveRadius>11</explosiveRadius>
 				<explosiveDamageType>Flame</explosiveDamageType>
+			</li>
+			<li Class="CompProperties_Stunnable">
+				<useLargeEMPEffecter>true</useLargeEMPEffecter>
+				<affectedDamageDefs>
+					<li>EMP</li>
+				</affectedDamageDefs>
 			</li>
 		</comps>
 		<designationCategory>Power</designationCategory>

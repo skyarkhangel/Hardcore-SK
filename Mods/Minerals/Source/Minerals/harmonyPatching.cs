@@ -41,8 +41,8 @@ namespace Minerals
             {
                 num = allRockDefs.Count;
             }
-            List<ThingDef> tempRockDefList = new List<ThingDef>(allRockDefs).Distinct().ToList();
-            List<ThingDef> resultList = tempRockDefList.TakeRandom(num).ToList();
+            List<ThingDef> tempRockDefList = new List<ThingDef>(allRockDefs);
+            List<ThingDef> resultList = tempRockDefList.TakeRandomDistinct(num);
             for (int i = 0; i < num; i++)
             {
                 yield return resultList[i];

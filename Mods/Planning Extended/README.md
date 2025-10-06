@@ -8,7 +8,7 @@ This mod adds a more advanced planning menu.
 
 - Draw colored designations, such as walls, doors, objects and floors
 - Optionally skip (don't overwrite) already placed plan designations
-- Use different shapes, e.g. points, lines, rectangles
+- Use different shapes, e.g. points, lines, triangles, rectangles, grids, pentagons, hexagons, octagons, ellipses
 - Load / Save plan blueprints, quickly select last loaded plans
 - Cut / Copy / Paste your plans
 - Undo / Redo your planned actions
@@ -19,8 +19,8 @@ This mod adds a more advanced planning menu.
 ### Planned
 
 - Improve grabbing position while pasting
-- Add more shapes, such as ellipse, fixed shapes (e.g. sun lamp, max room size)
-- Add more shape options, e.g. width
+- Add fixed shapes (e.g. sun lamp, max room size)
+- Add more shape options, e.g. thickness
 - Add plan groups / layers
 - Add ability to convert plan to real blueprints
 - Add toolbox
@@ -36,7 +36,7 @@ This mod adds a more advanced planning menu.
 - V: Change Shape-Variant
 - Ctrl: Color-Picker
 - Alt: Skip / Replace
-- Shift: Shape-Modfier (e.g. square)
+- Shift: Shape-Modfier (e.g. regular, square)
 - Backslash ('\\'): Global Plan Visibility Toggle
 
 ## Shapes
@@ -47,11 +47,23 @@ This mod adds a more advanced planning menu.
 - Line
   - Simple Line
   - Line Grid (Number of Cells)
-- Rectangle
+- Triangle (Rotation)
+  - Filled
+  - Outline
+- Rectangle (Rotation)
   - Filled
   - Grid (Number of Segments)
   - Outline
-- *Ellipse
+- Pentagon (Rotation)
+  - Filled
+  - Outline
+- Hexagon (Rotation)
+  - Filled
+  - Outline
+- Octagon
+  - Filled
+  - Outline
+- Ellipse
   - Filled
   - Outline
 - *Fixed
@@ -61,15 +73,19 @@ This mod adds a more advanced planning menu.
 
 **To be implemented*
 
-### Modifier
+### Dimension Modifiers
 
 - Simple Line: draws a horizontal or vertical line
-- other shapes: applies square modfier
+- Square: applies square modifier to Points, Line Grid, Rectangle and Octagon
+- Regular: applies regular modifier to Hexagon
+- Equilateral: applies equilateral modifier to Triangle
 
 ## Supported Languages
 - English
+- German
 - Japanese translation via sub-mod by Proxyer
 - Russian translation by mmavka
+- Spanish translation by mgil10
 
 ---
 

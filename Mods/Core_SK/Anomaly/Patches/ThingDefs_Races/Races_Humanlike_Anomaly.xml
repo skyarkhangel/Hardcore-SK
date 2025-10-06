@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Patch>
+
+	<Operation Class="PatchOperation.FindModByID">
+		<mods>
+			<li>ludeon.rimworld.biotech</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<operations>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/AlienRace.ThingDef_AlienRace[defName="Alien_Orassan"]/alienRace/generalSettings/alienPartGenerator/headTypes</xpath>
+					<value>
+						<li>Ghoul_Wide</li>
+					</value>
+				</li>
+				<li Class="PatchOperationAdd">
+					<xpath>Defs/AlienRace.ThingDef_AlienRace[defName="Alien_Orassan"]/alienRace/graphicPaths/head/headtypeGraphics</xpath>
+					<value>
+						<Ghoul_Wide>Things/Pawn/Ghoul/Heads/GhoulskinHead_Wide</Ghoul_Wide>
+					</value>
+				</li>
+			</operations>
+		</match>
+	</Operation>
+
+	<Operation Class="PatchOperationConditional">
+		<xpath>Defs/ThingDef[defName="Human"]/alienRace/generalSettings/notXenophobistTowards</xpath>
+		<match Class="PatchOperationAdd">
+			<xpath>Defs/ThingDef[defName="Human"]/alienRace/generalSettings/notXenophobistTowards</xpath>
+			<value>
+				<li>CreepJoiner</li>
+			</value>
+		</match>
+		<nomatch Class="PatchOperationAdd">
+			<xpath>Defs/ThingDef[defName="Human"]/alienRace/generalSettings</xpath>
+			<value>
+				<notXenophobistTowards>
+					<li>CreepJoiner</li>
+				</notXenophobistTowards>
+			</value>
+		</nomatch>
+	</Operation>
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="CreepJoiner"]</xpath>
+		<value>
+			<alienRace>
+				<generalSettings>
+					<notXenophobistTowards>
+						<li>Human</li>
+					</notXenophobistTowards>
+				</generalSettings>
+			</alienRace>
+		</value>
+	</Operation>
+</Patch>

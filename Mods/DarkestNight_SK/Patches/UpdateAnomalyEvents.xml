@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+	<Operation Class="PatchOperationFindMod">
+	<mods>
+		<li>Anomaly</li>
+	</mods>
+		<match Class="PatchOperationSequence">
+			<operations>
+
+			<li Class="PatchOperationConditional">
+				<xpath>Defs/GameConditionDef[defName = "UnnaturalDarkness" or defName = "BloodRain" or defName = "DeathPall"]/exclusiveConditions</xpath>
+				<nomatch Class="PatchOperationAdd">
+					<xpath>Defs/GameConditionDef[defName = "UnnaturalDarkness" or defName = "BloodRain" or defName = "DeathPall"]</xpath>
+					<value>
+						<exclusiveConditions>
+							<li>Darkness</li>
+						</exclusiveConditions>
+					</value>
+				</nomatch>
+				<match Class="PatchOperationAdd">
+					<xpath>Defs/GameConditionDef[defName = "UnnaturalDarkness" or defName = "BloodRain" or defName = "DeathPall"]/exclusiveConditions</xpath>
+					<value>
+						<li>Darkness</li>
+					</value>
+				</match>
+			</li>
+
+			<li Class="PatchOperationAdd">
+				<xpath>Defs/GameConditionDef[defName = "Darkness"]</xpath>
+				<value>
+					<exclusiveConditions>
+						<li>UnnaturalDarkness</li>
+						<li>BloodRain</li>
+						<li>DeathPall</li>
+					</exclusiveConditions>
+				</value>
+			</li>
+
+			</operations>
+		</match>
+	</Operation>
+
+</Patch>

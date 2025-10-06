@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+	<!-- ========== Disruptor Flare Pack ========== -->
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Apparel_DisruptorFlarePack"]/statBases</xpath>
+		<value>
+			<Bulk>10</Bulk>
+			<WornBulk>2</WornBulk>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Apparel_DisruptorFlarePack"]/verbs</xpath>
+		<value>
+			<verbs>
+				<li Class="CombatExtended.VerbPropertiesCE">
+					<verbClass>CombatExtended.Verb_LaunchProjectileStaticCE</verbClass>
+					<defaultProjectile>Grenade_DisruptorFlare</defaultProjectile>
+					<label>deploy flare</label>
+					<warmupTime>0.5</warmupTime>
+					<range>40</range>
+					<burstShotCount>1</burstShotCount>
+					<onlyManualCast>true</onlyManualCast>
+					<hasStandardCommand>true</hasStandardCommand>
+					<targetable>true</targetable>
+					<violent>false</violent>
+					<targetParams>
+						<canTargetPawns>false</canTargetPawns>
+						<canTargetBuildings>false</canTargetBuildings>
+						<canTargetLocations>true</canTargetLocations>
+					</targetParams>
+					<soundCast>FlareLaunch</soundCast>
+					<rangedFireRulepack>Combat_RangedFire_Thrown</rangedFireRulepack>
+					<canGoWild>false</canGoWild>
+					<explosionRadiusRingColor>(0.8, 0.8, 0.4, 1)</explosionRadiusRingColor><!-- Keep in sync with PlaceWorker_GlowRadius.RingColor -->
+					<ignorePartialLoSBlocker>true</ignorePartialLoSBlocker>
+					<drawHighlightWithLineOfSight>true</drawHighlightWithLineOfSight>
+				</li>
+			</verbs>
+		</value>
+	</Operation>
+
+	<!--Projectile-->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Grenade_DisruptorFlare"]/thingClass</xpath>
+		<value>
+			<thingClass>CombatExtended.ProjectileCE_SpawnsThing</thingClass>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Grenade_DisruptorFlare"]/projectile</xpath>
+		<value>
+			<projectile Class="CombatExtended.ProjectilePropertiesCE">
+				<dropsCasings>false</dropsCasings>
+				<dangerFactor>0</dangerFactor>
+				<airborneSuppressionFactor>0</airborneSuppressionFactor>
+				<speed>12</speed>
+				<spinRate>3</spinRate>
+				<!--<explosionRadius>7.9</explosionRadius> --><!-- Must be kept in sync with radius of CompProperties_DisruptorFlare -->
+				<landedEffecter>DisruptorFlareLanded</landedEffecter>
+				<spawnsThingDef>DisruptorFlare</spawnsThingDef>
+			</projectile>
+		</value>
+	</Operation>
+
+	<!-- ========== Turret Pack ========== -->
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Apparel_PackTurret"]/statBases</xpath>
+		<value>
+			<Bulk>10</Bulk>
+			<WornBulk>2</WornBulk>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Apparel_PackTurret"]/verbs</xpath>
+		<value>
+			<verbs>
+				<li Class="CombatExtended.VerbPropertiesCE">
+					<label>deploy turret</label>
+					<verbClass>CombatExtended.Verb_ShootCEOneUseStatic</verbClass>
+					<hasStandardCommand>true</hasStandardCommand>
+					<onlyManualCast>True</onlyManualCast>
+					<warmupTime>1</warmupTime>
+					<range>25</range>
+					<soundCast>ThrowGrenade</soundCast>
+					<targetParams>
+						<canTargetPawns>false</canTargetPawns>
+						<canTargetBuildings>false</canTargetBuildings>
+						<canTargetLocations>true</canTargetLocations>
+					</targetParams>
+					<defaultProjectile>Grenade_TurretPack</defaultProjectile>
+					<rangedFireRulepack>Combat_RangedFire_Thrown</rangedFireRulepack>
+				</li>
+			</verbs>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Grenade_TurretPack"]/thingClass</xpath>
+		<value>
+			<thingClass>CombatExtended.ProjectileCE_SpawnsThing</thingClass>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Grenade_TurretPack"]/projectile</xpath>
+		<value>
+			<projectile Class="CombatExtended.ProjectilePropertiesCE">
+				<dropsCasings>false</dropsCasings>
+				<dangerFactor>0</dangerFactor>
+				<airborneSuppressionFactor>0</airborneSuppressionFactor>
+				<speed>12</speed>
+				<spawnsThingDef>Turret_TacticalTurret</spawnsThingDef>
+			</projectile>
+		</value>
+	</Operation>
+
+	<!-- ========== Deadlife Pack ========== -->
+
+	<Operation Class="PatchOperationAdd">
+		<xpath>Defs/ThingDef[defName="Apparel_DeadlifePack"]/statBases</xpath>
+		<value>
+			<Bulk>10</Bulk>
+			<WornBulk>2</WornBulk>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Apparel_DeadlifePack"]/verbs</xpath>
+		<value>
+			<verbs>
+				<li Class="CombatExtended.VerbPropertiesCE">
+					<label>deploy deadlife dust</label>
+					<verbClass>CombatExtended.Verb_ShootCEOneUseStatic</verbClass>
+					<hasStandardCommand>true</hasStandardCommand>
+					<onlyManualCast>True</onlyManualCast>
+					<warmupTime>1.5</warmupTime>
+					<range>28</range>
+					<soundCast>ThrowGrenade</soundCast>
+					<drawHighlightWithLineOfSight>true</drawHighlightWithLineOfSight>
+					<targetParams>
+						<canTargetLocations>true</canTargetLocations>
+					</targetParams>
+					<defaultProjectile>Grenade_Deadlife</defaultProjectile>
+					<rangedFireRulepack>Combat_RangedFire_Thrown</rangedFireRulepack>
+				</li>
+			</verbs>
+		</value>
+	</Operation>
+
+	<!-- Deadlife Capsule -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Grenade_Deadlife"]/thingClass</xpath>
+		<value>
+			<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Grenade_Deadlife"]/projectile</xpath>
+		<value>
+			<projectile Class="CombatExtended.ProjectilePropertiesCE">
+				<explosionRadius>0.1</explosionRadius>
+				<damageDef>DeadlifeDust</damageDef>
+				<damageAmountBase>0</damageAmountBase>
+				<speed>12</speed>
+				<soundExplode>ToxicShellLanded</soundExplode>
+				<postExplosionSpawnThingDef>Shell_Deadlife_Releasing</postExplosionSpawnThingDef>
+			</projectile>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="Shell_Deadlife_Releasing"]/graphicData/texPath</xpath>
+		<value>
+			<texPath>Things/Projectile/Mortar/LandedDeadlifeShell</texPath>
+		</value>
+	</Operation>
+
+</Patch>

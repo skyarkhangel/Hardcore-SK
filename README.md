@@ -1,9 +1,9 @@
-# Rimworld Hardcore SK v.1.4
+# Rimworld Hardcore SK v.1.5
 
 [![Logo](https://i.imgur.com/WP7w2sM.png)](https://github.com/skyarkhangel/Hardcore-SK)
 <!-- you cant center markdown images -->
 
-* **Discord:** <https://discord.gg/FMPRSKr> **(Validated Account Required)**
+**Discord:** <https://discord.gg/FMPRSKr> **(Validated Account Required)**
 
 First, I would like to thank the artists and developers of all the mods used in Hardcore SK.
 
@@ -19,7 +19,7 @@ This project has language support for English, Russian, and partial support for 
 
 ### Project launcher (Windows only)
 
-* **Download installer:** <https://github.com/HardcoreSK/HSK-Launcher/releases/latest>
+* **Download:** <https://github.com/HardcoreSK/HSK-Launcher/releases/latest>
 
 #### Features
 
@@ -35,7 +35,7 @@ This project has language support for English, Russian, and partial support for 
 - Launch Rimworld once to generate necessary folders and configuration files.
 - .Net 6 Desktop Runtime (installed by windows Update Center starting with Windows 10).
 
-It will ask for the RimWorld executable location.
+Launcher will ask for the RimWorld executable location.
 
 For Windows users:
 
@@ -45,34 +45,32 @@ For Windows users:
 
 [Master:](https://github.com/skyarkhangel/Hardcore-SK/tree/master) - The stable version/branch of the project usually a version behind the latest Rimworld. Currently for version 1.4.
 
-[Development:](https://github.com/skyarkhangel/Hardcore-SK/tree/development) - The work-in-progress version which contains the latest content for the latest version of rimworld, but is more likely to contain bugs.
+[Development:](https://github.com/skyarkhangel/Hardcore-SK/tree/development) - The work-in-progress version which contains the latest content for the latest version of rimworld, but is more likely to contain bugs. Already for latest version 1.5.
 
-1. Install either the [development](https://github.com/skyarkhangel/Hardcore-SK/tree/development) branch for latest version or [master](https://github.com/skyarkhangel/Hardcore-SK/tree/master) for 1.4 Stable.
+1. Install either the [development](https://github.com/skyarkhangel/Hardcore-SK/tree/development) branch for version 1.5 Development or [master](https://github.com/skyarkhangel/Hardcore-SK/tree/master) for 1.4.
 
 2. Go to the folder you installed the game in and delete all mods inside your `Rimworld\Mods\` folder.
 
 3. Open up the downloaded Hardcore SK .zip file. Extract everything in the `Hardcore-SK-master\Mods\` OR `Hardcore-SK-Development\Mods\` OR `Hardcore-SK-Alpha\Mods\` folder into your empty `Rimworlds\Mods\` folder.
 
-4. Go to the RimWorld config folder and delete all the files that exist in that folder. Copy "`ModsConfig.xml`", which is at the root of the archive modpack. And Copy all config files inside the `Config` Folder we provide into that folder too. Do also copy the `Character Editor` folder into the same directory the `Config` folder is in.
+4. Go to the RimWorld config folder and delete all the files that exist in that folder. And Copy all config files inside the `Config` Folder we provide into that folder too. Do also copy the `Character Editor` folder into the same directory the `Config` folder is in.
 
 For Windows users:
 
-* `C:\Users\your user name\AppData\LocalLow\Ludeon Studios\RimWorld by Ludeon Studios\Config`
+* `C:\Users\your user name\AppData\LocalLow\Ludeon Studios\RimWorld by Ludeon Studios`
 * Or `windows button + R` -> the Run dialog will appear and then type `%APPDATA%\..\LocalLow` -> this will open the appdata folder
 
-For Linux users: `/home/your user name/.config/unity3d/Ludeon Studios/RimWorld/Config`
+For Linux users: `/home/your user name/.config/unity3d/Ludeon Studios/RimWorld`
 
-For Mac users: `/Users/your user name/Library/Application Support/RimWorld/Config`
+For Mac users: `/Users/your user name/Library/Application Support/RimWorld`
 
-5. Check mods at the title screen - turn on optional mods or disable ones you don't want. Switch Language if needed. Play!
+6. Copy folders `Config` and `Character Editor` from the root of the archive into `%userprofile%\appdata\locallow\Ludeon Studios\RimWorld by Ludeon Studios` or whatever directory is your Rimworld config folder. 
 
-6. Have fun 😀  
+7. Copy `ModsConfig.xml` from the root of the archive into `Config` folder. 
 
-## RimWorld ReShade Guide
+7. Check mods at the title screen - turn on optional mods or disable ones you don't want. Switch Language if needed. Play!
 
-ReShade is often thought to be for games in 3D space, such as PUBG and Skyrim. However, ReShade is versatile enough to work with Rimworld and can have stunning results.
-
-**Learn more:** <https://imgur.com/a/DrYqGaY>
+8. Have fun 😀  
 
 ## Looking for even more content?
 

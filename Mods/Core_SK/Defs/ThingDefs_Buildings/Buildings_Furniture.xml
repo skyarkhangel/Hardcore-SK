@@ -378,6 +378,7 @@
 		<fillPercent>0.30</fillPercent>
 		<building>
 			<isSittable>true</isSittable>
+			<multiSittable>true</multiSittable>
 			<paintable>true</paintable>
 		</building>
 		<researchPrerequisites>
@@ -686,68 +687,10 @@
 		</researchPrerequisites>
 		<building>
 			<isSittable>true</isSittable>
+			<multiSittable>true</multiSittable>
 			<paintable>true</paintable>
 		</building>
 		<constructionSkillPrerequisite>3</constructionSkillPrerequisite>
-	</ThingDef>
-
-	<ThingDef ParentName="SK_ArtableFurnitureBase">
-		<defName>ClutterCouchA</defName>
-		<label>couch</label>
-		<graphicData>
-			<texPath>Things/Building/Furniture/Couch/sofa</texPath>
-			<graphicClass>Graphic_Multi</graphicClass>
-			<drawSize>(2,1)</drawSize>
-			<shaderType>CutoutComplex</shaderType>
-			<shadowData>
-				<volume>(1.8, 0.6, 0.6)</volume>
-			</shadowData>
-			<damageData>
-				<cornerTL>Damage/Corner</cornerTL>
-				<cornerTR>Damage/Corner</cornerTR>
-				<cornerBL>Damage/Corner</cornerBL>
-				<cornerBR>Damage/Corner</cornerBR>
-			</damageData>
-		</graphicData>
-		<altitudeLayer>Building</altitudeLayer>
-		<passability>Standable</passability>
-		<defaultPlacingRot>South</defaultPlacingRot>
-		<description>A couch is type of furniture that could be suitable for two, but is usable by only one. It won't make colonists lazy, in theory at least.</description>
-		<size>(2,1)</size>
-		<statBases>
-			<MaxHitPoints>150</MaxHitPoints>
-			<WorkToBuild>1700</WorkToBuild>
-			<Flammability>1.0</Flammability>
-			<Beauty>8</Beauty>
-			<Comfort>0.75</Comfort>
-			<Bulk>70</Bulk>
-			<Mass>35</Mass>
-			<StyleDominance MayRequire="Ludeon.RimWorld.Ideology">10</StyleDominance>
-		</statBases>
-		<stuffCategories>
-			<li>Fabric</li>
-			<li>Leathery</li>
-		</stuffCategories>
-		<costStuffCount>80</costStuffCount>
-		<costList>
-			<ComponentIndustrial>6</ComponentIndustrial>
-		</costList>
-		<comps>
-			<li>
-				<compClass>CompGatherSpot</compClass>
-			</li>
-			<li Class="CompProperties_Styleable" />
-		</comps>
-		<designationCategory>Furniture</designationCategory>
-		<researchPrerequisites>
-			<li>Tables_C1</li>
-		</researchPrerequisites>
-		<building>
-			<isSittable>true</isSittable>
-			<paintable>true</paintable>
-			<destroySound>BuildingDestroyed_Soft_Small</destroySound>
-		</building>
-		<constructionSkillPrerequisite>7</constructionSkillPrerequisite>
 	</ThingDef>
 
 	<ThingDef ParentName="SK_ArtableFurnitureBase">
@@ -781,7 +724,7 @@
 			<Beauty>12</Beauty>
 			<Comfort>0.9</Comfort>
 			<Bulk>65</Bulk>
-			<Mass>25</Mass>
+			<Mass>35</Mass>
 			<StyleDominance MayRequire="Ludeon.RimWorld.Ideology">12</StyleDominance>
 		</statBases>
 		<stuffCategories>
@@ -806,6 +749,7 @@
 		</researchPrerequisites>
 		<building>
 			<isSittable>true</isSittable>
+			<multiSittable>true</multiSittable>
 			<paintable>true</paintable>
 			<destroySound>BuildingDestroyed_Soft_Small</destroySound>
 		</building>
@@ -1829,6 +1773,148 @@
 	</ThingDef> -->
 
 
+	<ThingDef Abstract="True" Name="BookcaseBase" ParentName="SK_FurnitureBase">
+		<thingClass>Building_Bookcase</thingClass>
+		<altitudeLayer>Building</altitudeLayer>
+		<passability>PassThroughOnly</passability>
+		<drawerType>RealtimeOnly</drawerType>
+		<preventDroppingThingsOn>true</preventDroppingThingsOn>
+		<deselectedSelectionBracketFactor>0.3</deselectedSelectionBracketFactor>
+		<surfaceType>None</surfaceType>
+		<fillPercent>0.4</fillPercent>
+		<castEdgeShadows>true</castEdgeShadows>
+		<staticSunShadowHeight>0.5</staticSunShadowHeight>
+		<canOverlapZones>false</canOverlapZones>
+		<pathCost>50</pathCost>
+		<stuffCategories>
+			<li>Metallic</li>
+			<li>Woody</li>
+			<li>Stony</li>
+			<li>Plastic</li>
+		</stuffCategories>
+		<defaultPlacingRot>South</defaultPlacingRot>
+		<statBases>
+			<Flammability>1.0</Flammability>
+			<Beauty>0.5</Beauty>
+		</statBases>
+		<building>
+			<preventDeteriorationOnTop>true</preventDeteriorationOnTop>
+			<paintable>true</paintable>
+			<storageGroupTag>Bookcase</storageGroupTag>
+			<maxItemsInCell>5</maxItemsInCell>
+			<blueprintClass>Blueprint_Bookcase</blueprintClass>
+			<ignoreStoredThingsBeauty>false</ignoreStoredThingsBeauty>
+			<fixedStorageSettings>
+				<filter>
+					<categories Inherit="False">
+						<li>Books</li>
+					</categories>
+				</filter>
+			</fixedStorageSettings>
+			<defaultStorageSettings>
+				<priority>Important</priority>
+				<filter>
+					<categories>
+						<li>Books</li>
+					</categories>
+				</filter>
+			</defaultStorageSettings>
+		</building>
+		<placeWorkers>
+			<li>PlaceWorker_DrawLinesToResearchTablesInRoom</li>
+		</placeWorkers>
+		<inspectorTabs>
+			<li>ITab_Storage</li>
+			<li>ITab_ContentsBooks</li>
+		</inspectorTabs>
+		<comps>
+			<li Class="CompProperties_Styleable" />
+		</comps>
+	</ThingDef>
+
+	<ThingDef ParentName="BookcaseBase">
+		<defName>Bookcase</defName>
+		<label>bookcase</label>
+		<description>A wide bookcase for storing and displaying up to ten books. Books stored here will passively enhance academic work done nearby, and increase the beauty of the bookcase. The stored books will never deteriorate.</description>
+		<graphicData>
+			<texPath>Things/Building/Furniture/Bookcase/Bookcase</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(3,2)</drawSize>
+		</graphicData>
+		<costStuffCount>80</costStuffCount>
+		<costList>
+			<ComponentIndustrial>5</ComponentIndustrial>
+		</costList>
+		<statBases>
+			<MaxHitPoints>85</MaxHitPoints>
+			<Bulk>95</Bulk>
+			<Mass>35</Mass>
+			<WorkToBuild>600</WorkToBuild>
+			<StyleDominance MayRequire="Ludeon.RimWorld.Ideology">4</StyleDominance>
+		</statBases>
+		<size>(2,1)</size>
+		<building>
+			<bookendGraphicEast>
+				<texPath>Things/Building/Furniture/Bookcase/Bookcase_Bookend_east</texPath>
+				<graphicClass>Graphic_Single</graphicClass>
+				<addTopAltitudeBias>true</addTopAltitudeBias>
+				<drawSize>(2,3)</drawSize>
+			</bookendGraphicEast>
+			<bookendGraphicNorth>
+				<texPath>Things/Building/Furniture/Bookcase/Bookcase_Bookend_north</texPath>
+				<graphicClass>Graphic_Single</graphicClass>
+				<addTopAltitudeBias>true</addTopAltitudeBias>
+				<drawSize>(3,2)</drawSize>
+			</bookendGraphicNorth>
+			<relatedBuildCommands>
+				<li>BookcaseSmall</li>
+			</relatedBuildCommands>
+		</building>
+		<constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+	</ThingDef>
+
+	<ThingDef ParentName="BookcaseBase">
+		<defName>BookcaseSmall</defName>
+		<label>small bookcase</label>
+		<description>A narrow bookcase for storing and displaying up to five books. Books stored here will passively enhance academic work done nearby, and increase the beauty of the bookcase. The stored books will never deteriorate.</description>
+		<graphicData>
+			<texPath>Things/Building/Furniture/Bookcase/BookcaseSmall</texPath>
+			<graphicClass>Graphic_Multi</graphicClass>
+			<drawSize>(2,2)</drawSize>
+		</graphicData>
+		<uiIconScale>0.5</uiIconScale>
+		<costStuffCount>50</costStuffCount>
+		<costList>
+			<ComponentIndustrial>2</ComponentIndustrial>
+		</costList>
+		<statBases>
+			<MaxHitPoints>60</MaxHitPoints>
+			<Bulk>55</Bulk>
+			<Mass>20</Mass>
+			<WorkToBuild>350</WorkToBuild>
+			<StyleDominance MayRequire="Ludeon.RimWorld.Ideology">2</StyleDominance>
+		</statBases>
+		<size>(1,1)</size>
+		<building>
+			<bookendGraphicEast>
+				<texPath>Things/Building/Furniture/Bookcase/BookcaseSmall_Bookend_east</texPath>
+				<graphicClass>Graphic_Single</graphicClass>
+				<addTopAltitudeBias>true</addTopAltitudeBias>
+				<drawSize>(2,2)</drawSize>
+			</bookendGraphicEast>
+			<bookendGraphicNorth>
+				<texPath>Things/Building/Furniture/Bookcase/BookcaseSmall_Bookend_north</texPath>
+				<graphicClass>Graphic_Single</graphicClass>
+				<addTopAltitudeBias>true</addTopAltitudeBias>
+				<drawSize>(2,2)</drawSize>
+			</bookendGraphicNorth>
+			<relatedBuildCommands>
+				<li>Bookcase</li>
+			</relatedBuildCommands>
+		</building>
+		<constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+	</ThingDef>
+
 	<ThingDef ParentName="SK_TableBase">
 		<defName>EndTableSimple</defName>
 		<label>end table</label>
@@ -2169,10 +2255,6 @@
 		<leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
 		<resourcesFractionWhenDeconstructed>0</resourcesFractionWhenDeconstructed>
 		<pathCost>25</pathCost>
-		<minifiedDef>MinifiedThing</minifiedDef>
-		<thingCategories>
-			<li>BuildingsFurniture</li>
-		</thingCategories>
 		<tradeTags>
 			<li>Furniture</li>
 		</tradeTags>

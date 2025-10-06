@@ -45,9 +45,16 @@
 				</li>
 				<li Class="IngestionOutcomeDoer_GiveHediff">
 					<hediffDef>AlcoholTolerance</hediffDef>
+					<toleranceChemical>Alcohol</toleranceChemical>
 					<severity>0.016</severity>
 					<divideByBodySize>true</divideByBodySize>
+					<multiplyByGeneToleranceFactors>true</multiplyByGeneToleranceFactors>
 				</li>
+				<!-- <li Class="UniversalFermenterSK.IngestionOutcomeDoer_GiveHediffByQuality">
+					<hediffDef>AlcoholHigh</hediffDef>
+					<severity>0.15</severity>
+					<toleranceChemical>Alcohol</toleranceChemical>
+				</li> -->
 			</outcomeDoers>
 		</ingestible>
 		<equipmentType>Primary</equipmentType>
@@ -81,6 +88,16 @@
 			</li>
 		</tools>
 		<allowedArchonexusCount>40</allowedArchonexusCount>
+		<!-- <modExtensions>
+			<li Class="UniversalFermenterSK.HediffByQuality">
+				<qualityHediffs>
+					<Awful>SK_AlcoholHigh_BadQuality</Awful>
+					<Poor>SK_AlcoholHigh_BadQuality</Poor>
+					<Masterwork>SK_AlcoholHigh_GoodQuality</Masterwork>
+					<Legendary>SK_AlcoholHigh_GoodQuality</Legendary>
+				</qualityHediffs>
+			</li>
+		</modExtensions> -->
 	</ThingDef>
 
 	<ThingDef ParentName="LiquorCloset">
@@ -339,4 +356,217 @@
 		</statBases>
 	</ThingDef>
 
+	<HediffDef>
+		<defName>SK_AlcoholHigh_BadQuality</defName>
+		<label>alcohol</label>
+		<labelNoun>drunkenness</labelNoun>
+		<description>Alcohol in the bloodstream. It makes people happy, but reduces capacities.</description>
+		<hediffClass>Hediff_Alcohol</hediffClass>
+		<defaultLabelColor>(1,0,0.5)</defaultLabelColor>
+		<scenarioCanAdd>true</scenarioCanAdd>
+		<isBad>false</isBad>
+		<comps>
+			<li Class="HediffCompProperties_Effecter">
+				<stateEffecter>Drunk</stateEffecter>
+				<severityIndices>3~5</severityIndices>
+			</li>
+			<li Class="HediffCompProperties_SeverityPerDay">
+				<severityPerDay>-0.75</severityPerDay>
+				<showHoursToRecover>true</showHoursToRecover>
+			</li>
+		</comps>
+		<stages>
+			<li>
+				<label>warm</label>
+				<painFactor>0.9</painFactor>
+				<socialFightChanceFactor>1.5</socialFightChanceFactor>
+				<vomitMtbDays>0.75</vomitMtbDays>
+				<capMods>
+					<li>
+						<capacity>Manipulation</capacity>
+						<offset>-0.1</offset>
+					</li>
+				</capMods>
+			</li>
+			<li>
+				<minSeverity>0.25</minSeverity>
+				<label>tipsy</label>
+				<painFactor>0.8</painFactor>
+				<vomitMtbDays>0.7</vomitMtbDays>
+				<socialFightChanceFactor>2.5</socialFightChanceFactor>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<postFactor>0.85</postFactor>
+					</li>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>-0.1</offset>
+					</li>
+				</capMods>
+			</li>
+			<li>
+				<minSeverity>0.4</minSeverity>
+				<label>drunk</label>
+				<painFactor>0.5</painFactor>
+				<socialFightChanceFactor>4.0</socialFightChanceFactor>
+				<vomitMtbDays>0.65</vomitMtbDays>
+				<tale>Drunk</tale>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<postFactor>0.6</postFactor>
+					</li>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>-0.15</offset>
+					</li>
+				</capMods>
+			</li>
+			<li>
+				<minSeverity>0.7</minSeverity>
+				<label>hammered</label>
+				<painFactor>0.3</painFactor>
+				<socialFightChanceFactor>5.0</socialFightChanceFactor>
+				<vomitMtbDays>0.2</vomitMtbDays>
+				<painOffset>0.05</painOffset>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<postFactor>0.3</postFactor>
+					</li>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>-0.3</offset>
+					</li>
+				</capMods>
+			</li>
+			<li>
+				<minSeverity>0.9</minSeverity>
+				<label>blackout</label>
+				<painFactor>0.1</painFactor>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<setMax>0.1</setMax>
+					</li>
+				</capMods>
+				<hediffGivers>
+					<li Class="HediffGiver_Random">
+						<hediff>ChemicalDamageModerate</hediff>
+						<mtbDays>5</mtbDays>
+						<partsToAffect>
+							<li>Brain</li>
+						</partsToAffect>
+					</li>
+				</hediffGivers>
+			</li>
+		</stages>
+	</HediffDef>
+
+	<HediffDef>
+		<defName>SK_AlcoholHigh_GoodQuality</defName>
+		<label>alcohol</label>
+		<labelNoun>drunkenness</labelNoun>
+		<description>Alcohol in the bloodstream. It makes people happy, but reduces capacities.</description>
+		<hediffClass>Hediff_Alcohol</hediffClass>
+		<defaultLabelColor>(1,0,0.5)</defaultLabelColor>
+		<scenarioCanAdd>true</scenarioCanAdd>
+		<isBad>false</isBad>
+		<comps>
+			<li Class="HediffCompProperties_Effecter">
+				<stateEffecter>Drunk</stateEffecter>
+				<severityIndices>3~5</severityIndices>
+			</li>
+			<li Class="HediffCompProperties_SeverityPerDay">
+				<severityPerDay>-0.8</severityPerDay>
+				<showHoursToRecover>true</showHoursToRecover>
+			</li>
+		</comps>
+		<stages>
+			<li>
+				<label>warm</label>
+				<painFactor>0.9</painFactor>
+				<socialFightChanceFactor>1.2</socialFightChanceFactor>
+				<capMods>
+					<li>
+						<capacity>Manipulation</capacity>
+						<offset>-0.05</offset>
+					</li>
+				</capMods>
+			</li>
+			<li>
+				<minSeverity>0.25</minSeverity>
+				<label>tipsy</label>
+				<painFactor>0.85</painFactor>
+				<socialFightChanceFactor>1.5</socialFightChanceFactor>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<postFactor>0.9</postFactor>
+					</li>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>-0.1</offset>
+					</li>
+				</capMods>
+			</li>
+			<li>
+				<minSeverity>0.4</minSeverity>
+				<label>drunk</label>
+				<painFactor>0.5</painFactor>
+				<socialFightChanceFactor>2.0</socialFightChanceFactor>
+				<vomitMtbDays>0.65</vomitMtbDays>
+				<tale>Drunk</tale>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<postFactor>0.6</postFactor>
+					</li>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>-0.15</offset>
+					</li>
+				</capMods>
+			</li>
+			<li>
+				<minSeverity>0.7</minSeverity>
+				<label>hammered</label>
+				<painFactor>0.4</painFactor>
+				<socialFightChanceFactor>5.0</socialFightChanceFactor>
+				<vomitMtbDays>0.2</vomitMtbDays>
+				<painOffset>0.05</painOffset>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<postFactor>0.4</postFactor>
+					</li>
+					<li>
+						<capacity>Moving</capacity>
+						<offset>-0.3</offset>
+					</li>
+				</capMods>
+			</li>
+			<li>
+				<minSeverity>0.9</minSeverity>
+				<label>blackout</label>
+				<painFactor>0.1</painFactor>
+				<capMods>
+					<li>
+						<capacity>Consciousness</capacity>
+						<setMax>0.1</setMax>
+					</li>
+				</capMods>
+				<hediffGivers>
+					<li Class="HediffGiver_Random">
+						<hediff>ChemicalDamageModerate</hediff>
+						<mtbDays>5</mtbDays>
+						<partsToAffect>
+							<li>Brain</li>
+						</partsToAffect>
+					</li>
+				</hediffGivers>
+			</li>
+		</stages>
+	</HediffDef>
 </Defs>

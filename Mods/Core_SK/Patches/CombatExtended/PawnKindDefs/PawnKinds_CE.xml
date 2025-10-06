@@ -31,6 +31,62 @@
 		</value>
 	</Operation>
 
+	<!-- ========== tribal pawns already has berserker herb. CE patch is redundant. ========== -->
+	
+	<Operation Class="PatchOperationRemove">
+		<xpath>Defs/PawnKindDef[
+			defName="Tribal_Berserker" or
+			defName="Tribal_HeavyArcher" or
+			@Name="TribalChiefBase"
+			]/combatEnhancingDrugsChance</xpath>
+	</Operation>
+	
+	<Operation Class="PatchOperationRemove">
+		<xpath>Defs/PawnKindDef[
+			defName="Tribal_Berserker" or
+			defName="Tribal_HeavyArcher" or
+			@Name="TribalChiefBase"
+			]/combatEnhancingDrugsCount</xpath>
+	</Operation>
+	
+	<!-- ========== returned Core SK RF3 weaponTags for elite mercenary pawns instead SpacerGun. SpacerGun is recommended for use only on high-tech factions. ========== -->
+	
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/PawnKindDef[@Name="MercenaryEliteTierBase"]/weaponTags</xpath>
+		<value>
+			<weaponTags>
+				<li>RF3</li>
+			</weaponTags>
+		</value>
+	</Operation>
+		
+	<!-- ========== in HSK ballistic shield is many times more powerful than in CE, it is not worth handing it out to just anyone in such quantities. ========== -->
+	
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/PawnKindDef[
+		@Name="MercenaryEliteTierBase" or 
+		defName="Mercenary_Elite_Acidifier" or 
+		defName="Grenadier_Destructive" or
+		defName="Mercenary_Gunner" or
+		defName="Mercenary_Gunner_Acidifier" or
+		defName="Mercenary_Slasher" or
+		defName="Mercenary_Slasher_Acidifier" or
+		defName="AncientSoldier"
+		]/modExtensions/li[@Class="CombatExtended.LoadoutPropertiesExtension"]/shieldChance</xpath>
+		<value>
+			<shieldChance>0.2</shieldChance>
+		</value>
+	</Operation>
+		
+	<!-- ========== neither CE nor HSK have the NeolithicRangedChief tag, so the CE patch just adds guns to tribe members. It's better to roll it back for balance and lore reasons. ========== -->
+	
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/PawnKindDef[defName="Tribal_ChiefRanged"]/weaponTags/li[.="SimpleGun"]</xpath>
+		<value>
+			<li>NeolithicRangedBasic</li>
+		</value>
+	</Operation>
+
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/PawnKindDef[defName="CE_Tribal_Gunner"]/weaponMoney</xpath>
 		<value>
@@ -42,7 +98,7 @@
 		<xpath>Defs/PawnKindDef[defName="CE_Tribal_Gunner"]/weaponTags</xpath>
 		<value>
 			<weaponTags>
-				<li>TierOnePistol</li>
+				<li>NeolithicRangedBasic</li>
 			</weaponTags>
 		</value>
 	</Operation>

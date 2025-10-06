@@ -16,13 +16,14 @@
 		<ammoTypes>
 			<Ammo_762x539mmR_AP>Bullet_762x539mmR_AP</Ammo_762x539mmR_AP>
 			<Ammo_762x539mmR_HE>Bullet_762x539mmR_HE</Ammo_762x539mmR_HE>
+			<Ammo_762x539mmR_APCR>Bullet_762x539mmR_APCR</Ammo_762x539mmR_APCR>
 		</ammoTypes>
 		<similarTo>AmmoSet_LightCannon</similarTo>
 	</CombatExtended.AmmoSetDef>
 
 	<!-- ==================== Ammo ========================== -->
 
-	<ThingDef Class="CombatExtended.AmmoDef" Name="762x539mmRBase" ParentName="AmmoBase" Abstract="True">
+	<ThingDef Class="CombatExtended.AmmoDef" Name="762x539mmRShellBase" ParentName="AmmoBase" Abstract="True">
 		<description>Medium-velocity cannon shell fired by tank destroyer guns.</description>
 		<thingCategories>
 			<li>Ammo762x539mmR</li>
@@ -41,37 +42,45 @@
 		<cookOffSound>MortarBomb_Explode</cookOffSound>
 	</ThingDef>
 
-	<ThingDef Class="CombatExtended.AmmoDef" ParentName="762x539mmRBase">
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="762x539mmRShellBase">
 		<defName>Ammo_762x539mmR_AP</defName>
-		<label>76.2x539mmR Cannon shell (AP)</label>
+		<label>76.2x539mmR cannon shell (AP)</label>
 		<graphicData>
 			<texPath>Things/Ammo/Cannon/Tank/APHE</texPath>
 			<graphicClass>Graphic_StackCount</graphicClass>
 		</graphicData>
-		<statBases>
-			<MarketValue>43.2</MarketValue>
-		</statBases>
 		<ammoClass>ArmorPiercing</ammoClass>
 		<detonateProjectile>Bullet_762x539mmR_HE</detonateProjectile>
 	</ThingDef>
 
-	<ThingDef Class="CombatExtended.AmmoDef" ParentName="762x539mmRBase">
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="762x539mmRShellBase">
 		<defName>Ammo_762x539mmR_HE</defName>
-		<label>76.2x539mmR Cannon shell (HE)</label>
+		<label>76.2x539mmR cannon shell (HE)</label>
 		<graphicData>
 			<texPath>Things/Ammo/Cannon/Tank/HE</texPath>
 			<graphicClass>Graphic_StackCount</graphicClass>
 		</graphicData>
-		<statBases>
-			<MarketValue>60.54</MarketValue>
-		</statBases>
 		<ammoClass>GrenadeHE</ammoClass>
 		<detonateProjectile>Bullet_762x539mmR_HE</detonateProjectile>
 	</ThingDef>
 
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="762x539mmRShellBase">
+		<defName>Ammo_762x539mmR_APCR</defName>
+		<label>76.2x539mmR cannon shell (APCR)</label>
+		<graphicData>
+			<texPath>Things/Ammo/Cannon/Tank/APCR</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<Mass>7.885</Mass>
+		</statBases>
+		<ammoClass>CompositeRigidAP</ammoClass>
+		<detonateProjectile>Bullet_762x539mmR_APCR</detonateProjectile>
+	</ThingDef>
+
 	<!-- ================== Projectiles ================== -->
 
-	<ThingDef Name="Base762x539mmR" ParentName="BaseExplosiveBullet" Abstract="true">
+	<ThingDef Name="Base762x539mmRBullet" ParentName="BaseExplosiveBullet" Abstract="true">
 		<graphicData>
 			<shaderType>TransparentPostLight</shaderType>
 		</graphicData>
@@ -84,9 +93,9 @@
 		</projectile>
 	</ThingDef>
 
-	<ThingDef ParentName="Base762x539mmR">
+	<ThingDef ParentName="Base762x539mmRBullet">
 		<defName>Bullet_762x539mmR_AP</defName>
-		<label>76.2x539mmR Cannon shell (AP)</label>
+		<label>76.2x539mmR cannon shell (AP)</label>
 		<graphicData>
 			<texPath>Things/Projectile/Bullet_Big</texPath>
 			<graphicClass>Graphic_Single</graphicClass>
@@ -100,9 +109,9 @@
 		</projectile>
 	</ThingDef>
 
-	<ThingDef ParentName="Base762x539mmR">
+	<ThingDef ParentName="Base762x539mmRBullet">
 		<defName>Bullet_762x539mmR_HE</defName>
-		<label>76.2x539mmR Cannon shell (HE)</label>
+		<label>76.2x539mmR cannon shell (HE)</label>
 		<thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
 		<graphicData>
 			<texPath>Things/Projectile/Bullet_Big</texPath>
@@ -125,13 +134,29 @@
 		</comps>
 	</ThingDef>
 
+	<ThingDef ParentName="Base762x539mmRBullet">
+		<defName>Bullet_762x539mmR_APCR</defName>
+		<label>75x350mmR cannon shell (APCR)</label>
+		<graphicData>
+			<texPath>Things/Projectile/Cannon/AP</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Bullet</damageDef>
+			<damageAmountBase>247</damageAmountBase>
+			<armorPenetrationSharp>231</armorPenetrationSharp>
+			<armorPenetrationBlunt>58776.16</armorPenetrationBlunt>
+			<speed>208</speed>
+		</projectile>
+	</ThingDef>
+
 	<!-- ==================== Recipes ========================== -->
 
-	<RecipeDef ParentName="AmmoRecipeBase">
+	<RecipeDef ParentName="CannonAmmoRecipeBase">
 		<defName>MakeAmmo_762x539mmR_AP</defName>
-		<label>make 76.2x539mmR AP cannon shells x5</label>
-		<description>Craft 5 76.2x539mmR AP cannon shells.</description>
-		<jobString>Making 76.2x539mmR AP cannon shells.</jobString>
+		<label>make 76.2x539mmR (AP) cannon shells x5</label>
+		<description>Craft 5 76.2x539mmR (AP) cannon shells.</description>
+		<jobString>Making 76.2x539mmR (AP) cannon shells.</jobString>
 		<workAmount>12960</workAmount>
 		<ingredients>
 			<li>
@@ -151,16 +176,13 @@
 		<products>
 			<Ammo_762x539mmR_AP>5</Ammo_762x539mmR_AP>
 		</products>
-		<skillRequirements>
-			<Crafting>4</Crafting>
-		</skillRequirements>
 	</RecipeDef>
 
-	<RecipeDef ParentName="AmmoRecipeBase">
+	<RecipeDef ParentName="CannonAmmoRecipeBase">
 		<defName>MakeAmmo_762x539mmR_HE</defName>
-		<label>make 76.2x539mmR HE cannon shells x5</label>
-		<description>Craft 5 76.2x539mmR HE cannon shells.</description>
-		<jobString>Making 76.2x539mmR HE cannon shells.</jobString>
+		<label>make 76.2x539mmR (HE) cannon shells x5</label>
+		<description>Craft 5 76.2x539mmR (HE) cannon shells.</description>
+		<jobString>Making 76.2x539mmR (HE) cannon shells.</jobString>
 		<workAmount>13200</workAmount>
 		<ingredients>
 			<li>
@@ -197,6 +219,46 @@
 		</fixedIngredientFilter>
 		<products>
 			<Ammo_762x539mmR_HE>5</Ammo_762x539mmR_HE>
+		</products>
+	</RecipeDef>
+
+	<RecipeDef ParentName="CannonAmmoRecipeBase">
+		<defName>MakeAmmo_762x539mmR_APCR</defName>
+		<label>make 76.2x539mmR (APCR) cannon shells x5</label>
+		<description>Craft 5 76.2x539mmR (APCR) cannon shells.</description>
+		<jobString>Making 76.2x539mmR (APCR) cannon shells.</jobString>
+		<researchPrerequisite Inherit="False" />
+		<researchPrerequisites>
+			<li>CE_TurretHeavyWeapons</li>
+			<li>CE_AdvancedAmmo</li>
+		</researchPrerequisites>
+		<workAmount>14000</workAmount>
+		<ingredients>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Steel</li>
+					</thingDefs>
+				</filter>
+				<count>80</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Uranium</li>
+					</thingDefs>
+				</filter>
+				<count>20</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<thingDefs>
+				<li>Steel</li>
+				<li>Uranium</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_762x539mmR_APCR>5</Ammo_762x539mmR_APCR>
 		</products>
 	</RecipeDef>
 

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
 	<ThingCategoryDef>
@@ -16,6 +16,19 @@
 		<ammoTypes>
 			<Ammo_ChargedLaser>Bullet_Laserbeam</Ammo_ChargedLaser>
 			<Ammo_ChargedLaser_Stable>Bullet_Laserbeam_Stable</Ammo_ChargedLaser_Stable>
+			<Ammo_ChargedLaser_Electromagnetic>Bullet_Laserbeam_Electromagnetic</Ammo_ChargedLaser_Electromagnetic>
+		</ammoTypes>
+	</CombatExtended.AmmoSetDef>
+
+	<!-- ==================== AmmoSet Mantis ========================== -->
+
+	<CombatExtended.AmmoSetDef>
+		<defName>AmmoSet_ChargedLaser_Mantis</defName>
+		<label>Charged Laser beam</label>
+		<ammoTypes>
+			<Ammo_ChargedLaser>Bullet_Laserbeam_Mantis</Ammo_ChargedLaser>
+			<Ammo_ChargedLaser_Stable>Bullet_Laserbeam_Stable_Mantis</Ammo_ChargedLaser_Stable>
+			<Ammo_ChargedLaser_Electromagnetic>Bullet_Laserbeam_Electromagnetic_Mantis</Ammo_ChargedLaser_Electromagnetic>
 		</ammoTypes>
 	</CombatExtended.AmmoSetDef>
 
@@ -23,7 +36,8 @@
 
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="SpacerSmallAmmoBase">
 		<defName>Ammo_ChargedLaser</defName>
-		<label>Charged laser charge pack</label>
+		<label>Charged laser charge pack (US)</label>
+		<description>An unstable (US) laser energy cell is a munition for high-tech weapons. It is a micro battery.\n\nWhen fired, the released energy of the munition is fed to the focusing component of the weapon, where a powerful high-temperature beam of light is formed for a fraction of a second. The power of an unstable cell is so great that it is difficult to create a sufficiently accurate laser, which is why it burns targets rather than pierces them like a stable laser cell.</description>
 		<tradeTags>
 			<li>CE_AutoEnableCrafting</li>
 			<li>CE_AutoEnableTrade_Sellable</li>
@@ -41,11 +55,12 @@
 			<Bulk>0.02</Bulk>
 		</statBases>
 		<ammoClass>LaserUST</ammoClass>
-	</ThingDef>
+	</ThingDef>  
 
 	<ThingDef Class="CombatExtended.AmmoDef" ParentName="SpacerSmallAmmoBase">
 		<defName>Ammo_ChargedLaser_Stable</defName>
-		<label>Charged laser charge pack (stable)</label>
+		<label>Charged laser charge pack (S)</label>
+		<description>Stable (S) laser energy cell - ammunition for high-tech weapons. It is a micro battery.\n\nWhen firing, the released energy of the ammunition is fed to the focusing component of the weapon, where a powerful high-temperature beam of light is formed for a split second. So pinpoint and concentrated that it literally perforates targets like bullets. Does not set targets on fire.</description>
 		<tradeTags>
 			<li>CE_AutoEnableCrafting</li>
 			<li>CE_AutoEnableTrade_Sellable</li>
@@ -66,6 +81,39 @@
 		<thingSetMakerTags>
 			<li>HSKCombatSuppliesAmmoAC</li>
 		</thingSetMakerTags>
+	</ThingDef>  
+
+	<ThingDef Class="CombatExtended.AmmoDef" ParentName="SpacerSmallAmmoBase">
+		<defName>Ammo_ChargedLaser_Electromagnetic</defName>
+		<label>Charged laser charge pack (EM)</label>
+		<description>Electromagnetic laser energy cell (EM) - ammunition for high-tech weapons. It is a microbattery.\n\nWhen firing, the released energy of the ammunition is fed to the focusing component of the weapon, where a powerful high-temperature beam of light is formed for a fraction of a second. This beam does not have high power or concentration, but transmits an electromagnetic pulse that allows damaging electrical devices and machines.</description>
+		<tradeTags>
+			<li>CE_AutoEnableCrafting</li>
+			<li>CE_AutoEnableTrade_Sellable</li>
+		</tradeTags>
+		<thingCategories>
+			<li>AmmoLaser</li>
+		</thingCategories>
+		<graphicData>
+			<texPath>Things/Ammo/LaserPack</texPath>
+			<graphicClass>Graphic_StackCount</graphicClass>
+		</graphicData>
+		<statBases>
+			<MarketValue>11</MarketValue>
+			<Mass>0.01</Mass>
+			<Bulk>0.02</Bulk>
+		</statBases>
+		<ammoClass>LaserEM</ammoClass>
+		<thingSetMakerTags>
+			<li>HSKCombatSuppliesAmmoAC</li>
+		</thingSetMakerTags>
+	</ThingDef>  
+
+	<!-- ================== Orange Laser ================== -->
+	<ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" Name="LaserBulletOrange_SK" ParentName="BaseLaserBulletTextured" Abstract="True">
+		<graphicData>
+			<color>(255,137,30)</color>
+		</graphicData>
 	</ThingDef>
 
 	<!-- ================== Projectiles ================== -->
@@ -79,13 +127,11 @@
 		</graphicData>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<damageDef>LaserBurn</damageDef>
-			<damageAmountBase>14</damageAmountBase>
-			<armorPenetrationSharp>16.5</armorPenetrationSharp>
-			<armorPenetrationBlunt>7.6</armorPenetrationBlunt>
+			<damageAmountBase>20</damageAmountBase>
 		</projectile>
 	</ThingDef>
 
-	<ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" ParentName="LaserBulletWhite">
+	<ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" ParentName="LaserBulletOrange_SK">
 		<defName>Bullet_Laserbeam_Stable</defName>
 		<label>Laser beam (Stable)</label>
 		<graphicData>
@@ -94,9 +140,84 @@
 		</graphicData>
 		<projectile Class="CombatExtended.ProjectilePropertiesCE">
 			<damageDef>CE_Laser</damageDef> <!-- Sharp armor, burnSecondary Hediff -->
-			<damageAmountBase>16</damageAmountBase>
-			<armorPenetrationSharp>18.25</armorPenetrationSharp>
-			<armorPenetrationBlunt>8.4</armorPenetrationBlunt>
+			<damageAmountBase>23</damageAmountBase>
+            		<armorPenetrationSharp>26</armorPenetrationSharp>
+            		<armorPenetrationBlunt>12</armorPenetrationBlunt>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" ParentName="LaserBulletBlue">
+		<defName>Bullet_Laserbeam_Electromagnetic</defName>
+		<label>Laser beam</label>
+		<graphicData>
+			<texPath>Things/Projectile/LaserRay</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Optic</damageDef>
+			<damageAmountBase>11</damageAmountBase>
+			<secondaryDamage>
+				<li>
+					<def>EMP</def>
+					<amount>8</amount>
+				</li>
+			</secondaryDamage>
+		</projectile>
+	</ThingDef>
+
+	<!-- ================== Mantis Projectiles and colours ================== -->
+
+	<!-- ================== Mantis Green colour ================== -->
+	<ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" Name="LaserBulletMantisGreen_SK" ParentName="BaseLaserBulletTextured" Abstract="True">
+		<graphicData>
+			<color>(176,255,60)</color>
+		</graphicData>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" ParentName="LaserBulletMantisGreen_SK">
+		<defName>Bullet_Laserbeam_Mantis</defName>
+		<label>Laser beam</label>
+		<graphicData>
+			<texPath>Things/Projectile/LaserRay</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>LaserBurn</damageDef>
+			<damageAmountBase>40</damageAmountBase>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" ParentName="LaserBulletOrange_SK">
+		<defName>Bullet_Laserbeam_Stable_Mantis</defName>
+		<label>Laser beam (Stable)</label>
+		<graphicData>
+			<texPath>Things/Projectile/LaserRay</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>CE_Laser</damageDef> <!-- Sharp armor, burnSecondary Hediff -->
+			<damageAmountBase>46</damageAmountBase>
+            		<armorPenetrationSharp>32</armorPenetrationSharp>
+            		<armorPenetrationBlunt>15</armorPenetrationBlunt>
+		</projectile>
+	</ThingDef>
+
+	<ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" ParentName="LaserBulletBlue">
+		<defName>Bullet_Laserbeam_Electromagnetic_Mantis</defName>
+		<label>Laser beam</label>
+		<graphicData>
+			<texPath>Things/Projectile/LaserRay</texPath>
+			<graphicClass>Graphic_Single</graphicClass>
+		</graphicData>
+		<projectile Class="CombatExtended.ProjectilePropertiesCE">
+			<damageDef>Optic</damageDef>
+			<damageAmountBase>22</damageAmountBase>
+			<secondaryDamage>
+				<li>
+					<def>EMP</def>
+					<amount>16</amount>
+				</li>
+			</secondaryDamage>
 		</projectile>
 	</ThingDef>
 
@@ -190,6 +311,61 @@
 		</fixedIngredientFilter>
 		<products>
 			<Ammo_ChargedLaser_Stable>40</Ammo_ChargedLaser_Stable>
+		</products>
+		<researchPrerequisite>ChargedShot</researchPrerequisite>
+	</RecipeDef>
+
+	<RecipeDef ParentName="AmmoRecipeBase">
+		<defName>MakeAmmo_ChargedLaser_Electromagnetic</defName>
+		<label>make Charged Laser beam (Electromagnetic) cartridge x40</label>
+		<description>Craft 40 Charged Laser beam (Electromagnetic) cartridges.</description>
+		<jobString>Making Charged Laser beam (Electromagnetic) cartridges.</jobString>
+		<ingredients>
+			<li>
+				<filter>
+					<categories>
+						<li>SLDBar</li>
+					</categories>
+				</filter>
+				<count>20</count>
+			</li>
+			<li>
+				<filter>
+					<categories>
+						<li>USLDBar</li>
+					</categories>
+				</filter>
+				<count>4</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>MagneticMaterial</li>
+					</thingDefs>
+				</filter>
+				<count>3</count>
+			</li>
+			<li>
+				<filter>
+					<thingDefs>
+						<li>Hexcell</li>
+					</thingDefs>
+				</filter>
+				<count>2</count>
+			</li>
+		</ingredients>
+		<fixedIngredientFilter>
+			<categories>
+				<li>SLDBar</li>
+				<li>USLDBar</li>
+			</categories>
+			<thingDefs>
+				<li>Hexcell</li>
+				<li>MagneticMaterial</li>
+			</thingDefs>
+		</fixedIngredientFilter>
+		<products>
+			<Ammo_ChargedLaser_Electromagnetic>40</Ammo_ChargedLaser_Electromagnetic>
 		</products>
 		<researchPrerequisite>ChargedShot</researchPrerequisite>
 	</RecipeDef>
