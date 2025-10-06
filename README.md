@@ -43,7 +43,7 @@ For Windows users:
 
 ### Manual installation
 
-[Master:](https://github.com/skyarkhangel/Hardcore-SK/tree/master) - The stable version/branch of the project usually a version behind the latest Rimworld. Currently for version 1.4.
+[Master:](https://github.com/skyarkhangel/Hardcore-SK/tree/master) - The stable version/branch of the project usually a version behind the latest Rimworld. Currently for version 1.5.
 
 [Development:](https://github.com/skyarkhangel/Hardcore-SK/tree/development) - The work-in-progress version which contains the latest content for the latest version of rimworld, but is more likely to contain bugs. Already for latest version 1.5.
 
