@@ -3,7 +3,7 @@
 [![Logo](https://i.imgur.com/WP7w2sM.png)](https://github.com/skyarkhangel/Hardcore-SK)
 <!-- you cant center markdown images -->
 
-**Discord:** <https://discord.gg/vTJ6fnAeyA> **(Validated Account Required)**
+**Discord:** <https://discord.gg/vmZdnZXHT> **(Validated Account Required)**
 
 First, I would like to thank the artists and developers of all the mods used in Hardcore SK.
 
