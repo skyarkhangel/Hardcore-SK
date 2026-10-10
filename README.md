@@ -1,3 +1,9 @@
+## OUTDATED, USE https://github.com/HardcoreSK/Hardcore-SK
+
+## УСТАРЕЛО, ИСПОЛЬЗУЙТЕ https://github.com/HardcoreSK/Hardcore-SK
+
+<details>
+<summary>Click here to view old description</summary>
 # Rimworld Hardcore SK v.1.5
 
 [![Logo](https://i.imgur.com/WP7w2sM.png)](https://github.com/skyarkhangel/Hardcore-SK)
@@ -120,3 +126,4 @@ And to anyone else we might have missed!
 ## LICENSE
 
 The content of all individual mods is licensed under their respective licenses.
+</details>
